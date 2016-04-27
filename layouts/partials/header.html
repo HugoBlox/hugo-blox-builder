@@ -5,7 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="generator" content="hugo-academic" />
+    <meta name="theme" content="hugo-academic" />
+    {{ .Hugo.Generator }}
+    {{ with .Site.Params.name }}<meta name="author" content="{{ . }}" />{{ end }}
+    {{ with .Site.Params.role }}<meta name="description" content="{{ . }}" />{{ end }}
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
