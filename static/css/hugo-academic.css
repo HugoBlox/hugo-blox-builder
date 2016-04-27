@@ -9,7 +9,8 @@
  *  Fonts
  **************************************************/
 
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
 @import url(https://fonts.googleapis.com/css?family=Merriweather);
 
 /*************************************************
@@ -54,6 +55,10 @@ h3.post-title a {
 
 h3.post-title a:hover {
     color: #33cc99;
+}
+
+pre, code {
+    font-family: 'Roboto Mono', 'Courier New', 'Courier', monospace;
 }
 
 /*************************************************
