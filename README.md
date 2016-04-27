@@ -14,13 +14,11 @@ Key features:
 
 ## Quick start
 
- 1. Install with `git`:
+1. Install with `git`:
 
-```sh
-git clone git@github.com:gcushen/hugo-academic.git themes/hugo-academic
-```
+        git clone git@github.com:gcushen/hugo-academic.git themes/hugo-academic
 
-Or alternatively, install by downloading from [Github](https://github.com/gcushen/hugo-academic/) into a `themes/hugo-academic` folder within your Hugo website.
+    Or alternatively, install by downloading from [Github](https://github.com/gcushen/hugo-academic/) into a `themes/hugo-academic` folder within your Hugo website.
 
 2. If you are creating a new website, copy the contents of the `exampleSite` folder to your website root folder to get started, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started.
 
