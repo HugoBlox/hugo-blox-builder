@@ -1,0 +1,81 @@
+baseurl = "/"
+languageCode = "en-us"
+title = "Hugo Academic Theme Demo"
+theme = "hugo-academic"
+googleAnalytics = ""
+
+
+[params]
+    name = "Lena Smith"
+    role = "Professor of Artificial Intelligence"
+    organization = "Stanford University"
+    interests = ["Artificial Intelligence", "Computational Linguistics", "Information Retrieval"]
+    email = "test@example.org"
+    address = "Stanford AI Lab, Stanford University, California, 90210, USA."
+    phone = "888 888 88 88"
+
+    [[params.education]]
+        course = "PhD in Artificial Intelligence"
+        institution = "Stanford University"
+        year = 2012
+
+    [[params.education]]
+        course = "MEng in Artificial Intelligence"
+        institution = "Massachusetts Institute of Technology"
+        year = 2009
+
+    [[params.education]]
+        course = "BSc in Artificial Intelligence"
+        institution = "Massachusetts Institute of Technology"
+        year = 2008
+
+    # Social/Academic Networking
+    #
+    # Icon pack "fa" includes the following social network icons:
+    #   twitter, weibo, linkedin, github, facebook, pinterest, google-plus, youtube, instagram, soundcloud
+    #   Full list: https://fortawesome.github.io/Font-Awesome/icons/
+    #
+    # Icon pack "ai" includes the following academic network icons:
+    #   google-scholar, arxiv, orcid, researchgate, mendeley
+    #   Full list: https://jpswalsh.github.io/academicons/
+
+    [[params.contact.social]]
+        icon = "twitter"
+        icon_pack = "fa"
+        link = "//twitter.com/GeorgeCushen"
+
+    [[params.contact.social]]
+        icon = "google-scholar"
+        icon_pack = "ai"
+        link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
+
+    [[params.contact.social]]
+        icon = "github"
+        icon_pack = "fa"
+        link = "//github.com/gcushen"
+
+
+[[menu.main]]
+    name = "Bio"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "Publications"
+    url = "/#publications"
+    weight = 2
+
+[[menu.main]]
+    name = "News"
+    url = "/#news"
+    weight = 3
+
+[[menu.main]]
+    name = "Teaching"
+    url = "/#teaching"
+    weight = 4
+
+[[menu.main]]
+    name = "Contact"
+    url = "/#contact"
+    weight = 5
