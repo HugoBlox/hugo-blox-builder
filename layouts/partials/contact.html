@@ -1,0 +1,24 @@
+<ul class="list-unstyled">
+
+    {{ with .Site.Params.phone }}
+    <li>
+        <i class="fa fa-phone fa-fw" aria-hidden="true"></i>
+        <span>{{ . }}</span>
+    </li>
+    {{ end }}
+
+    {{ with .Site.Params.email }}
+    <li>
+        <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+        <span><a href="mailto:{{ . }}">{{ . }}</a></span>
+    </li>
+    {{ end }}
+
+    {{ with .Site.Params.address }}
+    <li>
+        <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+        <span>{{ . }}</span>
+    </li>
+    {{ end }}
+
+</ul>

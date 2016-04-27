@@ -1,0 +1,294 @@
+/*************************************************
+ *  Academia Theme for Hugo.
+ *  http://www.cushen.me
+ *  Copyright 2016 George Cushen
+ **************************************************/
+
+
+/*************************************************
+ *  Fonts
+ **************************************************/
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+
+/*************************************************
+ *  Core
+ **************************************************/
+
+html, body, p {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    line-height: 1.65;
+    min-height: 100%;
+}
+
+body {
+    /* Gap between nav bar and body content */
+    padding-top: 90px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+}
+
+a, a:visited {
+    color: #33cc99;
+    text-decoration:none;
+    transition:color 0.6s ease;
+    -webkit-transition:color 0.6s ease;
+}
+
+a:hover {
+    color: #11aa66;
+}
+
+h3.post-title a {
+    color: #151515;
+    transition: color 0.6s ease;
+    -webkit-transition: color 0.6s ease;
+}
+
+h3.post-title a:hover {
+    color: #33cc99;
+}
+
+/*************************************************
+ *  Footer
+ **************************************************/
+
+footer, footer p {
+    font-size: 0.9em;
+    margin: 4em 0 0;
+    padding: 2em 0;
+    text-align: center;
+    width: 100%;
+}
+
+.site-footer {
+    color: #899596;
+}
+
+/*************************************************
+ *  Publications
+ **************************************************/
+
+#pub_list h3 {
+    margin-top: 0;
+}
+
+.pub-icon {
+    color: #03396c;
+    font-size: 0.81em;
+    padding-top: 6px;
+}
+
+.citation_authors {
+    font-style: italic;
+}
+
+.citation_authors .citation_author {
+    padding-right: 25px;
+}
+
+/* Note: a corresponding style appears further down, in @media for mobile screen size */
+.space-below {
+    margin-bottom: 50px;
+}
+
+/*************************************************
+ *  Contact
+ **************************************************/
+
+#contact li span {
+    padding-left: 10px;
+}
+
+/*************************************************
+ *  Profile
+ **************************************************/
+
+#profile {
+    text-align: center;
+    padding: 30px 10px;
+    position: relative;
+}
+
+#profile .portrait {
+    background-image: url('/img/portrait.jpg');
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+}
+
+#profile .portrait-title h2 {
+    font-size: 1.75em;
+    font-weight: 300;
+    color: #000000;
+    margin: 20px 0 10px 0;
+}
+
+#profile .portrait-title h3 {
+    font-size: 1.13em;
+    font-weight: 300;
+    color: #AAAAAA;
+    margin: 0px 0 10px 0;
+}
+
+#profile .social-icon li {
+    margin: 30px 5px 5px 5px;
+}
+
+/*************************************************
+ *  Education
+ **************************************************/
+
+ul.ul-edu {
+    list-style: none;
+}
+
+ul.ul-edu li {
+    position: relative;
+    padding: 0px 15px 4px 3px;
+    color: #333333;
+}
+
+ul.ul-edu li .description p {
+    margin: 0;
+}
+
+ul.ul-edu li .description p.course {
+    font-size: 1em;
+}
+
+ul.ul-edu li .description p.institution {
+    font-size: 0.88em;
+}
+
+/*************************************************
+ *  Buttons
+ **************************************************/
+
+.btn-primary {
+    border-color: #33cc99;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #33cc99;
+}
+
+/*************************************************
+ *  Button Outlines
+ **************************************************/
+
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+
+.btn-primary.btn-outline {
+    /*color: #428bca;*/
+    color: #33cc99;
+}
+
+.btn-success.btn-outline {
+    color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+    color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+    color: #d9534f;
+}
+
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    color: #fff;
+}
+
+/*************************************************
+ *  Navigation Bar
+ **************************************************/
+
+.navbar {
+    min-height:60px !important;
+}
+
+.navbar-brand, .navbar-nav li a {
+    line-height: 60px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.navbar-brand {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #2b2b2b;
+}
+
+.big-icon {
+    font-size: 40px;
+}
+
+@media (max-width:992px){
+    .space-below {
+        margin-bottom: 10px;
+    }
+
+    .navbar {
+        min-height: 50px !important;
+    }
+
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: normal;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+}

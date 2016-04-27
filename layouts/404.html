@@ -1,0 +1,24 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div class="container">
+
+    <h1>Page not found</h1>
+    <p>Maybe you were looking for one of these?</p>
+
+    <h2>Recent News</h2>
+    {{ range last 20 (where .Data.Pages "Section" "=" "blog") }}
+    <ul>
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    </ul>
+    {{ end }}
+
+    <h2>Recent Publications</h2>
+    {{ range last 20 (where .Data.Pages "Section" "=" "publications") }}
+    <ul>
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    </ul>
+    {{ end }}
+
+    {{ partial "footer_container.html" . }}
+</div>
+{{ partial "footer.html" . }}

@@ -1,0 +1,18 @@
+name = "Academic"
+license = "MIT"
+licenselink = "https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md"
+description = "A personal academic staff and student theme for Hugo."
+homepage = "https://github.com/gcushen/hugo-academic"
+tags = ["academic", "research", "responsive", "student", "personal", "mobile", "blog", "minimal"]
+features = ["biography", "research interests", "research publication system", "blog"]
+min_version = 0.15
+
+[author]
+  name = "George Cushen"
+  homepage = "http://www.cushen.me"
+
+# If porting an existing theme
+[original]
+  name = ""
+  homepage = ""
+  repo = ""

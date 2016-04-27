@@ -1,0 +1,71 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div class="container">
+
+    <div id="pub">
+        <div class="pub-title">
+            <h1>{{ .Title }}</h1>
+            <p class="citation_authors">
+                {{ range .Params.authors }}
+                <span class="citation_author">{{ . }}</span>
+                {{ end }}
+            </p>
+        </div>
+
+        <h3>Abstract</h3>
+        <p>{{ .Params.abstract | markdownify }}</p>
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3" style="font-weight: bold">Publication</div>
+                    <div class="col-xs-12 col-sm-9">{{ .Params.publication | markdownify }}</div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="visible-xs space-below"></div>
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3" style="font-weight: bold">Date</div>
+                    <div class="col-xs-12 col-sm-9">{{ .Date.Format "January, 2006" }}</div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="visible-xs space-below"></div>
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3" style="font-weight: bold">Links</div>
+                    <div class="col-xs-12 col-sm-9">
+
+                        {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">PDF</a>{{ end }}
+                        {{ with .Params.url_code }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Code</a>{{ end }}
+                        {{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Dataset</a>{{ end }}
+                        {{ with .Params.url_project }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Project</a>{{ end }}
+                        {{ range .Params.url_custom }}<a class="btn btn-primary btn-outline btn-xs" href="{{ .url }}">{{ .name }}</a>{{ end }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="visible-xs space-below"></div>
+
+        <div class="space-below"></div>
+
+        {{ .Content }}
+
+    </div>
+
+    {{ partial "section_metadata.html" . }}
+    {{ partial "footer_container.html" . }}
+</div>
+{{ partial "footer.html" . }}

@@ -1,0 +1,71 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div class="container">
+
+    {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
+    {{ if eq .Title "about" }}
+    <section id="bio">
+        {{ .Render "bio" }}
+    </section>
+    {{ end }}
+    {{ end }}
+
+
+    <section id="publications">
+        <h2>Recent Publications</h2>
+        <ul class="fa-ul">
+            {{ range first 5 (where .Data.Pages.ByDate "Section" "publications").Reverse }}
+            <li>
+                <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
+                <span style="padding-right: 8px">{{ .Title | safeHTML }}</span>
+                <a class="btn btn-primary btn-outline btn-xs" href="{{ .Permalink }}">Details</a>
+                {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">PDF</a>{{ end }}
+                {{ with .Params.url_code }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Code</a>{{ end }}
+                {{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Dataset</a>{{ end }}
+                {{ with .Params.url_project }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Project</a>{{ end }}
+                {{ range .Params.url_custom }}<a class="btn btn-primary btn-outline btn-xs" href="{{ .url }}">{{ .name }}</a>{{ end }}
+            </li>
+            {{ end }}
+        </ul>
+        <p class="text-right"><a href="/publications/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+    </section>
+
+
+    <section id="news">
+        <h2>News</h2>
+        {{ range last 5 (where .Data.Pages "Section" "=" "blog") }}
+        <div>
+            <h3 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            <h4>{{ .Date.Format "Mon, Jan 2, 2006" }}</h4>
+            <p>
+                {{ if .Truncated }}
+                    {{ .Summary }}
+                    <a href="{{ .RelPermalink }}">Read More <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a>
+                {{ else }}
+                    {{ .Content }}
+                {{ end }}
+            </p>
+        </div>
+        {{ end }}
+        <p class="text-right"><a href="/blog/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+    </section>
+
+
+    {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
+    {{ if eq .Title "teaching" }}
+    <section id="teaching">
+        {{ .Render "teaching" }}
+    </section>
+    {{ end }}
+    {{ end }}
+
+
+    <section id="contact">
+        <h2>Contact</h2>
+        {{ partial "contact.html" . }}
+    </section>
+
+    {{ partial "footer_container.html" . }}
+
+</div>
+{{ partial "footer.html" . }}
