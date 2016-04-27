@@ -1,6 +1,6 @@
 # Hugo Academic
 
-A personal academic theme for [Hugo](https://gohugo.io).
+A personal academic website theme for [Hugo](https://gohugo.io).
 
 [![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/screenshot.png)](https://github.com/gcushen/hugo-academic/)
 
@@ -14,21 +14,30 @@ Key features:
 
 ## Quick start
 
-1. Install with `git`:
+1. Install [Hugo](https://gohugo.io/overview/installing/) and create a new website:
+
+        hugo new site my_website
+        cd my_website
+
+2. Install Academic theme with `git`:
 
         git clone git@github.com:gcushen/hugo-academic.git themes/hugo-academic
 
-    Or alternatively, install by downloading from [Github](https://github.com/gcushen/hugo-academic/) into a `themes/hugo-academic` folder within your Hugo website.
+ Or alternatively, install by downloading from [Github](https://github.com/gcushen/hugo-academic/) into a `themes/hugo-academic` folder within your Hugo website.
 
-2. If you are creating a new website, copy the contents of the `exampleSite` folder to your website root folder to get started, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started.
+3. If you are creating a new website, copy the contents of the `exampleSite` folder to your website root folder, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started.
 
-3. Start the Hugo server from your website root folder:
-``` sh
-hugo server --watch
-```
-Now you can go to [localhost:1313](http://localhost:1313) and your new Academic themed website should appear.
+4. Start the Hugo server from your website root folder:
+
+        hugo server --watch
+
+ Now you can go to [localhost:1313](http://localhost:1313) and your new Academic themed website should appear.
+
+5. Customize your website (see next section), build it by running `hugo`, and deploy it by copying the `public/` directory (by FTP, Rsync, git push, etc.) to your production web server.
 
 ## Customization
+
+The configuration file `config.toml` contains the core parameters for the website. For deployment, the `baseURL` variable can be changed to match your website URL such as `baseURL = "http://yoursite.org/"`.
 
 To change the biography text, edit `content/home/about.md` and/or the `param` variables in `config.toml`.
 
