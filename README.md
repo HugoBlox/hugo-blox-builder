@@ -5,6 +5,7 @@ A personal academic website theme for [Hugo](https://gohugo.io).
 [![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/screenshot.png)](https://github.com/gcushen/hugo-academic/)
 
 Key features:
+
 - Suitable for academic staff, students, or general personal use
 - Sections for Biography, Publications, Projects, News, Teaching, and Contact
 - Render LaTeX mathematical expressions and highlight code
@@ -24,7 +25,7 @@ Key features:
 
         git clone git@github.com:gcushen/hugo-academic.git themes/hugo-academic
 
- Or alternatively, install by downloading from [Github](https://github.com/gcushen/hugo-academic/) into a `themes/hugo-academic` folder within your Hugo website.
+    Or alternatively, install by downloading from [Github](https://github.com/gcushen/hugo-academic/) into a `themes/hugo-academic` folder within your Hugo website.
 
 3. If you are creating a new website, copy the contents of the `exampleSite` folder to your website root folder, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started.
 
@@ -32,7 +33,7 @@ Key features:
 
         hugo server --watch
 
- Now you can go to [localhost:1313](http://localhost:1313) and your new Academic themed website should appear.
+    Now you can go to [localhost:1313](http://localhost:1313) and your new Academic themed website should appear.
 
 5. Customize your website (see next section), build it by running `hugo`, and deploy it by copying the `public/` directory (by FTP, Rsync, git push, etc.) to your production web server.
 
