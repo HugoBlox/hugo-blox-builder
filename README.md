@@ -6,7 +6,7 @@ A personal academic website theme for [Hugo](https://gohugo.io).
 
 Key features:
 - Suitable for academic staff, students, or general personal use
-- Sections for Biography, Publications, Blog/News, Teaching, and Contact
+- Sections for Biography, Publications, Projects, Blog/News, Teaching, and Contact
 - Responsive and mobile friendly
 - Simple one page design
 - Clean and refreshing theme
