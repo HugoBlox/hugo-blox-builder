@@ -136,7 +136,7 @@ footer, footer p {
 }
 
 #profile .portrait {
-    background-image: url('/img/portrait.jpg');
+    background-image: url('../img/portrait.jpg');
     width: 200px;
     height: 200px;
     margin: 0 auto;
