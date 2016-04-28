@@ -14,6 +14,10 @@ googleAnalytics = ""
     address = "Stanford AI Lab, Stanford University, California, 90210, USA."
     phone = "888 888 88 88"
 
+    # Date format (refer to Go's formatting options)
+    #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+    date_format = "Mon, Jan 2, 2006"
+
     [[params.education]]
         course = "PhD in Artificial Intelligence"
         institution = "Stanford University"
@@ -71,11 +75,16 @@ googleAnalytics = ""
     weight = 3
 
 [[menu.main]]
+    name = "Projects"
+    url = "/#projects"
+    weight = 4
+
+[[menu.main]]
     name = "Teaching"
     url = "/#teaching"
-    weight = 4
+    weight = 5
 
 [[menu.main]]
     name = "Contact"
     url = "/#contact"
-    weight = 5
+    weight = 6

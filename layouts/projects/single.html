@@ -3,7 +3,7 @@
 <div class="container">
 
     <h1>{{ .Title }}</h1>
-    {{ partial "article_metadata" . }}
+    {{ with .Params.external_link }}<a class="btn btn-primary btn-outline" href="{{ . }}">Go to Project Site</a>{{ end }}
     <div class="post">
         {{ .Content }}
     </div>
@@ -12,5 +12,5 @@
 
     {{ partial "footer_container.html" . }}
 
- </div>
+</div>
 {{ partial "footer.html" . }}

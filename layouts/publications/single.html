@@ -6,8 +6,8 @@
         <div class="pub-title">
             <h1>{{ .Title }}</h1>
             <p class="citation_authors">
-                {{ range .Params.authors }}
-                <span class="citation_author">{{ . }}</span>
+                {{ with .Params.authors }}
+                {{ delimit . ", " }}
                 {{ end }}
             </p>
         </div>
@@ -65,7 +65,7 @@
 
     </div>
 
-    {{ partial "section_metadata.html" . }}
+    {{ partial "section_item_pager.html" . }}
     {{ partial "footer_container.html" . }}
 </div>
 {{ partial "footer.html" . }}

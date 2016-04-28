@@ -78,6 +78,23 @@ footer, footer p {
 }
 
 /*************************************************
+ *  Blog Articles
+ **************************************************/
+
+.article-metadata {
+    margin-bottom: 20px;
+}
+
+.article-list-item .article-metadata {
+    margin-bottom: 5px;
+}
+
+.article-metadata .article-date, .article-metadata .article-tags {
+    margin-right: 10px;
+    color: #888;
+}
+
+/*************************************************
  *  Publications
  **************************************************/
 
@@ -93,10 +110,6 @@ footer, footer p {
 
 .citation_authors {
     font-style: italic;
-}
-
-.citation_authors .citation_author {
-    padding-right: 25px;
 }
 
 /* Note: a corresponding style appears further down, in @media for mobile screen size */
@@ -233,6 +246,23 @@ ul.ul-edu li .description p.institution {
 
 .navbar {
     min-height:60px !important;
+}
+
+.navbar-default {
+    background: #fff;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.navbar-default .navbar-nav li a, .navbar-default .navbar-nav li a:visited {
+    white-space: nowrap;
+    -webkit-transition: 0.2s ease;
+    transition: 0.2s ease;
+    color: #565a5f;
+}
+
+.navbar-default .navbar-nav li a:hover {
+    color: #11aa66;
 }
 
 .navbar-brand, .navbar-nav li a {

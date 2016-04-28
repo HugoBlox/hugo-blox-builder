@@ -17,7 +17,7 @@
             {{ range first 5 (where .Data.Pages.ByDate "Section" "publications").Reverse }}
             <li>
                 <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-                <span style="padding-right: 8px">{{ .Title | safeHTML }}</span>
+                <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
                 <a class="btn btn-primary btn-outline btn-xs" href="{{ .Permalink }}">Details</a>
                 {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">PDF</a>{{ end }}
                 {{ with .Params.url_code }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Code</a>{{ end }}
@@ -34,9 +34,9 @@
     <section id="news">
         <h2>News</h2>
         {{ range last 5 (where .Data.Pages "Section" "=" "blog") }}
-        <div>
+        <div class="article-list-item">
             <h3 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-            <h4>{{ .Date.Format "Mon, Jan 2, 2006" }}</h4>
+            {{ partial "article_metadata" . }}
             <p>
                 {{ if .Truncated }}
                     {{ .Summary }}
@@ -48,6 +48,21 @@
         </div>
         {{ end }}
         <p class="text-right"><a href="/blog/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+    </section>
+
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <ul class="fa-ul">
+        {{ range where .Data.Pages "Section" "=" "projects" }}
+            <li>
+                {{ if .Content }}<a href="{{ .Permalink }}">{{ else }}{{ with .Params.external_link }}<a href="{{ . }}">{{ end }}{{ end }}
+                <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
+                <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
+                {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
+            </li>
+        {{ end }}
+        </ul>
     </section>
 
 

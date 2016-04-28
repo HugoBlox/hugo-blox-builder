@@ -100,9 +100,17 @@ Then edit the newly created file `blog/my-article-name.md` with your full title 
 
 You may use Markdown to format the content. Furthermore, code highlighting is allowed in case your news articles are related to discussing programming or computer science. An example can be seen in `themes/hugo-academic/exampleSite/example-post.md`. Note that post tagging is not currently used, but is a placeholder for a future update.
 
+### Create a project
+
+To create a project:
+
+    hugo new projects/my-project-name.md
+
+Then edit the newly created file `projects/my-project-name.md`. Either you can link the project to an external project website by setting the `external_link = "http://external-project.com"` variable at the top of the file, or you can add content (below the final `+++`) in order to render a project page on your website.
+
 ### Removing content
 
-Generally, to remove content, simply delete the relevant file from your `content/blog` or `content/publications` folder.
+Generally, to remove content, simply delete the relevant file from your `content/blog`, `content/publications`, or `content/projects` folder.
 
 Otherwise, to remove the Teaching section from the home page, simply delete the `content/home/teaching.md` file. Alternatively, you may re-purpose the section by editing the heading and contents within the file.
 
