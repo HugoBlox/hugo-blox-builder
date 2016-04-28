@@ -1,6 +1,6 @@
 baseurl = "/"
 languageCode = "en-us"
-title = "Hugo Academic Theme Demo"
+title = "Academic Theme"
 theme = "hugo-academic"
 googleAnalytics = ""
 
