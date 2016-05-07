@@ -1,0 +1,20 @@
+{{ if not (isset .Site.Params "disable_sharing") }}
+<div class="share">
+
+    <a class="facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink | html }}" target="_blank">
+        <i class="fa fa-facebook-square"></i>
+        <span class="hidden">Facebook</span>
+    </a>
+
+    <a class="twitter" href="https://twitter.com/intent/tweet?text={{ .Title | html }}&amp;url={{ .Permalink | html }}" target="_blank">
+        <i class="fa fa-twitter-square"></i>
+        <span class="hidden">Twitter</span>
+    </a>
+
+    <a class="email" href="mailto:?subject={{ .Title | html }}&amp;body={{ .Permalink | html }}">
+        <i class="fa fa-envelope-square"></i>
+        <span class="hidden">Email</span>
+    </a>
+
+</div>
+{{ end }}

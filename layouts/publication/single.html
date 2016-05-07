@@ -5,11 +5,14 @@
     <div id="pub">
         <div class="pub-title">
             <h1>{{ .Title }}</h1>
-            <p class="citation_authors">
+            <span class="citation_authors">
                 {{ with .Params.authors }}
                 {{ delimit . ", " }}
                 {{ end }}
-            </p>
+            </span>
+            <span class="pull-right">
+                {{ partial "share.html" . }}
+            </span>
         </div>
 
         <h3>Abstract</h3>
@@ -39,18 +42,20 @@
         </div>
         <div class="visible-xs space-below"></div>
 
-        <div class="row">
+        <div class="row" style="padding-top: 10px">
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3" style="font-weight: bold">Links</div>
+                    <div class="col-xs-12 col-sm-3" style="font-weight: bold; line-height:34px;">Links</div>
                     <div class="col-xs-12 col-sm-9">
 
-                        {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">PDF</a>{{ end }}
-                        {{ with .Params.url_code }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Code</a>{{ end }}
-                        {{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Dataset</a>{{ end }}
-                        {{ with .Params.url_project }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Project</a>{{ end }}
-                        {{ range .Params.url_custom }}<a class="btn btn-primary btn-outline btn-xs" href="{{ .url }}">{{ .name }}</a>{{ end }}
+                        {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline" href="{{ . }}">PDF</a>{{ end }}
+                        {{ with .Params.url_code }}<a class="btn btn-primary btn-outline" href="{{ . }}">Code</a>{{ end }}
+                        {{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline" href="{{ . }}">Dataset</a>{{ end }}
+                        {{ with .Params.url_project }}<a class="btn btn-primary btn-outline" href="{{ . }}">Project</a>{{ end }}
+                        {{ with .Params.url_slides }}<a class="btn btn-primary btn-outline" href="{{ . }}">Slides</a>{{ end }}
+                        {{ with .Params.url_video }}<a class="btn btn-primary btn-outline" href="{{ . }}">Video</a>{{ end }}
+                        {{ range .Params.url_custom }}<a class="btn btn-primary btn-outline" href="{{ .url }}">{{ .name }}</a>{{ end }}
 
                     </div>
                 </div>

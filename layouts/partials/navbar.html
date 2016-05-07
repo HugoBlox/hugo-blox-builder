@@ -1,3 +1,4 @@
+{{ $baseUrl := .Site.BaseURL }}
 <nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
     <div class="container">
 
@@ -9,21 +10,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/#">{{ .Site.Title }}</a>
+            <a class="navbar-brand" href="{{ $baseUrl }}">{{ .Site.Title }}</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="#navbar-collapse-1">
 
             <!-- Left Nav Bar -->
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 {{ range .Site.Menus.main }}
                 <li class="nav-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
                 {{ end }}
-            </ul>
-
-            <!-- Right Nav Bar -->
-            <ul class="nav navbar-nav navbar-right">
             </ul>
 
         </div><!-- /.navbar-collapse -->

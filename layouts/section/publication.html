@@ -1,0 +1,37 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Publications</h2>
+            {{ range (where .Data.Pages "Draft" false).GroupByDate "2006" "desc" }}
+
+            <div class="row" id="pub_list">
+                <div class="col-md-2">
+                    <h3>{{ .Key }}</h3>
+                </div>
+                <div class="col-md-10">
+                    <ul class="compact fa-ul">
+                        {{ range .Pages.ByDate.Reverse }}
+                        <li>
+                            <i class="fa-li fa fa-file-text-o"  aria-hidden="true" style="color:#03396c;font-size:80%;padding-top:6px;"></i> {{ .Title | markdownify }}
+                            <p>{{ partial "publication_list_buttons" . }}</p>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+            </div>
+
+            {{ end }}
+        </div>
+        </div>
+
+
+    {{ partial "footer_container.html" . }}
+
+</div>
+
+{{ partial "footer.html" . }}

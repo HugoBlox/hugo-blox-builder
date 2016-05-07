@@ -2,84 +2,121 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
+    <!-- Biography Section -->
     {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
     {{ if eq .Title "about" }}
-    <section id="bio">
-        {{ .Render "bio" }}
+    <section id="bio" class="home-section-wrapper full_width home alt" style="padding-top: 0;">
+        {{ partial "home_biography" . }}
     </section>
     {{ end }}
     {{ end }}
 
 
-    <section id="publications">
-        <h2>Recent Publications</h2>
-        <ul class="fa-ul">
-            {{ range first 5 (where .Data.Pages.ByDate "Section" "publications").Reverse }}
-            <li>
-                <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-                <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
-                <a class="btn btn-primary btn-outline btn-xs" href="{{ .Permalink }}">Details</a>
-                {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">PDF</a>{{ end }}
-                {{ with .Params.url_code }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Code</a>{{ end }}
-                {{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Dataset</a>{{ end }}
-                {{ with .Params.url_project }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Project</a>{{ end }}
-                {{ range .Params.url_custom }}<a class="btn btn-primary btn-outline btn-xs" href="{{ .url }}">{{ .name }}</a>{{ end }}
-            </li>
-            {{ end }}
-        </ul>
-        <p class="text-right"><a href="/publications/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
-    </section>
-
-
-    <section id="news">
-        <h2>News</h2>
-        {{ range last 5 (where .Data.Pages "Section" "=" "blog") }}
-        <div class="article-list-item">
-            <h3 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-            {{ partial "article_metadata" . }}
-            <p>
-                {{ if .Truncated }}
-                    {{ .Summary }}
-                    <a href="{{ .RelPermalink }}">Read More <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a>
-                {{ else }}
-                    {{ .Content }}
-                {{ end }}
-            </p>
+    <!-- Publications Section -->
+    <section id="publications" class="home-section-wrapper full_width home">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <h2>Recent Publications</h2>
+                <p><a href="/publication/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                <ul class="fa-ul">
+                    {{ range first 5 (where .Data.Pages.ByDate "Section" "publication").Reverse }}
+                    <li>
+                        <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
+                        <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
+                        <p>{{ partial "publication_list_buttons" . }}</p>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
         </div>
-        {{ end }}
-        <p class="text-right"><a href="/blog/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
     </section>
 
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <ul class="fa-ul">
-        {{ range where .Data.Pages "Section" "=" "projects" }}
-            <li>
-                {{ if .Content }}<a href="{{ .Permalink }}">{{ else }}{{ with .Params.external_link }}<a href="{{ . }}">{{ end }}{{ end }}
-                <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
-                <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
-                {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
-            </li>
-        {{ end }}
-        </ul>
+    <!-- Blog Posts Section -->
+    <section id="posts" class="home-section-wrapper full_width home alt">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <h2>Posts</h2>
+                <p><a href="/post/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                {{ range last 5 (where .Data.Pages "Section" "=" "post") }}
+                <div class="article-list-item">
+                    <h3 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                    {{ partial "article_metadata_compact" . }}
+                    <p>
+                        {{ if .Truncated }}
+                            {{ .Summary }}
+                        {{ else }}
+                            {{ .Content | markdownify }}
+                        {{ end }}
+                    </p>
+                    <p class="read-more">
+                        <a href="{{ .Permalink }}" class="btn btn-primary btn-outline">Read more</a>
+                    </p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
     </section>
 
 
+    <!-- Projects Section -->
+    <section id="projects" class="home-section-wrapper full_width home">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <h2>Projects</h2>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                <ul class="fa-ul">
+                {{ range where .Data.Pages "Section" "=" "project" }}
+                    <li>
+                        {{ if .Content }}<a href="{{ .Permalink }}">{{ else }}{{ with .Params.external_link }}<a href="{{ . }}">{{ end }}{{ end }}
+                        <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
+                        <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
+                        {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
+                    </li>
+                {{ end }}
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Custom Sections -->
     {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
-    {{ if eq .Title "teaching" }}
-    <section id="teaching">
-        {{ .Render "teaching" }}
+    {{ if and (isset .Params "section_id") (not (eq .Params.section_id 0)) }}
+    {{ $title_words := split $page.Title " " }}
+    <section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section-wrapper full_width home alt">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <h2>{{ title $page.Title }}</h2>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                {{ $page.Content }}
+            </div>
+        </div>
     </section>
     {{ end }}
     {{ end }}
 
 
-    <section id="contact">
-        <h2>Contact</h2>
-        {{ partial "contact.html" . }}
+    <!-- Contact Section -->
+    <section id="contact" class="home-section-wrapper full_width home">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <h2>Contact</h2>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                {{ partial "home_contact.html" . }}
+            </div>
+        </div>
     </section>
 
+
+    <!-- Page Footer -->
     {{ partial "footer_container.html" . }}
 
 </div>

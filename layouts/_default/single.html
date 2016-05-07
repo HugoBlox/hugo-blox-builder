@@ -4,11 +4,14 @@
 
     <h1>{{ .Title }}</h1>
     {{ partial "article_metadata" . }}
+
     <div class="post">
         {{ .Content }}
     </div>
 
     {{ partial "section_item_pager.html" . }}
+
+    {{ partial "comments.html" . }}
 
     {{ partial "footer_container.html" . }}
 

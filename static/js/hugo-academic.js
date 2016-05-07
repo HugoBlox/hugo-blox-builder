@@ -18,7 +18,7 @@
       // Prevent default click behavior
       event.preventDefault();
 
-      var navbarHeight = $('.navbar-header').innerHeight;
+      var navbarHeight = $('.navbar-header').innerHeight();
 
       // Use jQuery's animate() method for smooth page scrolling.
       // The numerical parameter specifies the time (ms) taken to scroll to the specified hash.

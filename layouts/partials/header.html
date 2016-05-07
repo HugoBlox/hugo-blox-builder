@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/academicons.min.css" />
     <link rel="stylesheet" href="/css/hugo-academic.css" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
-    <title>{{ .Site.Title }}</title>
+    <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 </head>
 <body>

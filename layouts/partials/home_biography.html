@@ -12,8 +12,8 @@
             </div>
 
             <ul class="list-inline social-icon">
-                {{ range .Site.Params.contact.social }}
 
+                {{ range .Site.Params.social }}
                 <li>
                     <a href="{{ .link }}">
                     {{ if eq .icon_pack "ai" }}
@@ -32,14 +32,14 @@
 
     <div class="visible-sm visible-xs"></div>
 
-    <div class="col-xs-12 col-md-8" id="bio">
+    <div class="col-xs-12 col-md-8">
 
         {{ .Content }}
 
         <div class="row">
 
             <div class="col-md-5">
-                <h2>Interests</h2>
+                <h3>Interests</h3>
                 <ul>
                     {{ range .Site.Params.interests }}
                     <li>{{ . }}</li>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="col-md-7">
-                <h2>Education</h2>
+                <h3>Education</h3>
                 <ul class="ul-edu fa-ul">
                     {{ range .Site.Params.education }}
                     <li>

@@ -1,0 +1,7 @@
+{{ if not (isset .Site.Params "disable_comments") }}
+<section id="comments">
+    <div id="disqus_thread">
+        {{ template "_internal/disqus.html" . }}
+    </div>
+</section>
+{{ end }}

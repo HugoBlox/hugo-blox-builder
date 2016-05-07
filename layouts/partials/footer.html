@@ -1,4 +1,6 @@
         <script src="/js/jquery-1.12.3.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/hugo-academic.js"></script>
 
@@ -31,10 +33,12 @@
         <script>hljs.initHighlightingOnLoad();</script>
 
         <!-- LaTeX math rendering -->
+        {{ if and (isset .Params "math") (eq .Params.math true) }}
         <script type="text/x-mathjax-config">
             MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
         </script>
         <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+        {{ end }}
 
     </body>
 </html>
