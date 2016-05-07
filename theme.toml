@@ -10,3 +10,9 @@ min_version = 0.15
 [author]
   name = "George Cushen"
   homepage = "http://www.cushen.me"
+
+# If porting an existing theme
+[original]
+  name = ""
+  homepage = ""
+  repo = ""
