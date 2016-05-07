@@ -1,7 +1,15 @@
+# Website URL (e.g. http://www.example.com/)
 baseurl = "/"
-languageCode = "en-us"
+
 title = "Academic Theme"
-theme = "hugo-academic"
+copyright = "&copy; 2016 Your Name"
+languageCode = "en-us"
+theme = "academic"
+
+# Enable comments by entering your Disqus shortname
+disqusShortname = "spf13"
+
+# Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = ""
 
 
@@ -37,31 +45,41 @@ googleAnalytics = ""
     #
     # Icon pack "fa" includes the following social network icons:
     #   twitter, weibo, linkedin, github, facebook, pinterest, google-plus, youtube, instagram, soundcloud
+    #   For email icon, use "fa" icon pack, "envelope" icon, and "mailto:your@email.com" as the link.
     #   Full list: https://fortawesome.github.io/Font-Awesome/icons/
     #
     # Icon pack "ai" includes the following academic network icons:
     #   google-scholar, arxiv, orcid, researchgate, mendeley
     #   Full list: https://jpswalsh.github.io/academicons/
 
-    [[params.contact.social]]
+    [[params.social]]
+        icon = "envelope"
+        icon_pack = "fa"
+        link = "mailto:test@example.org"
+
+    [[params.social]]
         icon = "twitter"
         icon_pack = "fa"
         link = "//twitter.com/GeorgeCushen"
 
-    [[params.contact.social]]
+    [[params.social]]
         icon = "google-scholar"
         icon_pack = "ai"
         link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
 
-    [[params.contact.social]]
+    [[params.social]]
         icon = "github"
         icon_pack = "fa"
         link = "//github.com/gcushen"
 
 
+# Navigation Links
+#
+# The weight parameter defines the order that the links will appear in.
+
 [[menu.main]]
-    name = "Bio"
-    url = "/"
+    name = "Home"
+    url = "/#bio"
     weight = 1
 
 [[menu.main]]
@@ -70,8 +88,8 @@ googleAnalytics = ""
     weight = 2
 
 [[menu.main]]
-    name = "News"
-    url = "/#news"
+    name = "Posts"
+    url = "/#posts"
     weight = 3
 
 [[menu.main]]
