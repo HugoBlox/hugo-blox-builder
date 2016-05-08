@@ -9,7 +9,7 @@ url_code = ""
 url_dataset = ""
 url_image = ""
 url_pdf = "http://arxiv.org/pdf/1512.04133v1"
-url_project = ""
+url_project = "/project/deep-learning/"
 url_slides = ""
 url_video = ""
 
