@@ -12,9 +12,8 @@
   $("#navbar-main li.nav-item a").on('click', function(event){
 
     var hash = this.hash;
-    var url = $(this).attr('href');
 
-    if( hash && $(hash).length && (url.split('#')[0] == window.location.pathname)) {
+    if( hash && $(hash).length && ($("#homepage").length > 0)) {
       // Prevent default click behavior
       event.preventDefault();
 

@@ -2,6 +2,10 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
+    <!-- Flag for jQuery -->
+    <span id="homepage" style="display: none"></span>
+
+
     <!-- Biography Section -->
     {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
     {{ if eq .Title "about" }}
