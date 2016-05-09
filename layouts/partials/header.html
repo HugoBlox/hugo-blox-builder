@@ -10,12 +10,13 @@
     {{ with .Site.Params.name }}<meta name="author" content="{{ . }}" />{{ end }}
     {{ with .Site.Params.role }}<meta name="description" content="{{ . }}" />{{ end }}
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/github.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/css/academicons.min.css" />
-    <link rel="stylesheet" href="/css/hugo-academic.css" />
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/academicons.min.css" />
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/hugo-academic.css" />
+    <link rel="shortcut icon" href="{{ .Site.BaseURL }}img/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="{{ .Permalink }}">
 
     <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 

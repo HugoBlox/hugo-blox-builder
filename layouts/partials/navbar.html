@@ -19,7 +19,7 @@
             <!-- Left Nav Bar -->
             <ul class="nav navbar-nav navbar-right">
                 {{ range .Site.Menus.main }}
-                <li class="nav-item"><a href="{{ .URL }}">{{ .Name }}</a></li>
+                <li class="nav-item"><a href="{{ $baseUrl }}{{ .URL }}">{{ .Name }}</a></li>
                 {{ end }}
             </ul>
 

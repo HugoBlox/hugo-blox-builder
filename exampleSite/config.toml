@@ -79,30 +79,30 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Home"
-    url = "/#bio"
+    url = "#"
     weight = 1
 
 [[menu.main]]
     name = "Publications"
-    url = "/#publications"
+    url = "#publications"
     weight = 2
 
 [[menu.main]]
     name = "Posts"
-    url = "/#posts"
+    url = "#posts"
     weight = 3
 
 [[menu.main]]
     name = "Projects"
-    url = "/#projects"
+    url = "#projects"
     weight = 4
 
 [[menu.main]]
     name = "Teaching"
-    url = "/#teaching"
+    url = "#teaching"
     weight = 5
 
 [[menu.main]]
     name = "Contact"
-    url = "/#contact"
+    url = "#contact"
     weight = 6
