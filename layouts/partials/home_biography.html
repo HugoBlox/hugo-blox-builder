@@ -1,18 +1,16 @@
 <div class="row">
     <div class="col-xs-12 col-md-4">
-
         <div id="profile">
+
             <div class="portrait"></div>
-            <div class="portrait-title">
 
-                <h2>{{ .Site.Params.name }}</h2>
-                <h3>{{ .Site.Params.role }}</h3>
-                <h3>{{ .Site.Params.organization }}</h3>
-
+            <div class="portrait-title" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <h2 itemprop="name">{{ .Site.Params.name }}</h2>
+                <h3 itemprop="jobTitle">{{ .Site.Params.role }}</h3>
+                <h3 itemprop="worksFor">{{ .Site.Params.organization }}</h3>
             </div>
 
             <ul class="list-inline social-icon">
-
                 {{ range .Site.Params.social }}
                 <li>
                     <a href="{{ .link }}">
@@ -24,7 +22,6 @@
                     </a>
                 </li>
                 {{ end }}
-
             </ul>
 
         </div>
@@ -38,6 +35,7 @@
 
         <div class="row">
 
+            {{ if isset .Site.Params "interests" }}
             <div class="col-md-5">
                 <h3>Interests</h3>
                 <ul>
@@ -46,7 +44,9 @@
                     {{ end }}
                 </ul>
             </div>
+            {{ end }}
 
+            {{ if isset .Site.Params "education" }}
             <div class="col-md-7">
                 <h3>Education</h3>
                 <ul class="ul-edu fa-ul">
@@ -61,6 +61,7 @@
                     {{ end }}
                 </ul>
             </div>
+            {{ end }}
 
         </div>
 
