@@ -9,7 +9,7 @@
     <!-- Biography Section -->
     {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
     {{ if eq .Title "about" }}
-    <section id="bio" class="home-section-wrapper full_width home alt" style="padding-top: 0;">
+    <section id="bio" class="home-section-wrapper full_width home" style="padding-top: 0;">
         {{ partial "home_biography" . }}
     </section>
     {{ end }}
@@ -39,7 +39,7 @@
 
 
     <!-- Blog Posts Section -->
-    <section id="posts" class="home-section-wrapper full_width home alt">
+    <section id="posts" class="home-section-wrapper full_width home">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Posts</h2>
@@ -93,7 +93,7 @@
     {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
     {{ if and (isset .Params "section_id") (not (eq .Params.section_id 0)) }}
     {{ $title_words := split $page.Title " " }}
-    <section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section-wrapper full_width home alt">
+    <section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section-wrapper full_width home">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>{{ title $page.Title }}</h2>

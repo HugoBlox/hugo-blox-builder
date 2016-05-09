@@ -129,11 +129,14 @@ footer p.powered-by {
     margin-bottom: 0px;
     width: 1905px;
     margin-left: -382.5px;
-    background-color: rgb(247, 247, 247);
 }
 
-.home-section-wrapper.full_width.home.alt {
+.home-section-wrapper.full_width.home:nth-child(even) {
     background-color: rgb(255, 255, 255);
+}
+
+.home-section-wrapper.full_width.home:nth-child(odd) {
+    background-color: rgb(247, 247, 247);
 }
 
 /*************************************************
