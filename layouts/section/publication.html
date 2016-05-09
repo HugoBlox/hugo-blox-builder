@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Publications</h2>
-            {{ range (where .Data.Pages "Draft" false).GroupByDate "2006" "desc" }}
+            {{ range .Data.Pages.GroupByDate "2006" }}
 
             <div class="row" id="pub_list">
                 <div class="col-md-2">
