@@ -129,13 +129,10 @@ footer p.powered-by {
     margin-bottom: 0px;
     width: 1905px;
     margin-left: -382.5px;
-}
-
-.home-section-wrapper.full_width.home:nth-child(even) {
     background-color: rgb(255, 255, 255);
 }
 
-.home-section-wrapper.full_width.home:nth-child(odd) {
+.home-section-wrapper.full_width.home:nth-of-type(even) {
     background-color: rgb(247, 247, 247);
 }
 
