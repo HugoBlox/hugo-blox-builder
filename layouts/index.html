@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Recent Publications</h2>
-                <p><a href="/publication/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+                <p><a href="{{ .Site.BaseURL }}publication/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Posts</h2>
-                <p><a href="/post/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+                <p><a href="{{ .Site.BaseURL }}post/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
             </div>
             <div class="col-xs-12 col-md-8">
                 {{ range last 5 (where .Data.Pages "Section" "=" "post") }}
