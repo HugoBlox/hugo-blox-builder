@@ -26,6 +26,10 @@ googleAnalytics = ""
     #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
     date_format = "Mon, Jan 2, 2006"
 
+    # Link custom CSS and JS assets (relative to /static/css and /static/js respectively)
+    custom_css = []
+    custom_js  = []
+
     [[params.education]]
         course = "PhD in Artificial Intelligence"
         institution = "Stanford University"

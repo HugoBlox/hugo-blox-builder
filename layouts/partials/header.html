@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="{{ .Site.BaseURL }}css/font-awesome.min.css" />
     <link rel="stylesheet" href="{{ .Site.BaseURL }}css/academicons.min.css" />
     <link rel="stylesheet" href="{{ .Site.BaseURL }}css/hugo-academic.css" />
+    {{ range .Site.Params.custom_css }}
+    <link rel="stylesheet" href="{{ $.Site.BaseURL }}css/{{ . }}">
+    {{ end }}
+
+
     <link rel="shortcut icon" href="{{ .Site.BaseURL }}img/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="{{ .Permalink }}" />
 
