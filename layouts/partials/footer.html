@@ -36,7 +36,7 @@
         <script>hljs.initHighlightingOnLoad();</script>
 
         <!-- LaTeX math rendering -->
-        {{ if and (isset .Params "math") (eq .Params.math true) }}
+        {{ if or (and (isset .Site.Params "math") (eq .Site.Params.math true)) (and (isset .Params "math") (eq .Params.math true)) }}
         <script type="text/x-mathjax-config">
             MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
         </script>
