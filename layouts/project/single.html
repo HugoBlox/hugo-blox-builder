@@ -2,13 +2,17 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-    <h1>{{ .Title }}</h1>
-    {{ with .Params.external_link }}<a class="btn btn-primary btn-outline" href="{{ . }}">Go to Project Site</a>{{ end }}
-    <div class="post">
-        {{ .Content }}
-    </div>
+    <article class="article article-project" itemscope itemtype="http://schema.org/Article">
+        <h1 itemprop="name">{{ .Title }}</h1>
 
-    {{ partial "section_item_pager.html" . }}
+        {{ with .Params.external_link }}<a class="btn btn-primary btn-outline" href="{{ . }}">Go to Project Site</a>{{ end }}
+
+        <div class="post" itemprop="articleBody">
+            {{ .Content }}
+        </div>
+    </article>
+
+    {{ partial "section_pager.html" . }}
 
     {{ partial "footer_container.html" . }}
 

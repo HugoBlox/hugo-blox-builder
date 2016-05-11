@@ -1,0 +1,17 @@
+{{ $is_list := .is_list }}
+{{ $ := .content }}
+
+{{ if $is_list }}
+<a class="btn btn-primary btn-outline btn-xs" href="{{ $.Permalink }}">Details</a>
+{{ end }}
+
+{{ with $.Params.url_pdf }}<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">PDF</a>{{ end }}
+{{ with $.Params.url_slides }}<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">Slides</a>{{ end }}
+{{ with $.Params.url_video }}<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">Video</a>{{ end }}
+{{ with $.Params.url_code }}<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">Code</a>{{ end }}
+{{ with $.Params.url_dataset }}<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">Dataset</a>{{ end }}
+{{ with $.Params.url_project }}<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">Project</a>{{ end }}
+
+{{ range $.Params.url_custom }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}">{{ .name }}</a>
+{{ end }}

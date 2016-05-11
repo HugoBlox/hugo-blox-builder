@@ -1,8 +1,0 @@
-<a class="btn btn-primary btn-outline btn-xs" href="{{ .Permalink }}">Details</a>
-{{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">PDF</a>{{ end }}
-{{ with .Params.url_code }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Code</a>{{ end }}
-{{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Dataset</a>{{ end }}
-{{ with .Params.url_project }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Project</a>{{ end }}
-{{ with .Params.url_slides }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Slides</a>{{ end }}
-{{ with .Params.url_video }}<a class="btn btn-primary btn-outline btn-xs" href="{{ . }}">Video</a>{{ end }}
-{{ range .Params.url_custom }}<a class="btn btn-primary btn-outline btn-xs" href="{{ .url }}">{{ .name }}</a>{{ end }}

@@ -7,7 +7,7 @@
 
 
     <!-- Biography Section -->
-    {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
+    {{ range where .Data.Pages "Type" "home" }}
     {{ if eq .Title "about" }}
     <section id="bio" class="home-section-wrapper full_width home" style="padding-top: 0;">
         {{ partial "home_biography" . }}
@@ -17,6 +17,8 @@
 
 
     <!-- Publications Section -->
+    {{ $pubs_len := len (where .Data.Pages "Type" "publication") }}
+    {{ if gt $pubs_len 0 }}
     <section id="publications" class="home-section-wrapper full_width home">
         <div class="row">
             <div class="col-xs-12 col-md-4">
@@ -25,20 +27,23 @@
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
-                    {{ range first 5 (where .Data.Pages.ByDate "Section" "publication").Reverse }}
+                    {{ range $index, $page := first 10 (where .Data.Pages "Type" "publication") }}
                     <li>
                         <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-                        <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
-                        <p>{{ partial "publication_list_buttons" . }}</p>
+                        <span style="padding-right: 8px">{{ .Title }}</span>
+                        <p>{{ partial "publication_links" (dict "content" $page "is_list" 1) }}</p>
                     </li>
                     {{ end }}
                 </ul>
             </div>
         </div>
     </section>
+    {{ end }}
 
 
     <!-- Blog Posts Section -->
+    {{ $posts_len := len (where .Data.Pages "Type" "post") }}
+    {{ if gt $posts_len 0 }}
     <section id="posts" class="home-section-wrapper full_width home">
         <div class="row">
             <div class="col-xs-12 col-md-4">
@@ -46,15 +51,15 @@
                 <p><a href="{{ .Site.BaseURL }}post/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
             </div>
             <div class="col-xs-12 col-md-8">
-                {{ range last 5 (where .Data.Pages "Section" "=" "post") }}
-                <div class="article-list-item">
-                    <h3 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-                    {{ partial "article_metadata_compact" . }}
-                    <p>
+                {{ range first 5 (where .Data.Pages "Type" "post") }}
+                <div class="article-list-item" itemscope="" itemprop="blogPost">
+                    <h3 class="post-title" itemprop="name"><a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a></h3>
+                    {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
+                    <p itemprop="articleBody">
                         {{ if .Truncated }}
                             {{ .Summary }}
                         {{ else }}
-                            {{ .Content | markdownify }}
+                            {{ .Content }}
                         {{ end }}
                     </p>
                     <p class="read-more">
@@ -65,9 +70,12 @@
             </div>
         </div>
     </section>
+    {{ end }}
 
 
     <!-- Projects Section -->
+    {{ $projects_len := len (where .Data.Pages "Type" "project") }}
+    {{ if gt $projects_len 0 }}
     <section id="projects" class="home-section-wrapper full_width home">
         <div class="row">
             <div class="col-xs-12 col-md-4">
@@ -75,11 +83,11 @@
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
-                {{ range where .Data.Pages "Section" "=" "project" }}
+                {{ range where .Data.Pages "Type" "project" }}
                     <li>
                         {{ if .Content }}<a href="{{ .Permalink }}">{{ else }}{{ with .Params.external_link }}<a href="{{ . }}">{{ end }}{{ end }}
                         <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
-                        <span style="padding-right: 8px">{{ .Title | markdownify }}</span>
+                        <span style="padding-right: 8px">{{ .Title }}</span>
                         {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
                     </li>
                 {{ end }}
@@ -87,10 +95,11 @@
             </div>
         </div>
     </section>
+    {{ end }}
 
 
     <!-- Custom Sections -->
-    {{ range $index, $page := where .Site.Pages "Section" "=" "home" }}
+    {{ range $index, $page := where .Data.Pages "Type" "home" }}
     {{ if and (isset .Params "section_id") (not (eq .Params.section_id 0)) }}
     {{ $title_words := split $page.Title " " }}
     <section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section-wrapper full_width home">

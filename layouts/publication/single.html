@@ -49,13 +49,7 @@
                     <div class="col-xs-12 col-sm-3" style="font-weight: bold; line-height:34px;">Links</div>
                     <div class="col-xs-12 col-sm-9">
 
-                        {{ with .Params.url_pdf }}<a class="btn btn-primary btn-outline" href="{{ . }}">PDF</a>{{ end }}
-                        {{ with .Params.url_code }}<a class="btn btn-primary btn-outline" href="{{ . }}">Code</a>{{ end }}
-                        {{ with .Params.url_dataset }}<a class="btn btn-primary btn-outline" href="{{ . }}">Dataset</a>{{ end }}
-                        {{ with .Params.url_project }}<a class="btn btn-primary btn-outline" href="{{ . }}">Project</a>{{ end }}
-                        {{ with .Params.url_slides }}<a class="btn btn-primary btn-outline" href="{{ . }}">Slides</a>{{ end }}
-                        {{ with .Params.url_video }}<a class="btn btn-primary btn-outline" href="{{ . }}">Video</a>{{ end }}
-                        {{ range .Params.url_custom }}<a class="btn btn-primary btn-outline" href="{{ .url }}">{{ .name }}</a>{{ end }}
+                        {{ partial "publication_links" (dict "content" . "is_list" 0) }}
 
                     </div>
                 </div>
@@ -70,7 +64,7 @@
 
     </div>
 
-    {{ partial "section_item_pager.html" . }}
+    {{ partial "section_pager.html" . }}
     {{ partial "footer_container.html" . }}
 </div>
 {{ partial "footer.html" . }}

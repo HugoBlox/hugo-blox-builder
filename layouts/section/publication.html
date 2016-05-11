@@ -1,37 +1,34 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-
 <div class="container">
-
-
     <div class="row">
         <div class="col-md-12">
             <h2>Publications</h2>
-            {{ range .Data.Pages.GroupByDate "2006" }}
 
+            {{ range .Data.Pages.GroupByDate "2006" }}
             <div class="row" id="pub_list">
                 <div class="col-md-2">
                     <h3>{{ .Key }}</h3>
                 </div>
                 <div class="col-md-10">
                     <ul class="compact fa-ul">
+
                         {{ range .Pages.ByDate.Reverse }}
                         <li>
-                            <i class="fa-li fa fa-file-text-o"  aria-hidden="true" style="color:#03396c;font-size:80%;padding-top:6px;"></i> {{ .Title | markdownify }}
-                            <p>{{ partial "publication_list_buttons" . }}</p>
+                            <i class="fa-li fa fa-file-text-o"  aria-hidden="true" style="color:#03396c;font-size:80%;padding-top:6px;"></i>
+                            {{ .Title }}
+                            <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
                         </li>
                         {{ end }}
+
                     </ul>
                 </div>
             </div>
-
             {{ end }}
-        </div>
-        </div>
 
+        </div>
+    </div>
 
     {{ partial "footer_container.html" . }}
-
 </div>
-
 {{ partial "footer.html" . }}
