@@ -1,25 +1,27 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-<div class="container">
 
-    <!-- Flag for jQuery -->
-    <span id="homepage" style="display: none"></span>
+<!-- Flag for jQuery -->
+<span id="homepage" style="display: none"></span>
 
 
-    <!-- Biography Section -->
-    {{ range where .Data.Pages "Type" "home" }}
-    {{ if eq .Title "about" }}
-    <section id="bio" class="home-section-wrapper full_width home" style="padding-top: 0;">
+<!-- Biography Section -->
+{{ range where .Data.Pages "Type" "home" }}
+{{ if eq .Title "about" }}
+<section id="bio" class="home-section">
+    <div class="container">
         {{ partial "home_biography" . }}
-    </section>
-    {{ end }}
-    {{ end }}
+    </div>
+</section>
+{{ end }}
+{{ end }}
 
 
-    <!-- Publications Section -->
-    {{ $pubs_len := len (where .Data.Pages "Type" "publication") }}
-    {{ if gt $pubs_len 0 }}
-    <section id="publications" class="home-section-wrapper full_width home">
+<!-- Publications Section -->
+{{ $pubs_len := len (where .Data.Pages "Type" "publication") }}
+{{ if gt $pubs_len 0 }}
+<section id="publications" class="home-section">
+    <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Recent Publications</h2>
@@ -37,14 +39,16 @@
                 </ul>
             </div>
         </div>
-    </section>
-    {{ end }}
+    </div>
+</section>
+{{ end }}
 
 
-    <!-- Blog Posts Section -->
-    {{ $posts_len := len (where .Data.Pages "Type" "post") }}
-    {{ if gt $posts_len 0 }}
-    <section id="posts" class="home-section-wrapper full_width home">
+<!-- Blog Posts Section -->
+{{ $posts_len := len (where .Data.Pages "Type" "post") }}
+{{ if gt $posts_len 0 }}
+<section id="posts" class="home-section">
+    <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Posts</h2>
@@ -69,14 +73,16 @@
                 {{ end }}
             </div>
         </div>
-    </section>
-    {{ end }}
+    </div>
+</section>
+{{ end }}
 
 
-    <!-- Projects Section -->
-    {{ $projects_len := len (where .Data.Pages "Type" "project") }}
-    {{ if gt $projects_len 0 }}
-    <section id="projects" class="home-section-wrapper full_width home">
+<!-- Projects Section -->
+{{ $projects_len := len (where .Data.Pages "Type" "project") }}
+{{ if gt $projects_len 0 }}
+<section id="projects" class="home-section">
+    <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Projects</h2>
@@ -94,15 +100,17 @@
                 </ul>
             </div>
         </div>
-    </section>
-    {{ end }}
+    </div>
+</section>
+{{ end }}
 
 
-    <!-- Custom Sections -->
-    {{ range $index, $page := where .Data.Pages "Type" "home" }}
-    {{ if and (isset .Params "section_id") (not (eq .Params.section_id 0)) }}
-    {{ $title_words := split $page.Title " " }}
-    <section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section-wrapper full_width home">
+<!-- Custom Sections -->
+{{ range $index, $page := where .Data.Pages "Type" "home" }}
+{{ if and (isset .Params "section_id") (not (eq .Params.section_id 0)) }}
+{{ $title_words := split $page.Title " " }}
+<section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section">
+    <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>{{ title $page.Title }}</h2>
@@ -111,13 +119,15 @@
                 {{ $page.Content }}
             </div>
         </div>
-    </section>
-    {{ end }}
-    {{ end }}
+    </div>
+</section>
+{{ end }}
+{{ end }}
 
 
-    <!-- Contact Section -->
-    <section id="contact" class="home-section-wrapper full_width home">
+<!-- Contact Section -->
+<section id="contact" class="home-section">
+    <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <h2>Contact</h2>
@@ -126,11 +136,13 @@
                 {{ partial "home_contact.html" . }}
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 
-    <!-- Page Footer -->
+<!-- Page Footer -->
+<div class="container">
     {{ partial "footer_container.html" . }}
-
 </div>
+
 {{ partial "footer.html" . }}

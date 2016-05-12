@@ -104,35 +104,16 @@ footer p.powered-by {
  *  Home Sections
  **************************************************/
 
-.home-section-wrapper {
-    position: relative;
-    margin-bottom: 45px;
-    border-style: solid;
-    border-color: #f7f7f7;
-    border-width: 0px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: scroll;
-    background-size: cover;
-}
-
-.home-section-wrapper.full_width {
-    padding-left: calc(0vw);
-    padding-right: calc(0vw);
-    margin-left: calc(0vw);
-    margin-right: calc(0vw);
-}
-
-.home-section-wrapper.full_width.home {
-    padding: 110px 371.25px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    width: 1905px;
-    margin-left: -382.5px;
+.home-section {
     background-color: rgb(255, 255, 255);
+    padding: 110px 0 110px 0;
 }
 
-.home-section-wrapper.full_width.home:nth-of-type(even) {
+.home-section:first-of-type {
+    padding-top: 0;
+}
+
+.home-section:nth-of-type(even) {
     background-color: rgb(247, 247, 247);
 }
 
@@ -365,12 +346,8 @@ ul.ul-edu li .description p.institution {
 }
 
 @media (max-width:992px){
-    .home-section-wrapper.full_width.home {
-        padding: 110px 0px;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-        width: 100%;
+    .home-section {
+        padding: 60px 0 60px 0;
     }
 
     .space-below {
