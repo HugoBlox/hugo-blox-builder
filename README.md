@@ -29,6 +29,8 @@ Key features:
 
 3. If you are creating a new website, copy the contents of the `exampleSite` folder to your website root folder, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started.
 
+        cp -av themes/academic/exampleSite/* .
+
 4. Start the Hugo server from your website root folder:
 
         hugo server --watch
@@ -47,13 +49,15 @@ The core parameters for the website can be edited in the `config.toml` configura
 
 As can be seen in the example `config.toml`, the social/academic networking icons and education qualifications are defined as multiples of `[[params.social]]` and `[[params.education]]` respectively. They can be duplicated or deleted as necessary.
 
-For deployment, the `baseURL` variable can be changed to match your website URL such as `baseURL = "http://yoursite.org/"`. The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own Disqus shortname to enable commenting. To enable Google Analytics, add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
+Homepage sections will automatically disappear if you remove content (`content/`) from them. Thus, the news/blog feature can be removed simply by deleting any files in `content/post/`.
+
+For deployment, the `baseURL` variable should be changed to match your website URL such as `baseURL = "http://your-site.org/"`. The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own Disqus shortname to enable commenting. To enable Google Analytics, add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
 
 ### Introduce yourself with a biography
 
 Place a cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults.
 
-Edit your biography in the example `content/home/about.md` file. The research interests and qualifications are stored separately as `param` variables in `config.toml`, as can be seen in the example config.
+Edit your biography in the example `content/home/about.md` file. The research interests and qualifications are stored separately as `interests` and `params.education` variables in `config.toml`, as can be seen in the example config. It's possible to completely hide the interests and education lists by deleting their respective variables.
 
 ### Create a publication
 
@@ -105,7 +109,7 @@ Then edit the newly created file `content/post/my-article-name.md` with your ful
 
 You may use [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to format the content. Furthermore, code highlighting and LaTeX math rendering are supported. To enable LaTeX math rendering for a page, you should include `math = true` in the preamble, as demonstrated in the included example site.
 
-Images may be added to a post by placing them in your `static/img/` folder and referencing them in Markdown such as with `![alt text](/img/my-image.jpg)`.
+Images may be added to a post by placing them in your `static/img/` folder and referencing them in Markdown such as with `![alt text](img/my-image.jpg)`.
 
 ### Create a project
 
@@ -127,7 +131,7 @@ You may also wish to add a navigation link to the new section. This can be achie
 
     [[menu.main]]
         name = "Research"
-        url = "/#research"
+        url = "#research"
         weight = 10
 
 ### Removing content
@@ -136,9 +140,47 @@ Generally, to remove content, simply delete the relevant file from your `content
 
 Then you can re-build and view the updated website with the `hugo` and `hugo server --watch` commands, respectively.
 
+## Advanced customization
+
+It is possible to carry out many customizations without touching any files in `themes/academic`, making it easier to upgrade the theme in the future.
+
+You can link custom CSS and JS assets (relative to your root `static/css` and `static/js` respectively) from your `config.toml` using `custom_css = ["custom.css"]` or `custom_js  = ["custom.js"]`.
+
+For example, lets define `custom_css = ["custom.css"]` and create the corresponding file `static/css/custom.css`. Then we can edit the file to override the primary color to green:
+
+    a, a:visited, h3.post-title a:hover {
+        color: rgb(0,255,0);
+    }
+    a:hover {
+        color: rgb(0,255,0);
+    }
+
 ## Upgrading
 
-Feel free to star the project on [Github](https://github.com/gcushen/hugo-academic/) and monitor the commits for updates.
+Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) and monitor the commits for updates.
+
+Before upgrading the theme, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory. You can also read about the [most recent milestones](https://github.com/gcushen/hugo-academic/releases) (but this doesn't necessarily reflect the latest *master* release).
+
+Before upgrading for the first time, the remote *origin* repository should be renamed to *upstream*:
+
+    $ cd themes/academic
+    $ git remote rename origin upstream
+
+To list available updates:
+
+    $ cd themes/academic
+    $ git log --pretty=oneline --abbrev-commit --decorate upstream/master..HEAD
+
+Upgrade by running:
+
+    $ cd themes/academic
+    $ git fetch upstream
+    $ git checkout master
+    $ git merge upstream/master
+
+If you have modified files in `themes/academic`, git will attempt to auto-merge changes. If conflicts are reported, you will need to manually edit the files with conflicts and add them back (`git add <filename>`).
+
+If there are any issues after upgrading, you may wish to compare your site with the latest [example site](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) to check if any settings changed.
 
 ## Contributing
 
@@ -146,6 +188,6 @@ Please use the [issue tracker](https://github.com/gcushen/hugo-academic/issues) 
 
 ## License
 
-Copyright 2016 [George Cushen](http://www.cushen.me).
+Copyright 2016 [George Cushen](http://cushen.me).
 
 Released under the [MIT](https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md) license.
