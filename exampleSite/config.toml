@@ -1,6 +1,4 @@
-# Website URL (e.g. http://www.example.com/)
-baseurl = "/"
-
+baseurl = "http://replace-this-with-your-website-url.com/"
 title = "Academic Theme"
 copyright = "&copy; 2016 Your Name"
 languageCode = "en-us"
@@ -86,7 +84,7 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Home"
-    url = "#"
+    url = "#top"
     weight = 1
 
 [[menu.main]]

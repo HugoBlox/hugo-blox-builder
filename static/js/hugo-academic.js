@@ -9,11 +9,13 @@
    * Add smooth scrolling to all links inside the main navbar.
    * --------------------------------------------------------------------------- */
 
-  $("#navbar-main li.nav-item a").on('click', function(event){
+  $('#navbar-main li.nav-item a').on('click', function(event){
 
+    // Store requested URL hash.
     var hash = this.hash;
 
-    if( hash && $(hash).length && ($("#homepage").length > 0)) {
+    // If we are on the homepage and the navigation bar link is to a homepage section.
+    if( hash && $(hash).length && ($("#homepage").length > 0)){
       // Prevent default click behavior
       event.preventDefault();
 
@@ -25,9 +27,27 @@
         scrollTop: $(hash).offset().top - navbarHeight
       }, 800, function () {
         // Add hash (#) to URL once finished scrolling to hash position
-        window.location.hash = hash;
+        if (hash == "#top"){
+          window.location.hash = ""
+        }else {
+          window.location.hash = hash;
+        }
       });
     }
+  });
+
+  /* ---------------------------------------------------------------------------
+   * Smooth scrolling for Back To Top link.
+   * --------------------------------------------------------------------------- */
+
+  $('#back_to_top').on('click', function(event){
+    event.preventDefault();
+
+    $('html, body').animate({
+      'scrollTop': 0
+    }, 800, function(){
+      window.location.hash = ""
+    });
   });
 
   /* ---------------------------------------------------------------------------
@@ -36,7 +56,7 @@
 
   function smoothScroll(scrollTime, scrollDistance){
 
-    if (navigator.userAgent.indexOf('Mac') != -1 || navigator.userAgent.indexOf('Firefox') > -1 || jQuery('body').hasClass('is-horizontal')) {
+    if (navigator.userAgent.indexOf('Mac') != -1 || navigator.userAgent.indexOf('Firefox') > -1 || jQuery('body').hasClass('is-horizontal')){
       return;
     }
 
@@ -63,15 +83,15 @@
    * Hide mobile collapsable menu on clicking a link.
    * --------------------------------------------------------------------------- */
 
-  $(document).on('click','.navbar-collapse.in',function(e) {
-    if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+  $(document).on('click','.navbar-collapse.in',function(e){
+    if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ){
       $(this).collapse('hide');
     }
   });
 
-  /* --------------------------------------------------------------------------------------------------------------------------
-   * On Window Load.
-   * ----------------------------------------------------------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------------
+   * On window load.
+   * --------------------------------------------------------------------------- */
 
   $(window).load(function(){
 
