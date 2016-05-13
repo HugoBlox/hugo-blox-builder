@@ -78,7 +78,7 @@ title = "A publication title, such as title of a paper"
 url_code = ""
 url_dataset = ""
 url_image = ""
-url_pdf = "/pdf/my-paper-name.pdf"
+url_pdf = "pdf/my-paper-name.pdf"
 url_project = ""
 url_slides = ""
 url_video = ""
@@ -87,7 +87,7 @@ url_video = ""
 Further details on your publication can be written here using *Markdown* for formatting. This text will be displayed on the Publication Detail page.
 ```
 
-The `url_` links can either point to local or web content. Associated local publication content, such as PDFs, may be copied to a `/static/pdf/` folder and referenced like `url_pdf = "/pdf/my-paper-name.pdf"`.
+The `url_` links can either point to local or web content. Associated local publication content, such as PDFs, may be copied to a `static/pdf/` folder and referenced like `url_pdf = "pdf/my-paper-name.pdf"`.
 
 You can also associate custom link buttons with the publication by adding the following block(s) within the variable preamble above, which is denoted by `+++`:
 
@@ -146,14 +146,7 @@ It is possible to carry out many customizations without touching any files in `t
 
 You can link custom CSS and JS assets (relative to your root `static/css` and `static/js` respectively) from your `config.toml` using `custom_css = ["custom.css"]` or `custom_js  = ["custom.js"]`.
 
-For example, lets define `custom_css = ["custom.css"]` and create the corresponding file `static/css/custom.css`. Then we can edit the file to override the primary color to green:
-
-    a, a:visited, h3.post-title a:hover {
-        color: rgb(0,255,0);
-    }
-    a:hover {
-        color: rgb(0,255,0);
-    }
+For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
 
 ## Upgrading
 
