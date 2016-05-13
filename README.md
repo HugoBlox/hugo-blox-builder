@@ -162,7 +162,8 @@ Before upgrading for the first time, the remote *origin* repository should be re
 To list available updates:
 
     $ cd themes/academic
-    $ git log --pretty=oneline --abbrev-commit --decorate upstream/master..HEAD
+    $ git fetch upstream
+    $ git log --pretty=oneline --abbrev-commit --decorate HEAD..upstream/master
 
 Upgrade by running:
 
