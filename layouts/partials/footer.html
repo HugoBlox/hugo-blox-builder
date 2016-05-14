@@ -4,7 +4,7 @@
         <script src="{{ .Site.BaseURL }}js/bootstrap.min.js"></script>
         <script src="{{ .Site.BaseURL }}js/hugo-academic.js"></script>
         {{ range .Site.Params.custom_js }}
-        <link rel="stylesheet" href="{{ $.Site.BaseURL }}js/{{ . }}">
+        <script src="{{ $.Site.BaseURL }}js/{{ . }}"></script>
         {{ end }}
 
         {{ with .Site.GoogleAnalytics }}

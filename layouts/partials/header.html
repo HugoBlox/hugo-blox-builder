@@ -2,26 +2,26 @@
 <html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en-US{{ end }}">
 <head>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme" content="hugo-academic" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme" content="hugo-academic">
     {{ .Hugo.Generator }}
-    {{ with .Site.Params.name }}<meta name="author" content="{{ . }}" />{{ end }}
-    {{ with .Site.Params.role }}<meta name="description" content="{{ . }}" />{{ end }}
+    {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
+    {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
 
-    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/highlight.min.css" />
-    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/font-awesome.min.css" />
-    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/academicons.min.css" />
-    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/hugo-academic.css" />
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/highlight.min.css">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/academicons.min.css">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/hugo-academic.css">
     {{ range .Site.Params.custom_css }}
     <link rel="stylesheet" href="{{ $.Site.BaseURL }}css/{{ . }}">
     {{ end }}
 
 
-    <link rel="shortcut icon" href="{{ .Site.BaseURL }}img/favicon.ico" type="image/x-icon" />
-    <link rel="canonical" href="{{ .Permalink }}" />
+    <link rel="shortcut icon" href="{{ .Site.BaseURL }}img/favicon.ico" type="image/x-icon">
+    <link rel="canonical" href="{{ .Permalink }}">
 
     <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
