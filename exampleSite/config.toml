@@ -20,7 +20,7 @@ googleAnalytics = ""
     address = "Stanford AI Lab, Stanford University, California, 90210, USA."
     phone = "888 888 88 88"
 
-    # Date format (refer to Go's formatting options)
+    # Date format (refer to Go's date format: http://flippinggodateformat.com )
     #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
     date_format = "Mon, Jan 2, 2006"
 
@@ -45,6 +45,10 @@ googleAnalytics = ""
         course = "BSc in Artificial Intelligence"
         institution = "Massachusetts Institute of Technology"
         year = 2008
+
+    [params.contact]
+        # Automatically link email and phone?
+        autolink = true
 
     # Social/Academic Networking
     #
