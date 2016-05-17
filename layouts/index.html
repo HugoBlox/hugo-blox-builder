@@ -95,6 +95,7 @@
                         <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
                         <span style="padding-right: 8px">{{ .Title }}</span>
                         {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
+                        {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
                     </li>
                 {{ end }}
                 </ul>
@@ -141,8 +142,6 @@
 
 
 <!-- Page Footer -->
-<div class="container">
-    {{ partial "footer_container.html" . }}
-</div>
+{{ partial "footer_container.html" . }}
 
 {{ partial "footer.html" . }}

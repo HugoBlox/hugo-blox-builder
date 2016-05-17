@@ -15,6 +15,19 @@
  *  Core
  **************************************************/
 
+html {
+    box-sizing: border-box;
+}
+
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+
+.row:after, .row:before {
+    content: " ";
+    display: table;
+}
+
 html, body, p {
     font-family: 'Merriweather', serif;
     font-size: 16px;
@@ -23,14 +36,22 @@ html, body, p {
 }
 
 body {
-    /* Gap between nav bar and body content */
-    padding-top: 90px;
+    /* Offset body content by navbar height. */
+    margin-top: 71px;
+    padding-top: 0;
+}
+@media screen and (max-width: 768px) {
+    body {
+        /* Offset body content by navbar height. */
+        margin-top: 51px;
+        padding-top: 0;
+    }
 }
 
 h1, h2, h3, h4, h5, h6, .navbar-default {
     font-family: 'Lato', sans-serif;
     font-weight: 400;
-    line-height: 1em;
+    line-height: 1.25;
     text-rendering: optimizeLegibility;
 }
 
@@ -66,15 +87,13 @@ pre, code {
     font-family: 'Roboto Mono', 'Courier New', 'Courier', monospace;
 }
 
-*, *:before, *:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.space-below {
+    margin-bottom: 50px;
 }
-
-.row:after, .row:before {
-    content: " ";
-    display: table;
+@media screen and (max-width: 768px) {
+    .space-below {
+        margin-bottom: 10px;
+    }
 }
 
 /*************************************************
@@ -92,10 +111,6 @@ footer p {
     text-align: center;
 }
 
-footer p.powered-by {
-    line-height: 40px;
-}
-
 .site-footer, footer a#back_to_top i {
     color: #899596;
 }
@@ -107,6 +122,11 @@ footer p.powered-by {
 .home-section {
     background-color: rgb(255, 255, 255);
     padding: 110px 0 110px 0;
+}
+@media screen and (max-width: 768px) {
+    .home-section {
+        padding: 60px 0 60px 0;
+    }
 }
 
 .home-section:first-of-type {
@@ -142,14 +162,22 @@ footer p.powered-by {
     color: #888;
 }
 
-.share {
-    width: 140px;
-    line-height: 1;
+ul.share {
+    list-style: none;
+    float: right;
 }
 
-.share a {
-    color: #0095eb;
-    text-decoration: none;
+ul.share li {
+    margin-right: 3px;
+    margin-left: 3px;
+    display: inline-block;
+}
+
+ul.share li:last-child {
+    margin-right: 0px;
+}
+
+ul.share li i {
     font-size: 1.75rem;
 }
 
@@ -173,11 +201,6 @@ footer p.powered-by {
 
 .citation_authors {
     font-style: italic;
-}
-
-/* Note: a corresponding style appears further down, in @media for mobile screen size */
-.space-below {
-    margin-bottom: 50px;
 }
 
 /*************************************************
@@ -227,6 +250,10 @@ footer p.powered-by {
     margin: 30px 5px 5px 5px;
 }
 
+.big-icon {
+    font-size: 40px;
+}
+
 /*************************************************
  *  Education
  **************************************************/
@@ -254,7 +281,7 @@ ul.ul-edu li .description p.institution {
 }
 
 /*************************************************
- *  Buttons
+ *  Button Primary: Color Override
  **************************************************/
 
 .btn-primary {
@@ -317,6 +344,10 @@ ul.ul-edu li .description p.institution {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
+nav#navbar-main li {
+    font-size: 16px;
+}
+
 .navbar-default .navbar-nav li a, .navbar-default .navbar-nav li a:visited {
     white-space: nowrap;
     -webkit-transition: 0.2s ease;
@@ -341,23 +372,10 @@ ul.ul-edu li .description p.institution {
     color: #2b2b2b;
 }
 
-.big-icon {
-    font-size: 40px;
-}
-
-@media (max-width:992px){
-    .home-section {
-        padding: 60px 0 60px 0;
-    }
-
-    .space-below {
-        margin-bottom: 10px;
-    }
-
+@media screen and (max-width: 768px) {
     .navbar {
         min-height: 50px !important;
     }
-
     .navbar-header {
         float: none;
         min-height: inherit;
@@ -394,4 +412,62 @@ ul.ul-edu li .description p.institution {
     .collapse.in{
         display:block !important;
     }
+}
+
+/*************************************************
+ *  Tables
+ **************************************************/
+
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    font-size: 0.93rem;
+}
+
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > tbody > tr > td,
+table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+table > caption + thead > tr:first-child > th,
+table > colgroup + thead > tr:first-child > th,
+table > thead:first-child > tr:first-child > th,
+table > caption + thead > tr:first-child > td,
+table > colgroup + thead > tr:first-child > td,
+table > thead:first-child > tr:first-child > td {
+    border-top: 0;
+}
+
+table > tbody + tbody {
+    border-top: 2px solid #ddd;
+}
+
+table table {
+    background-color: #fff;
+}
+
+
+/* Table Striped */
+table > tbody > tr:nth-child(odd) > td,
+table > tbody > tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+}
+
+/* Table Hover */
+table > tbody > tr:hover > td,
+table > tbody > tr:hover > th {
+    background-color: #e5e5e5;
 }
