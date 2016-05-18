@@ -55,10 +55,9 @@ h1, h2, h3, h4, h5, h6, .navbar-default {
     text-rendering: optimizeLegibility;
 }
 
-h2 {
+h1 {
     margin-bottom: 21px;
     font-size: 48px;
-    font-weight: 400;
 }
 
 h3 {
@@ -201,6 +200,33 @@ ul.share li i {
 
 .citation_authors {
     font-style: italic;
+}
+
+/*************************************************
+ *  Projects
+ **************************************************/
+
+section#projects.home-section li {
+    margin-bottom: 20px;
+}
+
+section#projects.home-section li:last-of-type {
+    margin-bottom: 0;
+}
+
+section#projects.home-section .project-title {
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+section#projects.home-section .project-summary {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+section#projects.home-section .project-tags {
+    font-size: 14px;
+    color: #9c9c9c;
 }
 
 /*************************************************

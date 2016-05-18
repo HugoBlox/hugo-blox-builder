@@ -4,7 +4,6 @@
 <!-- Flag for jQuery -->
 <span id="homepage" style="display: none"></span>
 
-
 <!-- Biography Section -->
 {{ range where .Data.Pages "Type" "home" }}
 {{ if eq .Title "about" }}
@@ -24,15 +23,15 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                <h2>Recent Publications</h2>
+                <h1>Recent Publications</h1>
                 <p><a href="{{ .Site.BaseURL }}publication/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
                     {{ range $index, $page := first 10 (where .Data.Pages "Type" "publication") }}
-                    <li>
+                    <li itemscope itemtype="http://schema.org/CreativeWork">
                         <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-                        <span style="padding-right: 8px">{{ .Title }}</span>
+                        <span itemprop="name">{{ .Title }}</span>
                         <p>{{ partial "publication_links" (dict "content" $page "is_list" 1) }}</p>
                     </li>
                     {{ end }}
@@ -51,7 +50,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                <h2>Posts</h2>
+                <h1>Posts</h1>
                 <p><a href="{{ .Site.BaseURL }}post/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
             </div>
             <div class="col-xs-12 col-md-8">
@@ -85,19 +84,34 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                <h2>Projects</h2>
+                <h1>Projects</h1>
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
-                {{ range where .Data.Pages "Type" "project" }}
+                    {{ range where .Data.Pages "Type" "project" }}
                     <li>
+                        <span class="project-title">
                         {{ if .Content }}<a href="{{ .Permalink }}">{{ else }}{{ with .Params.external_link }}<a href="{{ . }}">{{ end }}{{ end }}
                         <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
-                        <span style="padding-right: 8px">{{ .Title }}</span>
+                        {{ .Title }}
                         {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
-                        {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+                        </span>
+
+                        {{ with .Params.summary }}<p class="project-summary">{{ . }}</p>{{ end }}
+
+                        {{ if isset .Params "tags" }}
+                        {{ $tagsLen := len .Params.tags }}
+                        {{ if gt $tagsLen 0 }}
+                        <div class="project-tags">
+                            <i class="fa fa-tags"></i>
+                            {{ range $k, $v := .Params.tags }}
+                            {{ . }}{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
+                            {{ end }}
+                        </div>
+                        {{ end }}
+                        {{ end }}
                     </li>
-                {{ end }}
+                    {{ end }}
                 </ul>
             </div>
         </div>
@@ -114,7 +128,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                <h2>{{ title $page.Title }}</h2>
+                <h1>{{ title $page.Title }}</h1>
             </div>
             <div class="col-xs-12 col-md-8">
                 {{ $page.Content }}
@@ -131,7 +145,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4">
-                <h2>Contact</h2>
+                <h1>Contact</h1>
             </div>
             <div class="col-xs-12 col-md-8">
                 {{ partial "home_contact.html" . }}

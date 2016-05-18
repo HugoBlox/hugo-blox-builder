@@ -2,6 +2,8 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
+    <h1>Posts</h1>
+
     {{ $paginator := .Paginate .Data.Pages }}
     {{ range $paginator.Pages }}
     <div>

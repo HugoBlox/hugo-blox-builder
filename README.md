@@ -65,19 +65,20 @@ To create a new publication:
 
     hugo new publication/my-paper-name.md
 
-Then edit the default variables at the top of `content/publication/my-paper-name.md` to include the details of your publication. The `url_` variables (except `url_image`) are used to generate links associated with your publication, such as for viewing PDFs of papers. Here is an example:
+Then edit the default variables at the top of `content/publication/my-paper-name.md` to include the details of your publication. The `url_` variables are used to generate links associated with your publication, such as for viewing PDFs of papers. Here is an example:
 
 ```
 +++
 abstract = "An abstract..."
 authors = ["First author's name", "Second author's name"]
 date = "2013-07-01"
+image = ""
+image_preview = ""
 math = false
 publication = "The publishing part of the citation goes here. You may use *Markdown* for italics etc."
 title = "A publication title, such as title of a paper"
 url_code = ""
 url_dataset = ""
-url_image = ""
 url_pdf = "pdf/my-paper-name.pdf"
 url_project = ""
 url_slides = ""
@@ -97,7 +98,7 @@ You can also associate custom link buttons with the publication by adding the fo
     url = "http://www.example.org"
 ```
 
-Note that the `url_image` variable is a placeholder that may be used if you wish to modify the publication list to show thumbnails either from images in your `static/img/` folder (which is deployed as `http://your-URL.com/img/`), or URLs of web images.
+Note that the `image` variables are just placeholders that may be used to reference associated images. If desired, you can modify the publication detail and list pages to show the respective images. These images should be referenced similarly to the above process for PDFs, but using the `static/img/` folder.
 
 ### Post an article
 
@@ -144,9 +145,20 @@ Then you can re-build and view the updated website with the `hugo` and `hugo ser
 
 It is possible to carry out many customizations without touching any files in `themes/academic`, making it easier to upgrade the theme in the future.
 
+### Custom theme color (CSS) or JavaScript (JS)
+
 You can link custom CSS and JS assets (relative to your root `static/css` and `static/js` respectively) from your `config.toml` using `custom_css = ["custom.css"]` or `custom_js  = ["custom.js"]`.
 
 For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
+
+### Permalinks
+
+*Permalinks*, or *permanent links*, are URLs to individual pages and posts on your website. They are permanent web addresses which can be used to link to your content. Using Hugo's *permalinks* option these can be easily customized. For example, the blog post URL can be changed to the form *yourURL/2016/05/01/my-post-slug* by adding the following near the top of your `config.toml` (before `[params]` settings):
+
+    [permalinks]
+        post = "/:year/:month/:day/:slug"
+
+Where `:slug` defaults to the filename of the post, excluding the file extension. However, slug may be overridden on a per post basis if desired, simply by setting `slug = "my-short-post-title"` in your post preamble.
 
 ## Upgrading
 
