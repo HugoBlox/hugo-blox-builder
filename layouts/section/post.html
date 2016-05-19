@@ -9,7 +9,7 @@
     <div>
         <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
         {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-        <p>{{ .Summary }}</p>
+        <div class="article-style"><p>{{ .Summary }}</p></div>
     </div>
     {{ end }}
 

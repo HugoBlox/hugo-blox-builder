@@ -7,9 +7,7 @@
  *  Fonts
  **************************************************/
 
-@import url(//fonts.googleapis.com/css?family=Lato:400,700);
-@import url(//fonts.googleapis.com/css?family=Roboto+Mono);
-@import url(//fonts.googleapis.com/css?family=Merriweather);
+@import url(//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono);
 
 /*************************************************
  *  Core
@@ -82,8 +80,19 @@ h3.post-title a {
     -webkit-transition: color 0.6s ease;
 }
 
+img, video {
+    height: auto;
+    max-width: 100%;
+    display: block;
+}
+
 pre, code {
     font-family: 'Roboto Mono', 'Courier New', 'Courier', monospace;
+}
+
+pre {
+    margin: 0 0 1.5rem;
+    overflow: auto;
 }
 
 .space-below {
@@ -137,11 +146,56 @@ footer p {
 }
 
 /*************************************************
+ *  Sharing
+ **************************************************/
+
+.share-box {
+    float: right;
+}
+
+ul.share {
+    list-style: none;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+}
+
+ul.share li {
+    display: inline-block;
+}
+
+ul.share li .fa {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 37px;
+    font-size: 18px;
+    text-align: center;
+    transition: all 150ms ease-in-out;
+    color: #fff;
+}
+
+ul.share li a {
+    background-color: #b5c6ce;
+    display: inline-block;
+    border-radius: 50%;
+    text-decoration: none !important;
+}
+
+ul.share li:hover .fa {
+    -moz-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4)
+}
+
+/*************************************************
  *  Blog Articles
  **************************************************/
 
 .article-metadata {
     margin-bottom: 20px;
+    line-height: 37px; /* Match share bar line height. */
+    font-size: 14px;
 }
 
 .article-list-item {
@@ -161,23 +215,29 @@ footer p {
     color: #888;
 }
 
-ul.share {
-    list-style: none;
-    float: right;
+.article-style img, .article-style video {
+    box-shadow: 0 0 1px #edefed;
+    -moz-box-shadow: 0 0 1px #edefed;
+    -webkit-box-shadow: 0 0 1px #edefed;
+    box-shadow: 1px 1px 0px #edefed,-1px -1px 0px #edefed,1px -1px 0px #edefed,-1px 1px 0px #edefed; */
+    -moz-box-shadow: 1px 1px 0px #edefed,-1px -1px 0px #edefed,1px -1px 0px #edefed,-1px 1px 0px #edefed;
+    -webkit-box-shadow: 1px 1px 0px #edefed,-1px -1px 0px #edefed,1px -1px 0px #edefed,-1px 1px 0px #edefed;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-ul.share li {
-    margin-right: 3px;
-    margin-left: 3px;
-    display: inline-block;
+.article-style figure {
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
 
-ul.share li:last-child {
-    margin-right: 0px;
-}
-
-ul.share li i {
-    font-size: 1.75rem;
+.article-style figure img {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 #comments {

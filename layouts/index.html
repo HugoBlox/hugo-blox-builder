@@ -58,7 +58,7 @@
                 <div class="article-list-item" itemscope="" itemprop="blogPost">
                     <h3 class="post-title" itemprop="name"><a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a></h3>
                     {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-                    <p itemprop="articleBody">
+                    <p class="article-style" itemprop="articleBody">
                         {{ if .Truncated }}
                             {{ .Summary }}
                         {{ else }}
