@@ -1,4 +1,4 @@
-{{ if not (isset .Site.Params "disable_sharing") }}
+{{ if not .Site.Params.disable_sharing }}
 <ul class="share">
     <li>
         <a class="facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink | html }}" target="_blank">
