@@ -1,28 +1,31 @@
-{{ if not (isset .Site.Params "disable_sharing") }}
-<ul class="share">
-    <li>
-        <a class="facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink | html }}" target="_blank">
-            <i class="fa fa-facebook-square"></i>
-            <span class="hidden">Facebook</span>
-        </a>
-    </li>
-    <li>
-        <a class="twitter" href="https://twitter.com/intent/tweet?text={{ .Title | html }}&amp;url={{ .Permalink | html }}" target="_blank">
-            <i class="fa fa-twitter-square"></i>
-            <span class="hidden">Twitter</span>
-        </a>
-    </li>
-    <li>
-        <a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{ .Permalink | html }}&amp;title={{ .Title | html }}" target="_blank">
-            <i class="fa fa-linkedin-square"></i>
-            <span class="hidden">LinkedIn</span>
-        </a>
-    </li>
-    <li>
-        <a class="email" href="mailto:?subject={{ .Title | html }}&amp;body={{ .Permalink | html }}">
-            <i class="fa fa-envelope-square"></i>
-            <span class="hidden">Email</span>
-        </a>
-    </li>
-</ul>
+{{ if not .Site.Params.disable_sharing }}
+<div class="share-box">
+    <ul class="share">
+        <li>
+            <a class="facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink | html }}" target="_blank">
+                <i class="fa fa-facebook"></i>
+            </a>
+        </li>
+        <li>
+            <a class="twitter" href="https://twitter.com/intent/tweet?text={{ .Title | html }}&amp;url={{ .Permalink | html }}" target="_blank">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li>
+            <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ .Permalink | html }}&amp;title={{ .Title | html }}" target="_blank">
+                <i class="fa fa-linkedin"></i>
+            </a>
+        </li>
+        <li>
+            <a class="weibo" href="http://service.weibo.com/share/share.php?url={{ .Permalink | html }}&amp;title={{ .Title | html }}" target="_blank">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+        <li>
+            <a class="email" href="mailto:?subject={{ .Title | html }}&amp;body={{ .Permalink | html }}">
+                <i class="fa fa-envelope"></i>
+            </a>
+        </li>
+    </ul>
+</div>
 {{ end }}
