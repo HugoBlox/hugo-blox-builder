@@ -3,6 +3,7 @@ abstract = ""
 authors = [""]
 image = ""
 image_preview = ""
+math = false
 publication = ""
 url_pdf = ""
 url_code = ""
