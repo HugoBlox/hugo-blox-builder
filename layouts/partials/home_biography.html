@@ -7,7 +7,7 @@
             <div class="portrait-title">
                 <h2 itemprop="name">{{ .Site.Params.name }}</h2>
                 <h3 itemprop="jobTitle">{{ .Site.Params.role }}</h3>
-                <h3 itemprop="worksFor">{{ .Site.Params.organization }}</h3>
+                {{ with .Site.Params.organization }}<h3 itemprop="worksFor">{{ . }}</h3>{{ end }}
             </div>
 
             <ul class="social-icon">
@@ -35,22 +35,22 @@
 
         <div class="row">
 
-            {{ if isset .Site.Params "interests" }}
+            {{ if isset .Site.Params.about "interests" }}
             <div class="col-md-5">
-                <h3>Interests</h3>
+                <h3>{{ with .Site.Params.about.str_interests }}{{ . | markdownify }}{{ end }}</h3>
                 <ul>
-                    {{ range .Site.Params.interests }}
+                    {{ range .Site.Params.about.interests }}
                     <li>{{ . }}</li>
                     {{ end }}
                 </ul>
             </div>
             {{ end }}
 
-            {{ if isset .Site.Params "education" }}
+            {{ if isset .Site.Params.about "education" }}
             <div class="col-md-7">
-                <h3>Education</h3>
+                <h3>{{ with .Site.Params.about.str_education }}{{ . | markdownify }}{{ end }}</h3>
                 <ul class="ul-edu fa-ul">
-                    {{ range .Site.Params.education }}
+                    {{ range .Site.Params.about.education }}
                     <li>
                         <i class="fa-li fa fa-graduation-cap"></i>
                         <div class="description">

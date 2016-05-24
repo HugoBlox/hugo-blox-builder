@@ -160,6 +160,17 @@ pre {
     background-color: rgb(247, 247, 247);
 }
 
+.section-heading h1 {
+    margin: 0 0 10px 0;
+}
+
+.section-heading p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: #b2b2b2;
+}
+
 /*************************************************
  *  Biography
  **************************************************/

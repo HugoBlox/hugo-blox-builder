@@ -22,13 +22,21 @@
 <section id="publications" class="home-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <h1>Recent Publications</h1>
-                <p><a href="{{ .Site.BaseURL }}publication/">More Publications <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+            <div class="col-xs-12 col-md-4 section-heading">
+                <h1>{{ with .Site.Params.publications.title }}{{ . | markdownify }}{{ end }}</h1>
+                {{ with .Site.Params.publications.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+                {{ if gt $pubs_len .Site.Params.publications.count }}
+                <p class="view-all">
+                    <a href="{{ .Site.BaseURL }}publication/">
+                        {{ with .Site.Params.publications.str_all }}{{ . | markdownify }}{{ end }}
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </p>
+                {{ end }}
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
-                    {{ range $index, $page := first 10 (where .Data.Pages "Type" "publication") }}
+                    {{ range $index, $page := first .Site.Params.publications.count (where .Data.Pages "Type" "publication") }}
                     <li itemscope itemtype="http://schema.org/CreativeWork">
                         <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
                         <span itemprop="name">{{ .Title }}</span>
@@ -49,12 +57,20 @@
 <section id="posts" class="home-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <h1>Posts</h1>
-                <p><a href="{{ .Site.BaseURL }}post/">More Posts <i class="fa fa-angle-double-right" style="padding-left: 5px;"></i></a></p>
+            <div class="col-xs-12 col-md-4 section-heading">
+                <h1>{{ with .Site.Params.posts.title }}{{ . | markdownify }}{{ end }}</h1>
+                {{ with .Site.Params.posts.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+                {{ if gt $posts_len .Site.Params.posts.count }}
+                <p class="view-all">
+                    <a href="{{ .Site.BaseURL }}post/">
+                        {{ with .Site.Params.posts.str_all }}{{ . | markdownify }}{{ end }}
+                        <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </p>
+                {{ end }}
             </div>
             <div class="col-xs-12 col-md-8">
-                {{ range first 5 (where .Data.Pages "Type" "post") }}
+                {{ range first .Site.Params.posts.count (where .Data.Pages "Type" "post") }}
                 <div class="article-list-item" itemscope="" itemprop="blogPost">
                     <h3 class="post-title" itemprop="name"><a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a></h3>
                     {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
@@ -66,7 +82,9 @@
                         {{ end }}
                     </p>
                     <p class="read-more">
-                        <a href="{{ .Permalink }}" class="btn btn-primary btn-outline">Read more</a>
+                        <a href="{{ .Permalink }}" class="btn btn-primary btn-outline">
+                            {{ with .Site.Params.posts.str_read_more }}{{ . | markdownify }}{{ end }}
+                        </a>
                     </p>
                 </div>
                 {{ end }}
@@ -83,8 +101,9 @@
 <section id="projects" class="home-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <h1>Projects</h1>
+            <div class="col-xs-12 col-md-4 section-heading">
+                <h1>{{ with .Site.Params.projects.title }}{{ . | markdownify }}{{ end }}</h1>
+                {{ with .Site.Params.projects.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
             </div>
             <div class="col-xs-12 col-md-8">
                 <ul class="fa-ul">
@@ -127,8 +146,9 @@
 <section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-4">
+            <div class="col-xs-12 col-md-4 section-heading">
                 <h1>{{ title $page.Title }}</h1>
+                {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
             </div>
             <div class="col-xs-12 col-md-8">
                 {{ $page.Content }}
@@ -141,11 +161,13 @@
 
 
 <!-- Contact Section -->
+{{ if .Site.Params.contact.enable }}
 <section id="contact" class="home-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <h1>Contact</h1>
+            <div class="col-xs-12 col-md-4 section-heading">
+                <h1>{{ with .Site.Params.contact.title }}{{ . | markdownify }}{{ end }}</h1>
+                {{ with .Site.Params.contact.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
             </div>
             <div class="col-xs-12 col-md-8">
                 {{ partial "home_contact.html" . }}
@@ -153,7 +175,7 @@
         </div>
     </div>
 </section>
-
+{{ end }}
 
 <!-- Page Footer -->
 {{ partial "footer_container.html" . }}
