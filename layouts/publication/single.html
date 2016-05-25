@@ -2,10 +2,10 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-    <div id="pub">
+    <div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
         <div class="pub-title">
-            <h1>{{ .Title }}</h1>
-            <span class="citation_authors">
+            <h1 itemprop="name">{{ .Title }}</h1>
+            <span class="pub-authors" itemprop="author">
                 {{ with .Params.authors }}
                 {{ delimit . ", " }}
                 {{ end }}
@@ -15,14 +15,18 @@
             </span>
         </div>
 
+        {{ if .Params.image }}
+        <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image">
+        {{end}}
+
         <h3>Abstract</h3>
-        <p>{{ .Params.abstract }}</p>
+        <p class="pub-abstract" itemprop="text">{{ .Params.abstract }}</p>
 
         <div class="row">
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3" style="font-weight: bold">Publication</div>
+                    <div class="col-xs-12 col-sm-3 pub-row-heading">Publication</div>
                     <div class="col-xs-12 col-sm-9">{{ .Params.publication | markdownify }}</div>
                 </div>
             </div>
@@ -34,8 +38,8 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3" style="font-weight: bold">Date</div>
-                    <div class="col-xs-12 col-sm-9">{{ .Date.Format "January, 2006" }}</div>
+                    <div class="col-xs-12 col-sm-3 pub-row-heading">Date</div>
+                    <div class="col-xs-12 col-sm-9" itemprop="datePublished">{{ .Date.Format "January, 2006" }}</div>
                 </div>
             </div>
             <div class="col-sm-1"></div>
@@ -46,7 +50,7 @@
             <div class="col-sm-1"></div>
             <div class="col-sm-10">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-3" style="font-weight: bold; line-height:34px;">Links</div>
+                    <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">Links</div>
                     <div class="col-xs-12 col-sm-9">
 
                         {{ partial "publication_links" (dict "content" . "is_list" 0) }}

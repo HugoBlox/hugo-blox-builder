@@ -1,0 +1,53 @@
+<div class="pub-list-item" itemscope itemtype="http://schema.org/CreativeWork">
+    <div class="row">
+        {{ if .Params.image_preview }}
+        <div class="col-md-12">
+            <a href="{{ .Permalink }}">
+                <img src="{{ $.Site.BaseURL }}img/{{ .Params.image_preview }}" class="pub-banner" itemprop="image">
+            </a>
+        </div>
+        <div class="col-md-12">
+        {{ else if .Params.image}}
+        <div class="col-md-12">
+            <a href="{{ .Permalink }}">
+                <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image">
+            </a>
+        </div>
+        <div class="col-md-12">
+        {{ else }}
+        <div class="col-md-12">
+        {{end}}
+
+            <h3 class="article-title" itemprop="name">
+                <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+            </h3>
+
+            <div class="pub-abstract" itemprop="text">
+                {{ if .Params.abstract_short }}
+                    {{ .Params.abstract_short }}
+                {{ else }}
+                    {{ .Params.abstract }}
+                {{ end }}
+            </div>
+
+            <div class="pub-authors" itemprop="author">
+                {{ with .Params.authors }}
+                {{ delimit . ", " }}
+                {{ end }}
+            </div>
+
+            <div class="pub-publication">
+                {{ if .Params.publication_short }}
+                    {{ .Params.publication_short | markdownify }}
+                {{ else }}
+                    {{ .Params.publication | markdownify }}
+                {{ end }}
+            </div>
+
+            <div class="pub-links">
+                {{ partial "publication_links" (dict "content" . "is_list" 1) }}
+            </div>
+
+        </div>
+    </div>
+</div>

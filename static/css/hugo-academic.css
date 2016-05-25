@@ -74,7 +74,7 @@ h4 {
 }
 
 a, a:visited,
-h3.post-title a:hover {
+h3.article-title a:hover {
     color: #0095eb;
     text-decoration:none;
     transition:color 0.6s ease;
@@ -82,11 +82,6 @@ h3.post-title a:hover {
 
 a:hover {
     color: #005181;
-}
-
-h3.post-title a {
-    color: #151515;
-    transition: color 0.6s ease;
 }
 
 img,
@@ -306,11 +301,28 @@ ul.share li:hover .fa {
  *  Blog Articles
  **************************************************/
 
+.article-title {
+    font-size: 1.75rem;
+}
+
+h3.article-title a {
+    color: #151515;
+    transition: color 0.6s ease;
+}
+
 .article-metadata {
     margin-bottom: 20px;
     line-height: 30px; /* Match share bar line height. */
     font-size: 14px;
     letter-spacing: 0.03em;
+}
+
+.article-metadata a:hover {
+    color: #0095eb;
+}
+
+.article-metadata a {
+    color: #888;
 }
 
 .article-list-item {
@@ -329,6 +341,11 @@ ul.share li:hover .fa {
 .article-metadata .article-tags {
     margin-right: 10px;
     color: #888;
+}
+
+.article-banner {
+    width: 100%;
+    height: auto;
 }
 
 .article-style img,
@@ -360,18 +377,54 @@ ul.share li:hover .fa {
  *  Publications
  **************************************************/
 
-#pub_list h3 {
-    margin-top: 0;
-}
-
 .pub-icon {
     color: #03396c;
     font-size: 0.81em;
     padding-top: 6px;
 }
 
-.citation_authors {
+.pub-banner {
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pub .pub-title {
+    margin-bottom: 5px;
+}
+
+.pub .pub-authors {
     font-style: italic;
+    line-height: 30px; /* Match share bar line height. */
+}
+
+.pub .pub-row-heading {
+    font-weight: bold;
+}
+
+.pub-list-item {
+    margin-bottom: 40px;
+}
+
+.pub-list-item .pub-abstract {
+    font-size: 1.13em;
+}
+
+.pub-list-item .pub-authors {
+    line-height: normal;
+    font-style: normal;
+    font-size: 1.13em;
+    color: #3170A5;
+}
+
+.pub-list-item .pub-publication {
+    color: #090;
+    font-size: 1em;
+}
+
+.pub-list-item .pub-links {
+    padding-top: 10px;
 }
 
 /*************************************************
@@ -456,8 +509,8 @@ footer a#back_to_top i {
 }
 
 .btn-primary.btn-outline {
-    /*color: #428bca;*/
     color: #0095eb;
+    border-color: #0095eb;
 }
 
 .btn-success.btn-outline {
