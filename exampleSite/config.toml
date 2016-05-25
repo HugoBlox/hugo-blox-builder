@@ -26,6 +26,9 @@ googleAnalytics = ""
   # Enable global LaTeX math rendering? If false, you can enable it locally on a per page basis.
   math = false
 
+  # Enable native social sharing buttons?
+  sharing = true
+
   # Link custom CSS and JS assets (relative to /static/css and /static/js respectively)
   custom_css = []
   custom_js  = []
