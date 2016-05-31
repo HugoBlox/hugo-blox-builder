@@ -1,8 +1,12 @@
-# Hugo Academic
++++
+date = "2016-04-20T12:00:00"
+draft = false
+tags = ["academic", "hugo"]
+title = "Getting started with the Academic theme for Hugo"
+math = true
++++
 
-A personal academic website theme for [Hugo](https://gohugo.io).
-
-[![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/screenshot.png)](https://github.com/gcushen/hugo-academic/)
+The Academic theme enables you to easily create a personal academic website using the [Hugo](https://gohugo.io) static site generator.
 
 Key features:
 
@@ -14,7 +18,6 @@ Key features:
 - Simple and refreshing one page design
 - Easy to customize
 
-Latest demo: [gcushen.github.io/hugo-academic-demo/](http://gcushen.github.io/hugo-academic-demo/)
 
 ## Installation
 
@@ -41,9 +44,41 @@ Latest demo: [gcushen.github.io/hugo-academic-demo/](http://gcushen.github.io/hu
 
 5. Customize your website (see next section), build it by running `hugo`, and deploy it by copying the `public/` directory (by FTP, Rsync, git push, etc.) to your production web server.
 
+
 ## Getting Started
 
-Refer to the [documentation](http://gcushen.github.io/hugo-academic-demo/#posts) under the *Posts* section of the latest Academic theme demo.
+Assuming you created a new website with the example content following the installation steps above, this section explores just a few more steps in order to customize it.
+
+The core parameters for the website can be edited in the `config.toml` configuration file.
+
+As can be seen in the example `config.toml`, the social/academic networking icons and education qualifications are defined as multiples of `[[params.social]]` and `[[params.about.education]]` respectively. They can be duplicated or deleted as necessary.
+
+By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` under `[params.publications]`.
+
+For deployment, the `baseURL` variable should be changed to match your website URL such as `baseURL = "http://your-site.org/"`. The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own Disqus shortname to enable commenting. To enable Google Analytics, add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
+
+Next, you may be interested to read the guide about [managing content]({{< ref "post/managing-content.md" >}}), or continue reading below for advanced customization tips and instructions for keeping the theme up-to-date with any improvements that become available.
+
+
+## Advanced customization
+
+It is possible to carry out many customizations without touching any files in `themes/academic`, making it easier to upgrade the theme in the future.
+
+### Custom theme color (CSS) or JavaScript (JS)
+
+You can link custom CSS and JS assets (relative to your root `static/css` and `static/js` respectively) from your `config.toml` using `custom_css = ["custom.css"]` or `custom_js  = ["custom.js"]`.
+
+For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
+
+### Permalinks
+
+*Permalinks*, or *permanent links*, are URLs to individual pages and posts on your website. They are permanent web addresses which can be used to link to your content. Using Hugo's *permalinks* option these can be easily customized. For example, the blog post URL can be changed to the form *yourURL/2016/05/01/my-post-slug* by adding the following near the top of your `config.toml` (before `[params]` settings):
+
+    [permalinks]
+        post = "/:year/:month/:day/:slug"
+
+Where `:slug` defaults to the filename of the post, excluding the file extension. However, slug may be overridden on a per post basis if desired, simply by setting `slug = "my-short-post-title"` in your post preamble.
+
 
 ## Upgrading
 
@@ -71,9 +106,11 @@ If you have modified files in `themes/academic`, git will attempt to auto-merge 
 
 If there are any issues after upgrading, you may wish to compare your site with the latest [example site](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) to check if any settings changed.
 
+
 ## Contributing
 
 Please use the [issue tracker](https://github.com/gcushen/hugo-academic/issues) to let me know about any bugs or feature requests, or alternatively make a pull request.
+
 
 ## License
 
