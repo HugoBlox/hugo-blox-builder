@@ -6,7 +6,7 @@ title = "Writing content with Markdown, LaTeX, and Shortcodes"
 math = true
 +++
 
-Content can be written using [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [Hugo Shortcodes](http://gohugo.io/extras/shortcodes/), and [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics). Additionally, HTML may be used for advanced formatting.
+Content can be written using [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics), and [Hugo Shortcodes](http://gohugo.io/extras/shortcodes/). Additionally, HTML may be used for advanced formatting.
 
 ## Sub-headings
 
@@ -103,12 +103,17 @@ To include a single tweet, pass the tweet’s ID from the tweet's URL as paramet
 
 ## $\rm \LaTeX$ math
 
-
 ```TeX
 $$\left [ – \frac{\hbar^2}{2 m} \frac{\partial^2}{\partial x^2} + V \right ] \Psi = i \hbar \frac{\partial}{\partial t} \Psi$$
 ```
 
 $$\left [ – \frac{\hbar^2}{2 m} \frac{\partial^2}{\partial x^2} + V \right ] \Psi = i \hbar \frac{\partial}{\partial t} \Psi$$
+
+Alternatively, inline math can be written by wrapping the formula with only a single `$`:
+
+    This is inline: $\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon$
+
+This is inline: $\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon$
 
 ## Table
 

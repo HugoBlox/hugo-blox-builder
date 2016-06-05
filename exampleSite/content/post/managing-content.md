@@ -99,4 +99,14 @@ Then edit the newly created file `content/project/my-project-name.md`. Either yo
 
 Generally, to remove content, simply delete the relevant file from your `content/post`, `content/publication`, `content/project`, or `content/home` folder.
 
-Then you can re-build and view the updated website with the `hugo` and `hugo server --watch` commands, respectively.
+## View your updated site
+
+After you have made changes to your site, you can view it by running the `hugo server --watch` command and then opening [localhost:1313](http://localhost:1313) in your web browser.
+
+## Deploy your site
+
+Finally, you can build the static website to a `public/` folder ready for deployment using the `hugo` command.
+
+You may then deploy your site by copying the `public/` directory (by FTP, SFTP, WebDAV, Rsync, git push, etc.) to your production web server.
+
+Note that running `hugo` does not remove any previously generated files before building. Therefore, it's best practice to delete your `public/` directory prior to running `hugo` to ensure no old or interim files are deployed to your server.

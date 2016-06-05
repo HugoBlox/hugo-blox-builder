@@ -25,7 +25,7 @@ Latest demo: [gcushen.github.io/hugo-academic-demo/](http://gcushen.github.io/hu
 
 2. Install Academic theme with [git](https://help.github.com/articles/set-up-git/):
 
-        git clone git@github.com:gcushen/hugo-academic.git themes/academic
+        git clone https://github.com/gcushen/hugo-academic.git themes/academic
 
     Or alternatively, [download Academic](https://github.com/gcushen/hugo-academic/archive/master.zip) and extract it into a `themes/academic` folder within your Hugo website.
 
