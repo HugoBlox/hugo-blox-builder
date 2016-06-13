@@ -83,7 +83,7 @@
 
 
 <!-- Blog Posts Section -->
-{{ $posts_len := len (where .Data.Pages "Type" "post") }}
+{{ $posts_len := len (where (where .Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
 {{ if gt $posts_len 0 }}
 <section id="posts" class="home-section">
     <div class="container">
@@ -101,7 +101,7 @@
                 {{ end }}
             </div>
             <div class="col-xs-12 col-md-8">
-                {{ range first .Site.Params.posts.count (where .Data.Pages "Type" "post") }}
+                {{ range first .Site.Params.posts.count (where (where .Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
                 <div class="article-list-item" itemscope itemprop="blogPost">
                     {{ if .Params.image }}
                     <a href="{{ .Permalink }}">
