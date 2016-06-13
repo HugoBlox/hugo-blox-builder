@@ -1,0 +1,5 @@
+<li itemscope itemtype="http://schema.org/CreativeWork">
+    <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
+    <span itemprop="name">{{ .Title }}</span>
+    <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
+</li>

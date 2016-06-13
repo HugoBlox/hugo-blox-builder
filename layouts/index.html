@@ -16,10 +16,39 @@
 {{ end }}
 
 
+<!-- Selected Publications Section -->
+{{ $pubs_selected_len := len (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
+{{ if gt $pubs_selected_len 0 }}
+<section id="publications" class="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4 section-heading">
+                <h1>{{ with .Site.Params.publications_selected.title }}{{ . | markdownify }}{{ end }}</h1>
+                {{ with .Site.Params.publications_selected.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+            </div>
+            <div class="col-xs-12 col-md-8">
+                {{ if .Site.Params.publications_selected.detailed_list }}
+                {{ range (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
+                {{ partial "publication_li_detailed" . }}
+                {{ end }}
+                {{ else }}
+                <ul class="fa-ul">
+                    {{ range (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
+                    {{ partial "publication_li_simple" . }}
+                    {{ end }}
+                </ul>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}
+
+
 <!-- Publications Section -->
 {{ $pubs_len := len (where .Data.Pages "Type" "publication") }}
 {{ if gt $pubs_len 0 }}
-<section id="publications" class="home-section">
+<section {{ if eq $pubs_selected_len 0 }}id="publications" {{ end }}class="home-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-4 section-heading">
@@ -37,16 +66,12 @@
             <div class="col-xs-12 col-md-8">
                 {{ if .Site.Params.publications.detailed_list }}
                 {{ range first .Site.Params.publications.count (where .Data.Pages "Type" "publication") }}
-                {{ partial "publication_list_item" . }}
+                {{ partial "publication_li_detailed" . }}
                 {{ end }}
                 {{ else }}
                 <ul class="fa-ul">
                     {{ range first .Site.Params.publications.count (where .Data.Pages "Type" "publication") }}
-                    <li itemscope itemtype="http://schema.org/CreativeWork">
-                        <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-                        <span itemprop="name">{{ .Title }}</span>
-                        <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
-                    </li>
+                    {{ partial "publication_li_simple" . }}
                     {{ end }}
                 </ul>
                 {{ end }}

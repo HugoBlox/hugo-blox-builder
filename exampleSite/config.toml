@@ -55,6 +55,13 @@ googleAnalytics = ""
       institution = "Massachusetts Institute of Technology"
       year = 2008
 
+  # Selected Publications section.
+  # Section will only be displayed if there are publications with `selected = true` in their `+++` preamble.
+  [params.publications_selected]
+    detailed_list = true
+    title = "Selected Publications"
+    subtitle = ""
+
   # Publications section.
   # Section will only be displayed if there are publications in `content/publication/`.
   [params.publications]
