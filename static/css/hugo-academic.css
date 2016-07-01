@@ -91,6 +91,10 @@ video {
     display: block;
 }
 
+body {
+    counter-reset: captions;
+}
+
 figcaption:before {
     font-weight: 700;
     text-transform: uppercase;
