@@ -24,20 +24,26 @@ googleAnalytics = ""
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
   date_format = "Mon, Jan 2, 2006"
 
-  # Enable global LaTeX math rendering? If false, you can enable it locally on a per page basis.
+  # Enable global LaTeX math rendering? If false, you can enable it locally
+  #   on a per page basis.
   math = false
 
   # Enable native social sharing buttons?
   sharing = true
 
-  # Link custom CSS and JS assets (relative to /static/css and /static/js respectively)
+  # Link custom CSS and JS assets (relative to /static/css and
+  #   /static/js respectively)
   custom_css = []
   custom_js  = []
 
   # Biography section.
-  # Section will only be displayed if `content/home/about.md` exists.
+  #   Section will only be displayed if `content/home/about.md` exists.
   [params.about]
-    interests = ["Artificial Intelligence", "Computational Linguistics", "Information Retrieval"]
+    interests = [
+      "Artificial Intelligence",
+      "Computational Linguistics",
+      "Information Retrieval"
+    ]
     str_interests = "Interests"
     str_education = "Education"
 
@@ -57,14 +63,16 @@ googleAnalytics = ""
       year = 2008
 
   # Selected Publications section.
-  # Section will only be displayed if there are publications with `selected = true` in their `+++` preamble.
+  #   Section will only be displayed if there are publications with
+  #   `selected = true` in their `+++` preamble.
   [params.publications_selected]
     detailed_list = true
     title = "Selected Publications"
     subtitle = ""
 
   # Publications section.
-  # Section will only be displayed if there are publications in `content/publication/`.
+  #   Section will only be displayed if there are publications in
+  #   `content/publication/`.
   [params.publications]
     count = 10
     detailed_list = false
@@ -73,7 +81,7 @@ googleAnalytics = ""
     str_all = "More Publications"
 
   # Posts section.
-  # Section will only be displayed if there are posts in `content/post/`.
+  #   Section will only be displayed if there are posts in `content/post/`.
   [params.posts]
     count = 5
     title = "Recent Posts"
@@ -82,7 +90,8 @@ googleAnalytics = ""
     str_read_more = "Read more"
 
   # Projects section.
-  # Section will only be displayed if there are projects in `content/project/`.
+  #   Section will only be displayed if there are projects in
+  #   `content/project/`.
   [params.projects]
     title = "Projects"
     subtitle = ""
@@ -97,12 +106,19 @@ googleAnalytics = ""
   # Social/Academic Networking
   #
   # Icon pack "fa" includes the following social network icons:
-  #   twitter, weibo, linkedin, github, facebook, pinterest, google-plus, youtube, instagram, soundcloud
-  #   For email icon, use "fa" icon pack, "envelope" icon, and "mailto:your@email.com" as the link.
+  #
+  #   twitter, weibo, linkedin, github, facebook, pinterest, google-plus,
+  #   youtube, instagram, soundcloud
+  #
+  #   For email icon, use "fa" icon pack, "envelope" icon, and
+  #   "mailto:your@email.com" as the link.
+  #
   #   Full list: https://fortawesome.github.io/Font-Awesome/icons/
   #
   # Icon pack "ai" includes the following academic network icons:
+  #
   #   google-scholar, arxiv, orcid, researchgate, mendeley
+  #
   #   Full list: https://jpswalsh.github.io/academicons/
 
   [[params.social]]
