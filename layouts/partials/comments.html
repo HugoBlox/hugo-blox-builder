@@ -1,4 +1,4 @@
-{{ if not (isset .Site.Params "disable_comments") }}
+{{ if and (and (not (eq .Site.DisqusShortname "")) (not (isset .Site.Params "disable_comments")) (not (isset .Params "disable_comments"))) }}
 <section id="comments">
     <div id="disqus_thread">
         {{ template "_internal/disqus.html" . }}
