@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="{{ $.Site.BaseURL }}css/{{ . }}">
     {{ end }}
 
-
+    {{ if .RSSlink }}
+    <link rel="alternate" href="{{ .RSSlink }}" type="application/rss+xml" title="{{ .Site.Title }}">
+    <link rel="feed" href="{{ .RSSlink }}" type="application/rss+xml" title="{{ .Site.Title }}">
+    {{ end }}
     <link rel="shortcut icon" href="{{ .Site.BaseURL }}img/favicon.ico" type="image/x-icon">
     <link rel="canonical" href="{{ .Permalink }}">
 
