@@ -14,7 +14,13 @@
         {{end}}
         <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
         {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-        <div class="article-style"><p>{{ .Summary }}</p></div>
+        <div class="article-style"><p>
+            {{ if .Truncated }}
+                {{ printf "%s" .Summary | markdownify }}
+            {{ else }}
+                {{ .Content }}
+            {{ end }}
+        </p></div>
     </div>
     {{ end }}
 
