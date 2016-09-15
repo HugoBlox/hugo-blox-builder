@@ -4,6 +4,34 @@ draft = false
 title = "about"
 section_id = 0
 weight = 0
+
+# Specification of the own interests
+[interests]
+  title = "Interests"
+  interests = [
+    "Artificial Intelligence",
+    "Computational Linguistics",
+    "Information Retrieval"
+  ]
+
+# Specification of the courses one have done
+[education]
+  title = "Education"
+
+[[education.courses]]
+  course = "PhD in Artificial Intelligence"
+  institution = "Stanford University"
+  year = 2012
+
+[[education.courses]]
+  course = "MEng in Artificial Intelligence"
+  institution = "Massachusetts Institute of Technology"
+  year = 2009
+
+[[education.courses]]
+  course = "BSc in Artificial Intelligence"
+  institution = "Massachusetts Institute of Technology"
+  year = 2008
 +++
 
 # Biography
