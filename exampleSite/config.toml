@@ -36,32 +36,6 @@ googleAnalytics = ""
   custom_css = []
   custom_js  = []
 
-  # Biography section.
-  #   Section will only be displayed if `content/home/about.md` exists.
-  [params.about]
-    interests = [
-      "Artificial Intelligence",
-      "Computational Linguistics",
-      "Information Retrieval"
-    ]
-    str_interests = "Interests"
-    str_education = "Education"
-
-    [[params.about.education]]
-      course = "PhD in Artificial Intelligence"
-      institution = "Stanford University"
-      year = 2012
-
-    [[params.about.education]]
-      course = "MEng in Artificial Intelligence"
-      institution = "Massachusetts Institute of Technology"
-      year = 2009
-
-    [[params.about.education]]
-      course = "BSc in Artificial Intelligence"
-      institution = "Massachusetts Institute of Technology"
-      year = 2008
-
   # Selected Publications section.
   #   Section will only be displayed if there are publications with
   #   `selected = true` in their `+++` preamble.

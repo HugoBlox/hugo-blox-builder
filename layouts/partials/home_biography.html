@@ -10,15 +10,11 @@
                 {{ with .Site.Params.organization }}<h3 itemprop="worksFor">{{ . }}</h3>{{ end }}
             </div>
 
-            <ul class="social-icon">
+            <ul class="social-icon" aria-hidden="true">
                 {{ range .Site.Params.social }}
                 <li>
                     <a href="{{ .link }}">
-                    {{ if eq .icon_pack "ai" }}
-                        <i class="ai ai-{{ .icon }} big-icon" aria-hidden="true"></i>
-                    {{ else }}
-                        <i class="fa fa-{{ .icon }} big-icon" aria-hidden="true"></i>
-                    {{ end }}
+                    <i class="{{ .icon_pack | default "fa" }} {{ .icon_pack | default "fa" }}-{{ .icon }} big-icon"></i>
                     </a>
                 </li>
                 {{ end }}
@@ -35,22 +31,20 @@
 
         <div class="row">
 
-            {{ if isset .Site.Params.about "interests" }}
+            {{ with .Params.interests }}
             <div class="col-sm-5">
-                <h3>{{ with .Site.Params.about.str_interests }}{{ . | markdownify }}{{ end }}</h3>
+                <h3>{{ .title | default "Interests" | markdownify }}</h3>
                 <ul>
-                    {{ range .Site.Params.about.interests }}
-                    <li>{{ . }}</li>
-                    {{ end }}
+                    {{ range .interests }}<li>{{ . }}</li>{{ end }}
                 </ul>
             </div>
             {{ end }}
 
-            {{ if isset .Site.Params.about "education" }}
+            {{ with .Params.education }}
             <div class="col-sm-7">
-                <h3>{{ with .Site.Params.about.str_education }}{{ . | markdownify }}{{ end }}</h3>
+                <h3>{{ .title | default "Education" | markdownify }}</h3>
                 <ul class="ul-edu fa-ul">
-                    {{ range .Site.Params.about.education }}
+                    {{ range .courses }}
                     <li>
                         <i class="fa-li fa fa-graduation-cap"></i>
                         <div class="description">
@@ -64,6 +58,5 @@
             {{ end }}
 
         </div>
-
     </div>
 </div>
