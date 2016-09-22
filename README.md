@@ -62,9 +62,8 @@ To list available updates:
     $ git fetch upstream
     $ git log --pretty=oneline --abbrev-commit --decorate HEAD..upstream/master
 
-Upgrade by running:
+Then, upgrade by running:
 
-    $ cd themes/academic
     $ git pull upstream
 
 If you have modified files in `themes/academic`, git will attempt to auto-merge changes. If conflicts are reported, you will need to manually edit the files with conflicts and add them back (`git add <filename>`).
