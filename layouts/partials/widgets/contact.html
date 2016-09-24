@@ -1,0 +1,59 @@
+<!-- Contact widget -->
+<section id="contact" class="home-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4 section-heading">
+        <h1>{{ with .Title }}{{ . | markdownify }}{{ end }}</h1>
+        {{ with .Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+      </div>
+      <div class="col-xs-12 col-md-8">
+        {{ with .Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+        <ul class="list-unstyled">
+
+          {{ with .Site.Params.email }}
+          <li>
+            <i class="fa fa-envelope fa-fw big-icon" aria-hidden="true"></i>
+            {{ if and (isset $.Params "autolink") (eq $.Params.autolink false) }}
+            <span>{{ . }}</span>
+            {{ else }}
+            <span><a href="mailto:{{ . }}">{{ . }}</a></span>
+            {{ end }}
+          </li>
+          {{ end }}
+
+          {{ with .Site.Params.keybase }}
+          <li>
+            <i class="fa fa-lock fa-fw big-icon" aria-hidden="true"></i>
+            <span>
+              <a href="https://keybase.io/{{ . }}" target="_blank">@{{ . }}</a> on Keybase.
+            </span>
+          </li>
+          {{ end }}
+
+          {{ with .Site.Params.phone }}
+          <li>
+            <i class="fa fa-phone fa-fw big-icon" aria-hidden="true"></i>
+            {{ if and (isset $.Params "autolink") (eq $.Params.autolink false) }}
+            <span>{{ . }}</span>
+            {{ else }}
+            <span><a href="tel:{{ . }}">{{ . }}</a></span>
+            {{ end }}
+          </li>
+          {{ end }}
+
+          {{ with .Site.Params.address }}
+          <li>
+            <i class="fa fa-map-marker fa-fw big-icon" aria-hidden="true"></i>
+            <span>{{ . }}</span>
+          </li>
+          {{ end }}
+
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,53 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+{{ $projects_len := len (where $.Data.Pages "Type" "project") }}
+{{ if gt $projects_len 0 }}
+<!-- Projects widget -->
+<section id="projects" class="home-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4 section-heading">
+        <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+      </div>
+      <div class="col-xs-12 col-md-8">
+        {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+        <ul class="fa-ul">
+          {{ range where $.Data.Pages "Type" "project" }}
+          <li>
+            <span class="project-title">
+            {{ if .Content }}
+              <a href="{{ .Permalink }}">
+            {{ else }}
+              {{ with .Params.external_link }}<a href="{{ . }}">{{ end }}
+            {{ end }}
+            <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
+            {{ .Title }}
+            {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
+            </span>
+
+            {{ with .Params.summary }}<p class="project-summary">{{ . }}</p>{{ end }}
+
+            {{ if isset .Params "tags" }}
+            {{ $tagsLen := len .Params.tags }}
+            {{ if gt $tagsLen 0 }}
+            <div class="project-tags">
+              <i class="fa fa-tags"></i>
+              {{ range $k, $v := .Params.tags }}
+              {{ . }}{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
+              {{ end }}
+            </div>
+            {{ end }}
+            {{ end }}
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}

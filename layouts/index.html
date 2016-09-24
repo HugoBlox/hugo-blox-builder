@@ -4,216 +4,26 @@
 <!-- Flag for jQuery -->
 <span id="homepage" style="display: none"></span>
 
-<!-- Biography Section -->
-{{ range where .Data.Pages "Type" "home" }}
-{{ if eq .Title "about" }}
-<section id="bio" class="home-section">
-    <div class="container">
-        {{ partial "home_biography" . }}
-    </div>
-</section>
-{{ end }}
-{{ end }}
-
-
-<!-- Selected Publications Section -->
+<!-- Widgets -->
 {{ $pubs_selected_len := len (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
-{{ if gt $pubs_selected_len 0 }}
-<section id="publications" class="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 section-heading">
-                <h1>{{ with .Site.Params.publications_selected.title }}{{ . | markdownify }}{{ end }}</h1>
-                {{ with .Site.Params.publications_selected.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-            </div>
-            <div class="col-xs-12 col-md-8">
-                {{ if .Site.Params.publications_selected.detailed_list }}
-                {{ range (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
-                {{ partial "publication_li_detailed" . }}
-                {{ end }}
-                {{ else }}
-                <ul class="fa-ul">
-                    {{ range (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
-                    {{ partial "publication_li_simple" . }}
-                    {{ end }}
-                </ul>
-                {{ end }}
-            </div>
-        </div>
-    </div>
-</section>
-{{ end }}
-
-
-<!-- Publications Section -->
-{{ $pubs_len := len (where .Data.Pages "Type" "publication") }}
-{{ if gt $pubs_len 0 }}
-<section {{ if eq $pubs_selected_len 0 }}id="publications" {{ end }}class="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 section-heading">
-                <h1>{{ with .Site.Params.publications.title }}{{ . | markdownify }}{{ end }}</h1>
-                {{ with .Site.Params.publications.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-                {{ if gt $pubs_len .Site.Params.publications.count }}
-                <p class="view-all">
-                    <a href="{{ .Site.BaseURL }}publication/">
-                        {{ with .Site.Params.publications.str_all }}{{ . | markdownify }}{{ end }}
-                        <i class="fa fa-angle-double-right"></i>
-                    </a>
-                </p>
-                {{ end }}
-            </div>
-            <div class="col-xs-12 col-md-8">
-                {{ if .Site.Params.publications.detailed_list }}
-                {{ range first .Site.Params.publications.count (where .Data.Pages "Type" "publication") }}
-                {{ partial "publication_li_detailed" . }}
-                {{ end }}
-                {{ else }}
-                <ul class="fa-ul">
-                    {{ range first .Site.Params.publications.count (where .Data.Pages "Type" "publication") }}
-                    {{ partial "publication_li_simple" . }}
-                    {{ end }}
-                </ul>
-                {{ end }}
-            </div>
-        </div>
-    </div>
-</section>
-{{ end }}
-
-
-<!-- Blog Posts Section -->
-{{ $posts_len := len (where (where .Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
-{{ if gt $posts_len 0 }}
-<section id="posts" class="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 section-heading">
-                <h1>{{ with .Site.Params.posts.title }}{{ . | markdownify }}{{ end }}</h1>
-                {{ with .Site.Params.posts.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-                {{ if gt $posts_len .Site.Params.posts.count }}
-                <p class="view-all">
-                    <a href="{{ .Site.BaseURL }}post/">
-                        {{ with .Site.Params.posts.str_all }}{{ . | markdownify }}{{ end }}
-                        <i class="fa fa-angle-double-right"></i>
-                    </a>
-                </p>
-                {{ end }}
-            </div>
-            <div class="col-xs-12 col-md-8">
-                {{ range first .Site.Params.posts.count (where (where .Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
-                <div class="article-list-item" itemscope itemprop="blogPost">
-                    {{ if .Params.image }}
-                    <a href="{{ .Permalink }}">
-                        <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner" itemprop="image">
-                    </a>
-                    {{end}}
-                    <h3 class="article-title" itemprop="name"><a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a></h3>
-                    {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-                    <p class="article-style" itemprop="articleBody">
-                        {{ if .Truncated }}
-                            {{ printf "%s" .Summary | markdownify }}
-                        {{ else }}
-                            {{ .Content }}
-                        {{ end }}
-                    </p>
-                    <p class="read-more">
-                        <a href="{{ .Permalink }}" class="btn btn-primary btn-outline">
-                            {{ with .Site.Params.posts.str_read_more }}{{ . | markdownify }}{{ end }}
-                        </a>
-                    </p>
-                </div>
-                {{ end }}
-            </div>
-        </div>
-    </div>
-</section>
-{{ end }}
-
-
-<!-- Projects Section -->
-{{ $projects_len := len (where .Data.Pages "Type" "project") }}
-{{ if gt $projects_len 0 }}
-<section id="projects" class="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 section-heading">
-                <h1>{{ with .Site.Params.projects.title }}{{ . | markdownify }}{{ end }}</h1>
-                {{ with .Site.Params.projects.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-            </div>
-            <div class="col-xs-12 col-md-8">
-                <ul class="fa-ul">
-                    {{ range where .Data.Pages "Type" "project" }}
-                    <li>
-                        <span class="project-title">
-                        {{ if .Content }}<a href="{{ .Permalink }}">{{ else }}{{ with .Params.external_link }}<a href="{{ . }}">{{ end }}{{ end }}
-                        <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
-                        {{ .Title }}
-                        {{ if .Content }}</a >{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
-                        </span>
-
-                        {{ with .Params.summary }}<p class="project-summary">{{ . }}</p>{{ end }}
-
-                        {{ if isset .Params "tags" }}
-                        {{ $tagsLen := len .Params.tags }}
-                        {{ if gt $tagsLen 0 }}
-                        <div class="project-tags">
-                            <i class="fa fa-tags"></i>
-                            {{ range $k, $v := .Params.tags }}
-                            {{ . }}{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
-                            {{ end }}
-                        </div>
-                        {{ end }}
-                        {{ end }}
-                    </li>
-                    {{ end }}
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-{{ end }}
-
-
-<!-- Custom Sections -->
 {{ range $index, $page := where .Data.Pages "Type" "home" }}
-{{ if and (isset .Params "section_id") (not (eq .Params.section_id 0)) }}
-{{ $title_words := split $page.Title " " }}
-<section id="{{ range $k, $v := $title_words }}{{ if eq $k 0 }}{{ . | urlize | lower }}{{ end }}{{ end }}" class="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 section-heading">
-                <h1>{{ title $page.Title }}</h1>
-                {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-            </div>
-            <div class="col-xs-12 col-md-8">
-                {{ $page.Content }}
-            </div>
-        </div>
-    </div>
-</section>
-{{ end }}
-{{ end }}
-
-
-<!-- Contact Section -->
-{{ if .Site.Params.contact.enable }}
-<section id="contact" class="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-4 section-heading">
-                <h1>{{ with .Site.Params.contact.title }}{{ . | markdownify }}{{ end }}</h1>
-                {{ with .Site.Params.contact.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-            </div>
-            <div class="col-xs-12 col-md-8">
-                {{ partial "home_contact.html" . }}
-            </div>
-        </div>
-    </div>
-</section>
+  {{ if eq $page.Params.widget "about" }}
+    {{ partial "widgets/about" $page }}
+  {{ else if eq $page.Params.widget "pubs_selected" }}
+    {{ partial "widgets/publications_selected" (dict "root" $ "page" $page "pubs_selected_len" $pubs_selected_len) }}
+  {{ else if eq $page.Params.widget "pubs" }}
+    {{ partial "widgets/publications" (dict "root" $ "page" $page "pubs_selected_len" $pubs_selected_len) }}
+  {{ else if eq $page.Params.widget "posts" }}
+    {{ partial "widgets/posts" (dict "root" $ "page" $page) }}
+  {{ else if eq $page.Params.widget "projects" }}
+    {{ partial "widgets/projects" (dict "root" $ "page" $page) }}
+  {{ else if eq $page.Params.widget "contact" }}
+    {{ partial "widgets/contact.html" $page }}
+  {{ else }}
+    {{ partial "widgets/custom.html" $page }}
+  {{ end }}
 {{ end }}
 
 <!-- Page Footer -->
 {{ partial "footer_container.html" . }}
-
 {{ partial "footer.html" . }}

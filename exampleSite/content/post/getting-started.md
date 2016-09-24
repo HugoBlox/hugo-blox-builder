@@ -52,9 +52,9 @@ Assuming you created a new website with the example content following the instal
 
 The core parameters for the website can be edited in the `config.toml` configuration file.
 
-As can be seen in the example `config.toml`, the social/academic networking icons and education qualifications are defined as multiples of `[[params.social]]` and `[[params.about.education]]` respectively. They can be duplicated or deleted as necessary.
+As can be seen in the example `config.toml`, the social/academic networking icons are defined as multiples of `[[params.social]]`. They can be duplicated or deleted as necessary.
 
-By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` under `[params.publications]`.
+By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` in `content/home/publications.md`.
 
 For deployment, the `baseURL` variable should be changed to match your website URL such as `baseURL = "http://your-site.org/"`. The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own Disqus shortname to enable commenting. To enable Google Analytics, add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
 
@@ -98,9 +98,8 @@ To list available updates:
     $ git fetch upstream
     $ git log --pretty=oneline --abbrev-commit --decorate HEAD..upstream/master
 
-Upgrade by running:
+Then, upgrade by running:
 
-    $ cd themes/academic
     $ git pull upstream
 
 If you have modified files in `themes/academic`, git will attempt to auto-merge changes. If conflicts are reported, you will need to manually edit the files with conflicts and add them back (`git add <filename>`).

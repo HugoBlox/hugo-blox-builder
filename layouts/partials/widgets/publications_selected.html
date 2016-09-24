@@ -1,0 +1,34 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $pubs_selected_len := .pubs_selected_len }}
+
+{{ if gt $pubs_selected_len 0 }}
+<!-- Selected Publications widget -->
+<section id="publications" class="home-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4 section-heading">
+        <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+      </div>
+      <div class="col-xs-12 col-md-8">
+        {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+        {{ if $page.Params.detailed_list }}
+        {{ range (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) }}
+        {{ partial "publication_li_detailed" . }}
+        {{ end }}
+        {{ else }}
+        <ul class="fa-ul">
+          {{ range (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) }}
+          {{ partial "publication_li_simple" . }}
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}

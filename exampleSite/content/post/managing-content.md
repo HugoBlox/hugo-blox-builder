@@ -12,30 +12,48 @@ To enable LaTeX math rendering for a page, you should include `math = true` in t
 
 To display an image in publication, post, or project page headers, you can include the `image = "my-image.jpg"` option in the page `+++` preamble. It is automatically assumed that the image is located in your `static/img/` folder. In the context of posts and projects, the image is intended to behave as a full width banner across the top of the article.
 
-## Homepage sections
+## Homepage widgets
 
-Homepage sections for publications, projects and posts will automatically hide when there is no content of the respective type. Therefore, if you do not require a particular feature, you can simply delete any associated content in the `content/` folder.
+The example site includes the following widgets which display as sections on the homepage:
+
+- About/biography
+- Selected publications
+- Recent publications
+- Recent news/blog posts
+- Projects
+- Example custom widget called *teaching*
+- Contact
 
 ### Introduce yourself with a biography
 
-Place a cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults.
+Place a cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults. Alternatively, you can edit the `avatar` filepath in `config.toml` to point to a different image name - this is particularly useful if you wish to use a different image format such as PNG.
 
-Edit your biography in the example `content/home/about.md` file that you copied across from the `themes/academic/exampleSite/` folder. The research interests and qualifications are stored separately as `interests` and `education` variables under `[params.about]` in `config.toml`, as can be seen in the example config. It's possible to completely hide the interests and education lists by deleting their respective variables.
+Edit your biography in the example `content/home/about.md` file that you copied across from the `themes/academic/exampleSite/` folder. The research interests and qualifications are stored as `interests` and `education` variables. The academic qualifications are defined as multiples of `[[education.courses]]` and can be duplicated or deleted as necessary. It's possible to completely hide the interests and education lists by deleting their respective variables.
 
 ### Add a section to the homepage
 
-To add a new section to the homepage:
+You can use the custom widget to create your own home page sections.
 
-    hugo new home/my-section-name.md
+Simply duplicate (copy/paste) and rename the example *teaching* file at `content/home/teaching.md`. Then edit the section title, weight (refer to *Ordering sections* below), and content as desired.
 
-Then edit the newly created file `content/home/my-section-name.md` with your section title and content. In the `+++` preamble, you should also increment the `section_id` to ensure it's unique amongst the other sections in `content/home` and you can adjust `weight` variable to change the order within the custom section of the home page.
-
-You may also wish to add a navigation link pointing to the new section. This can be achieved by adding something similar to the following lines to your `config.toml`, where the URL will consist of the first title word in lowercase:
+You may also wish to add a navigation link to the top of the page that points to the new section. This can be achieved by adding something similar to the following lines to your `config.toml`, where the URL will consist of the first title word in lowercase:
 
     [[menu.main]]
         name = "Research"
         url = "#research"
         weight = 10
+
+### Remove a section from the homepage
+
+Note that homepage widgets for publications, projects and posts will automatically hide when there is no content of the respective type.
+
+Otherwise, if you do not require a particular widget, you can simply delete any associated files from the `content/home/` folder.
+
+To remove a navigation link from the top of the page, remove the associated `[[menu.main]]` entry in `config.toml`.
+
+### Ordering sections
+
+The order that the homepage sections are displayed in is defined by the `weight` parameter in each of the files in the `content/home/` directory. The sections are displayed in ascending order of their `weight`, so you can simply edit the `weight` parameters as desired.
 
 ## Create a publication
 
@@ -85,6 +103,8 @@ To create a blog/news article:
     hugo new post/my-article-name.md
 
 Then edit the newly created file `content/post/my-article-name.md` with your full title and content.
+
+To disable commenting for a specific post, you can add `disable_comments = true` to the post `+++` preamble. Or to disable commenting for all posts, you can either set `disqusShortname = ""` or `disable_comments = true` in `config.toml`.
 
 ## Create a project
 

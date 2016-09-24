@@ -20,88 +20,25 @@ googleAnalytics = ""
   address = "Stanford AI Lab, Stanford University, California, 90210, USA."
   phone = "888 888 88 88"
 
+  # Enable Keybase in Contact section by entering your keybase.io username.
+  keybase = ""
+
   # Date format (refer to Go's date format: http://flippinggodateformat.com )
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
   date_format = "Mon, Jan 2, 2006"
 
-  # Enable global LaTeX math rendering? If false, you can enable it locally
-  #   on a per page basis.
+  # Enable global LaTeX math rendering?
+  #   If false, you can enable it locally on a per page basis.
   math = false
 
   # Enable native social sharing buttons?
   sharing = true
 
-  # Link custom CSS and JS assets (relative to /static/css and
-  #   /static/js respectively)
+  # Link custom CSS and JS assets
+  #   (relative to /static/css and /static/js respectively)
   custom_css = []
   custom_js  = []
 
-  # Biography section.
-  #   Section will only be displayed if `content/home/about.md` exists.
-  [params.about]
-    interests = [
-      "Artificial Intelligence",
-      "Computational Linguistics",
-      "Information Retrieval"
-    ]
-    str_interests = "Interests"
-    str_education = "Education"
-
-    [[params.about.education]]
-      course = "PhD in Artificial Intelligence"
-      institution = "Stanford University"
-      year = 2012
-
-    [[params.about.education]]
-      course = "MEng in Artificial Intelligence"
-      institution = "Massachusetts Institute of Technology"
-      year = 2009
-
-    [[params.about.education]]
-      course = "BSc in Artificial Intelligence"
-      institution = "Massachusetts Institute of Technology"
-      year = 2008
-
-  # Selected Publications section.
-  #   Section will only be displayed if there are publications with
-  #   `selected = true` in their `+++` preamble.
-  [params.publications_selected]
-    detailed_list = true
-    title = "Selected Publications"
-    subtitle = ""
-
-  # Publications section.
-  #   Section will only be displayed if there are publications in
-  #   `content/publication/`.
-  [params.publications]
-    count = 10
-    detailed_list = false
-    title = "Recent Publications"
-    subtitle = ""
-    str_all = "More Publications"
-
-  # Posts section.
-  #   Section will only be displayed if there are posts in `content/post/`.
-  [params.posts]
-    count = 5
-    title = "Recent Posts"
-    subtitle = ""
-    str_all = "More Posts"
-    str_read_more = "Read more"
-
-  # Projects section.
-  #   Section will only be displayed if there are projects in
-  #   `content/project/`.
-  [params.projects]
-    title = "Projects"
-    subtitle = ""
-
-  # Contact section.
-  [params.contact]
-    enable = true
-    title = "Contact"
-    subtitle = ""
-    autolink = true  # Automatically link email and phone?
 
   # Social/Academic Networking
   #

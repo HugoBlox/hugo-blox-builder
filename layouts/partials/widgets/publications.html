@@ -1,0 +1,43 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $pubs_selected_len := .pubs_selected_len }}
+
+{{ $pubs_len := len (where $.Data.Pages "Type" "publication") }}
+{{ if gt $pubs_len 0 }}
+<!-- Publications widget -->
+<section {{ if eq $pubs_selected_len 0 }}id="publications" {{ end }}class="home-section">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4 section-heading">
+        <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+        {{ if gt $pubs_len $page.Params.count }}
+        <p class="view-all">
+          <a href="{{ $.Site.BaseURL }}publication/">
+            {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
+            <i class="fa fa-angle-double-right"></i>
+          </a>
+        </p>
+        {{ end }}
+      </div>
+      <div class="col-xs-12 col-md-8">
+        {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+        {{ if $page.Params.detailed_list }}
+        {{ range first $page.Params.count (where $.Data.Pages "Type" "publication") }}
+        {{ partial "publication_li_detailed" . }}
+        {{ end }}
+        {{ else }}
+        <ul class="fa-ul">
+          {{ range first $page.Params.count (where $.Data.Pages "Type" "publication") }}
+          {{ partial "publication_li_simple" . }}
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}
