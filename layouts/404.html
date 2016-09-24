@@ -2,22 +2,22 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-    <h1>Page not found</h1>
-    <p>Maybe you were looking for one of these?</p>
+  <h1>Page not found</h1>
+  <p>Maybe you were looking for one of these?</p>
 
-    <h2>Recent Posts</h2>
-    {{ range last 20 (where .Data.Pages "Section" "=" "post") }}
-    <ul>
-        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-    </ul>
-    {{ end }}
+  <h2>Recent Posts</h2>
+  {{ range last 20 (where .Data.Pages "Section" "=" "post") }}
+  <ul>
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  </ul>
+  {{ end }}
 
-    <h2>Recent Publications</h2>
-    {{ range last 20 (where .Data.Pages "Section" "=" "publication") }}
-    <ul>
-        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-    </ul>
-    {{ end }}
+  <h2>Recent Publications</h2>
+  {{ range last 20 (where .Data.Pages "Section" "=" "publication") }}
+  <ul>
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  </ul>
+  {{ end }}
 
 </div>
 {{ partial "footer_container.html" . }}

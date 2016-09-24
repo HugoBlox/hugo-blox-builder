@@ -1,45 +1,45 @@
-        <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
-        <script src="{{ .Site.BaseURL }}js/jquery-1.12.3.min.js"></script>
-        <script src="{{ .Site.BaseURL }}js/bootstrap.min.js"></script>
-        <script src="{{ .Site.BaseURL }}js/hugo-academic.js"></script>
-        {{ range .Site.Params.custom_js }}
-        <script src="{{ $.Site.BaseURL }}js/{{ . }}"></script>
-        {{ end }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/jquery-1.12.3.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/bootstrap.min.js"></script>
+    <script src="{{ .Site.BaseURL }}js/hugo-academic.js"></script>
+    {{ range .Site.Params.custom_js }}
+    <script src="{{ $.Site.BaseURL }}js/{{ . }}"></script>
+    {{ end }}
 
-        {{ with .Site.GoogleAnalytics }}
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-            ga('create', '{{ . }}', 'auto');
-            ga('send', 'pageview');
+    {{ with .Site.GoogleAnalytics }}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ . }}', 'auto');
+        ga('send', 'pageview');
 
-            /* Send outbound link click events */
-            var links = document.querySelectorAll('a');
-            Array.prototype.map.call(links, function(item) {
-                if (item.host != document.location.host) {
-                    item.addEventListener('click', function() {
-                        var action = item.getAttribute('data-action') || 'follow';
-                        ga('send', 'event', 'outbound', action, item.href);
-                    });
-                }
-            });
-        </script>
-        {{ end }}
+        /* Send outbound link click events */
+        var links = document.querySelectorAll('a');
+        Array.prototype.map.call(links, function(item) {
+            if (item.host != document.location.host) {
+                item.addEventListener('click', function() {
+                    var action = item.getAttribute('data-action') || 'follow';
+                    ga('send', 'event', 'outbound', action, item.href);
+                });
+            }
+        });
+    </script>
+    {{ end }}
 
-        <!-- Code highlighting -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+    <!-- Code highlighting -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
-        <!-- LaTeX math rendering -->
-        {{ if or (and (isset .Site.Params "math") (eq .Site.Params.math true)) (and (isset .Params "math") (eq .Params.math true)) }}
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
-        </script>
-        <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
-        {{ end }}
+    <!-- LaTeX math rendering -->
+    {{ if or (and (isset .Site.Params "math") (eq .Site.Params.math true)) (and (isset .Params "math") (eq .Params.math true)) }}
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    </script>
+    <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+    {{ end }}
 
-    </body>
+  </body>
 </html>

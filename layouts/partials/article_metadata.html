@@ -2,24 +2,27 @@
 {{ $ := .content }}
 <div class="article-metadata">
 
-    <span class="article-date">
-        <time datetime="{{ $.Date }}" itemprop="datePublished">{{ $.Date.Format $.Site.Params.date_format }}</time>
-    </span>
+  <span class="article-date">
+    <time datetime="{{ $.Date }}" itemprop="datePublished">
+      {{ $.Date.Format $.Site.Params.date_format }}
+    </time>
+  </span>
 
-    {{ if isset $.Params "tags" }}
-    {{ $tagsLen := len $.Params.tags }}
-    {{ if gt $tagsLen 0 }}
-    <span class="article-tags">
-        <i class="fa fa-tags"></i>
-        {{ range $k, $v := $.Params.tags }}
-        <a class="article-tag-link" href="{{ $.Site.BaseURL }}tags/{{ . | urlize | lower }}">{{ . }}</a>{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
-        {{ end }}
-    </span>
+  {{ if isset $.Params "tags" }}
+  {{ $tagsLen := len $.Params.tags }}
+  {{ if gt $tagsLen 0 }}
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    {{ range $k, $v := $.Params.tags }}
+    <a class="article-tag-link" href="{{ $.Site.BaseURL }}tags/{{ . | urlize | lower }}">{{ . }}</a
+    >{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
     {{ end }}
-    {{ end }}
+  </span>
+  {{ end }}
+  {{ end }}
 
-    {{ if ne $is_list 1 }}
-        {{ partial "share.html" $ }}
-    {{ end }}
+  {{ if ne $is_list 1 }}
+  {{ partial "share.html" $ }}
+  {{ end }}
 
 </div>

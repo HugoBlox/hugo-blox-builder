@@ -2,15 +2,15 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-    {{ $paginator := .Paginate .Data.Pages }}
-    {{ range $paginator.Pages }}
-    <div>
-        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-        <div class="article-style"><p>{{ .Summary }}</p></div>
-    </div>
-    {{ end }}
+  {{ $paginator := .Paginate .Data.Pages }}
+  {{ range $paginator.Pages }}
+  <div>
+    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <div class="article-style"><p>{{ .Summary }}</p></div>
+  </div>
+  {{ end }}
 
-    {{ partial "pagination" . }}
+  {{ partial "pagination" . }}
 
 </div>
 {{ partial "footer_container.html" . }}
