@@ -1,5 +1,6 @@
 +++
 subtitle = ""
-section_id = 10
-weight = 10
+
+# Order that this section will appear in.
+weight = 100
 +++
