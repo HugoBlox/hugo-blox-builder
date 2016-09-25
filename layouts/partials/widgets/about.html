@@ -44,7 +44,7 @@
           {{ with .Params.interests }}
           <div class="col-sm-5">
             <h3>{{ .title | default "Interests" | markdownify }}</h3>
-            <ul>
+            <ul class="ul-interests">
               {{ range .interests }}
               <li>{{ . }}</li>
               {{ end }}

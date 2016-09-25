@@ -1,5 +1,6 @@
 /*************************************************
  *  Hugo Academic: an academic theme for Hugo.
+ *  Designed by @GeorgeCushen.
  *  https://github.com/gcushen/hugo-academic
  **************************************************/
 
@@ -7,14 +8,10 @@
  *  Core
  **************************************************/
 
-html {
-  box-sizing: border-box;
-}
-
 *,
 *::after,
 *::before {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 .row:after,
@@ -23,35 +20,46 @@ html {
   display: table;
 }
 
-html,
-body,
-p {
+html {
   font-family: 'Merriweather', serif;
   font-size: 16px;
+  color: rgba(0,0,0,0.8);
   line-height: 1.65;
-  min-height: 100%;
 }
-
-body {
-  /* Offset body content by navbar height. */
-  margin-top: 71px;
-  padding-top: 0;
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    /* Offset body content by navbar height. */
-    margin-top: 51px;
-    padding-top: 0;
+@media screen and (min-width: 58rem) {
+  html {
+    font-size: 20px;
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
+body {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: inherit;
+  color: inherit;
+  margin-top: 71px; /* Offset body content by navbar height. */
+  padding-top: 0;
+  counter-reset: captions;
+}
+@media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
+  body {
+    margin-top: 51px; /* Offset body content by navbar height. */
+  }
+}
+
+/* Body text */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Navigation bar text */
 .navbar-default {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
@@ -59,29 +67,42 @@ h6,
   text-rendering: optimizeLegibility;
 }
 
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  margin-bottom: .5rem;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+}
 h1 {
-  margin-bottom: 21px;
-  font-size: 48px;
+  font-size: 2.25rem;
 }
-
+h2 {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
 h3 {
-  margin-bottom: 11px;
   font-weight: 700;
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
 }
-
-h4 {
+h4, h5, h6 {
   font-weight: 700;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
 a,
-a:visited,
 h3.article-title a:hover {
   color: #0095eb;
   text-decoration: none;
   transition: color 0.6s ease;
 }
 
-a:hover {
+a:hover,
+a:focus {
   color: #005181;
 }
 
@@ -90,10 +111,6 @@ video {
   height: auto;
   max-width: 100%;
   display: block;
-}
-
-body {
-  counter-reset: captions;
 }
 
 figcaption:before {
@@ -125,14 +142,30 @@ code {
 }
 
 pre {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem 0;
   overflow: auto;
+}
+
+/* Quotes */
+blockquote {
+  padding: .5rem 1rem;
+  margin: .8rem 0;
+  color: #7a7a7a;
+  border-left: .25rem solid #e5e5e5;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 30em) {
+  blockquote {
+    padding-right: 5rem;
+    padding-left: 1.25rem;
+  }
 }
 
 .space-below {
   margin-bottom: 50px;
 }
-
 @media screen and (max-width: 768px) {
   .space-below {
     margin-bottom: 10px;
@@ -147,7 +180,6 @@ pre {
   background-color: rgb(255, 255, 255);
   padding: 110px 0 110px 0;
 }
-
 @media screen and (max-width: 768px) {
   .home-section {
     padding: 60px 0 60px 0;
@@ -233,6 +265,10 @@ pre {
   font-size: 40px;
 }
 
+ul.ul-interests li {
+  font-size: 0.9rem;
+}
+
 ul.ul-edu {
   list-style: none;
 }
@@ -240,7 +276,6 @@ ul.ul-edu {
 ul.ul-edu li {
   position: relative;
   padding: 0px 15px 4px 3px;
-  color: #333333;
 }
 
 ul.ul-edu li .description p {
@@ -248,11 +283,12 @@ ul.ul-edu li .description p {
 }
 
 ul.ul-edu li .description p.course {
-  font-size: 1em;
+  font-size: 0.9rem;
 }
 
 ul.ul-edu li .description p.institution {
-  font-size: 0.88em;
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.6);
 }
 
 /*************************************************
@@ -376,14 +412,6 @@ ul.share li:hover .fa {
   margin-bottom: 0;
 }
 
-.article-style blockquote {
-  padding: 1.857em;
-  padding-bottom: 0;
-  border-left: 3px solid #d9d9d9;
-  border-bottom: 1px solid transparent;
-  background: #f2f2f2;
-}
-
 #comments {
   padding: 20px;
 }
@@ -423,19 +451,19 @@ ul.share li:hover .fa {
 }
 
 .pub-list-item .pub-abstract {
-  font-size: 1.13em;
+  font-size: 1rem;
 }
 
 .pub-list-item .pub-authors {
   line-height: normal;
   font-style: normal;
-  font-size: 1.13em;
+  font-size: 1rem;
   color: #3170A5;
 }
 
 .pub-list-item .pub-publication {
   color: #090;
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .pub-list-item .pub-links {
@@ -447,7 +475,7 @@ ul.share li:hover .fa {
  **************************************************/
 
 section#projects.home-section li {
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 section#projects.home-section li:last-of-type {
@@ -460,12 +488,11 @@ section#projects.home-section .project-title {
 }
 
 section#projects.home-section .project-summary {
-  font-size: 16px;
-  margin-bottom: 6px;
+  font-size: 0.9rem;
 }
 
 section#projects.home-section .project-tags {
-  font-size: 14px;
+  font-size: 0.75rem;
   color: #9c9c9c;
 }
 
@@ -557,7 +584,7 @@ footer a#back_to_top i {
  **************************************************/
 
 .navbar {
-  min-height: 60px !important;
+  min-height: 70px !important;
 }
 
 .navbar-default {
@@ -584,21 +611,30 @@ nav#navbar-main li {
 
 .navbar-brand,
 .navbar-nav li a {
-  line-height: 60px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  height: inherit;
+  line-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.navbar-brand {
+.navbar-default .navbar-brand {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1.2em;
   color: #2b2b2b;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   .navbar {
     min-height: 50px !important;
+  }
+
+  .navbar-brand,
+  .navbar-nav li a {
+    height: inherit;
+    line-height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   .navbar-header {
@@ -616,8 +652,9 @@ nav#navbar-main li {
   }
 
   .navbar-collapse {
-    border-top: 1px solid transparent;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin-bottom: 5px;
   }
 
   .navbar-fixed-top {
