@@ -20,11 +20,7 @@
             {{ range .Site.Params.social }}
             <li>
               <a href="{{ .link }}">
-                {{ if eq .icon_pack "ai" }}
-                <i class="ai ai-{{ .icon }} big-icon"></i>
-                {{ else }}
-                <i class="fa fa-{{ .icon }} big-icon"></i>
-                {{ end }}
+                <i class="{{ .icon_pack | default "fa" }} {{ .icon_pack | default "fa" }}-{{ .icon }} big-icon"></i>
               </a>
             </li>
             {{ end }}
