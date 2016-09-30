@@ -16,15 +16,11 @@
             {{ with .Site.Params.organization }}<h3 itemprop="worksFor">{{ . }}</h3>{{ end }}
           </div>
 
-          <ul class="social-icon">
+          <ul class="social-icon" aria-hidden="true">
             {{ range .Site.Params.social }}
             <li>
               <a href="{{ .link }}">
-                {{ if eq .icon_pack "ai" }}
-                <i class="ai ai-{{ .icon }} big-icon" aria-hidden="true"></i>
-                {{ else }}
-                <i class="fa fa-{{ .icon }} big-icon" aria-hidden="true"></i>
-                {{ end }}
+                <i class="{{ .icon_pack | default "fa" }} {{ .icon_pack | default "fa" }}-{{ .icon }} big-icon"></i>
               </a>
             </li>
             {{ end }}
