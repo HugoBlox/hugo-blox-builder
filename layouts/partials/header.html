@@ -10,20 +10,20 @@
   {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
   {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
 
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/highlight.min.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/font-awesome.min.css">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/academicons.min.css">
+  <link rel="stylesheet" href="{{ "/css/highlight.min.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "/css/academicons.min.css" | relURL }}">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono">
-  <link rel="stylesheet" href="{{ .Site.BaseURL }}css/hugo-academic.css">
+  <link rel="stylesheet" href="{{ "/css/hugo-academic.css" | relURL }}">
   {{ range .Site.Params.custom_css }}
-  <link rel="stylesheet" href="{{ $.Site.BaseURL }}css/{{ . }}">
+  <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
   {{ end }}
 
   <link rel="alternate" href="{{ .RSSLink | default .Site.RSSLink  }}" type="application/rss+xml" title="{{ .Site.Title }}">
   <link rel="feed" href="{{ .RSSLink | default .Site.RSSLink }}" type="application/rss+xml" title="{{ .Site.Title }}">
 
-  <link rel="shortcut icon" href="{{ .Site.BaseURL }}img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ "/img/favicon.ico" | relURL }}" type="image/x-icon">
   <link rel="canonical" href="{{ .Permalink }}">
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
