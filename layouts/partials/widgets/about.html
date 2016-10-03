@@ -9,9 +9,11 @@
       <div class="col-xs-12 col-md-4">
         <div id="profile">
 
+          {{ with $.Site.Params.avatar }}
           <div class="portrait" itemprop="image"
-               style="background-image: url('{{ $.Site.BaseURL }}img/{{ $.Site.Params.avatar }}');">
+               style="background-image: url('{{ "/img/" | relURL }}{{ . }}');">
           </div>
+          {{ end }}
 
           <div class="portrait-title">
             <h2 itemprop="name">{{ $.Site.Params.name }}</h2>
