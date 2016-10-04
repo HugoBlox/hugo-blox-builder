@@ -23,9 +23,10 @@
 
           <ul class="social-icon" aria-hidden="true">
             {{ range $.Site.Params.social }}
+            {{ $pack := or .icon_pack "fa" }}
             <li>
               <a href="{{ .link }}">
-                <i class="{{ .icon_pack | default "fa" }} {{ .icon_pack | default "fa" }}-{{ .icon }} big-icon"></i>
+                <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
               </a>
             </li>
             {{ end }}
