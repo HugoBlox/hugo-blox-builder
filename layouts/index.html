@@ -7,21 +7,9 @@
 <!-- Widgets -->
 {{ $pubs_selected_len := len (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
 {{ range $index, $page := where .Data.Pages "Type" "home" }}
-  {{ if eq $page.Params.widget "about" }}
-    {{ partial "widgets/about" $page }}
-  {{ else if eq $page.Params.widget "pubs_selected" }}
-    {{ partial "widgets/publications_selected" (dict "root" $ "page" $page "pubs_selected_len" $pubs_selected_len) }}
-  {{ else if eq $page.Params.widget "pubs" }}
-    {{ partial "widgets/publications" (dict "root" $ "page" $page "pubs_selected_len" $pubs_selected_len) }}
-  {{ else if eq $page.Params.widget "posts" }}
-    {{ partial "widgets/posts" (dict "root" $ "page" $page) }}
-  {{ else if eq $page.Params.widget "projects" }}
-    {{ partial "widgets/projects" (dict "root" $ "page" $page) }}
-  {{ else if eq $page.Params.widget "contact" }}
-    {{ partial "widgets/contact.html" $page }}
-  {{ else }}
-    {{ partial "widgets/custom.html" $page }}
-  {{ end }}
+  {{ $params := dict "root" $ "page" $page "pubs_selected_len" $pubs_selected_len }}
+  {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
+  {{ partial $widget $params }}
 {{ end }}
 
 <!-- Page Footer -->

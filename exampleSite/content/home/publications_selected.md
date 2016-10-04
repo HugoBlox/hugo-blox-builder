@@ -8,7 +8,7 @@ draft = false
 
 title = "Selected Publications"
 subtitle = ""
-widget = "pubs_selected"
+widget = "publications_selected"
 
 # Order that this section will appear in.
 weight = 10
