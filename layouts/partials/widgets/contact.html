@@ -1,5 +1,6 @@
 {{ $ := .root }}
 {{ $page := .page }}
+{{ $autolink := default true $page.Params.autolink }}
 
 <!-- Contact widget -->
 <section id="contact" class="home-section">
@@ -18,11 +19,9 @@
           {{ with $.Site.Params.email }}
           <li>
             <i class="fa fa-envelope fa-fw big-icon" aria-hidden="true"></i>
-            {{ if and (isset $.Params "autolink") (eq $.Params.autolink false) }}
-            <span>{{ . }}</span>
-            {{ else }}
-            <span><a href="mailto:{{ . }}">{{ . }}</a></span>
-            {{ end }}
+            <span>
+            {{- if $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+            </span>
           </li>
           {{ end }}
 
@@ -38,11 +37,9 @@
           {{ with $.Site.Params.phone }}
           <li>
             <i class="fa fa-phone fa-fw big-icon" aria-hidden="true"></i>
-            {{ if and (isset $.Params "autolink") (eq $.Params.autolink false) }}
-            <span>{{ . }}</span>
-            {{ else }}
-            <span><a href="tel:{{ . }}">{{ . }}</a></span>
-            {{ end }}
+            <span>
+            {{- if $autolink }}<a href="tel:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+            </span>
           </li>
           {{ end }}
 
