@@ -13,7 +13,7 @@
         {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
         {{ if gt $posts_len $page.Params.count }}
         <p class="view-all">
-          <a href="{{ .Site.BaseURL }}post/">
+          <a href="{{ "/post/" | relURL }}">
             {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
             <i class="fa fa-angle-double-right"></i>
           </a>
@@ -27,7 +27,7 @@
         <div class="article-list-item" itemscope itemprop="blogPost">
           {{ if .Params.image }}
           <a href="{{ .Permalink }}">
-            <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner"
+            <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="article-banner"
                  itemprop="image">
           </a>
           {{end}}
