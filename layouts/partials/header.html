@@ -26,6 +26,8 @@
   <link rel="shortcut icon" href="{{ "/img/favicon.ico" | relURL }}" type="image/x-icon">
   <link rel="canonical" href="{{ .Permalink }}">
 
+  {{ partial "head_custom" . }}
+
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 </head>
