@@ -262,7 +262,7 @@ blockquote p:last-child {
 }
 
 .big-icon {
-  font-size: 40px;
+  font-size: 2rem;
 }
 
 ul.ul-interests li {
@@ -474,24 +474,25 @@ ul.share li:hover .fa {
  *  Projects
  **************************************************/
 
-section#projects.home-section li {
+#projects.home-section li {
   margin-bottom: 1rem;
 }
 
-section#projects.home-section li:last-of-type {
+#projects.home-section li:last-of-type {
   margin-bottom: 0;
 }
 
-section#projects.home-section .project-title {
+#projects.home-section .project-title {
   display: inline-block;
   margin-bottom: 6px;
 }
 
-section#projects.home-section .project-summary {
+#projects.home-section .project-summary {
   font-size: 0.9rem;
+  margin-bottom: 0.4rem;
 }
 
-section#projects.home-section .project-tags {
+#projects.home-section .project-tags {
   font-size: 0.75rem;
   color: #9c9c9c;
 }
@@ -500,8 +501,25 @@ section#projects.home-section .project-tags {
  *  Contact
  **************************************************/
 
-#contact li span {
-  padding-left: 10px;
+#contact.home-section .fa-ul {
+  margin-left: 3.14285714rem; /* Must be > `fa-2x` icon size. */
+}
+
+#contact.home-section .fa-li {
+  position: absolute;
+  left: -3.14285714rem; /* Negative of `#contact.home-section .fa-ul` margin. */
+  width: 2rem; /* Match `fa-2x` icon size. */
+  top: 0.14285714em; /* Default FA value. */
+  text-align: center;
+}
+
+#contact.home-section li {
+  padding-top: 0.8rem; /* Align text with bottom of `fa-2x` icon. */
+  margin-bottom: 0.3rem;
+}
+
+#contact.home-section li:last-of-type {
+  margin-bottom: 0;
 }
 
 /*************************************************
