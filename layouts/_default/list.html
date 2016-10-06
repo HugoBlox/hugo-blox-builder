@@ -6,7 +6,13 @@
   {{ range $paginator.Pages }}
   <div>
     <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    <div class="article-style"><p>{{ .Summary }}</p></div>
+    <div class="article-style">
+      {{ if .Params.summary }}
+      {{ printf "%s" .Params.summary | markdownify }}
+      {{ else if .Truncated }}
+      {{ printf "%s" .Summary | markdownify }}
+      {{ end }}
+    </div>
   </div>
   {{ end }}
 

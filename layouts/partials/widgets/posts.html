@@ -36,7 +36,9 @@
           </h3>
           {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
           <p class="article-style" itemprop="articleBody">
-            {{ if .Truncated }}
+            {{ if .Params.summary }}
+            {{ printf "%s" .Params.summary | markdownify }}
+            {{ else if .Truncated }}
             {{ printf "%s" .Summary | markdownify }}
             {{ else }}
             {{ .Content }}
