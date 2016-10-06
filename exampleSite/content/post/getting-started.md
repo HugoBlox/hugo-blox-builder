@@ -50,26 +50,62 @@ Key features:
 
 Assuming you created a new website with the example content following the installation steps above, this section explores just a few more steps in order to customize it.
 
-The core parameters for the website can be edited in the `config.toml` configuration file.
+### Core parameters
 
-As can be seen in the example `config.toml`, the social/academic networking icons are defined as multiples of `[[params.social]]`. They can be duplicated or deleted as necessary.
+The core parameters for the website can be edited in the `config.toml` configuration file:
+
+- Set `baseurl` to your website URL (we recommend [GitHub Pages](https://pages.github.com/) for free hosting)
+- Set `title` to your desired website title such as your name
+- The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own [Disqus](https://disqus.com/) shortname to enable commenting
+- Edit your details under `[params]`; these will be displayed mainly in the homepage *about* and *contact* widgets (if used). To disable a contact field, simply clear the value to `""`. 
+- Place a square cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults. Alternatively, you can edit the `avatar` filepath to point to a different image name or clear the value to disable the avatar feature.
+- To enable LaTeX math for your site, set `math = true`
+- Social/academic networking links are defined as multiples of `[[params.social]]`. They can be created or deleted as necessary.
+
+### Introduce yourself
+
+Edit your biography in the *about* widget `content/home/about.md` that you copied across from the `themes/academic/exampleSite/` folder. The research interests and qualifications are stored as `interests` and `education` variables. The academic qualifications are defined as multiples of `[[education.courses]]` and can be created or deleted as necessary. It's possible to completely hide the interests and education lists by deleting their respective variables.
+
+### Customize homepage widgets
+
+Each widget is responsible for a section on the homepage and contains further parameters that can be edited as desired. The parameters can be found in the preamble/frontmatter (between the pair of `+++`) for each widget located in the `content/home/` folder.
 
 By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` in `content/home/publications.md`.
 
-For deployment, the `baseURL` variable should be changed to match your website URL such as `baseURL = "http://your-site.org/"`. The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own Disqus shortname to enable commenting. To enable Google Analytics, add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
+### Add your content
 
-Next, you may be interested to read the guide about [managing content]({{< ref "post/managing-content.md" >}}), or continue reading below for advanced customization tips and instructions for keeping the theme up-to-date with any improvements that become available.
+Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}}) to create your own homepage sections, publications, blog posts, and projects.
+
+### Remove unused widgets and pages
+
+[How to remove unused widgets and content pages]({{< ref "post/managing-content.md#removing-content" >}}).
+
+### Customization & Upgrading
+
+Continue reading below for advanced customization tips and instructions for keeping the theme up-to-date with any improvements that become available.
 
 
 ## Advanced customization
 
 It is possible to carry out many customizations without touching any files in `themes/academic`, making it easier to upgrade the theme in the future.
 
-### Custom theme color (CSS) or JavaScript (JS)
+### Navigation menu
+
+The `[[menu.main]]` entries towards the bottom of `config.toml` define the navigation links at the top of the website. They can be added or removed as desired.
+
+### Analytics
+
+To enable [Google Analytics](http://www.google.com/analytics), add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
+
+### Custom theme color (CSS) or local JavaScript (JS)
 
 You can link custom CSS and JS assets (relative to your root `static/css` and `static/js` respectively) from your `config.toml` using `custom_css = ["custom.css"]` or `custom_js  = ["custom.js"]`.
 
 For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
+
+### Third party scripts
+
+Create a file named `head_custom.html` in a `layouts/partials/` folder at the root of your website (not in the `themes` folder). Any HTML code added to this file will be included within your website's `<head>`. Therefore, it's suitable for adding custom metadata or third party scripts specified with the *async* attribute.
 
 ### Permalinks
 

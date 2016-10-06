@@ -24,12 +24,6 @@ The example site includes the following widgets which display as sections on the
 - Example custom widget called *teaching*
 - Contact
 
-### Introduce yourself with a biography
-
-Place a cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults. Alternatively, you can edit the `avatar` filepath in `config.toml` to point to a different image name - this is particularly useful if you wish to use a different image format such as PNG.
-
-Edit your biography in the example `content/home/about.md` file that you copied across from the `themes/academic/exampleSite/` folder. The research interests and qualifications are stored as `interests` and `education` variables. The academic qualifications are defined as multiples of `[[education.courses]]` and can be duplicated or deleted as necessary. It's possible to completely hide the interests and education lists by deleting their respective variables.
-
 ### Add a section to the homepage
 
 You can use the custom widget to create your own home page sections.
@@ -103,6 +97,10 @@ To create a blog/news article:
     hugo new post/my-article-name.md
 
 Then edit the newly created file `content/post/my-article-name.md` with your full title and content.
+
+Hugo will automatically generate summaries of posts that appear on the homepage. If you are dissatisfied with an automated summary, you can either limit the summary length by appropriately placing <code>&#60;&#33;&#45;&#45;more&#45;&#45;&#62;</code> in the article body, or completely override the automated summary by adding a `summary` parameter to the `+++` preamble such that:
+
+    summary = "Summary of my post."
 
 To disable commenting for a specific post, you can add `disable_comments = true` to the post `+++` preamble. Or to disable commenting for all posts, you can either set `disqusShortname = ""` or `disable_comments = true` in `config.toml`.
 
