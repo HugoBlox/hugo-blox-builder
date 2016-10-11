@@ -23,37 +23,20 @@
       <div class="col-xs-12 col-md-8">
         {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-        {{ range first $page.Params.count (where (where $.Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
-        <div class="article-list-item" itemscope itemprop="blogPost">
-          {{ if .Params.image }}
-          <a href="{{ .Permalink }}">
-            <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="article-banner"
-                 itemprop="image">
-          </a>
-          {{end}}
-          <h3 class="article-title" itemprop="name">
-            <a href="{{ .Permalink }}" itemprop="url">{{.Title }}</a>
-          </h3>
-          {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-          <p class="article-style" itemprop="articleBody">
-            {{ if .Params.summary }}
-            {{ printf "%s" .Params.summary | markdownify }}
-            {{ else if .Truncated }}
-            {{ printf "%s" .Summary | markdownify }}
-            {{ else }}
-            {{ .Content }}
-            {{ end }}
-          </p>
-          <p class="read-more">
-            <a href="{{ .Permalink }}" class="btn btn-primary btn-outline">
-              {{ with $page.Params.str_read_more }}{{ . | markdownify }}{{ end }}
-            </a>
-          </p>
-        </div>
+        {{ if $page.Params.tags }}
+          {{ range first $page.Params.count (where (where (where $.Data.Pages "Type" "post") ".Params.tags" "intersect" $page.Params.tags) ".Params.notonhomepage" nil) }}
+            {{ $params := dict "post" . "page" $page }}
+            {{ partial "post_li" $params }}
+          {{ end }}
+        {{ else }}
+          {{ range first $page.Params.count (where (where $.Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
+            {{ $params := dict "post" . "page" $page }}
+            {{ partial "post_li" $params }}
+          {{ end }}
         {{ end }}
+
       </div>
     </div>
-
   </div>
 </section>
 {{ end }}

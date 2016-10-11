@@ -18,6 +18,7 @@ Key features:
 - Responsive and mobile friendly
 - Simple and refreshing one page design
 - Easy to customize
+
 <!--more-->
 
 ## Installation
@@ -54,7 +55,7 @@ Assuming you created a new website with the example content following the instal
 
 The core parameters for the website can be edited in the `config.toml` configuration file:
 
-- Set `baseurl` to your website URL (we recommend [GitHub Pages](https://pages.github.com/) for free hosting)
+- Set `baseurl` to your website URL (we recommend [GitHub Pages](https://georgecushen.com/create-your-website-with-hugo/) for free hosting)
 - Set `title` to your desired website title such as your name
 - The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own [Disqus](https://disqus.com/) shortname to enable commenting
 - Edit your details under `[params]`; these will be displayed mainly in the homepage *about* and *contact* widgets (if used). To disable a contact field, simply clear the value to `""`. 

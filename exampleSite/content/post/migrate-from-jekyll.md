@@ -1,7 +1,7 @@
 +++
 date = "2014-03-10T00:00:00"
 draft = false
-tags = []
+tags = ["jekyll"]
 title = "Migrate from Jekyll to Hugo"
 summary = """
 Learn how to migrate an existing website from Jekyll to Hugo.

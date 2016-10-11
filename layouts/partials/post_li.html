@@ -1,0 +1,29 @@
+{{ $post := .post }}
+{{ $page := .page }}
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  {{ if $post.Params.image }}
+  <a href="{{ .Permalink }}">
+    <img src="{{ "/img/" | relURL }}{{ $post.Params.image }}" class="article-banner"
+    itemprop="image">
+  </a>
+  {{end}}
+  <h3 class="article-title" itemprop="name">
+    <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
+  </h3>
+  {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
+  <p class="article-style" itemprop="articleBody">
+    {{ if $post.Params.summary }}
+    {{ printf "%s" $post.Params.summary | markdownify }}
+    {{ else if $post.Truncated }}
+    {{ $post.Summary }}
+    {{ else }}
+    {{ $post.Content }}
+    {{ end }}
+  </p>
+  <p class="read-more">
+    <a href="{{ $post.Permalink }}" class="btn btn-primary btn-outline">
+      {{ with $page.Params.str_read_more }}{{ . | markdownify }}{{ end }}
+    </a>
+  </p>
+</div>
