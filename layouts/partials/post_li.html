@@ -12,15 +12,15 @@
     <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
   </h3>
   {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
-  <p class="article-style" itemprop="articleBody">
+  <div class="article-style" itemprop="articleBody">
     {{ if $post.Params.summary }}
-    {{ printf "%s" $post.Params.summary | markdownify }}
+    <p>{{ printf "%s" $post.Params.summary | markdownify }}</p>
     {{ else if $post.Truncated }}
     {{ $post.Summary }}
     {{ else }}
     {{ $post.Content }}
     {{ end }}
-  </p>
+  </div>
   <p class="read-more">
     <a href="{{ $post.Permalink }}" class="btn btn-primary btn-outline">
       {{ with $page.Params.str_read_more }}{{ . | markdownify }}{{ end }}
