@@ -6,7 +6,7 @@ title = "Writing content with Markdown, LaTeX, and Shortcodes"
 math = true
 +++
 
-Content can be written using [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics), and [Hugo Shortcodes](http://gohugo.io/extras/shortcodes/). Additionally, HTML may be used for advanced formatting.<!--more-->
+Content can be written using [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics), and [Hugo Shortcodes](http://gohugo.io/extras/shortcodes/). Additionally, HTML may be used for advanced formatting.<!--more--> This article gives an overview of the most common formatting options.
 
 ## Sub-headings
 
@@ -132,3 +132,28 @@ Result:
 | ------------------| ------------------------------ |
 | `hugo`            | Build your website.            |
 | `hugo serve -w`   | View your website.             |
+
+
+## Alerts
+
+Alerts are a useful feature that add side content such as tips, notes, or warnings to your articles. They are especially handy when writing educational tutorial-style articles. Use the corresponding shortcodes to enable alerts inside your content:
+
+    {{%/* alert note */%}}
+    Here's a tip or note...
+    {{%/* /alert */%}}
+
+This will display the following *note* block:
+
+{{% alert note %}}
+Here's a tip or note...
+{{% /alert %}}
+
+    {{%/* alert warning */%}}
+    Here's some important information...
+    {{%/* /alert */%}}
+
+This will display the following *warning* block:
+
+{{% alert warning %}}
+Here's some important information...
+{{% /alert %}}

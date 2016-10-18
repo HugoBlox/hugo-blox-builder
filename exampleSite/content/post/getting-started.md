@@ -73,7 +73,9 @@ Edit your biography in the *about* widget `content/home/about.md` that you copie
 
 Each widget is responsible for a section on the homepage and contains further parameters that can be edited as desired. The parameters can be found in the preamble/frontmatter (between the pair of `+++`) for each widget located in the `content/home/` folder.
 
+{{% alert note %}}
 By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` in `content/home/publications.md`.
+{{% /alert %}}
 
 ### Add your content
 
