@@ -23,7 +23,9 @@
   <link rel="alternate" href="{{ .RSSLink | default .Site.RSSLink  }}" type="application/rss+xml" title="{{ .Site.Title }}">
   <link rel="feed" href="{{ .RSSLink | default .Site.RSSLink }}" type="application/rss+xml" title="{{ .Site.Title }}">
 
-  <link rel="shortcut icon" href="{{ "/img/favicon.ico" | relURL }}" type="image/x-icon">
+  <link rel="icon" type="image/png" href="{{ "/img/icon.png" | relURL }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ "/img/apple-touch-icon.png" | relURL }}">
+
   <link rel="canonical" href="{{ .Permalink }}">
 
   {{ partial "head_custom" . }}

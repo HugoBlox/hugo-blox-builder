@@ -7,17 +7,17 @@ title = "Getting started with the Academic theme for Hugo"
 math = true
 +++
 
-The Academic theme enables you to easily create a personal academic website using the [Hugo](https://gohugo.io) static site generator.
+The Academic theme enables you to easily create a beautifully simple academic or personal website using the [Hugo](https://gohugo.io) static site generator.
+
 
 Key features:
 
-- Designed for academic staff, students, or general personal use
-- Includes Biography, Publications, Projects, News/Blog, Teaching, and Contact sections
+- Designed for personal and academic staff/student use
+- Customizable Biography, Publications, Projects, News/Blog, Teaching, and Contact widgets
 - Write in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
 - Academic linking (Scholar etc.), [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
-- Easy to customize
 
 <!--more-->
 
@@ -98,19 +98,25 @@ It is possible to carry out many customizations without touching any files in `t
 
 The `[[menu.main]]` entries towards the bottom of `config.toml` define the navigation links at the top of the website. They can be added or removed as desired.
 
+### Website icon
+
+Save your main icon and mobile icon as square PNG images named `icon.png` and `apple-touch-icon.png`, respectively. Place them in your root `static/img/` folder.
+
+### Theme color (CSS)
+
+You can link custom CSS assets (relative to your root `static/css`) from your `config.toml` using `custom_css = ["custom.css"]`.
+
+For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
+
 ### Analytics
 
 To enable [Google Analytics](http://www.google.com/analytics), add your tracking code in `config.toml` similarly to `googleAnalytics = "UA-12345678-9"`.
 
-### Custom theme color (CSS) or local JavaScript (JS)
+### Third party and local scripts (JS)
 
-You can link custom CSS and JS assets (relative to your root `static/css` and `static/js` respectively) from your `config.toml` using `custom_css = ["custom.css"]` or `custom_js  = ["custom.js"]`.
+To add a third party script, create a file named `head_custom.html` in a `layouts/partials/` folder at the root of your website (not in the `themes` folder). Any HTML code added to this file will be included within your website's `<head>`. Therefore, it's suitable for adding custom metadata or third party scripts specified with the *async* attribute.
 
-For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
-
-### Third party scripts
-
-Create a file named `head_custom.html` in a `layouts/partials/` folder at the root of your website (not in the `themes` folder). Any HTML code added to this file will be included within your website's `<head>`. Therefore, it's suitable for adding custom metadata or third party scripts specified with the *async* attribute.
+Whereas for your own local scripts, you can link your local JS assets (relative to your root `static/js`) from your `config.toml` using `custom_js  = ["custom.js"]`.
 
 ### Permalinks
 
