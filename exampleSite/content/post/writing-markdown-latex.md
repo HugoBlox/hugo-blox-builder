@@ -10,11 +10,11 @@ Content can be written using [Markdown](https://github.com/adam-p/markdown-here/
 
 ## Sub-headings
 
-    ## H2
-    ### H3
-    #### H4
-    ##### H5
-    ###### H6
+    ## Heading 2
+    ### Heading 3
+    #### Heading 4
+    ##### Heading 5
+    ###### Heading 6
 
 ## Emphasis
 
@@ -55,6 +55,14 @@ A numbered figure with caption:
     [A publication]({{</* ref "publication/hi.md" */>}})
     [A project]({{</* ref "project/hi.md" */>}})
     [Another section]({{</* relref "hi.md#who" */>}})
+
+## Emojis
+
+See the [Emoji cheat sheet](http://www.webpagefx.com/tools/emoji-cheat-sheet/) for available emoticons. The following serves as an example, but you should remove the spaces between each emoji name and pair of semicolons:
+
+    I : heart : Academic : smile :
+    
+I :heart: Academic :smile:
 
 ## Blockquote
 

@@ -1,11 +1,12 @@
-baseurl = "http://replace-this-with-your-website-url.com/"
+baseurl = "https://example.com"
 title = "Academic Theme"
 copyright = "&copy; 2016 Your Name"
 languageCode = "en-us"
 theme = "academic"
+enableEmoji = true
 
 # Enable comments by entering your Disqus shortname
-disqusShortname = "spf13"
+disqusShortname = ""
 
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = ""

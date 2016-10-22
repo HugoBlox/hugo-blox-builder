@@ -5,10 +5,12 @@ image = "banners/getting-started.png"
 tags = ["academic", "hugo"]
 title = "Getting started with the Academic theme for Hugo"
 math = true
+summary = """
+Create a beautifully simple academic or personal website in under 10 minutes. 
+"""
 +++
 
 The Academic theme enables you to easily create a beautifully simple academic or personal website using the [Hugo](https://gohugo.io) static site generator.
-
 
 Key features:
 
@@ -18,8 +20,6 @@ Key features:
 - Academic linking (Scholar etc.), [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
-
-<!--more-->
 
 ## Installation
 
