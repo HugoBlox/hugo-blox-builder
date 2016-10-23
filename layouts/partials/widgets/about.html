@@ -24,7 +24,7 @@
           <ul class="social-icon" aria-hidden="true">
             {{ range $.Site.Params.social }}
             {{ $pack := or .icon_pack "fa" }}
-            <li>
+            <li{{ with .title }} title="{{ . }}"{{ end }}>
               <a href="{{ .link }}">
                 <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
               </a>
