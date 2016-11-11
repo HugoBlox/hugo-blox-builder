@@ -85,7 +85,7 @@ googleAnalytics = ""
 
 [[menu.main]]
   name = "Home"
-  url = "#top"
+  url = "#bio"
   weight = 1
 
 [[menu.main]]

@@ -103,6 +103,30 @@
       window.location.hash = ""
     }
 
+    // Initialize Scrollspy.
+    var $body = $('body');
+    var $navbar = $('.navbar-header');
+    var navbar_offset = $navbar.innerHeight() + 1;
+    $body.scrollspy({offset: navbar_offset });
+
+    // Make Scrollspy responsive.
+    function fixScrollspy() {
+      var data = $body.data('bs.scrollspy');
+      if (data) {
+        navbar_offset = $navbar.innerHeight() + 1;
+        data.options.offset = navbar_offset;
+        $body.data('bs.scrollspy', data);
+        $body.scrollspy('refresh');
+      }
+    }
+
+    // Call `fixScrollspy` when window is resized.
+    var resizeTimer;
+    $(window).resize(function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fixScrollspy, 200);
+    });
+
   });
 
 })(jQuery);

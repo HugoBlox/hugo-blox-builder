@@ -14,12 +14,16 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="#navbar-collapse-1">
+    <div class="collapse navbar-collapse">
 
       <!-- Left Nav Bar -->
       <ul class="nav navbar-nav navbar-right">
         {{ range .Site.Menus.main }}
-        <li class="nav-item"><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+        <li class="nav-item">
+          <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+            {{ .Name }}
+          </a>
+        </li>
         {{ end }}
       </ul>
 

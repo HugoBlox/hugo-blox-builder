@@ -605,26 +605,40 @@ footer a#back_to_top i {
   min-height: 70px !important;
 }
 
+/* Prevent navbar hiding initial content when jumping to in-page anchor. */
+*[id]:before {
+  display: block;
+  content: " ";
+  margin-top: -70px;
+  height: 70px;
+  visibility: hidden;
+}
+
 .navbar-default {
   background: #fff;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11)
 }
 
 nav#navbar-main li {
   font-size: 16px;
 }
 
-.navbar-default .navbar-nav li a,
-.navbar-default .navbar-nav li a:visited {
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav>a:focus,
+.navbar-default .navbar-nav>a:hover {
   white-space: nowrap;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
-  color: #565a5f;
+  color: #34495e;
+  font-weight: 600;
 }
 
-.navbar-default .navbar-nav li a:hover {
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
   color: #0095eb;
+  font-weight: 700;
+  background-color: transparent !important; /* Override Bootstrap. */
 }
 
 .navbar-brand,
@@ -645,6 +659,12 @@ nav#navbar-main li {
 @media screen and (max-width: 1200px) {
   .navbar {
     min-height: 50px !important;
+  }
+
+  /* Prevent navbar hiding initial content when jumping to in-page anchor. */
+  *[id]:before {
+    margin-top: -50px;
+    height: 50px;
   }
 
   .navbar-brand,
@@ -793,6 +813,18 @@ div.alert p:first-child::before {
 
 div.alert-warning p:first-child::before {
   content: '\f071';
+}
+
+div.alert a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  border-bottom: solid 1px #e4e4e4;
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+div.alert a:hover {
+  border-bottom-color: transparent;
+  color: rgba(255,255,255,0.5) !important;
 }
 
 .alert-note {
