@@ -21,7 +21,7 @@ The example site includes the following widgets which display as sections on the
 - Recent publications
 - Recent news/blog posts
 - Projects
-- Example custom widget called *teaching*
+- Custom widget (demonstrated with the *teaching* example)
 - Contact
 
 ### Add a section to the homepage
@@ -89,6 +89,10 @@ You can also associate custom link buttons with the publication by adding the fo
 ```
 
 If you enabled `detailed_list` for publications in `config.toml`, then there are a few more optional variables that you can include in the publication page preamble. You may use `abstract_short = "friendly summary of abstract"` and `publication_short = "abbreviated publication details"` to display a friendly summary of the abstract and abbreviate the publication details, respectively. Furthermore, there is the option to display a different image on the homepage to the publication detail page by setting `image_preview = "my-image.jpg"`. This can be useful if you wish to scale down the image for the homepage or simply if you just wish to show a different image for the preview.
+
+{{% alert warning %}}
+Any double quotes (`"`) or backslashes (e.g. LaTeX `\times`) occurring within the value of any frontmatter parameter (such as the *abstract*) should be escaped with a backslash (`\`). For example, the symbol `"` and LaTeX text `\times` become `\"` and `\\times`, respectively. Refer to the [TOML documentation](https://github.com/toml-lang/toml#user-content-string) for more info.
+{{% /alert %}}
 
 ## Post an article
 
