@@ -2,9 +2,9 @@
 client_name = ""
 date = "2016-04-27"
 image = ""
-image_preview = ""
+image_preview = "bubbles.jpg"
 summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-tags = []
+tags = ["deep-learning"]
 title = "Deep Learning"
 external_link = ""
 

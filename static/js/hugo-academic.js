@@ -90,6 +90,26 @@
   });
 
   /* ---------------------------------------------------------------------------
+   * Filter projects.
+   * --------------------------------------------------------------------------- */
+
+  var $container = $('#container-projects');
+
+  // Initialize Isotope.
+  $container.isotope({
+    itemSelector: '.isotope-item',
+    layoutMode: 'masonry'
+  });
+
+  // Filter items when filter link is clicked.
+  $('#filters a').click(function () {
+    var selector = $(this).attr('data-filter');
+    $container.isotope({filter: selector});
+    $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
+    return false;
+  });
+
+  /* ---------------------------------------------------------------------------
    * On window load.
    * --------------------------------------------------------------------------- */
 
