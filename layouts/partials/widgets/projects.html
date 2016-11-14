@@ -56,15 +56,19 @@
         <div id="container-projects" class="row isotope">
 
           {{ range $project := where $.Data.Pages "Type" "project" }}
+          {{ $.Scratch.Set "project_url" $project.Permalink }}
+          {{ if $project.Params.external_link }}
+          {{   $.Scratch.Set "project_url" $project.Params.external_link }}
+          {{ end }}
           <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit .Params.tags " " }}">
             <div class="card">
               {{ with $project.Params.image_preview }}
-              <a href="{{ $project.Permalink }}" title="" class="card-image hover-overlay">
+              <a href="{{ $.Scratch.Get "project_url" }}" title="" class="card-image hover-overlay">
                 <img src="{{ "/img/" | relURL }}{{ . }}" alt="" class="img-responsive">
               </a>
               {{ end }}
               <div class="card-text">
-                <h4><a href="{{ $project.Permalink }}">{{ .Title }}</a></h4>
+                <h4><a href="{{ $.Scratch.Get "project_url" }}">{{ .Title }}</a></h4>
                 <div class="card-desription">
                   {{ with $project.Params.summary }}<p>{{ . }}</p>{{ end }}
                 </div>
