@@ -772,7 +772,7 @@ footer a#back_to_top i {
 }
 
 /* Prevent navbar hiding initial content when jumping to in-page anchor. */
-*[id]:before {
+*[id]:not([id^="fn"]):before {
   display: block;
   content: " ";
   margin-top: -70px;
@@ -828,7 +828,7 @@ nav#navbar-main li {
   }
 
   /* Prevent navbar hiding initial content when jumping to in-page anchor. */
-  *[id]:before {
+  *[id]:not([id^="fn"]):before {
     margin-top: -50px;
     height: 50px;
   }

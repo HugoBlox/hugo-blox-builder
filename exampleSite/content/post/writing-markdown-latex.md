@@ -70,6 +70,15 @@ I :heart: Academic :smile:
 
 > This is a blockquote.
 
+## Footnotes
+
+    I have more [^1] to say.
+    
+    [^1]: Footnote example.
+
+I have more [^1] to say.
+[^1]: Footnote example.
+
 ## Code highlighting
 
 Pass the *language* of the code, such as `python`, as a parameter after three backticks:
