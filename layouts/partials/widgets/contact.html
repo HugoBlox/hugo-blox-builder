@@ -3,57 +3,51 @@
 {{ $autolink := default true $page.Params.autolink }}
 
 <!-- Contact widget -->
-<section id="contact" class="home-section">
-  <div class="container">
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    <div class="row">
-      <div class="col-xs-12 col-md-4 section-heading">
-        <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-      </div>
-      <div class="col-xs-12 col-md-8">
-        {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+    <ul class="fa-ul">
 
-        <ul class="fa-ul">
+      {{ with $.Site.Params.email }}
+      <li>
+        <i class="fa-li fa fa-envelope fa-2x" aria-hidden="true"></i>
+        <span>
+        {{- if $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+        </span>
+      </li>
+      {{ end }}
 
-          {{ with $.Site.Params.email }}
-          <li>
-            <i class="fa-li fa fa-envelope fa-2x" aria-hidden="true"></i>
-            <span>
-            {{- if $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
-            </span>
-          </li>
-          {{ end }}
+      {{ with $.Site.Params.keybase }}
+      <li>
+        <i class="fa-li fa fa-lock fa-2x" aria-hidden="true"></i>
+        <span>
+          <a href="https://keybase.io/{{ . }}" target="_blank">@{{ . }}</a> on Keybase.
+        </span>
+      </li>
+      {{ end }}
 
-          {{ with $.Site.Params.keybase }}
-          <li>
-            <i class="fa-li fa fa-lock fa-2x" aria-hidden="true"></i>
-            <span>
-              <a href="https://keybase.io/{{ . }}" target="_blank">@{{ . }}</a> on Keybase.
-            </span>
-          </li>
-          {{ end }}
+      {{ with $.Site.Params.phone }}
+      <li>
+        <i class="fa-li fa fa-phone fa-2x" aria-hidden="true"></i>
+        <span>
+        {{- if $autolink }}<a href="tel:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+        </span>
+      </li>
+      {{ end }}
 
-          {{ with $.Site.Params.phone }}
-          <li>
-            <i class="fa-li fa fa-phone fa-2x" aria-hidden="true"></i>
-            <span>
-            {{- if $autolink }}<a href="tel:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
-            </span>
-          </li>
-          {{ end }}
+      {{ with $.Site.Params.address }}
+      <li>
+        <i class="fa-li fa fa-map-marker fa-2x" aria-hidden="true"></i>
+        <span>{{ . }}</span>
+      </li>
+      {{ end }}
 
-          {{ with $.Site.Params.address }}
-          <li>
-            <i class="fa-li fa fa-map-marker fa-2x" aria-hidden="true"></i>
-            <span>{{ . }}</span>
-          </li>
-          {{ end }}
-
-        </ul>
-
-      </div>
-    </div>
+    </ul>
 
   </div>
-</section>
+</div>

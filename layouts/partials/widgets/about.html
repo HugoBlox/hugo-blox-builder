@@ -1,80 +1,70 @@
 {{ $ := .root }}
 {{ $page := .page }}
 
-<!-- About/Biography widget -->
-<section id="bio" class="home-section">
-  <div class="container">
+<!-- About widget -->
+<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <div class="col-xs-12 col-md-4">
+    <div id="profile">
 
-    <div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <div class="col-xs-12 col-md-4">
-        <div id="profile">
+      {{ with $.Site.Params.avatar }}
+      <div class="portrait" itemprop="image"
+           style="background-image: url('{{ "/img/" | relURL }}{{ . }}');">
+      </div>
+      {{ end }}
 
-          {{ with $.Site.Params.avatar }}
-          <div class="portrait" itemprop="image"
-               style="background-image: url('{{ "/img/" | relURL }}{{ . }}');">
-          </div>
-          {{ end }}
-
-          <div class="portrait-title">
-            <h2 itemprop="name">{{ $.Site.Params.name }}</h2>
-            <h3 itemprop="jobTitle">{{ $.Site.Params.role }}</h3>
-            {{ with $.Site.Params.organization }}<h3 itemprop="worksFor">{{ . }}</h3>{{ end }}
-          </div>
-
-          <ul class="social-icon" aria-hidden="true">
-            {{ range $.Site.Params.social }}
-            {{ $pack := or .icon_pack "fa" }}
-            <li>
-              <a href="{{ .link }}">
-                <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
-              </a>
-            </li>
-            {{ end }}
-          </ul>
-
-        </div>
+      <div class="portrait-title">
+        <h2 itemprop="name">{{ $.Site.Params.name }}</h2>
+        <h3 itemprop="jobTitle">{{ $.Site.Params.role }}</h3>
+        {{ with $.Site.Params.organization }}<h3 itemprop="worksFor">{{ . }}</h3>{{ end }}
       </div>
 
-      <div class="visible-sm visible-xs"></div>
+      <ul class="social-icon" aria-hidden="true">
+        {{ range $.Site.Params.social }}
+        {{ $pack := or .icon_pack "fa" }}
+        <li>
+          <a href="{{ .link }}">
+            <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
+          </a>
+        </li>
+        {{ end }}
+      </ul>
 
-      <div class="col-xs-12 col-md-8" itemprop="description">
-
-        {{ $page.Content }}
-
-        <div class="row">
-
-          {{ with $page.Params.interests }}
-          <div class="col-sm-5">
-            <h3>{{ .title | default "Interests" | markdownify }}</h3>
-            <ul class="ul-interests">
-              {{ range .interests }}
-              <li>{{ . }}</li>
-              {{ end }}
-            </ul>
-          </div>
-          {{ end }}
-
-          {{ with $page.Params.education }}
-          <div class="col-sm-7">
-            <h3>{{ .title | default "Education" | markdownify }}</h3>
-            <ul class="ul-edu fa-ul">
-              {{ range .courses }}
-              <li>
-                <i class="fa-li fa fa-graduation-cap"></i>
-                <div class="description">
-                  <p class="course">{{ .course }}{{ with .year }}, {{ . }}{{ end }}</p>
-                  <p class="institution">{{ .institution }}</p>
-                </div>
-              </li>
-              {{ end }}
-            </ul>
-          </div>
-          {{ end }}
-
-        </div>
-
-      </div>
     </div>
-
   </div>
-</section>
+  <div class="col-xs-12 col-md-8" itemprop="description">
+
+    {{ $page.Content }}
+
+    <div class="row">
+
+      {{ with $page.Params.interests }}
+      <div class="col-sm-5">
+        <h3>{{ .title | default "Interests" | markdownify }}</h3>
+        <ul class="ul-interests">
+          {{ range .interests }}
+          <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+      {{ with $page.Params.education }}
+      <div class="col-sm-7">
+        <h3>{{ .title | default "Education" | markdownify }}</h3>
+        <ul class="ul-edu fa-ul">
+          {{ range .courses }}
+          <li>
+            <i class="fa-li fa fa-graduation-cap"></i>
+            <div class="description">
+              <p class="course">{{ .course }}{{ with .year }}, {{ . }}{{ end }}</p>
+              <p class="institution">{{ .institution }}</p>
+            </div>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+    </div>
+  </div>
+</div>

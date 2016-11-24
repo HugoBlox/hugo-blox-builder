@@ -5,11 +5,14 @@
 <span id="homepage" style="display: none"></span>
 
 <!-- Widgets -->
-{{ $pubs_selected_len := len (where (where .Data.Pages "Type" "publication") ".Params.selected" true) }}
 {{ range $index, $page := where .Data.Pages "Type" "home" }}
-  {{ $params := dict "root" $ "page" $page "pubs_selected_len" $pubs_selected_len }}
+  {{ $params := dict "root" $ "page" $page }}
   {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
-  {{ partial $widget $params }}
+  <section id="{{ $page.File.BaseFileName }}" class="home-section">
+    <div class="container">
+      {{ partial $widget $params }}
+    </div>
+  </section>
 {{ end }}
 
 <!-- Page Footer -->

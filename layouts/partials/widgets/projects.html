@@ -1,89 +1,80 @@
 {{ $ := .root }}
 {{ $page := .page }}
 
-{{ $projects_len := len (where $.Data.Pages "Type" "project") }}
-{{ if gt $projects_len 0 }}
 <!-- Projects widget -->
-<section id="projects" class="home-section">
-  <div class="container">
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    <div class="row">
-      <div class="col-xs-12 col-md-4 section-heading">
-        <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-      </div>
-      <div class="col-xs-12 col-md-8">
-        {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
-
-        <div class="project-toolbar">
-          <div id="filters">
-            <div class="btn-toolbar">
-              <div class="btn-group">
-              {{ range $page.Params.filter }}
-                <a href="#" data-filter="{{ .tag }}" class="btn btn-primary btn-large{{ if eq .tag "*" }} active{{ end }}">{{ .name }}</a>
-              {{ end }}
-              </div>
-            </div>
+    <div class="project-toolbar">
+      <div id="filters">
+        <div class="btn-toolbar">
+          <div class="btn-group">
+          {{ range $page.Params.filter }}
+            <a href="#" data-filter="{{ .tag }}" class="btn btn-primary btn-large{{ if eq .tag "*" }} active{{ end }}">{{ .name }}</a>
+          {{ end }}
           </div>
         </div>
-
-        {{ if eq $page.Params.view 0 }}
-
-        <div id="container-projects" class="isotope">
-          <ul class="fa-ul" style="position: relative">
-
-            {{ range where $.Data.Pages "Type" "project" }}
-            <li class="project-item isotope-item {{ delimit .Params.tags " " }}">
-              <span class="project-title">
-              {{ if .Content }}
-              <a href="{{ .Permalink }}">
-              {{ else }}
-                {{ with .Params.external_link }}<a href="{{ . }}">{{ end }}
-              {{ end }}
-              <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
-              {{ .Title }}
-              {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
-              </span>
-              {{ with .Params.summary }}<p class="project-summary">{{ . }}</p>{{ end }}
-            </li>
-            {{ end }}
-
-          </ul>
-        </div>
-
-        {{ else }}
-
-        <div id="container-projects" class="row isotope">
-
-          {{ range $project := where $.Data.Pages "Type" "project" }}
-          {{ $.Scratch.Set "project_url" $project.Permalink }}
-          {{ if $project.Params.external_link }}
-          {{   $.Scratch.Set "project_url" $project.Params.external_link }}
-          {{ end }}
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit .Params.tags " " }}">
-            <div class="card">
-              {{ with $project.Params.image_preview }}
-              <a href="{{ $.Scratch.Get "project_url" }}" title="" class="card-image hover-overlay">
-                <img src="{{ "/img/" | relURL }}{{ . }}" alt="" class="img-responsive">
-              </a>
-              {{ end }}
-              <div class="card-text">
-                <h4><a href="{{ $.Scratch.Get "project_url" }}">{{ .Title }}</a></h4>
-                <div class="card-desription">
-                  {{ with $project.Params.summary }}<p>{{ . }}</p>{{ end }}
-                </div>
-              </div>
-            </div>
-          </div>
-          {{ end }}
-
-        </div>
-
-        {{ end }}
-
       </div>
     </div>
 
+    {{ if eq $page.Params.view 0 }}
+
+    <div id="container-projects" class="isotope">
+      <ul class="fa-ul" style="position: relative">
+
+        {{ range where $.Data.Pages "Type" "project" }}
+        <li class="project-item isotope-item {{ delimit .Params.tags " " }}">
+          <span class="project-title">
+          {{ if .Content }}
+          <a href="{{ .Permalink }}">
+          {{ else }}
+            {{ with .Params.external_link }}<a href="{{ . }}">{{ end }}
+          {{ end }}
+          <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
+          {{ .Title }}
+          {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
+          </span>
+          {{ with .Params.summary }}<p class="project-summary">{{ . }}</p>{{ end }}
+        </li>
+        {{ end }}
+
+      </ul>
+    </div>
+
+    {{ else }}
+
+    <div id="container-projects" class="row isotope">
+
+      {{ range $project := where $.Data.Pages "Type" "project" }}
+      {{ $.Scratch.Set "project_url" $project.Permalink }}
+      {{ if $project.Params.external_link }}
+      {{   $.Scratch.Set "project_url" $project.Params.external_link }}
+      {{ end }}
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit .Params.tags " " }}">
+        <div class="card">
+          {{ with $project.Params.image_preview }}
+          <a href="{{ $.Scratch.Get "project_url" }}" title="" class="card-image hover-overlay">
+            <img src="{{ "/img/" | relURL }}{{ . }}" alt="" class="img-responsive">
+          </a>
+          {{ end }}
+          <div class="card-text">
+            <h4><a href="{{ $.Scratch.Get "project_url" }}">{{ .Title }}</a></h4>
+            <div class="card-desription">
+              {{ with $project.Params.summary }}<p>{{ . }}</p>{{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+
+    </div>
+
+    {{ end }}
+
   </div>
-</section>
-{{ end }}
+</div>

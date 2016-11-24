@@ -1,42 +1,38 @@
 {{ $ := .root }}
 {{ $page := .page }}
-
 {{ $posts_len := len (where (where $.Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
-{{ if gt $posts_len 0 }}
+
 <!-- Blog Posts widget -->
-<section id="posts" class="home-section">
-  <div class="container">
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
 
-    <div class="row">
-      <div class="col-xs-12 col-md-4 section-heading">
-        <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-        {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-        {{ if gt $posts_len $page.Params.count }}
-        <p class="view-all">
-          <a href="{{ "/post/" | relURL }}">
-            {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
-            <i class="fa fa-angle-double-right"></i>
-          </a>
-        </p>
-        {{ end }}
-      </div>
-      <div class="col-xs-12 col-md-8">
-        {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ if gt $posts_len $page.Params.count }}
+    <p class="view-all">
+      <a href="{{ "/post/" | relURL }}">
+        {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </p>
+    {{ end }}
 
-        {{ if $page.Params.tags }}
-          {{ range first $page.Params.count (where (where (where $.Data.Pages "Type" "post") ".Params.tags" "intersect" $page.Params.tags) ".Params.notonhomepage" nil) }}
-            {{ $params := dict "post" . "page" $page }}
-            {{ partial "post_li" $params }}
-          {{ end }}
-        {{ else }}
-          {{ range first $page.Params.count (where (where $.Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
-            {{ $params := dict "post" . "page" $page }}
-            {{ partial "post_li" $params }}
-          {{ end }}
-        {{ end }}
-
-      </div>
-    </div>
   </div>
-</section>
-{{ end }}
+  <div class="col-xs-12 col-md-8">
+
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if $page.Params.tags }}
+      {{ range first $page.Params.count (where (where (where $.Data.Pages "Type" "post") ".Params.tags" "intersect" $page.Params.tags) ".Params.notonhomepage" nil) }}
+        {{ $params := dict "post" . "page" $page }}
+        {{ partial "post_li" $params }}
+      {{ end }}
+    {{ else }}
+      {{ range first $page.Params.count (where (where $.Data.Pages "Type" "post") ".Params.notonhomepage" nil) }}
+        {{ $params := dict "post" . "page" $page }}
+        {{ partial "post_li" $params }}
+      {{ end }}
+    {{ end }}
+
+  </div>
+</div>
