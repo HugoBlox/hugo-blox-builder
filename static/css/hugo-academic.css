@@ -534,8 +534,6 @@ article {
 }
 
 .isotope-item {
-  transition-property: transform, opacity;
-  transition-duration: 0.8s;
   z-index: 2;
 }
 
