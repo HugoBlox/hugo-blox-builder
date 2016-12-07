@@ -1,0 +1,35 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $talks_len := len (where $.Data.Pages "Type" "talk") }}
+
+<!-- Talks widget -->
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ if gt $talks_len $page.Params.count }}
+    <p class="view-all">
+      <a href="{{ $.Site.BaseURL }}talk/">
+        {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </p>
+    {{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if $page.Params.detailed_list }}
+    {{ range first $page.Params.count (where $.Data.Pages "Type" "talk") }}
+    {{ partial "talk_li_detailed" . }}
+    {{ end }}
+    {{ else }}
+    <ul class="fa-ul">
+      {{ range first $page.Params.count (where $.Data.Pages "Type" "talk") }}
+      {{ partial "talk_li_simple" . }}
+      {{ end }}
+    </ul>
+    {{ end }}
+
+  </div>
+</div>

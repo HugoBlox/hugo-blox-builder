@@ -1,0 +1,30 @@
+<div class="pub-list-item" itemscope itemtype="http://schema.org/CreativeWork">
+  <div class="row">
+
+      <h3 class="article-title" itemprop="name">
+        <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+      </h3>
+
+      <div class="talk-abstract" itemprop="text">
+        {{ if .Params.abstract_short }}
+        {{ .Params.abstract_short }}
+        {{ else }}
+        {{ .Params.abstract }}
+        {{ end }}
+      </div>
+
+      <div class="talk-event">
+        {{ if .Params.event }}
+          {{ .Params.event | markdownify }}
+        {{ else if .Params.event_short }}
+          {{ .Params.event_short | markdownify }}
+        {{ end }}
+      </div>
+
+      <div class="talk-links">
+        {{ partial "talk_links" (dict "content" . "is_list" 1) }}
+      </div>
+
+    </div>
+  </div>
+</div>
