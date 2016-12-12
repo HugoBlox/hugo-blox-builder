@@ -22,7 +22,7 @@
         {{ range $.Site.Params.social }}
         {{ $pack := or .icon_pack "fa" }}
         <li>
-          <a href="{{ .link }}">
+          <a href="{{ .link | safeURL }}">
             <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
           </a>
         </li>
