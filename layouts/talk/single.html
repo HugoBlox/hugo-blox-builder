@@ -6,13 +6,13 @@
     <div class="pub-title">
       <h1 itemprop="name">{{ .Title }}</h1>
       <span class="pub-authors" itemprop="author">
-                {{ with .Params.authors }}
-                {{ delimit . ", " }}
-                {{ end }}
-            </span>
+        {{ with .Params.authors }}
+        {{ delimit . ", " }}
+        {{ end }}
+      </span>
       <span class="pull-right">
-                {{ partial "share.html" . }}
-            </span>
+        {{ partial "share.html" . }}
+      </span>
     </div>
 
     {{ if .Params.image }}
