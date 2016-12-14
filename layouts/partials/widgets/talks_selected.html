@@ -1,0 +1,26 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<!-- Selected Talks widget -->
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if $page.Params.detailed_list }}
+    {{ range (where (where $.Data.Pages "Type" "talk") ".Params.selected" true) }}
+    {{ partial "talk_li_detailed" . }}
+    {{ end }}
+    {{ else }}
+    <ul class="fa-ul">
+      {{ range (where (where $.Data.Pages "Type" "talk") ".Params.selected" true) }}
+      {{ partial "talk_li_simple" . }}
+      {{ end }}
+    </ul>
+    {{ end }}
+
+  </div>
+</div>
