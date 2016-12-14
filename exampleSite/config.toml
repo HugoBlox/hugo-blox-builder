@@ -33,6 +33,45 @@ googleAnalytics = ""
   #   If false, you can enable it locally on a per page basis.
   math = false
 
+  # Highlight.js options
+  #   hljs
+  #     Enable global Highlight.js source code highlighting?  If
+  #     false, you can override it for a particular page in that
+  #     page's preamble.
+  #
+  #     Example: hljs = true
+  #
+  #   hljs_languages
+  #     Add support for highlighting additional languages. Support for
+  #     languages mentioned here will be included in all pages. You
+  #     can also set this variable for a particular page in that
+  #     page's preamble.
+  #
+  #     Example: hljs_languages = ["go", "lisp", "ocaml"]
+  #
+  #   hljs_style
+  #     Choose a different CSS style for highlighting source
+  #     code. Setting this option in a page's preamble has no
+  #     effect.
+  #
+  #     Example: hljs_style = "github-gist"
+  #
+  #   hljs_version
+  #     Choose the version of highlight.js you want. Setting this
+  #     option in a page's preamble has no effect.
+  #
+  #     Example: hljs_version = "9.3.0"
+  #
+  #   For the list of supported languages, styles, and versions, see:
+  #   https://cdnjs.com/libraries/highlight.js/
+  #
+  #   For more info on the hljs options, see:
+  #   https://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/#highlight-js-options
+  hljs = true
+  hljs_languages = []
+  # hljs_style = "github"
+  # hljs_version = "9.3.0"
+
   # Enable native social sharing buttons?
   sharing = true
 

@@ -1,5 +1,6 @@
 +++
 math = false
+hljs = true
 title = ""
 abstract = ""
 abstract_short = ""

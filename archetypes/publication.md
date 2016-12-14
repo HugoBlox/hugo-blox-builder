@@ -5,6 +5,7 @@ authors = [""]
 image = ""
 image_preview = ""
 math = false
+hljs = true
 publication = ""
 publication_short = ""
 selected = false
