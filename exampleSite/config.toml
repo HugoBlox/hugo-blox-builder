@@ -12,6 +12,8 @@ disqusShortname = ""
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = ""
 
+[blackfriday]
+  hrefTargetBlank = true
 
 [params]
   name = "Lena Smith"
