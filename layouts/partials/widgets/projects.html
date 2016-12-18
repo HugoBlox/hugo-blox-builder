@@ -39,7 +39,7 @@
           {{ .Title }}
           {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
           </span>
-          {{ with .Params.summary }}<p class="project-summary">{{ . }}</p>{{ end }}
+          {{ with .Params.summary }}<p class="project-summary">{{ . | markdownify }}</p>{{ end }}
         </li>
         {{ end }}
 
@@ -65,7 +65,7 @@
           <div class="card-text">
             <h4><a href="{{ $.Scratch.Get "project_url" }}">{{ .Title }}</a></h4>
             <div class="card-desription">
-              {{ with $project.Params.summary }}<p>{{ . }}</p>{{ end }}
+              {{ with $project.Params.summary }}<p>{{ . | markdownify }}</p>{{ end }}
             </div>
           </div>
         </div>
