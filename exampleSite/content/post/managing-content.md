@@ -6,48 +6,11 @@ title = "Managing content"
 math = false
 +++
 
-This is a brief guide to managing content with the Academic theme. Content can include homepage sections, publications, projects, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about [writing content with Markdown, LaTeX, and Shortcodes]({{< ref "post/writing-markdown-latex.md" >}}).<!--more-->
+This is a brief guide to managing content with the Academic theme. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about [writing content with Markdown, LaTeX, and Shortcodes]({{< ref "post/writing-markdown-latex.md" >}}).<!--more-->
 
 To enable LaTeX math rendering for a page, you should include `math = true` in the page's `+++` preamble, as demonstrated in the included example site. Otherwise, to enable math on the homepage or for all pages, you must globally set `math = true` in `config.toml`.
 
 To display an image in publication, post, or project page headers, you can include the `image = "my-image.jpg"` option in the page `+++` preamble. It is automatically assumed that the image is located in your `static/img/` folder. In the context of posts and projects, the image is intended to behave as a full width banner across the top of the article.
-
-## Homepage widgets
-
-The example site includes the following widgets which display as sections on the homepage:
-
-- About/biography
-- Selected publications
-- Recent publications
-- Recent news/blog posts
-- Projects
-- Custom widget (demonstrated with the *teaching* example)
-- Contact
-
-### Add a section to the homepage
-
-You can use the custom widget to create your own home page sections.
-
-Simply duplicate (copy/paste) and rename the example *teaching* file at `content/home/teaching.md`. Then edit the section title, weight (refer to *Ordering sections* below), and content as desired.
-
-You may also wish to add a navigation link to the top of the page that points to the new section. This can be achieved by adding something similar to the following lines to your `config.toml`, where the URL will consist of the first title word in lowercase:
-
-    [[menu.main]]
-        name = "Research"
-        url = "#research"
-        weight = 10
-
-### Remove a section from the homepage
-
-Note that homepage widgets for publications, projects and posts will automatically hide when there is no content of the respective type.
-
-Otherwise, if you do not require a particular widget, you can simply delete any associated files from the `content/home/` folder.
-
-To remove a navigation link from the top of the page, remove the associated `[[menu.main]]` entry in `config.toml`.
-
-### Ordering sections
-
-The order that the homepage sections are displayed in is defined by the `weight` parameter in each of the files in the `content/home/` directory. The sections are displayed in ascending order of their `weight`, so you can simply edit the `weight` parameters as desired.
 
 ## Create a publication
 
@@ -116,10 +79,17 @@ To create a project:
 
 Then edit the newly created file `content/project/my-project-name.md`. Either you can link the project to an external project website by setting the `external_link = "http://external-project.com"` variable at the top of the file, or you can add content (below the final `+++`) in order to render a project page on your website.
 
+## Create a talk
+
+To create a talk:
+
+    hugo new talk/my-talk-name.md
+
+Then edit the newly created file `content/talk/my-talk-name.md` with your full talk title and details. Note that many of the talk parameters are similar to the publication parameters.
 
 ## Removing content
 
-Generally, to remove content, simply delete the relevant file from your `content/post`, `content/publication`, `content/project`, or `content/home` folder.
+Generally, to remove content, simply delete the relevant file from your `content/post`, `content/publication`, `content/project`, or `content/talk` folder.
 
 ## View your updated site
 

@@ -14,12 +14,13 @@ The Academic theme enables you to easily create a beautifully simple academic or
 
 Key features:
 
-- Designed for personal and academic staff/student use
-- Customizable Biography, Publications, Projects, News/Blog, Teaching, and Contact widgets
-- Write in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
+- Designed for academic staff, students, or general personal use
+- Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, Contact, and Custom
+- Write in [Markdown]({{< ref "post/writing-markdown-latex.md" >}}) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
 - Academic linking (Scholar etc.), [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
+- Easy to customize
 
 ## Installation
 
@@ -69,17 +70,13 @@ The core parameters for the website can be edited in the `config.toml` configura
 
 Edit your biography in the *about* widget `content/home/about.md` that you copied across from the `themes/academic/exampleSite/` folder. The research interests and qualifications are stored as `interests` and `education` variables. The academic qualifications are defined as multiples of `[[education.courses]]` and can be created or deleted as necessary. It's possible to completely hide the interests and education lists by deleting their respective variables.
 
-### Customize homepage widgets
+### Customize the homepage
 
-Each widget is responsible for a section on the homepage and contains further parameters that can be edited as desired. The parameters can be found in the preamble/frontmatter (between the pair of `+++`) for each widget located in the `content/home/` folder.
-
-{{% alert note %}}
-By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` in `content/home/publications.md`.
-{{% /alert %}}
+Refer to our guide on using [widgets]({{< ref "post/widgets.md" >}}) to customize your homepage.
 
 ### Add your content
 
-Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}}) to create your own homepage sections, publications, blog posts, and projects.
+Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}}) to create your own publications, blog posts, talks, and projects.
 
 ### Remove unused widgets and pages
 
