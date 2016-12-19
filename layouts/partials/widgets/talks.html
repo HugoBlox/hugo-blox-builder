@@ -10,7 +10,7 @@
     {{ if gt $talks_len $page.Params.count }}
     <p class="view-all">
       <a href="{{ $.Site.BaseURL }}talk/">
-        {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
+        {{ i18n "more_talks" | markdownify }}
         <i class="fa fa-angle-double-right"></i>
       </a>
     </p>

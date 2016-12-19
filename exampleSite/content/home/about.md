@@ -11,7 +11,6 @@ weight = 0
 
 # List your academic interests.
 [interests]
-  title = "Interests"
   interests = [
     "Artificial Intelligence",
     "Computational Linguistics",
@@ -19,9 +18,6 @@ weight = 0
   ]
 
 # List your qualifications (such as academic degrees).
-[education]
-  title = "Education"
-
 [[education.courses]]
   course = "PhD in Artificial Intelligence"
   institution = "Stanford University"

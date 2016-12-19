@@ -39,7 +39,7 @@
 
       {{ with $page.Params.interests }}
       <div class="col-sm-5">
-        <h3>{{ .title | default "Interests" | markdownify }}</h3>
+        <h3>{{ i18n "interests" | markdownify }}</h3>
         <ul class="ul-interests">
           {{ range .interests }}
           <li>{{ . }}</li>
@@ -50,7 +50,7 @@
 
       {{ with $page.Params.education }}
       <div class="col-sm-7">
-        <h3>{{ .title | default "Education" | markdownify }}</h3>
+        <h3>{{ i18n "education" | markdownify }}</h3>
         <ul class="ul-edu fa-ul">
           {{ range .courses }}
           <li>

@@ -18,9 +18,5 @@ tags = []
 # Number of posts to list.
 count = 5
 
-# Links.
-str_all = "More Posts"
-str_read_more = "CONTINUE READING"
-
 +++
 

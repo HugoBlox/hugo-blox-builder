@@ -1,7 +1,6 @@
 baseurl = "https://example.com"
 title = "Academic Theme"
 copyright = "&copy; 2016 Your Name"
-languageCode = "en-us"
 theme = "academic"
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
@@ -11,6 +10,10 @@ disqusShortname = ""
 
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = ""
+
+# Default language to use (if you setup multilingual support)
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
 
 [blackfriday]
   hrefTargetBlank = true
@@ -119,3 +122,10 @@ googleAnalytics = ""
   name = "Contact"
   url = "#contact"
   weight = 6
+
+# Languages
+#   Create a [languages.X] block for each language you want, where X is the language ID.
+
+# Configure the English version of the website.
+[languages.en]
+  languageCode = "en-us"
