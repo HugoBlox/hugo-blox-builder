@@ -21,8 +21,10 @@ googleAnalytics = ""
   organization = "Stanford University"
   avatar = "portrait.jpg"
   email = "test@example.org"
-  address = "Stanford AI Lab, Stanford University, California, 90210, USA."
+  address = "Building 1 Room 1, Stanford University, California, 90210, USA"
+  office_hours = "Monday 10:00 to 13:00 or email for appointment"
   phone = "888 888 88 88"
+  skype = "echo123"
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
