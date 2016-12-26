@@ -1,5 +1,6 @@
 +++
-math = false
+date = "2016-12-22T00:00:00"
+math = true
 title = "Example Talk"
 abstract = ""
 abstract_short = ""
