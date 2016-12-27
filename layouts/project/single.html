@@ -10,7 +10,7 @@
     <h1 itemprop="name">{{ .Title }}</h1>
 
     {{ with .Params.external_link }}
-    <a class="btn btn-primary btn-outline" href="{{ . }}">{{ i18n "open_project_site" }}</a>
+    <a class="btn btn-primary btn-outline" href="{{ . }}" target="_blank">{{ i18n "open_project_site" }}</a>
     {{ end }}
 
     <div class="article-style" itemprop="articleBody">
