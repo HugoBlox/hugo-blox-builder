@@ -493,7 +493,7 @@ article {
 
 
 /*************************************************
- * Talks 
+ * Talks
  **************************************************/
 
 .talk-event {
@@ -823,6 +823,25 @@ nav#navbar-main li {
   padding-bottom: 10px;
 }
 
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #34495e;
+  white-space: nowrap;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:focus,
+.dropdown-menu > .active > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #0095eb;
+  outline: 0;
+}
+
 .navbar-default .navbar-brand {
   text-transform: uppercase;
   font-weight: bold;
@@ -863,12 +882,6 @@ nav#navbar-main li {
     display: block;
   }
 
-  .navbar-collapse {
-    background-color: rgba(0,0,0,0.1);
-    border-radius: 5px;
-    margin-bottom: 5px;
-  }
-
   .navbar-fixed-top {
     top: 0;
     border-width: 0 0 1px;
@@ -891,6 +904,45 @@ nav#navbar-main li {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: normal;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #34495e;
+    white-space: nowrap;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    padding: 5px 15px 5px 25px;
+    line-height: 20px;
+    color: #34495e;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
+    color: #0095eb;
+    background-color: transparent;
   }
 
   .collapse.in {

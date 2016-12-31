@@ -19,11 +19,35 @@
       <!-- Left Nav Bar -->
       <ul class="nav navbar-nav navbar-right">
         {{ range .Site.Menus.main }}
-        <li class="nav-item">
-          <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+
+        {{ if .HasChildren }}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
             {{ .Name }}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {{ range .Children }}
+            <li>
+              <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+                {{ .Pre }}
+                <span>{{ .Name }}</span>
+              </a>
+            </li>
+            {{end}}
+          </ul>
+        </li>
+
+        {{ else }}
+
+        <li>
+          <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+            {{ .Pre }}
+            <span>{{ .Name }}</span>
           </a>
         </li>
+
+        {{ end }}
         {{ end }}
       </ul>
 

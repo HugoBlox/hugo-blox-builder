@@ -95,6 +95,8 @@ It is possible to carry out many customizations without touching any files in `t
 
 The `[[menu.main]]` entries towards the bottom of `config.toml` define the navigation links at the top of the website. They can be added or removed as desired.
 
+To create a dropdown sub-menu, add `identifier = "something"` to the parent item and `parent = "something"` to the child item.
+
 ### Website icon
 
 Save your main icon and mobile icon as square PNG images named `icon.png` and `apple-touch-icon.png`, respectively. Place them in your root `static/img/` folder.
