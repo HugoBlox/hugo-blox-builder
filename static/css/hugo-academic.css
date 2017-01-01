@@ -26,7 +26,7 @@ html {
   color: rgba(0,0,0,0.8);
   line-height: 1.65;
 }
-@media screen and (min-width: 58rem) {
+@media screen and (min-width: 58em) {
   html {
     font-size: 20px;
   }
