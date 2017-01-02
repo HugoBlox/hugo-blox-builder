@@ -94,19 +94,20 @@
    * --------------------------------------------------------------------------- */
 
   var $container = $('#container-projects');
+  $container.imagesLoaded(function () {
+    // Initialize Isotope after all images have loaded.
+    $container.isotope({
+      itemSelector: '.isotope-item',
+      layoutMode: 'masonry'
+    });
 
-  // Initialize Isotope.
-  $container.isotope({
-    itemSelector: '.isotope-item',
-    layoutMode: 'masonry'
-  });
-
-  // Filter items when filter link is clicked.
-  $('#filters a').click(function () {
-    var selector = $(this).attr('data-filter');
-    $container.isotope({filter: selector});
-    $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
-    return false;
+    // Filter items when filter link is clicked.
+    $('#filters a').click(function () {
+     var selector = $(this).attr('data-filter');
+     $container.isotope({filter: selector});
+     $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
+     return false;
+     });
   });
 
   /* ---------------------------------------------------------------------------
