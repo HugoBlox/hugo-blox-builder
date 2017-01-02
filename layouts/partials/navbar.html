@@ -28,7 +28,7 @@
           </a>
           <ul class="dropdown-menu">
             {{ range .Children }}
-            <li>
+            <li class="nav-item">
               <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 {{ .Pre }}
                 <span>{{ .Name }}</span>
@@ -40,7 +40,7 @@
 
         {{ else }}
 
-        <li>
+        <li class="nav-item">
           <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
             {{ .Pre }}
             <span>{{ .Name }}</span>
