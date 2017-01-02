@@ -1,12 +1,12 @@
 <li itemscope itemtype="http://schema.org/CreativeWork">
-  <i class="fa-li fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-  <span itemprop="name">{{ .Title }}</span>
-  <div class="talk-event">
+  <i class="fa-li fa fa-comment-o pub-icon" aria-hidden="true"></i>
+  <span itemprop="name"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
+  <p>
+    {{ .Date.Format $.Site.Params.date_format }},
     {{ if .Params.event_short }}
         {{ .Params.event_short | markdownify }}
     {{ else if .Params.event }}
             {{ .Params.event | markdownify }}
     {{ end }}
-  </div>
-  <p>{{ partial "talk_links" (dict "content" . "is_list" 1) }}</p>
+  </p>
 </li>

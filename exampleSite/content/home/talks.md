@@ -1,11 +1,10 @@
 +++
-# Recent Talks widget.
-# Note: this widget will only display if `content/talk/` contains talks.
+# Recent and Upcoming Talks widget.
 
 date = "2016-04-20T00:00:00"
 draft = false
 
-title = "Recent Talks"
+title = "Recent & Upcoming Talks"
 subtitle = ""
 widget = "talks"
 

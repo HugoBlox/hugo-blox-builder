@@ -69,6 +69,9 @@
 - id: event
   translation: Event
 
+- id: location
+  translation: Location
+
 # Project details
 
 - id: open_project_site
