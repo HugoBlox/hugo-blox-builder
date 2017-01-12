@@ -403,6 +403,7 @@ article {
 }
 
 .article-metadata .article-date,
+.article-metadata .article-categories,
 .article-metadata .article-tags {
   margin-right: 10px;
 }
