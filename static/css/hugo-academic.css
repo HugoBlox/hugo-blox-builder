@@ -491,6 +491,11 @@ article {
   padding-top: 10px;
 }
 
+#container-publications {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
 
 /*************************************************
  * Talks

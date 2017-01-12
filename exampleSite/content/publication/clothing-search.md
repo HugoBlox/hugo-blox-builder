@@ -6,6 +6,7 @@ date = "2013-07-01"
 image = ""
 image_preview = ""
 math = true
+publication_types = ["1"]
 publication = "In *International Conference on Multimedia and Expo Workshops (ICMEW)*, IEEE."
 publication_short = "In *ICMEW*"
 selected = true

@@ -60,6 +60,9 @@
 - id: publication
   translation: Publication
 
+- id: publication_type
+  translation: Type
+
 - id: date
   translation: Date
 
@@ -71,6 +74,14 @@
 
 - id: location
   translation: Location
+
+# Filtering
+
+- id: filter_by_type
+  translation: Filter by type
+
+- id: filter_all
+  translation: All
 
 # Project details
 

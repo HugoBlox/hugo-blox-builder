@@ -5,31 +5,38 @@
     <div class="col-md-12">
       <h1>{{ i18n "publications" }}</h1>
 
-      {{ range .Data.Pages.GroupByDate "2006" }}
-      <div class="row" id="pub_list">
-        <div class="col-md-2">
-          <h3>{{ .Key }}</h3>
-        </div>
-        <div class="col-md-10">
-          <ul class="compact fa-ul">
+      <p>
+        {{ i18n "filter_by_type" }}:
+        <select class="pub-filters-select">
+          <option value="*">{{ i18n "filter_all" }}</option>
+          {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
+          <option value=".pubtype-{{ (int $index) }}">
+            {{ index $.Site.Params.publication_types (int $index) }}
+          </option>
+          {{ end }}
+        </select>
+      </p>
 
-            {{ range .Pages.ByDate.Reverse }}
-            <li>
-              <i class="fa-li fa fa-file-text-o" aria-hidden="true"
-                 style="color:#03396c;font-size:80%;padding-top:6px;"></i>
-              {{ .Title }}
-              <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
-            </li>
-            {{ end }}
+      <div id="container-publications">
+        {{ range .Pages.ByDate.Reverse }}
 
-          </ul>
+        {{ if .Params.publication_types }}
+          {{ $.Scratch.Set "pubtype" (index .Params.publication_types 0) }}
+        {{ else }}
+          {{ $.Scratch.Set "pubtype" 0 }}
+        {{ end }}
+
+        <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }}">
+          <i class="fa fa-file-text-o" aria-hidden="true"
+             style="color:#03396c;font-size:80%;padding-top:6px; padding-right: 10px;"></i>{{ .Title }}
+          <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
         </div>
+
+        {{ end }}
       </div>
-      {{ end }}
 
     </div>
   </div>
-
 </div>
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}
