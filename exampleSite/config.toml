@@ -1,7 +1,6 @@
 baseurl = "https://example.com"
 title = "Academic Theme"
 copyright = "&copy; 2016 Your Name"
-languageCode = "en-us"
 theme = "academic"
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
@@ -12,6 +11,12 @@ disqusShortname = ""
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = ""
 
+# Default language to use (if you setup multilingual support)
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[blackfriday]
+  hrefTargetBlank = true
 
 [params]
   name = "Lena Smith"
@@ -19,8 +24,11 @@ googleAnalytics = ""
   organization = "Stanford University"
   avatar = "portrait.jpg"
   email = "test@example.org"
-  address = "Stanford AI Lab, Stanford University, California, 90210, USA."
+  address = "Building 1 Room 1, Stanford University, California, 90210, USA"
+  office_hours = "Monday 10:00 to 13:00 or email for appointment"
   phone = "888 888 88 88"
+  skype = "echo123"
+  telegram = ""
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
@@ -80,6 +88,21 @@ googleAnalytics = ""
   custom_css = []
   custom_js  = []
 
+  # Publication types.
+  #   Used to categorize publications.
+  #   The index of the publication type in the list is used as its unique numerical identifier.
+  #   The numeric ID is used in a publication's frontmatter to categorize it.
+  #   The language can be edited below.
+  #   For multi-lingual sites, copy this block to each language section at the end of this file.
+  publication_types = [
+    'Uncategorized',  # 0
+    'Conference proceedings',  # 1
+    'Journal',  # 2
+    'Work in progress',  # 3
+    'Technical report',  # 4
+    'Book',  # 5
+    'Book chapter'  # 6
+  ]
 
   # Social/Academic Networking
   #
@@ -154,3 +177,16 @@ googleAnalytics = ""
   name = "Contact"
   url = "#contact"
   weight = 6
+
+# Taxonomies.
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  publication_type = "publication_types"
+
+# Languages
+#   Create a [languages.X] block for each language you want, where X is the language ID.
+
+# Configure the English version of the website.
+[languages.en]
+  languageCode = "en-us"

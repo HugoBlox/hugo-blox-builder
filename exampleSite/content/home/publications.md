@@ -18,8 +18,5 @@ count = 10
 # Show publication details (such as abstract)? (true/false)
 detailed_list = false
 
-# Link.
-str_all = "More Publications"
-
 +++
 

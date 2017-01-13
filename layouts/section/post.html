@@ -2,7 +2,7 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-  <h1>Posts</h1>
+  <h1>{{ i18n "posts" }}</h1>
 
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}

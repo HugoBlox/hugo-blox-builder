@@ -93,27 +93,80 @@
    * Filter projects.
    * --------------------------------------------------------------------------- */
 
-  var $container = $('#container-projects');
+  var $grid_projects = $('#container-projects');
+  $grid_projects.imagesLoaded(function () {
+    // Initialize Isotope after all images have loaded.
+    $grid_projects.isotope({
+      itemSelector: '.isotope-item',
+      layoutMode: 'masonry'
+    });
 
-  // Initialize Isotope.
-  $container.isotope({
+    // Filter items when filter link is clicked.
+    $('#filters a').click(function () {
+     var selector = $(this).attr('data-filter');
+      $grid_projects.isotope({filter: selector});
+     $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
+     return false;
+     });
+  });
+
+  /* ---------------------------------------------------------------------------
+   * Filter publications.
+   * --------------------------------------------------------------------------- */
+
+  var $grid_pubs = $('#container-publications');
+  $grid_pubs.isotope({
     itemSelector: '.isotope-item',
-    layoutMode: 'masonry'
+    percentPosition: true,
+    masonry: {
+      // Use Bootstrap compatible grid layout.
+      columnWidth: '.grid-sizer'
+    }
   });
 
-  // Filter items when filter link is clicked.
-  $('#filters a').click(function () {
-    var selector = $(this).attr('data-filter');
-    $container.isotope({filter: selector});
-    $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
-    return false;
+  // Bind publication filter on dropdown change.
+  $('.pub-filters-select').on( 'change', function() {
+    // Get filter value from option value.
+    var filterValue = this.value;
+    // Apply filter to Isotope.
+    $grid_pubs.isotope({ filter: filterValue });
+
+    // Set hash URL to current filter.
+    var url = $(this).val();
+    if (url.substr(0, 9) == '.pubtype-') {
+      window.location.hash = url.substr(9);
+    } else {
+      window.location.hash = '';
+    }
   });
+
+  // Filter publications according to hash in URL.
+  function filter_publications() {
+    var urlHash = window.location.hash.replace('#','');
+    var filterValue = '*';
+
+    // Check if hash is numeric.
+    if (urlHash != '' && !isNaN(urlHash)) {
+      filterValue = '.pubtype-' + urlHash;
+    }
+
+    $('.pub-filters-select').val(filterValue);
+    $grid_pubs.isotope({ filter: filterValue });
+  }
 
   /* ---------------------------------------------------------------------------
    * On window load.
    * --------------------------------------------------------------------------- */
 
   $(window).load(function(){
+
+    // When accessing publication index, enable filtering.
+    if ($('.pub-filters-select')) {
+      filter_publications();
+
+      // Useful for changing hash manually (e.g. in development):
+      // window.addEventListener('hashchange', filter_publications, false);
+    }
 
     // Enable smooth scrolling with mouse wheel
     smoothScroll(1.3, 220);

@@ -6,6 +6,7 @@ date = "2015-09-01"
 image = ""
 image_preview = ""
 math = true
+publication_types = ["2"]
 publication = "In *Signal Image Technology & Internet Systems (SITIS)*, IEEE."
 publication_short = ""
 selected = false

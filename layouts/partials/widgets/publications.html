@@ -10,7 +10,7 @@
     {{ if gt $pubs_len $page.Params.count }}
     <p class="view-all">
       <a href="{{ $.Site.BaseURL }}publication/">
-        {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
+        {{ i18n "more_publications" | markdownify }}
         <i class="fa fa-angle-double-right"></i>
       </a>
     </p>

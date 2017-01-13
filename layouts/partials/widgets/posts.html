@@ -11,7 +11,7 @@
     {{ if gt $posts_len $page.Params.count }}
     <p class="view-all">
       <a href="{{ "/post/" | relURL }}">
-        {{ with $page.Params.str_all }}{{ . | markdownify }}{{ end }}
+        {{ i18n "more_posts" | markdownify }}
         <i class="fa fa-angle-double-right"></i>
       </a>
     </p>

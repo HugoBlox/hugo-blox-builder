@@ -1,14 +1,14 @@
 # Hugo Academic
 
-A personal academic website theme for [Hugo](https://gohugo.io).
+A highly flexible personal website theme for [Hugo](https://gohugo.io).
 
 [![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/screenshot.png)](https://github.com/gcushen/hugo-academic/)
 
 Key features:
 
 - Designed for academic staff, students, or general personal use
-- Includes Biography, Publications, Projects, News/Blog, Teaching, and Contact widgets
-- Write in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
+- Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, Contact, and Custom
+- Write in [Markdown](http://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
 - Academic linking (Scholar etc.), [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design

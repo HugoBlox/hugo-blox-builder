@@ -5,7 +5,7 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
               data-target=".navbar-collapse" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">{{ i18n "toggle_navigation" }}</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -19,11 +19,35 @@
       <!-- Left Nav Bar -->
       <ul class="nav navbar-nav navbar-right">
         {{ range .Site.Menus.main }}
+
+        {{ if .HasChildren }}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+            {{ .Name }}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            {{ range .Children }}
+            <li class="nav-item">
+              <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+                {{ .Pre }}
+                <span>{{ .Name }}</span>
+              </a>
+            </li>
+            {{end}}
+          </ul>
+        </li>
+
+        {{ else }}
+
         <li class="nav-item">
           <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
-            {{ .Name }}
+            {{ .Pre }}
+            <span>{{ .Name }}</span>
           </a>
         </li>
+
+        {{ end }}
         {{ end }}
       </ul>
 
