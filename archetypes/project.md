@@ -19,5 +19,5 @@ external_link = ""
 math = false
 
 # Does the project detail page use source code highlighting?
-hljs = true
+highlight = true
 +++

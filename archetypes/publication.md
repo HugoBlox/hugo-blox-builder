@@ -26,7 +26,7 @@ abstract_short = ""
 math = false
 
 # Does this page require source code highlighting? (true/false)
-hljs = true
+highlight = true
 
 # Featured image (optional)
 image = ""

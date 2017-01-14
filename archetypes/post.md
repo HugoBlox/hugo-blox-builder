@@ -1,6 +1,6 @@
 +++
 image = ""
 math = false
-hljs = true
+highlight = true
 tags = []
 +++

@@ -10,17 +10,17 @@
   {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
   {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
 
-  {{/* Default to enabling hljs, but allow the user to override it in .Params or .Site.Params. Use
-       $.Scratch to store "hljs_enabled", so that we can read it again in footer.html. */}}
-  {{ $.Scratch.Set "hljs_enabled" true }}
-  {{ if isset .Params "hljs" }}
-    {{ $.Scratch.Set "hljs_enabled" .Params.hljs }}
-  {{ else if isset .Site.Params "hljs" }}
-    {{ $.Scratch.Set "hljs_enabled" .Site.Params.hljs }}
+  {{/* Default to enabling highlighting, but allow the user to override it in .Params or .Site.Params.
+       Use $.Scratch to store "highlight_enabled", so that we can read it again in footer.html. */}}
+  {{ $.Scratch.Set "highlight_enabled" true }}
+  {{ if isset .Params "highlight" }}
+    {{ $.Scratch.Set "highlight_enabled" .Params.highlight }}
+  {{ else if isset .Site.Params "highlight" }}
+    {{ $.Scratch.Set "highlight_enabled" .Site.Params.highlight }}
   {{ end }}
-  {{ if $.Scratch.Get "hljs_enabled" }}
-    {{ $v := .Site.Params.hljs_version | default "9.3.0" }}
-    {{ with .Site.Params.hljs_style }}
+  {{ if $.Scratch.Get "highlight_enabled" }}
+    {{ $v := .Site.Params.highlight_version | default "9.9.0" }}
+    {{ with .Site.Params.highlight_style }}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
     {{ else }}
     <link rel="stylesheet" href="{{ "/css/highlight.min.css" | relURL }}">
