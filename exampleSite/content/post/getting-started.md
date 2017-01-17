@@ -14,12 +14,13 @@ The Academic theme enables you to easily create a beautifully simple academic or
 
 Key features:
 
-- Designed for personal and academic staff/student use
-- Customizable Biography, Publications, Projects, News/Blog, Teaching, and Contact widgets
-- Write in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
+- Designed for academic staff, students, or general personal use
+- Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, Contact, and Custom
+- Write in [Markdown]({{< ref "post/writing-markdown-latex.md" >}}) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
 - Academic linking (Scholar etc.), [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
+- Easy to customize
 
 ## Installation
 
@@ -69,17 +70,13 @@ The core parameters for the website can be edited in the `config.toml` configura
 
 Edit your biography in the *about* widget `content/home/about.md` that you copied across from the `themes/academic/exampleSite/` folder. The research interests and qualifications are stored as `interests` and `education` variables. The academic qualifications are defined as multiples of `[[education.courses]]` and can be created or deleted as necessary. It's possible to completely hide the interests and education lists by deleting their respective variables.
 
-### Customize homepage widgets
+### Customize the homepage
 
-Each widget is responsible for a section on the homepage and contains further parameters that can be edited as desired. The parameters can be found in the preamble/frontmatter (between the pair of `+++`) for each widget located in the `content/home/` folder.
-
-{{% alert note %}}
-By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` in `content/home/publications.md`.
-{{% /alert %}}
+Refer to our guide on using [widgets]({{< ref "post/widgets.md" >}}) to customize your homepage.
 
 ### Add your content
 
-Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}}) to create your own homepage sections, publications, blog posts, and projects.
+Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}}) to create your own publications, blog posts, talks, and projects.
 
 ### Remove unused widgets and pages
 
@@ -97,6 +94,8 @@ It is possible to carry out many customizations without touching any files in `t
 ### Navigation menu
 
 The `[[menu.main]]` entries towards the bottom of `config.toml` define the navigation links at the top of the website. They can be added or removed as desired.
+
+To create a dropdown sub-menu, add `identifier = "something"` to the parent item and `parent = "something"` to the child item.
 
 ### Website icon
 
@@ -117,6 +116,20 @@ To enable [Google Analytics](http://www.google.com/analytics), add your tracking
 To add a third party script, create a file named `head_custom.html` in a `layouts/partials/` folder at the root of your website (not in the `themes` folder). Any HTML code added to this file will be included within your website's `<head>`. Therefore, it's suitable for adding custom metadata or third party scripts specified with the *async* attribute.
 
 Whereas for your own local scripts, you can link your local JS assets (relative to your root `static/js`) from your `config.toml` using `custom_js  = ["custom.js"]`.
+
+### Language and translation
+
+The interface text (e.g. buttons) is stored in language files which are collected from Academic's `themes/academic/i18n/` folder, as well as an `i18n/` folder at the root of your project.
+
+To edit the interface text, copy `themes/academic/i18n/en.yaml` to `i18n/en.yaml` (relative to the root of your website). Open the new file and make any desired changes to the text appearing after `translation:`. Note that the language files are formatted in YAML syntax.
+
+To translate the interface text to another language, follow the above instructions, but name the new file in the form `i18n/X.yaml` where `X` is the appropriate [ISO/RFC5646 language identifier](http://www.w3schools.com/tags/ref_language_codes.asp) for the translation. Then follow the brief instructions in the *Language* section at the bottom of your `config.toml`. To change the default language used by Academic, set `defaultContentLanguage` to the desired language identifier in your configuration file.
+
+To translate the navigation bar, you can edit the default `[[menu.main]]` instances in `config.toml`. However, for a multilingual site, you will need to duplicate all of the `[[menu.main]]` instances and rename the new instances from `[[menu.main]]` to `[[languages.X.menu.main]]`, where `X` is the language identifier (e.g. `[[languages.zh.menu.main]]` for Simplified Chinese). Thus, the navigation bar can be displayed in multiple languages.
+
+To translate a content file in your `content/` folder into another language, copy the file to `filename.X.md` where `filename` is your existing filename and `X` is the appropriate [ISO/RFC5646 language identifier](http://www.w3schools.com/tags/ref_language_codes.asp) for the translation. Then translate the content in the new file to the specified language.
+
+For further details on Hugo's internationalization and multilingual features, refer to the [associated Hugo documentation](https://gohugo.io/content/multilingual/).
 
 ### Permalinks
 

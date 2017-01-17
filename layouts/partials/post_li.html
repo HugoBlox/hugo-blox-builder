@@ -23,7 +23,7 @@
   </div>
   <p class="read-more">
     <a href="{{ $post.Permalink }}" class="btn btn-primary btn-outline">
-      {{ with $page.Params.str_read_more }}{{ . | markdownify }}{{ end }}
+      {{ i18n "continue_reading" }}
     </a>
   </p>
 </div>
