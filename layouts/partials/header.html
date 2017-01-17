@@ -10,7 +10,22 @@
   {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
   {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
 
-  <link rel="stylesheet" href="{{ "/css/highlight.min.css" | relURL }}">
+  {{/* Default to enabling highlighting, but allow the user to override it in .Params or .Site.Params.
+       Use $.Scratch to store "highlight_enabled", so that we can read it again in footer.html. */}}
+  {{ $.Scratch.Set "highlight_enabled" true }}
+  {{ if isset .Params "highlight" }}
+    {{ $.Scratch.Set "highlight_enabled" .Params.highlight }}
+  {{ else if isset .Site.Params "highlight" }}
+    {{ $.Scratch.Set "highlight_enabled" .Site.Params.highlight }}
+  {{ end }}
+  {{ if $.Scratch.Get "highlight_enabled" }}
+    {{ $v := .Site.Params.highlight_version | default "9.9.0" }}
+    {{ with .Site.Params.highlight_style }}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
+    {{ else }}
+    <link rel="stylesheet" href="{{ "/css/highlight.min.css" | relURL }}">
+    {{ end }}
+  {{ end }}
   <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | relURL }}">
   <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | relURL }}">
   <link rel="stylesheet" href="{{ "/css/academicons.min.css" | relURL }}">

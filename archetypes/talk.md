@@ -1,5 +1,6 @@
 +++
 math = false
+highlight = true
 title = ""
 abstract = ""
 abstract_short = ""

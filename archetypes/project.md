@@ -17,5 +17,7 @@ external_link = ""
 
 # Does the project detail page use math formatting?
 math = false
-  
+
+# Does the project detail page use source code highlighting?
+highlight = true
 +++

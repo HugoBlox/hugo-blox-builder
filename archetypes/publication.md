@@ -25,6 +25,9 @@ abstract_short = ""
 # Does this page contain LaTeX math? (true/false)
 math = false
 
+# Does this page require source code highlighting? (true/false)
+highlight = true
+
 # Featured image (optional)
 image = ""
 

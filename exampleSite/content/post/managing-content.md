@@ -10,6 +10,8 @@ This is a brief guide to managing content with the Academic theme. Content can i
 
 To enable LaTeX math rendering for a page, you should include `math = true` in the page's `+++` preamble, as demonstrated in the included example site. Otherwise, to enable math on the homepage or for all pages, you must globally set `math = true` in `config.toml`.
 
+To disable source code highlighting by default for all pages, set `highlight = false` in `config.toml`. You can then enable source code highlighting only on pages that need it by setting `highlight = true` in that page's preamble. See the [code-highlighting docs]({{< ref "post/writing-markdown-latex.md#code-highlighting" >}}) for more details.
+
 To display an image in publication, post, or project page headers, you can include the `image = "my-image.jpg"` option in the page `+++` preamble. It is automatically assumed that the image is located in your `static/img/` folder. In the context of posts and projects, the image is intended to behave as a full width banner across the top of the article.
 
 ## Create a publication

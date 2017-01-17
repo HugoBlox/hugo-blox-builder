@@ -96,6 +96,65 @@ input_string_var = input("Enter some data: ")
 print("You entered: {}".format(input_string_var))
 ```
 
+### Highlighting options
+
+The Academic theme uses [highlight.js](https://highlightjs.org) for source code highlighting, and highlighting is enabled by default for all pages. However, several configuration options are supported that allow finer-grained control over highlight.js.
+
+The following table lists the supported options for configuring highlight.js, along with their expected type and a short description. A "yes" in the **config.toml** column means the value can be set globally in `config.toml`, and a "yes" in the **preamble** column means that the value can be set locally in a particular page's preamble.
+
+option                | type    | description                     | config.toml | preamble
+----------------------|---------|---------------------------------|-------------|---------
+`highlight`           | boolean | enable/disable highlighting     | yes         | yes
+`highlight_languages` | slice   | choose additional languages     | yes         | yes
+`highlight_style`     | string  | choose a highlighting style     | yes         | no
+`highlight_version`   | string  | choose the highlight.js version | yes         | no
+
+
+#### Option `highlight`
+
+The `highlight` option allows enabling or disabling the inclusion of highlight.js, either globally or for a particular page. If the option is unset, it has the same effect as if you had specified `highlight = true`. That is, the highlight.js javascript and css files will be included in every page. If you'd like to only include highlight.js files on pages that actually require source code highlighting, you can set `highlight = false` in `config.toml`, and then override it by setting `highlight = true` in the preamble of any pages that require source code highlighting. Conversely, you could enable highlighting globally, and disable it locally for pages that do not require it. Here is a table that shows whether highlighting will be enabled for a page, based on the values of `highlight` set in `config.toml` and/or the page's preamble.
+
+config.toml   | page preamble  | highlighting enabled for page?
+--------------|----------------|-------------------------------
+unset or true | unset or true  | yes
+unset or true | false          | no
+false         | unset or false | no
+false         | true           | yes
+
+#### Option `highlight_languages`
+
+The `highlight_languages` option allows you to specify additional languages that are supported by highlight.js, but are not considered "common" and therefore are not supported by default. For example, if you want source code highlighting for Go and clojure in all pages, set `highlight_languages = ["go", "clojure"]` in `config.toml`. If, on the other hand, you want to enable a language only for a specific page, you can set `highlight_languages` in that page's preamble.
+
+The `highlight_languages` options specified in `config.toml` and in a page's preamble are additive. That is, if `config.toml` contains, `highlight_languages = ["go"]` and the page's preamble contains `highlight_languages = ["ocaml"]`, then javascript files for *both* go and ocaml will be included for that page.
+
+If the `highlight_languages` option is set, then the corresponding javascript files will be served from the [cdnjs server](https://cdnjs.com/libraries/highlight.js/). To see a list of available languages, visit the [cdnjs page](https://cdnjs.com/libraries/highlight.js/) and search for links with the word "languages".
+
+The `highlight_languages` option provides an easy and convenient way to include support for additional languages to be severed from a CDN. If serving unmodified files from cdnjs doesn't meet your needs, you can include javascript files for additional language support via one of the methods described in the [getting started guide]({{< ref "post/getting-started.md#third-party-and-local-scripts-js" >}}).
+
+#### Option `highlight_style`
+
+The `highlight_style` option allows you to select an alternate css style for highlighted code. For example, if you wanted to use the solarized-dark style, you could set `highlight_style = "solarized-dark"` in `config.toml`.
+
+If the `highlight_style` option is unset, the default is to use the file `/css/highlight.min.css`, either the one provided by the Academic theme, or else the one in your local `static` directory.  The `/css/highlight.min.css` file provided by Academic is equivalent to the `github` style from highlight.js.
+
+If the `highlight_style` option *is* set, then `/css/highlight.min.css` is ignored, and the corresponding css file will be served from the [cdnjs server](https://cdnjs.com/libraries/highlight.js/). To see a list of available styles, visit the [cdnjs page](https://cdnjs.com/libraries/highlight.js/) and search for links with the word "styles".
+
+See the [highlight.js demo page](https://highlightjs.org/static/demo/) for examples of available styles.
+
+{{% alert note %}}
+Not all styles listed on the [highlight.js demo page](https://highlightjs.org/static/demo/) are available from the [cdnjs server](https://cdnjs.com/libraries/highlight.js/). If you want to use a style that is not served by cdnjs, just leave `highlight_style` unset, and place the corresponding css file in `/static/css/highlight.min.css`.
+{{% /alert %}}
+
+{{% alert note %}}
+If you don't want to change the default style that ships with Academic but you do want the style file served from the [cdnjs server](https://cdnjs.com/libraries/highlight.js/), set `highlight_style = "github"` in `config.toml`.
+{{% /alert %}}
+
+The `highlight_style` option is only recognized when set in `config.toml`. Setting `highlight_style` in your page's preamble has no effect.
+
+#### Option `highlight_version`
+
+The `highlight_version` option, as the name implies, allows you to select the version of highlight.js you want to use. The default value is "9.9.0". The `highlight_version` option is only recognized when set in `config.toml`. Setting `highlight_version` in your page's preamble has no effect.
+
 ## Twitter tweet
 
 To include a single tweet, pass the tweet’s ID from the tweet's URL as parameter to the shortcode:

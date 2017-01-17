@@ -32,8 +32,24 @@
     {{ end }}
 
     <!-- Code highlighting -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    {{ if $.Scratch.Get "highlight_enabled" }}
+      {{ $v := .Site.Params.highlight_version | default "9.9.0" }}
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/highlight.min.js"></script>
+
+      {{ range .Site.Params.highlight_languages }}
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
+      {{ end }}
+
+      {{ range .Params.highlight_languages }}
+      {{/* Do not double-include languages that are in both .Site.Params and .Params.
+           If Hugo ever grows a "union" function for set union, this range clause can be merged with the one above. */}}
+        {{ if not (in $.Site.Params.highlight_languages .) }}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
+        {{ end }}
+      {{ end }}
+
+      <script>hljs.initHighlightingOnLoad();</script>
+    {{ end }}
 
     <!-- LaTeX math rendering -->
     {{ if or .Params.math .Site.Params.math }}
