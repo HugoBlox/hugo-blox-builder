@@ -19,6 +19,7 @@ googleAnalytics = ""
   organization = "Stanford University"
   avatar = "portrait.jpg"
   email = "test@example.org"
+	pubkey = "85E3 8F69 046B 44C1 EC9F  B07B 76D7 8F05 00D0 26C4"
   address = "Stanford AI Lab, Stanford University, California, 90210, USA."
   phone = "888 888 88 88"
 
