@@ -3,7 +3,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>{{ i18n "publications" }}</h1>
+      <h1>{{ .Title | default "Publications" }}</h1>
+
+      {{ with .Content }}
+      <div class="article-style" itemprop="articleBody">{{ . }}</div>
+      {{ end }}
 
       <p>
         {{ i18n "filter_by_type" }}:

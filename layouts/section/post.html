@@ -2,7 +2,11 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-  <h1>{{ i18n "posts" }}</h1>
+  <h1>{{ .Title | default "Posts" }}</h1>
+
+  {{ with .Content }}
+  <div class="article-style" itemprop="articleBody">{{ . }}</div>
+  {{ end }}
 
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}

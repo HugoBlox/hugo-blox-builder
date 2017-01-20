@@ -3,7 +3,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>{{ i18n "talks" }}</h1>
+      <h1>{{ .Title | default "Talks" }}</h1>
+
+      {{ with .Content }}
+      <div class="article-style" itemprop="articleBody">{{ . }}</div>
+      {{ end }}
 
       {{ range .Data.Pages.GroupByDate "2006" }}
       <div class="row" id="talk_list">
@@ -15,7 +19,7 @@
 
             {{ range .Pages.ByDate.Reverse }}
             <li>
-              <i class="fa-li fa fa-file-text-o" aria-hidden="true"
+              <i class="fa-li fa fa-comment-o" aria-hidden="true"
                  style="color:#03396c;font-size:80%;padding-top:6px;"></i>
               {{ .Title }}
               <p>{{ partial "talk_links" (dict "content" . "is_list" 1) }}</p>
