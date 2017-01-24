@@ -2,36 +2,43 @@
 {{ partial "navbar.html" . }}
 <div class="container">
 
-  <h1>{{ .Title | default "Posts" }}</h1>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
 
-  {{ with .Content }}
-  <div class="article-style" itemprop="articleBody">{{ . }}</div>
-  {{ end }}
-
-  {{ $paginator := .Paginate .Data.Pages }}
-  {{ range $paginator.Pages }}
-  <div>
-    {{ if .Params.image }}
-    <a href="{{ .Permalink }}">
-      <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner">
-    </a>
-    {{end}}
-    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-    <div class="article-style"><p>
-      {{ if .Params.summary }}
-      {{ printf "%s" .Params.summary | markdownify }}
-      {{ else if .Truncated }}
-      {{ printf "%s" .Summary | markdownify }}
-      {{ else }}
-      {{ .Content }}
-      {{ end }}
-    </p></div>
-  </div>
-  {{ end }}
-
-  {{ partial "pagination" . }}
-
+          <h1>{{ .Title | default "Posts" }}</h1>
+        
+          {{ with .Content }}
+          <div class="article-style" itemprop="articleBody">{{ . }}</div>
+          {{ end }}
+        
+          {{ $paginator := .Paginate .Data.Pages }}
+          {{ range $paginator.Pages }}
+          <div>
+            {{ if .Params.image }}
+            <a href="{{ .Permalink }}">
+              <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner">
+            </a>
+            {{end}}
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
+            <div class="article-style"><p>
+              {{ if .Params.summary }}
+              {{ printf "%s" .Params.summary | markdownify }}
+              {{ else if .Truncated }}
+              {{ printf "%s" .Summary | markdownify }}
+              {{ else }}
+              {{ .Content }}
+              {{ end }}
+            </p></div>
+          </div>
+          {{ end }}
+        
+          {{ partial "pagination" . }}
+        
+        </div>
+    </div>
+    
 </div>
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}
+
