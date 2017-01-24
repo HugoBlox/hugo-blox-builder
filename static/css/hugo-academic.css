@@ -785,15 +785,6 @@ footer a#back_to_top i {
   min-height: 70px !important;
 }
 
-/* Prevent navbar hiding initial content when jumping to in-page anchor. */
-*[id]:not([id^="fn"]):before {
-  display: block;
-  content: " ";
-  margin-top: -70px;
-  height: 70px;
-  visibility: hidden;
-}
-
 .navbar-default {
   background: #fff;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11)
@@ -858,12 +849,6 @@ nav#navbar-main li {
 @media screen and (max-width: 1200px) {
   .navbar {
     min-height: 50px !important;
-  }
-
-  /* Prevent navbar hiding initial content when jumping to in-page anchor. */
-  *[id]:not([id^="fn"]):before {
-    margin-top: -50px;
-    height: 50px;
   }
 
   .navbar-brand,
