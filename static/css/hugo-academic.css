@@ -177,6 +177,18 @@ blockquote p:last-child {
   }
 }
 
+.universal-wrapper {
+  margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+@media only screen and (min-width: 1001px) {
+  .universal-wrapper {
+    width: 1000px;
+  }
+}
+
 /*************************************************
  *  Home Sections
  **************************************************/
@@ -196,18 +208,22 @@ blockquote p:last-child {
   animation: intro 0.3s both;
   animation-delay: 0.15s;
 }
-@media screen and (max-width: 768px) {
-  .home-section {
-    padding: 60px 0 60px 0;
-  }
-}
 
 .home-section:first-of-type {
-  padding-top: 0;
+  padding-top: 50px;
 }
 
 .home-section:nth-of-type(even) {
   background-color: rgb(247, 247, 247);
+}
+
+@media screen and (max-width: 768px) {
+  .home-section {
+    padding: 60px 0 60px 0;
+  }
+  .home-section:first-of-type {
+    padding-top: 40px;
+  }
 }
 
 .section-heading h1 {
@@ -363,6 +379,12 @@ ul.share li:hover .fa {
 article {
   animation: intro 0.3s both;
   animation-delay: 0.15s;
+}
+
+.article-container {
+  max-width: 760px;
+  padding: 1rem 20px 0 20px;
+  margin: 0 auto 0 auto;
 }
 
 .article-title {
