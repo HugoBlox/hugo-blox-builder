@@ -1,0 +1,89 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Zur Navigation
+
+# Buttons
+
+- id: btn_details
+  translation: Details
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_slides
+  translation: Folien
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Datensatz
+
+- id: btn_project
+  translation: Projekt
+
+# About widget
+
+- id: interests
+  translation: Interessen
+
+- id: education
+  translation: Ausbildung
+
+# Publications widget
+
+- id: more_publications
+  translation: Weitere Publikationen
+
+# Posts widget
+
+- id: continue_reading
+  translation: WEITERLESEN
+
+- id: more_posts
+  translation: Weitere Blogeinträge
+
+# Talks widget
+
+- id: more_talks
+  translation: Weitere Vorträge
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Zusammenfassung
+
+- id: publication
+  translation: Publikation
+
+- id: publication_type
+  translation: Typ
+
+- id: date
+  translation: Datum
+
+- id: links
+  translation: Links
+
+- id: event
+  translation: Veranstaltung
+
+- id: location
+  translation: Ort
+
+# Filtering
+
+- id: filter_by_type
+  translation: Filter nach Typ
+
+- id: filter_all
+  translation: Alle
+
+# Project details
+
+- id: open_project_site
+  translation: Zur Projektseite
