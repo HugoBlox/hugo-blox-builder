@@ -1,5 +1,5 @@
 baseurl = "https://example.com"
-title = "Academic Theme"
+title = "Academic"
 copyright = "&copy; 2016 Your Name"
 theme = "academic"
 enableEmoji = true
@@ -22,6 +22,7 @@ defaultContentLanguageInSubdir = false
   name = "Lena Smith"
   role = "Professor of Artificial Intelligence"
   organization = "Stanford University"
+  organization_url = ""
   avatar = "portrait.jpg"
   email = "test@example.org"
   address = "Building 1 Room 1, Stanford University, California, 90210, USA"
