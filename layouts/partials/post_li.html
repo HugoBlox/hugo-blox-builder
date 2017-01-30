@@ -2,11 +2,13 @@
 {{ $page := .page }}
 
 <div class="article-list-item" itemscope itemprop="blogPost">
-  {{ if $post.Params.image }}
-  <a href="{{ $post.Permalink }}">
-    <img src="{{ "/img/" | relURL }}{{ $post.Params.image }}" class="article-banner"
-    itemprop="image">
-  </a>
+  {{ if $post.Params.hide_banner_in_list }}
+  
+  {{ else if $post.Params.image }}
+    <a href="{{ $post.Permalink }}">
+      <img src="{{ "/img/" | relURL }}{{ $post.Params.image }}" class="article-banner"
+      itemprop="image">
+    </a>
   {{end}}
   <h3 class="article-title" itemprop="name">
     <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
@@ -14,11 +16,11 @@
   {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
   <div class="article-style" itemprop="articleBody">
     {{ if $post.Params.summary }}
-    <p>{{ printf "%s" $post.Params.summary | markdownify }}</p>
+      <p>{{ printf "%s" $post.Params.summary | markdownify }}</p>
     {{ else if $post.Truncated }}
-    {{ $post.Summary }}
+      {{ $post.Summary }}
     {{ else }}
-    {{ $post.Content }}
+      {{ $post.Content }}
     {{ end }}
   </div>
   <p class="read-more">
