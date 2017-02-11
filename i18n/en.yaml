@@ -87,3 +87,14 @@
 
 - id: open_project_site
   translation: Go to Project Site
+
+# Default node titles
+
+- id: posts
+  translation: Posts
+
+- id: publications
+  translation: Publications
+
+- id: talks
+  translation: Talks

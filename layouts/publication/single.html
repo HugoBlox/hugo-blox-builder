@@ -1,8 +1,15 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-<div class="container pub" itemscope itemtype="http://schema.org/CreativeWork">
+<div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
 
-  <div class="pub-title">
+  {{ if .Params.header.image }}
+  <div class="article-header">
+    <img src="{{ "/img/" | relURL }}/{{ .Params.header.image }}" class="article-banner" itemprop="image">
+    {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+  </div>
+  {{end}}
+
+  <div class="container pub-title">
     <h1 itemprop="name">{{ .Title }}</h1>
     <span class="pub-authors" itemprop="author">
       {{ with .Params.authors }}
@@ -18,7 +25,7 @@
 <div class="article-container">
 
   {{ if .Params.image }}
-  <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image">
+  <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="pub-banner" itemprop="image">
   {{end}}
 
   <h3>{{ i18n "abstract" }}</h3>

@@ -28,9 +28,6 @@ math = false
 # Does this page require source code highlighting? (true/false)
 highlight = true
 
-# Featured image (optional)
-image = ""
-
 # Featured image thumbnail (optional)
 image_preview = ""
 
@@ -44,5 +41,10 @@ url_dataset = ""
 url_project = ""
 url_slides = ""
 url_video = ""
+
+# Optional featured image (relative to `static/img/` folder).
+[header]
+image = ""
+caption = ""
 
 +++

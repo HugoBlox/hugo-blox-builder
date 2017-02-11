@@ -1,11 +1,16 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-<div class="article-container">
 
-  <article class="article article-project" itemscope itemtype="http://schema.org/Article">
-    {{ if .Params.image }}
-    <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner" itemprop="image">
-    {{end}}
+<article class="article article-project" itemscope itemtype="http://schema.org/Article">
+
+  {{ if .Params.header.image }}
+  <div class="article-header">
+    <img src="{{ "/img/" | relURL }}/{{ .Params.header.image }}" class="article-banner" itemprop="image">
+    {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+  </div>
+  {{end}}
+
+  <div class="article-container">
 
     <div class="pub-title">
       <h1 itemprop="name">{{ .Title }}</h1>
@@ -22,9 +27,9 @@
     <div class="article-style" itemprop="articleBody">
       {{ .Content }}
     </div>
-  </article>
 
-</div>
+  </div>
+</article>
 
 <div class="container">
   {{ partial "section_pager.html" . }}

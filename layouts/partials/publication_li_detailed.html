@@ -5,17 +5,17 @@
 
     <div class="col-md-12">
       <a href="{{ .Permalink }}">
-        <img src="{{ $.Site.BaseURL }}img/{{ .Params.image_preview }}" class="pub-banner"
+        <img src="{{ "/img/" | relURL }}{{ .Params.image_preview }}" class="pub-banner"
              itemprop="image">
       </a>
     </div>
     <div class="col-md-12">
 
-    {{ else if .Params.image}}
+    {{ else if .Params.header.image}}
 
     <div class="col-md-12">
       <a href="{{ .Permalink }}">
-        <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="pub-banner" itemprop="image">
+        <img src="{{ "/img/" | relURL }}{{ .Params.header.image }}" class="pub-banner" itemprop="image">
       </a>
     </div>
     <div class="col-md-12">
