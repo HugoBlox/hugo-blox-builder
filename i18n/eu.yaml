@@ -1,0 +1,100 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Txandakatu nabigazioa
+
+# Buttons
+
+- id: btn_details
+  translation: Xehetasunak
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_slides
+  translation: Diapositibak
+
+- id: btn_video
+  translation: Bideoa
+
+- id: btn_code
+  translation: Kodea
+
+- id: btn_dataset
+  translation: Datu-sorta
+
+- id: btn_project
+  translation: Proiektua
+
+# About widget
+
+- id: interests
+  translation: Interesak
+
+- id: education
+  translation: Ikasketak
+
+# Publications widget
+
+- id: more_publications
+  translation: Argitalpen gehiago
+
+# Posts widget
+
+- id: continue_reading
+  translation: JARRAITU IRAKURTZEN
+
+- id: more_posts
+  translation: Bidalketa gehiago
+
+# Talks widget
+
+- id: more_talks
+  translation: Hitzaldi gehiago
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Laburpena
+
+- id: publication
+  translation: Non argitaratua
+
+- id: publication_type
+  translation: Mota
+
+- id: date
+  translation: Data
+
+- id: links
+  translation: Loturak
+
+- id: event
+  translation: Ekitaldia
+
+- id: location
+  translation: Kokalekua
+
+# Filtering
+
+- id: filter_by_type
+  translation: Iragazi motaren arabera
+
+- id: filter_all
+  translation: Denak
+
+# Project details
+
+- id: open_project_site
+  translation: Joan proiektuaren webgunera
+
+# Default node titles
+
+- id: posts
+  translation: Bidalketak
+
+- id: publications
+  translation: Argitalpenak
+
+- id: talks
+  translation: Hitzaldiak
