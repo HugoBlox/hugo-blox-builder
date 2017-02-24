@@ -11,9 +11,6 @@ summary = "An example of linking directly to an external project website using `
 # Optional image to display on homepage (relative to `static/img/` folder).
 image_preview = "boards.jpg"
 
-# Optional image to display on project detail page (relative to `static/img/` folder).
-image = ""
-
 # Tags: can be used for filtering projects.
 # Example: `tags = ["machine-learning", "deep-learning"]`
 tags = ["demo"]

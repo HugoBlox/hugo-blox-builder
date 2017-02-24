@@ -1,26 +1,32 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-<div class="container">
 
-  <article class="article" itemscope itemtype="http://schema.org/Article">
+<article class="article" itemscope itemtype="http://schema.org/Article">
 
-    {{ if .Params.image }}
-    <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner" itemprop="image">
-    {{end}}
+  {{ if .Params.header.image }}
+  <div class="article-header">
+    <img src="{{ "/img/" | relURL }}/{{ .Params.header.image }}" class="article-banner" itemprop="image">
+    {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+  </div>
+  {{end}}
 
+  <div class="article-container">
     <h1 itemprop="name">{{ .Title }}</h1>
-
     {{ partial "article_metadata" (dict "content" . "is_list" 0) }}
-
     <div class="article-style" itemprop="articleBody">
       {{ .Content }}
     </div>
+  </div>
 
-  </article>
+</article>
 
+<div class="container">
   {{ partial "section_pager.html" . }}
-  {{ partial "comments.html" . }}
-
 </div>
+
+<div class="article-container">
+  {{ partial "comments.html" . }}
+</div>
+
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}

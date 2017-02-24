@@ -8,7 +8,7 @@
 {{ range $index, $page := where .Data.Pages "Type" "home" }}
   {{ $params := dict "root" $ "page" $page }}
   {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
-  <section id="{{ $page.File.BaseFileName }}" class="home-section">
+  <section id="{{ $page.File.TranslationBaseName }}" class="home-section">
     <div class="container">
       {{ partial $widget $params }}
     </div>

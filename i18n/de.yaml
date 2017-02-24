@@ -1,7 +1,7 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Toggle navigation
+  translation: Zur Navigation
 
 # Buttons
 
@@ -12,7 +12,7 @@
   translation: PDF
 
 - id: btn_slides
-  translation: Slides
+  translation: Folien
 
 - id: btn_video
   translation: Video
@@ -21,80 +21,69 @@
   translation: Code
 
 - id: btn_dataset
-  translation: Dataset
+  translation: Datensatz
 
 - id: btn_project
-  translation: Project
+  translation: Projekt
 
 # About widget
 
 - id: interests
-  translation: Interests
+  translation: Interessen
 
 - id: education
-  translation: Education
+  translation: Ausbildung
 
 # Publications widget
 
 - id: more_publications
-  translation: More Publications
+  translation: Weitere Publikationen
 
 # Posts widget
 
 - id: continue_reading
-  translation: CONTINUE READING
+  translation: WEITERLESEN
 
 - id: more_posts
-  translation: More Posts
+  translation: Weitere Blogeinträge
 
 # Talks widget
 
 - id: more_talks
-  translation: More Talks
+  translation: Weitere Vorträge
 
 # Publication/Talk details
 
 - id: abstract
-  translation: Abstract
+  translation: Zusammenfassung
 
 - id: publication
-  translation: Publication
+  translation: Publikation
 
 - id: publication_type
-  translation: Type
+  translation: Typ
 
 - id: date
-  translation: Date
+  translation: Datum
 
 - id: links
   translation: Links
 
 - id: event
-  translation: Event
+  translation: Veranstaltung
 
 - id: location
-  translation: Location
+  translation: Ort
 
 # Filtering
 
 - id: filter_by_type
-  translation: Filter by type
+  translation: Filter nach Typ
 
 - id: filter_all
-  translation: All
+  translation: Alle
 
 # Project details
 
 - id: open_project_site
-  translation: Go to Project Site
-
-# Default node titles
-
-- id: posts
-  translation: Posts
-
-- id: publications
-  translation: Publications
-
-- id: talks
-  translation: Talks
+  translation: Zur Projektseite

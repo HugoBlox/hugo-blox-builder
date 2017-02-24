@@ -1,8 +1,20 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-<div class="container">
 
-  <h1>{{ i18n "posts" }}</h1>
+{{ if .Params.header.image }}
+<div class="article-header">
+  <img src="{{ "/img/" | relURL }}/{{ .Params.header.image }}" class="article-banner" itemprop="image">
+  {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+</div>
+{{end}}
+
+<div class="universal-wrapper">
+
+  <h1>{{ .Title | default (i18n "posts") }}</h1>
+
+  {{ with .Content }}
+  <div class="article-style" itemprop="articleBody">{{ . }}</div>
+  {{ end }}
 
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}

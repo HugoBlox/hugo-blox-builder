@@ -6,13 +6,24 @@ title = "Managing content"
 math = false
 +++
 
-This is a brief guide to managing content with the Academic theme. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about [writing content with Markdown, LaTeX, and Shortcodes]({{< ref "post/writing-markdown-latex.md" >}}).<!--more-->
+This is a brief guide to managing content with the Academic framework. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about [writing content with Markdown, LaTeX, and Shortcodes]({{< ref "post/writing-markdown-latex.md" >}}).<!--more-->
 
 To enable LaTeX math rendering for a page, you should include `math = true` in the page's `+++` preamble, as demonstrated in the included example site. Otherwise, to enable math on the homepage or for all pages, you must globally set `math = true` in `config.toml`.
 
 To disable source code highlighting by default for all pages, set `highlight = false` in `config.toml`. You can then enable source code highlighting only on pages that need it by setting `highlight = true` in that page's preamble. See the [code-highlighting docs]({{< ref "post/writing-markdown-latex.md#code-highlighting" >}}) for more details.
 
-To display an image in publication, post, or project page headers, you can include the `image = "my-image.jpg"` option in the page `+++` preamble. It is automatically assumed that the image is located in your `static/img/` folder. In the context of posts and projects, the image is intended to behave as a full width banner across the top of the article.
+To display a featured image in content page headers, the parameters below can be inserted towards the end of a page's `+++` preamble. It is assumed that the image is located in your `static/img/` folder, so the full path in the example below will be `static/img/headers/getting-started.png`. The `caption` parameter can be used to write an image caption or credit. 
+
+```toml
+[header]
+image = "headers/getting-started.png"
+caption = "Image credit: [**Academic**](https://github.com/gcushen/hugo-academic/)"
+
+```
+
+{{% alert note %}}
+If you wish to prevent a featured image automatically being used for a post's thumbnail on the homepage, the `preview = false` parameter can be added to `[header]`.
+{{% /alert %}}
 
 ## Create a publication
 
@@ -88,6 +99,30 @@ To create a talk:
     hugo new talk/my-talk-name.md
 
 Then edit the newly created file `content/talk/my-talk-name.md` with your full talk title and details. Note that many of the talk parameters are similar to the publication parameters.
+
+## Manage node index pages
+
+The node index pages (e.g. `/post/`) are the special pages which list all of your content. They can exist for blog posts, publications, and talks. The homepage widgets will automatically link to the node index pages when you have more items of content than can be displayed in the widget. Therefore, if you don't have much content, you may not see the automatic links yet - but you can also manually link to them using a normal Markdown formatted link in your content.
+
+You can edit the title and add your own content, such as an introduction, by creating and editing the following content files for the node indexes:
+
+    hugo new post/_index.md
+    hugo new publication/_index.md
+    hugo new talk/_index.md
+    
+Then remove all parameters except for `title`, `math`, `highlight`, and `date`. Edit the `title` parameter as desired and add any content after the `+++` preamble/frontmatter ends. For example, you should have something similar to:
+
+```toml
++++
+title = "List of my posts"
+date = "2017-01-01T00:00:00Z"
+math = false
+highlight = false
++++
+
+Below is an automatically generated list of all my blog posts!
+
+```
 
 ## Removing content
 

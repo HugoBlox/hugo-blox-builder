@@ -177,6 +177,18 @@ blockquote p:last-child {
   }
 }
 
+.universal-wrapper {
+  margin: 0 auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+@media only screen and (min-width: 1001px) {
+  .universal-wrapper {
+    width: 1000px;
+  }
+}
+
 /*************************************************
  *  Home Sections
  **************************************************/
@@ -196,18 +208,22 @@ blockquote p:last-child {
   animation: intro 0.3s both;
   animation-delay: 0.15s;
 }
-@media screen and (max-width: 768px) {
-  .home-section {
-    padding: 60px 0 60px 0;
-  }
-}
 
 .home-section:first-of-type {
-  padding-top: 0;
+  padding-top: 50px;
 }
 
 .home-section:nth-of-type(even) {
   background-color: rgb(247, 247, 247);
+}
+
+@media screen and (max-width: 768px) {
+  .home-section {
+    padding: 60px 0 60px 0;
+  }
+  .home-section:first-of-type {
+    padding-top: 40px;
+  }
 }
 
 .section-heading h1 {
@@ -365,6 +381,47 @@ article {
   animation-delay: 0.15s;
 }
 
+.article-container {
+  max-width: 760px;
+  padding: 1rem 20px 0 20px;
+  margin: 0 auto 0 auto;
+}
+
+.article-header {
+  position: relative;
+  clear: both;
+}
+
+.article-banner {
+  width: 100%;
+  height: auto;
+}
+
+.article-header-caption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: .7em;
+  background: #000;
+  text-align: right;
+  z-index: 5;
+  opacity: 0.65;
+  border-radius: 5px 0 0 0;
+}
+@media (min-width: 64em) {
+  .article-header-caption {
+    padding: 5px 10px;
+  }
+}
+
+.article-header-caption a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .article-title {
   font-size: 1.75rem;
 }
@@ -408,11 +465,6 @@ article {
   margin-right: 10px;
 }
 
-.article-banner {
-  width: 100%;
-  height: auto;
-}
-
 .article-style img,
 .article-style video {
   box-shadow: 1px 1px 0px #edefed, -1px -1px 0px #edefed, 1px -1px 0px #edefed, -1px 1px 0px #edefed;
@@ -435,7 +487,7 @@ article {
 }
 
 #comments {
-  padding: 20px;
+  padding-top: 1rem;
 }
 
 /*************************************************
@@ -785,15 +837,6 @@ footer a#back_to_top i {
   min-height: 70px !important;
 }
 
-/* Prevent navbar hiding initial content when jumping to in-page anchor. */
-*[id]:not([id^="fn"]):before {
-  display: block;
-  content: " ";
-  margin-top: -70px;
-  height: 70px;
-  visibility: hidden;
-}
-
 .navbar-default {
   background: #fff;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11)
@@ -858,12 +901,6 @@ nav#navbar-main li {
 @media screen and (max-width: 1200px) {
   .navbar {
     min-height: 50px !important;
-  }
-
-  /* Prevent navbar hiding initial content when jumping to in-page anchor. */
-  *[id]:not([id^="fn"]):before {
-    margin-top: -50px;
-    height: 50px;
   }
 
   .navbar-brand,

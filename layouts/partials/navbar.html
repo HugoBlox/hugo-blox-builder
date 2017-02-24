@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+      <a class="navbar-brand" href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -29,7 +29,7 @@
           <ul class="dropdown-menu">
             {{ range .Children }}
             <li class="nav-item">
-              <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+              <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 {{ .Pre }}
                 <span>{{ .Name }}</span>
               </a>
@@ -41,7 +41,7 @@
         {{ else }}
 
         <li class="nav-item">
-          <a href="{{ .URL | relURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+          <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
             {{ .Pre }}
             <span>{{ .Name }}</span>
           </a>

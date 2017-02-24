@@ -9,7 +9,7 @@
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
     {{ if gt $pubs_len $page.Params.count }}
     <p class="view-all">
-      <a href="{{ $.Site.BaseURL }}publication/">
+      <a href="{{ "/publication/" | relLangURL }}">
         {{ i18n "more_publications" | markdownify }}
         <i class="fa fa-angle-double-right"></i>
       </a>

@@ -1,20 +1,19 @@
-# Hugo Academic
+# Academic: the personal website framework for [Hugo](https://gohugo.io)
 
-A highly flexible personal website theme for [Hugo](https://gohugo.io).
+**Academic** is a framework to help you create a beautiful website quickly. Perfect for personal, student, or academic websites. [Check out the latest demo](http://gcushen.github.io/hugo-academic-demo/) of what you'll get in less than 10 minutes.
 
-[![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/screenshot.png)](https://github.com/gcushen/hugo-academic/)
+[![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png)](https://github.com/gcushen/hugo-academic/)
 
 Key features:
 
-- Designed for academic staff, students, or general personal use
-- Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, Contact, and Custom
+- Easily manage your homepage, blog posts, publications, talks, and projects
+- Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, and Contact
+- Need a different section? Just use the Custom widget!
 - Write in [Markdown](http://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
-- Academic linking (Scholar etc.), [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
+- Social/academic network linking, [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
 - Easy to customize
-
-Latest demo: [gcushen.github.io/hugo-academic-demo/](http://gcushen.github.io/hugo-academic-demo/)
 
 ## Getting Started
 
@@ -23,7 +22,7 @@ Latest demo: [gcushen.github.io/hugo-academic-demo/](http://gcushen.github.io/hu
         hugo new site my_website
         cd my_website
 
-2. Install Academic theme with [git](https://help.github.com/articles/set-up-git/):
+2. Install Academic with [git](https://help.github.com/articles/set-up-git/):
 
         git clone https://github.com/gcushen/hugo-academic.git themes/academic
 
@@ -37,17 +36,17 @@ Latest demo: [gcushen.github.io/hugo-academic-demo/](http://gcushen.github.io/hu
 
         hugo server --watch
 
-    Now you can go to [localhost:1313](http://localhost:1313) and your new Academic themed website should appear.
+    Now you can go to [localhost:1313](http://localhost:1313) and your new Academic powered website should appear.
 
-5. [Customize your website](http://gcushen.github.io/hugo-academic-demo/post/getting-started/#getting-started) and [add your content](http://gcushen.github.io/hugo-academic-demo/post/managing-content/) by referring to the Academic theme documentation
+5. [Customize your website](http://gcushen.github.io/hugo-academic-demo/post/getting-started/#getting-started) and [add your content](http://gcushen.github.io/hugo-academic-demo/post/managing-content/) by referring to the Academic documentation
 
 6. Build your site by running the `hugo` command. Then [host it for free using Github Pages](https://georgecushen.com/create-your-website-with-hugo/). Or alternatively, copy the generated `public/` directory (by FTP, Rsync, etc.) to your production web server (such as your university's hosting service).
 
 ## Upgrading
 
-Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) and monitor the [commits](https://github.com/gcushen/hugo-academic/commits/master) for updates.
+Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) and monitor the [commits](https://github.com/gcushen/hugo-academic/commits/master) for updates. [Release notes](https://github.com/gcushen/hugo-academic/wiki/Release-Notes) for notable updates are also available to aid upgrading your site.
 
-Before upgrading the theme, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory. You can also read about the [most recent milestones](https://github.com/gcushen/hugo-academic/releases) (but this doesn't necessarily reflect the latest *master* release).
+Before upgrading Academic, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory.
 
 Before upgrading for the first time, the remote *origin* repository should be renamed to *upstream*:
 
@@ -76,7 +75,7 @@ For general questions about Hugo, there is a [Hugo discussion forum](http://disc
 
 ## License
 
-Copyright 2016 [George Cushen](https://georgecushen.com).
+Copyright 2017 [George Cushen](https://georgecushen.com).
 
 Released under the [MIT](https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md) license.
 
