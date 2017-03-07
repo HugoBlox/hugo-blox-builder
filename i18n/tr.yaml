@@ -1,0 +1,100 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Arayüz yönünü değiştir
+
+# Buttons
+
+- id: btn_details
+  translation: Daha fazla ayrıntı
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_slides
+  translation: Slaytlar
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kod
+
+- id: btn_dataset
+  translation: Veri kümesi
+
+- id: btn_project
+  translation: Proje
+
+# About widget
+
+- id: interests
+  translation: İlgi alanları
+
+- id: education
+  translation: Eğitim
+
+# Publications widget
+
+- id: more_publications
+  translation: Daha fazla yayınlar
+
+# Posts widget
+
+- id: continue_reading
+  translation: OKUMAYA DEVAM ET
+
+- id: more_posts
+  translation: Daha fazla blog içeriği
+
+# Talks widget
+
+- id: more_talks
+  translation: Daha fazla konuşma
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Özet
+
+- id: publication
+  translation: Yayın
+
+- id: publication_type
+  translation: Yayın tipi
+
+- id: date
+  translation: Tarih
+
+- id: links
+  translation: Bağlantılar
+
+- id: event
+  translation: Etkinlikler
+
+- id: location
+  translation: Adres
+
+# Filtering
+
+- id: filter_by_type
+  translation: Yayın tipine göre sırala
+
+- id: filter_all
+  translation: Hepsi
+
+# Project details
+
+- id: open_project_site
+  translation: Projenin sayfasına git
+
+# Default node titles
+
+- id: posts
+  translation: Blog içerikleri 
+
+- id: publications
+  translation: Yayınlar
+
+- id: talks
+  translation: Konuşmalar
