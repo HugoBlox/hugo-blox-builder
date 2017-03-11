@@ -1,7 +1,7 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Toggle navigation
+  translation: Ouvrir la barre de navigation
 
 # Buttons
 
@@ -50,12 +50,12 @@
 # Talks widget
 
 - id: more_talks
-  translation: Plus de Talks
+  translation: Plus de Présentations
 
 # Publication/Talk details
 
 - id: abstract
-  translation: Abstract
+  translation: Résumé
 
 - id: publication
   translation: Publication
@@ -97,4 +97,4 @@
   translation: Publications
 
 - id: talks
-  translation: Talks
+  translation: Présentations
