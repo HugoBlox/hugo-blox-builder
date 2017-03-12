@@ -67,7 +67,7 @@
   translation: Date
 
 - id: links
-  translation: Lien
+  translation: Liens
 
 - id: event
   translation: Événement
