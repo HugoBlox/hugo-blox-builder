@@ -1,0 +1,100 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Chuyển Điều Hướng
+
+# Buttons
+
+- id: btn_details
+  translation: Chi Tiết
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_slides
+  translation: Slides
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Mã Nguồn
+
+- id: btn_dataset
+  translation: Dữ liệu
+
+- id: btn_project
+  translation: Dự Án
+
+# About widget
+
+- id: interests
+  translation: Sở Thích
+
+- id: education
+  translation: Học Vấn
+
+# Publications widget
+
+- id: more_publications
+  translation: Các Công Trình
+
+# Posts widget
+
+- id: continue_reading
+  translation: ĐỌC TIẾP
+
+- id: more_posts
+  translation: Các Bài Đăng
+
+# Talks widget
+
+- id: more_talks
+  translation: Các Thuyết Trình
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Tóm tắt
+
+- id: publication
+  translation: Công trình
+
+- id: publication_type
+  translation: Phân loại
+
+- id: date
+  translation: Ngày Tháng
+
+- id: links
+  translation: Liên Kết
+
+- id: event
+  translation: Sự Kiện
+
+- id: location
+  translation: Địa Điểm
+
+# Filtering
+
+- id: filter_by_type
+  translation: Lọc theo loại
+
+- id: filter_all
+  translation: Tất Cả
+
+# Project details
+
+- id: open_project_site
+  translation: Đến Trang Dự Án
+
+# Default node titles
+
+- id: posts
+  translation: Bài Đăng
+
+- id: publications
+  translation: Công Trình
+
+- id: talks
+  translation: Buổi Nói Chuyện
