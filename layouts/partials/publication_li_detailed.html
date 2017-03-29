@@ -27,7 +27,7 @@
     {{ end }}
 
       <h3 class="article-title" itemprop="name">
-        <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+        <p itemprop="url">{{ .Title }}</p>
       </h3>
 
       <div class="pub-abstract" itemprop="text">
@@ -53,7 +53,7 @@
       </div>
 
       <div class="pub-links">
-        {{ partial "publication_links" (dict "content" . "is_list" 1) }}
+        {{ partial "publication_links" (dict "content" . "is_list" 0) }}
       </div>
 
     </div>
