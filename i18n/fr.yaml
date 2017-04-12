@@ -37,7 +37,7 @@
 # Publications widget
 
 - id: more_publications
-  translation: Plus de Publications
+  translation: Plus de publications
 
 # Posts widget
 
@@ -45,12 +45,12 @@
   translation: CONTINUER DE LIRE
 
 - id: more_posts
-  translation: Plus de Posts
+  translation: Plus de posts
 
 # Talks widget
 
 - id: more_talks
-  translation: Plus de Présentations
+  translation: Plus de présentations
 
 # Publication/Talk details
 
