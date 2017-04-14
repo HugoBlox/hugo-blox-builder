@@ -24,6 +24,8 @@
         {{ end }}
       </div>
 
+      <link itemprop="url" href="{{ $.Site.BaseURL }}">
+
       <ul class="social-icon" aria-hidden="true">
         {{ range $.Site.Params.social }}
         {{ $pack := or .icon_pack "fa" }}
