@@ -11,12 +11,12 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    <ul class="fa-ul">
+    <ul class="fa-ul" itemscope>
 
       {{ with $.Site.Params.email }}
       <li>
         <i class="fa-li fa fa-envelope fa-2x" aria-hidden="true"></i>
-        <span>
+        <span id="person-email" itemprop="email">
         {{- if $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
         </span>
       </li>
@@ -34,7 +34,7 @@
       {{ with $.Site.Params.phone }}
       <li>
         <i class="fa-li fa fa-phone fa-2x" aria-hidden="true"></i>
-        <span>
+        <span id="person-telephone" itemprop="telephone">
         {{- if $autolink }}<a href="tel:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
         </span>
       </li>
@@ -61,7 +61,7 @@
       {{ with $.Site.Params.address }}
       <li>
         <i class="fa-li fa fa-map-marker fa-2x" aria-hidden="true"></i>
-        <span>{{ . }}</span>
+        <span id="person-address" itemprop="address">{{ . }}</span>
       </li>
       {{ end }}
 
