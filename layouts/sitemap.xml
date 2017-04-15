@@ -5,7 +5,7 @@
     <url>
     {{ if .IsTranslated }}
       <xhtml:link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Lang }}"/>{{ range .Translations }}
-      <xhtml:link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Lang }}"/>{{ end}}
+      <xhtml:link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Lang }}"/>{{ end }}
     {{ end }}
       <loc>{{ .Permalink }}</loc>{{ if not .Lastmod.IsZero }}
       <lastmod>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ end }}{{ with .Sitemap.ChangeFreq }}
