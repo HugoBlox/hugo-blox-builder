@@ -34,7 +34,7 @@
                 <span>{{ .Name }}</span>
               </a>
             </li>
-            {{end}}
+            {{ end }}
           </ul>
         </li>
 
@@ -57,16 +57,16 @@
             <span>{{ index .Site.Data.lang.native_names .Lang }}</span>
           </a>
           <ul class="dropdown-menu">
-            {{ range .Translations}}
+            {{ range .Translations }}
             <li class="nav-item">
               <a href="{{ .URL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 <span>{{ index .Site.Data.lang.native_names .Lang }}</span>
               </a>
             </li>
-            {{end}}
+            {{ end }}
           </ul>
         </li>
-        {{end}}
+        {{ end }}
       </ul>
 
     </div><!-- /.navbar-collapse -->
