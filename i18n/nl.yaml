@@ -1,0 +1,100 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Navigatiebalk
+
+# Buttons
+
+- id: btn_details
+  translation: Details
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_slides
+  translation: Dia's
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Project
+
+# About widget
+
+- id: interests
+  translation: Interesses
+
+- id: education
+  translation: Educatie
+
+# Publications widget
+
+- id: more_publications
+  translation: Meer Publicaties
+
+# Posts widget
+
+- id: continue_reading
+  translation: LEES VERDER
+
+- id: more_posts
+  translation: Meer Berichten
+
+# Talks widget
+
+- id: more_talks
+  translation: Meer Presentaties
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Korte inhoud
+
+- id: publication
+  translation: Publicatie
+
+- id: publication_type
+  translation: Type
+
+- id: date
+  translation: Datum
+
+- id: links
+  translation: Links
+
+- id: event
+  translation: Evenement
+
+- id: location
+  translation: Locatie
+
+# Filtering
+
+- id: filter_by_type
+  translation: Filter op type
+
+- id: filter_all
+  translation: Alles
+
+# Project details
+
+- id: open_project_site
+  translation: Ga naar Projecten pagina
+
+# Default node titles
+
+- id: posts
+  translation: Berichten
+
+- id: publications
+  translation: Publicaties
+
+- id: talks
+  translation: Presentaties
