@@ -1,0 +1,100 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: 切换导航
+
+# Buttons
+
+- id: btn_details
+  translation: 详情
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_slides
+  translation: 演示文稿
+
+- id: btn_video
+  translation: 视频
+
+- id: btn_code
+  translation: 代码
+
+- id: btn_dataset
+  translation: 数据集
+
+- id: btn_project
+  translation: 项目
+
+# About widget
+
+- id: interests
+  translation: 兴趣爱好
+
+- id: education
+  translation: 教育经历
+
+# Publications widget
+
+- id: more_publications
+  translation: 更多出版物
+
+# Posts widget
+
+- id: continue_reading
+  translation: 继续阅读
+
+- id: more_posts
+  translation: 更多文章
+
+# Talks widget
+
+- id: more_talks
+  translation: 更多演讲
+
+# Publication/Talk details
+
+- id: abstract
+  translation: 摘要
+
+- id: publication
+  translation: 出版物
+
+- id: publication_type
+  translation: 类型
+
+- id: date
+  translation: 日期
+
+- id: links
+  translation: 链接
+
+- id: event
+  translation: 事件
+
+- id: location
+  translation: 位置
+
+# Filtering
+
+- id: filter_by_type
+  translation: 按类型过滤
+
+- id: filter_all
+  translation: 全部
+
+# Project details
+
+- id: open_project_site
+  translation: 访问项目网站
+
+# Default node titles
+
+- id: posts
+  translation: 文章
+
+- id: publications
+  translation: 出版物
+
+- id: talks
+  translation: 演讲
