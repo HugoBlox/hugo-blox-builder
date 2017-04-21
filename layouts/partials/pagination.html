@@ -2,10 +2,10 @@
 <nav>
   <ul class="pager">
     {{ if .Paginator.HasPrev }}
-    <li><a href="{{ .Site.BaseURL }}{{ .Paginator.Prev.URL }}">&laquo; Previous</a></li>
+    <li><a href="{{ .Paginator.Prev.URL | relLangURL }}">&laquo; Previous</a></li>
     {{ end }}
     {{ if .Paginator.HasNext }}
-    <li><a href="{{ .Site.BaseURL }}{{ .Paginator.Next.URL }}">Next &raquo;</a></li>
+    <li><a href="{{ .Paginator.Next.URL | relLangURL }}">Next &raquo;</a></li>
     {{ end }}
   </ul>
 </nav>
