@@ -7,9 +7,9 @@
     <div id="profile">
 
       {{ with $.Site.Params.avatar }}
-      <div class="portrait" itemprop="image"
-           style="background-image: url('{{ "/img/" | relURL }}{{ . }}');">
+      <div class="portrait" style="background-image: url('{{ "/img/" | relURL }}{{ . }}');">
       </div>
+      <meta itemprop="image" content="{{ "/img/" | relURL }}{{ . }}">
       {{ end }}
 
       <div class="portrait-title">
