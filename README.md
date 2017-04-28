@@ -1,6 +1,6 @@
 # Academic: the personal website framework for [Hugo](https://gohugo.io)
 
-**Academic** is a framework to help you create a beautiful website quickly. Perfect for personal, student, or academic websites. [Check out the latest demo](http://gcushen.github.io/hugo-academic-demo/) of what you'll get in less than 10 minutes.
+**Academic** is a framework to help you create a beautiful website quickly. Perfect for personal, student, or academic websites. [Check out the latest demo](https://sourcethemes.com/academic/) of what you'll get in less than 10 minutes.
 
 [![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png)](https://github.com/gcushen/hugo-academic/)
 
@@ -9,7 +9,7 @@ Key features:
 - Easily manage your homepage, blog posts, publications, talks, and projects
 - Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, and Contact
 - Need a different section? Just use the Custom widget!
-- Write in [Markdown](http://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
+- Write in [Markdown](https://sourcethemes.com/academic/post/writing-markdown-latex/) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
 - Social/academic network linking, [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
@@ -38,7 +38,7 @@ Key features:
 
     Now you can go to [localhost:1313](http://localhost:1313) and your new Academic powered website should appear.
 
-5. [Customize your website](http://gcushen.github.io/hugo-academic-demo/post/getting-started/#getting-started) and [add your content](http://gcushen.github.io/hugo-academic-demo/post/managing-content/) by referring to the Academic documentation
+5. [Customize your website](https://sourcethemes.com/academic/post/getting-started/#getting-started) and [add your content](https://sourcethemes.com/academic/post/managing-content/) by referring to the Academic documentation
 
 6. Build your site by running the `hugo` command. Then [host it for free using Github Pages](https://georgecushen.com/create-your-website-with-hugo/). Or alternatively, copy the generated `public/` directory (by FTP, Rsync, etc.) to your production web server (such as your university's hosting service).
 
