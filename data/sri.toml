@@ -7,3 +7,9 @@
     TweenMax = "sha512-ANpvRsX22QqENmRQm2qUqlRVbWanJykv+Z9+me4/n4LvUNkpPmO3Qm1VB0OQn0ip2xIdmbf9kaSAxTceOHY1YQ=="
     ScrollToPlugin = "sha512-CDeU7pRtkPX6XJtF/gcFWlEwyaX7mcAp5sO3VIu/ylsdR74wEw4wmBpD5yYTrmMAiAboi9thyBUr1vXRPA7t0Q=="
     MathJax = "sha512-n9zwl+vW+B7/eARAI6ZQWmFAOzXiaDdgU8HoCEINtjFQYZRjLKbqUQCyVWtVYN4k/DOJ+bHHguQeyKSj+eTBaw=="
+    bootstrap = "sha512-iztkobsvnjKfAtTNdHkGVjAYTrrtlC7mGp/54c40wowO7LhURYl3gVzzcEqGl/qKXQltJ2HwMrdLcNUdo+N/RQ=="
+    isotope = "sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ=="
+    jquery = "sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ=="
+
+[css]
+    bootstrap = "sha512-6MXa8B6uaO18Hid6blRMetEIoPqHf7Ux1tnyIQdpt9qI5OACx7C+O3IVTr98vwGnlcg0LOLa02i9Y1HpVhlfiw=="
