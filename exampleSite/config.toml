@@ -1,4 +1,4 @@
-baseurl = "https://example.com"
+baseurl = "https://example.com/"    # baseurl need to end with /
 title = "Academic"
 copyright = "&copy; 2016 Your Name"
 theme = "academic"
