@@ -1,7 +1,7 @@
 +++
 # Selected Publications widget.
-# Note: this widget will only display if `content/publication/` contains publications
-# with `selected = true` in their `+++` preamble.
+# This widget displays publications from `content/publication/` which have
+# `selected = true` in their `+++` front matter.
 
 date = "2016-04-20T00:00:00"
 draft = false
