@@ -3,12 +3,7 @@
 
 <article class="article article-project" itemscope itemtype="http://schema.org/Article">
 
-  {{ if .Params.header.image }}
-  <div class="article-header">
-    <img src="{{ "/img/" | relURL }}/{{ .Params.header.image }}" class="article-banner" itemprop="image">
-    {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
-  </div>
-  {{end}}
+  {{ partial "header_image.html" . }}
 
   <div class="article-container">
 

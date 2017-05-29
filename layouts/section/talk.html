@@ -1,12 +1,7 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
 
-{{ if .Params.header.image }}
-<div class="article-header">
-  <img src="{{ "/img/" | relURL }}/{{ .Params.header.image }}" class="article-banner" itemprop="image">
-  {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
-</div>
-{{end}}
+{{ partial "header_image.html" . }}
 
 <div class="container">
   <div class="row">
