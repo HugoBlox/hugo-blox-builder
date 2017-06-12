@@ -3,13 +3,15 @@
 #    echo -n "sha512-" && curl --silent "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML" | openssl dgst -sha512 -binary | openssl enc -base64 -A
 
 [js]
-    imagesLoaded = "sha512-gAY/etPYgEHDUW+GLBkxn90gKGHPlPCpRhXasGZHGx1Pk0QZw2bLRWCf1dOrY7UhHs8EV6KBSBq86206CJqrZA=="
-    tweenMax = "sha512-ANpvRsX22QqENmRQm2qUqlRVbWanJykv+Z9+me4/n4LvUNkpPmO3Qm1VB0OQn0ip2xIdmbf9kaSAxTceOHY1YQ=="
+    imagesLoaded = "sha512-iHzEu7GbSc705hE2skyH6/AlTpOfBmkx7nUqTLGzPYR+C1tRaItbRlJ7hT/D3YQ9SV0fqLKzp4XY9wKulTBGTw=="
+    tweenMax = "sha512-Z5heTz36xTemt1TbtbfXtTq5lMfYnOkXM2/eWcTTiLU01+Sw4ku1i7vScDc8fWhrP2abz9GQzgKH5NGBLoYlAw=="
     scrollToPlugin = "sha512-CDeU7pRtkPX6XJtF/gcFWlEwyaX7mcAp5sO3VIu/ylsdR74wEw4wmBpD5yYTrmMAiAboi9thyBUr1vXRPA7t0Q=="
-    mathJax = "sha512-n9zwl+vW+B7/eARAI6ZQWmFAOzXiaDdgU8HoCEINtjFQYZRjLKbqUQCyVWtVYN4k/DOJ+bHHguQeyKSj+eTBaw=="
+    mathJax = "sha512-tOav5w1OjvsSJzePRtt2uQPFwBoHt1VZcUq8l8nm5284LEKE9FSJBQryzMBzHxY5P0zRdNqEcpLIRVYFNgu1jw=="
     bootstrap = "sha512-iztkobsvnjKfAtTNdHkGVjAYTrrtlC7mGp/54c40wowO7LhURYl3gVzzcEqGl/qKXQltJ2HwMrdLcNUdo+N/RQ=="
     isotope = "sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ=="
     jQuery = "sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ=="
 
 [css]
     bootstrap = "sha512-6MXa8B6uaO18Hid6blRMetEIoPqHf7Ux1tnyIQdpt9qI5OACx7C+O3IVTr98vwGnlcg0LOLa02i9Y1HpVhlfiw=="
+    academicons = "sha512-GGGNUPDhnG8LEAEDsjqYIQns+Gu8RBs4j5XGlxl7UfRaZBhCCm5jenJkeJL8uPuOXGqgl8/H1gjlWQDRjd3cUQ=="
+    fontAwesome = "sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
