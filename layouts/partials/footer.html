@@ -1,9 +1,18 @@
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
-    <script src="{{ "/js/jquery-1.12.3.min.js" | relURL }}"></script>
-    <script src="{{ "/js/bootstrap.min.js" | relURL }}"></script>
-    <script src="{{ "/js/isotope.pkgd.min.js" | relURL }}"></script>
+    {{ if not .Site.Params.disable_sri }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.jQuery | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.imagesLoaded | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.tweenMax| safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/ScrollToPlugin.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.scrollToPlugin| safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.bootstrap | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.isotope | safeHTML }}
+    {{ else }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/ScrollToPlugin.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js"></script>
+    {{ end }}
     <script src="{{ "/js/hugo-academic.js" | relURL }}"></script>
     {{ range .Site.Params.custom_js }}
     <script src="{{ "/js/" | relURL }}{{ . }}"></script>
@@ -56,7 +65,11 @@
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
     </script>
+    {{ if not .Site.Params.disable_sri }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.mathJax | safeHTML }}
+    {{ else }}
     <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
+    {{ end }}
     {{ end }}
 
   </body>

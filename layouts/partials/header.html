@@ -26,9 +26,14 @@
     <link rel="stylesheet" href="{{ "/css/highlight.min.css" | relURL }}">
     {{ end }}
   {{ end }}
-  <link rel="stylesheet" href="{{ "/css/bootstrap.min.css" | relURL }}">
+  {{ if not .Site.Params.disable_sri }}
+  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.bootstrap | safeHTML }}
+  {{ else }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  {{ end }}
   <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | relURL }}">
   <link rel="stylesheet" href="{{ "/css/academicons.min.css" | relURL }}">
+  {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent */}}
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather%7CRoboto+Mono">
   <link rel="stylesheet" href="{{ "/css/hugo-academic.css" | relURL }}">
   {{ range .Site.Params.custom_css }}
