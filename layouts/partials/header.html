@@ -42,20 +42,18 @@
   <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
   {{ end }}
 
-  {{ with .Site.GoogleAnalytics }}
+  {{ if .Site.GoogleAnalytics }}
     <script>
-        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-        ga('create', '{{ . }}', 'auto');
-        ga('require', 'eventTracker');
-        ga('require', 'outboundLinkTracker');
-        ga('require', 'urlChangeTracker');
-        ga('send', 'pageview');
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', '{{ .Site.GoogleAnalytics }}', 'auto');
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
     </script>
-
-
     <script async src="//www.google-analytics.com/analytics.js"></script>
     {{ if not .Site.Params.disable_sri }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.autotrack | safeHTML }}
+    {{ printf "<script async src=\"https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.autotrack | safeHTML }}
     {{ else }}
     <script async src="//cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js"></script>
     {{ end }}
