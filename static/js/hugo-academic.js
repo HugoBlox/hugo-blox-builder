@@ -89,7 +89,10 @@
    * --------------------------------------------------------------------------- */
 
   $(document).on('click', '.navbar-collapse.in', function(e) {
-    if ( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+    //get the <a> element that was clicked, even if the <span> element that is inside the <a> element is e.target
+    let targetElement = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
+
+    if (targetElement.is('a') && targetElement.attr('class') != 'dropdown-toggle') {
       $(this).collapse('hide');
     }
   });
@@ -164,7 +167,6 @@
    * --------------------------------------------------------------------------- */
 
   $(window).on('load', function() {
-
     if (window.location.hash) {
       // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).
       if (window.location.hash == "#top") {
