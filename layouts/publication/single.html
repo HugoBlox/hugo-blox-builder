@@ -24,7 +24,7 @@
   {{end}}
 
   <h3>{{ i18n "abstract" }}</h3>
-  <p class="pub-abstract" itemprop="text">{{ .Params.abstract }}</p>
+  <p class="pub-abstract" itemprop="text">{{ .Params.abstract | markdownify }}</p>
 
   {{ if (.Params.publication_types) and (ne (index .Params.publication_types 0) "0") }}
   <div class="row">

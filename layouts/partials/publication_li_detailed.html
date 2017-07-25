@@ -32,9 +32,9 @@
 
       <div class="pub-abstract" itemprop="text">
         {{ if .Params.abstract_short }}
-        {{ .Params.abstract_short }}
+        {{ .Params.abstract_short | markdownify }}
         {{ else }}
-        {{ .Params.abstract }}
+        {{ .Params.abstract | markdownify}}
         {{ end }}
       </div>
 
