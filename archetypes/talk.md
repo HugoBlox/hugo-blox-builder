@@ -1,5 +1,7 @@
 +++
-title = ""
+title = "{{ replace .TranslationBaseName "-" " " | title }}"
+date = "{{ .Date }}"
+
 abstract = ""
 abstract_short = ""
 event = ""
