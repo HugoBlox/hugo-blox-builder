@@ -32,7 +32,7 @@
 </a>
 {{ end }}
 {{ with $.Params.url_project }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absLangURL }}">
   {{ i18n "btn_project" }}
 </a>
 {{ end }}
