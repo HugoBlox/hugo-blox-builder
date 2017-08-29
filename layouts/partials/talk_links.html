@@ -21,6 +21,11 @@
   {{ i18n "btn_video" }}
 </a>
 {{ end }}
+{{ with $.Params.url_code }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
+  {{ i18n "btn_code" }}
+</a>
+{{ end }}
 {{ range $.Params.url_custom }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}">
   {{ .name }}
