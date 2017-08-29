@@ -441,6 +441,7 @@ article {
 .article-metadata {
   margin-bottom: 20px;
   line-height: 30px; /* Match share bar line height. */
+  overflow: hidden;
   font-size: 14px;
   letter-spacing: 0.03em;
   color: #888;
