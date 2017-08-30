@@ -28,11 +28,11 @@
   {{ end }}
   {{ if not .Site.Params.disable_sri }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.bootstrap | safeHTML }}
-  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.0/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.academicons | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.1/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.academicons | safeHTML }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.fontAwesome | safeHTML }}
   {{ else }}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/1.8.0/css/academicons.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/1.8.1/css/academicons.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   {{ end }}
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent */}}
