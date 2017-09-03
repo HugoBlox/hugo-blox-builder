@@ -3,6 +3,9 @@
 - id: toggle_navigation
   translation: Toggle navigation
 
+- id: table_of_contents
+  translation: Table of Contents
+
 # Buttons
 
 - id: btn_details

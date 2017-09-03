@@ -28,6 +28,8 @@ Key features:
 - Simple and refreshing one page design
 - Easy to customize
 
+{{% toc %}}
+
 ## Installation
 
 1. [Install Hugo](https://georgecushen.com/create-your-website-with-hugo/#installing-hugo) and create a new website by typing the following commands in your *Terminal* or *Command Prompt* app:
