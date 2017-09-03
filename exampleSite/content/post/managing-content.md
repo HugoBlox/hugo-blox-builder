@@ -1,5 +1,5 @@
 +++
-date = "2016-04-20T11:00:00"
+date = 2016-04-18
 draft = false
 tags = ["academic", "hugo"]
 title = "Managing content"

@@ -3,8 +3,11 @@
 <div class="article-metadata">
 
   <span class="article-date">
+    {{ if ne $.Params.Lastmod $.Params.Date }}
+        {{ i18n "last_updated" }}
+    {{ end }}
     <time datetime="{{ $.Date }}" itemprop="datePublished">
-      {{ $.Date.Format $.Site.Params.date_format }}
+      {{ $.Lastmod.Format $.Site.Params.date_format }}
     </time>
   </span>
 

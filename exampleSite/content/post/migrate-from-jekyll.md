@@ -1,5 +1,5 @@
 +++
-date = "2014-03-10T00:00:00"
+date = 2014-03-10
 draft = false
 tags = ["jekyll"]
 title = "Migrate from Jekyll to Hugo"

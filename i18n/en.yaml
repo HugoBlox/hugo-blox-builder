@@ -66,6 +66,9 @@
 - id: date
   translation: Date
 
+- id: last_updated
+  translation: Last updated on
+
 - id: links
   translation: Links
 
