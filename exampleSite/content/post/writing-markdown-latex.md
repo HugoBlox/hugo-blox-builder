@@ -57,6 +57,10 @@ A numbered figure with caption:
     [A publication]({{</* ref "publication/hi.md" */>}})
     [A project]({{</* ref "project/hi.md" */>}})
     [Another section]({{</* relref "hi.md#who" */>}})
+    
+To enable linking to a file, such as a PDF, first place the file in your `static/files/` folder and then link to it using the following form:
+
+    {{%/* staticref "files/cv.pdf" */%}}Download my CV{{%/* /staticref */%}}
 
 ## Emojis
 
