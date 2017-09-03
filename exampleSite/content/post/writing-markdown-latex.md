@@ -8,6 +8,8 @@ math = true
 
 Content can be written using [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics), and [Hugo Shortcodes](http://gohugo.io/extras/shortcodes/). Additionally, HTML may be used for advanced formatting.<!--more--> This article gives an overview of the most common formatting options.
 
+{{% toc %}}
+
 ## Sub-headings
 
     ## Heading 2
@@ -233,3 +235,7 @@ This will display the following *warning* block:
 {{% alert warning %}}
 Here's some important information...
 {{% /alert %}}
+
+## Table of Contents
+
+A table of contents may be particularly useful for long posts or tutorial/documentation type content. Use the `{{%/* toc */%}}` shortcode anywhere you wish within your Markdown content to automatically generate a table of contents.
