@@ -3,6 +3,9 @@
 - id: toggle_navigation
   translation: 切换导航
 
+- id: table_of_contents
+  translation: 目录
+
 # Buttons
 
 - id: btn_details
@@ -65,6 +68,9 @@
 
 - id: date
   translation: 日期
+
+- id: last_updated
+  translation: 最近更新于
 
 - id: links
   translation: 链接
