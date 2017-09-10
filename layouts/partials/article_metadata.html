@@ -17,8 +17,7 @@
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
-    <a href="{{ "/categories/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a
-    >{{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
+    <a href="{{ "/categories/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a>{{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
     {{ end }}
   </span>
   {{ end }}
@@ -30,8 +29,7 @@
   <span class="article-tags">
     <i class="fa fa-tags"></i>
     {{ range $k, $v := $.Params.tags }}
-    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a
-    >{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
+    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a>{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
     {{ end }}
   </span>
   {{ end }}
