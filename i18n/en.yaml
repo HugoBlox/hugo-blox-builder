@@ -6,6 +6,11 @@
 - id: table_of_contents
   translation: Table of Contents
 
+# General
+
+- id: related
+  translation: Related
+
 # Buttons
 
 - id: btn_details

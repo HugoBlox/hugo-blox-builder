@@ -15,6 +15,18 @@
 
 </article>
 
+{{ $related := .Site.RegularPages.Related . | first 5 }}
+{{ with $related }}
+<div class="article-container">
+  <h3>{{ i18n "related" }}</h3>
+  <ul>
+    {{ range . }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
+
 <div class="container">
   {{ partial "section_pager.html" . }}
 </div>
