@@ -34,9 +34,11 @@
         {{ end }}
 
         <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }}">
-          <i class="fa fa-file-text-o" aria-hidden="true"
-             style="color:#03396c;font-size:80%;padding-top:6px; padding-right: 10px;"></i>{{ .Title }}
-          <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
+          {{ if $.Params.detailed_list }}
+            {{ partial "publication_li_detailed" . }}
+          {{ else }}
+            {{ partial "publication_li_simple_div" . }}
+          {{ end }}
         </div>
 
         {{ end }}
