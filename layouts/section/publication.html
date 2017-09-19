@@ -34,10 +34,12 @@
         {{ end }}
 
         <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }}">
-          {{ if $.Params.detailed_list }}
+          {{ if eq $.Params.list_format 1 }}
+            {{ partial "publication_li_classic" . }}
+          {{ else if eq $.Params.list_format 2 }}
             {{ partial "publication_li_detailed" . }}
           {{ else }}
-            {{ partial "publication_li_simple_div" . }}
+            {{ partial "publication_li_simple" . }}
           {{ end }}
         </div>
 

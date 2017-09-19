@@ -10,16 +10,14 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ if $page.Params.detailed_list }}
     {{ range (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) }}
-    {{ partial "publication_li_detailed" . }}
-    {{ end }}
-    {{ else }}
-    <ul class="fa-ul">
-      {{ range (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) }}
-      {{ partial "publication_li_simple" . }}
+      {{ if eq $page.Params.list_format 1 }}
+        {{ partial "publication_li_classic" . }}
+      {{ else if eq $page.Params.list_format 2 }}
+        {{ partial "publication_li_detailed" . }}
+      {{ else }}
+          {{ partial "publication_li_simple" . }}
       {{ end }}
-    </ul>
     {{ end }}
 
   </div>

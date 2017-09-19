@@ -26,7 +26,7 @@ The example site that you copied to create your site uses all the different type
 The parameters for each widget vary. They can be found in the preamble/frontmatter (between the pair of `+++`) for each widget installed in the `content/home/` folder.
 
 {{% alert note %}}
-By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `detailed_list = true` in `content/home/publications.md`.
+By default, publications will be displayed in a simple list. If you prefer a more detailed list with abstract and image, you can enable the detailed publication list on the homepage by setting `list_format = 2` in `content/home/publications.md`.
 {{% /alert %}}
 
 ## Add a widget to the homepage
