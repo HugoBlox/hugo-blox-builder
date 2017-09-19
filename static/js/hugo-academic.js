@@ -133,19 +133,42 @@
     }
   });
 
-  // Bind publication filter on dropdown change.
-  $('.pub-filters-select').on('change', function() {
-    // Get filter value from option value.
-    let filterValue = this.value;
-    // Apply filter to Isotope.
-    $grid_pubs.isotope({ filter: filterValue });
+  // Active publication filters.
+  let pubFilters = {};
 
-    // Set hash URL to current filter.
-    let url = $(this).val();
-    if (url.substr(0, 9) == '.pubtype-') {
-      window.location.hash = url.substr(9);
-    } else {
-      window.location.hash = '';
+  // Flatten object by concatenating values.
+  function concatValues( obj ) {
+    let value = '';
+    for ( let prop in obj ) {
+      value += obj[ prop ];
+    }
+    return value;
+  }
+
+  $('.pub-filters').on( 'change', function() {
+    let $this = $(this);
+
+    // Get group key.
+    let filterGroup = $this[0].getAttribute('data-filter-group');
+
+    // Set filter for group.
+    pubFilters[ filterGroup ] = this.value;
+
+    // Combine filters.
+    let filterValues = concatValues( pubFilters );
+
+    // Activate filters.
+    $grid_pubs.isotope({ filter: filterValues });
+
+    // If filtering by publication type, update the URL hash to enable direct linking to results.
+    if (filterGroup == "pubtype") {
+      // Set hash URL to current filter.
+      let url = $(this).val();
+      if (url.substr(0, 9) == '.pubtype-') {
+        window.location.hash = url.substr(9);
+      } else {
+        window.location.hash = '';
+      }
     }
   });
 
@@ -159,8 +182,16 @@
       filterValue = '.pubtype-' + urlHash;
     }
 
-    $('.pub-filters-select').val(filterValue);
-    $grid_pubs.isotope({ filter: filterValue });
+    // Set filter.
+    let filterGroup = 'pubtype';
+    pubFilters[ filterGroup ] = filterValue;
+    let filterValues = concatValues( pubFilters );
+
+    // Activate filters.
+    $grid_pubs.isotope({ filter: filterValues });
+
+    // Set selected option.
+    $('.pubtype-select').val(filterValue);
   }
 
   /* ---------------------------------------------------------------------------

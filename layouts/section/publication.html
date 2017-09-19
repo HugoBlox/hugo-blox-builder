@@ -12,13 +12,30 @@
       <div class="article-style" itemprop="articleBody">{{ . }}</div>
       {{ end }}
 
+      {{/* Array of distinct years. */}}
+      {{ range .Pages.ByDate.Reverse }}
+        {{ $year := print (.Date.Format "2006") }}
+        {{ $.Scratch.SetInMap "years" $year $year }}
+      {{ end }}
+
       <p>
         {{ i18n "filter_by_type" }}:
-        <select class="pub-filters-select">
+
+        <select class="pub-filters pubtype-select" data-filter-group="pubtype">
           <option value="*">{{ i18n "filter_all" }}</option>
           {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
           <option value=".pubtype-{{ (int $index) }}">
             {{ index $.Site.Params.publication_types (int $index) }}
+          </option>
+          {{ end }}
+        </select>
+
+        <select class="pub-filters" data-filter-group="year">
+          <option value="*">{{ i18n "filter_all" }}</option>
+          {{ $years_sorted := $.Scratch.GetSortedMapValues "years" }}
+          {{ range $year := sort $years_sorted "" "desc" }}
+          <option value=".year-{{ $year }}">
+            {{ $year }}
           </option>
           {{ end }}
         </select>
@@ -33,7 +50,7 @@
           {{ $.Scratch.Set "pubtype" 0 }}
         {{ end }}
 
-        <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }}">
+        <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
           {{ if eq $.Params.list_format 1 }}
             {{ partial "publication_li_classic" . }}
           {{ else if eq $.Params.list_format 2 }}
