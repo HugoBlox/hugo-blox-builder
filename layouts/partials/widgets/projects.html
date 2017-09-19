@@ -10,13 +10,18 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
+    {{ $filter_default := default (int $page.Params.filter_default) 0 }}
+    {{ with $page.Params.filter }}
+    <span id="default-project-filter" class="hidden">{{ (index $page.Params.filter ($filter_default)).tag }}</span>
+    {{ end }}
+
     <div class="project-toolbar">
       <div id="filters">
         <div class="btn-toolbar">
           <div class="btn-group">
-          {{ range $page.Params.filter }}
-            <a href="#" data-filter="{{ .tag }}" class="btn btn-primary btn-large{{ if eq .tag "*" }} active{{ end }}">{{ .name }}</a>
-          {{ end }}
+            {{ range $idx, $item := $page.Params.filter }}
+              <a href="#" data-filter="{{ .tag }}" class="btn btn-primary btn-large{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
+            {{ end }}
           </div>
         </div>
       </div>
