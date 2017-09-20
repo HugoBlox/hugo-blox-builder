@@ -1,0 +1,35 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if not (eq (len $.Site.Taxonomies.tags) 0) }}
+      {{ $fontSmall := 0.8 }}
+      {{ $fontBig := 2.5 }}
+
+      {{ $fontDelta := sub $fontBig $fontSmall }}
+      {{ $min := len (index $.Site.Taxonomies.tags.ByCount.Reverse 0).Pages }}
+      {{ $max := add (len (index $.Site.Taxonomies.tags.ByCount 0).Pages) 1 }}
+      {{ $delta := sub $max $min }}
+      {{ $fontStep := div $fontDelta $delta }}
+
+      <div id="tag-cloud">
+        {{ range $name, $taxonomy := $.Site.Taxonomies.tags }}
+          {{ $tagCount := len $taxonomy.Pages }}
+          {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
+          {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
+          {{ $urlPart1 := relLangURL "/tags/" }}
+          {{ $urlPart2 := urlize $name  }}
+          <a href="{{ delimit (slice $urlPart1 $urlPart2) "" }}" style="font-size:{{ $fontSize }}rem">{{ $name }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+
+  </div>
+</div>
