@@ -69,6 +69,9 @@
 - id: date
   translation: 日期
 
+- id: time
+  translation: 时间
+
 - id: last_updated
   translation: 最近更新于
 
