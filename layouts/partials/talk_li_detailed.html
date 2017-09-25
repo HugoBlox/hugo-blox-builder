@@ -1,29 +1,55 @@
 <div class="pub-list-item" itemscope itemtype="http://schema.org/CreativeWork">
   <div class="row">
 
-    <h3 class="article-title" itemprop="name">
-      <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
-    </h3>
+    {{ if .Params.image_preview }}
 
-    <div class="talk-abstract" itemprop="text">
-      {{ if .Params.abstract_short }}
-      {{ .Params.abstract_short }}
-      {{ else }}
-      {{ .Params.abstract }}
-      {{ end }}
+    <div class="col-md-12">
+      <a href="{{ .Permalink }}">
+        <img src="{{ "/img/" | relURL }}{{ .Params.image_preview }}" class="pub-banner"
+        itemprop="image">
+      </a>
     </div>
+    <div class="col-md-12">
 
-    <div class="talk-event">
-      {{ if .Params.event }}
-        {{ .Params.event | markdownify }}
-      {{ else if .Params.event_short }}
-        {{ .Params.event_short | markdownify }}
-      {{ end }}
+    {{ else if .Params.header.image}}
+
+    <div class="col-md-12">
+      <a href="{{ .Permalink }}">
+        <img src="{{ "/img/" | relURL }}{{ .Params.header.image }}" class="pub-banner" itemprop="image">
+      </a>
     </div>
+    <div class="col-md-12">
 
-    <div class="talk-links">
-      {{ partial "talk_links" (dict "content" . "is_list" 1) }}
+    {{ else }}
+
+    <div class="col-md-12">
+
+    {{ end }}
+
+      <h3 class="article-title" itemprop="name">
+        <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+      </h3>
+
+      <div class="talk-abstract" itemprop="text">
+        {{ if .Params.abstract_short }}
+        {{ .Params.abstract_short }}
+        {{ else }}
+        {{ .Params.abstract }}
+        {{ end }}
+      </div>
+
+      <div class="talk-event">
+        {{ if .Params.event }}
+          {{ .Params.event | markdownify }}
+        {{ else if .Params.event_short }}
+          {{ .Params.event_short | markdownify }}
+        {{ end }}
+      </div>
+
+      <div class="talk-links">
+        {{ partial "talk_links" (dict "content" . "is_list" 1) }}
+      </div>
+
     </div>
-
   </div>
 </div>
