@@ -1,9 +1,10 @@
-baseurl = "https://example.com/"  # End your URL with a `/` trailing slash.
+baseurl = "/"  # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
 title = "Academic"
-copyright = "&copy; 2016 Your Name"
+copyright = "&copy; 2017 Your Name"
 theme = "academic"
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 # Enable comments by entering your Disqus shortname
 disqusShortname = ""
@@ -189,5 +190,5 @@ defaultContentLanguageInSubdir = false
 #   Create a [languages.X] block for each language you want, where X is the language ID.
 
 # Configure the English version of the website.
-[languages.en]
+[Languages.en]
   languageCode = "en-us"
