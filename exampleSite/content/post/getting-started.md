@@ -26,7 +26,7 @@ Key features:
 - Social/academic network linking, [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
-- Easy to customize
+- Multilingual and easy to customize
 
 {{% toc %}}
 
@@ -90,14 +90,14 @@ Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}})
 
 [How to remove unused widgets and content pages]({{< ref "post/managing-content.md#removing-content" >}}).
 
-### Customization & Upgrading
+### Customization & updating
 
 Continue reading below for advanced customization tips and instructions for keeping the framework up-to-date with any improvements that become available.
 
 
 ## Advanced customization
 
-It is possible to carry out many customizations without touching any files in `themes/academic`, making it easier to upgrade the framework in the future.
+It is possible to carry out many customizations without touching any files in `themes/academic`, making it easier to update the framework in the future.
 
 ### Navigation menu
 
@@ -149,13 +149,13 @@ For further details on Hugo's internationalization and multilingual features, re
 Where `:slug` defaults to the filename of the post, excluding the file extension. However, slug may be overridden on a per post basis if desired, simply by setting `slug = "my-short-post-title"` in your post preamble.
 
 
-## Upgrading
+## Updating
 
-Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) and monitor the [commits](https://github.com/gcushen/hugo-academic/commits/master) for updates.
+Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) to help keep track of updates and check out the [release notes](https://sourcethemes.com/academic/tags/updates) prior to updating your site.
 
-Before upgrading the framework, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory. You can also read about the [most recent milestones](https://github.com/gcushen/hugo-academic/releases) (but this doesn't necessarily reflect the latest *master* release).
+Before updating the framework, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory.
 
-Before upgrading for the first time, the remote *origin* repository should be renamed to *upstream*:
+Before updating for the first time, the remote *origin* repository should be renamed to *upstream*:
 
     $ cd themes/academic
     $ git remote rename origin upstream
@@ -166,13 +166,13 @@ To list available updates:
     $ git fetch upstream
     $ git log --pretty=oneline --abbrev-commit --decorate HEAD..upstream/master
 
-Then, upgrade by running:
+Then, update by running:
 
     $ git pull upstream
 
 If you have modified files in `themes/academic`, git will attempt to auto-merge changes. If conflicts are reported, you will need to manually edit the files with conflicts and add them back (`git add <filename>`).
 
-If there are any issues after upgrading, you may wish to compare your site with the latest [example site](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) to check if any settings changed.
+If there are any issues after updating, you may wish to compare your site with the latest [example site](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) to check if any settings changed in `config.toml` or the `+++` frontmatter of content files.
 
 
 ## Feedback & Contributing
