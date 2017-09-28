@@ -762,8 +762,11 @@ footer a#back_to_top i {
   background: #0095eb;
 }
 
+.btn-primary:focus {
+  background: #fff;
+}
+
 .btn-primary:hover,
-.btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
@@ -827,6 +830,10 @@ footer a#back_to_top i {
 
 .btn-danger.btn-outline {
   color: #d9534f;
+}
+
+.btn-primary.btn-outline:focus {
+  color:#0095eb
 }
 
 .btn-primary.btn-outline:hover,
