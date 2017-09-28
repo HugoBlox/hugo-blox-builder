@@ -6,96 +6,94 @@
 (function($){
 
   /* ---------------------------------------------------------------------------
-   * Responsive scrolling for URL hashes.
+   * Add smooth scrolling to all links
    * --------------------------------------------------------------------------- */
 
-  // Dynamically get responsive navigation bar offset.
-  let $navbar = $('.navbar-header');
-  let navbar_offset = $navbar.innerHeight();
+  function scrollToAnchor(event, hash) {
+    if (hash) {
+      // Escape colons from IDs, such as those found in Markdown footnote links.
+      hash = hash.replace(/:/g, '\\:');
 
-  /**
-   * Responsive hash scrolling.
-   * Check for a URL hash as an anchor.
-   * If it exists on current page, scroll to it responsively.
-   * If `target` argument omitted (e.g. after event), assume it's the window's hash.
-   */
-  function scrollToAnchor(target) {
-    // If `target` is undefined or HashChangeEvent object, set it to window's hash.
-    target = (typeof target === 'undefined' || typeof target === 'object') ? window.location.hash : target;
-    // Escape colons from IDs, such as those found in Markdown footnote links.
-    target = target.replace(/:/g, '\\:');
+      if ( $(hash).length ) { //if target exists
+        if (event) {
+          event.preventDefault();
+        }
 
-    // If target element exists, scroll to it taking into account fixed navigation bar offset.
-    if($(target).length) {
-      $('body').addClass('scrolling');
-      $('html, body').animate({
-        scrollTop: $(target).offset().top - navbar_offset
-      }, 600, function () {
-        $('body').removeClass('scrolling');
-      });
+        $('html, body').stop().animate({
+          scrollTop: $(hash).offset().top - get_navbar_offset()
+        }, 800);
+
+        window.location.hash = "";
+      }
     }
   }
 
-  // Make Scrollspy responsive.
-  function fixScrollspy() {
-    let $body = $('body');
-    let data = $body.data('bs.scrollspy');
-    if (data) {
-      data.options.offset = navbar_offset;
-      $body.data('bs.scrollspy', data);
-      $body.scrollspy('refresh');
-    }
-  }
-
-  // Check for hash change event and fix responsive offset for hash links (e.g. Markdown footnotes).
-  window.addEventListener("hashchange", scrollToAnchor);
-
-  /* ---------------------------------------------------------------------------
-   * Add smooth scrolling to all links inside the main navbar.
-   * --------------------------------------------------------------------------- */
-
-  $('#navbar-main li.nav-item a').on('click', function(event) {
-    // Store requested URL hash.
+  $('a').on('click', function(event) {
     let hash = this.hash;
+    scrollToAnchor(event, hash);
+  });
 
-    // If we are on the homepage and the navigation bar link is to a homepage section.
-    if ( hash && $(hash).length && ($("#homepage").length > 0)) {
-      // Prevent default click behavior.
-      event.preventDefault();
+  function get_navbar_offset() {
+    if ($('#top.body-fixed-nav').length) {//we're on a page where navbar is fixed
+      return $('.navbar-header').outerHeight();
+    } else {
+      return 0; //no adjustment needed when nav is not fixed
+    }
+  }
 
-      // Use jQuery's animate() method for smooth page scrolling.
-      // The numerical parameter specifies the time (ms) taken to scroll to the specified hash.
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top - navbar_offset
-      }, 800);
+
+  /* ---------------------------------------------------------------------------
+   * Hide mobile collapsable menu on most clicks
+   * --------------------------------------------------------------------------- */
+
+  let menuExpanded = false;
+  $(document).on('click', function(e) {
+    let $button = $(".navbar-toggle.collapsed");
+    if ( containsOrIs($button, e.target) ) { //if clicked on the Nav Button
+      if ( menuExpanded ) {
+        $button.blur();
+        collapseNav(true);
+      } else {
+        expandNav();
+      }
+      
+    } else if ( menuExpanded ) { //if did not click the nav button, check if we need to collapse the navMenu      
+      if ( containsOrIs($('.navbar-collapse'), e.target) ) { //if clicked in navMenu
+        let $eltClicked = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
+        if ( $eltClicked.is('a') ) { //collapse only if click follows a link
+          collapseNav(false);
+        }
+      } else { //always collapse if clicked outside the navMenu
+        collapseNav(false);
+      }
     }
   });
 
-  /* ---------------------------------------------------------------------------
-   * Smooth scrolling for Back To Top link.
-   * --------------------------------------------------------------------------- */
-
-  $('#back_to_top').on('click', function(event) {
-    event.preventDefault();
-    $('html, body').animate({
-      'scrollTop': 0
-    }, 800, function() {
-      window.location.hash = "";
-    });
-  });
-
-  /* ---------------------------------------------------------------------------
-   * Hide mobile collapsable menu on clicking a link.
-   * --------------------------------------------------------------------------- */
-
-  $(document).on('click', '.navbar-collapse.in', function(e) {
-    //get the <a> element that was clicked, even if the <span> element that is inside the <a> element is e.target
-    let targetElement = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
-
-    if (targetElement.is('a') && targetElement.attr('class') != 'dropdown-toggle') {
-      $(this).collapse('hide');
+  //helper functions for above
+  let navClassRemoveTimer;
+  function collapseNav(clickedOnButton) {
+    if(!clickedOnButton) {
+      $('.navbar-collapse').collapse('hide');
     }
-  });
+    clearTimeout(navClassRemoveTimer);
+    navClassRemoveTimer = setTimeout(function() { //don't remove the class until a little after the animation is done
+      $('#navbar-main').removeClass('navbar-fixed-top'); 
+      $('body').removeClass('body-add-margin');
+    }, 350 );
+    menuExpanded = false;
+  }
+
+  function expandNav() {
+    clearTimeout(navClassRemoveTimer);
+    $('#navbar-main').addClass('navbar-fixed-top'); //this css fixes the navbar in place, so it displays correctly when bootstrap expands it.
+    $('body').addClass('body-add-margin');
+    menuExpanded = true;
+  }
+
+  function containsOrIs(container,target) {
+    return (container.length > 0) && ($.contains(container[0],target) || container.is(target));
+  }
+
 
   /* ---------------------------------------------------------------------------
    * Filter projects.
@@ -204,29 +202,34 @@
       if (window.location.hash == "#top") {
         window.location.hash = ""
       } else {
-        // If URL contains a hash, scroll to target ID taking into account responsive offset.
-        scrollToAnchor();
+        //Adjusts scroll position if fixed navbar is covering the default scroll location
+        scrollToAnchor(null,window.location.hash);
       }
     }
 
     // Initialize Scrollspy.
-    let $body = $('body');
-    $body.scrollspy({offset: navbar_offset });
+    updateScrollspy();
 
-    // Call `fixScrollspy` when window is resized.
+    // Update scrollspy when window is resized.
     let resizeTimer;
     $(window).resize(function() {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fixScrollspy, 200);
+      resizeTimer = setTimeout(updateScrollspy, 200);
     });
 
     // Enable publication filter for publication index page.
-    if ($('.pub-filters-select')) {
+    if ($('.pub-filters-select').length) {
       filter_publications();
       // Useful for changing hash manually (e.g. in development):
       // window.addEventListener('hashchange', filter_publications, false);
     }
 
   });
+
+  function updateScrollspy() {
+    let $body = $('body');
+    $body.scrollspy({offset: get_navbar_offset() + 2 }); //need +2 because scrollspy calculates locations of items imprecisely.
+    $body.scrollspy('refresh');
+  } 
 
 })(jQuery);

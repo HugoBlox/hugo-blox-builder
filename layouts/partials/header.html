@@ -72,4 +72,9 @@
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 </head>
-<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
+
+{{ if or (eq .Kind "home") (in .Site.Params.fixed_nav_pages .Type)}}
+  <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71" class="body-fixed-nav">
+{{ else }}
+  <body id="top">
+{{ end }}
