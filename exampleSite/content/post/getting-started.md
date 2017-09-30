@@ -70,7 +70,7 @@ The core parameters for the website can be edited in the `config.toml` configura
 - Set `title` to your desired website title such as your name
 - The example Disqus commenting variable should be cleared (e.g. `disqusShortname = ""`) or set to your own [Disqus](https://disqus.com/) shortname to enable commenting
 - Edit your details under `[params]`; these will be displayed mainly in the homepage *about* and *contact* widgets (if used). To disable a contact field, simply clear the value to `""`. 
-- Place a square cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults. Alternatively, you can edit the `avatar` filepath to point to a different image name or clear the value to disable the avatar feature.
+- Place a square cropped portrait photo named `portrait.jpg` into the `static/img/` folder, overwriting any defaults. Note that you can edit the `avatar` filepath to point to a different image name or clear the value to disable the avatar feature. Alternatively, set `gravatar` to `true` to use the Gravatar/Wordpress avatar associated with your `email` address.
 - To enable LaTeX math for your site, set `math = true`
 - Social/academic networking links are defined as multiples of `[[params.social]]`. They can be created or deleted as necessary.
 
@@ -97,8 +97,7 @@ The following color themes are available and can be set by the `color_theme` opt
 - default (light blue) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #0095eb"></span>
 - ocean (deep blue) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #3f51b5"></span>
 - forest (green) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #4caf50"></span>
-
-### Font
+- coffee (brown) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #795548"></span>
 
 The following font styles are available and can be set by the `font` option in `config.toml`:
 
