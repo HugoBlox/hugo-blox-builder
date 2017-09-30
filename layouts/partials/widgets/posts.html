@@ -44,7 +44,7 @@
 
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
-        {{ $params := dict "post" . "page" $page }}
+        {{ $params := dict "post" . }}
         {{ partial "post_li" $params }}
       {{end}}
 
@@ -71,7 +71,7 @@
 
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
-        {{ $params := dict "post" . "page" $page }}
+        {{ $params := dict "post" . }}
         {{ partial "post_li" $params }}
       {{end}}
 

@@ -13,24 +13,8 @@
 
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}
-  <div>
-    {{ if .Params.image }}
-    <a href="{{ .Permalink }}">
-      <img src="{{ $.Site.BaseURL }}img/{{ .Params.image }}" class="article-banner">
-    </a>
-    {{end}}
-    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    {{ partial "article_metadata" (dict "content" . "is_list" 1) }}
-    <div class="article-style"><p>
-      {{ if .Params.summary }}
-      {{ printf "%s" .Params.summary | markdownify }}
-      {{ else if .Truncated }}
-      {{ printf "%s" .Summary | markdownify }}
-      {{ else }}
-      {{ .Content }}
-      {{ end }}
-    </p></div>
-  </div>
+    {{ $params := dict "post" . }}
+    {{ partial "post_li" $params }}
   {{ end }}
 
   {{ partial "pagination" . }}
