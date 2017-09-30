@@ -53,6 +53,9 @@ defaultContentLanguageInSubdir = false
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
   date_format = "Jan 2, 2006"
 
+  # Show estimated reading time for posts?
+  reading_time = true
+
   # Enable global LaTeX math rendering?
   #   If false, you can enable it locally on a per page basis.
   math = false

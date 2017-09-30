@@ -11,6 +11,9 @@
 - id: related
   translation: Related
 
+- id: minute_read
+  translation: min read
+
 # Buttons
 
 - id: btn_details
