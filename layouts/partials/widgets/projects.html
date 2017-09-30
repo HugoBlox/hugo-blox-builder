@@ -29,26 +29,23 @@
 
     {{ if eq $page.Params.view 0 }}
 
-    <div id="container-projects" class="isotope">
-      <ul class="fa-ul" style="position: relative">
-
+    <div id="container-projects" class="row isotope">
         {{ range where $.Data.Pages "Type" "project" }}
-        <li class="project-item isotope-item {{ delimit .Params.tags " " }}">
+        <div class="col-md-12 project-item isotope-item {{ delimit .Params.tags " " }}" itemscope itemtype="http://schema.org/CreativeWork">
+          <i class="fa fa-files-o pub-icon" aria-hidden="true"></i>
+
           <span class="project-title">
           {{ if .Content }}
           <a href="{{ .Permalink }}">
           {{ else }}
             {{ with .Params.external_link }}<a href="{{ . }}" target="_blank">{{ end }}
           {{ end }}
-          <i class="fa-li fa fa-files-o pub-icon" aria-hidden="true"></i>
           {{ .Title }}
           {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
           </span>
           {{ with .Params.summary }}<p class="project-summary">{{ . | markdownify }}</p>{{ end }}
-        </li>
+        </div>
         {{ end }}
-
-      </ul>
     </div>
 
     {{ else }}
