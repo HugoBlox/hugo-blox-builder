@@ -90,6 +90,21 @@ Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}})
 
 [How to remove unused widgets and content pages]({{< ref "post/managing-content.md#removing-content" >}}).
 
+### Themes
+
+The following color themes are available and can be set by the `color_theme` option in `config.toml`:
+
+- default (light blue) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #0095eb"></span>
+- ocean (deep blue) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #3f51b5"></span>
+- forest (green) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #4caf50"></span>
+
+### Font
+
+The following font styles are available and can be set by the `font` option in `config.toml`:
+
+- default (modern)
+- classic
+
 ### Customization & updating
 
 Continue reading below for advanced customization tips and instructions for keeping the framework up-to-date with any improvements that become available.
@@ -108,12 +123,6 @@ To create a dropdown sub-menu, add `identifier = "something"` to the parent item
 ### Website icon
 
 Save your main icon and mobile icon as square PNG images named `icon.png` and `apple-touch-icon.png`, respectively. Place them in your root `static/img/` folder.
-
-### Theme color (CSS)
-
-You can link custom CSS assets (relative to your root `static/css`) from your `config.toml` using `custom_css = ["custom.css"]`.
-
-For example, lets make a green theme. First, define `custom_css = ["green.css"]` in `config.toml`. Then we can download the example [green theme](https://gist.github.com/gcushen/d5525a4506b9ccf83f2bce592a895495) and save it as `static/css/green.css`, relative to your website root (i.e. **not** in the `themes` directory).
 
 ### Analytics
 
@@ -147,6 +156,12 @@ For further details on Hugo's internationalization and multilingual features, re
         post = "/:year/:month/:day/:slug"
 
 Where `:slug` defaults to the filename of the post, excluding the file extension. However, slug may be overridden on a per post basis if desired, simply by setting `slug = "my-short-post-title"` in your post preamble.
+
+### Advanced style customization (CSS)
+
+For advanced customization of the style, you can link custom CSS assets (relative to your root `static/css`) from your `config.toml` using `custom_css = ["custom.css"]`.
+
+For example, let's override some of Academic's default styles. First, define `custom_css = ["override.css"]` in `config.toml`. Then we can create the file `static/css/override.css`, relative to your website root (i.e. **not** in the `themes` directory). Add your custom CSS to this file.
 
 
 ## Updating
