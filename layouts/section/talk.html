@@ -25,7 +25,10 @@
               <i class="fa-li fa fa-comment-o" aria-hidden="true"
                  style="color:#03396c;font-size:80%;padding-top:6px;"></i>
               {{ .Title }}
-              <p>{{ partial "talk_links" (dict "content" . "is_list" 1) }}</p>
+              <p>{{ .Date.Format $.Site.Params.date_format }},
+                      {{ .Params.event | markdownify }},
+                      {{ .Params.location | markdownify }} <br>
+                 {{ partial "talk_links" (dict "content" . "is_list" 1) }}</p>
             </li>
             {{ end }}
 
