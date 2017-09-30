@@ -16,12 +16,22 @@
 
       <div class="portrait-title">
         <h2 itemprop="name">{{ $.Site.Params.name }}</h2>
-        <h3 itemprop="jobTitle">{{ $.Site.Params.role }}</h3>
+        {{ with $.Site.Params.role }}<h3 itemprop="jobTitle">{{ . }}</h3>{{ end }}
+
+        {{/* Support legacy `organization` option. */}}
         {{ if $.Site.Params.organization }}
         <h3 itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
           {{ with $.Site.Params.organization_url }}<a href="{{ . }}" target="_blank" itemprop="url">{{ end }}
             <span itemprop="name">{{ $.Site.Params.organization }}</span>
           {{ if $.Site.Params.organization_url }}</a>{{ end }}
+        </h3>
+        {{ end }}
+
+        {{ range $.Site.Params.organizations }}
+        <h3 itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
+          {{ with .url }}<a href="{{ . }}" target="_blank" itemprop="url">{{ end }}
+          <span itemprop="name">{{ .name }}</span>
+          {{ if .url }}</a>{{ end }}
         </h3>
         {{ end }}
       </div>
