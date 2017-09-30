@@ -18,18 +18,15 @@
           <h3>{{ .Key }}</h3>
         </div>
         <div class="col-md-10">
-          <ul class="compact fa-ul">
 
-            {{ range .Pages.ByDate.Reverse }}
-            <li>
-              <i class="fa-li fa fa-comment-o" aria-hidden="true"
-                 style="color:#03396c;font-size:80%;padding-top:6px;"></i>
-              {{ .Title }}
-              <p>{{ partial "talk_links" (dict "content" . "is_list" 1) }}</p>
-            </li>
+          {{ range .Pages.ByDate.Reverse }}
+            {{ if eq $.Params.list_format 1 }}
+              {{ partial "talk_li_detailed" . }}
+            {{ else }}
+              {{ partial "talk_li_simple" . }}
             {{ end }}
+          {{ end }}
 
-          </ul>
         </div>
       </div>
       {{ end }}

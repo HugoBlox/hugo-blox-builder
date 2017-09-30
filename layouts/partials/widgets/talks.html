@@ -19,17 +19,12 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ if $page.Params.detailed_list }}
     {{ range first $page.Params.count (where $.Data.Pages "Type" "talk") }}
-    {{ partial "talk_li_detailed" . }}
-    {{ end }}
-    {{ else }}
-    <ul class="fa-ul">
-      {{ range first $page.Params.count (where $.Data.Pages "Type" "talk") }}
-      {{ partial "talk_li_simple" . }}
+      {{ if eq $page.Params.list_format 1 }}
+        {{ partial "talk_li_detailed" . }}
+      {{ else }}
+        {{ partial "talk_li_simple" . }}
       {{ end }}
-    </ul>
     {{ end }}
-
   </div>
 </div>
