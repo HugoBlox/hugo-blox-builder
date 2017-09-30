@@ -10,6 +10,7 @@
   {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
   {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
 
+  {{ $sri := .Site.Data.sri }}
   {{/* Default to enabling highlighting, but allow the user to override it in .Params or .Site.Params.
        Use $.Scratch to store "highlight_enabled", so that we can read it again in footer.html. */}}
   {{ $.Scratch.Set "highlight_enabled" true }}
@@ -19,7 +20,7 @@
     {{ $.Scratch.Set "highlight_enabled" .Site.Params.highlight }}
   {{ end }}
   {{ if $.Scratch.Get "highlight_enabled" }}
-    {{ $v := .Site.Params.highlight_version | default "9.9.0" }}
+    {{ $v := $sri.js.highlight.version }}
     {{ with .Site.Params.highlight_style }}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
     {{ else }}
@@ -27,13 +28,13 @@
     {{ end }}
   {{ end }}
   {{ if not .Site.Params.disable_sri }}
-  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.bootstrap | safeHTML }}
-  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.1/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.academicons | safeHTML }}
-  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" .Site.Data.sri.css.fontAwesome | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.bootstrap.version $sri.css.bootstrap.sri | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.academicons.version $sri.css.academicons.sri | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/font-awesome.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.fontAwesome.version $sri.css.fontAwesome.sri | safeHTML }}
   {{ else }}
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/1.8.1/css/academicons.min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{{- $sri.css.bootstrap.version -}}/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/{{- $sri.css.academicons.version -}}/css/academicons.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/{{- $sri.css.fontAwesome.version -}}/css/font-awesome.min.css">
   {{ end }}
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent */}}
   {{- partial "css/parse_theme.css" . -}}
@@ -57,9 +58,9 @@
     </script>
     <script async src="//www.google-analytics.com/analytics.js"></script>
     {{ if not .Site.Params.disable_sri }}
-    {{ printf "<script async src=\"https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.autotrack | safeHTML }}
+    {{ printf "<script async src=\"https://cdnjs.cloudflare.com/ajax/libs/autotrack/%s/autotrack.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $sri.js.autotrack.version $sri.js.autotrack.sri | safeHTML }}
     {{ else }}
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js"></script>
+    <script async src="//cdnjs.cloudflare.com/ajax/libs/autotrack/{{- $sri.js.autotrack.version -}}/autotrack.js"></script>
     {{ end }}
   {{ end }}
 

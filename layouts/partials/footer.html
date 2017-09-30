@@ -1,13 +1,14 @@
+    {{ $js := .Site.Data.sri.js }}
     {{ if not .Site.Params.disable_sri }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.jQuery | safeHTML }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.imagesLoaded | safeHTML }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.bootstrap | safeHTML }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.isotope | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.jQuery.version $js.jQuery.sri | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/%s/imagesloaded.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.imagesLoaded.version $js.imagesLoaded.sri | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/js/bootstrap.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.bootstrap.version $js.bootstrap.sri | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/%s/isotope.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.isotope.version $js.isotope.sri | safeHTML }}
     {{ else }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/{{- $js.jQuery.version -}}/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/{{- $js.imagesLoaded.version -}}/imagesloaded.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{{- $js.bootstrap.version -}}/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/{{- $js.isotope.version -}}/isotope.pkgd.min.js"></script>
     {{ end }}
     <script src="{{ "/js/hugo-academic.js" | relURL }}"></script>
     {{ range .Site.Params.custom_js }}
@@ -16,8 +17,12 @@
 
     <!-- Code highlighting -->
     {{ if $.Scratch.Get "highlight_enabled" }}
-      {{ $v := .Site.Params.highlight_version | default "9.9.0" }}
+      {{ $v := $js.highlight.version }}
+      {{ if not .Site.Params.disable_sri }}
+      {{ printf "<script src=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/highlight.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $v $js.highlight.sri | safeHTML }}
+      {{ else }}
       <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/highlight.min.js"></script>
+      {{ end }}
 
       {{ range .Site.Params.highlight_languages }}
       <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
@@ -40,9 +45,9 @@
         MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
     </script>
     {{ if not .Site.Params.disable_sri }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" .Site.Data.sri.js.mathJax | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/%s/MathJax.js?config=TeX-AMS_CHTML\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.mathJax.version $js.mathJax.sri | safeHTML }}
     {{ else }}
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/{{- $js.mathJax.version -}}/MathJax.js?config=TeX-AMS_CHTML"></script>
     {{ end }}
     {{ end }}
 

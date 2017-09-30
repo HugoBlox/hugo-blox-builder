@@ -82,21 +82,14 @@ defaultContentLanguageInSubdir = false
   #
   #     Example: highlight_style = "github-gist"
   #
-  #   highlight_version
-  #     Choose the version of highlight.js you want. Setting this
-  #     option in a page's preamble has no effect.
-  #
-  #     Example: highlight_version = "9.9.0"
-  #
-  #   For the list of supported languages, styles, and versions, see:
+  #   For the list of supported languages and styles, see:
   #   https://cdnjs.com/libraries/highlight.js/
   #
   #   For more info on the highlighting options, see:
-  #   https://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/#highlighting-options
+  #   https://sourcethemes.com/academic/post/writing-markdown-latex/#highlighting-options
   highlight = true
   highlight_languages = []
   # highlight_style = "github"
-  # highlight_version = "9.9.0"
 
   # Enable native social sharing buttons?
   sharing = true

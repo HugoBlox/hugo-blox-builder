@@ -113,7 +113,6 @@ option                | type    | description                     | config.toml 
 `highlight`           | boolean | enable/disable highlighting     | yes         | yes
 `highlight_languages` | slice   | choose additional languages     | yes         | yes
 `highlight_style`     | string  | choose a highlighting style     | yes         | no
-`highlight_version`   | string  | choose the highlight.js version | yes         | no
 
 
 #### Option `highlight`
@@ -156,10 +155,6 @@ If you don't want to change the default style that ships with Academic but you d
 {{% /alert %}}
 
 The `highlight_style` option is only recognized when set in `config.toml`. Setting `highlight_style` in your page's preamble has no effect.
-
-#### Option `highlight_version`
-
-The `highlight_version` option, as the name implies, allows you to select the version of highlight.js you want to use. The default value is "9.9.0". The `highlight_version` option is only recognized when set in `config.toml`. Setting `highlight_version` in your page's preamble has no effect.
 
 ## Twitter tweet
 
