@@ -19,7 +19,14 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range first $page.Params.count (where $.Data.Pages "Type" "publication") }}
+    {{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
+      {{ $.Scratch.Set "recent_pubs" (where (where $.Data.Pages "Type" "publication") ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
+    {{ else }}
+      {{ $.Scratch.Set "recent_pubs" (where $.Data.Pages "Type" "publication") }}
+    {{ end }}
+
+    {{ $recent_pubs := $.Scratch.Get "recent_pubs" }}
+    {{ range first $page.Params.count $recent_pubs }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "publication_li_classic" . }}
       {{ else if eq $page.Params.list_format 2 }}

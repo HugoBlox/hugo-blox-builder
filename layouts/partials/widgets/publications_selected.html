@@ -10,13 +10,20 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) }}
+    {{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
+      {{ $.Scratch.Set "sel_pubs" (where (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
+    {{ else }}
+      {{ $.Scratch.Set "sel_pubs" (where (where $.Data.Pages "Type" "publication") ".Params.selected" true) }}
+    {{ end }}
+
+    {{ $sel_pubs := $.Scratch.Get "sel_pubs" }}
+    {{ range $sel_pubs }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "publication_li_classic" . }}
       {{ else if eq $page.Params.list_format 2 }}
         {{ partial "publication_li_detailed" . }}
       {{ else }}
-          {{ partial "publication_li_simple" . }}
+        {{ partial "publication_li_simple" . }}
       {{ end }}
     {{ end }}
 

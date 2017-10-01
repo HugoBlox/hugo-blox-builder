@@ -21,5 +21,15 @@ count = 10
 #   2 = Detailed
 list_format = 0
 
+# Filter by publication type.
+# -1: Any
+#  0: Uncategorized
+#  1: Conference proceedings
+#  2: Journal
+#  3: Work in progress
+#  4: Technical report
+#  5: Book
+#  6: Book chapter
+publication_type = "-1"
 +++
 
