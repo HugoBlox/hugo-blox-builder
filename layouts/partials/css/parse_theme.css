@@ -3,7 +3,7 @@
 
 {{/* Attempt to load font style specified by user. */}}
 {{- $font_index := .Site.Params.font | default "default" -}}
-{{ if isset .Site.Data.themes $font_index }}
+{{ if isset .Site.Data.fonts $font_index }}
   {{- $font := index .Site.Data.fonts $font_index -}}
   {{- $scr.Set "google_fonts" $font.google_fonts -}}
   {{- $scr.Set "body_font" $font.body_font -}}
