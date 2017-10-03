@@ -592,7 +592,7 @@ article {
   color: #9c9c9c;
 }
 
-#container-projects {
+.projects-container {
   display: block;
   position: relative;
   /*margin-top: 5rem;*/
