@@ -2,7 +2,7 @@
 name = "Classic"
 
 # Optional Google font URL
-google_fonts = "Playfair Display:400,700|Fauna One"
+google_fonts = "Playfair+Display:400,700|Fauna+One"
 
 # Font families
 heading_font = "Playfair Display"
