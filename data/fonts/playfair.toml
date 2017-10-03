@@ -1,0 +1,15 @@
+# Font style metadata
+name = "Playfair"
+
+# Optional Google font URL
+google_fonts = "Playfair+Display:400,700|Fauna+One"
+
+# Font families
+heading_font = "Playfair Display"
+body_font = "Fauna One"
+nav_font = "Fauna One"
+mono_font = "Roboto Mono"
+
+# Font size
+font_size = "20"
+font_size_small = "16"

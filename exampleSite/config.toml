@@ -29,7 +29,7 @@ defaultContentLanguageInSubdir = false
   color_theme = "default"
 
   # Font style.
-  #   Choose from `default` or `classic`.
+  #   Choose from `default`, `classic`, or `playfair`.
   font = "default"
 
   # Your details.

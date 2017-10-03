@@ -8,6 +8,7 @@
   {{- $scr.Set "google_fonts" $font.google_fonts -}}
   {{- $scr.Set "body_font" $font.body_font -}}
   {{- $scr.Set "heading_font" $font.heading_font -}}
+  {{- $scr.Set "nav_font" $font.nav_font -}}
   {{- $scr.Set "mono_font" $font.mono_font -}}
   {{- $scr.Set "font_size" $font.font_size -}}
   {{- $scr.Set "font_size_small" $font.font_size_small -}}
