@@ -15,6 +15,18 @@ Key features:
 - Simple and refreshing one page design
 - Multilingual and easy to customize
 
+## Color Themes
+
+Academic is available in different color themes and font themes.
+
+| `default` | `ocean` |
+| --- | --- |
+| ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png) | ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) |
+
+| `forest` | `coffee` |
+| --- | --- |
+| ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) |
+
 ## Getting Started
 
 1. [Install Hugo](https://georgecushen.com/create-your-website-with-hugo/#installing-hugo) and create a new website by typing the following commands in your *Terminal* or *Command Prompt* app:
