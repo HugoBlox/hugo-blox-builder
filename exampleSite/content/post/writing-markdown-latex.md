@@ -192,6 +192,16 @@ Alternatively, inline math can be written by wrapping the formula with only a si
 
 This is inline: $\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon$
 
+Note that because of how Hugo's Markdown parser works, Markdown special characters need to be escaped with backslash. Also the 2 backslashes line break needs to be replaced by 6 backslashes:
+
+```TeX
+$$f(k;p\_0^\*) = \begin{cases} p\_0^\* & \text{if }k=1, \\\\\\
+1-p\_0^\* & \text {if }k=0.\end{cases}$$
+```
+
+$$f(k;p\_0^\*) = \begin{cases} p\_0^\* & \text{if }k=1, \\\\\\
+1-p\_0^\* & \text {if }k=0.\end{cases}$$
+
 ## Table
 
 Code:
