@@ -879,7 +879,11 @@ nav#navbar-main li {
   font-weight: 600;
 }
 
-.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:focus {
+  color: {{ .Get "menu_text" }};
+  background-color: transparent;
+}
+
 .navbar-default .navbar-nav>li>a:hover {
   color: {{ .Get "menu_text_active" }};
   background-color: transparent;
