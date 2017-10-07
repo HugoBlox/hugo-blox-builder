@@ -102,24 +102,24 @@
    * --------------------------------------------------------------------------- */
 
   $('.projects-container').each(function(index, container) {
-      let $container = $(container);
-      let $section = $container.closest('section');
+    let $container = $(container);
+    let $section = $container.closest('section');
 
-      $container.imagesLoaded(function() {
-          // Initialize Isotope after all images have loaded.
-          $container.isotope({
-              itemSelector: '.isotope-item',
-              layoutMode: 'masonry',
-              filter: $section.find('.default-project-filter').text()
-          })
-          // Filter items when filter link is clicked.
-          $section.find('.project-filters a').click(function() {
-              let selector = $(this).attr('data-filter');
-              $container.isotope({filter: selector});
-              $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
-              return false;
-          })
+    $container.imagesLoaded(function() {
+      // Initialize Isotope after all images have loaded.
+      $container.isotope({
+        itemSelector: '.isotope-item',
+        layoutMode: 'masonry',
+        filter: $section.find('.default-project-filter').text()
       })
+      // Filter items when filter link is clicked.
+      $section.find('.project-filters a').click(function() {
+        let selector = $(this).attr('data-filter');
+        $container.isotope({filter: selector});
+        $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
+        return false;
+      })
+    })
   })
 
   /* ---------------------------------------------------------------------------
