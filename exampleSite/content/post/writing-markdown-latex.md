@@ -211,7 +211,7 @@ $$f(k;p\_0^\*) = \begin{cases} p\_0^\* & \text{if }k=1, \\\\\\
 As Hugo and Academic attempt to parse TOML, Markdown, and LaTeX content in the abstract, the following guidelines should be followed just for the publication `abstract` and `abstract_short` fields:
 
 - escape each LaTeX backslash (`\`) with an extra backslash, yielding `\\`
-- escape each LaTeX underscore (`_`) with two backslashes, yielding `\\_`.
+- escape each LaTeX underscore (`_`) with two backslashes, yielding `\\_`
 
 Hence, `abstract = "${O(d_{\max})}$"` becomes `abstract = "${O(d\\_{\\max})}$"`.
 
