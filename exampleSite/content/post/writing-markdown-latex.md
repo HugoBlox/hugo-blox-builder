@@ -194,6 +194,29 @@ Alternatively, inline math can be written by wrapping the formula with only a si
 
 This is inline: $\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon$
 
+Note that Markdown special characters need to be escaped with a backslash so they are treated as math rather than Markdown. For example, `*` and `_` become `\*` and `\_` respectively.
+
+### Multiline equations
+
+The standard LaTeX line break consisting of 2 backslashes needs to be replaced with 6 backslashes:
+
+```TeX
+$$f(k;p\_0^\*) = \begin{cases} p\_0^\* & \text{if }k=1, \\\\\\
+1-p\_0^\* & \text {if }k=0.\end{cases}$$
+```
+
+$$f(k;p\_0^\*) = \begin{cases} p\_0^\* & \text{if }k=1, \\\\\\
+1-p\_0^\* & \text {if }k=0.\end{cases}$$
+
+### Publication abstracts
+
+As Hugo and Academic attempt to parse TOML, Markdown, and LaTeX content in the abstract, the following guidelines should be followed just for the publication `abstract` and `abstract_short` fields:
+
+- escape each LaTeX backslash (`\`) with an extra backslash, yielding `\\`
+- escape each LaTeX underscore (`_`) with two backslashes, yielding `\\_`
+
+Hence, `abstract = "${O(d_{\max})}$"` becomes `abstract = "${O(d\\_{\\max})}$"`.
+
 ## Table
 
 Code:
