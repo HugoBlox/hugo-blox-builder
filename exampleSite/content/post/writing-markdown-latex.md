@@ -60,7 +60,9 @@ A numbered figure with caption:
     
 To enable linking to a file, such as a PDF, first place the file in your `static/files/` folder and then link to it using the following form:
 
-    {{%/* staticref "files/cv.pdf" */%}}Download my CV{{%/* /staticref */%}}
+    {{%/* staticref "files/cv.pdf" "newtab" */%}}Download my CV{{%/* /staticref */%}}
+
+The optional `"newtab"` argument for `staticref` will cause the link to be opened in a new tab.
 
 ## Emojis
 
