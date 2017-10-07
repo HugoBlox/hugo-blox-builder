@@ -12,11 +12,12 @@
 
     {{ $filter_default := default (int $page.Params.filter_default) 0 }}
     {{ with $page.Params.filter }}
-    <span id="default-project-filter" class="hidden">{{ (index $page.Params.filter ($filter_default)).tag }}</span>
+    <span class="hidden default-project-filter">{{ (index $page.Params.filter ($filter_default)).tag }}</span>
     {{ end }}
 
+    {{ if gt (len $page.Params.filter) 1 }}
     <div class="project-toolbar">
-      <div id="filters">
+      <div class="project-filters">
         <div class="btn-toolbar">
           <div class="btn-group">
             {{ range $idx, $item := $page.Params.filter }}
@@ -26,10 +27,11 @@
         </div>
       </div>
     </div>
+    {{ end }}
 
     {{ if eq $page.Params.view 0 }}
 
-    <div id="container-projects" class="row isotope">
+    <div class="row isotope projects-container">
         {{ range where $.Data.Pages "Type" "project" }}
         <div class="col-md-12 project-item isotope-item {{ delimit .Params.tags " " }}" itemscope itemtype="http://schema.org/CreativeWork">
           <i class="fa fa-files-o pub-icon" aria-hidden="true"></i>
@@ -50,7 +52,7 @@
 
     {{ else }}
 
-    <div id="container-projects" class="row isotope">
+    <div class="row isotope projects-container">
 
       {{ range $project := where $.Data.Pages "Type" "project" }}
       {{ $.Scratch.Set "project_url" $project.Permalink }}
