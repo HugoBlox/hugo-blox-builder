@@ -15,3 +15,6 @@ max_line_length = 100
 
 [*.md]
 trim_trailing_whitespace = false
+
+[layouts/shortcodes/*.html]
+insert_final_newline = false
