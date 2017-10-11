@@ -5,12 +5,12 @@
       {{- delimit . ", " | markdownify -}}
     {{- end -}}
   </span>.
-  <span itemprop="name">{{ .Title }}</span>.
+  <a itemprop="name" href="{{ $.Permalink }}">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
     {{- .Params.publication_short | markdownify -}}
   {{ else }}
     {{- .Params.publication | markdownify -}}
   {{ end }},&nbsp;
   {{- .Date.Format "2006" -}}.
-  <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
+  {{ partial "publication_links" (dict "content" . "is_list" 1) }}
 </div>
