@@ -15,7 +15,7 @@
     <span class="hidden default-project-filter">{{ (index $page.Params.filter ($filter_default)).tag }}</span>
     {{ end }}
 
-    {{ if gt (len $page.Params.filter) 1 }}
+    {{ if and (($page.Params.filter) (gt (len $page.Params.filter) 1)) }}
     <div class="project-toolbar">
       <div class="project-filters">
         <div class="btn-toolbar">
