@@ -3,6 +3,8 @@
 
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
+      
+      {{ if .Site.Menus.main }}
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
               data-target=".navbar-collapse" aria-expanded="false">
         <span class="sr-only">{{ i18n "toggle_navigation" }}</span>
@@ -10,9 +12,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      {{ end }}
+
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">{{ .Site.Title }}</a>
     </div>
 
+    {{ if .Site.Menus.main }}
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse">
 
@@ -70,5 +75,6 @@
       </ul>
 
     </div><!-- /.navbar-collapse -->
+    {{ end }}
   </div><!-- /.container -->
 </nav>
