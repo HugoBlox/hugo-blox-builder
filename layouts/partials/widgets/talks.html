@@ -1,6 +1,6 @@
 {{ $ := .root }}
 {{ $page := .page }}
-{{ $talks_len := len (where $.Data.Pages "Type" "talk") }}
+{{ $talks_len := len (where $.Site.RegularPages "Type" "talk") }}
 
 <!-- Talks widget -->
 <div class="row">
@@ -19,7 +19,7 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range first $page.Params.count (where $.Data.Pages "Type" "talk") }}
+    {{ range first $page.Params.count (where $.Site.RegularPages "Type" "talk") }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
       {{ else }}

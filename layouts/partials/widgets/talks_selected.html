@@ -10,7 +10,7 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range (where (where $.Data.Pages "Type" "talk") ".Params.selected" true) }}
+    {{ range (where (where $.Site.RegularPages "Type" "talk") ".Params.selected" true) }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
       {{ else }}
