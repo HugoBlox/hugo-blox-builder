@@ -108,7 +108,7 @@ So you would like to create a page which utilizes Academic's widget system, simi
 
 Create a new folder in your `content` folder, naming it with your new page name. In this example, we will create a *courses* page by creating a `content/courses/` folder.
 
-Within your new `content/courses/` folder, create a file named `_index.html` containing the following parameters:
+Within your new `content/courses/` folder, create a file named `_index.md` containing the following parameters:
 
 ```
 +++
