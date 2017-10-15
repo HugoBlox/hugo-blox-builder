@@ -21,6 +21,18 @@ external_link = ""
 # Does the project detail page use math formatting?
 math = false
 
+# List publications related to the project?
+list_publications = true
+# List format.
+#   0 = Simple
+#   1 = Detailed
+#   2 = APA
+#   3 = MLA
+list_format = 3
+
+# List talks related to the project?
+list_talks = true
+
 # Optional featured image (relative to `static/img/` folder).
 [header]
 image = "headers/bubbles-wide.jpg"

@@ -13,6 +13,7 @@ math = true
 url_pdf = ""
 url_slides = ""
 url_video = ""
+url_project = "project/deep-learning"
 
 # Optional featured image (relative to `static/img/` folder).
 [header]
@@ -21,4 +22,4 @@ caption = "My caption :smile:"
 
 +++
 
-Embed your slides or video here using [shortcodes](https://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/). Further details can easily be added using *Markdown* and $\rm \LaTeX$ math code. 
+Embed your slides or video here using [shortcodes](https://gcushen.github.io/hugo-academic-demo/post/writing-markdown-latex/). Further details can easily be added using *Markdown* and $\rm \LaTeX$ math code.

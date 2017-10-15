@@ -13,7 +13,7 @@ title = "Mobile visual clothing search"
 url_code = "#"
 url_dataset = "#"
 url_pdf = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"
-url_project = "project/deep-learning/"
+url_project = "project/deep-learning"
 url_slides = "#"
 url_video = "#"
 
