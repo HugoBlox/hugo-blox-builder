@@ -1,0 +1,32 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $header := $page.Params.header }}
+
+<section id="{{ $page.File.TranslationBaseName }}" class="hero-overlay" style="
+{{ if $header.overlay_color }}
+background-color: {{ $header.overlay_color | default "transparent" }};
+{{ end }}
+{{ if $header.overlay_img }}
+background-image:
+{{ if $header.overlay_filter }}linear-gradient(rgba(0, 0, 0, {{ $header.overlay_filter }}), rgba(0, 0, 0, {{ $header.overlay_filter }})), {{ end }}
+url('{{ printf "img/%s" $header.overlay_img | absURL}}');
+{{ end }}
+;">
+
+  <div class="container">
+
+    <h1 class="hero-title" itemprop="headline">
+      {{ with $page.Title }}{{ . | markdownify }}{{ end }}
+    </h1>
+
+    {{ with $page.Content }}
+    <p class="hero-lead">{{ . | markdownify }}</p>
+    {{ end }}
+
+    {{ if $page.Params.cta.url }}
+    <p><a href="{{ $page.Params.cta.url }}" class="btn btn-light btn-outline btn-large">{{ $page.Params.cta.label | safeHTML}}</a></p>
+    {{ end }}
+
+  </div>
+
+</section>

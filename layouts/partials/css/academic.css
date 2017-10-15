@@ -196,6 +196,11 @@ blockquote p:last-child {
   }
 }
 
+small,
+.small {
+  font-size: .75em;
+}
+
 /*************************************************
  *  Home Sections
  **************************************************/
@@ -241,6 +246,53 @@ blockquote p:last-child {
   font-weight: 400;
   font-size: 1.1rem;
   color: #b2b2b2;
+}
+
+/*************************************************
+ *  Hero Widget
+ **************************************************/
+
+.hero-overlay {
+  position: relative;
+  padding: 3em 0;
+  clear: both;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: intro 0.3s both;
+  animation-delay: 0s;
+  animation-delay: 0.25s;
+}
+
+.hero-title {
+  font-size: 2.7rem;
+  margin-top: 0;
+  line-height: 1;
+}
+
+.hero-lead {
+  max-width: 768px;
+  font-size: 1.35rem;
+}
+
+.hero-overlay .hero-title,
+.hero-overlay .hero-lead,
+.hero-overlay .btn {
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.hero-overlay a {
+  color: #fff;
+}
+
+.hero-overlay .hero-lead a {
+  color: #fff;
+  text-decoration-line: underline;
+}
+
+.hero-overlay .btn-large {
+  font-size: 1.1rem;
 }
 
 /*************************************************
@@ -768,6 +820,17 @@ footer a#back_to_top i {
   background: {{ .Get "primary" }} !important;
 }
 
+.btn-light {
+  border-color: #fff !important;
+  background: #fff !important;
+}
+
+.btn-light:hover,
+.btn-light:active,
+.btn-light.active {
+  background: rgba(0,0,0,0.4) !important;
+}
+
 /*************************************************
  *  Toolbar Buttons
  **************************************************/
@@ -819,6 +882,19 @@ footer a#back_to_top i {
   color: #fff !important;
 }
 
+.btn-light.btn-outline {
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.btn-light.btn-outline:focus {
+  color: #fff !important;
+}
+
+.btn-light.btn-outline:active {
+  color: transparent !important;
+}
+
 .btn-success.btn-outline {
   color: #5cb85c;
 }
@@ -836,6 +912,7 @@ footer a#back_to_top i {
 }
 
 .btn-primary.btn-outline:hover,
+.btn-light.btn-outline:hover,
 .btn-success.btn-outline:hover,
 .btn-info.btn-outline:hover,
 .btn-warning.btn-outline:hover,

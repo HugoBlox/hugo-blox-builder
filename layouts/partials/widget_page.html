@@ -15,11 +15,15 @@
 {{ range $index, $page := where .Data.Pages "Section" $section }}
   {{ $params := dict "root" $ "page" $page }}
   {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
+  {{ if eq $page.Params.widget "hero" }}
+    {{ partial $widget $params }}
+  {{ else }}
   <section id="{{ $page.File.TranslationBaseName }}" class="home-section">
     <div class="container">
       {{ partial $widget $params }}
     </div>
   </section>
+  {{ end }}
 {{ end }}
 
 <!-- Page Footer -->

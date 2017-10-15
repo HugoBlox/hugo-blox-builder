@@ -20,6 +20,7 @@ Homepage widgets display as sections on the homepage. They can be enabled/disabl
 - Recent talks
 - Contact
 - Tag cloud
+- Hero (introduction)
 - Custom widget (demonstrated with the *teaching* example)
 
 The example site that you copied to create your site uses all the different types of widget (except talks), so you can generally just delete the widgets you don't need and customize the parameters of the widgets you wish to keep.
