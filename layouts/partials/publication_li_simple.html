@@ -1,5 +1,5 @@
 <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
   <i class="fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-  <span itemprop="name">{{ .Title }}</span>
+  <a href="{{ .Permalink }}" itemprop="name">{{ .Title }}</a>
   <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
 </div>

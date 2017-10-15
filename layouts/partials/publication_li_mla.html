@@ -5,7 +5,7 @@
       {{- delimit . ", " | markdownify -}}
     {{- end -}}
   </span>.
-  <span itemprop="name">{{ .Title }}</span>.
+  <a href="{{ .Permalink }}" itemprop="name">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
     {{- .Params.publication_short | markdownify -}}
   {{ else }}

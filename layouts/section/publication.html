@@ -52,9 +52,11 @@
 
         <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
           {{ if eq $.Params.list_format 1 }}
-            {{ partial "publication_li_classic" . }}
-          {{ else if eq $.Params.list_format 2 }}
             {{ partial "publication_li_detailed" . }}
+          {{ else if eq $.Params.list_format 2 }}
+            {{ partial "publication_li_apa" . }}
+          {{ else if eq $.Params.list_format 3 }}
+            {{ partial "publication_li_mla" . }}
           {{ else }}
             {{ partial "publication_li_simple" . }}
           {{ end }}

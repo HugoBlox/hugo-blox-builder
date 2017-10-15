@@ -28,9 +28,11 @@
     {{ $recent_pubs := $.Scratch.Get "recent_pubs" }}
     {{ range first $page.Params.count $recent_pubs }}
       {{ if eq $page.Params.list_format 1 }}
-        {{ partial "publication_li_classic" . }}
-      {{ else if eq $page.Params.list_format 2 }}
         {{ partial "publication_li_detailed" . }}
+      {{ else if eq $page.Params.list_format 2 }}
+        {{ partial "publication_li_apa" . }}
+      {{ else if eq $page.Params.list_format 3 }}
+        {{ partial "publication_li_mla" . }}
       {{ else }}
         {{ partial "publication_li_simple" . }}
       {{ end }}
