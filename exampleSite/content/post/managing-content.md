@@ -6,7 +6,7 @@ title = "Managing content"
 math = false
 +++
 
-This is a brief guide to managing content with the Academic framework. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about [writing content with Markdown, LaTeX, and Shortcodes]({{< ref "post/writing-markdown-latex.md" >}}).<!--more-->
+This is a brief guide to managing content with the Academic framework. Content can include publications, projects, talks, news/blog articles, and widget pages. After you have read this guide about creating and managing content, you may also be interested to learn about [writing content with Markdown, LaTeX, and Shortcodes]({{< ref "post/writing-markdown-latex.md" >}}).<!--more-->
 
 To enable LaTeX math rendering for a page, you should include `math = true` in the page's `+++` preamble, as demonstrated in the included example site. Otherwise, to enable math on the homepage or for all pages, you must globally set `math = true` in `config.toml`.
 
@@ -101,6 +101,24 @@ To create a talk:
     hugo new talk/my-talk-name.md
 
 Then edit the newly created file `content/talk/my-talk-name.md` with your full talk title and details. Note that many of the talk parameters are similar to the publication parameters.
+
+## Create a widget page
+
+So you would like to create a page which utilizes Academic's widget system, similar to the homepage?
+
+Create a new folder in your `content` folder, naming it with your new page name. In this example, we will create a *courses* page by creating a `content/courses/` folder.
+
+Within your new `content/courses/` folder, create a file named `_index.html` containing the following parameters:
+
+```
++++
+title = "Courses"
+date = 2017-01-01
+widgets = true
++++
+```
+
+Install widgets into your `content/courses/` folder. To achieve this, widgets can be copied from your `content/home/` folder or downloaded from [Github](https://github.com/gcushen/hugo-academic/tree/master/exampleSite/content/home).
 
 ## Create other pages (e.g. CV)
 
