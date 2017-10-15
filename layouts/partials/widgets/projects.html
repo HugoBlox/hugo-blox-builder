@@ -40,7 +40,7 @@
           {{ if .Content }}
           <a href="{{ .Permalink }}">
           {{ else }}
-            {{ with .Params.external_link }}<a href="{{ . }}" target="_blank">{{ end }}
+            {{ with .Params.external_link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
           {{ end }}
           {{ .Title }}
           {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
