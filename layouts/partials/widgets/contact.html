@@ -74,5 +74,14 @@
 
     </ul>
 
+    {{ if and $.Site.Params.latitude $.Site.Params.longitude }}
+    <div class="hidden">
+      <input id="gmap-lat" value="{{ $.Site.Params.latitude }}" />
+      <input id="gmap-lng" value="{{ $.Site.Params.longitude }}" />
+      <input id="gmap-dir" value="{{ $.Site.Params.address }}" />
+    </div>
+    <div id="map"></div>
+    {{ end }}
+
   </div>
 </div>

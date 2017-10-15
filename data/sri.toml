@@ -28,6 +28,9 @@
 [js.autotrack]
   version = "2.4.1"
   sri = "sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g=="
+[js.gmaps]
+  version = "0.4.25"
+  sri = "sha256-7vjlAeb8OaTrCXZkCNun9djzuB2owUsaO72kXaFDBJs="
 
 # CSS
 

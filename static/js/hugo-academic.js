@@ -198,6 +198,45 @@
   }
 
   /* ---------------------------------------------------------------------------
+  * Google maps.
+  * --------------------------------------------------------------------------- */
+
+  function initMap () {
+    if ($('#map').length) {
+      let lat = $('#gmap-lat').val();
+      let lng = $('#gmap-lng').val();
+      let address = $('#gmap-dir').val();
+
+      let map = new GMaps({
+        div: '#map',
+        lat: lat,
+        lng: lng,
+        zoomControl: true,
+        zoomControlOpt: {
+          style: 'SMALL',
+          position: 'TOP_LEFT'
+        },
+        panControl: false,
+        streetViewControl: false,
+        mapTypeControl: false,
+        overviewMapControl: false,
+        scrollwheel: true,
+        draggable: true
+      });
+
+      map.addMarker({
+        lat: lat,
+        lng: lng,
+        click: function (e) {
+          let url = 'https://www.google.com/maps/place/' + encodeURIComponent(address) + '/@' + lat + ',' + lng +'/';
+          window.open(url, '_blank')
+        },
+        title: address
+      })
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
    * On window load.
    * --------------------------------------------------------------------------- */
 
@@ -230,6 +269,8 @@
       // window.addEventListener('hashchange', filter_publications, false);
     }
 
+    // Initialise Google Maps if necessary.
+    initMap();
   });
 
 })(jQuery);
