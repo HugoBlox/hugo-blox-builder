@@ -12,32 +12,27 @@
   </span>
 
   {{ if ne $.Site.Params.reading_time false }}
+  <span class="middot-divider"></span>
   <span class="article-reading-time">
     {{ $.ReadingTime }} {{ i18n "minute_read" }}
   </span>
   {{ end }}
 
+  {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
+  {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
+  <span class="middot-divider"></span>
+  <a href="{{ $.Permalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+  {{ end}}
+
   {{ if isset $.Params "categories" }}
   {{ $categoriesLen := len $.Params.categories }}
   {{ if gt $categoriesLen 0 }}
+  <span class="middot-divider"></span>
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
     <a href="{{ "/categories/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a
     >{{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
-    {{ end }}
-  </span>
-  {{ end }}
-  {{ end }}
-
-  {{ if isset $.Params "tags" }}
-  {{ $tagsLen := len $.Params.tags }}
-  {{ if gt $tagsLen 0 }}
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    {{ range $k, $v := $.Params.tags }}
-    <a href="{{ "/tags/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a
-    >{{ if lt $k (sub $tagsLen 1) }}, {{ end }}
     {{ end }}
   </span>
   {{ end }}

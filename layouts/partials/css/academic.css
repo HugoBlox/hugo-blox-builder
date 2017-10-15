@@ -516,11 +516,14 @@ article {
   margin-bottom: 5px;
 }
 
-.article-metadata .article-date,
-.article-metadata .article-reading-time,
-.article-metadata .article-categories,
-.article-metadata .article-tags {
-  margin-right: 10px;
+.middot-divider {
+  padding-right: .45em;
+  padding-left: .45em;
+  font-size: 15px;
+}
+
+.middot-divider::after {
+  content: '\00B7';
 }
 
 .article-style img,
@@ -542,6 +545,20 @@ article {
 .article-style figure img {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.article-widget {
+  padding-top: 1rem;
+}
+
+.article-widget h3 {
+  margin-top: 0;
+}
+
+.hr-light {
+  border-top: 1px solid rgba(0,0,0,.05);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 #comments {

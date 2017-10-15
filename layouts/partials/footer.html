@@ -1,4 +1,10 @@
     {{ $js := .Site.Data.sri.js }}
+
+    {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
+    {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
+    <script id="dsq-count-scr" src="//{{ .Site.DisqusShortname }}.disqus.com/count.js" async></script>
+    {{ end }}
+
     {{ if not .Site.Params.disable_sri }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.jQuery.version $js.jQuery.sri | safeHTML }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/%s/imagesloaded.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.imagesLoaded.version $js.imagesLoaded.sri | safeHTML }}

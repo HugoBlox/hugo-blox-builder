@@ -60,6 +60,12 @@ defaultContentLanguageInSubdir = false
   # Show estimated reading time for posts?
   reading_time = true
 
+  # Display comment count? Requires commenting to be enabled.
+  comment_count = true
+
+  # Display section pager for posts?
+  section_pager = false
+
   # Enable global LaTeX math rendering?
   #   If false, you can enable it locally on a per page basis.
   math = false
