@@ -5,6 +5,8 @@ draft = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = [""]
+# Whether you are the first author
+first_author = false
 
 # Publication type.
 # Legend:

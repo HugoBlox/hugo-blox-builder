@@ -39,6 +39,12 @@
           </option>
           {{ end }}
         </select>
+
+        <label>
+        <input class="pub-filters" data-filter-group="first-author"
+               type="checkbox" value=".first-author-true">
+        {{ i18n "first_author" }}
+        </label>
       </p>
 
       <div id="container-publications">
@@ -50,7 +56,7 @@
           {{ $.Scratch.Set "pubtype" 0 }}
         {{ end }}
 
-        <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
+        <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }} first-author-{{ .Params.first_author }}">
           {{ if eq $.Params.list_format 1 }}
             {{ partial "publication_li_detailed" . }}
           {{ else if eq $.Params.list_format 2 }}

@@ -83,6 +83,9 @@
 - id: filter_all
   translation: Denak
 
+- id: first_author
+  translation: lehen egileak
+
 # Project details
 
 - id: open_project_site

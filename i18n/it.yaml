@@ -83,6 +83,9 @@
 - id: filter_all
   translation: Tutto
 
+- id: first_author
+  translation: primo autore
+
 # Project details
 
 - id: open_project_site

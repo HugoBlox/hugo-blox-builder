@@ -112,6 +112,9 @@
 - id: filter_all
   translation: All
 
+- id: first_author
+  translation: first author
+
 # Project details
 
 - id: open_project_site
