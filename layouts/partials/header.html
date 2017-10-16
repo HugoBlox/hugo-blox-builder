@@ -73,8 +73,4 @@
 
 </head>
 
-{{ if or (eq .Kind "home") (in .Site.Params.fixed_nav_pages .Type)}}
-  <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71" class="body-fixed-nav">
-{{ else }}
-  <body id="top">
-{{ end }}
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">

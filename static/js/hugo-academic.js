@@ -34,11 +34,7 @@
   });
 
   function get_navbar_offset() {
-    if ($('#top.body-fixed-nav').length) {//we're on a page where navbar is fixed
-      return $('.navbar-header').outerHeight();
-    } else {
-      return 0; //no adjustment needed when nav is not fixed
-    }
+    return $('.navbar-header').outerHeight();
   }
 
 
@@ -75,18 +71,10 @@
     if(!clickedOnButton) {
       $('.navbar-collapse').collapse('hide');
     }
-    clearTimeout(navClassRemoveTimer);
-    navClassRemoveTimer = setTimeout(function() { //don't remove the class until a little after the animation is done
-      $('#navbar-main').removeClass('navbar-fixed-top'); 
-      $('body').removeClass('body-add-margin');
-    }, 350 );
     menuExpanded = false;
   }
 
   function expandNav() {
-    clearTimeout(navClassRemoveTimer);
-    $('#navbar-main').addClass('navbar-fixed-top'); //this css fixes the navbar in place, so it displays correctly when bootstrap expands it.
-    $('body').addClass('body-add-margin');
     menuExpanded = true;
   }
 

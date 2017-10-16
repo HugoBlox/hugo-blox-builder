@@ -37,9 +37,15 @@ body {
   font-size: 1rem;
   line-height: inherit;
   color: inherit;
-  margin-top: 0;
+  margin-top: 71px; /* Offset body content by navbar height. */  
   padding-top: 0;
   counter-reset: captions;
+}
+
+@media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
+  body {
+    margin-top: 51px; /* Offset body content by navbar height. */
+  }
 }
 
 /* Body text */
@@ -842,20 +848,6 @@ footer a#back_to_top i {
   border-width: 0 0 1px 0;
 }
 
-.navbar-fixed-top-home {
-  top: 0;
-  border-width: 0 0 1px;
-  position:fixed;
-  right: 0;
-  left: 0;
-}
-
-.body-fixed-nav,
-.body-add-margin { /* used in js to adjust body when navMenu is temproarily fixed (with .navbar-fixed-top)*/
-    margin-top:71px;
-}
-
-
 .navbar-default {
   background: #fff;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11);
@@ -923,11 +915,6 @@ nav#navbar-main li {
     min-height: 50px !important;
   }
 
-  .body-fixed-nav,
-  .body-add-margin {/* used in js to adjust body when navMenu is temproarily fixed (with .navbar-fixed-top)*/
-    margin-top:51px;
-  }
-
   .navbar-brand,
   .navbar-nav li a {
     height: inherit;
@@ -939,14 +926,6 @@ nav#navbar-main li {
   .navbar-header {
     float: none;
     min-height: inherit;
-  }
-
-  .navbar-fixed-top {/* same as bootstrap's def, but need to repeat here so it can over-ride .navbar-fixed-top-home when js applies this style */
-    top: 0;
-    border-width: 0 0 1px;
-    position:fixed;
-    right: 0;
-    left: 0;
   }
 
   .navbar-left,
