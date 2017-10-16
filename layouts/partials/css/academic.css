@@ -202,6 +202,26 @@ small,
 }
 
 /*************************************************
+ *  Modals.
+ **************************************************/
+
+.modal-header .close {
+  font-size: 40px; /* Bigger cross. */
+  height: 30px; /* Remove icon's vertical spacing. */
+  overflow-y: hidden;
+  position: relative;
+  top: -5px;
+}
+
+.modal-content pre {
+  margin: 0;
+}
+
+#modal-error {
+  color: red;
+}
+
+/*************************************************
  *  Home Sections
  **************************************************/
 
