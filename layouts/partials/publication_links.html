@@ -1,33 +1,32 @@
 {{ $is_list := .is_list }}
 {{ $ := .content }}
 
-{{ if $is_list }}
-<a class="btn btn-primary btn-outline btn-xs" href="{{ $.Permalink }}">
-  {{ i18n "btn_details" }}
+{{ with $.Params.url_preprint }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+  {{ i18n "btn_preprint" }}
 </a>
 {{ end }}
 {{ with $.Params.url_pdf }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
-{{ with $.Params.url_slides }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank">
-  {{ i18n "btn_slides" }}
-</a>
-{{ end }}
-{{ with $.Params.url_video }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank">
-  {{ i18n "btn_video" }}
-</a>
+{{/* TODO: After Hugo v0.30 released, use fileExists function here. */}}
+{{ $directory := "static/files/citations/" }}
+{{ $filename := printf "%s.bib" $.File.TranslationBaseName }}
+{{ if (where (readDir $directory) "Name" $filename) }}
+<button type="button" class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}} js-cite-modal"
+        data-filename="{{ printf "files/citations/%s.bib" $.File.TranslationBaseName | relURL }}">
+  {{ i18n "btn_cite" }}
+</button>
 {{ end }}
 {{ with $.Params.url_code }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
   {{ i18n "btn_code" }}
 </a>
 {{ end }}
 {{ with $.Params.url_dataset }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
   {{ i18n "btn_dataset" }}
 </a>
 {{ end }}
@@ -36,8 +35,28 @@
   {{ i18n "btn_project" }}
 </a>
 {{ end }}
+{{ with $.Params.url_poster }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+  {{ i18n "btn_poster" }}
+</a>
+{{ end }}
+{{ with $.Params.url_slides }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+  {{ i18n "btn_slides" }}
+</a>
+{{ end }}
+{{ with $.Params.url_video }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+  {{ i18n "btn_video" }}
+</a>
+{{ end }}
+{{ with $.Params.url_source }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+  {{ i18n "btn_source" }}
+</a>
+{{ end }}
 {{ range $.Params.url_custom }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}" target="_blank">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}" target="_blank" rel="noopener">
   {{ .name }}
 </a>
 {{ end }}

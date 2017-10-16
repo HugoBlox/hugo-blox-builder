@@ -16,6 +16,9 @@ url_pdf = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"
 url_project = "project/deep-learning/"
 url_slides = "#"
 url_video = "#"
+url_poster = "#"
+url_preprint = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"
+url_source = "#"
 
 [[url_custom]]
 name = "Custom Link"

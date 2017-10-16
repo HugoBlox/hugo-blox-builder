@@ -39,11 +39,14 @@ selected = false
 
 # Links (optional)
 url_pdf = ""
+url_preprint = ""
 url_code = ""
 url_dataset = ""
 url_project = ""
 url_slides = ""
 url_video = ""
+url_poster = ""
+url_source = ""
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
