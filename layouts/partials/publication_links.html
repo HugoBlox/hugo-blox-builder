@@ -11,10 +11,9 @@
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
-{{/* TODO: After Hugo v0.30 released, use fileExists function here. */}}
 {{ $directory := "static/files/citations/" }}
-{{ $filename := printf "%s.bib" $.File.TranslationBaseName }}
-{{ if (where (readDir $directory) "Name" $filename) }}
+{{ $filename := printf "%s%s.bib" $directory $.File.TranslationBaseName }}
+{{ if fileExists $filename }}
 <button type="button" class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}} js-cite-modal"
         data-filename="{{ printf "files/citations/%s.bib" $.File.TranslationBaseName | relURL }}">
   {{ i18n "btn_cite" }}
