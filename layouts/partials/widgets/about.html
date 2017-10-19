@@ -61,8 +61,8 @@
       <div class="col-sm-5">
         <h3>{{ i18n "interests" | markdownify }}</h3>
         <ul class="ul-interests">
-          {{ range .interests | markdownify }}
-          <li>{{ . }}</li>
+          {{ range .interests }}
+          <li>{{ . | markdownify }}</li>
           {{ end }}
         </ul>
       </div>
