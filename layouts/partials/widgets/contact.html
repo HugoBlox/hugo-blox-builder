@@ -61,7 +61,7 @@
       {{ with $.Site.Params.address }}
       <li>
         <i class="fa-li fa fa-map-marker fa-2x" aria-hidden="true"></i>
-        <span id="person-address" itemprop="address">{{ . }}</span>
+        <span id="person-address" itemprop="address">{{ replace . "\n" "<br>" | safeHTML }}</span>
       </li>
       {{ end }}
 
