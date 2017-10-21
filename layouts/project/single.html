@@ -23,31 +23,34 @@
       {{ .Content }}
 
       {{ $page := . }}
-      {{ $project := printf "%s/%s" .Section .File.TranslationBaseName }}
+      {{ $project := .File.TranslationBaseName }}
+      {{ $project_path := printf "%s/%s/" .Section $project }}
 
-      {{ if .Params.list_publications }}
-        {{ $pubs_len := len (where (where $.Site.RegularPages "Type" "publication") ".Params.url_project" "==" $project) }}
+      {{ if (.Site.Params.projects.list_children | default true) }}
+        {{ $items := where (where .Site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
+        {{ $items := $items | union (where (where .Site.RegularPages "Type" "publication") ".Params.url_project" $project_path) }}
+        {{ $pubs_len := len $items }}
         {{ if ge $pubs_len 1 }}
           <h2>{{ (i18n "publications") }}</h2>
-          {{ range where (where $.Site.RegularPages "Type" "publication") ".Params.url_project" "==" $project }}
-            {{ if eq $page.Params.list_format 1 }}
+          {{ range $items }}
+            {{ if eq $page.Site.Params.projects.publication_format 1 }}
               {{ partial "publication_li_detailed" . }}
-            {{ else if eq $page.Params.list_format 2 }}
+            {{ else if eq $page.Site.Params.projects.publication_format 2 }}
               {{ partial "publication_li_apa" . }}
-            {{ else if eq $page.Params.list_format 3 }}
+            {{ else if eq $page.Site.Params.projects.publication_format 3 }}
               {{ partial "publication_li_mla" . }}
             {{ else }}
               {{ partial "publication_li_simple" . }}
             {{ end }}
           {{ end }}
         {{ end }}
-      {{ end }}
 
-      {{ if .Params.list_talks }}
-        {{ $talks_len := len (where (where $.Site.RegularPages "Type" "talk") ".Params.url_project" "==" $project) }}
+        {{ $items := where (where .Site.RegularPages "Type" "talk") ".Params.projects" "intersect" (slice $project) }}
+        {{ $items := $items | union (where (where .Site.RegularPages "Type" "publication") ".Params.url_project" $project_path) }}
+        {{ $talks_len := len $items }}
         {{ if ge $talks_len 1 }}
           <h2>{{ (i18n "talks") }}</h2>
-          {{ range where (where $.Site.RegularPages "Type" "talk") ".Params.url_project" "==" $project }}
+          {{ range $items }}
             {{ partial "talk_li_simple" . }}
           {{ end }}
         {{ end }}

@@ -29,10 +29,18 @@
   {{ i18n "btn_dataset" }}
 </a>
 {{ end }}
-{{ with $.Params.url_project }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absLangURL }}">
+{{ if $.Params.projects }}
+{{ range $.Params.projects }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ printf "project/%s/" . | relURL }}">
   {{ i18n "btn_project" }}
 </a>
+{{ end }}
+{{ else }}
+{{ with $.Params.url_project }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absLangURL }}" target="_blank" rel="noopener">
+  {{ i18n "btn_project" }}
+</a>
+{{ end }}
 {{ end }}
 {{ with $.Params.url_poster }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">

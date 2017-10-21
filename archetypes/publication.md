@@ -25,19 +25,18 @@ publication_short = ""
 abstract = ""
 abstract_short = ""
 
-# Does this page contain LaTeX math? (true/false)
-math = false
-
-# Does this page require source code highlighting? (true/false)
-highlight = true
-
 # Featured image thumbnail (optional)
 image_preview = ""
 
 # Is this a selected publication? (true/false)
 selected = false
 
-# Links (optional)
+# Projects (optional).
+#   Associate this publication with one or more of your projects.
+#   Simply enter the filename (excluding '.md') of your project file in `content/project/`.
+projects = [""]
+
+# Links (optional).
 url_pdf = ""
 url_preprint = ""
 url_code = ""
@@ -47,6 +46,12 @@ url_slides = ""
 url_video = ""
 url_poster = ""
 url_source = ""
+
+# Does this page contain LaTeX math? (true/false)
+math = false
+
+# Does this page require source code highlighting? (true/false)
+highlight = true
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
