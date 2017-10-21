@@ -3,13 +3,27 @@
 - id: toggle_navigation
   translation: Ouvrir la barre de navigation
 
+- id: table_of_contents
+  translation: Table des matières
+
+# General
+
+- id: related
+  translation: Sur le même sujet
+
+- id: minute_read
+  translation: min de lecture
+
 # Buttons
 
-- id: btn_details
-  translation: Renseignements
+- id: btn_preprint
+  translation: Prétirage
 
 - id: btn_pdf
   translation: PDF
+
+- id: btn_cite
+  translation: Citation
 
 - id: btn_slides
   translation: Diapositives
@@ -25,6 +39,18 @@
 
 - id: btn_project
   translation: Projet
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Document source
+
+- id: btn_copy
+  translation: Copier
+
+- id: btn_download
+  translation: Télécharger
 
 # About widget
 
@@ -42,7 +68,7 @@
 # Posts widget
 
 - id: continue_reading
-  translation: CONTINUER DE LIRE
+  translation: CONTINUER LA LECTURE
 
 - id: more_posts
   translation: Plus de posts
@@ -66,6 +92,9 @@
 - id: date
   translation: Date
 
+- id: last_updated
+  translation: Dernière mise à jour le
+
 - id: links
   translation: Liens
 
@@ -78,7 +107,7 @@
 # Filtering
 
 - id: filter_by_type
-  translation: Filtré par type
+  translation: Filtrer par type
 
 - id: filter_all
   translation: Tout
@@ -98,3 +127,14 @@
 
 - id: talks
   translation: Présentations
+
+- id: projects
+  translation: Projets
+
+# Error 404
+
+- id: page_not_found
+  translation: Page non disponible
+
+- id: 404_recommendations
+  translation: Vous cherchiez peut-être une des pages suivantes ?

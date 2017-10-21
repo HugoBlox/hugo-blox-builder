@@ -3,13 +3,27 @@
 - id: toggle_navigation
   translation: Barra de navegación
 
+- id: table_of_contents
+  translation: Índice
+
+# General
+
+- id: related
+  translation: Relacionado
+
+- id: minute_read
+  translation: min de lectura
+
 # Buttons
 
-- id: btn_details
-  translation: Detalles
+- id: btn_preprint
+  translation: Preimpresión
 
 - id: btn_pdf
   translation: PDF
+
+- id: btn_cite
+  translation: Citación
 
 - id: btn_slides
   translation: Diapositivas
@@ -26,6 +40,18 @@
 - id: btn_project
   translation: Proyecto
 
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Documento fuente
+
+- id: btn_copy
+  translation: Copiar
+
+- id: btn_download
+  translation: Descargar
+
 # About widget
 
 - id: interests
@@ -37,7 +63,7 @@
 # Publications widget
 
 - id: more_publications
-  translation: Más Publicaciones
+  translation: Más publicaciones
 
 # Posts widget
 
@@ -45,7 +71,7 @@
   translation: CONTINÚA LEYENDO
 
 - id: more_posts
-  translation: Más Posts
+  translation: Más posts
 
 # Talks widget
 
@@ -65,6 +91,9 @@
 
 - id: date
   translation: Fecha
+
+- id: last_updated
+  translation: Última actualización el
 
 - id: links
   translation: Links
@@ -98,3 +127,14 @@
 
 - id: talks
   translation: Charlas
+
+- id: projects
+  translation: Proyectos
+
+# Error 404
+
+- id: page_not_found
+  translation: Page no encontrada
+
+- id: 404_recommendations
+  translation: Tal vez buscaba una de estas?
