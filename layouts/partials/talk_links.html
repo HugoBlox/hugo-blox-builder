@@ -1,11 +1,6 @@
 {{ $is_list := .is_list }}
 {{ $ := .content }}
 
-{{ if $is_list }}
-<a class="btn btn-primary btn-outline btn-xs" href="{{ $.Permalink }}">
-  {{ i18n "btn_details" }}
-</a>
-{{ end }}
 {{ with $.Params.url_pdf }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_pdf" }}
@@ -24,6 +19,11 @@
 {{ with $.Params.url_code }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_code" }}
+</a>
+{{ end }}
+{{ range $.Params.projects }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ printf "project/%s/" . | relURL }}">
+  {{ i18n "btn_project" }}
 </a>
 {{ end }}
 {{ range $.Params.url_custom }}
