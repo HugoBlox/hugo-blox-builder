@@ -21,6 +21,11 @@
   {{ i18n "btn_code" }}
 </a>
 {{ end }}
+{{ range $.Params.projects }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ printf "project/%s/" . | relURL }}">
+  {{ i18n "btn_project" }}
+</a>
+{{ end }}
 {{ range $.Params.url_custom }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}">
   {{ .name }}
