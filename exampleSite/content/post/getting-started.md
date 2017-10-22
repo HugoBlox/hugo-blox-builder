@@ -49,7 +49,7 @@ Key features:
 
 4. Start the Hugo server from your website root folder:
 
-        hugo server --watch
+        hugo server
 
     Now you can go to [localhost:1313](http://localhost:1313) and your new Academic powered website should appear.
 
@@ -94,15 +94,21 @@ Refer to our guide on [managing content]({{< ref "post/managing-content.md" >}})
 
 The following color themes are available and can be set by the `color_theme` option in `config.toml`:
 
-- default (light blue) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #0095eb"></span>
-- ocean (deep blue) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #3f51b5"></span>
-- forest (green) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #4caf50"></span>
-- coffee (brown) <span style="width: 1rem; height: 1rem; display: inline-block; border: 1px solid gray; border-radius: 2px; background: #795548"></span>
+| `default` | `ocean` |
+| --- | --- |
+| ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png)| ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) |
+
+| `forest` | `coffee` |
+| --- | --- |
+| ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) |
+
 
 The following font styles are available and can be set by the `font` option in `config.toml`:
 
 - default (modern)
-- classic
+- classic (original Academic v1 style)
+- playfair (serif)
+
 
 ### Customization & updating
 
@@ -198,6 +204,6 @@ For general questions about Hugo, there is a [Hugo discussion forum](http://disc
 
 ## License
 
-Copyright 2016 [George Cushen](https://georgecushen.com).
+Copyright 2017 [George Cushen](https://georgecushen.com).
 
 Released under the [MIT](https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md) license.

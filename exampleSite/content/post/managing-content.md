@@ -37,20 +37,72 @@ Then edit the default variables at the top of `content/publication/my-paper-name
 
 ```
 +++
-abstract = "An abstract..."
-authors = ["First author's name", "Second author's name"]
-date = "2013-07-01"
-image = ""
-image_preview = ""
-math = false
-publication = "The publishing part of the citation goes here. You may use *Markdown* for italics etc."
 title = "A publication title, such as title of a paper"
+
+# Date first published.
+date = "2013-07-01"
+
+# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
+authors = ["First author's name", "Second author's name"]
+
+# Publication type.
+# Legend:
+# 0 = Uncategorized
+# 1 = Conference proceedings
+# 2 = Journal
+# 3 = Work in progress
+# 4 = Technical report
+# 5 = Book
+# 6 = Book chapter
+publication_types = ["1"]
+
+# Publication name and optional abbreviated version.
+publication = "In *International Conference on Academic*. You may use *Markdown* for italics etc."
+publication_short = "In *ICA*"
+
+# Abstract and optional shortened version.
+abstract = "The abstract. Markdown and math can be used (note that math may require escaping as detailed in the red alert box below)."
+abstract_short = "A short version of the abstract."
+
+# Featured image thumbnail (optional)
+image_preview = ""
+
+# Is this a selected publication? (true/false)
+selected = true
+
+# Projects (optional).
+#   Associate this publication with one or more of your projects.
+#   Simply enter the filename (excluding '.md') of your project file in `content/project/`.
+#   E.g. `projects = ["deep-learning"]` references `content/project/deep-learning.md`.
+projects = []
+
+# Links (optional).
+url_pdf = "pdf/my-paper-name.pdf"
+url_preprint = ""
 url_code = ""
 url_dataset = ""
-url_pdf = "pdf/my-paper-name.pdf"
 url_project = ""
 url_slides = ""
 url_video = ""
+url_poster = ""
+url_source = ""
+
+# Custom links (optional).
+#   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
+# url_custom = [{name = "Custom Link", url = "http://example.org"}]
+
+# Does the content use math formatting?
+math = true
+
+# Does the content use source code highlighting?
+highlight = true
+
+# Featured image
+# Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
+[header]
+image = "headers/bubbles-wide.jpg"
+caption = "My caption :smile:"
+
 +++
 
 Further details on your publication can be written here using *Markdown* for formatting. This text will be displayed on the Publication Detail page.
@@ -58,12 +110,11 @@ Further details on your publication can be written here using *Markdown* for for
 
 The `url_` links can either point to local or web content. Associated local publication content, such as PDFs, may be copied to a `static/pdf/` folder and referenced like `url_pdf = "pdf/my-paper-name.pdf"`.
 
-You can also associate custom link buttons with the publication by adding the following block(s) within the variable preamble above, which is denoted by `+++`:
+You can also associate custom link buttons with the publication by adding the following block within the variable preamble above, which is denoted by `+++`:
 
 ```
-[[url_custom]]
-    name = "Custom Link"
-    url = "http://www.example.org"
+url_custom = [{name = "Custom Link 1", url = "http://example.org"},
+              {name = "Custom Link 2", url = "http://example.org"}]
 ```
 
 If you set `list_format=2` to enable a detailed listing of publications in the Publication Widget (`home/publications.md`) or Publication Archive (`publication/_index.md`), then there are a few more optional variables that you can include in the publication page preamble. You may use `abstract_short = "friendly summary of abstract"` and `publication_short = "abbreviated publication details"` to display a friendly summary of the abstract and abbreviate the publication details, respectively. Furthermore, there is the option to display a different image on the homepage to the publication detail page by setting `image_preview = "my-image.jpg"`. This can be useful if you wish to scale down the image for the homepage or simply if you just wish to show a different image for the preview.
@@ -126,29 +177,17 @@ For other types of content, it is possible to create your own custom pages. For 
 
 Alternatively, for the above example, we could use a PDF of your Curriculum Vitae. For this purpose, create a folder called `files` within your `static` folder and move a PDF file named `cv.pdf` to that location, so we have a `static/files/cv.pdf` file path. The PDF can then be linked to from any content by using the code: `{{%/* staticref "files/cv.pdf" */%}}Download my CV{{%/* /staticref */%}}`.
 
-## Manage node index pages
+## Manage archive pages
 
-The node index pages (e.g. `/post/`) are the special pages which list all of your content. They can exist for blog posts, publications, and talks. The homepage widgets will automatically link to the node index pages when you have more items of content than can be displayed in the widget. Therefore, if you don't have much content, you may not see the automatic links yet - but you can also manually link to them using a normal Markdown formatted link in your content.
+The archive (or *node index*) pages (e.g. `/post/`) are the special pages which list all of your content. They can exist for blog posts, publications, and talks. The homepage widgets will automatically link to the archive pages when you have more items of content than can be displayed in the widget. Therefore, if you don't have much content, you may not see the automatic links yet - but you can also manually link to them using a normal Markdown formatted link in your content.
 
-You can edit the title and add your own content, such as an introduction, by creating and editing the following content files for the node indexes:
+You can edit the title and add your own content, such as an introduction, by copying the following content `_index.md` files from the example site to the same structure within your `content/` folder:
 
-    hugo new post/_index.md
-    hugo new publication/_index.md
-    hugo new talk/_index.md
+    /themes/academic/exampleSite/content/post/_index.md
+    /themes/academic/exampleSite/content/publication/_index.md
+    /themes/academic/exampleSite/content/talk/_index.md
     
-Then remove all parameters except for `title`, `math`, `highlight`, and `date`. Edit the `title` parameter as desired and add any content after the `+++` preamble/frontmatter ends. For example, you should have something similar to:
-
-```toml
-+++
-title = "List of my posts"
-date = "2017-01-01T00:00:00Z"
-math = false
-highlight = false
-+++
-
-Below is an automatically generated list of all my blog posts!
-
-```
+Then edit the `title` parameter in each `_index.md` as desired and add any content after the `+++` preamble/frontmatter ends. You will notice that the `_index.md` files differ slightly, with some having special options available for the associated content type. For example, `publication/_index.md` contains an option for setting the citation style of the listings which appear on the publication archive page.
 
 ## Removing content
 
@@ -156,7 +195,7 @@ Generally, to remove content, simply delete the relevant file from your `content
 
 ## View your updated site
 
-After you have made changes to your site, you can view it by running the `hugo server --watch` command and then opening [localhost:1313](http://localhost:1313) in your web browser.
+After you have made changes to your site, you can view it by running the `hugo server` command and then opening [localhost:1313](http://localhost:1313) in your web browser.
 
 ## Deploy your site
 

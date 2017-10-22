@@ -46,7 +46,7 @@ Academic is available in different color themes and font themes.
 
 4. Start the Hugo server from your website root folder:
 
-        hugo server --watch
+        hugo server
 
     Now you can go to [localhost:1313](http://localhost:1313) and your new Academic powered website should appear.
 
