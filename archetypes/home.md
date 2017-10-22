@@ -1,7 +1,11 @@
 +++
+# Custom widget.
+widget = "custom"
+active = true
 date = {{ .Date }}
-draft = true
 
+# Note: a full width section format can be enabled by commenting out the `title` and `subtitle` with a `#`.
+title = "{{ replace .TranslationBaseName "-" " " | title }}"
 subtitle = ""
 
 # Order that this section will appear in.
