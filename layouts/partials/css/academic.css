@@ -649,9 +649,9 @@ article {
  * Talks
  **************************************************/
 
-.talk-event {
-  color: #090;
-  font-size: 1rem;
+.talk-metadata {
+  color: #4b4f56;
+  font-size: 0.8rem;
 }
 
 /*************************************************
@@ -667,7 +667,6 @@ article {
 }
 
 #projects.home-section .project-title {
-  display: inline-block;
   margin-bottom: 6px;
 }
 
@@ -1024,6 +1023,10 @@ nav#navbar-main li {
   padding-bottom: 10px;
 }
 
+.navbar-brand img {
+  max-height: 50px;
+}
+
 .navbar-default .navbar-toggle .icon-bar {
   background-color: {{ .Get "menu_text" }} !important;
 }
@@ -1090,6 +1093,10 @@ nav#navbar-main li {
     line-height: 40px;
     padding-top: 5px;
     padding-bottom: 5px;
+  }
+
+  .navbar-brand img {
+    max-height: 40px;
   }
 
   .navbar-header {

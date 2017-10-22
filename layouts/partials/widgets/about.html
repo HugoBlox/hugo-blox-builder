@@ -62,7 +62,7 @@
         <h3>{{ i18n "interests" | markdownify }}</h3>
         <ul class="ul-interests">
           {{ range .interests }}
-          <li>{{ . }}</li>
+          <li>{{ . | markdownify }}</li>
           {{ end }}
         </ul>
       </div>

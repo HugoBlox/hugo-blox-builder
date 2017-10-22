@@ -31,7 +31,7 @@
 
     {{ if eq $page.Params.view 0 }}
 
-    <div class="row isotope projects-container">
+    <div class="row isotope projects-container js-layout-row">
         {{ range where $.Site.RegularPages "Type" "project" }}
         <div class="col-md-12 project-item isotope-item {{ delimit .Params.tags " " }}" itemscope itemtype="http://schema.org/CreativeWork">
           <i class="fa fa-files-o pub-icon" aria-hidden="true"></i>
@@ -52,7 +52,7 @@
 
     {{ else }}
 
-    <div class="row isotope projects-container">
+    <div class="row isotope projects-container js-layout-masonry">
 
       {{ range $project := where $.Site.RegularPages "Type" "project" }}
       {{ $.Scratch.Set "project_url" $project.Permalink }}

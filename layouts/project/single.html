@@ -21,8 +21,42 @@
 
     <div class="article-style" itemprop="articleBody">
       {{ .Content }}
-    </div>
 
+      {{ $page := . }}
+      {{ $project := .File.TranslationBaseName }}
+      {{ $project_path := printf "%s/%s/" .Section $project }}
+
+      {{ if (.Site.Params.projects.list_children | default true) }}
+        {{ $items := where (where .Site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
+        {{ $items := $items | union (where (where .Site.RegularPages "Type" "publication") ".Params.url_project" $project_path) }}
+        {{ $pubs_len := len $items }}
+        {{ if ge $pubs_len 1 }}
+          <h2>{{ (i18n "publications") }}</h2>
+          {{ range $items }}
+            {{ if eq $page.Site.Params.projects.publication_format 1 }}
+              {{ partial "publication_li_detailed" . }}
+            {{ else if eq $page.Site.Params.projects.publication_format 2 }}
+              {{ partial "publication_li_apa" . }}
+            {{ else if eq $page.Site.Params.projects.publication_format 3 }}
+              {{ partial "publication_li_mla" . }}
+            {{ else }}
+              {{ partial "publication_li_simple" . }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ $items := where (where .Site.RegularPages "Type" "talk") ".Params.projects" "intersect" (slice $project) }}
+        {{ $items := $items | union (where (where .Site.RegularPages "Type" "publication") ".Params.url_project" $project_path) }}
+        {{ $talks_len := len $items }}
+        {{ if ge $talks_len 1 }}
+          <h2>{{ (i18n "talks") }}</h2>
+          {{ range $items }}
+            {{ partial "talk_li_simple" . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+    </div>
   </div>
 </article>
 

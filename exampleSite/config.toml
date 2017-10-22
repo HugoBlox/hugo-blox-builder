@@ -21,8 +21,12 @@ defaultContentLanguageInSubdir = false
 [outputs]
   home = [ "HTML", "CSS" ]
 
+# Configure BlackFriday Markdown rendering.
+#   See: https://gohugo.io/readfiles/bfconfig/
 [blackfriday]
-  hrefTargetBlank = true
+  hrefTargetBlank = true  # `true` opens external links in a new tab.
+  fractions = true  # `false` disables smart fractions (e.g. 5/12 formatted as a fraction).
+  smartypants = true  # `false` disables all smart punctuation substitutions (e.g. smart quotes, dashes, fractions).
 
 [params]
   # Color theme.
@@ -52,6 +56,10 @@ defaultContentLanguageInSubdir = false
 
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
+
+  # Diplay a logo in navigation bar rather than title (optional).
+  #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
+  logo = ""
 
   # Enable Google Maps by entering your API key, latitude, and longitude.
   #   Get your API key: https://developers.google.com/maps/documentation/javascript/get-api-key
@@ -132,6 +140,18 @@ defaultContentLanguageInSubdir = false
     'Book',  # 5
     'Book chapter'  # 6
   ]
+
+  # Configuration of project pages.
+  [params.projects]
+    # List publications and talks related to the project?
+    list_children = true
+
+    # Publication list format.
+    #   0 = Simple
+    #   1 = Detailed
+    #   2 = APA
+    #   3 = MLA
+    publication_format = 3
 
   # Social/Academic Networking
   #
