@@ -141,6 +141,12 @@ defaultContentLanguageInSubdir = false
     'Book chapter'  # 6
   ]
 
+  # Configuration of publication pages.
+  [params.publications]
+    # Date format (refer to Go's date format: http://flippinggodateformat.com )
+    #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+    date_format = "January, 2006"
+
   # Configuration of project pages.
   [params.projects]
     # List publications and talks related to the project?
