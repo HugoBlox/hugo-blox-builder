@@ -33,9 +33,9 @@
       <div class="talk-metadata" itemprop="startDate">
         {{ $date := .Params.time_start | default .Date }}
         {{ (time $date).Format $.Site.Params.date_format }}
-        {{ (time $date).Format "3:00 PM" }}
+        {{ (time $date).Format "3:04 PM" }}
         {{ with .Params.time_end }}
-        &mdash; {{ (time .).Format "3:00 PM" }}
+        &mdash; {{ (time .).Format "3:04 PM" }}
         {{ end }}
       </div>
 
