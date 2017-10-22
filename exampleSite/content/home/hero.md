@@ -1,11 +1,10 @@
 +++
 # Hero widget.
-
+widget = "hero"
+active = true
 date = 2017-10-15
-draft = false
 
 title = "Academic"
-widget = "hero"
 
 # Order that this section will appear in.
 weight = 3

@@ -12,7 +12,7 @@
 {{ $section := .Scratch.Get "section" }}
 
 <!-- Widgets -->
-{{ range $index, $page := where .Data.Pages "Section" $section }}
+{{ range $index, $page := where (where .Data.Pages "Section" $section) ".Params.active" "!=" false }}
   {{ $params := dict "root" $ "page" $page }}
   {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
   {{ if eq $page.Params.widget "hero" }}
