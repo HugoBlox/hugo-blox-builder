@@ -1,6 +1,6 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-<div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
+<div class="pub" itemscope itemtype="http://schema.org/Event">
 
   {{ partial "header_image.html" . }}
 
@@ -31,7 +31,14 @@
         <div class="row">
           <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
           <div class="col-xs-12 col-sm-9" itemprop="datePublished">
-            {{ .Date.Format $.Site.Params.date_format }}
+            {{ $date := .Params.time_start | default .Date }}
+            {{ (time $date).Format $.Site.Params.date_format }}
+            <div class="talk-time">
+              {{ (time $date).Format "3:00 PM" }}
+              {{ with .Params.time_end }}
+              &mdash; {{ (time .).Format "3:00 PM" }}
+              {{ end }}
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +76,7 @@
     <div class="visible-xs space-below"></div>
     {{ end }}
 
-    {{ if .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_custom }}
+    {{ if .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_code | or .Params.projects | or .Params.url_custom }}
     <div class="row" style="padding-top: 10px">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">

@@ -649,9 +649,9 @@ article {
  * Talks
  **************************************************/
 
-.talk-event {
-  color: #090;
-  font-size: 1rem;
+.talk-metadata {
+  color: #4b4f56;
+  font-size: 0.8rem;
 }
 
 /*************************************************
