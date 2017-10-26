@@ -98,7 +98,7 @@ The following color themes are available and can be set by the `color_theme` opt
 | --- | --- |
 | ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png)| ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) |
 
-| `forest` | `coffee` |
+| `forest` | `coffee`  + `playfair` font |
 | --- | --- |
 | ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) |
 
@@ -161,6 +161,13 @@ For further details on Hugo's internationalization and multilingual features, re
         post = "/:year/:month/:day/:slug"
 
 Where `:slug` defaults to the filename of the post, excluding the file extension. However, slug may be overridden on a per post basis if desired, simply by setting `slug = "my-short-post-title"` in your post preamble.
+
+**Example 2:** let's consider changing the URL path of posts from `post/` to `blog/`. First, add the following parameters right above the `[params]` section of your `config.toml`:
+```
+[permalinks]
+    post = "/blog/:slug"
+```
+Then add `aliases = ["/blog/"]` to your post archive page `post/_index.md` so that it can be accessed from the */blog/* URL.
 
 ### Advanced style customization (CSS)
 
