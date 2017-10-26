@@ -4,7 +4,9 @@
   <div itemprop="startDate">
     {{ $date := .Params.time_start | default .Date }}
     {{ (time $date).Format $.Site.Params.date_format }}
-    {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+    {{ if $.Site.Params.talks.time }}
+      {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+    {{ end }}
   </div>
   <div class="talk-metadata">
     {{ if .Params.event_short }}
