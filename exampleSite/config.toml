@@ -145,8 +145,8 @@ defaultContentLanguageInSubdir = false
 
   # Configuration of talk pages.
   [params.talks]
-   # Show talk time?
-   time = true
+    # Show talk time?
+    time = true
 
   # Configuration of publication pages.
   [params.publications]
