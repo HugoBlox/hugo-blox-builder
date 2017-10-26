@@ -141,6 +141,14 @@ defaultContentLanguageInSubdir = false
     'Book chapter'  # 6
   ]
 
+  publication_statuses = [
+    '',
+    'Published in', # 1
+    'Submitted to', # 2
+    'Accepted by', # 3
+    'Preprint', # 4
+  ]
+
   # Configuration of publication pages.
   [params.publications]
     # Date format (refer to Go's date format: http://flippinggodateformat.com )
