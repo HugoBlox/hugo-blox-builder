@@ -141,6 +141,11 @@ defaultContentLanguageInSubdir = false
     'Book chapter'  # 6
   ]
 
+  # Configuration of talk pages.
+  [params.talks]
+   # Show talk time?
+   time = true
+
   # Configuration of publication pages.
   [params.publications]
     # Date format (refer to Go's date format: http://flippinggodateformat.com )

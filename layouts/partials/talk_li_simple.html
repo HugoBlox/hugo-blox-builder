@@ -4,7 +4,7 @@
   <div itemprop="startDate">
     {{ $date := .Params.time_start | default .Date }}
     {{ (time $date).Format $.Site.Params.date_format }}
-    {{ with .Params.time_start }}
+    {{ if $.Site.Params.talks.time }}
       {{ (time $date).Format "3:04 PM" }}
     {{ end }}
   </div>
