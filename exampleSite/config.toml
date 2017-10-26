@@ -145,7 +145,7 @@ defaultContentLanguageInSubdir = false
 
   # Configuration of publication pages.
   [params.publications]
-    # Date format (refer to Go's date format: http://flippinggodateformat.com )
+    # Date format (refer to Go's date format: http://fuckinggodateformat.com )
     #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
     date_format = "January, 2006"
 
