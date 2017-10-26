@@ -74,6 +74,18 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
+  <meta property="twitter:card" content="summary">
+{{ range where $.Site.Params.social ".icon" "twitter" }}
+    <meta property="twitter:site" content="@{{ replaceRE "^//twitter.com/([^/]+)" "$1" .link }}">
+    <meta property="twitter:creator" content="@{{ replaceRE "^//twitter.com/([^/]+)" "$1" .link  }}">
+{{ end }}
+  <meta property="og:site_name" content="{{ .Site.Title }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}" />
+  {{ with .Site.Params.role }}<meta property="og:description" content="{{ . }}" />{{ end }}
+  {{ with .Params.header.image }}<meta property="og:image" content="{{ . }}" />{{end}}
+  <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}" />
+
   {{ partial "head_custom" . }}
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
