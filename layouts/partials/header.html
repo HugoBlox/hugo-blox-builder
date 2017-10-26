@@ -74,6 +74,33 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
+  <meta property="twitter:card" content="summary_large_image">
+  {{ range where $.Site.Params.social ".icon" "twitter" }}
+  <meta property="twitter:site" content="@{{ replaceRE "^//twitter.com/([^/]+)" "$1" .link }}">
+  <meta property="twitter:creator" content="@{{ replaceRE "^//twitter.com/([^/]+)" "$1" .link  }}">
+  {{ end }}
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}">
+  <meta property="og:description" content="{{- if .IsPage -}}
+  {{- if or .Type "publication" .Type "talk" -}}
+    {{- with .Params.abstract -}}{{- . -}}{{- end -}}
+  {{- else -}}
+    {{- .Summary -}}
+  {{- end -}}
+  {{- else -}}
+  {{- with .Site.Params.role -}}{{- . -}}{{- end -}}
+  {{- end -}}">
+  {{- with .Params.header.image }}<meta property="og:image" content="{{ printf "/img/%s" . | absURL }}">{{end}}
+  <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
+  {{ if .IsPage }}
+  {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+  {{ else if not .Date.IsZero }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ else }}
+  {{ if not .Date.IsZero }}<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ end }}
+
   {{ partial "head_custom" . }}
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
