@@ -35,9 +35,9 @@
             {{ (time $date).Format $.Site.Params.date_format }}
             <div class="talk-time">
               {{ if $.Site.Params.talks.time }}
-                {{ (time $date).Format "3:04 PM" }}
+                {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
                 {{ with .Params.time_end }}
-                  &mdash; {{ (time .).Format "3:04 PM" }}
+                  &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
                 {{ end }}
               {{ end }}
             </div>

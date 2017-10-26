@@ -16,82 +16,82 @@
     </span>
   </div>
 
-</div>
-<div class="article-container">
+  <div class="article-container">
 
-  {{ if .Params.image }}
-  <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="pub-banner" itemprop="image">
-  {{end}}
+    {{ if .Params.image }}
+    <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="pub-banner" itemprop="image">
+    {{end}}
 
-  <h3>{{ i18n "abstract" }}</h3>
-  <p class="pub-abstract" itemprop="text">{{ .Params.abstract | markdownify }}</p>
+    <h3>{{ i18n "abstract" }}</h3>
+    <p class="pub-abstract" itemprop="text">{{ .Params.abstract | markdownify }}</p>
 
-  {{ if (.Params.publication_types) and (ne (index .Params.publication_types 0) "0") }}
-  <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication_type" }}</div>
-        <div class="col-xs-12 col-sm-9">
-          {{ range $index, $pubtype := .Params.publication_types }}
-          <a href="{{ "/publication/" | relLangURL }}#{{ . | urlize }}">
-            {{ index $.Site.Params.publication_types (int .) }}
-          </a>
-          {{ end }}
+    {{ if (.Params.publication_types) and (ne (index .Params.publication_types 0) "0") }}
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication_type" }}</div>
+          <div class="col-xs-12 col-sm-9">
+            {{ range $index, $pubtype := .Params.publication_types }}
+            <a href="{{ "/publication/" | relLangURL }}#{{ . | urlize }}">
+              {{ index $.Site.Params.publication_types (int .) }}
+            </a>
+            {{ end }}
+          </div>
         </div>
       </div>
+      <div class="col-sm-1"></div>
     </div>
-    <div class="col-sm-1"></div>
-  </div>
-  <div class="visible-xs space-below"></div>
-  {{ end }}
+    <div class="visible-xs space-below"></div>
+    {{ end }}
 
-  <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication" }}</div>
-        <div class="col-xs-12 col-sm-9">{{ .Params.publication | markdownify }}</div>
-      </div>
-    </div>
-    <div class="col-sm-1"></div>
-  </div>
-  <div class="visible-xs space-below"></div>
-
-  <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
-        <div class="col-xs-12 col-sm-9" itemprop="datePublished">
-          {{ .Date.Format ($.Site.Params.publications.date_format | default "January, 2006") }}
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication" }}</div>
+          <div class="col-xs-12 col-sm-9">{{ .Params.publication | markdownify }}</div>
         </div>
       </div>
+      <div class="col-sm-1"></div>
     </div>
-    <div class="col-sm-1"></div>
-  </div>
-  <div class="visible-xs space-below"></div>
+    <div class="visible-xs space-below"></div>
 
-  <div class="row" style="padding-top: 10px">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">{{ i18n "links" }}</div>
-        <div class="col-xs-12 col-sm-9">
-
-          {{ partial "publication_links" (dict "content" . "is_list" 0) }}
-
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
+          <div class="col-xs-12 col-sm-9" itemprop="datePublished">
+            {{ .Date.Format ($.Site.Params.publications.date_format | default "January, 2006") }}
+          </div>
         </div>
       </div>
+      <div class="col-sm-1"></div>
     </div>
-    <div class="col-sm-1"></div>
+    <div class="visible-xs space-below"></div>
+
+    <div class="row" style="padding-top: 10px">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">{{ i18n "links" }}</div>
+          <div class="col-xs-12 col-sm-9">
+
+            {{ partial "publication_links" (dict "content" . "is_list" 0) }}
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+
+    <div class="space-below"></div>
+
+    <div class="article-style">{{ .Content }}</div>
+
   </div>
-  <div class="visible-xs space-below"></div>
-
-  <div class="space-below"></div>
-
-  <div class="article-style">{{ .Content }}</div>
-
 </div>
 
 <div class="container">
