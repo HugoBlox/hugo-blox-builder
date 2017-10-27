@@ -71,7 +71,7 @@ defaultContentLanguageInSubdir = false
   longitude = "-122.1697"
 
   #   To use OpenStreetMap instead, leave google_maps_api_key empty, but fill in latitude and longitude. This will
-  #   enable a Leaflet widget using map tile directly from openstreetmap.org. Please have a look at their tile usage
+  #   enable a Leaflet widget using map tiles directly from openstreetmap.org. Please have a look at their tile usage
   #   policy, especially if you are running a high traffic site. In this case, please consider using tiles based on
   #   OpenStreetMap data provided by Mapbox (http://www.mapbox.com) instead. You will need an access token, that can be
   #   requested here: https://www.mapbox.com/studio/account/tokens
