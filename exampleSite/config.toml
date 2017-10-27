@@ -75,7 +75,7 @@ defaultContentLanguageInSubdir = false
   #   policy, especially if you are running a high traffic site. In this case, please consider using tiles based on
   #   OpenStreetMap data provided by Mapbox (http://www.mapbox.com) instead. You will need an access token, that can be
   #   requested here: https://www.mapbox.com/studio/account/tokens
-  leaflet_zoom = "13"
+  zoom = "15"
   mapbox_token = ""
 
   # Date and time format (refer to Go's date format: http://fuckinggodateformat.com )
