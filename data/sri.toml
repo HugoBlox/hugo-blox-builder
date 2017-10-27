@@ -31,6 +31,9 @@
 [js.gmaps]
   version = "0.4.25"
   sri = "sha256-7vjlAeb8OaTrCXZkCNun9djzuB2owUsaO72kXaFDBJs="
+[js.leaflet]
+  version = "1.2.0"
+  sri = "sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
 
 # CSS
 
@@ -43,3 +46,6 @@
 [css.academicons]
   version = "1.8.1"
   sri = "sha512-NThgw3XKQ1absAahW6to7Ey42uycrVvfNfyjqcFNgCmOCQ5AR4AO0SiXrN+8ZtYeappp56lk1WtvjVmEa+VR6A=="
+[css.leaflet]
+  version = "1.2.0"
+  sri = "sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="

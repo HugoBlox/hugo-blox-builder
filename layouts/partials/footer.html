@@ -16,6 +16,8 @@
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/%s/isotope.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.isotope.version $js.isotope.sri | safeHTML }}
     {{ if .Site.Params.google_maps_api_key }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/%s/gmaps.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.gmaps.version $js.gmaps.sri | safeHTML }}
+    {{ else }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.leaflet.version $js.leaflet.sri | safeHTML }}
     {{ end }}
     {{ else }}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/{{- $js.jQuery.version -}}/jquery.min.js"></script>
@@ -24,6 +26,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/{{- $js.isotope.version -}}/isotope.pkgd.min.js"></script>
     {{ if .Site.Params.google_maps_api_key }}
     <script src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/{{- $js.gmaps.version -}}/gmaps.min.js"></script>
+    {{ else }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/{{- $js.leaflet.version -}}/leaflet.js"></script>
     {{ end }}
     {{ end }}
     <script src="{{ "/js/hugo-academic.js" | relURL }}"></script>

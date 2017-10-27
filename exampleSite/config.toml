@@ -65,9 +65,18 @@ defaultContentLanguageInSubdir = false
   #   Get your API key: https://developers.google.com/maps/documentation/javascript/get-api-key
   #   Get your coords: Right-click place on Google Maps. Select 'What's here?'. At the bottom is a card with the coords.
   #   Disable Google Maps by clearing all three options to "".
+
   google_maps_api_key = ""
   latitude = "37.4275"
   longitude = "-122.1697"
+
+  #   To use OpenStreetMap instead, leave google_maps_api_key empty, but fill in latitude and longitude. This will
+  #   enable a Leaflet widget using map tile directly from openstreetmap.org. Please have a look at their tile usage
+  #   policy, especially if you are running a high traffic site. In this case, please consider using tiles based on
+  #   OpenStreetMap data provides by Mapbox (http://www.mapbox.com) instead. You will need an access token, that can be
+  #   requested here: https://www.mapbox.com/studio/account/tokens
+  leaflet_zoom = "13"
+  mapbox_token = ""
 
   # Date and time format (refer to Go's date format: http://fuckinggodateformat.com )
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
