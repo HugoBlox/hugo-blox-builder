@@ -5,7 +5,7 @@
     <script id="dsq-count-scr" src="//{{ .Site.DisqusShortname }}.disqus.com/count.js" async></script>
     {{ end }}
 
-    {{ if eq .Site.Params.map "1" }}
+    {{ if eq .Site.Params.map 1 }}
     <script async defer src="//maps.googleapis.com/maps/api/js?key={{ .Site.Params.map_api_key }}"></script>
     {{ end }}
 
