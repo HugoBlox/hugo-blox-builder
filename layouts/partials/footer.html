@@ -6,7 +6,7 @@
     {{ end }}
 
     {{ if eq .Site.Params.map "1" }}
-    <script async defer src="//maps.googleapis.com/maps/api/js?key={{ .Site.Params.google_maps_api_key }}"></script>
+    <script async defer src="//maps.googleapis.com/maps/api/js?key={{ .Site.Params.map_api_key }}"></script>
     {{ end }}
 
     {{ if not .Site.Params.disable_sri }}
