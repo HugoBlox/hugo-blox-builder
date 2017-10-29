@@ -76,16 +76,17 @@
 
     {{ if and $.Site.Params.latitude $.Site.Params.longitude }}
     <div class="hidden">
-      {{ if $.Site.Params.google_maps_api_key }}
-      <input id="gmap-lat" value="{{ $.Site.Params.latitude }}" />
-      <input id="gmap-lng" value="{{ $.Site.Params.longitude }}" />
-      <input id="gmap-dir" value="{{ $.Site.Params.address }}" />
-      {{ else }}
-      <input id="leaflet-lat" value="{{ $.Site.Params.latitude }}" />
-      <input id="leaflet-lng" value="{{ $.Site.Params.longitude }}" />
-      <input id="leaflet-zoom" value="{{ $.Site.Params.zoom }}" />
-      <input id="leaflet-dir" value="{{ $.Site.Params.address }}" />
-      <input id="mapbox-token" value="{{ $.Site.Params.mapbox_token }}" />
+      {{ if eq $.Site.Params.map 1}}
+      <input id="gmap-lat" value="{{ $.Site.Params.latitude }}">
+      <input id="gmap-lng" value="{{ $.Site.Params.longitude }}">
+      <input id="gmap-dir" value="{{ $.Site.Params.address }}">
+      {{ end }}
+      {{ if or (eq $.Site.Params.map 2) (eq $.Site.Params.map 3) }}
+      <input id="leaflet-lat" value="{{ $.Site.Params.latitude }}">
+      <input id="leaflet-lng" value="{{ $.Site.Params.longitude }}">
+      <input id="leaflet-zoom" value="{{ $.Site.Params.zoom }}">
+      <input id="leaflet-dir" value="{{ $.Site.Params.address }}">
+      <input id="mapbox-token" value="{{ $.Site.Params.map_api_key }}">
       {{ end }}
     </div>
     <div id="map"></div>
