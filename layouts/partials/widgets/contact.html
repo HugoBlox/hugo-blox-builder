@@ -22,11 +22,20 @@
       </li>
       {{ end }}
 
+      {{ with $.Site.Params.discussion }}
+      <li>
+        <i class="fa-li fa fa-comments-o fa-2x" aria-hidden="true"></i>
+        <span>
+          <a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>
+        </span>
+      </li>
+      {{ end }}
+
       {{ with $.Site.Params.keybase }}
       <li>
         <i class="fa-li fa fa-lock fa-2x" aria-hidden="true"></i>
         <span>
-          <a href="https://keybase.io/{{ . }}" target="_blank">@{{ . }}</a> on Keybase.
+          <a href="https://keybase.io/{{ . }}" target="_blank" rel="noopener">@{{ . }}</a> on Keybase.
         </span>
       </li>
       {{ end }}
@@ -53,7 +62,7 @@
       <li>
         <i class="fa-li fa fa-telegram fa-2x" aria-hidden="true"></i>
         <span>
-        {{- if $autolink }}<a href="https://telegram.me/{{ . }}" target="_blank">@{{ . }}</a>{{ else }}@{{ . }}{{ end -}}
+        {{- if $autolink }}<a href="https://telegram.me/{{ . }}" target="_blank" rel="noopener">@{{ . }}</a>{{ else }}@{{ . }}{{ end -}}
         </span>
       </li>
       {{ end }}

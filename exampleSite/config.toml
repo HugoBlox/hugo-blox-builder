@@ -58,6 +58,10 @@ defaultContentLanguageInSubdir = false
   # Enable Keybase in Contact section by entering your keybase.io username.
   keybase = ""
 
+  # Discussion link (e.g. link to a forum, mailing list, or chat).
+  #   Uncomment line below to use.
+  #   discussion = { name = "Discuss", url = "https://discourse.gohugo.io" }
+
   # Diplay a logo in navigation bar rather than title (optional).
   #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
   logo = ""
