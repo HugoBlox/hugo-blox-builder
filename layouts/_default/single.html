@@ -6,23 +6,17 @@
   {{ partial "header_image.html" . }}
 
   <div class="article-container">
-    <h1 itemprop="name">{{ .Title }}</h1>
-    {{ partial "article_metadata" (dict "content" . "is_list" 0) }}
-    <div class="article-style" itemprop="articleBody">
-      {{ .Content }}
-    </div>
+    <div class="article-inner">
+      <h1 itemprop="name">{{ .Title }}</h1>
 
-    {{ if isset $.Params "tags" }}
-    {{ $tagsLen := len $.Params.tags }}
-    {{ if gt $tagsLen 0 }}
-    <div class="article-tags">
-      {{ range $k, $v := $.Params.tags }}
-      <a class="btn btn-primary btn-outline" href="{{ "/tags/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a>
-      {{ end }}
-    </div>
-    {{ end }}
-    {{ end }}
+      {{ partial "article_metadata" (dict "content" . "is_list" 0) }}
 
+      <div class="article-style" itemprop="articleBody">
+        {{ .Content }}
+      </div>
+
+      {{ partial "tags.html" . }}
+    </div>
   </div>
 
 </article>

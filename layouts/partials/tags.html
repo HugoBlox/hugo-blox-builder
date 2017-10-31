@@ -1,0 +1,10 @@
+{{ if isset $.Params "tags" }}
+{{ $tagsLen := len $.Params.tags }}
+{{ if gt $tagsLen 0 }}
+<div class="article-tags">
+  {{ range $k, $v := $.Params.tags }}
+  <a class="btn btn-primary btn-outline" href="{{ "/tags/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a>
+  {{ end }}
+</div>
+{{ end }}
+{{ end }}

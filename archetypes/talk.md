@@ -28,6 +28,10 @@ selected = false
 #   E.g. `projects = ["deep-learning"]` references `content/project/deep-learning.md`.
 projects = []
 
+# Tags (optional).
+#   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
+tags = []
+
 # Links (optional).
 url_pdf = ""
 url_slides = ""
