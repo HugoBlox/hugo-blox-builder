@@ -215,7 +215,7 @@
         })
       } else {
           let map = new L.map('map').setView([lat, lng], zoom);
-          if ( api_key.length ) {
+          if ( map_provider == 3 && api_key.length ) {
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
               attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
               maxZoom: 18,
