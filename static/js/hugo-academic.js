@@ -173,17 +173,19 @@
   }
 
   /* ---------------------------------------------------------------------------
-  * Google maps or OpenStreetMap via Leaflet.
+  * Google Maps or OpenStreetMap via Leaflet.
   * --------------------------------------------------------------------------- */
 
   function initMap () {
     if ($('#map').length) {
+      let map_provider = $('#map-provider').val();
       let lat = $('#map-lat').val();
       let lng = $('#map-lng').val();
       let zoom = $('#map-zoom').val();
       let address = $('#map-dir').val();
+      let api_key = $('#map-api-key').val();
       
-      if($('#gmap-lat').length) {
+      if ( map_provider == 1 ) {
         let map = new GMaps({
           div: '#map',
           lat: lat,
@@ -213,13 +215,12 @@
         })
       } else {
           let map = new L.map('map').setView([lat, lng], zoom);
-          if($('#mapbox-token').val().length) {
-            let mapbox_token = $('#mapbox-token').val();
+          if ( api_key.length ) {
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
               attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
               maxZoom: 18,
               id: 'mapbox.streets',
-              accessToken: mapbox_token
+              accessToken: api_key
             }).addTo(map);
           } else {
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
