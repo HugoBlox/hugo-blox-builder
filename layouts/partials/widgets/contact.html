@@ -74,14 +74,13 @@
 
     </ul>
 
-    {{ if and $.Site.Params.latitude $.Site.Params.longitude }}
+    {{ if $.Site.Params.map }}
     <div class="hidden">
       {{ if eq $.Site.Params.map 1}}
       <input id="gmap-lat" value="{{ $.Site.Params.latitude }}">
       <input id="gmap-lng" value="{{ $.Site.Params.longitude }}">
       <input id="gmap-dir" value="{{ $.Site.Params.address }}">
-      {{ end }}
-      {{ if or (eq $.Site.Params.map 2) (eq $.Site.Params.map 3) }}
+      {{ else if or (eq $.Site.Params.map 2) (eq $.Site.Params.map 3) }}
       <input id="leaflet-lat" value="{{ $.Site.Params.latitude }}">
       <input id="leaflet-lng" value="{{ $.Site.Params.longitude }}">
       <input id="leaflet-zoom" value="{{ $.Site.Params.zoom }}">
