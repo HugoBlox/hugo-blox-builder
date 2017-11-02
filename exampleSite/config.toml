@@ -54,29 +54,28 @@ defaultContentLanguageInSubdir = false
   skype = "echo123"
   telegram = ""
 
-  # Enable Keybase in Contact section by entering your keybase.io username.
+  # Enable Keybase in Contact widget by entering your keybase.io username.
   keybase = ""
 
   # Diplay a logo in navigation bar rather than title (optional).
   #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
   logo = ""
 
-  # To show a location on a map in the contact widget, you need to enter your latitude, longitude and choose
-  # a map provider below. To use OpenStreetMap tiles, set "map = 3". Please have a look at their tile usage
-  # policy, especially if you are running a high traffic site. In this case, please consider using tiles based on
-  # OpenStreetMap data provided by Mapbox (http://www.mapbox.com) instead ("map = 2"). You will need an access token,
-  # that can be requested here:
-  #   https://www.mapbox.com/studio/account/tokens
-  # To use Google Maps, set "map = 1" and enter your API key that can be obtained here:
+  # Enable/disable map in Contact widget.
+  # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
+  # a map provider below.
+  # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
   #   https://developers.google.com/maps/documentation/javascript/get-api-key
-  # To get your coordinates, right-click on Google Maps and choose "What's here". The coords will show up at the bottom.
-
-  # Map provider.
+  # To use OpenStreetMap tiles, set `map = 2`.
+  # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+  #
+  # Map provider:
   #   0: No map
   #   1: Google Maps
-  #   2: OpenStreetMap (Mapbox)
-  #   3: OpenStreetMap (Mapnik)
-
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
   map = 0
   map_api_key = ""
   latitude = "37.4275"
