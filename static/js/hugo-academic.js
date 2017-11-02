@@ -178,15 +178,17 @@
 
   function initMap () {
     if ($('#map').length) {
+      let lat = $('#map-lat').val();
+      let lng = $('#map-lng').val();
+      let zoom = $('#map-zoom').val();
+      let address = $('#map-dir').val();
+      
       if($('#gmap-lat').length) {
-        let lat = $('#gmap-lat').val();
-        let lng = $('#gmap-lng').val();
-        let address = $('#gmap-dir').val();
-
         let map = new GMaps({
           div: '#map',
           lat: lat,
           lng: lng,
+          zoom: zoom,
           zoomControl: true,
           zoomControlOpt: {
             style: 'SMALL',
@@ -210,11 +212,6 @@
           title: address
         })
       } else {
-          let lat = $('#leaflet-lat').val();
-          let lng = $('#leaflet-lng').val();
-          let zoom = $('#leaflet-zoom').val();
-          let address = $('#leaflet-dir').val();
-
           let map = new L.map('map').setView([lat, lng], zoom);
           if($('#mapbox-token').val().length) {
             let mapbox_token = $('#mapbox-token').val();
