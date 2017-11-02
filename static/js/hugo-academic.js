@@ -181,7 +181,7 @@
       let map_provider = $('#map-provider').val();
       let lat = $('#map-lat').val();
       let lng = $('#map-lng').val();
-      let zoom = $('#map-zoom').val();
+      let zoom = parseInt($('#map-zoom').val());
       let address = $('#map-dir').val();
       let api_key = $('#map-api-key').val();
       
