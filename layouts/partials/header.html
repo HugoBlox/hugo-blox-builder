@@ -31,10 +31,16 @@
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.bootstrap.version $sri.css.bootstrap.sri | safeHTML }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.academicons.version $sri.css.academicons.sri | safeHTML }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/font-awesome.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.fontAwesome.version $sri.css.fontAwesome.sri | safeHTML }}
+  {{ if or (eq .Site.Params.map 2) (eq .Site.Params.map 3) }}
+  {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.leaflet.version $sri.css.leaflet.sri | safeHTML }}
+  {{ end }}
   {{ else }}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{{- $sri.css.bootstrap.version -}}/css/bootstrap.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/academicons/{{- $sri.css.academicons.version -}}/css/academicons.min.css">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/{{- $sri.css.fontAwesome.version -}}/css/font-awesome.min.css">
+  {{ if or (eq .Site.Params.map 2) (eq .Site.Params.map 3) }}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/{{- $sri.css.leaflet.version -}}/leaflet.css">
+  {{ end }}
   {{ end }}
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent */}}
   {{- partial "css/parse_theme.css" . -}}

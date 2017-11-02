@@ -55,7 +55,7 @@ defaultContentLanguageInSubdir = false
   skype = "echo123"
   telegram = ""
 
-  # Enable Keybase in Contact section by entering your keybase.io username.
+  # Enable Keybase in Contact widget by entering your keybase.io username.
   keybase = ""
 
   # Discussion link (e.g. link to a forum, mailing list, or chat).
@@ -66,13 +66,26 @@ defaultContentLanguageInSubdir = false
   #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
   logo = ""
 
-  # Enable Google Maps by entering your API key, latitude, and longitude.
-  #   Get your API key: https://developers.google.com/maps/documentation/javascript/get-api-key
-  #   Get your coords: Right-click place on Google Maps. Select 'What's here?'. At the bottom is a card with the coords.
-  #   Disable Google Maps by clearing all three options to "".
-  google_maps_api_key = ""
+  # Enable/disable map in Contact widget.
+  # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
+  # a map provider below.
+  # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
+  #   https://developers.google.com/maps/documentation/javascript/get-api-key
+  # To use OpenStreetMap tiles, set `map = 2`.
+  # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+  #
+  # Map provider:
+  #   0: No map
+  #   1: Google Maps
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
+  map = 0
+  map_api_key = ""
   latitude = "37.4275"
   longitude = "-122.1697"
+  zoom = 15
 
   # Date and time format (refer to Go's date format: http://fuckinggodateformat.com )
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
