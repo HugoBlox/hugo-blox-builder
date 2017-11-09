@@ -12,10 +12,10 @@
   
   {{ if .IsTranslated }}
   {{ range .Translations }}
-  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}"/>
-  {{ end}}
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
   {{ end }}
-  <link rel="alternate" hreflang="{{ .Site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}"/>
+  {{ end }}
+  <link rel="alternate" hreflang="{{ .Site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
   {{ $sri := .Site.Data.sri }}
   {{/* Default to enabling highlighting, but allow the user to override it in .Params or .Site.Params.
