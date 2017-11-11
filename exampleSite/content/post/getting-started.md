@@ -102,6 +102,9 @@ The following color themes are available and can be set by the `color_theme` opt
 | --- | --- |
 | ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) |
 
+| `dark` |
+| --- |
+| ![dark theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png) |
 
 The following font styles are available and can be set by the `font` option in `config.toml`:
 

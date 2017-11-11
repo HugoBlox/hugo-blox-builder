@@ -9,27 +9,33 @@
   {{ .Hugo.Generator }}
   {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
   {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
-  
+
   {{ range .Translations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
   {{ end }}
   <link rel="alternate" hreflang="{{ .Site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
+  {{ $scr := .Scratch }}
+  {{ partial "css/parse_theme.css" . }}
   {{ $sri := .Site.Data.sri }}
   {{/* Default to enabling highlighting, but allow the user to override it in .Params or .Site.Params.
-       Use $.Scratch to store "highlight_enabled", so that we can read it again in footer.html. */}}
-  {{ $.Scratch.Set "highlight_enabled" true }}
+       Use $scr to store "highlight_enabled", so that we can read it again in footer.html. */}}
+  {{ $scr.Set "highlight_enabled" true }}
   {{ if isset .Params "highlight" }}
-    {{ $.Scratch.Set "highlight_enabled" .Params.highlight }}
+    {{ $scr.Set "highlight_enabled" .Params.highlight }}
   {{ else if isset .Site.Params "highlight" }}
-    {{ $.Scratch.Set "highlight_enabled" .Site.Params.highlight }}
+    {{ $scr.Set "highlight_enabled" .Site.Params.highlight }}
   {{ end }}
-  {{ if $.Scratch.Get "highlight_enabled" }}
+  {{ if $scr.Get "highlight_enabled" }}
     {{ $v := $sri.js.highlight.version }}
     {{ with .Site.Params.highlight_style }}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
     {{ else }}
-    <link rel="stylesheet" href="{{ "/css/highlight.min.css" | relURL }}">
+      {{ if eq ($scr.Get "light") true }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/github.min.css">
+      {{ else }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/dracula.min.css">
+      {{ end }}
     {{ end }}
   {{ end }}
   {{ if not .Site.Params.disable_sri }}
@@ -48,8 +54,6 @@
   {{ end }}
   {{ end }}
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent */}}
-  {{- partial "css/parse_theme.css" . -}}
-  {{- $scr := .Scratch -}}
   {{ with ($scr.Get "google_fonts") }}
   <link rel="stylesheet" href="{{ printf "//fonts.googleapis.com/css?family=%s" . }}">
   {{ end }}
@@ -117,4 +121,4 @@
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 </head>
-<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71" {{ if not ($scr.Get "light") }}class="dark"{{ end }}>

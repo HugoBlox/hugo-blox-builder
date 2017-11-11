@@ -19,6 +19,8 @@
 {{ if isset .Site.Data.themes $theme_index }}
   {{ $theme := index .Site.Data.themes $theme_index }}
 
+  {{- $scr.Set "light" $theme.light -}}
+
   {{- $scr.Set "primary" $theme.primary -}}
   {{- $scr.Set "primary_light" $theme.primary_light -}}
   {{- $scr.Set "primary_dark" $theme.primary_dark -}}
