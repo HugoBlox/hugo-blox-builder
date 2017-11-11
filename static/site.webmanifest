@@ -8,5 +8,6 @@
         "sizes": "192x192",
         "type": "image/png"
     }],
-    "start_url": "/"
+    "display": "standalone",
+    "start_url": "./?utm_source=web_app_manifest"
 }
