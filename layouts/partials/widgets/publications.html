@@ -25,6 +25,10 @@
       {{ $.Scratch.Set "recent_pubs" (where $.Site.RegularPages "Type" "publication") }}
     {{ end }}
 
+    {{ if $page.Params.exclude_selected }}
+      {{ $.Scratch.Set "recent_pubs" ( ($.Scratch.Get "recent_pubs") | intersect (where (where $.Site.RegularPages "Type" "publication") ".Params.selected" "!=" true) ) }}
+    {{ end }}
+
     {{ $recent_pubs := $.Scratch.Get "recent_pubs" }}
     {{ range first $page.Params.count $recent_pubs }}
       {{ if eq $page.Params.list_format 1 }}
