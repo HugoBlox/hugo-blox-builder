@@ -227,6 +227,9 @@ defaultContentLanguageInSubdir = false
 #   To link a homepage widget, specify the URL as a hash `#` followed by the filename of the
 #     desired widget in your `content/home/` folder.
 #   The weight parameter defines the order that the links will appear in.
+[params.menus]
+  # Align the main menu to the right of the page? (true/false)
+  align_right = true
 
 [[menu.main]]
   name = "Home"

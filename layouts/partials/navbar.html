@@ -25,7 +25,8 @@
     <div class="collapse navbar-collapse">
 
       <!-- Left Nav Bar -->
-      <ul class="nav navbar-nav navbar-right">
+      {{ $align_right := .Site.Params.menus.align_right | default true }}
+      <ul class="nav navbar-nav {{ if $align_right }}navbar-right{{ else }}navbar-left{{ end }}">
         {{ range .Site.Menus.main }}
 
         {{ if .HasChildren }}
@@ -57,8 +58,14 @@
 
         {{ end }}
         {{ end }}
+      {{ if and .IsTranslated (not $align_right) }}
+      </ul>
+      {{ end }}
 
-        {{ if .IsTranslated }}
+      {{ if .IsTranslated }}
+      {{ if not $align_right }}
+      <ul class="nav navbar-nav navbar-right">
+      {{ end }}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
             <i class="fa fa-globe" aria-hidden="true"></i>
