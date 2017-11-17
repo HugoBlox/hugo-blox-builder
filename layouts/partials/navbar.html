@@ -52,8 +52,14 @@
 
         {{ else }}
 
+        {{ if eq "http" (slicestr .URL 0 4) }}
+          {{ $.Scratch.Set "target" " target=\"_blank\" rel=\"noopener\"" }}
+        {{ else }}
+          {{ $.Scratch.Set "target" "" }}
+        {{ end }}
+
         <li class="nav-item">
-          <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+          <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ (slicestr .URL 0 4) }}{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
             {{ .Pre }}
             <span>{{ .Name }}</span>
             {{ .Post }}
