@@ -40,9 +40,7 @@ Academic is available in different color themes and font themes.
 
 2. Install Academic with [git](https://help.github.com/articles/set-up-git/):
 
-        git clone https://github.com/gcushen/hugo-academic.git themes/academic
-
-    Or alternatively, [download Academic](https://github.com/gcushen/hugo-academic/archive/master.zip) and extract it into a `themes/academic` folder within your Hugo website.
+        git submodule add https://github.com/gcushen/hugo-academic themes/academic 
 
 3. If you are creating a new website, copy the contents of the `exampleSite` folder to your website root folder, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started.
 
@@ -62,22 +60,9 @@ Academic is available in different color themes and font themes.
 
 Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) to help keep track of updates and check out the [release notes](https://sourcethemes.com/academic/tags/updates) prior to updating your site.
 
-Before updating Academic, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory.
+Before updating Academic, it is recommended to make a backup of your entire website directory, or at least your `themes/academic` directory. If you added `hugo-academic` as a `git submodule` simply do
 
-Before updating for the first time, the remote *origin* repository should be renamed to *upstream*:
-
-    $ cd themes/academic
-    $ git remote rename origin upstream
-
-To list available updates:
-
-    $ cd themes/academic
-    $ git fetch upstream
-    $ git log --pretty=oneline --abbrev-commit --decorate HEAD..upstream/master
-
-Then, update by running:
-
-    $ git pull upstream
+    git submodule update --remote --merge
 
 If you have modified files in `themes/academic`, git will attempt to auto-merge changes. If conflicts are reported, you will need to manually edit the files with conflicts and add them back (`git add <filename>`).
 
