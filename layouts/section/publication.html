@@ -33,10 +33,12 @@
         <select class="pub-filters" data-filter-group="year">
           <option value="*">{{ i18n "filter_all" }}</option>
           {{ $years_sorted := $.Scratch.GetSortedMapValues "years" }}
+          {{ if $years_sorted }}
           {{ range $year := sort $years_sorted "" "desc" }}
           <option value=".year-{{ $year }}">
             {{ $year }}
           </option>
+          {{ end }}
           {{ end }}
         </select>
       </p>
