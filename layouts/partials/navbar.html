@@ -59,7 +59,7 @@
         {{ end }}
 
         <li class="nav-item">
-          <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ (slicestr .URL 0 4) }}{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+          <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
             {{ .Pre }}
             <span>{{ .Name }}</span>
             {{ .Post }}
