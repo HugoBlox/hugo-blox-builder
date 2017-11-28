@@ -9,7 +9,7 @@ Key features:
 - Easily manage your homepage, blog posts, publications, talks, and projects
 - Configurable widgets available for Biography, Publications, Projects, News/Blog, Talks, and Contact
 - Need a different section? Just use the Custom widget!
-- Write in [Markdown](https://sourcethemes.com/academic/post/writing-markdown-latex/) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
+- Write in [Markdown](https://sourcethemes.com/academic/docs/writing-markdown-latex/) for easy formatting and code highlighting, with [LaTeX](https://en.wikibooks.org/wiki/LaTeX/Mathematics) for mathematical expressions
 - Social/academic network linking, [Google Analytics](https://analytics.google.com), and [Disqus](https://disqus.com) comments
 - Responsive and mobile friendly
 - Simple and refreshing one page design
@@ -19,17 +19,13 @@ Key features:
 
 Academic is available in different color themes and font themes.
 
-| `default` | `ocean` |
-| --- | --- |
-| ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png) | ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) |
+| `default` | `ocean` | `dark` |
+| --- | --- | --- |
+| ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png) | ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) | ![dark theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png) |
 
-| `forest` | `coffee` + `playfair` font |
-| --- | --- |
-| ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) |
-
-| `dark` |
-| --- |
-| ![dark theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png) |
+| `forest` | `coffee` + `playfair` font | |
+| --- | --- | --- |
+| ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) | ![](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-spacer.png) |
 
 ## Getting Started
 
@@ -37,7 +33,7 @@ The following two methods describe how to install in the cloud using your web br
 
 ### Quick install using your web browser
 
-1. [Fork](https://github.com/sourcethemes/academic-kickstart#fork-destination-box) the *Academic Kickstart* repository on GitHub
+1. [Fork](https://github.com/sourcethemes/academic-kickstart#fork-destination-box) the [**Academic Kickstart**](https://github.com/sourcethemes/academic-kickstart) repository on GitHub
 
 2. [Login to Netlify using your GitHub account](https://app.netlify.com)
     * Click *Create a new site*
@@ -59,7 +55,7 @@ Prerequisites:
 
        git clone https://github.com/sourcethemes/academic-kickstart.git My_Website
     
-    *Note that if you already forked Academic Kickstart, the above command should be changed to clone your fork.*
+    *Note that if you forked Academic Kickstart, the above command should be edited to clone your fork.*
      
 2. View your new website:
 
