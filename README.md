@@ -23,9 +23,9 @@ Academic is available in different color themes and font themes.
 | --- | --- | --- |
 | ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png) | ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) | ![dark theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png) |
 
-| `forest` | `coffee` + `playfair` font | |
+| `forest` | `coffee` + `playfair` font | `1950s` |
 | --- | --- | --- |
-| ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) | ![](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-spacer.png) |
+| ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) | ![1950s theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png) |
 
 ## Getting Started
 
@@ -33,16 +33,10 @@ The following two methods describe how to install in the cloud using your web br
 
 ### Quick install using your web browser
 
-1. [Fork](https://github.com/sourcethemes/academic-kickstart#fork-destination-box) the [**Academic Kickstart**](https://github.com/sourcethemes/academic-kickstart) repository on GitHub
-
-2. [Login to Netlify using your GitHub account](https://app.netlify.com)
-    * Click *Create a new site*
-    * Follow the steps to connect to GitHub, select your new `academic-kickstart` repository, keep the default options and click *Deploy Site*
-    * Netlify will automatically provide you with a URL to access your new site
-
-3. On GitHub, go to your `academic-kickstart` repository and edit `config.toml` to personalize your site. Shortly after saving the file, your site will automatically update
-
-4. Read the [Quick Start Guide](https://sourcethemes.com/academic/docs/) to learn how to add Markdown content. For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://themes.gohugo.io/theme/academic/)
+1. [Install Academic with Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/sourcethemes/academic-kickstart)
+    * Netlify will provide you with a customizable URL to access your new site
+2. On GitHub, go to your newly created `academic-kickstart` repository and edit `config.toml` to personalize your site. Shortly after saving the file, your site will automatically update
+3. Read the [Quick Start Guide](https://sourcethemes.com/academic/docs/) to learn how to add Markdown content. For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://themes.gohugo.io/theme/academic/)
 
 ### Install on your PC
 
