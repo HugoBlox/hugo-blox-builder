@@ -1,3 +1,10 @@
 # IDE specific
 .idea/
 .vscode/
+
+# Emacs Backups
+*~
+# Vim files
+.*.swp
+.*.swo
+
