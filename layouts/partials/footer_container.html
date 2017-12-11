@@ -9,11 +9,13 @@
 
     <p class="powered-by">
 
-      {{ with .Site.Copyright }}{{ . | markdownify}} &middot; {{ end }}
+      {{ with .Site.Copyright }}{{ . | markdownify}}{{ if not (isset $.Site.Params "disable_theme_advertisement" ) }} &middot; {{ end }}{{ end }}
 
+			{{ if or (not (isset $.Site.Params "disable_theme_advertisement" )) (not $.Site.Params.disable_theme_advertisement) }}
       Powered by the
       <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
       <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+			{{ end }}
 
       <span class="pull-right" aria-hidden="true">
         <a href="#" id="back_to_top">
