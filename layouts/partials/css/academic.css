@@ -440,6 +440,15 @@ a[data-fancybox] img {
   animation-delay: 0.25s;
 }
 
+.hero-fullsize {
+  position: relative;
+  padding: 0;
+  clear: both;
+  animation: intro 0.3s both;
+  animation-delay: 0s;
+  animation-delay: 0.25s;
+}
+
 .hero-title {
   font-size: 2.7rem;
   margin-top: 0;

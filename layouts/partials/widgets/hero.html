@@ -2,7 +2,7 @@
 {{ $page := .page }}
 {{ $header := $page.Params.header }}
 
-<section id="{{ $page.File.TranslationBaseName }}" class="hero-overlay" style="
+<section id="{{ $page.File.TranslationBaseName }}" class="hero-{{ if $page.Params.fullsize }}fullsize{{ else }}overlay{{ end }}" style="
 {{ if $header.overlay_color }}
 background-color: {{ $header.overlay_color | default "transparent" }};
 {{ end }}
@@ -12,7 +12,9 @@ background-image:
 url('{{ printf "img/%s" $header.overlay_img | absURL}}');
 {{ end }}
 ;">
-
+	{{ if $page.Params.fullsize }}
+	{{ with $page.Content }}{{ . }}{{ end }}
+	{{ else }}
   <div class="container">
 
     <h1 class="hero-title" itemprop="headline">
@@ -21,12 +23,12 @@ url('{{ printf "img/%s" $header.overlay_img | absURL}}');
 
     {{ with $page.Content }}
     <p class="hero-lead">{{ . | markdownify }}</p>
-    {{ end }}
+		{{ end }}
 
     {{ if $page.Params.cta.url }}
     <p><a href="{{ $page.Params.cta.url }}" class="btn btn-light btn-outline btn-large">{{ $page.Params.cta.label | safeHTML}}</a></p>
     {{ end }}
 
   </div>
-
+{{ end }}
 </section>
