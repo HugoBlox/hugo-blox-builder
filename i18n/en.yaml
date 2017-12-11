@@ -25,6 +25,9 @@
 
 # Buttons
 
+- id: btn_details
+  translation: Details
+
 - id: btn_preprint
   translation: Preprint
 
