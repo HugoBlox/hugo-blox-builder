@@ -6,6 +6,11 @@
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
+{{ with $.Params.publication }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ printf "publication/%s/" (lower .) | relURL }}">
+  {{ i18n "btn_publication" }}
+</a>
+{{ end }}
 {{ with $.Params.url_slides }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_slides" }}
