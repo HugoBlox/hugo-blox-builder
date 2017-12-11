@@ -1,6 +1,7 @@
-{{ if .Site.Params.sharing }}
+{{ if .Site.Params.sharing.enable }}
 <div class="share-box" aria-hidden="true">
   <ul class="share">
+{{ if .Site.Params.sharing.twitter }}
     <li>
       <a class="twitter"
          href="https://twitter.com/intent/tweet?text={{ .Title | html }}&amp;url={{ .Permalink | html }}"
@@ -8,6 +9,8 @@
         <i class="fab fa-twitter"></i>
       </a>
     </li>
+{{ end }}
+{{ if .Site.Params.sharing.facebook }}
     <li>
       <a class="facebook"
          href="https://www.facebook.com/sharer.php?u={{ .Permalink | html }}"
@@ -15,6 +18,8 @@
         <i class="fab fa-facebook-f"></i>
       </a>
     </li>
+{{ end }}
+{{ if .Site.Params.sharing.linkedin }}
     <li>
       <a class="linkedin"
          href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ .Permalink | html }}&amp;title={{ .Title | html }}"
@@ -22,6 +27,8 @@
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
+{{ end }}
+{{ if .Site.Params.sharing.weibo }}
     <li>
       <a class="weibo"
          href="http://service.weibo.com/share/share.php?url={{ .Permalink | html }}&amp;title={{ .Title | html }}"
@@ -29,12 +36,23 @@
         <i class="fab fa-weibo"></i>
       </a>
     </li>
+{{ end }}
+{{ if .Site.Params.sharing.email }}
     <li>
       <a class="email"
          href="mailto:?subject={{ .Title | html }}&amp;body={{ .Permalink | html }}">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
+{{ end }}
+{{ if .Site.Params.sharing.googleplus }}
+    <li>
+      <a class="google-plus"
+         href="https://plus.google.com/share?url={{ .Permalink | html }}">
+         <i class="fa fa-google-plus"></i>
+      </a>
+    </li>
+{{ end }}
   </ul>
 </div>
 {{ end }}
