@@ -1,11 +1,11 @@
 <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
-  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
-  <span itemprop="author">
+  <i class="fa fa-file-text-o pub-icon" aria-hidden="true"></i>
+  <span class="pub-mla-authors" itemprop="author">
     {{ with .Params.authors }}
       {{- delimit . ", " | markdownify -}}
     {{- end -}}
   </span>.
-  <a href="{{ .Permalink }}" itemprop="name">{{ .Title }}</a>.
+  <a href="{{ .Permalink }}" itemprop="name" class="pub-mla-title" >{{ .Title }}</a>.
   {{ if .Params.publication_short }}
     {{- .Params.publication_short | markdownify -}},
   {{ else if .Params.publication }}
