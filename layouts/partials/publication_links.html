@@ -1,4 +1,4 @@
-{{ $is_list := .is_list }}
+{{ $is_list := (eq .is_list 1) }}
 {{ $ := .content }}
 
 {{ if $.Site.Params.publications.show_details_button }}
