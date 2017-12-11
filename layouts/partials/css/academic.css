@@ -1069,6 +1069,14 @@ article .article-metadata {
   padding-top: .25rem;
 }
 
+.contact-email-obfuscate:before {
+  content: attr(data-user) "\0040" attr(data-domain);
+  /* Would require a way to reverse-iterate the string
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  */
+}
+
 #map {
   height: 350px;
   width: 100%;

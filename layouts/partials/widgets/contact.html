@@ -1,6 +1,11 @@
 {{ $ := .root }}
 {{ $page := .page }}
 {{ $autolink := default true $page.Params.autolink }}
+{{ $obfuscate := default true $page.Params.obfuscate }}
+
+{{ if and $autolink $obfuscate }}
+{{ errorf "Cannot enable autolink and obfuscate at the same time" }}
+{{ end }}
 
 <!-- Contact widget -->
 <div class="row">
@@ -16,8 +21,9 @@
       {{ with $.Site.Params.email }}
       <li>
         <i class="fa-li fas fa-{{ $page.Params.envelope_symbol | default "envelope" }} fa-2x contact-symbol" aria-hidden="true"></i>
-        <span id="person-email" itemprop="email">
-        {{- if $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+        <span id="person-email" itemprop="email"{{ if $obfuscate }} class="contact-email-obfuscate" data-domain="{{ index (split . "@") 1 }}" data-user="{{ index (split . "@") 0 }}"{{ end }}
+>
+        {{- if not $obfuscate }}{{ if and $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end }}{{ end -}}
         </span>
       </li>
       {{ end }}
