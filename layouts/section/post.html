@@ -4,25 +4,36 @@
 {{ partial "header_image.html" . }}
 
 <div class="universal-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+			<h1>{{ .Title | default (i18n "posts") }}</h1>
 
-  <h1>{{ .Title | default (i18n "posts") }}</h1>
+			{{ with .Content }}
+			<div class="article-style" itemprop="articleBody">{{ . }}</div>
+			{{ end }}
 
-  {{ with .Content }}
-  <div class="article-style" itemprop="articleBody">{{ . }}</div>
-  {{ end }}
+      {{ range (.Paginate (.Data.Pages.GroupByDate "2006")).PageGroups }}
+      <div class="row" id="post-list">
+        <div class="col-md-2">
+          <h3>{{ .Key }}</h3>
+        </div>
+        <div class="col-md-10">
 
-  {{ $paginator := .Paginate .Data.Pages }}
-  {{ range $paginator.Pages }}
-    {{ $params := dict "post" . }}
-    {{ if eq $.Params.list_format 0 }}
-      {{ partial "post_li_simple" $params }}
-    {{ else }}
-      {{ partial "post_li_detailed" $params }}
-    {{ end }}
-  {{ end }}
+          {{ range.Pages }}
+          {{ $params := dict "post" . }}
+          {{ if eq $.Params.list_format 0 }}
+            {{ partial "post_li_simple" $params }}
+          {{ else }}
+            {{ partial "post_li_detailed" $params }}
+          {{ end }}
+					{{ end }}
 
-  {{ partial "pagination" . }}
-
+				</div>
+      </div>
+      {{ end }}
+			{{ partial "pagination" . }}
+    </div>
+  </div>
 </div>
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}
