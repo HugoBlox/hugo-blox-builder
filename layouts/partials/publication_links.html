@@ -1,6 +1,12 @@
 {{ $is_list := .is_list }}
 {{ $ := .content }}
 
+{{ if $.Site.Params.publications.show_details_button }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ $.Permalink }}" target="_blank" rel="noopener">
+  {{ i18n "btn_details" }}
+</a>
+{{ end }}
+
 {{ with $.Params.url_preprint }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
   {{ i18n "btn_preprint" }}
