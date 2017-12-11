@@ -726,6 +726,22 @@ article .article-metadata {
   color: {{ .Get "primary" }};
 }
 
+.article-list-item {
+  margin-bottom: 40px;
+}
+
+.article-list-item h3 {
+  margin-top: 0;
+}
+
+.article-list-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.article-list-item .article-metadata {
+  margin-bottom: 5px;
+}
+
 .middot-divider {
   padding-right: .45em;
   padding-left: .45em;
