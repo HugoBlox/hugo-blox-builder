@@ -34,6 +34,9 @@
 - id: btn_pdf
   translation: PDF
 
+- id: btn_publication
+  translation: Paper
+
 - id: btn_cite
   translation: Cite
 
