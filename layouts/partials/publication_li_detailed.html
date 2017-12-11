@@ -22,6 +22,7 @@
     <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
   </h3>
 
+	{{ if or .Params.abstract_short .Params.abstract }}
   <div class="pub-abstract" itemprop="text">
     {{ if .Params.abstract_short }}
     {{ .Params.abstract_short | markdownify }}
@@ -29,6 +30,7 @@
     {{ .Params.abstract | markdownify}}
     {{ end }}
   </div>
+	{{ end }}
 
   <div class="pub-authors" itemprop="author">
     {{ with .Params.authors }}
