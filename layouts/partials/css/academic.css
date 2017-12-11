@@ -821,6 +821,26 @@ article .article-metadata {
   font-weight: bold;
 }
 
+.pub-list-item {
+  margin-bottom: 40px;
+}
+
+.pub-list-item h3.pub-title a:hover {
+  color: {{ .Get "primary" }};
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+.pub-list-item .pub-title {
+  margin-top: 0rem;
+  font-size: 1.75rem;
+}
+
+.pub-list-item .pub-title a {
+  color: #151515;
+  transition: color 0.6s ease;
+}
+
 .pub-list-item .pub-abstract {
   font-size: 1rem;
 }
