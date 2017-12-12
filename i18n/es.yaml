@@ -23,7 +23,7 @@
   translation: PDF
 
 - id: btn_cite
-  translation: Citación
+  translation: Citar
 
 - id: btn_slides
   translation: Diapositivas
@@ -55,7 +55,7 @@
 # About widget
 
 - id: interests
-  translation: Interés
+  translation: Intereses
 
 - id: education
   translation: Educación
@@ -68,7 +68,7 @@
 # Posts widget
 
 - id: continue_reading
-  translation: CONTINÚA LEYENDO
+  translation: CONTINUAR LEYENDO
 
 - id: more_posts
   translation: Más posts
@@ -107,7 +107,7 @@
 # Filtering
 
 - id: filter_by_type
-  translation: Filtro por tipo
+  translation: Filtrar por tipo
 
 - id: filter_all
   translation: Todo
@@ -126,7 +126,7 @@
   translation: Publicaciones
 
 - id: talks
-  translation: Charlas
+  translation: Conferencias
 
 - id: projects
   translation: Proyectos
@@ -134,7 +134,7 @@
 # Error 404
 
 - id: page_not_found
-  translation: Page no encontrada
+  translation: Página no encontrada
 
 - id: 404_recommendations
-  translation: Tal vez buscaba una de estas?
+  translation: ¿Buscabas una de éstas?
