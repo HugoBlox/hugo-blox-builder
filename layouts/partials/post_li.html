@@ -1,6 +1,6 @@
 {{ $post := .post }}
 
-<div class="article-list-item" itemscope itemprop="blogPost">
+<div class="article-list-item" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
   {{ $preview := $post.Params.header.preview | default true }}
   {{ if and $post.Params.header.image $preview }}
   <a href="{{ $post.Permalink }}">
