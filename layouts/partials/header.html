@@ -57,7 +57,7 @@
   {{ with ($scr.Get "google_fonts") }}
   <link rel="stylesheet" href="{{ printf "//fonts.googleapis.com/css?family=%s" . }}">
   {{ end }}
-  <link rel="stylesheet" href="{{ "styles.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "styles.css" | relLangURL }}">
   {{ range .Site.Params.custom_css }}
   <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
   {{ end }}
