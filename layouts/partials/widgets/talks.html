@@ -19,7 +19,7 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range first $page.Params.count (where $.Site.RegularPages "Type" "talk") }}
+    {{ range first $page.Params.count (sort (where $.Site.RegularPages "Type" "talk") ".Params.time_start" "desc") }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
       {{ else }}
