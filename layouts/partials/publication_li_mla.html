@@ -7,10 +7,10 @@
   </span>.
   <a href="{{ .Permalink }}" itemprop="name">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
-    {{- .Params.publication_short | markdownify -}}
-  {{ else }}
-    {{- .Params.publication | markdownify -}}
-  {{ end }},&nbsp;
+    {{- .Params.publication_short | markdownify -}},
+  {{ else if .Params.publication }}
+    {{- .Params.publication | markdownify -}},
+  {{ end }}
   {{- .Date.Format "2006" -}}.
   <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
 </div>

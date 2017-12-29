@@ -1,6 +1,17 @@
-baseurl = "/"  # End your URL with a `/` trailing slash, e.g. `https://example.com/`.
+# Configuration of Academic
+# Documentation: https://sourcethemes.com/academic/
+
+# The URL of your website.
+# End your URL with a `/` trailing slash, e.g. `https://example.com/`.
+baseurl = "/"
+
+# Title of your site
 title = "Academic"
-copyright = "&copy; 2017 Your Name"
+
+# Your copyright notice - appears in site footer.
+# To display a copyright symbol, type `&copy;`.
+copyright = "&copy; 2018"
+
 theme = "academic"
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
@@ -150,15 +161,16 @@ defaultContentLanguageInSubdir = false
   #   The index of the publication type in the list is used as its unique numerical identifier.
   #   The numeric ID is used in a publication's frontmatter to categorize it.
   #   The language can be edited below.
-  #   For multi-lingual sites, copy this block to each language section at the end of this file.
+  #   For multilingual sites, `publication_types` can be copied to each language section at the end of this file and
+  #   translated.
   publication_types = [
     'Uncategorized',  # 0
-    'Conference proceedings',  # 1
-    'Journal',  # 2
-    'Work in progress',  # 3
-    'Technical report',  # 4
+    'Conference paper',  # 1
+    'Journal article',  # 2
+    'Manuscript',  # 3
+    'Report',  # 4
     'Book',  # 5
-    'Book chapter'  # 6
+    'Book section'  # 6
   ]
 
   # Configuration of talk pages.
