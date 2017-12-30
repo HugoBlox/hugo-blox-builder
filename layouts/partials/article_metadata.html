@@ -10,10 +10,7 @@
       {{ $.Lastmod.Format $.Site.Params.date_format }}
     </time>
   </span>
-  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="{{ $.Site.Params.name }}">
-  </span>
-  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+  <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
     <meta itemprop="name" content="{{ $.Site.Params.name }}">
   </span>
 
