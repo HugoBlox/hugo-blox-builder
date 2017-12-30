@@ -7,11 +7,7 @@
     <img src="{{ "/img/" | relURL }}{{ $post.Params.header.image }}" class="article-banner" itemprop="image">
   </a>
   {{end}}
-  {{ if $post.Params.header.caption }}
-  <meta itemprop="headline" content="{{ $post.Params.header.caption }}">
-  {{ else }}
   <meta itemprop="headline" content="{{ $post.Title }}">
-  {{ end }}
   <h3 class="article-title" itemprop="name">
     <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
   </h3>
