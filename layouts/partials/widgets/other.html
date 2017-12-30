@@ -1,0 +1,82 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $posts_len := len (where (where $.Site.RegularPages "Type" "post") ".Params.notonhomepage" nil) }}
+
+<!-- Blog Posts widget -->
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ if gt $posts_len $page.Params.count }}
+    <p class="view-all">
+      <a href="{{ "/post/" | relLangURL }}">
+        {{ i18n "more_posts" | markdownify }}
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </p>
+    {{ end }}
+
+  </div>
+  <div class="col-xs-12 col-md-8">
+
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if gt (len $page.Params.tags_include) 0 }}
+      {{ $posts := where (where (where $.Site.RegularPages "Type" "post") ".Params.tags" "intersect" $page.Params.tags_include) ".Params.notonhomepage" nil }}
+
+      {{ $.Scratch.Add "show_post" "1" }}
+      {{ range $post := first $page.Params.count $posts }}
+
+        {{ $.Scratch.Set "show_post" "1" }}
+
+        {{/* If `tags_include` is set, exclude posts with no tags. */}}
+        {{ if and ($page.Params.tags_include) (lt (len .Params.tags) 1) }}
+          {{ $.Scratch.Set "show_post" "0" }}
+        {{end}}
+
+        {{/* If `tags_exclude` is set, exclude posts. */}}
+        {{ range $key, $val := .Params.tags }}
+          {{ if in $page.Params.tags_exclude $val }}
+          {{ $.Scratch.Set "show_post" "0" }}
+        {{end}}
+      {{end}}
+
+      {{ $show_post := $.Scratch.Get "show_post" }}
+      {{ if ne $show_post "0" }}
+        {{ $params := dict "post" . }}
+        {{ partial "post_li" $params }}
+      {{end}}
+
+      {{ end }}
+    {{ else}}
+      {{ $posts := where (where $.Site.RegularPages "Type" "post") ".Params.notonhomepage" nil }}
+
+      {{ $.Scratch.Add "show_post" "1" }}
+      {{ range $post := first $page.Params.count $posts }}
+
+        {{ $.Scratch.Set "show_post" "1" }}
+
+        {{/* If `tags_include` is set, exclude posts with no tags. */}}
+        {{ if and ($page.Params.tags_include) (lt (len .Params.tags) 1) }}
+          {{ $.Scratch.Set "show_post" "0" }}
+        {{end}}
+
+        {{/* If `tags_exclude` is set, exclude posts. */}}
+        {{ range $key, $val := .Params.tags }}
+          {{ if in $page.Params.tags_exclude $val }}
+          {{ $.Scratch.Set "show_post" "0" }}
+        {{end}}
+      {{end}}
+
+      {{ $show_post := $.Scratch.Get "show_post" }}
+      {{ if ne $show_post "0" }}
+        {{ $params := dict "post" . }}
+        {{ partial "post_li" $params }}
+      {{end}}
+
+      {{ end }}
+    {{ end }}
+
+  </div>
+</div>
