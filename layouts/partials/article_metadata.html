@@ -6,9 +6,12 @@
     {{ if ne $.Params.Lastmod $.Params.Date }}
         {{ i18n "last_updated" }}
     {{ end }}
-    <time datetime="{{ $.Date }}" itemprop="datePublished">
+    <time datetime="{{ $.Date }}" itemprop="datePublished dateModified">
       {{ $.Lastmod.Format $.Site.Params.date_format }}
     </time>
+  </span>
+  <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="{{ $.Site.Params.name }}">
   </span>
 
   {{ if ne $.Site.Params.reading_time false }}

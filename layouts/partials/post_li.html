@@ -1,13 +1,13 @@
 {{ $post := .post }}
 
-<div class="article-list-item" itemscope itemprop="blogPost">
+<div class="article-list-item" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
   {{ $preview := $post.Params.header.preview | default true }}
   {{ if and $post.Params.header.image $preview }}
   <a href="{{ $post.Permalink }}">
     <img src="{{ "/img/" | relURL }}{{ $post.Params.header.image }}" class="article-banner" itemprop="image">
   </a>
   {{end}}
-  <h3 class="article-title" itemprop="name">
+  <h3 class="article-title" itemprop="headline">
     <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
   </h3>
   {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
@@ -20,7 +20,7 @@
     {{ $post.Content }}
     {{ end }}
   </div>
-  <p class="read-more">
+  <p class="read-more" itemprop="mainEntityOfPage">
     <a href="{{ $post.Permalink }}" class="btn btn-primary btn-outline">
       {{ i18n "continue_reading" }}
     </a>
