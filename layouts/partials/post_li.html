@@ -7,8 +7,7 @@
     <img src="{{ "/img/" | relURL }}{{ $post.Params.header.image }}" class="article-banner" itemprop="image">
   </a>
   {{end}}
-  <meta itemprop="headline" content="{{ $post.Title }}">
-  <h3 class="article-title" itemprop="name">
+  <h3 class="article-title" itemprop="headline">
     <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
   </h3>
   {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
