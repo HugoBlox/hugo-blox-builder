@@ -18,6 +18,9 @@
   {{ $scr := .Scratch }}
   {{ partial "css/parse_theme.css" . }}
   {{ $sri := .Site.Data.sri }}
+  {{ if ne ($scr.Get "primary") "#fff" }}
+  <meta name="theme-color" content="{{ $scr.Get "primary" }}">
+  {{ end }}
   {{/* Default to enabling highlighting, but allow the user to override it in .Params or .Site.Params.
        Use $scr to store "highlight_enabled", so that we can read it again in footer.html. */}}
   {{ $scr.Set "highlight_enabled" true }}
