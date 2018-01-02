@@ -8,14 +8,24 @@
   <meta name="theme" content="hugo-academic">
   {{ .Hugo.Generator }}
   {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
-  {{ with .Site.Params.role }}<meta name="description" content="{{ . }}">{{ end }}
+
+  {{ $scr := .Scratch }}
+  {{/* Generate page description. */}}
+  {{ $scr.Set "description" .Site.Params.role }}
+  {{ if .IsPage }}
+    {{ if .Params.abstract }}
+      {{ $scr.Set "description" .Params.abstract }}
+    {{ else }}
+      {{ $scr.Set "description" .Summary }}
+    {{ end }}
+  {{ end }}
+  <meta name="description" content="{{ $scr.Get "description" }}">
 
   {{ range .Translations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
   {{ end }}
   <link rel="alternate" hreflang="{{ .Site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
-  {{ $scr := .Scratch }}
   {{ partial "css/parse_theme.css" . }}
   {{ $sri := .Site.Data.sri }}
   {{ if ne ($scr.Get "primary") "#fff" }}
@@ -101,15 +111,7 @@
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}">
-  <meta property="og:description" content="{{- if .IsPage -}}
-  {{- if or .Type "publication" .Type "talk" -}}
-    {{- with .Params.abstract -}}{{- . -}}{{- end -}}
-  {{- else -}}
-    {{- .Summary -}}
-  {{- end -}}
-  {{- else -}}
-  {{- with .Site.Params.role -}}{{- . -}}{{- end -}}
-  {{- end -}}">
+  <meta property="og:description" content="{{ $scr.Get "description" }}">
   {{- with .Params.header.image }}<meta property="og:image" content="{{ printf "/img/%s" . | absURL }}">{{end}}
   <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
