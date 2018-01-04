@@ -2,6 +2,7 @@
 # Projects widget.
 # This widget displays all projects from `content/project/`.
 widget = "projects"
+folder = "project"
 active = true
 date = "2016-04-20T00:00:00"
 
@@ -27,7 +28,7 @@ filter_default = 0
 [[filter]]
   name = "All"
   tag = "*"
-  
+
 [[filter]]
   name = "Deep Learning"
   tag = ".deep-learning"
