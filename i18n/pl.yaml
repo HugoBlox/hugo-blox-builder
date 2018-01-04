@@ -3,6 +3,17 @@
 - id: toggle_navigation
   translation: Toggle navigation
 
+- id: table_of_contents
+  translation: Spis treści
+
+# General
+
+- id: related
+  translation: Powiązane
+
+- id: minute_read
+  translation: min czytania
+
 # Buttons
 
 - id: btn_details
@@ -65,6 +76,9 @@
 
 - id: date
   translation: Data
+
+- id: last_updated
+  translation: Ostatnia aktualizacja
 
 - id: links
   translation: Odnośniki
