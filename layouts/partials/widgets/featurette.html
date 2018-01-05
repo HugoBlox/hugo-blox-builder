@@ -1,0 +1,13 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<div class="row featurette">
+  {{ range $page.Params.feature }}
+  {{ $pack := or .icon_pack "fa" }}
+  <div class="col-sm-4">
+    {{ with .icon }}<div class="featurette-icon"><i class="{{ $pack }} {{ $pack }}-{{ . }}"></i></div>{{ end }}
+    <h3>{{ .name | markdownify | emojify }}</h3>
+    {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+  </div>
+  {{ end }}
+</div>
