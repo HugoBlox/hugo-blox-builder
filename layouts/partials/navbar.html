@@ -51,15 +51,14 @@
         </li>
 
         {{ else }}
-          {{ if gt (len .URL) 4 }}
-            {{ if eq "http" (slicestr .URL 0 4) }}
-              {{ $.Scratch.Set "target" " target=\"_blank\" rel=\"noopener\"" }}
-            {{ else }}
-              {{ $.Scratch.Set "target" "" }}
-            {{ end }}
-          {{ else }}
-            {{ $.Scratch.Set "target" "" }}
+        
+        {{/* Set target for link. */}}
+        {{ $.Scratch.Set "target" "" }}
+        {{ if gt (len .URL) 4 }}
+          {{ if eq "http" (slicestr .URL 0 4) }}
+            {{ $.Scratch.Set "target" " target=\"_blank\" rel=\"noopener\"" }}
           {{ end }}
+        {{ end }}
 
         <li class="nav-item">
           <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
