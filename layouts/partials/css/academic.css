@@ -696,6 +696,144 @@ article .article-metadata {
 }
 
 /*************************************************
+ *  Staticman comment section and form
+ **************************************************/
+
+.post-comments {
+  margin-top: 60px;
+}
+
+.post-comment {
+  background-color: rgb(247, 247, 247);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.post-comment-header {
+  margin-bottom: 20px;
+}
+
+.post-comment-avatar {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+.post-comment-info {
+  display: inline-block;
+  margin-left: 20px;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.post-comment-field {
+  display: block;
+  font: inherit;
+  padding: 10px;
+  margin-top: 20px;
+  outline-color: #9b6bcc;
+  width: 100%;
+}
+
+.btn-primary.comment-buttons {
+  background: #9b6bcc !important;
+  border-color: #9b6bcc !important;
+  font-size: 0.9rem;
+  padding: 10px 14px 9px;
+  border-radius: 6px;
+}
+
+.btn-primary.comment-buttons:hover {
+  background: #53237f !important;
+}
+
+.post-comment-info .post-comment-name {
+  font-size: 1.4rem;
+  font-weight: 500;
+
+}
+
+.post-comment-info .post-time {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+  color: #888;
+
+}
+
+.post-comment-info .post-time:hover {
+  color: #9b6bcc;
+}
+
+/*************************************************
+ *  Staticman comment submission confirmation dialog
+ **************************************************/
+
+.dialog {
+  display: none;
+  position: fixed;
+  background-color: rgb(247, 247, 247);
+  padding: 25px;
+  padding-top: 20%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.dialog:target {
+  display: block;
+}
+
+.dialog .btn-primary.comment-buttons.ok {
+  width: 7rem;
+}
+
+/*************************************************
+ *  Notify me of new comments checkbox
+ **************************************************/
+
+input[type=checkbox].checkbox {
+  display: none;
+}
+
+.checkbox-label {
+  position: relative;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  float: left;
+}
+
+.checkbox-label:before {
+  content: ' ';
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-width: 1px;
+  border-style: solid;
+  vertical-align: middle;
+  position: relative;
+  bottom: 2px;color: rgb(169, 169, 169);    
+}
+
+.checkbox:checked+.checkbox-label:after {
+  content: 'x';
+  display: inline-block;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-width: 2px;
+  line-height: 25px;
+  top: 11px;
+  left: 1px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/*************************************************
  *  Publications
  **************************************************/
 
