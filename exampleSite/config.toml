@@ -19,8 +19,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 preserveTaxonomyNames = true
 paginate = 10
 
-# Enable comments by entering your Disqus shortname
-disqusShortname = ""
+# Enable comments by uncommenting and entering your Disqus shortname
+#disqusShortname = ""
 
 # Enable analytics by entering your Google Analytics tracking ID
 googleAnalytics = ""
@@ -172,6 +172,13 @@ defaultContentLanguageInSubdir = false
     'Book',  # 5
     'Book section'  # 6
   ]
+
+  # Enable Staticman commenting by uncommenting and entering the relevant values. Be sure to comment out the disqusShortname if using Staticman.
+  #[params.staticman]
+  #endpoint = "https://api.staticman.net/v2/entry"
+  #username = "<github-username-of-repo-that-will-receive-comment-pull-requests>"
+  #repository = "<github-repo-that-will-recieve-comment-pull-requests>"
+  #branch = "master"
 
   # Configuration of talk pages.
   [params.talks]

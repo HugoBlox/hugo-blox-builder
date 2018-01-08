@@ -21,10 +21,28 @@
   </span>
   {{ end }}
 
-  {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
+  {{ $comments_enabled := and (or $.Site.DisqusShortname $.Site.Params.staticman) (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
   {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
-  <span class="middot-divider"></span>
-  <a href="{{ $.Permalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+    {{ if $.Site.DisqusShortname }}
+      <span class="middot-divider"></span>
+      <a href="{{ $.Permalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+    {{ end }}
+    {{ if $.Site.Params.staticman }}
+      {{ $.Scratch.Set "commentCountPerPost" 0 }}
+      {{ if $.Slug }} <!-- Can't count comments without slug -->
+        {{ if fileExists (printf "data/comments/%s" $.Slug) }} <!-- If the comment dir exists, we can count comments -->
+          {{ $comments := readDir (printf "data/comments/%s" $.Slug) }}
+          {{ $.Scratch.Set "commentCountPerPost" (len $comments) }}
+        {{ end }}        
+      {{ end }}
+      {{ if gt ( $.Scratch.Get "commentCountPerPost" ) 1 }}
+        <span class="middot-divider"></span>
+        <a href="{{ $.Permalink }}#comments">{{ $.Scratch.Get "commentCountPerPost" }} Comments</a>
+      {{ else if eq ( $.Scratch.Get "commentCountPerPost" ) 1 }}
+        <span class="middot-divider"></span>
+        <a href="{{ $.Permalink }}#comments">1 Comment</a>
+      {{ end }}
+    {{ end }}
   {{ end}}
 
   {{ if isset $.Params "categories" }}
