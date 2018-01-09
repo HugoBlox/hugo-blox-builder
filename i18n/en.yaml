@@ -138,3 +138,59 @@
 
 - id: 404_recommendations
   translation: Perhaps you were looking for one of these?
+
+# Staticman commenting
+
+- id: comment_count_singular
+  translation: Comment
+
+- id: comment_count_plural
+  translation: Comments
+
+- id: comments
+  translation: Comment
+
+- id: be_first_comment
+  translation: Be the first to leave a comment.
+
+- id: leave_comment
+  translation: Say something
+
+- id: email_used_for
+  translation: Your email is used for
+
+- id: gravatar
+  translation: Gravatar
+
+- id: email_used_for_reason
+  translation: image and reply notifications only.
+
+- id: name_placeholder
+  translation: Name *
+
+- id: email_placeholder
+  translation: Email address (will not be public) *
+
+- id: comment_placeholder
+  translation: Comment (markdown is accepted) *
+
+- id: subscribe_to_new_comments
+  translation: Notify me of new comments on this post
+
+- id: submit_comment
+  translation: Submit  
+
+- id: thanks
+  translation: Thank you
+
+- id: comment_submission_confirmation
+  translation: Your comment has been submitted and will be published once it has been approved.
+
+- id: click_here
+  translation: Click here
+
+- id: see_comment_pullrequest
+  translation: to see the pull request you generated.
+
+- id: ok
+  translation: OK

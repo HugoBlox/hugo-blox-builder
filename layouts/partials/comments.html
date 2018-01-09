@@ -7,7 +7,7 @@
     {{ end }}
     {{ if .Site.Params.staticman }}
       <section class="staticman-comments post-comments">
-        <h3>Comments</h3>
+        <h3>{{ i18n "comments" }}</h3>
 
         {{ $comments := readDir "data/comments" }}
         {{ $.Scratch.Add "hasComments" 0 }}
@@ -35,37 +35,37 @@
         {{ end }}
 
         {{ if eq ($.Scratch.Get "hasComments") 0 }}
-          <p>Be the first to leave a comment.</p>
+          <p>{{ i18n "be_first_comment" }}</p>
         {{ end }}
         
-        <h3>Say something</h3>
-        Your email is used for <a href="https://gravatar.com" target="_blank">Gravatar</a> image and reply notifications only.
+        <h3>{{ i18n "leave_comment" }}</h3>
+        {{ i18n "email_used_for" }} <a href="https://gravatar.com" target="_blank">{{ i18n "gravatar" }}</a> {{ i18n "email_used_for_reason" }}
         
         
         <form class="post-new-comment" method="post" action="{{ .Site.Params.staticman.endpoint }}/{{ .Site.Params.staticman.username }}/{{ .Site.Params.staticman.repository }}/{{ .Site.Params.staticman.branch }}/comments">
           <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comment-submitted">
           <input type="hidden" name="options[slug]" value="{{ .Source.BaseFileName }}">
           <input type="hidden" name="fields[postName]" value="{{ .Source.BaseFileName }}"/>          
-          <input type="text" name="fields[name]" class="post-comment-field" placeholder="Name *" required/>
-          <input type="email" name="fields[email]" class="post-comment-field" placeholder="Email address (will not be public) *" required/>          
+          <input type="text" name="fields[name]" class="post-comment-field" placeholder="{{ i18n "name_placeholder" }}" required/>
+          <input type="email" name="fields[email]" class="post-comment-field" placeholder="{{ i18n "email_placeholder" }}" required/>          
           <input type="address" name="fields[botpot]" placeholder="botpot (do not fill!)" style="display: none"></textarea>          
-          <textarea name="fields[comment]" class="post-comment-field" placeholder="Comment (markdown is accepted) *" required rows="10"></textarea>
+          <textarea name="fields[comment]" class="post-comment-field" placeholder="{{ i18n "comment_placeholder" }}" required rows="10"></textarea>
           <!-- Following fields used for subscribing to comments -->
           <input type="hidden" name="options[origin]" value="{{ $.Permalink }}#comments">
           <input type="hidden" name="options[parent]" value="{{ .Source.BaseFileName }}">
           <input id="form-submit" type="checkbox" name="options[subscribe]" class="checkbox post-comment-field" value="email">
-          <label for="form-submit" class="post-comment-field checkbox-label"> &nbsp Notify me of new comments on this post</label>
+          <label for="form-submit" class="post-comment-field checkbox-label"> &nbsp {{ i18n "subscribe_to_new_comments" }}</label>
           <!-- End following fields used for subscribing to comments -->
-          <input type="submit" class="post-comment-field btn btn-primary comment-buttons" value="Submit">
+          <input type="submit" class="post-comment-field btn btn-primary comment-buttons" value="{{ i18n "submit_comment" }}">
         </form>
       </section>
 
       <div id="comment-submitted" class="dialog">
-        <h3>Thank you</h3>
-        <p>Your comment has been submitted and will be published once it has been approved.</p>
-        <p><a href="https://github.com/{{ .Site.Params.staticman.username }}/{{ .Site.Params.staticman.repository }}/pulls">Click here</a> to see the pull request you generated.</p>
+        <h3>{{ i18n "thanks" }}</h3>
+        <p>{{ i18n "comment_submission_confirmation" }}</p>
+        <p><a href="https://github.com/{{ .Site.Params.staticman.username }}/{{ .Site.Params.staticman.repository }}/pulls">{{ i18n "click_here" }}</a> {{ i18n "see_comment_pullrequest" }}</p>
         
-        <p><a href="#" class="btn btn-primary comment-buttons ok">OK</a></p>
+        <p><a href="#" class="btn btn-primary comment-buttons ok">{{ i18n "ok" }}</a></p>
       </div>
 
     {{ end }}
