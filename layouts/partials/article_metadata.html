@@ -37,10 +37,10 @@
       {{ end }}
       {{ if gt ( $.Scratch.Get "commentCountPerPost" ) 1 }}
         <span class="middot-divider"></span>
-        <a href="{{ $.Permalink }}#comments">{{ $.Scratch.Get "commentCountPerPost" }} Comments</a>
+        <a href="{{ $.Permalink }}#comments">{{ $.Scratch.Get "commentCountPerPost" }}  {{ i18n "comment_count_plural" }}</a>
       {{ else if eq ( $.Scratch.Get "commentCountPerPost" ) 1 }}
         <span class="middot-divider"></span>
-        <a href="{{ $.Permalink }}#comments">1 Comment</a>
+        <a href="{{ $.Permalink }}#comments">1 {{ i18n "comment_count_singular" }}</a>
       {{ end }}
     {{ end }}
   {{ end}}
