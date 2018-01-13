@@ -14,6 +14,12 @@
 - id: minute_read
   translation: min read
 
+- id: previous
+  translation: Previous
+
+- id: next
+  translation: Next
+
 # Buttons
 
 - id: btn_preprint

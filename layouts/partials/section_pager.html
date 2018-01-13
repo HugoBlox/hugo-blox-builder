@@ -1,13 +1,14 @@
-<nav>
-  <ul class="pager">
-    {{if .PrevInSection}}
-    <li class="previous"><a href="{{.PrevInSection.Permalink}}"><span
-      aria-hidden="true">&larr;</span> {{.PrevInSection.Title}}</a></li>
-    {{end}}
-
-    {{if .NextInSection}}
-    <li class="next"><a href="{{.NextInSection.Permalink}}">{{.NextInSection.Title}} <span
-      aria-hidden="true">&rarr;</span></a></li>
-    {{end}}
-  </ul>
-</nav>
+<div class="post-nav">
+  {{if .NextInSection}}
+  <div class="post-nav-item">
+    <div class="meta-nav">{{ i18n "next" }}</div>
+    <a href="{{.NextInSection.Permalink}}" rel="next">{{.NextInSection.Title}}</a>
+  </div>
+  {{end}}
+  {{if .PrevInSection}}
+  <div class="post-nav-item">
+    <div class="meta-nav">{{ i18n "previous" }}</div>
+    <a href="{{.PrevInSection.Permalink}}" rel="prev">{{.PrevInSection.Title}}</a>
+  </div>
+  {{end}}
+</div>

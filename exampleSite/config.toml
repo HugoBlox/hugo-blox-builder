@@ -110,7 +110,7 @@ defaultContentLanguageInSubdir = false
   # Display comment count? Requires commenting to be enabled.
   comment_count = true
 
-  # Display section pager for posts?
+  # Display next/previous section pager?
   section_pager = false
 
   # Enable global LaTeX math rendering?
