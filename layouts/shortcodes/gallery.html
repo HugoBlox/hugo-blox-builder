@@ -1,0 +1,16 @@
+{{ $.Scratch.Set "album" "1" }}
+{{ with .Get "album" }}{{ $.Scratch.Set "album" . }}{{ end }}
+<div class="gallery">
+  {{ range (where $.Page.Params.gallery_item "album" ($.Scratch.Get "album")) }}
+  {{/* Set image path. */}}
+  {{ $.Scratch.Set "src" .image }}
+  {{ if gt (len .image) 4 }}
+    {{ if ne "http" (slicestr .image 0 4) }}
+      {{ $.Scratch.Set "src" (printf "img/%s" .image | absURL) }}
+    {{ end }}
+  {{ end }}
+  <a data-fancybox="gallery{{ with .album }}-{{.}}{{ end }}" {{ with .caption }}data-caption="{{.}}"{{ end }} href="{{$.Scratch.Get "src"}}">
+    <img alt="" src="{{$.Scratch.Get "src"}}">
+  </a>
+  {{ end }}
+</div>

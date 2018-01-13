@@ -14,6 +14,7 @@
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/%s/imagesloaded.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.imagesLoaded.version $js.imagesLoaded.sri | safeHTML }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/js/bootstrap.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.bootstrap.version $js.bootstrap.sri | safeHTML }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/%s/isotope.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.isotope.version $js.isotope.sri | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.fancybox.version $js.fancybox.sri | safeHTML }}
     {{ if eq .Site.Params.map 1 }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/%s/gmaps.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.gmaps.version $js.gmaps.sri | safeHTML }}
     {{ else if or (eq .Site.Params.map 2) (eq .Site.Params.map 3) }}
@@ -24,6 +25,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/{{- $js.imagesLoaded.version -}}/imagesloaded.pkgd.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{{- $js.bootstrap.version -}}/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/{{- $js.isotope.version -}}/isotope.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/{{- $js.fancybox.version -}}/jquery.fancybox.min.js"></script>
     {{ if eq .Site.Params.map 1 }}
     <script src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/{{- $js.gmaps.version -}}/gmaps.min.js"></script>
     {{ else if or (eq .Site.Params.map 2) (eq .Site.Params.map 3) }}

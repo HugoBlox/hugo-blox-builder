@@ -34,6 +34,9 @@
 [js.leaflet]
   version = "1.2.0"
   sri = "sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+[js.fancybox]
+  version = "3.2.5"
+  sri = "sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M="
 
 # CSS
 
@@ -49,3 +52,6 @@
 [css.leaflet]
   version = "1.2.0"
   sri = "sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+[css.fancybox]
+  version = "3.2.5"
+  sri = "sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs="
