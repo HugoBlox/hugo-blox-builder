@@ -9,12 +9,12 @@ authors = [""]
 # Publication type.
 # Legend:
 # 0 = Uncategorized
-# 1 = Conference proceedings
-# 2 = Journal
-# 3 = Work in progress
-# 4 = Technical report
+# 1 = Conference paper
+# 2 = Journal article
+# 3 = Manuscript
+# 4 = Report
 # 5 = Book
-# 6 = Book chapter
+# 6 = Book section
 publication_types = ["0"]
 
 # Publication name and optional abbreviated version.
