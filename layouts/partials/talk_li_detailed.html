@@ -1,66 +1,51 @@
-<div class="pub-list-item" itemscope itemtype="http://schema.org/Event">
-  <div class="row">
+<div class="card-simple" itemscope itemtype="http://schema.org/Event">
 
-    {{ if .Params.image_preview }}
-
-    <div class="col-md-12">
-      <a href="{{ .Permalink }}">
-        <img src="{{ "/img/" | relURL }}{{ .Params.image_preview }}" class="pub-banner"
-        itemprop="image">
-      </a>
-    </div>
-    <div class="col-md-12">
-
-    {{ else if .Params.header.image}}
-
-    <div class="col-md-12">
-      <a href="{{ .Permalink }}">
-        <img src="{{ "/img/" | relURL }}{{ .Params.header.image }}" class="pub-banner" itemprop="image">
-      </a>
-    </div>
-    <div class="col-md-12">
-
-    {{ else }}
-
-    <div class="col-md-12">
-
-    {{ end }}
-
-      <h3 class="article-title" itemprop="name">
-        <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
-      </h3>
-
-      <div class="talk-metadata" itemprop="startDate">
-        {{ $date := .Params.time_start | default .Date }}
-        {{ (time $date).Format $.Site.Params.date_format }}
-        {{ if $.Site.Params.talks.time }}
-          {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
-          {{ with .Params.time_end }}
-            &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
-          {{ end }}
-        {{ end }}
-      </div>
-
-      <div class="talk-metadata">
-        {{ if .Params.event }}
-        {{ .Params.event | markdownify }}
-        {{ else if .Params.event_short }}
-        {{ .Params.event_short | markdownify }}
-        {{ end }}
-      </div>
-
-      <div class="talk-abstract" itemprop="text">
-        {{ if .Params.abstract_short }}
-        {{ .Params.abstract_short | markdownify }}
-        {{ else }}
-        {{ .Params.abstract | markdownify }}
-        {{ end }}
-      </div>
-
-      <div class="talk-links">
-        {{ partial "talk_links" (dict "content" . "is_list" 1) }}
-      </div>
-
-    </div>
+  {{ if .Params.image_preview }}
+    {{ .Scratch.Set "image" .Params.image_preview }}
+  {{ else if .Params.header.image }}
+    {{ .Scratch.Set "image" .Params.header.image }}
+  {{ end }}
+  {{ if .Scratch.Get "image" }}
+  <div>
+    <a href="{{ .Permalink }}">
+      <img src="{{ "/img/" | relURL }}{{ .Scratch.Get "image" }}" class="pub-banner" itemprop="image">
+    </a>
   </div>
+  {{ end }}
+
+  <h3 class="article-title" itemprop="name">
+    <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+  </h3>
+
+  <div class="talk-metadata" itemprop="startDate">
+    {{ $date := .Params.time_start | default .Date }}
+    {{ (time $date).Format $.Site.Params.date_format }}
+    {{ if $.Site.Params.talks.time }}
+      {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+      {{ with .Params.time_end }}
+        &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
+      {{ end }}
+    {{ end }}
+  </div>
+
+  <div class="talk-metadata">
+    {{ if .Params.event }}
+    {{ .Params.event | markdownify }}
+    {{ else if .Params.event_short }}
+    {{ .Params.event_short | markdownify }}
+    {{ end }}
+  </div>
+
+  <div class="talk-abstract" itemprop="text">
+    {{ if .Params.abstract_short }}
+    {{ .Params.abstract_short | markdownify }}
+    {{ else }}
+    {{ .Params.abstract | markdownify }}
+    {{ end }}
+  </div>
+
+  <div class="talk-links">
+    {{ partial "talk_links" (dict "content" . "is_list" 1) }}
+  </div>
+
 </div>

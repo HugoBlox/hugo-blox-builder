@@ -48,6 +48,19 @@ body {
   }
 }
 
+.max-width-640 {
+  max-width: 640px;
+}
+
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-text {
+  text-align: center;
+}
+
 /* Body text */
 p {
   margin-top: 0;
@@ -606,12 +619,17 @@ article {
 }
 
 .article-metadata {
-  margin-bottom: 20px;
-  line-height: 30px; /* Match share bar line height. */
+  margin-bottom: 15px;
   overflow: hidden;
   font-size: 14px;
   letter-spacing: 0.03em;
   color: #888;
+}
+
+/* For article page only, not lists. */
+article .article-metadata {
+  margin-bottom: 20px;
+  line-height: 30px; /* Match share bar line height. */
 }
 
 .article-metadata a {
@@ -620,18 +638,6 @@ article {
 
 .article-metadata a:hover {
   color: {{ .Get "primary" }};
-}
-
-.article-list-item {
-  margin-bottom: 40px;
-}
-
-.article-list-item:last-child {
-  margin-bottom: 0 !important;
-}
-
-.article-list-item .article-metadata {
-  margin-bottom: 5px;
 }
 
 .middot-divider {
@@ -706,10 +712,6 @@ article {
   margin-right: auto;
 }
 
-.pub .pub-title {
-  margin-bottom: 5px;
-}
-
 .pub .pub-authors {
   font-style: italic;
   line-height: 30px; /* Match share bar line height. */
@@ -717,10 +719,6 @@ article {
 
 .pub .pub-row-heading {
   font-weight: bold;
-}
-
-.pub-list-item {
-  margin-bottom: 40px;
 }
 
 .pub-list-item .pub-abstract {
@@ -810,6 +808,29 @@ article {
 /*************************************************
  *  Card component
  **************************************************/
+
+.card-simple {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.09);
+  border-radius: 3px;
+  margin-top: 20px;
+  padding: 15px 20px 15px 20px;
+}
+
+.card-simple:first-of-type {
+  margin-top: 0;
+}
+
+.card-simple p.read-more {
+  margin: 0;
+}
+
+.dark .card-simple {
+  background: rgb(40, 42, 54);
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  border: 1px solid rgb(68, 71, 90);
+}
 
 .card {
   margin-bottom: 1.5rem;

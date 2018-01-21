@@ -1,6 +1,8 @@
 {{ $post := .post }}
 
-<div class="article-list-item" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+<div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
+  {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
+
   {{ $preview := $post.Params.header.preview | default true }}
   {{ if and $post.Params.header.image $preview }}
   <a href="{{ $post.Permalink }}">
@@ -10,7 +12,6 @@
   <h3 class="article-title" itemprop="headline">
     <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
   </h3>
-  {{ partial "article_metadata" (dict "content" $post "is_list" 1) }}
   <div class="article-style" itemprop="articleBody">
     {{ if $post.Params.summary }}
     <p>{{ printf "%s" $post.Params.summary | markdownify }}</p>

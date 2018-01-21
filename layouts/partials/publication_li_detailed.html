@@ -1,62 +1,47 @@
-<div class="pub-list-item" itemscope itemtype="http://schema.org/CreativeWork">
-  <div class="row">
+<div class="pub-list-item card-simple" itemscope itemtype="http://schema.org/CreativeWork">
 
-    {{ if .Params.image_preview }}
-
-    <div class="col-md-12">
-      <a href="{{ .Permalink }}">
-        <img src="{{ "/img/" | relURL }}{{ .Params.image_preview }}" class="pub-banner"
-             itemprop="image">
-      </a>
-    </div>
-    <div class="col-md-12">
-
-    {{ else if .Params.header.image}}
-
-    <div class="col-md-12">
-      <a href="{{ .Permalink }}">
-        <img src="{{ "/img/" | relURL }}{{ .Params.header.image }}" class="pub-banner" itemprop="image">
-      </a>
-    </div>
-    <div class="col-md-12">
-
-    {{ else }}
-
-    <div class="col-md-12">
-
-    {{ end }}
-
-      <h3 class="article-title" itemprop="name">
-        <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
-      </h3>
-
-      <div class="pub-abstract" itemprop="text">
-        {{ if .Params.abstract_short }}
-        {{ .Params.abstract_short | markdownify }}
-        {{ else }}
-        {{ .Params.abstract | markdownify}}
-        {{ end }}
-      </div>
-
-      <div class="pub-authors" itemprop="author">
-        {{ with .Params.authors }}
-        {{ delimit . ", " | markdownify }}
-        {{ end }}
-      </div>
-
-      <div class="pub-publication">
-        {{ if .Params.publication_short }}
-        {{- .Params.publication_short | markdownify -}},
-        {{ else if .Params.publication }}
-        {{- .Params.publication | markdownify -}},
-        {{- end -}}
-        {{- .Date.Format "2006" -}}
-      </div>
-
-      <div class="pub-links">
-        {{ partial "publication_links" (dict "content" . "is_list" 1) }}
-      </div>
-
-    </div>
+  {{ if .Params.image_preview }}
+    {{ .Scratch.Set "image" .Params.image_preview }}
+  {{ else if .Params.header.image }}
+    {{ .Scratch.Set "image" .Params.header.image }}
+  {{ end }}
+  {{ if .Scratch.Get "image" }}
+  <div>
+    <a href="{{ .Permalink }}">
+      <img src="{{ "/img/" | relURL }}{{ .Scratch.Get "image" }}" class="pub-banner" itemprop="image">
+    </a>
   </div>
+  {{ end }}
+
+  <h3 class="article-title" itemprop="name">
+    <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+  </h3>
+
+  <div class="pub-abstract" itemprop="text">
+    {{ if .Params.abstract_short }}
+    {{ .Params.abstract_short | markdownify }}
+    {{ else }}
+    {{ .Params.abstract | markdownify}}
+    {{ end }}
+  </div>
+
+  <div class="pub-authors" itemprop="author">
+    {{ with .Params.authors }}
+    {{ delimit . ", " | markdownify }}
+    {{ end }}
+  </div>
+
+  <div class="pub-publication">
+    {{ if .Params.publication_short }}
+    {{- .Params.publication_short | markdownify -}},
+    {{ else if .Params.publication }}
+    {{- .Params.publication | markdownify -}},
+    {{- end -}}
+    {{- .Date.Format "2006" -}}
+  </div>
+
+  <div class="pub-links">
+    {{ partial "publication_links" (dict "content" . "is_list" 1) }}
+  </div>
+
 </div>
