@@ -4,7 +4,7 @@
 
   {{ partial "header_image.html" . }}
 
-  <div class="container pub-title">
+  <div class="article-container">
     <h1 itemprop="name">{{ .Title }}</h1>
     <span class="pub-authors" itemprop="author">
       {{ with .Params.authors }}
@@ -14,9 +14,6 @@
     <span class="pull-right">
       {{ partial "share.html" . }}
     </span>
-  </div>
-
-  <div class="article-container">
 
     {{ if .Params.image }}
     <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="pub-banner" itemprop="image">
