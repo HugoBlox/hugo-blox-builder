@@ -29,9 +29,9 @@
     {{ end }}
     {{ if $.Site.Params.staticman }}
       {{ $.Scratch.Set "commentCountPerPost" 0 }}
-      {{ if $.Slug }} <!-- Can't count comments without slug -->
-        {{ if fileExists (printf "data/comments/%s" $.Slug) }} <!-- If the comment dir exists, we can count comments -->
-          {{ $comments := readDir (printf "data/comments/%s" $.Slug) }}
+      {{ if $.Source.BaseFileName }} <!-- Can't count comments without slug -->
+        {{ if fileExists (printf "data/comments/%s" $.Source.BaseFileName) }} <!-- If the comment dir exists, we can count comments -->
+          {{ $comments := readDir (printf "data/comments/%s" $.Source.BaseFileName) }}
           {{ $.Scratch.Set "commentCountPerPost" (len $comments) }}
         {{ end }}        
       {{ end }}
