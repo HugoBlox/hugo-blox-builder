@@ -1,0 +1,12 @@
+{{ $directory := "img/" }}
+{{ $video := printf "%s%s" $directory (.Get "src") }}
+{{ $video_type := substr (.Get "src") -1 3 }}
+{{ $poster := printf "%s%s%s" $directory (substr (.Get "src") 0 -4) ".jpg" }}
+{{ if fileExists (printf "%s%s" "static/" $poster) }}
+  {{ .Scratch.Set "poster" ($poster | absURL) }}
+{{ else }}
+  {{ .Scratch.Set "poster" "" }}
+{{ end }}
+<video {{if (.Get "controls")}}controls{{else}}autoplay loop{{end}} {{with .Scratch.Get "poster"}}poster="{{.}}"{{end}}>
+  <source src="{{ $video | relURL }}" type="video/{{$video_type}}">
+</video>

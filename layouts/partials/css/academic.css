@@ -127,6 +127,12 @@ video {
   display: block;
 }
 
+video {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
 .img-responsive {
   /* Extend Bootstrap declaration with centering. */
   margin: 0 auto;
@@ -652,13 +658,11 @@ article .article-metadata {
 
 .article-style img,
 .article-style video {
-  box-shadow: 1px 1px 0px #edefed, -1px -1px 0px #edefed, 1px -1px 0px #edefed, -1px 1px 0px #edefed;
   margin-left: auto;
   margin-right: auto;
   margin-top: 60px;
   margin-bottom: 60px;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
 }
 
 .article-style td img,
