@@ -53,6 +53,9 @@ defaultContentLanguageInSubdir = false
   name = "Lena Smith"
   role = "Professor of Artificial Intelligence"
 
+  # Seperator between site title and page titles
+  title_sep = " | "
+
   # Organizations/Affiliations.
   #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
   organizations = [ { name = "Stanford University", url = "" } ]
