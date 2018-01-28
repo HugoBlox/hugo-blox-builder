@@ -126,7 +126,7 @@
 
   {{ partial "head_custom" . }}
 
-  <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+  <title>{{ if not .IsHome }}{{ .Title }}{{ .Site.Params.Title_sep }}{{ .Site.Title}}{{ else }}{{ .Site.Params.description }}{{ .Site.Params.Title_sep }}{{ .Site.Title }}{{ end }}</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="{{ if or .IsHome .Params.widgets }}#navbar-main{{ else }}#toc{{ end }}" data-offset="71" {{ if not ($scr.Get "light") }}class="dark"{{ end }}>
