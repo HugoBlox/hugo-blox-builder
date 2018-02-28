@@ -3,13 +3,33 @@
 - id: toggle_navigation
   translation: Chuyển Điều Hướng
 
+- id: table_of_contents
+  translation: Table of Contents
+
+# General
+
+- id: related
+  translation: Related
+
+- id: minute_read
+  translation: min read
+
+- id: previous
+  translation: Previous
+
+- id: next
+  translation: Next
+
 # Buttons
 
-- id: btn_details
-  translation: Chi Tiết
+- id: btn_preprint
+  translation: Preprint
 
 - id: btn_pdf
   translation: PDF
+
+- id: btn_cite
+  translation: Cite
 
 - id: btn_slides
   translation: Slides
@@ -25,6 +45,18 @@
 
 - id: btn_project
   translation: Dự Án
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Source Document
+
+- id: btn_copy
+  translation: Copy
+
+- id: btn_download
+  translation: Download
 
 # About widget
 
@@ -66,6 +98,9 @@
 - id: date
   translation: Thời Gian
 
+- id: last_updated
+  translation: Last updated on
+
 - id: links
   translation: Liên Kết
 
@@ -98,3 +133,14 @@
 
 - id: talks
   translation: Thuyết Trình
+
+- id: projects
+  translation: Projects
+
+# Error 404
+
+- id: page_not_found
+  translation: Page not found
+
+- id: 404_recommendations
+  translation: Perhaps you were looking for one of these?
