@@ -29,7 +29,7 @@
 # About widget
 
 - id: interests
-  translation: Sở Thích
+  translation: Hướng Nghiên Cứu
 
 - id: education
   translation: Học Vấn
@@ -45,12 +45,12 @@
   translation: ĐỌC TIẾP
 
 - id: more_posts
-  translation: Các Bài Đăng
+  translation: Bài Đăng Khác
 
 # Talks widget
 
 - id: more_talks
-  translation: Các Thuyết Trình
+  translation: Thuyết Trình Khác
 
 # Publication/Talk details
 
@@ -58,13 +58,13 @@
   translation: Tóm tắt
 
 - id: publication
-  translation: Công trình
+  translation: Công Trình
 
 - id: publication_type
-  translation: Phân loại
+  translation: Phân Loại
 
 - id: date
-  translation: Ngày Tháng
+  translation: Thời Gian
 
 - id: links
   translation: Liên Kết
@@ -78,7 +78,7 @@
 # Filtering
 
 - id: filter_by_type
-  translation: Lọc theo loại
+  translation: Phân Loại
 
 - id: filter_all
   translation: Tất Cả
@@ -97,4 +97,4 @@
   translation: Công Trình
 
 - id: talks
-  translation: Buổi Nói Chuyện
+  translation: Thuyết Trình
