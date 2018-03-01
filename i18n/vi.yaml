@@ -12,24 +12,24 @@
   translation: Related
 
 - id: minute_read
-  translation: min read
+  translation: phút để đọc
 
 - id: previous
-  translation: Previous
+  translation: Trước
 
 - id: next
-  translation: Next
+  translation: Sau
 
 # Buttons
 
 - id: btn_preprint
-  translation: Preprint
+  translation: Bản Thảo
 
 - id: btn_pdf
   translation: PDF
 
 - id: btn_cite
-  translation: Cite
+  translation: Trích Dẫn
 
 - id: btn_slides
   translation: Slides
@@ -50,10 +50,10 @@
   translation: Poster
 
 - id: btn_source
-  translation: Source Document
+  translation: Mã Nguồn
 
 - id: btn_copy
-  translation: Copy
+  translation: Sao Chép
 
 - id: btn_download
   translation: Download
@@ -99,7 +99,7 @@
   translation: Thời Gian
 
 - id: last_updated
-  translation: Last updated on
+  translation: Cập Nhật Lần Cuối
 
 - id: links
   translation: Liên Kết
@@ -135,12 +135,12 @@
   translation: Thuyết Trình
 
 - id: projects
-  translation: Projects
+  translation: Dự Án 
 
 # Error 404
 
 - id: page_not_found
-  translation: Page not found
+  translation: Trang không tìm thấy 
 
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Có thể bạn đang tìm những trang này
