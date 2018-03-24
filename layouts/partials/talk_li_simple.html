@@ -3,7 +3,7 @@
   <span itemprop="name"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
   <div itemprop="startDate">
     {{ $date := .Params.time_start | default .Date }}
-    {{ (time $date).Format $.Site.Params.date_format }}
+    {{ (time $date).Format ($.Site.Params.date_format | default "Jan 2, 2006") }}
     {{ if $.Site.Params.talks.time }}
       {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
     {{ end }}
