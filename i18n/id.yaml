@@ -32,13 +32,13 @@
   translation: Sitasi
 
 - id: btn_slides
-  translation: Slides
+  translation: Presentasi
 
 - id: btn_video
   translation: Video
 
 - id: btn_code
-  translation: Kode
+  translation: Skrip Kode
 
 - id: btn_dataset
   translation: Dataset
@@ -50,7 +50,7 @@
   translation: Poster
 
 - id: btn_source
-  translation: Sumber Dokumen
+  translation: Sumber dokumen
 
 - id: btn_copy
   translation: Salin
