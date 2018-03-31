@@ -1,0 +1,146 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Buka navigasi
+
+- id: table_of_contents
+  translation: Daftar isi
+
+# General
+
+- id: related
+  translation: Terkait
+
+- id: minute_read
+  translation: menit untuk membaca
+
+- id: previous
+  translation: Sebelumnya
+
+- id: next
+  translation: Selanjutnya
+
+# Buttons
+
+- id: btn_preprint
+  translation: Pracetak
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Sitasi
+
+- id: btn_slides
+  translation: Presentasi
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Skrip Kode
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Proyek
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Sumber dokumen
+
+- id: btn_copy
+  translation: Salin
+
+- id: btn_download
+  translation: Unduh
+
+# About widget
+
+- id: interests
+  translation: Minat
+
+- id: education
+  translation: Pendidikan
+
+# Publications widget
+
+- id: more_publications
+  translation: Publikasi lainnya
+
+# Posts widget
+
+- id: continue_reading
+  translation: Baca selengkapnya
+
+- id: more_posts
+  translation: Tulisan lainnya
+
+# Talks widget
+
+- id: more_talks
+  translation: Presentasi lainnya
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Abstrak
+
+- id: publication
+  translation: Publikasi
+
+- id: publication_type
+  translation: Jenis
+
+- id: date
+  translation: Tanggal
+
+- id: last_updated
+  translation: Terakhir diperbaharui
+
+- id: links
+  translation: Tautan
+
+- id: event
+  translation: Acara
+
+- id: location
+  translation: Lokasi
+
+# Filtering
+
+- id: filter_by_type
+  translation: Saring berdasarkan jenis
+
+- id: filter_all
+  translation: Semua
+
+# Project details
+
+- id: open_project_site
+  translation: Ke laman proyek
+
+# Default node titles
+
+- id: posts
+  translation: Tulisan
+
+- id: publications
+  translation: Publikasi
+
+- id: talks
+  translation: Presentasi
+
+- id: projects
+  translation: Proyek
+
+# Error 404
+
+- id: page_not_found
+  translation: Laman tidak ditemukan
+
+- id: 404_recommendations
+  translation: Apakah ini yang Anda cari?
