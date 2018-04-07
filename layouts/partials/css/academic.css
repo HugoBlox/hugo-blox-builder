@@ -127,12 +127,6 @@ video {
   display: block;
 }
 
-video {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-}
-
 .img-responsive {
   /* Extend Bootstrap declaration with centering. */
   margin: 0 auto;
@@ -164,8 +158,9 @@ figcaption h4 {
 pre,
 code {
   font-family: '{{ .Get "mono_font" }}', monospace;
-  color: #c7254e;
-  background-color: #f9f2f4;
+  font-size: 0.75em;
+  color: #000000;
+  background-color: #e6e6e6;
 }
 
 pre {
@@ -467,10 +462,10 @@ a[data-fancybox] img {
 
 #profile ul.network-icon {
   display: inline-flex;
+  justify-content: center;
   width: 200px;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   list-style: none;
   padding: 0;
   margin-top: 30px;
