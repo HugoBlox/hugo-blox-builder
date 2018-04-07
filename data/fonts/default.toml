@@ -8,7 +8,7 @@ google_fonts = "Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono"
 heading_font = "Tex Gyre Schola"
 body_font = "Tex Gyre Schola"
 nav_font = "Tex Gyre Schola"
-mono_font = "Roboto Mono"
+mono_font = "Liberation Mono"
 
 # Font size
 font_size = "20"
