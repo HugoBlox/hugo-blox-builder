@@ -1,23 +1,55 @@
 <footer class="site-footer">
   <div class="container">
     <p class="powered-by">
-
-      {{ with .Site.Copyright }}{{ . | markdownify}} &middot; {{ end }}
-
-      Powered by the
-      <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-      <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
-
-      <span class="pull-right" aria-hidden="true">
-        <a href="#" id="back_to_top">
-          <span class="button_icon">
-            <i class="fa fa-chevron-up fa-2x"></i>
-          </span>
+      
+      {{ with .Site.Copyright }}{{ . | markdownify}} {{ end }}
+      <center>
+        <sub>
+        <a rel="license" 
+        href="https://p2pfoundation.net/Peer_Production_License">
+        <img alt="Peer Production Licence" 
+        style="border-width:0"
+        src="https://commonstransition.org/wp-content/uploads/2014/12/ppl-v6-bn.png" />
         </a>
-      </span>
+        All content in
+        <span xmlns:dct="http://purl.org/dc/terms/" 
+              property="dct:title">
+              neurathsboat.blog
+        </span> 
+        is licensed under a
+        <br />
+        <a rel="license"
+        href="https://p2pfoundation.net/Peer_Production_License">
+        Peer Production, P2P Attribution-ConditionalNonCommercial-ShareAlike License
+        </a>
+        <br />
+        unless otherwise stated.
+        <br />
+        Based on a work at 
+        <a xmlns:dct="http://purl.org/dc/terms/" 
+        href="https://gitlab.com/vkehayas/neurathsboat.blog" 
+        rel="dct:source">https://gitlab.com/vkehayas/neurathsboat.blog
+        </a>.
+        <br />
+        Powered by
+        <a href="https://about.gitlab.com/features/pages/">GitLab Pages</a>
+        and the
+        <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+        <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+</sub>
+<center>
 
-    </p>
-  </div>
+
+<span class="pull-right" aria-hidden="true">
+  <a href="#" id="back_to_top">
+    <span class="button_icon">
+      <i class="fa fa-chevron-up fa-2x"></i>
+    </span>
+  </a>
+</span>
+
+</p>
+</div>
 </footer>
 
 <!-- Citation modal -->

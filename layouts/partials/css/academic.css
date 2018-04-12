@@ -35,6 +35,7 @@ html {
 body {
   font-family: inherit;
   font-size: 1rem;
+  text-align: justify;
   line-height: inherit;
   color: inherit;
   background-color: {{ .Get "background" }};
@@ -155,20 +156,7 @@ figcaption h4 {
   margin: 0;
 }
 
-pre,
-code {
-  font-family: '{{ .Get "mono_font" }}', monospace;
-  font-size: 0.75em;
-  color: #000000;
-  background-color: #e6e6e6;
-}
 
-pre {
-  margin: 0 0 1rem 0;
-  overflow: auto;
-  background-color: rgb(248, 248, 248); /* Match default highlight theme. */
-  border-color: rgb(248, 248, 248);
-}
 
 hr {
   border: 0;
