@@ -64,10 +64,14 @@
       
     {{ else if $scr.highlight_engine == "prism"}}
     
-      {{ if eq ($scr.Get "light") true }}
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css">
+      {{ with .Site.Params.highlight_style }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-{{ . }}.min.css">
       {{ else }}
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-dark.min.css">
+        {{ if eq ($scr.Get "light") true }}
+          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css">
+        {{ else }}
+          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-dark.min.css">
+        {{ end }}
       {{ end }}
     
     {{ end }}
