@@ -1456,6 +1456,10 @@ body.dark {
   border-color: rgb(68, 71, 90);
 }
 
+.dark #MathJax_Zoom {
+  background-color: rgb(68, 71, 90) !important;
+}
+
 .dark ul.share li a {
   background-color: {{ .Get "primary" }};
 }
