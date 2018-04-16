@@ -14,7 +14,11 @@
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}
     {{ $params := dict "post" . }}
-    {{ partial "post_li" $params }}
+    {{ if eq $.Params.list_format 0 }}
+      {{ partial "post_li_simple" $params }}
+    {{ else }}
+      {{ partial "post_li_detailed" $params }}
+    {{ end }}
   {{ end }}
 
   {{ partial "pagination" . }}
