@@ -1,0 +1,64 @@
+<section class="post-comments">
+  <h3>Comments</h3>
+
+  {{ $comments := readDir "data/comments" }}
+  {{ $.Scratch.Add "hasComments" 0 }}
+  {{ $entryId := .UniqueID }}
+
+  {{ range $comments }}
+  {{ if eq .Name $entryId }}
+  {{ $.Scratch.Add "hasComments" 1 }}
+  {{ range $index, $comments := (index $.Site.Data.comments $entryId ) }}
+  <div class="post-comment">
+    <div class="post-comment-header">
+      <img class="post-comment-avatar" src="https://www.gravatar.com/avatar/{{ .email }}?s=100">
+      <p class="post-comment-info"><strong>{{ .name }}</strong><br>{{ dateFormat "02/01/2006" .date }}</p>
+    </div>
+    {{ .body | markdownify }}
+  </div>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+
+  {{ if eq ($.Scratch.Get "hasComments") 0 }}
+  <p>No comments.</p>
+  {{ end }}
+
+  <h3>Submit comment</h3>
+
+  <form class="post-new-comment"
+  method="POST"
+  action="{{ .Site.Params.staticman.endpoint }}/{{ .Site.Params.staticman.username }}/{{ .Site.Params.staticman.repository }}/{{ .Site.Params.staticman.branch }}/comments">
+  <!--form class="post-new-comment" method="POST" action="http://localhost:8055/v2/entry/eduardoboucas/staticman-test/master/comments"-->
+  <input type="hidden"
+  name="options[redirect]"
+  value="{{ .Permalink }}#comment-submitted">
+  <input type="hidden"
+  name="options[entryId]"
+  value="{{ .UniqueID }}">
+  <input name="fields[name]"
+  type="text"
+  class="post-comment-field"
+  placeholder="Name (displayed publicly)">
+  <input name="fields[email]"
+  type="email"
+  class="post-comment-field"
+  placeholder="Email (not displayed publicly)">
+  <textarea name="fields[body]"
+  class="post-comment-field"
+  placeholder="Comment (accepts Markdown)"
+  rows="10"></textarea>
+  <input type="submit" class="post-comment-field btn" value="Submit">
+</form>
+
+</section>
+
+<div id="comment-submitted" class="dialog">
+<h3>Thank you</h3>
+  <p>Your comment has been submitted and will be published once it has been approved.</p>
+  <p><a href="https://github.com/{{ .Site.Params.staticman.username }}/{{ .Site.Params.staticman.repository }}/pulls">
+    Click here</a>
+    to see the pull request you generated.</p>
+
+  <p><a href="#" class="btn">OK</a></p>
+</div>

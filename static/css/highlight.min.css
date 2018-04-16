@@ -1,0 +1,57 @@
+.hljs{display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #202020;
+  background: #f8f8f8}
+
+.hljs-comment,
+.hljs-quote{color: #800;
+            font-style:italic}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-title,
+.hljs-name{color: #008}
+
+.hljs-variable,
+.hljs-template-variable{color: #660}
+
+.hljs-string,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-regexp{color: #080}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-meta,
+.hljs-meta-keyword,
+.hljs-number,
+.hljs-link{color: #066}
+
+.hljs-title,
+.hljs-doctag,
+.hljs-type,
+.hljs-class,
+.hljs-function,
+.hljs-attr,
+.hljs-params{color: #606}
+
+.hljs-attribute,
+.hljs-subst{color: #000}
+
+.hljs-formula{background-color: #eee;
+              font-style: italic}
+
+.hljs-literal,
+.hljs-selector-id,
+.hljs-selector-class{color: #202020}
+
+.hljs-addition{background-color: #baeeba}
+
+.hljs-deletion{background-color: #ffc8bd}
+
+.hljs-doctag,
+.hljs-strong{font-weight: bold}
+
+.hljs-emphasis{font-style: italic}
