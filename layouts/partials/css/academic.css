@@ -89,6 +89,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
   color: #313131;
   text-rendering: optimizeLegibility;
+  overflow-wrap: break-word; /* Ensures very long heading words do not overflow into content. */
 }
 h1 {
   font-size: 2.25rem;
