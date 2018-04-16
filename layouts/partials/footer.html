@@ -39,32 +39,50 @@
 
     <!-- Code highlighting -->
     {{ if $.Scratch.Get "highlight_enabled" }}
-      {{ $v := $js.highlight.version }}
-      {{ if not .Site.Params.disable_sri }}
-      {{ printf "<script src=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/highlight.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $v $js.highlight.sri | safeHTML }}
-      {{ else }}
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/highlight.min.js"></script>
-      {{ end }}
 
-      {{ range .Site.Params.highlight_languages }}
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
-      {{ end }}
+      {{ if eq ($.Scratch.Get "highlight_engine") "highlight.js"}}
 
-      {{ range .Params.highlight_languages }}
-      {{/* Do not double-include languages that are in both .Site.Params and .Params.
-           If Hugo ever grows a "union" function for set union, this range clause can be merged with the one above. */}}
-        {{ if not (in $.Site.Params.highlight_languages .) }}
+        {{ $v := $js.highlight.version }}
+        {{ if not .Site.Params.disable_sri }}
+        {{ printf "<script src=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/highlight.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $v $js.highlight.sri | safeHTML }}
+        {{ else }}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/highlight.min.js"></script>
+        {{ end }}
+
+        {{ range .Site.Params.highlight_languages }}
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
         {{ end }}
+
+        {{ range .Params.highlight_languages }}
+        {{/* Do not double-include languages that are in both .Site.Params and .Params.
+            If Hugo ever grows a "union" function for set union, this range clause can be merged with the one above. */}}
+          {{ if not (in $.Site.Params.highlight_languages .) }}
+          <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
+          {{ end }}
+        {{ end }}
+
+        <script>hljs.initHighlightingOnLoad();</script>
+
+      {{ else if eq ($.Scratch.Get "highlight_engine") "prism"}}
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/prism.min.js"></script>
+
+        {{ range .Site.Params.highlight_languages }}
+
+          {{ if not (in $.Params.highlight_languages .) }}
+            <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/components/prism-{{ . }}.min.js"></script>
+          {{ end }}
+
+        {{ end }}
+
       {{ end }}
 
-      <script>hljs.initHighlightingOnLoad();</script>
     {{ end }}
 
     <!-- LaTeX math rendering -->
     {{ if or .Params.math .Site.Params.math }}
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
     </script>
     {{ if not .Site.Params.disable_sri }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/%s/MathJax.js?config=TeX-AMS_CHTML\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.mathJax.version $js.mathJax.sri | safeHTML }}
