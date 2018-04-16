@@ -3,7 +3,7 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
   {{ .Hugo.Generator }}
@@ -49,7 +49,7 @@
   
   {{ if $scr.Get "highlight_enabled" }}
     
-    {{ if $scr.highlight_engine == "highlight.js"}}
+    {{ if eq ($scr.Get "highlight_engine") "highlight.js"}}
   
       {{ $v := $sri.js.highlight.version }}
         {{ with .Site.Params.highlight_style }}
@@ -62,7 +62,7 @@
         {{ end }}
       {{ end }}
       
-    {{ else if $scr.highlight_engine == "prism"}}
+    {{ else if eq ($scr.Get "highlight_engine") "prism"}}
     
       {{ with .Site.Params.highlight_style }}
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-{{ . }}.min.css">
@@ -75,6 +75,9 @@
       {{ end }}
     
     {{ end }}
+    
+      
+  {{ end }}
   
   {{ if not .Site.Params.disable_sri }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.bootstrap.version $sri.css.bootstrap.sri | safeHTML }}
@@ -92,6 +95,10 @@
   {{ if or (eq .Site.Params.map 2) (eq .Site.Params.map 3) }}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/{{- $sri.css.leaflet.version -}}/leaflet.css">
   {{ end }}
+  {{ end }}
+  {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent */}}
+  {{ with ($scr.Get "google_fonts") }}
+  <link rel="stylesheet" href="{{ printf "//fonts.googleapis.com/css?family=%s" . }}">
   {{ end }}
   <link rel="stylesheet" href="{{ "styles.css" | relLangURL }}">
   {{ range .Site.Params.custom_css }}
@@ -114,8 +121,6 @@
     <script async src="//cdnjs.cloudflare.com/ajax/libs/autotrack/{{- $sri.js.autotrack.version -}}/autotrack.js"></script>
     {{ end }}
   {{ end }}
-  
-  <script src="//cdn.plot.ly/plotly-latest.min.js"></script>
 
   {{ if or .Site.RSSLink .RSSLink }}
   <link rel="alternate" href="{{ .RSSLink | default .Site.RSSLink  }}" type="application/rss+xml" title="{{ .Site.Title }}">
@@ -123,7 +128,7 @@
   {{ end }}
 
   <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-  <link rel="icon" type="image/png" href="{{ "/img/icon-192.png" | relURL }}">
+  <link rel="icon" type="image/png" href="{{ "/img/icon.png" | relURL }}">
   <link rel="apple-touch-icon" type="image/png" href="{{ "/img/icon-192.png" | relURL }}">
 
   <link rel="canonical" href="{{ .Permalink }}">
