@@ -39,18 +39,41 @@
   {{ else if isset .Site.Params "highlight" }}
     {{ $scr.Set "highlight_enabled" .Site.Params.highlight }}
   {{ end }}
-  {{ if $scr.Get "highlight_enabled" }}
-    {{ $v := $sri.js.highlight.version }}
-    {{ with .Site.Params.highlight_style }}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
-    {{ else }}
-      {{ if eq ($scr.Get "light") true }}
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/github.min.css">
-      {{ else }}
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/dracula.min.css">
-      {{ end }}
-    {{ end }}
+  
+  {{ $scr.Set "highlight_engine" "highlight.js" }}
+  {{ if isset .Params "highlight_engine" }}
+    {{ $scr.Set "highlight_engine" .Params.highlight_engine }}
+  {{ else if isset .Site.Params "highlight_engine" }}
+    {{ $scr.Set "highlight_engine" .Site.Params.highlight_engine }}
   {{ end }}
+  
+  {{ if $scr.Get "highlight_enabled" }}
+    
+    {{ if eq ($scr.Get "highlight_engine") "highlight.js"}}
+  
+      {{ $v := $sri.js.highlight.version }}
+        {{ with .Site.Params.highlight_style }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
+      {{ else }}
+        {{ if eq ($scr.Get "light") true }}
+          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/github.min.css">
+        {{ else }}
+          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/dracula.min.css">
+        {{ end }}
+      {{ end }}
+      
+    {{ else if eq ($scr.Get "highlight_engine") "prism"}}
+    
+      {{ if eq ($scr.Get "light") true }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism.min.css">
+      {{ else }}
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prism/1.14.0/themes/prism-dark.min.css">
+      {{ end }}
+    
+    {{ end }}
+    
+  {{ end }}
+
   {{ if not .Site.Params.disable_sri }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.bootstrap.version $sri.css.bootstrap.sri | safeHTML }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.academicons.version $sri.css.academicons.sri | safeHTML }}
