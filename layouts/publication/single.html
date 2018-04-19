@@ -32,7 +32,7 @@
           <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication_type" }}</div>
           <div class="col-xs-12 col-sm-9">
             {{ range $index, $pubtype := .Params.publication_types }}
-            <a href="{{ "/publication/" | relLangURL }}#{{ . | urlize }}">
+            <a href="{{ ($.Site.GetPage "section" "publication").Permalink }}#{{ . | urlize }}">
               {{ index $.Site.Params.publication_types (int .) }}
             </a>
             {{ end }}

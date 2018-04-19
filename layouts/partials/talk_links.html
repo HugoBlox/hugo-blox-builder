@@ -22,7 +22,7 @@
 </a>
 {{ end }}
 {{ range $.Params.projects }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ printf "project/%s/" . | relLangURL }}">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ ($.Site.GetPage "page" "project" .).Permalink }}">
   {{ i18n "btn_project" }}
 </a>
 {{ end }}

@@ -9,7 +9,7 @@
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
     {{ if gt $talks_len $page.Params.count }}
     <p class="view-all">
-      <a href="{{ "/talk/" | relLangURL }}">
+      <a href="{{ ($.Site.GetPage "section" "talk").Permalink }}">
         {{ i18n "more_talks" | markdownify }}
         <i class="fa fa-angle-double-right"></i>
       </a>
