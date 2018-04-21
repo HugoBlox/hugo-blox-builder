@@ -159,7 +159,7 @@ figcaption.numbered {
 }
 
 figcaption h4 {
-  display: inline-block;
+  display: inline;
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
