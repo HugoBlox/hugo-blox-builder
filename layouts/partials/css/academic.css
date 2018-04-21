@@ -139,12 +139,6 @@ video {
   margin: 0 auto;
 }
 
-figcaption:before {
-  font-weight: 700;
-  text-transform: uppercase;
-  content: "Figure " counter(captions) ": ";
-}
-
 figcaption {
   display: block;
   margin-top: 0.75em;
@@ -152,6 +146,15 @@ figcaption {
   font-size: 1rem;
   margin-bottom: 1.65rem;
   font-family: '{{ .Get "heading_font" }}', sans-serif;
+}
+
+figcaption.numbered:before {
+  font-weight: 700;
+  text-transform: uppercase;
+  content: attr(data-pre) counter(captions) attr(data-post);
+}
+
+figcaption.numbered {
   counter-increment: captions;
 }
 

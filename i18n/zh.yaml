@@ -14,6 +14,15 @@
 - id: minute_read
   translation: 分钟阅读时间
 
+- id: previous
+  translation: 上一页
+
+- id: next
+  translation: 下一页
+
+- id: figure
+  translation: "图%d:"
+
 # Buttons
 
 - id: btn_preprint

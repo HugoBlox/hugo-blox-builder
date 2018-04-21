@@ -20,6 +20,9 @@
 - id: next
   translation: Next
 
+- id: figure
+  translation: "Figure %d:"
+
 # Buttons
 
 - id: btn_preprint
