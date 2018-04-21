@@ -81,6 +81,7 @@
     <script>
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', '{{ .Site.GoogleAnalytics }}', 'auto');
+      {{ if .Site.Params.privacy_pack }}ga('set', 'anonymizeIp', true);{{ end }}
       ga('require', 'eventTracker');
       ga('require', 'outboundLinkTracker');
       ga('require', 'urlChangeTracker');
@@ -124,6 +125,7 @@
   {{ if not .Date.IsZero }}<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
   {{ end }}
 
+  {{ partial "cookie_consent" . }}
   {{ partial "head_custom" . }}
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>

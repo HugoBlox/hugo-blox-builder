@@ -1,0 +1,22 @@
+{{ if .Site.Params.privacy_pack }}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#000"
+        },
+        "button": {
+          "background": "#f1d600"
+        }
+      },
+      "content": {
+        "message": {{ i18n "cookie_message" | default "This website uses cookies to ensure you get the best experience on our website." }},
+        "dismiss": {{ i18n "cookie_dismiss" | default "Got it!" }},
+        "link": {{ i18n "cookie_learn" | default "Learn more" }}
+      }
+    })});
+</script>
+{{ end }}
