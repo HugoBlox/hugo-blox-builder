@@ -147,3 +147,14 @@
 
 - id: 404_recommendations
   translation: 也许你在找？
+
+# Cookie consent
+
+- id: cookie_message
+  translation: 本网站使用cookies来确保您在本网站上获得最佳体验。
+
+- id: cookie_dismiss
+  translation: 知道了!
+
+- id: cookie_learn
+  translation: 了解更多
