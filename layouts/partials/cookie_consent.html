@@ -6,12 +6,15 @@
     window.cookieconsent.initialise({
       "palette": {
         "popup": {
-          "background": "#000"
+          "background": "#0095eb",
+          "text": "#ffffff"
         },
         "button": {
-          "background": "#f1d600"
+          "background": "#ffffff",
+          "text": "#0095eb"
         }
       },
+      "theme": "classic",
       "content": {
         "message": {{ i18n "cookie_message" | default "This website uses cookies to ensure you get the best experience on our website." }},
         "dismiss": {{ i18n "cookie_dismiss" | default "Got it!" }},
