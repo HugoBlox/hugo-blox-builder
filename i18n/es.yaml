@@ -138,3 +138,14 @@
 
 - id: 404_recommendations
   translation: ¿Buscabas una de éstas?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Este sitio web utiliza cookies para garantizarle una mejor experiencia.
+
+- id: cookie_dismiss
+  translation: Entendido!
+
+- id: cookie_learn
+  translation: Más información
