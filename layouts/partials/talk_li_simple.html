@@ -1,19 +1,26 @@
 <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/Event">
   <i class="fa fa-comment-o pub-icon" aria-hidden="true"></i>
   <span itemprop="name"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
-  <div itemprop="startDate">
-    {{ $date := .Params.time_start | default .Date }}
-    {{ (time $date).Format $.Site.Params.date_format }}
-    {{ if $.Site.Params.talks.time }}
-      {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
-    {{ end }}
-  </div>
   <div class="talk-metadata">
     {{ if .Params.event_short }}
-        {{ .Params.event_short | markdownify }}
+      {{ .Params.event_short | markdownify }}
     {{ else if .Params.event }}
-            {{ .Params.event | markdownify }}
+      {{ .Params.event | markdownify }}
     {{ end }}
+    {{ if .Params.location }}
+      {{ if or .Params.event_short .Params.event }} — {{ end }}
+      <span itemprop="location">
+        {{ .Params.location }},
+      </span>
+    {{ end }}
+
+    <span itemprop="startDate">
+      {{ $date := .Params.time_start | default .Date }}
+      {{ (time $date).Format $.Site.Params.date_format }}
+      {{ if $.Site.Params.talks.time }}
+        {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+      {{ end }}
+    </span>
   </div>
   <div class="talk-links">
     {{ partial "talk_links" (dict "content" . "is_list" 1) }}
