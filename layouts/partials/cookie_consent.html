@@ -1,4 +1,5 @@
 {{ if .Site.Params.privacy_pack }}
+{{ $scr := .Scratch }}
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
 <script>
@@ -6,12 +7,15 @@
     window.cookieconsent.initialise({
       "palette": {
         "popup": {
-          "background": "#000"
+          "background": "{{ $scr.Get "primary" }}",
+          "text": "{{ $scr.Get "background" }}"
         },
         "button": {
-          "background": "#f1d600"
+          "background": "{{ $scr.Get "background" }}",
+          "text": "{{ $scr.Get "primary" }}"
         }
       },
+      "theme": "classic",
       "content": {
         "message": {{ i18n "cookie_message" | default "This website uses cookies to ensure you get the best experience on our website." }},
         "dismiss": {{ i18n "cookie_dismiss" | default "Got it!" }},
