@@ -31,9 +31,13 @@
 {{ end }}
 {{ if $.Params.projects }}
 {{ range $.Params.projects }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ ($.Site.GetPage "page" "project" .).Permalink }}">
-  {{ i18n "btn_project" }}
-</a>
+  {{ with ($.Site.GetPage "page" "project" .) }}
+  <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .Permalink }}">
+    {{ i18n "btn_project" }}
+  </a>
+  {{ else }}
+    {{ errorf "Please check that the `projects` parameter in the front matter of content in `content/publication/` refers to an existing filename (without .md extension) of a published project." }}
+  {{ end }}
 {{ end }}
 {{ else }}
 {{ with $.Params.url_project }}
