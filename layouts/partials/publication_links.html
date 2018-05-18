@@ -36,7 +36,7 @@
     {{ i18n "btn_project" }}
   </a>
   {{ else }}
-    {{ errorf "Please check that the `projects` parameter in the front matter of content in `content/publication/` refers to an existing filename (without .md extension) of a published project." }}
+    {{ errorf "The `projects` parameter in `content/%s` references a project file, `content/project/%s`, which cannot be found. Please either set `projects = []` or fix the reference." $.File.Path . }}
   {{ end }}
 {{ end }}
 {{ else }}
