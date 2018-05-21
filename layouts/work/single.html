@@ -1,0 +1,118 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div class="pub" itemscope>
+
+  {{ partial "header_image.html" . }}
+
+  <div class="article-container">
+
+    <div class="pub-title">
+      <h1 itemprop="name">{{ .Title }}</h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <b>Employer</b>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            {{ with .Params.employer_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ .Params.employer | markdownify }}
+            {{ if .Params.employer_url }}</a>{{ end }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <b>Type</b>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            {{ .Params.type_employer | markdownify }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    {{ with .Params.location }}
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "location" }}</div>
+          <div class="col-xs-12 col-sm-8">{{ . | markdownify }}</div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    {{ end }}
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+           <b>Employment Period</b>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+              {{ $date := .Params.time_start | default .Date }}
+              {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+              &mdash;
+              {{ $date := .Params.time_end | default .Date }}
+              {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+
+
+    {{ if .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_code | or .Params.projects | or .Params.url_custom }}
+    <div class="row" style="padding-top: 10px">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">{{ i18n "links" }}</div>
+          <div class="col-xs-12 col-sm-9">
+
+            {{ partial "talk_links" (dict "content" . "is_list" 0) }}
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    {{ end }}
+
+    <div class="space-below"></div>
+
+    <div class="article-style">
+      {{ .Content }}
+    </div>
+
+    {{ partial "tags.html" . }}
+
+  </div>
+</div>
+
+{{ if .Site.Params.section_pager }}
+<div class="article-container article-widget">
+  {{ partial "section_pager.html" . }}
+</div>
+{{ end }}
+
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}

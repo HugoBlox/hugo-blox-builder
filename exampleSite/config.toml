@@ -12,7 +12,7 @@ title = "Academic"
 # To display a copyright symbol, type `&copy;`.
 copyright = "&copy; 2018"
 
-theme = "academic"
+theme = "hugo-academic"
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
@@ -192,7 +192,18 @@ enableGitInfo = false
     # Date format (refer to Go's date format: http://fuckinggodateformat.com )
     #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
     date_format = "January, 2006"
-
+    
+  [params.work]
+    # Date format (refer to Go's date format: http://fuckinggodateformat.com )
+    #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+    date_format_main = "Jan, 2006"
+    date_format_detail = "Jan, 2006"
+    
+  [params.courses]
+    # Date format (refer to Go's date format: http://fuckinggodateformat.com )
+    #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+    date_format = "2006"
+  
   # Configuration of project pages.
   [params.projects]
     # List publications and talks related to the project?

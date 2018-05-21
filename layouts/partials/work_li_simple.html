@@ -1,0 +1,30 @@
+<section>
+  <div class="pub-list-item" style="margin-bottom: 1rem">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 d-flex flex-column flex-md-row">
+        <span itemprop="name"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
+      </div>
+      <div class="col-xs-12 col-sm-6 d-flex flex-column flex-md-row" align="right">
+        <div class="talk-metadata">
+          {{ $date := .Params.time_start | default .Date }}
+          {{ (time $date).Format $.Site.Params.work.date_format_main }}
+          &mdash;
+          {{ $date := .Params.time_end | default .Date }}
+          {{ (time $date).Format $.Site.Params.work.date_format_main }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 d-flex flex-column flex-md-row">
+        <div class="talk-metadata">
+          {{ .Params.employer | markdownify }}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 d-flex flex-column flex-md-row" align="right">
+        <div class="talk-metadata">
+          {{ .Params.location }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

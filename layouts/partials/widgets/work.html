@@ -1,0 +1,22 @@
+{{ $ := .root }}
+{{ $page := .page }}
+{{ $work_len := len (where $.Site.RegularPages "Type" "work") }}
+
+<!-- Experience widget -->
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ range first $page.Params.count (sort (where $.Site.RegularPages "Type" "work") ".Params.time_start" "desc") }}
+      {{ if eq $page.Params.list_format 1 }}
+        {{ partial "work_li_detailed" . }}
+      {{ else }}
+        {{ partial "work_li_simple" . }}
+      {{ end }}
+    {{ end }}
+  </div>
+</div>
