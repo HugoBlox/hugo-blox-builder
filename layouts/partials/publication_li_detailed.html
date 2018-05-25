@@ -44,7 +44,7 @@
     {{ else if .Params.publication }}
     {{- .Params.publication | markdownify -}},
     {{- end -}}
-    {{- .Date.Format "2006" -}}
+    &nbsp;{{- .Date.Format "2006" -}}
   </div>
 
   <div class="pub-links">
