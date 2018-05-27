@@ -26,7 +26,7 @@
     {{ partial "tags.html" . }}
 
     {{ $page := . }}
-    {{ $project := .File.TranslationBaseName }}
+    {{ $project := .File.Name }}
     {{ $project_path := printf "%s/%s/" .Section $project }}
 
     {{ if (.Site.Params.projects.list_children | default true) }}
