@@ -38,11 +38,11 @@
 
   <div class="pub-publication">
     {{ if .Params.publication_short }}
-    {{- .Params.publication_short | markdownify -}},
+    {{ .Params.publication_short | markdownify }},
     {{ else if .Params.publication }}
-    {{- .Params.publication | markdownify -}},
-    {{- end -}}
-    {{- .Date.Format "2006" -}}
+    {{ .Params.publication | markdownify }},
+    {{ end }}
+    {{ .Date.Format "2006" }}
   </div>
 
   <div class="pub-links">

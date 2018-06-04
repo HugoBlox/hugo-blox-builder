@@ -10,7 +10,7 @@
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
     {{ if gt $posts_len $page.Params.count }}
     <p class="view-all">
-      <a href="{{ "/post/" | relLangURL }}">
+      <a href="{{ ($.Site.GetPage "section" "post").Permalink }}">
         {{ i18n "more_posts" | markdownify }}
         <i class="fa fa-angle-double-right"></i>
       </a>
@@ -45,7 +45,11 @@
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
         {{ $params := dict "post" . }}
-        {{ partial "post_li" $params }}
+        {{ if eq $page.Params.list_format 0 }}
+          {{ partial "post_li_simple" $params }}
+        {{ else }}
+          {{ partial "post_li_detailed" $params }}
+        {{ end }}
       {{end}}
 
       {{ end }}
@@ -72,7 +76,11 @@
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
         {{ $params := dict "post" . }}
-        {{ partial "post_li" $params }}
+        {{ if eq $page.Params.list_format 0 }}
+          {{ partial "post_li_simple" $params }}
+        {{ else }}
+          {{ partial "post_li_detailed" $params }}
+        {{ end }}
       {{end}}
 
       {{ end }}

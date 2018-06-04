@@ -14,6 +14,15 @@
 - id: minute_read
   translation: 分钟阅读时间
 
+- id: previous
+  translation: 上一页
+
+- id: next
+  translation: 下一页
+
+- id: figure
+  translation: "图%d:"
+
 # Buttons
 
 - id: btn_preprint
@@ -138,3 +147,14 @@
 
 - id: 404_recommendations
   translation: 也许你在找？
+
+# Cookie consent
+
+- id: cookie_message
+  translation: 本网站使用cookies来确保您在本网站上获得最佳体验。
+
+- id: cookie_dismiss
+  translation: 知道了!
+
+- id: cookie_learn
+  translation: 了解更多

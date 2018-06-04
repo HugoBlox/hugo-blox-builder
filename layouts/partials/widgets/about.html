@@ -10,8 +10,8 @@
       <div class="portrait" style="background-image: url('https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200');"></div>
       <meta itemprop="image" content="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200">
       {{ else if $.Site.Params.avatar }}
-      <div class="portrait" style="background-image: url('{{ $.Site.BaseURL }}img/{{ $.Site.Params.avatar }}');"></div>
-      <meta itemprop="image" content="{{ $.Site.BaseURL }}img/{{ $.Site.Params.avatar }}">
+      <div class="portrait" style="background-image: url('{{ (printf "/img/%s" $.Site.Params.avatar) | relURL }}');"></div>
+      <meta itemprop="image" content="{{ (printf "img/%s" $.Site.Params.avatar) | absURL }}">
       {{ end }}
 
       <div class="portrait-title">

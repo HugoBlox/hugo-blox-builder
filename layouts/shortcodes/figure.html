@@ -1,0 +1,17 @@
+<figure{{ with .Get "class" }} class="{{.}}"{{ end }}>
+{{ if .Get "link"}}<a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>{{ end }}
+<img src="{{ .Get "src" | relURL }}" {{ if or (.Get "alt") (.Get "caption") }}alt="{{ with .Get "alt"}}{{.}}{{else}}{{ .Get "caption" }}{{ end }}" {{ end }}{{ with .Get "width" }}width="{{.}}" {{ end }}{{ with .Get "height" }}height="{{.}}" {{ end }}/>
+{{ if .Get "link"}}</a>{{ end }}
+{{ if or (or (.Get "title") (.Get "caption")) (.Get "attr")}}
+{{ $figure := split (i18n "figure" | default "Figure %d:") "%d" }}
+<figcaption data-pre="{{ index $figure 0 }}" data-post="{{ index $figure 1 }}" {{ if eq (.Get "numbered") "true" }}class="numbered"{{ end }}>{{ if isset .Params "title" }}
+  <h4>{{ .Get "title" | markdownify | emojify }}</h4>{{ end }}
+  {{ if or (.Get "caption") (.Get "attr")}}<p>
+    {{ .Get "caption" | markdownify | emojify }}
+    {{ with .Get "attrlink"}}<a href="{{.}}"> {{ end }}
+    {{ .Get "attr" }}
+    {{ if .Get "attrlink"}}</a> {{ end }}
+  </p> {{ end }}
+</figcaption>
+{{ end }}
+</figure>

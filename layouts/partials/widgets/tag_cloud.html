@@ -24,9 +24,7 @@
           {{ $tagCount := len $taxonomy.Pages }}
           {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
           {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
-          {{ $urlPart1 := relLangURL "/tags/" }}
-          {{ $urlPart2 := urlize $name  }}
-          <a href="{{ delimit (slice $urlPart1 $urlPart2) "" }}" style="font-size:{{ $fontSize }}rem">{{ $name }}</a>
+          <a href="{{ ($.Site.GetPage "taxonomyTerm" "tags" $name).Permalink }}" style="font-size:{{ $fontSize }}rem">{{ $name }}</a>
         {{ end }}
       </div>
     {{ end }}

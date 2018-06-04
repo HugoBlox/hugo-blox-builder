@@ -1,6 +1,6 @@
 +++
 title = "Mobile visual clothing search"
-date = "2013-07-01"
+date = 2013-07-01T00:00:00
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = ["GA Cushen", "MS Nixon"]
@@ -32,8 +32,9 @@ selected = true
 
 # Projects (optional).
 #   Associate this publication with one or more of your projects.
-#   Simply enter the filename (excluding '.md') of your project file in `content/project/`.
-projects = ["example-external-project"]
+#   Simply enter the filename of your project in `content/project/`.
+#   Otherwise, set `projects = []`.
+projects = ["example-external-project.md"]
 
 # Links (optional).
 url_pdf = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"

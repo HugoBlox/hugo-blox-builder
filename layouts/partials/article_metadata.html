@@ -34,7 +34,7 @@
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
-    <a href="{{ "/categories/" | relLangURL }}{{ . | urlize | lower }}">{{ . }}</a
+    <a href="{{ ($.Site.GetPage "taxonomyTerm" "categories" .).Permalink }}">{{ . }}</a
     >{{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
     {{ end }}
   </span>

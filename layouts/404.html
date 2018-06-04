@@ -8,7 +8,7 @@
   {{ $posts_len := len (where .Site.RegularPages "Section" "post") }}
   {{ if gt $posts_len 0 }}
   <h2>{{ i18n "posts" }}</h2>
-  {{ range last 5 (where .Site.RegularPages "Section" "post") }}
+  {{ range first 5 (where .Site.RegularPages "Section" "post") }}
   <ul>
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
   </ul>
@@ -18,7 +18,7 @@
   {{ $pubs_len := len (where .Site.RegularPages "Section" "publication") }}
   {{ if gt $pubs_len 0 }}
   <h2>{{ i18n "publications" }}</h2>
-  {{ range last 5 (where .Site.RegularPages "Section" "publication") }}
+  {{ range first 5 (where .Site.RegularPages "Section" "publication") }}
   <ul>
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
   </ul>
@@ -28,7 +28,7 @@
   {{ $talks_len := len (where .Site.RegularPages "Section" "talk") }}
   {{ if gt $talks_len 0 }}
   <h2>{{ i18n "talks" }}</h2>
-  {{ range last 5 (where .Site.RegularPages "Section" "talk") }}
+  {{ range first 5 (sort (where .Site.RegularPages "Type" "talk") ".Params.time_start" "desc") }}
   <ul>
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
   </ul>
@@ -38,7 +38,7 @@
   {{ $projects_len := len (where .Site.RegularPages "Section" "project") }}
   {{ if gt $projects_len 0 }}
   <h2>{{ i18n "projects" }}</h2>
-  {{ range last 5 (where .Site.RegularPages "Section" "project") }}
+  {{ range first 5 (where .Site.RegularPages "Section" "project") }}
   <ul>
     <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
   </ul>
