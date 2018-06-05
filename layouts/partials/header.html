@@ -77,6 +77,7 @@
   <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
   {{ end }}
 
+  {{ if not .Site.IsServer }}
   {{ if .Site.GoogleAnalytics }}
     <script>
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -93,6 +94,7 @@
     {{ else }}
     <script async src="//cdnjs.cloudflare.com/ajax/libs/autotrack/{{- $sri.js.autotrack.version -}}/autotrack.js"></script>
     {{ end }}
+  {{ end }}
   {{ end }}
 
   {{ if or .Site.RSSLink .RSSLink }}
