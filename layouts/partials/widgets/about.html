@@ -3,7 +3,7 @@
 
 <!-- About widget -->
 <div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person" itemref="{{ if $.Site.Params.email }}person-email{{ end }}{{ if $.Site.Params.phone }} person-telephone{{ end }}{{ if $.Site.Params.address}} person-address{{ end }}">
-  <div class="col-xs-12 col-md-4">
+  <div class="col-12 col-lg-4">
     <div id="profile">
 
       {{ if $.Site.Params.gravatar }}
@@ -51,14 +51,14 @@
 
     </div>
   </div>
-  <div class="col-xs-12 col-md-8" itemprop="description">
+  <div class="col-12 col-lg-8" itemprop="description">
 
     {{ $page.Content }}
 
     <div class="row">
 
       {{ with $page.Params.interests }}
-      <div class="col-sm-5">
+      <div class="col-md-5">
         <h3>{{ i18n "interests" | markdownify }}</h3>
         <ul class="ul-interests">
           {{ range .interests }}
@@ -69,7 +69,7 @@
       {{ end }}
 
       {{ with $page.Params.education }}
-      <div class="col-sm-7">
+      <div class="col-md-7">
         <h3>{{ i18n "education" | markdownify }}</h3>
         <ul class="ul-edu fa-ul">
           {{ range .courses }}
