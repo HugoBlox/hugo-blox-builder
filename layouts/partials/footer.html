@@ -11,6 +11,7 @@
 
     {{ if not .Site.Params.disable_sri }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.jQuery.version $js.jQuery.sri | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/%s/umd/popper.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.popperjs.version $js.popperjs.sri | safeHTML }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/%s/imagesloaded.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.imagesLoaded.version $js.imagesLoaded.sri | safeHTML }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/js/bootstrap.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.bootstrap.version $js.bootstrap.sri | safeHTML }}
     {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/%s/isotope.pkgd.min.js\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.isotope.version $js.isotope.sri | safeHTML }}
@@ -22,6 +23,7 @@
     {{ end }}
     {{ else }}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/{{- $js.jQuery.version -}}/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/{{- $js.imagesLoaded.version -}}/imagesloaded.pkgd.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/{{- $js.bootstrap.version -}}/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/{{- $js.isotope.version -}}/isotope.pkgd.min.js"></script>

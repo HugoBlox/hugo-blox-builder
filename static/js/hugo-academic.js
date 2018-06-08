@@ -41,7 +41,7 @@
     let $body = $('body');
     let data = $body.data('bs.scrollspy');
     if (data) {
-      data.options.offset = navbar_offset;
+      data._config.offset = navbar_offset;
       $body.data('bs.scrollspy', data);
       $body.scrollspy('refresh');
     }
