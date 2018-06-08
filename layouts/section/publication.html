@@ -5,7 +5,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
       <h1>{{ .Title | default (i18n "publications") }}</h1>
 
       {{ with .Content }}
@@ -52,7 +52,7 @@
           {{ $.Scratch.Set "pubtype" 0 }}
         {{ end }}
 
-        <div class="grid-sizer col-md-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
+        <div class="grid-sizer col-lg-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
           {{ if eq $.Params.list_format 1 }}
             {{ partial "publication_li_detailed" . }}
           {{ else if eq $.Params.list_format 2 }}
