@@ -1048,67 +1048,6 @@ footer a#back_to_top i {
 }
 
 /*************************************************
- *  Button Outlines
- **************************************************/
-
-.btn-outline {
-  background-color: transparent !important;
-  color: inherit;
-  transition: all .5s;
-}
-
-.btn-primary.btn-outline {
-  color: {{ .Get "primary" }} !important;
-  border-color: {{ .Get "primary" }} !important;
-}
-
-.btn-primary.btn-outline:focus {
-  color: {{ .Get "primary" }} !important;
-}
-
-.btn-primary.btn-outline:active {
-  color: #fff !important;
-}
-
-.btn-light.btn-outline {
-  color: #fff !important;
-  border-color: #fff !important;
-}
-
-.btn-light.btn-outline:focus {
-  color: #fff !important;
-}
-
-.btn-light.btn-outline:active {
-  color: transparent !important;
-}
-
-.btn-success.btn-outline {
-  color: #5cb85c;
-}
-
-.btn-info.btn-outline {
-  color: #5bc0de;
-}
-
-.btn-warning.btn-outline {
-  color: #f0ad4e;
-}
-
-.btn-danger.btn-outline {
-  color: #d9534f;
-}
-
-.btn-primary.btn-outline:hover,
-.btn-light.btn-outline:hover,
-.btn-success.btn-outline:hover,
-.btn-info.btn-outline:hover,
-.btn-warning.btn-outline:hover,
-.btn-danger.btn-outline:hover {
-  color: #fff !important;
-}
-
-/*************************************************
  *  Navigation Bar
  **************************************************/
 
