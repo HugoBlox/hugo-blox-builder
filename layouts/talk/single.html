@@ -32,7 +32,7 @@
           <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
           <div class="col-xs-12 col-sm-9" itemprop="datePublished">
             {{ $date := .Params.time_start | default .Date }}
-            {{ (time $date).Format $.Site.Params.date_format }}
+            {{ (time $date).Format ($.Site.Params.date_format | default "Jan 2, 2006") }}
             <div class="talk-time">
               {{ if $.Site.Params.talks.time }}
                 {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
