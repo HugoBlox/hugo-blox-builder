@@ -12,7 +12,7 @@
 
     {{ $filter_default := default (int $page.Params.filter_default) 0 }}
     {{ with $page.Params.filter }}
-    <span class="hidden default-project-filter">{{ (index $page.Params.filter ($filter_default)).tag }}</span>
+    <span class="d-none default-project-filter">{{ (index $page.Params.filter ($filter_default)).tag }}</span>
     {{ end }}
 
     {{ if isset $page.Params "filter" }}
