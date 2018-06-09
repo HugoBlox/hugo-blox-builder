@@ -34,7 +34,7 @@
           </a>
           <ul class="dropdown-menu">
             {{ range .Children }}
-            <li class="dropdown-item">
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 {{ .Pre }}
                 <span>{{ .Name }}</span>
@@ -80,7 +80,7 @@
           </a>
           <ul class="dropdown-menu">
             {{ range .Translations }}
-            <li class="dropdown-item">
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .URL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 <span>{{ index .Site.Data.i18n.languages .Lang }}</span>
               </a>
