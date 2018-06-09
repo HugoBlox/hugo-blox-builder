@@ -1204,9 +1204,9 @@ nav#navbar-main li.nav-item {
     border-width: 0 0 1px;
   }
 
-  .navbar-collapse.collapse {
+  /*.navbar-collapse.collapse {
     display: none !important;
-  }
+  }*/
 
   /*.navbar-nav {
     float: none !important;
