@@ -13,8 +13,6 @@
   let $navbar = $('.navbar');
   let navbar_offset = $navbar.innerHeight();
 
-  console.log(navbar_offset);
-
   /**
    * Responsive hash scrolling.
    * Check for a URL hash as an anchor.
