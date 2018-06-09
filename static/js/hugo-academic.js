@@ -10,7 +10,7 @@
    * --------------------------------------------------------------------------- */
 
   // Dynamically get responsive navigation bar offset.
-  let $navbar = $('.navbar-header');
+  let $navbar = $('.navbar');
   let navbar_offset = $navbar.innerHeight();
 
   /**
@@ -41,7 +41,7 @@
     let $body = $('body');
     let data = $body.data('bs.scrollspy');
     if (data) {
-      data.options.offset = navbar_offset;
+      data._config.offset = navbar_offset;
       $body.data('bs.scrollspy', data);
       $body.scrollspy('refresh');
     }
@@ -54,7 +54,7 @@
    * Add smooth scrolling to all links inside the main navbar.
    * --------------------------------------------------------------------------- */
 
-  $('#navbar-main li.nav-item a').on('click', function(event) {
+  $('#navbar-main li.nav-item a.nav-link').on('click', function(event) {
     // Store requested URL hash.
     let hash = this.hash;
 
@@ -88,7 +88,7 @@
    * Hide mobile collapsable menu on clicking a link.
    * --------------------------------------------------------------------------- */
 
-  $(document).on('click', '.navbar-collapse.in', function(e) {
+  $(document).on('click', '.navbar-collapse.show', function(e) {
     //get the <a> element that was clicked, even if the <span> element that is inside the <a> element is e.target
     let targetElement = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
 

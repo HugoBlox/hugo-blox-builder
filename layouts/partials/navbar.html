@@ -1,17 +1,7 @@
-<nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
   <div class="container">
 
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      {{ if or .Site.Menus.main .IsTranslated }}
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target=".navbar-collapse" aria-expanded="false">
-        <span class="sr-only">{{ i18n "toggle_navigation" }}</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      {{ end }}
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
         {{- if .Site.Params.logo -}}
         <img src="{{ printf "/img/%s" .Site.Params.logo | relURL }}" alt="{{ .Site.Title }}">
@@ -19,19 +9,24 @@
         {{- .Site.Title -}}
         {{- end -}}
       </a>
-    </div>
+      {{ if or .Site.Menus.main .IsTranslated }}
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="{{ i18n "toggle_navigation" }}">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {{ end }}
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="navbar">
 
       <!-- Left Nav Bar -->
       {{ $align_right := .Site.Params.menus.align_right | default true }}
-      <ul class="nav navbar-nav {{ if $align_right }}navbar-right{{ else }}navbar-left{{ end }}">
+      <ul class="navbar-nav {{ if $align_right }}ml-auto{{ else }}mr-auto{{ end }}">
         {{ range .Site.Menus.main }}
 
         {{ if .HasChildren }}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
             {{ .Pre }}
             <span>{{ .Name }}</span>
             {{ .Post }}
@@ -39,7 +34,7 @@
           </a>
           <ul class="dropdown-menu">
             {{ range .Children }}
-            <li class="nav-item">
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 {{ .Pre }}
                 <span>{{ .Name }}</span>
@@ -61,7 +56,7 @@
         {{ end }}
 
         <li class="nav-item">
-          <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+          <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
             {{ .Pre }}
             <span>{{ .Name }}</span>
             {{ .Post }}
@@ -76,16 +71,16 @@
 
       {{ if .IsTranslated }}
       {{ if not $align_right }}
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="navbar-nav ml-auto">
       {{ end }}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
             <i class="fa fa-globe" aria-hidden="true"></i>
             <span>{{ index .Site.Data.i18n.languages .Lang }}</span>
           </a>
           <ul class="dropdown-menu">
             {{ range .Translations }}
-            <li class="nav-item">
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .URL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 <span>{{ index .Site.Data.i18n.languages .Lang }}</span>
               </a>
