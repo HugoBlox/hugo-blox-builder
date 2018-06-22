@@ -1464,7 +1464,7 @@ body.dark {
   color: rgba(255, 255, 255, 0.54);
 }
 
-.dark .pager li > a, .pager li > span {
+.dark .pagination li > a, .pagination li > span {
   background-color: rgb(40, 42, 54);
   border: 1px solid #ddd;
 }
