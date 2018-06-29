@@ -183,6 +183,10 @@ pre code {
   overflow-x: auto;
 }
 
+.mjx-chtml {
+  overflow-x: auto; /* Horizontally scroll long equations. */
+}
+
 hr {
   border: 0;
   height: 1px;
