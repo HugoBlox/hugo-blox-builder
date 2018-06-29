@@ -2,6 +2,16 @@
 {{ $ := .content }}
 <div class="article-metadata">
 
+  {{ if $.Params.authors }}
+  {{ $authorLen := len $.Params.authors }}
+  <div itemprop="author">
+    {{ range $k, $v := $.Params.authors }}
+      {{- $v -}}
+      {{- if lt $k (sub $authorLen 1) -}}, {{ end }}
+    {{ end }}
+  </div>
+  {{ end }}
+
   <span class="article-date">
     {{ if ne $.Params.Lastmod $.Params.Date }}
         {{ i18n "last_updated" }}
