@@ -4,11 +4,23 @@
 
   {{ if $.Params.authors }}
   {{ $authorLen := len $.Params.authors }}
-  <div itemprop="author">
+  {{ if eq $authorLen 0}}
+  <div itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <span itemprop="name">{{ $.Site.Params.name }}</span>
+  </div>
+  {{ else }}
+  <div>
     {{ range $k, $v := $.Params.authors }}
-      {{- $v -}}
+      <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+        <span itemprop="name">{{- $v -}}</span>
+      </span>
       {{- if lt $k (sub $authorLen 1) -}}, {{ end }}
     {{ end }}
+  </div>
+  {{ end }}
+  {{ else }}
+  <div itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <span itemprop="name">{{ $.Site.Params.name }}</span>
   </div>
   {{ end }}
 
@@ -21,7 +33,7 @@
       {{ $.Lastmod.Format $.Site.Params.date_format }}
     </time>
   </span>
-  <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
+  <span itemscope itemprop="publisher" itemtype="http://schema.org/Person">
     <meta itemprop="name" content="{{ $.Site.Params.name }}">
   </span>
 
@@ -45,8 +57,8 @@
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
-    <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).Permalink }}">{{ . }}</a
-    >{{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
+    <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).Permalink }}">{{ . }}</a>
+    {{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
     {{ end }}
   </span>
   {{ end }}
