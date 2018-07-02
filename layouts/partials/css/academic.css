@@ -992,6 +992,23 @@ footer a#back_to_top i {
 }
 
 /*************************************************
+ *  Button size override
+ *************************************************/
+
+.btn {
+  padding: .5rem;
+  font-size: .8rem;
+  line-height: .5;
+  border-radius: .3rem;
+}
+
+.btn.btn-sm {
+  padding: .4rem;
+  font-size: .6rem;
+  border-radius: .2rem;
+}
+
+/*************************************************
  *  Button Primary: Color Override
  **************************************************/
 
