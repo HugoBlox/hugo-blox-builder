@@ -3,7 +3,7 @@
 {{ if gt $tagsLen 0 }}
 <div class="article-tags">
   {{ range $k, $v := $.Params.tags }}
-  <a class="btn btn-primary btn-outline" href="{{ ($.Site.GetPage "taxonomyTerm" "tags" .).Permalink }}">{{ . }}</a>
+  <a class="label label-default" href="{{ ($.Site.GetPage "taxonomyTerm" "tags" .).Permalink }}">{{ . }}</a>
   {{ end }}
 </div>
 {{ end }}
