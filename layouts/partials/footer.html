@@ -64,12 +64,17 @@
     <!-- LaTeX math rendering -->
     {{ if or .Params.math .Site.Params.math }}
     <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+      MathJax.Hub.Config({
+        CommonHTML: { linebreaks: { automatic: true } },
+        tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: false },
+        TeX: { noUndefined: { attributes: { mathcolor: 'red', mathbackground: '#FFEEEE', mathsize: '90%' } } },
+        messageStyle: 'none'
+      });
     </script>
     {{ if not .Site.Params.disable_sri }}
-    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/%s/MathJax.js?config=TeX-AMS_CHTML\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.mathJax.version $js.mathJax.sri | safeHTML }}
+    {{ printf "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/%s/MathJax.js?config=TeX-AMS_CHTML-full\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" $js.mathJax.version $js.mathJax.sri | safeHTML }}
     {{ else }}
-    <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/{{- $js.mathJax.version -}}/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/{{- $js.mathJax.version -}}/MathJax.js?config=TeX-AMS_CHTML-full"></script>
     {{ end }}
     {{ end }}
 
