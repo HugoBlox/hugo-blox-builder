@@ -18,30 +18,34 @@
         {{ $.Scratch.SetInMap "years" $year $year }}
       {{ end }}
 
-      <p>
-        {{ i18n "filter_by_type" }}:
-
-        <select class="pub-filters pubtype-select" data-filter-group="pubtype">
-          <option value="*">{{ i18n "filter_all" }}</option>
-          {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
-          <option value=".pubtype-{{ (int $index) }}">
-            {{ index $.Site.Params.publication_types (int $index) }}
-          </option>
-          {{ end }}
-        </select>
-
-        <select class="pub-filters" data-filter-group="year">
-          <option value="*">{{ i18n "filter_all" }}</option>
-          {{ $years_sorted := $.Scratch.GetSortedMapValues "years" }}
-          {{ if $years_sorted }}
-          {{ range $year := sort $years_sorted "" "desc" }}
-          <option value=".year-{{ $year }}">
-            {{ $year }}
-          </option>
-          {{ end }}
-          {{ end }}
-        </select>
-      </p>
+      <div class="row">
+        <div class="col-auto">
+          {{ i18n "filter_by_type" }}:
+        </div>
+        <div class="form-group col-auto">
+          <select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group="pubtype">
+            <option value="*">{{ i18n "filter_all" }}</option>
+            {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
+            <option value=".pubtype-{{ (int $index) }}">
+              {{ index $.Site.Params.publication_types (int $index) }}
+            </option>
+            {{ end }}
+          </select>
+        </div>
+        <div class="form-group col-auto">
+          <select class="pub-filters form-control form-control-sm" data-filter-group="year">
+            <option value="*">{{ i18n "filter_all" }}</option>
+            {{ $years_sorted := $.Scratch.GetSortedMapValues "years" }}
+            {{ if $years_sorted }}
+            {{ range $year := sort $years_sorted "" "desc" }}
+            <option value=".year-{{ $year }}">
+              {{ $year }}
+            </option>
+            {{ end }}
+            {{ end }}
+          </select>
+        </div>
+      </div>
 
       <div id="container-publications">
         {{ range .Pages.ByDate.Reverse }}
