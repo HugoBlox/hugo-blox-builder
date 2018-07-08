@@ -1,5 +1,12 @@
 <footer class="site-footer">
   <div class="container">
+
+    {{ with .Site.GetPage "page" "privacy.md" }}
+    <p class="powered-by">
+      {{ printf "<a href=\"%s\">%s</a>" .Permalink .Title | safeHTML }}
+    </p>
+    {{ end }}
+
     <p class="powered-by">
 
       {{ with .Site.Copyright }}{{ . | markdownify}} &middot; {{ end }}
