@@ -1012,7 +1012,7 @@ footer a#back_to_top i {
  *  Tags/Labels
  **************************************************/
 
-.label-default {
+.badge-light {
   border: none;
   color: rgba(0,0,0,.68);
   background: rgba(0,0,0,.05);
@@ -1023,17 +1023,17 @@ footer a#back_to_top i {
   margin-bottom: 8px;
 }
 
-.article-tags > .label-default:last-child {
+.article-tags > .badge-light:last-child {
   margin-right: 0;
 }
 
-.label-default[href]:focus,
-.label-default[href]:hover {
+.badge-light[href]:focus,
+.badge-light[href]:hover {
   background: rgba(0,0,0,.1);
 }
 
-a.label:focus,
-a.label:hover {
+a.badge:focus,
+a.badge:hover {
   color: rgba(0,0,0,.68);
 }
 
