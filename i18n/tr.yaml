@@ -83,6 +83,9 @@
 - id: filter_all
   translation: Hepsi
 
+- id: first_author
+  translation: ilk yazar
+
 # Project details
 
 - id: open_project_site

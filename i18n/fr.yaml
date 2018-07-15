@@ -121,6 +121,9 @@
 - id: filter_all
   translation: Tout
 
+- id: first_author
+  translation: premier auteur
+
 # Project details
 
 - id: open_project_site

@@ -83,6 +83,9 @@
 - id: filter_all
   translation: 전부
 
+- id: first_author
+  translation: 첫 번째 저자
+
 # Project details
 
 - id: open_project_site

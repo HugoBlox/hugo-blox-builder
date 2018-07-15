@@ -132,6 +132,10 @@
     // Set filter for group.
     pubFilters[ filterGroup ] = this.value;
 
+    if (filterGroup == 'first-author' && !this.checked){
+      pubFilters[ filterGroup ] = '*';
+    }
+
     // Combine filters.
     let filterValues = concatValues( pubFilters );
 

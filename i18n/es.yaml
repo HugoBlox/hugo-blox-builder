@@ -121,6 +121,9 @@
 - id: filter_all
   translation: Todo
 
+- id: first_author
+  translation: unua aŭtoro
+
 # Project details
 
 - id: open_project_site

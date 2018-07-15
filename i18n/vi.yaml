@@ -118,6 +118,9 @@
 - id: filter_all
   translation: Tất Cả
 
+- id: first_author
+  translation: tác giả đầu tiên
+
 # Project details
 
 - id: open_project_site

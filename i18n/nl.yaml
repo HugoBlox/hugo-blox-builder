@@ -83,6 +83,9 @@
 - id: filter_all
   translation: Alles
 
+- id: first_author
+  translation: eerste auteur
+
 # Project details
 
 - id: open_project_site

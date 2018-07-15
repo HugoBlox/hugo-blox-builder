@@ -121,6 +121,9 @@
 - id: filter_all
   translation: 全部
 
+- id: first_author
+  translation: 第一作者
+
 # Project details
 
 - id: open_project_site
