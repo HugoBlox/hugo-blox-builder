@@ -49,11 +49,11 @@
       {{ end }}
 
       {{ $items := where (where .Site.RegularPages "Type" "talk") ".Params.projects" "intersect" (slice $project) }}
-      {{ $items := $items | union (where (where .Site.RegularPages "Type" "publication") ".Params.url_project" $project_path) }}
+      {{ $items := $items | union (where (where .Site.RegularPages "Type" "talk") ".Params.url_project" $project_path) }}
       {{ $talks_len := len $items }}
       {{ if ge $talks_len 1 }}
         <h2>{{ (i18n "talks") }}</h2>
-        {{ range $items }}
+        {{ range sort $items ".Params.time_start" "desc" }}
           {{ partial "talk_li_simple" . }}
         {{ end }}
       {{ end }}
