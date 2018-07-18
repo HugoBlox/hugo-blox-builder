@@ -58,6 +58,24 @@
     <div class="visible-xs space-below"></div>
     {{ end }}
 
+    {{ if .Params.openaccess }}
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "license" }}</div>
+          {{ if .Params.license }}
+            <div class="col-xs-12 col-sm-9">{{ .Params.license | markdownify }}</div>
+          {{ else }}
+            <div class="col-xs-12 col-sm-9">{{ i18n "openaccess" }}</div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    {{ end }}
+
     <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">

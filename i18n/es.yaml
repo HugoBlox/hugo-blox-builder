@@ -113,6 +113,12 @@
 - id: location
   translation: Localización
 
+- id: openaccess
+  translation: Acceso Abierto
+
+- id: license
+  translation: Licencia
+
 # Filtering
 
 - id: filter_by_type

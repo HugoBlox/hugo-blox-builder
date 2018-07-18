@@ -42,6 +42,12 @@ projects = ["example-external-project.md"]
 #   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
 tags = []
 
+# License information (optional)
+#   Setting `openaccess = true` will add an Open Access logo beside each publication.
+openaccess = false
+#  If you would like to specify the open license used, you may do so, otherwise, "Open Access" will appear on the publication details page.
+# license = ""
+
 # Links (optional).
 url_pdf = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"
 url_preprint = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"

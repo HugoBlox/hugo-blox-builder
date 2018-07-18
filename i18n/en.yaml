@@ -113,6 +113,12 @@
 - id: location
   translation: Location
 
+- id: openaccess
+  translation: Open Access
+
+- id: license
+  translation: License
+
 # Filtering
 
 - id: filter_by_type
