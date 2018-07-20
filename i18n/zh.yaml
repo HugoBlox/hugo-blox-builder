@@ -112,6 +112,17 @@
 
 - id: location
   translation: 位置
+  
+# Work/Experience details
+  
+- id: employer
+  translation: 雇主
+  
+- id: type_employer
+  translation: 雇主类型
+  
+- id: employment_period
+  translation: 就业期
 
 # Filtering
 

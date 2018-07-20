@@ -110,6 +110,17 @@
 - id: location
   translation: Τοποθεσία
 
+# Work/Experience details
+
+- id: employer
+  translation: Εργοδότης
+  
+- id: type_employer
+  translation: Είδος
+  
+- id: employment_period
+  translation: Περίοδος Απασχόλησης
+
 # Filtering
 
 - id: filter_by_type

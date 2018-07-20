@@ -109,6 +109,17 @@
 
 - id: location
   translation: Địa Điểm
+  
+# Work/Experience details
+  
+- id: employer
+  translation: Nhà tuyển dụng
+  
+- id: type_employer
+  translation: Loại nhà tuyển dụng
+  
+- id: employment_period
+  translation: Thời gian làm việc
 
 # Filtering
 

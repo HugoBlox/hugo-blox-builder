@@ -1,0 +1,82 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div class="pub" itemscope>
+
+  {{ partial "header_image.html" . }}
+
+  <div class="article-container">
+
+    <div class="pub-title">
+      <h1 itemprop="name">{{ .Title }}</h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "employer" }}</div>
+          <div class="col-xs-12 col-sm-8">
+            {{ with .Params.employer_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ .Params.employer | markdownify }}
+            {{ if .Params.employer_url }}</a>{{ end }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "type_employer" }}</div>
+          <div class="col-xs-12 col-sm-8">
+            {{ .Params.type_employer | markdownify }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    {{ with .Params.location }}
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "location" }}</div>
+          <div class="col-xs-12 col-sm-8">{{ . | markdownify }}</div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    {{ end }}
+
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "employment_period" }}</div>
+          <div class="col-xs-12 col-sm-8">
+              {{ $date := .Params.time_start | default .Date }}
+              {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+              &mdash;
+              {{ $date := .Params.time_end | default .Date }}
+              {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="space-below"></div>
+    
+    <div class="article-style">
+      {{ .Content }}
+</div>
+
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}

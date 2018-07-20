@@ -185,6 +185,12 @@ enableGitInfo = false
     'Book section'  # 6
   ]
 
+  # Configuration of Work (Experience) pages
+    [params.work]
+    # Date format (refer to Go's date format: http://fuckinggodateformat.com )
+    #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+    date_format_main = "Jan, 2006"
+    
   # Configuration of talk pages.
   [params.talks]
     # Show talk time?

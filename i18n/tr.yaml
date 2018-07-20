@@ -74,6 +74,17 @@
 
 - id: location
   translation: Adres
+  
+# Work/Experience details
+  
+- id: employer
+  translation: İşveren
+  
+- id: type_employer
+  translation: İşveren Türü
+  
+- id: employment_period
+  translation: İstihdam Süresi
 
 # Filtering
 
