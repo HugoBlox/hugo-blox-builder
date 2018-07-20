@@ -1,10 +1,10 @@
 +++
 date = 2017-01-01T00:00:00  # Schedule page publish date.
 
-title = "Introduction to JavaScript"
+title = "Game Theory"
 time_start = 2030-06-01
 commitment = "8 weeks, 3-5 hours a week."
-institution = "Codeacademy"
+institution = "Stanford University"
 institution_url = "https://example.org"
 type_course = "Online Course"
 
