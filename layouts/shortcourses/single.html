@@ -1,0 +1,79 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+<div class="pub" itemscope>
+
+  {{ partial "header_image.html" . }}
+
+  <div class="article-container">
+
+    <div class="pub-title">
+      <h1 itemprop="name">{{ .Title }}</h1>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "institution" }}</div>
+          <div class="col-xs-12 col-sm-8">
+            {{ with .Params.institution_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ .Params.institution | markdownify }}
+            {{ if .Params.institution_url }}</a>{{ end }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "type_course" }}</div>
+          <div class="col-xs-12 col-sm-8">
+            {{ .Params.type_course | markdownify }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "date" }}</div>
+          <div class="col-xs-12 col-sm-8">
+              {{ $date := .Params.time_start | default .Date }}
+              {{ (time $date).Format $.Site.Params.shortcourses.date_format }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "commitment" }}</div>
+          <div class="col-xs-12 col-sm-8">
+              {{ .Params.commitment | markdownify }}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <div class="visible-xs space-below"></div>
+    
+    <div class="space-below"></div>
+    
+    <div class="article-style">
+      {{ .Content }}
+</div>
+
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}

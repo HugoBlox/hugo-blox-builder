@@ -109,6 +109,17 @@
 
 - id: location
   translation: Lokasi
+  
+# Short Courses details
+
+- id: institution
+  translation: Lembaga
+  
+- id: type_course
+  translation: Jenis saja
+  
+- id: commitment
+  translation: Komitmen
 
 # Filtering
 

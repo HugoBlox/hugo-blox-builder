@@ -109,6 +109,17 @@
 
 - id: location
   translation: Địa Điểm
+  
+# Short Courses details
+
+- id: institution
+  translation: Tổ chức giáo dục
+  
+- id: type_course
+  translation: Loại khóa học
+  
+- id: commitment
+  translation: Cam kết
 
 # Filtering
 

@@ -74,6 +74,17 @@
 
 - id: location
   translation: Local
+  
+# Short Courses details
+
+- id: institution
+  translation: Instituição
+  
+- id: type_course
+  translation: Tipo de Curso
+  
+- id: commitment
+  translation: Dedicação
 
 # Filtering
 

@@ -185,6 +185,11 @@ enableGitInfo = false
     'Book section'  # 6
   ]
 
+  # Configuration of Short Courses page.
+  [params.shortcourses]
+    # Show talk time?
+    date_format = "2006"
+    
   # Configuration of talk pages.
   [params.talks]
     # Show talk time?

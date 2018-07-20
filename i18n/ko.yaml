@@ -74,6 +74,17 @@
 
 - id: location
   translation: 장소
+  
+# Short Courses details
+
+- id: institution
+  translation: 제도
+  
+- id: type_course
+  translation: 코스 종류
+  
+- id: commitment
+  translation: 헌신
 
 # Filtering
 

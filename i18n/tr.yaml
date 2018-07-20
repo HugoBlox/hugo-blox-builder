@@ -74,6 +74,17 @@
 
 - id: location
   translation: Adres
+  
+# Short Courses details
+
+- id: institution
+  translation: Kurum
+  
+- id: type_course
+  translation: Kurs türü
+  
+- id: commitment
+  translation: Taahhüt
 
 # Filtering
 

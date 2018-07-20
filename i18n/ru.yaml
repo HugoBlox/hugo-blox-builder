@@ -74,6 +74,17 @@
 
 - id: location
   translation: Место
+  
+# Short Courses details
+
+- id: institution
+  translation: учреждение
+  
+- id: type_course
+  translation: Тип курса
+  
+- id: commitment
+  translation: обязательство
 
 # Filtering
 

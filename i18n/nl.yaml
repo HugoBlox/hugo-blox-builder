@@ -74,6 +74,17 @@
 
 - id: location
   translation: Locatie
+  
+# Short Courses details
+
+- id: institution
+  translation: Instelling
+  
+- id: type_course
+  translation: Type natuurlijk
+  
+- id: commitment
+  translation: Inzet
 
 # Filtering
 

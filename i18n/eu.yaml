@@ -74,6 +74,17 @@
 
 - id: location
   translation: Kokalekua
+  
+# Short Courses details
+
+- id: institution
+  translation: Erakunde
+  
+- id: type_course
+  translation: Ikastaro mota
+  
+- id: commitment
+  translation: Konpromisoa
 
 # Filtering
 

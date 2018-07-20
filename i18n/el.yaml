@@ -109,6 +109,17 @@
 
 - id: location
   translation: Τοποθεσία
+  
+# Short Courses details
+
+- id: institution
+  translation: Ιδρυμα
+  
+- id: type_course
+  translation: Είδος μαθήματος
+  
+- id: commitment
+  translation: δέσμευση
 
 # Filtering
 

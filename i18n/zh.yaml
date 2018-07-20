@@ -112,6 +112,17 @@
 
 - id: location
   translation: 位置
+  
+# Short Courses details
+
+- id: institution
+  translation: 机构
+  
+- id: type_course
+  translation: 课程类型
+  
+- id: commitment
+  translation: 承诺
 
 # Filtering
 

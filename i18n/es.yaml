@@ -112,6 +112,17 @@
 
 - id: location
   translation: Localización
+  
+# Short Courses details
+
+- id: institution
+  translation: Institución
+  
+- id: type_course
+  translation: Tipo de curso
+  
+- id: commitment
+  translation: Compromiso
 
 # Filtering
 

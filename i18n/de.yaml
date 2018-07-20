@@ -74,6 +74,17 @@
 
 - id: location
   translation: Ort
+  
+# Short Courses details
+
+- id: institution
+  translation: Institution
+  
+- id: type_course
+  translation: Art
+  
+- id: commitment
+  translation: Verpflichtung
 
 # Filtering
 
