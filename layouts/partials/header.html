@@ -53,6 +53,10 @@
       {{ end }}
     {{ end }}
   {{ end }}
+  {{ if eq .Site.Params.search.engine 1 }}
+    {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.instantsearch.version $sri.css.instantsearch.sri | safeHTML }}
+    {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch-theme-algolia.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.instantsearchTheme.version $sri.css.instantsearchTheme.sri | safeHTML }}
+  {{ end }}
   {{ if not .Site.Params.disable_sri }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.bootstrap.version $sri.css.bootstrap.sri | safeHTML }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.academicons.version $sri.css.academicons.sri | safeHTML }}

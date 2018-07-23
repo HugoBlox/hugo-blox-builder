@@ -140,6 +140,14 @@
 - id: projects
   translation: Projects
 
+# Search
+
+- id: search_placeholder
+  translation: Search...
+
+- id: search_no_results
+  translation: No results found
+
 # Error 404
 
 - id: page_not_found

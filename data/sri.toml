@@ -37,6 +37,9 @@
 [js.fancybox]
   version = "3.2.5"
   sri = "sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M="
+[js.instantsearch]
+  version = "2.9.0"
+  sri = "sha256-cJXigylnJlxvAdfFNHeS+IiMcKWS3Rf/cy3bl9bb0ng="
 
 # CSS
 
@@ -55,3 +58,9 @@
 [css.fancybox]
   version = "3.2.5"
   sri = "sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs="
+[css.instantsearch]
+  version = "2.9.0"
+  sri = "sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g="
+[css.instantsearchTheme]
+  version = "2.9.0"
+  sri = "sha256-0vcZrdMQksHcHrY60tPnVK71jnB3wX/JpMcah5BffjA="

@@ -243,6 +243,35 @@ small,
 }
 
 /*************************************************
+ *  Search.
+ **************************************************/
+
+#search-box {
+  margin-bottom: 0.5rem;
+}
+
+.search-hit em {
+  font-style: normal;
+  background-color: #FFE0B2;
+  color: #E65100;
+  border-bottom: 1px solid #E65100;
+}
+
+.search-hit-type {
+  margin-bottom: 0 !important; /* Override .article-metadata margin. */
+  text-transform: capitalize;
+}
+
+.search-hit-description {
+  font-size: 0.7rem;
+}
+
+/* Load more results button - hide when there are no more results. */
+#search-hits button[disabled] {
+  display: none;
+}
+
+/*************************************************
  *  Modals.
  **************************************************/
 
