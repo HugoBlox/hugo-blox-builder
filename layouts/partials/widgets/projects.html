@@ -22,7 +22,12 @@
         <div class="btn-toolbar">
           <div class="btn-group">
             {{ range $idx, $item := $page.Params.filter }}
-              <a href="#" data-filter="{{ .tag }}" class="btn btn-primary btn-large{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
+              {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
+                {{ $.Scratch.Set "tag" .tag }}
+              {{ else }}
+                {{ $.Scratch.Set "tag" (printf ".%s" (urlize .tag)) }}
+              {{ end }}
+              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-large{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
             {{ end }}
           </div>
         </div>
@@ -35,7 +40,7 @@
 
     <div class="row isotope projects-container js-layout-row">
         {{ range where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
-        <div class="col-md-12 project-item isotope-item {{ delimit .Params.tags " " }}" itemscope itemtype="http://schema.org/CreativeWork">
+        <div class="col-md-12 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}" itemscope itemtype="http://schema.org/CreativeWork">
           <i class="fa fa-files-o pub-icon" aria-hidden="true"></i>
 
           <span class="project-title">
@@ -63,7 +68,7 @@
       {{   $.Scratch.Set "project_url" $project.Params.external_link }}
       {{   $.Scratch.Set "target" "target=\"_blank\"" }}
       {{ end }}
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit .Params.tags " " }}">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
         <div class="card">
           {{ with $project.Params.image_preview }}
           <a href="{{ $.Scratch.Get "project_url" }}" title="" class="card-image hover-overlay"
