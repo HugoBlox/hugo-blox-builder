@@ -31,7 +31,7 @@
 {{ end }}
 {{ if $.Params.projects }}
 {{ range $.Params.projects }}
-  {{ with ($.Site.GetPage "page" "project" .) }}
+  {{ with ($.Site.GetPage (printf "project/%s" .)) }}
   <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .Permalink }}">
     {{ i18n "btn_project" }}
   </a>

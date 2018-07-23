@@ -20,7 +20,7 @@
         "message": {{ i18n "cookie_message" | default "This website uses cookies to ensure you get the best experience on our website." }},
         "dismiss": {{ i18n "cookie_dismiss" | default "Got it!" }},
         "link": {{ i18n "cookie_learn" | default "Learn more" }},
-        "href": {{ with .Site.GetPage "page" "privacy.md" }}{{ printf "%s" .Permalink }}{{ else }}"https://cookies.insites.com"{{ end }}
+        "href": {{ with .Site.GetPage "privacy.md" }}{{ printf "%s" .Permalink }}{{ else }}"https://cookies.insites.com"{{ end }}
       }
     })});
 </script>
