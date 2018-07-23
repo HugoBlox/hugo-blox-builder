@@ -223,10 +223,12 @@ blockquote p:last-child {
 
 .universal-wrapper {
   margin: 0 auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.1rem;
   width: 100%;
 }
+
 @media only screen and (min-width: 1001px) {
   .universal-wrapper {
     width: 1000px;
