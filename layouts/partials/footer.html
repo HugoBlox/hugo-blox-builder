@@ -1,4 +1,4 @@
-    {{ $js := .Site.Data.sri.js }}
+    {{ $js := .Site.Data.assets.js }}
 
     {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
     {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}

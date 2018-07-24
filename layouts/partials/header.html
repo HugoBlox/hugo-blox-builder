@@ -29,7 +29,7 @@
   <link rel="alternate" hreflang="{{ .Site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
   {{ partial "css/parse_theme.css" . }}
-  {{ $sri := .Site.Data.sri }}
+  {{ $sri := .Site.Data.assets }}
   {{ if ne ($scr.Get "primary") "#fff" }}
   <meta name="theme-color" content="{{ $scr.Get "primary" }}">
   {{ end }}
