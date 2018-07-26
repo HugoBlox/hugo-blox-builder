@@ -29,7 +29,7 @@
   <link rel="alternate" hreflang="{{ .Site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
   {{ partial "css/parse_theme.css" . }}
-  {{ $sri := .Site.Data.sri }}
+  {{ $sri := .Site.Data.assets }}
   {{ if ne ($scr.Get "primary") "#fff" }}
   <meta name="theme-color" content="{{ $scr.Get "primary" }}">
   {{ end }}
@@ -52,6 +52,10 @@
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/dracula.min.css">
       {{ end }}
     {{ end }}
+  {{ end }}
+  {{ if eq .Site.Params.search.engine 1 }}
+    {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.instantsearch.version $sri.css.instantsearch.sri | safeHTML }}
+    {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch-theme-algolia.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.instantsearchTheme.version $sri.css.instantsearchTheme.sri | safeHTML }}
   {{ end }}
   {{ if not .Site.Params.disable_sri }}
   {{ printf "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css\" integrity=\"%s\" crossorigin=\"anonymous\">" $sri.css.bootstrap.version $sri.css.bootstrap.sri | safeHTML }}
