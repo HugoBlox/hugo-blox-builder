@@ -61,10 +61,10 @@
           <div class="col-xs-12 col-sm-4 pub-row-heading">{{ i18n "employment_period" }}</div>
           <div class="col-xs-12 col-sm-8">
               {{ $date := .Params.time_start | default .Date }}
-              {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+              {{ (time $date).Format $.Site.Params.work.date_format_main }}
               &mdash;
               {{ $date := .Params.time_end | default .Date }}
-              {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+              {{ (time $date).Format $.Site.Params.work.date_format_main }}
           </div>
         </div>
       </div>
