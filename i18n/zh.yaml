@@ -132,6 +132,11 @@
 - id: filter_all
   translation: 全部
 
+# Projects widget
+
+- id: more_projects
+  translation: 更多项目
+
 # Project details
 
 - id: open_project_site

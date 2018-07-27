@@ -97,6 +97,11 @@
 - id: filter_all
   translation: Wszystko
 
+# Projects widget
+
+- id: more_projects
+  translation: Więcej projektów
+
 # Project details
 
 - id: open_project_site

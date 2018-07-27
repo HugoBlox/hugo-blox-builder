@@ -118,6 +118,11 @@
 - id: filter_all
   translation: Όλα
 
+# Project widget
+
+- id: more_projects
+  translation: Περισσότερες Ερευνητικά προγράμματα
+
 # Project details
 
 - id: open_project_site

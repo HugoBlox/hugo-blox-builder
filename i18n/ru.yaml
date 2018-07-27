@@ -83,6 +83,11 @@
 - id: filter_all
   translation: Все
 
+# Projects widget
+
+- id: more_projects
+  translation: Больше проектов
+
 # Project details
 
 - id: open_project_site

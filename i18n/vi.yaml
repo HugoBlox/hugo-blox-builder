@@ -118,6 +118,11 @@
 - id: filter_all
   translation: Tất Cả
 
+# Projects widget
+
+- id: more_projects
+  translation: Dự Án Khác
+
 # Project details
 
 - id: open_project_site

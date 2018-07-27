@@ -83,6 +83,11 @@
 - id: filter_all
   translation: Hepsi
 
+# Projects widget
+
+- id: more_projects
+  translation: Daha fazla projeler
+
 # Project details
 
 - id: open_project_site

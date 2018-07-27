@@ -118,6 +118,11 @@
 - id: filter_all
   translation: Semua
 
+# Projects widget
+
+- id: more_projects
+  translation: Proyek lainnya
+
 # Project details
 
 - id: open_project_site
