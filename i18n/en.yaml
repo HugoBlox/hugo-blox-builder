@@ -132,6 +132,11 @@
 - id: filter_all
   translation: All
 
+# Projects widget
+
+- id: more_projects
+  translation: More Projects
+
 # Project details
 
 - id: open_project_site

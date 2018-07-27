@@ -15,6 +15,9 @@ tags = ["Demo"]
 # Optional external URL for project (replaces project detail page).
 external_link = "http://example.org"
 
+# Is this a selected project? (true/false)
+selected = true
+
 # Featured image
 # To use, add an image named `featured.jpg/png` to your project's folder. 
 [image]
