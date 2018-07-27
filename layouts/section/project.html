@@ -1,0 +1,109 @@
+{{ if .Params.widgets }}
+
+{{ partial "widget_page.html" . }}
+
+{{ else }}
+
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+
+{{ partial "page_header.html" . }}
+
+<div class="universal-wrapper">
+  {{ with .Content }}
+  <div class="article-style" itemprop="articleBody">{{ . }}</div>
+  {{ end }}
+
+  {{ $paginator := .Paginate .Data.Pages }}
+  {{ if eq .Params.list_format 1 }}
+    <section id="projects">
+    {{ $page := . }}
+    {{ if $page.Params.filter }}
+
+    {{ $filter_default := default (int $page.Params.filter_default) 0 }}
+
+    {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
+    {{ $default_filter_tag_raw := (index $page.Params.filter ($filter_default)).tag }}
+    {{ $default_filter_tag := printf ".%s" (urlize $default_filter_tag_raw) }}
+    {{ if or (eq (substr $default_filter_tag_raw 0 1) "*") (eq (substr $default_filter_tag_raw 0 1) ".") }}
+      {{ $default_filter_tag = $default_filter_tag_raw }}
+    {{ end }}
+
+    <span class="d-none default-project-filter">{{ $default_filter_tag }}</span>
+
+    {{/* Only show filter buttons if there are multiple filters. */}}
+    {{ if gt (len $page.Params.filter) 1 }}
+    <div class="project-toolbar">
+      <div class="project-filters">
+        <div class="btn-toolbar">
+          <div class="btn-group flex-wrap">
+            {{ range $idx, $item := $page.Params.filter }}
+            {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
+            {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
+                {{ $.Scratch.Set "tag" .tag }}
+              {{ else }}
+                {{ $.Scratch.Set "tag" (printf ".%s" (urlize .tag)) }}
+              {{ end }}
+              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-lg{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+    {{ end }}
+    <div class="row isotope projects-container js-layout-masonry">
+
+    {{ range $project := $paginator.Pages }}
+      {{ $.Scratch.Set "project_url" $project.RelPermalink }}
+      {{ $.Scratch.Set "target" "" }}
+      {{ if $project.Params.external_link }}
+      {{   $.Scratch.Set "project_url" $project.Params.external_link }}
+      {{   $.Scratch.Set "target" "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      {{ $resource := ($project.Resources.ByType "image").GetMatch "*featured*" }}
+      {{ $anchor := $project.Params.image.focal_point | default "Smart" }}
+    <div class="col-12 col-md-6 col-lg-4 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
+      <div class="card">
+        {{ with $resource }}
+        {{ $image := .Fill (printf "550x550 q90 %s" $anchor) }}
+        <a href="{{ $.Scratch.Get "project_url" }}" {{ $.Scratch.Get "target" | safeHTMLAttr }} class="card-image hover-overlay"
+           {{ $.Scratch.Get "target" | safeHTMLAttr }}>
+          <img src="{{ $image.RelPermalink }}" alt="" class="img-responsive">
+        </a>
+        {{ end }}
+        <div class="card-text">
+          <h4><a href="{{ $.Scratch.Get "project_url" }}" {{ $.Scratch.Get "target" | safeHTMLAttr }}>{{ .Title }}</a></h4>
+          <div class="card-desription">
+            {{ with $project.Params.summary }}<p>{{ . | markdownify }}</p>{{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+
+    </div>
+    </section>
+  {{ else }}
+    {{ range $paginator.Pages }}
+    <div>
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <div class="article-style">
+        {{ if .Params.summary }}
+        {{ .Params.summary | plainify | emojify }}
+        {{ else if .Params.abstract }}
+        {{ .Params.abstract | plainify | emojify | truncate 250 }}
+        {{ else if .Summary }}
+        {{ .Summary | plainify | emojify }}
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  {{ end }}
+
+  {{ partial "pagination" . }}
+</div>
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}
+
+{{ end }}
