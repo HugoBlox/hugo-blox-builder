@@ -5,9 +5,9 @@
   {{ if $.Params.authors }}
   {{ $authorLen := len $.Params.authors }}
   {{ if eq $authorLen 0}}
-  <div itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <span itemprop="name">{{ $.Site.Params.name }}</span>
-  </div>
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" cotent="{{ $.Site.Params.name }}">
+  </span>
   {{ else }}
   <div>
     {{ range $k, $v := $.Params.authors }}
@@ -19,9 +19,9 @@
   </div>
   {{ end }}
   {{ else }}
-  <div itemscope itemprop="author" itemtype="http://schema.org/Person">
-    <span itemprop="name">{{ $.Site.Params.name }}</span>
-  </div>
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="{{ $.Site.Params.name }}">
+  </span>
   {{ end }}
 
   <span class="article-date">
@@ -58,7 +58,7 @@
     <i class="fa fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
     <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).Permalink }}">{{ . }}</a>
-    {{ if lt $k (sub $categoriesLen 1) }}, {{ end }}
+    {{- if lt $k (sub $categoriesLen 1) -}}, {{ end }}
     {{ end }}
   </span>
   {{ end }}
