@@ -139,9 +139,7 @@ enableGitInfo = false
   #
   #   highlight_languages
   #     Add support for highlighting additional languages. Support for
-  #     languages mentioned here will be included in all pages. You
-  #     can also set this variable for a particular page in that
-  #     page's preamble.
+  #     languages mentioned here will be included in all pages.
   #
   #     Example: highlight_languages = ["go", "lisp", "ocaml"]
   #
@@ -156,7 +154,7 @@ enableGitInfo = false
   #   https://cdnjs.com/libraries/highlight.js/
   #
   #   For more info on the highlighting options, see:
-  #   https://sourcethemes.com/academic/post/writing-markdown-latex/#highlighting-options
+  #   https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
   highlight = true
   highlight_languages = []
   # highlight_style = "github"
