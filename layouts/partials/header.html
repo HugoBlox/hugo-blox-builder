@@ -12,14 +12,12 @@
   {{ $scr := .Scratch }}
   {{/* Generate page description. */}}
   {{ $scr.Set "description" .Site.Params.role }}
-  {{ if .IsPage }}
-    {{ if .Params.abstract }}
-      {{ $scr.Set "description" .Params.abstract }}
-    {{ else if .Params.summary }}
-      {{ $scr.Set "description" .Params.summary }}
-    {{ else }}
-      {{ $scr.Set "description" .Summary }}
-    {{ end }}
+  {{ if .Params.abstract }}
+    {{ $scr.Set "description" .Params.abstract }}
+  {{ else if .Params.summary }}
+    {{ $scr.Set "description" .Params.summary }}
+  {{ else if .IsPage }}
+    {{ $scr.Set "description" .Summary }}
   {{ end }}
   <meta name="description" content="{{ $scr.Get "description" }}">
 
