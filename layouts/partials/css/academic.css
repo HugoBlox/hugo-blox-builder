@@ -856,6 +856,29 @@ article .article-metadata {
   z-index: 3;
 }
 
+.article-project ul.network-icon {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.article-project .network-icon li {
+  margin-right: 10px;
+}
+
+.article-project .network-icon li:last-of-type {
+  margin-right: 0;
+}
+
+.article-project .network-icon li:hover {
+  transform: scale(1.2)
+}
+
+
 /*************************************************
  *  Card component
  **************************************************/

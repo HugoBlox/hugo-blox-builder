@@ -13,6 +13,16 @@
       <span class="pull-right">
         {{ partial "share.html" . }}
       </span>
+      <ul class="network-icon" aria-hidden="true">
+	{{ range $.Params.social }}
+	{{ $pack := or .icon_pack "fa" }}
+	<li>
+          <a itemprop="sameAs" href="{{ .link | safeURL }}" target="_blank" rel="noopener">
+            <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
+          </a>
+	</li>
+	{{ end }}
+      </ul>
     </div>
 
     {{ with .Params.external_link }}

@@ -22,6 +22,14 @@ math = false
 # Does the project detail page use source code highlighting?
 highlight = true
 
+# Social/Academic Networking about the Project
+# Same as config.toml: Uncomment and copy/paste as many as needed
+#[[social]]
+#  icon = "github"
+#  icon_pack = "fa"
+#  link = "//github.com/gcushen"
+
+
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
 [header]
