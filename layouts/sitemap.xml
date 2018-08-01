@@ -1,7 +1,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{ range (where .Data.Pages "Section" "!=" "home") }}
-    {{ $perm := add $.Site.LanguagePrefix "/home/" }}
-    {{ if ne .RelPermalink $perm }}
+    {{ if not .Params.widget }}
     <url>
     {{ if .IsTranslated }}
       <xhtml:link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Lang }}"/>{{ range .Translations }}
