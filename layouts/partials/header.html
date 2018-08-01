@@ -56,15 +56,15 @@
     {{ else if isset .Site.Params "highlight" }}
       {{ $scr.Set "highlight_enabled" .Site.Params.highlight }}
     {{ end }}
-    {{ if $scr.Get "highlight_enabled" }}
+    {{ if ($scr.Get "highlight_enabled") }}
       {{ $v := $css.highlight.version }}
       {{ with .Site.Params.highlight_style }}
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/{{ . }}.min.css">
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
       {{ else }}
         {{ if eq ($scr.Get "light") true }}
-          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/github.min.css">
+          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
         {{ else }}
-          <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/styles/dracula.min.css">
+          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version "dracula") | safeHTML }}
         {{ end }}
       {{ end }}
     {{ end }}
