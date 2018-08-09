@@ -15,7 +15,7 @@
 {{ range $index, $page := where (where .Data.Pages "Section" $section) ".Params.active" "!=" false }}
   {{ $params := dict "root" $ "page" $page }}
   {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
-  {{ if eq $page.Params.widget "hero" }}
+  {{ if in (slice "hero" "hero_carousel") $page.Params.widget }}
     {{ partial $widget $params }}
   {{ else }}
   <section id="{{ $page.File.TranslationBaseName }}" class="home-section">
