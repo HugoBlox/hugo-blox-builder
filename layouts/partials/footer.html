@@ -106,6 +106,8 @@
         search.addWidget(
           instantsearch.widgets.searchBox({
             container: '#search-box',
+            autofocus: false,
+            poweredBy: {{ .Site.Params.search.algolia.show_logo | default false }},
             placeholder: {{ i18n "search_placeholder" }}
           })
         );
@@ -114,6 +116,7 @@
         search.addWidget(
           instantsearch.widgets.infiniteHits({
             container: '#search-hits',
+            escapeHits: true,
             templates: {
               empty: '<div class="search-no-results">' + {{ i18n "search_no_results" }} + '</div>',
               item: getTemplate('search-hit')
