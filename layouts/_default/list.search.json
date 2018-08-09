@@ -10,7 +10,7 @@
     {{- else -}}
       {{- $scr.Set "summary" .Summary -}}
     {{- end -}}
-    {{- $scr.Add "index" (dict "objectID" .UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" .Permalink "relpermalink" .RelPermalink "title" .Title "summary" ($scr.Get "summary") "authors" .Params.Authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories)}}
+    {{- $scr.Add "index" (dict "objectID" .UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" .Permalink "relpermalink" .RelPermalink "title" .Title "summary" (plainify ($scr.Get "summary")) "content" .Plain "authors" .Params.Authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories)}}
   {{- end -}}
 {{- end -}}
 {{- $scr.Get "index" | jsonify -}}
