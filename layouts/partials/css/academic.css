@@ -1076,6 +1076,11 @@ a.badge:hover {
   background: {{ .Get "primary" }} !important;
 }
 
+.btn-outline-primary {
+  border-color: {{ .Get "primary" }} !important;
+  color: {{ .Get "primary" }} !important;
+}
+
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary.active,
@@ -1138,6 +1143,10 @@ a.badge:hover {
 
 .navbar-light .navbar-toggler {
   border-color: transparent;
+}
+
+.navbar-toggler {
+  color: {{ .Get "menu_text" }} !important;
 }
 
 .navbar-light .navbar-toggler:focus,
