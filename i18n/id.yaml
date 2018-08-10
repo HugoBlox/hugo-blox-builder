@@ -110,6 +110,17 @@
 - id: location
   translation: Lokasi
 
+# Work/Experience details
+
+- id: employer
+  translation: Majikan
+  
+- id: type_employer
+  translation: Ketik
+  
+- id: employment_period
+  translation: Periode kerja
+
 # Filtering
 
 - id: filter_by_type

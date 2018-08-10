@@ -75,6 +75,17 @@
 - id: location
   translation: Kokalekua
 
+# Work/Experience details
+
+- id: employer
+  translation: Enpresariaren
+  
+- id: type_employer
+  translation: Enpresari mota
+  
+- id: employment_period
+  translation: Enplegu aldia
+
 # Filtering
 
 - id: filter_by_type

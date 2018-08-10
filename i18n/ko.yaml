@@ -74,6 +74,17 @@
 
 - id: location
   translation: 장소
+ 
+# Work/Experience details
+
+- id: employer
+  translation: 고용주
+  
+- id: type_employer
+  translation: 고용주 유형
+  
+- id: employment_period
+  translation: 고용 기간
 
 # Filtering
 

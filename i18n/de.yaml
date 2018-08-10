@@ -74,6 +74,17 @@
 
 - id: location
   translation: Ort
+  
+# Work/Experience details
+  
+- id: employer
+  translation: Arbeitgeber
+  
+- id: type_employer
+  translation: Art
+  
+- id: employment_period
+  translation: Beschäftigungsdauer
 
 # Filtering
 

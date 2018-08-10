@@ -74,6 +74,17 @@
 
 - id: location
   translation: Locatie
+  
+# Work/Experience details
+  
+- id: employer
+  translation: Werkgever
+  
+- id: type_employer
+  translation: Type
+  
+- id: employment_period
+  translation: Werkperiode
 
 # Filtering
 

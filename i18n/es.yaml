@@ -113,6 +113,17 @@
 - id: location
   translation: Localización
 
+# Work/Experience details
+
+- id: employer
+  translation: Empleador
+  
+- id: type_employer
+  translation: Tipo
+  
+- id: employment_period
+  translation: Periodo de Empleo
+
 # Filtering
 
 - id: filter_by_type
