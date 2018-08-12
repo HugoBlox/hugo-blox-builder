@@ -27,7 +27,7 @@
               {{ else }}
                 {{ $.Scratch.Set "tag" (printf ".%s" (urlize .tag)) }}
               {{ end }}
-              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-large{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
+              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-lg{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
             {{ end }}
           </div>
         </div>
