@@ -82,3 +82,7 @@
   version = "2.9.0"
   sri = "sha256-0vcZrdMQksHcHrY60tPnVK71jnB3wX/JpMcah5BffjA="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch-theme-algolia.min.css"
+[css.highlight]
+  version = "9.12.0"
+  sri = ""  # No SRI as highlight style is determined at run time.
+  url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/styles/%s.min.css"

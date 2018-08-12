@@ -1,0 +1,61 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<section id="{{ $page.File.TranslationBaseName }}" class="carousel slide" data-ride="carousel" data-interval="{{if isset $page.Params "interval"}}{{$page.Params.interval}}{{else}}5000{{end}}">
+
+  <!-- Indicators -->
+  <ol class="carousel-indicators carousel-indicators-botleft">
+    {{ range $index, $item := $page.Params.item }}
+    <li data-target="#{{ $page.File.TranslationBaseName }}" data-slide-to="{{ $index }}" {{ if eq $index 0 }}class="active"{{ end }}></li>
+    {{ end }}
+  </ol>
+
+  <!-- Carousel slides wrapper -->
+  <div class="carousel-inner" style="min-height: {{$page.Params.height | default "300px"}};">
+    {{ range $index, $item := $page.Params.item }}
+    <div class="hero-overlay item{{ if eq $index 0 }} active{{ end }}" style="min-height: inherit;
+      {{ if $item.overlay_color }}
+      background-color: {{ $item.overlay_color | default "transparent" }};
+      {{ end }}
+      {{ if $item.overlay_img }}
+      background-image:
+      {{ if $item.overlay_filter }}linear-gradient(rgba(0, 0, 0, {{ $item.overlay_filter }}), rgba(0, 0, 0, {{ $item.overlay_filter }})), {{ end }}
+      url('{{ printf "img/%s" $item.overlay_img | absURL}}');
+      {{ end }}
+      ;">
+      <div class="container" style="text-align: {{$item.align | default "left"}};">
+          <h1 class="hero-title" itemprop="headline">
+            {{ with $item.title }}{{ . | markdownify | emojify }}{{ end }}
+          </h1>
+
+          {{ with $item.content }}
+          <p class="hero-lead" style="{{if eq $item.align "center"}}margin: 0 auto 0 auto;{{else if eq $item.align "right"}}margin-left: auto; margin-right: 0{{end}}">
+            {{ . | markdownify | emojify }}
+          </p>
+          {{ end }}
+
+          {{ if $item.cta_url }}
+          {{ $pack := or .icon_pack "fa" }}
+          <p>
+            <a href="{{ $item.cta_url }}" class="btn btn-light btn-outline btn-large">
+              {{- with $item.cta_icon -}}<i class="{{ $pack }} {{ $pack }}-{{ . }}" style="padding-right: 10px;"></i>{{- end -}}
+              {{- $item.cta_label | emojify | safeHTML -}}
+            </a>
+          </p>
+          {{ end }}
+        </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#{{ $page.File.TranslationBaseName }}" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#{{ $page.File.TranslationBaseName }}" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+
+</section>
