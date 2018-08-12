@@ -444,7 +444,7 @@ a[data-fancybox] img {
   text-decoration-line: underline;
 }
 
-.hero-overlay .btn-large {
+.hero-overlay .btn-lg {
   font-size: 1.1rem;
 }
 
@@ -1089,14 +1089,9 @@ a.badge:hover {
   background: {{ .Get "primary" }} !important;
 }
 
-.btn-light {
-  border-color: #fff !important;
-  background: #fff !important;
-}
-
-.btn-light:hover,
-.btn-light:active,
-.btn-light.active {
+.btn-outline-light:hover,
+.btn-outline-light:active,
+.btn-outline-light.active {
   background: rgba(0,0,0,0.4) !important;
 }
 
