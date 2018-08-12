@@ -406,7 +406,6 @@ a[data-fancybox] img {
  **************************************************/
 
 .hero-overlay {
-  position: relative;
   padding: 3em 0;
   clear: both;
   background-size: cover;

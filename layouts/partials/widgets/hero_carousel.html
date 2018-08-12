@@ -4,7 +4,7 @@
 <section id="{{ $page.File.TranslationBaseName }}" class="carousel slide" data-ride="carousel" data-interval="{{if isset $page.Params "interval"}}{{$page.Params.interval}}{{else}}5000{{end}}">
 
   <!-- Indicators -->
-  <ol class="carousel-indicators carousel-indicators-botleft">
+  <ol class="carousel-indicators">
     {{ range $index, $item := $page.Params.item }}
     <li data-target="#{{ $page.File.TranslationBaseName }}" data-slide-to="{{ $index }}" {{ if eq $index 0 }}class="active"{{ end }}></li>
     {{ end }}
