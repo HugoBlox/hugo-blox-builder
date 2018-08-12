@@ -1,0 +1,27 @@
+<div class="card-simple">
+  
+  <h3 class="article-title">
+    <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+  </h3>
+  
+  <div class="talk-metadata">
+    {{ .Params.employer | markdownify }}
+  </div>
+
+  <div class="talk-metadata">
+      {{ $date := .Params.time_start | default .Date }}
+      {{ (time $date).Format $.Site.Params.work.date_format_detail }}
+      &mdash;
+      {{ $date := .Params.time_end | default .Date }}
+      {{ (time $date).Format $.Site.Params.date_format_detail }}
+  </div>
+
+  <div class="talk-abstract" itemprop="text">
+    {{ if .Params.description_short }}
+    {{ .Params.description_short | markdownify }}
+    {{ else }}
+    {{ .Params.description | markdownify }}
+    {{ end }}
+  </div>
+
+</div>
