@@ -249,7 +249,30 @@ small,
  **************************************************/
 
 #search-box {
+  position: relative; /* Required for search icon positioning. */
   margin-bottom: 0.5rem;
+}
+
+#search-box::before {
+  content: "\f002";
+  font-family: FontAwesome;
+  font-size: 1rem;
+  opacity: 0.25;
+  line-height: 1rem;
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  overflow-x: hidden;
+}
+
+#search-query {
+  border: 1px solid #dedede;
+  border-radius: 1rem;
+  padding: 1rem 1rem 1rem 2rem; /* Wider left padding for search icon to fit in. */
+  width: 250px;
+  line-height: 1rem;
+  height: 1rem;
+  font-size: 0.8rem;
 }
 
 .search-hit em {
@@ -1577,6 +1600,10 @@ body.dark {
 
 /* Algolia search input */
 .dark .ais-search-box--input {
+  background-color: rgb(68, 71, 90);
+}
+
+.dark #search-query {
   background-color: rgb(68, 71, 90);
 }
 

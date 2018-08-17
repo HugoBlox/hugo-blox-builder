@@ -63,20 +63,37 @@
     <script>hljs.initHighlightingOnLoad();</script>
     {{ end }}
 
-    {{/* Algolia search engine. */}}
+    {{ if ne .Site.Params.search.engine 0 }}
+    {{/* Configure search engine. */}}
+    <script>
+      const search_index_filename = {{ "/search.json" | relURL }};
+      const i18n = {
+        'placeholder': {{ i18n "search_placeholder" }},
+        'no_results': {{ i18n "search_no_results" }}
+      };
+      const content_type = {
+        'post': {{ i18n "posts" }},
+        'project': {{ i18n "projects" }},
+        'publication' : {{ i18n "publications" }},
+        'talk' : {{ i18n "talks" }}
+        };
+    </script>
+    {{ end }}
+
+    {{/* Fuse search engine. */}}
     {{ if eq .Site.Params.search.engine 1 }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
+    <script src="{{ "/js/search.js" | relURL }}"></script>
+    {{ end }}
+
+    {{/* Algolia search engine. */}}
+    {{ if eq .Site.Params.search.engine 2 }}
     {{ if ($scr.Get "use_cdn") }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
     {{ end }}
     <script>
       if ( $('#search-box').length ) {
-        const content_type = {
-          'post': {{ i18n "posts" }},
-          'project': {{ i18n "projects" }},
-          'publication' : {{ i18n "publications" }},
-          'talk' : {{ i18n "talks" }}
-        };
-
         function getTemplate(templateName) {
           return document.querySelector(`#${templateName}-template`).innerHTML;
         }
@@ -108,7 +125,7 @@
             container: '#search-box',
             autofocus: false,
             poweredBy: {{ .Site.Params.search.algolia.show_logo | default false }},
-            placeholder: {{ i18n "search_placeholder" }}
+            placeholder: i18n.placeholder
           })
         );
 
@@ -118,8 +135,8 @@
             container: '#search-hits',
             escapeHits: true,
             templates: {
-              empty: '<div class="search-no-results">' + {{ i18n "search_no_results" }} + '</div>',
-              item: getTemplate('search-hit')
+              empty: '<div class="search-no-results">' + i18n.no_results + '</div>',
+              item: getTemplate('search-hit-algolia')
             },
             cssClasses: {
               showmoreButton: 'btn btn-primary btn-outline'

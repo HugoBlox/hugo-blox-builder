@@ -47,6 +47,14 @@
   version = "3.2.5"
   sri = "sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M="
   url = "https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.js"
+[js.fuse]
+  version = "3.2.1"
+  sri = "sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/fuse.js/%s/fuse.min.js"
+[js.mark]
+  version = "8.11.1"
+  sri = "sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/mark.js/%s/jquery.mark.min.js"
 [js.instantsearch]
   version = "2.9.0"
   sri = "sha256-cJXigylnJlxvAdfFNHeS+IiMcKWS3Rf/cy3bl9bb0ng="
