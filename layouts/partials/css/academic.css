@@ -181,6 +181,7 @@ pre {
 pre code {
   white-space: pre; /* Override Bootstrap to preserve line breaks in code. */
   overflow-x: auto;
+  background-color: inherit;
 }
 
 hr {
