@@ -113,8 +113,8 @@
 - id: location
   translation: Location
 
-- id: openaccess
-  translation: Open Access
+- id: access
+  translation: Access
 
 - id: license
   translation: License

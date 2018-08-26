@@ -19,9 +19,6 @@
   {{ end }}
 
   <h3 class="article-title" itemprop="name">
-    {{ if .Params.openaccess }}
-      <i class="ai ai-open-access small-icon"></i>
-    {{end}}
     <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
   </h3>
 

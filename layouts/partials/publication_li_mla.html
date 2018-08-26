@@ -1,7 +1,11 @@
 <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
-  <i class="fa fa-file-text-o pub-icon" aria-hidden="true"></i>
-  {{ if .Params.openaccess }}
-    <i class="ai ai-open-access small-icon"></i>
+  {{ if .Params.custom_icon }}
+    {{ range $.Params.custom_icon }}
+      {{ $pack := or .icon_pack "fa" }}
+      <i class="{{ $pack }} {{ $pack }}-{{ .icon }} small-icon" aria-hidden="true"></i>
+    {{ end }}
+  {{ else }}
+    <i class="fa fa-file-text-o pub-icon" aria-hidden="true"></i>
   {{end}}
   <span itemprop="author">
     {{ with .Params.authors }}

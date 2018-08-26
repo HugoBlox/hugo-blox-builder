@@ -113,8 +113,8 @@
 - id: location
   translation: Localización
 
-- id: openaccess
-  translation: Acceso Abierto
+- id: access
+  translation: Acceso
 
 - id: license
   translation: Licencia
