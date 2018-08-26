@@ -42,12 +42,6 @@ projects = []
 #   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
 tags = []
 
-# License information (optional)
-#   Setting `openaccess = true` will add an Open Access logo beside each publication.
-openaccess = false
-#  If you would like to specify the open license used, you may do so, otherwise, "Open Access" will appear on the publication details page.
-# license = ""
-
 # Links (optional).
 url_pdf = ""
 url_preprint = ""
@@ -68,6 +62,17 @@ math = false
 
 # Does this page require source code highlighting? (true/false)
 highlight = true
+
+# License and access information (optional)
+#   Add an additional field to the publications detail page for access and license.
+# access_type = "Open Access"
+# license_type = "CC BY 4.0"
+
+# Custom icon (optional)
+#  If you wish, you can change the "text file" icon the proceeds the article title in the "simple", "apa", and "mla" publication list styles
+# [[custom_icon]]
+# icon = "open-access"
+# icon_pack = "ai"
 
 # Featured image
 # Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
