@@ -66,7 +66,7 @@ highlight = true
 # License and access information (optional)
 #   Add an additional field to the publications detail page for access and license.
 # access_type = "Open Access"
-# license_type = "CC BY 4.0"
+# license_type = "[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)"
 
 # Custom icon (optional)
 #  If you wish, you can change the "text file" icon the proceeds the article title in the "simple", "apa", and "mla" publication list styles
