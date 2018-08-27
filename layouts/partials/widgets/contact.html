@@ -49,6 +49,15 @@
       </li>
       {{ end }}
 
+      {{ with $.Site.Params.fax }}
+      <li>
+        <i class="fa-li fa fa-fax fa-2x" aria-hidden="true"></i>
+        <span id="person-fax" itemprop="fax">
+        {{- if $autolink }}<a href="fax:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+        </span>
+      </li>
+      {{ end }}
+
       {{ with $.Site.Params.skype }}
       <li>
         <i class="fa-li fa fa-skype fa-2x" aria-hidden="true"></i>
