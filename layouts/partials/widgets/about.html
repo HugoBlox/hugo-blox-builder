@@ -41,9 +41,10 @@
       <ul class="network-icon" aria-hidden="true">
         {{ range $.Site.Params.social }}
         {{ $pack := or .icon_pack "fa" }}
+        {{ $pack_style := or .$pack_style $pack }}
         <li>
           <a itemprop="sameAs" href="{{ .link | safeURL }}" target="_blank" rel="noopener">
-            <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
+            <i class="{{ $pack_style }} {{ $pack }}-{{ .icon }} big-icon"></i>
           </a>
         </li>
         {{ end }}
