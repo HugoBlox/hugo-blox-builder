@@ -41,7 +41,7 @@
     <div class="row isotope projects-container js-layout-row">
         {{ range where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
         <div class="col-md-12 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}" itemscope itemtype="http://schema.org/CreativeWork">
-          <i class="fa fa-files-o pub-icon" aria-hidden="true"></i>
+          <i class="far fa-copy pub-icon" aria-hidden="true"></i>
 
           <span class="project-title">
           {{ if .Content }}
