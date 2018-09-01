@@ -11,7 +11,7 @@
     <p class="view-all">
       <a href="{{ ($.Site.GetPage "section" "talk").Permalink }}">
         {{ i18n "more_talks" | markdownify }}
-        <i class="fa fa-angle-double-right"></i>
+        <i class="fas fa-angle-double-right"></i>
       </a>
     </p>
     {{ end }}
@@ -19,7 +19,14 @@
   <div class="col-xs-12 col-md-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range first $page.Params.count (sort (where $.Site.RegularPages "Type" "talk") ".Params.time_start" "desc") }}
+    {{ $.Scratch.Set "talks" (where $.Site.RegularPages "Type" "talk") }}
+
+    {{/* Exclude talks shown in Selected Talks widget? */}}
+    {{ if $page.Params.exclude_selected }}
+    {{ $.Scratch.Set "talks" (where ($.Scratch.Get "talks") ".Params.selected" "!=" true) }}
+    {{ end }}
+
+    {{ range first $page.Params.count (sort ($.Scratch.Get "talks") ".Params.time_start" "desc") }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
       {{ else }}

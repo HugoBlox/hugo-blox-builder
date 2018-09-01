@@ -243,6 +243,59 @@ small,
 }
 
 /*************************************************
+ *  Search.
+ **************************************************/
+
+#search-box {
+  position: relative; /* Required for search icon positioning. */
+  margin-bottom: 0.5rem;
+}
+
+#search-box::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: "\f002";
+  font-size: 1rem;
+  opacity: 0.25;
+  line-height: 1rem;
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  overflow-x: hidden;
+}
+
+#search-query {
+  border: 1px solid #dedede;
+  border-radius: 1rem;
+  padding: 1rem 1rem 1rem 2rem; /* Wider left padding for search icon to fit in. */
+  width: 250px;
+  line-height: 1rem;
+  height: 1rem;
+  font-size: 0.8rem;
+}
+
+.search-hit em {
+  font-style: normal;
+  background-color: #FFE0B2;
+  color: #E65100;
+  border-bottom: 1px solid #E65100;
+}
+
+.search-hit-type {
+  margin-bottom: 0 !important; /* Override .article-metadata margin. */
+  text-transform: capitalize;
+}
+
+.search-hit-description {
+  font-size: 0.7rem;
+}
+
+/* Load more results button - hide when there are no more results. */
+#search-hits button[disabled] {
+  display: none;
+}
+
+/*************************************************
  *  Modals.
  **************************************************/
 
@@ -560,7 +613,7 @@ ul.share li:last-of-type {
   margin-right: 0;
 }
 
-ul.share li .fa {
+ul.share li i {
   display: block;
   width: 30px;
   height: 30px;
@@ -579,7 +632,7 @@ ul.share li a {
   margin: 0;
 }
 
-ul.share li:hover .fa {
+ul.share li:hover i {
   transform: scale(1.4)
 }
 
@@ -922,7 +975,8 @@ article .article-metadata {
   transform: translate(0, -50%);
   opacity: 0;
   transition: all 0.2s ease-out;
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: '\f0c1';
   text-align: center;
   font-size: 3rem;
@@ -1436,15 +1490,18 @@ div.alert p:first-child::before {
   position: absolute;
   top: -0.5rem;
   left: -2rem;
-  font-family: 'FontAwesome';
   font-size: 1.5rem;
   color: #fff;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: '\f05a';
   width: 1.5rem;
   text-align: center;
 }
 
 div.alert-warning p:first-child::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: '\f071';
 }
 
@@ -1494,7 +1551,6 @@ body.dark {
 .dark code {
   color: rgb(139, 233, 253);
   background-color: rgb(68, 71, 90);
-
 }
 
 .dark pre {
@@ -1585,4 +1641,28 @@ body.dark {
 .dark select {
   background: rgb(40, 42, 54);
   color: rgb(248, 248, 242);
+}
+
+/* Algolia search input */
+.dark .ais-search-box--input {
+  background-color: rgb(68, 71, 90);
+}
+
+.dark #search-query {
+  background-color: rgb(68, 71, 90);
+}
+
+.dark .label-default {
+  color: rgba(255, 255, 255, .68);
+  background: rgba(255, 255, 255, .2);
+}
+
+.dark .label-default[href]:focus,
+.dark .label-default[href]:hover {
+  background: rgba(255, 255, 255, .3);
+}
+
+.dark a.label:focus,
+.dark a.label:hover {
+  color: rgba(255, 255, 255, .68);
 }

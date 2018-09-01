@@ -2,10 +2,14 @@
   {{ if .Params.custom_icon }}
     {{ range $.Params.custom_icon }}
       {{ $pack := or .icon_pack "fa" }}
-      <i class="{{ $pack }} {{ $pack }}-{{ .icon }} small-icon" aria-hidden="true"></i>
+      {{ $pack_prefix := $pack }}
+        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+          {{ $pack_prefix = "fa" }}
+        {{ end }}
+      <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} small-icon" aria-hidden="true"></i>
     {{ end }}
   {{ else }}
-    <i class="fa fa-file-text-o pub-icon" aria-hidden="true"></i>
+    <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
   {{end}}
   <span itemprop="author">
     {{ with .Params.authors }}

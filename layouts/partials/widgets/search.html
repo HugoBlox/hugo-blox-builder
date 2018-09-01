@@ -1,0 +1,53 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<div class="row">
+  <div class="col-xs-12 col-md-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-xs-12 col-md-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    <div id="search-box">
+      {{ if eq $.Site.Params.search.engine 1 }}
+      <input name="q" id="search-query" placeholder="{{ i18n "search_placeholder" }}" autocapitalize="off" autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+      {{ else }}
+      <!-- Search box will appear here -->
+      {{ end }}
+    </div>
+
+    <div id="search-hits">
+      <!-- Search results will appear here -->
+    </div>
+
+  </div>
+</div>
+
+{{ if eq $.Site.Params.search.engine 1 }}
+{{/* Fuse search result template. */}}
+<script id="search-hit-fuse-template" type="text/x-template">
+  <div class="search-hit" id="summary-{{"{{key}}"}}">
+    <div class="search-hit-content">
+      <div class="search-hit-name">
+        {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
+        <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+        <p class="search-hit-description">{{"{{snippet}}"}}</p>
+      </div>
+    </div>
+  </div>
+</script>
+{{ else }}
+{{/* Algolia search result template. */}}
+<script id="search-hit-algolia-template" type="text/html">
+  <div class="search-hit">
+    <div class="search-hit-content">
+      <div class="search-hit-name">
+        {{ printf "<a href=\"%s\">{{{_highlightResult.title.value}}}</a>" "{{relpermalink}}" | safeHTML }}
+      </div>
+      <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+      <p class="search-hit-description">{{ safeHTML "{{{_highlightResult.summary.value}}}" }}</p>
+    </div>
+  </div>
+</script>
+{{ end }}

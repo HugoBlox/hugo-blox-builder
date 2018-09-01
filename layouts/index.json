@@ -1,0 +1,16 @@
+{{/* Generate the search index. */}}
+{{- $scr := $.Scratch -}}
+{{- $scr.Add "index" slice -}}
+{{- range (where .Site.RegularPages "Section" "!=" "home") -}}
+  {{- if and (not .Draft) (not .Params.private) -}}
+    {{- if .Params.abstract -}}
+      {{- $scr.Set "summary" .Params.abstract -}}
+    {{- else if .Params.summary -}}
+      {{- $scr.Set "summary" .Params.summary -}}
+    {{- else -}}
+      {{- $scr.Set "summary" .Summary -}}
+    {{- end -}}
+    {{- $scr.Add "index" (dict "objectID" .UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" .Permalink "relpermalink" .RelPermalink "title" .Title "summary" (plainify ($scr.Get "summary")) "content" .Plain "authors" .Params.Authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories)}}
+  {{- end -}}
+{{- end -}}
+{{- $scr.Get "index" | jsonify -}}

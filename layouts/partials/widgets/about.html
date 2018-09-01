@@ -10,7 +10,7 @@
       <div class="portrait" style="background-image: url('https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200');"></div>
       <meta itemprop="image" content="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200">
       {{ else if $.Site.Params.avatar }}
-      <div class="portrait" style="background-image: url('{{ (printf "/img/%s" $.Site.Params.avatar) | relURL }}');"></div>
+      <div class="portrait" style="background-image: url('{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}');"></div>
       <meta itemprop="image" content="{{ (printf "img/%s" $.Site.Params.avatar) | absURL }}">
       {{ end }}
 
@@ -41,9 +41,13 @@
       <ul class="network-icon" aria-hidden="true">
         {{ range $.Site.Params.social }}
         {{ $pack := or .icon_pack "fa" }}
+        {{ $pack_prefix := $pack }}
+        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+          {{ $pack_prefix = "fa" }}
+        {{ end }}
         <li>
           <a itemprop="sameAs" href="{{ .link | safeURL }}" target="_blank" rel="noopener">
-            <i class="{{ $pack }} {{ $pack }}-{{ .icon }} big-icon"></i>
+            <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
           </a>
         </li>
         {{ end }}
@@ -74,7 +78,7 @@
         <ul class="ul-edu fa-ul">
           {{ range .courses }}
           <li>
-            <i class="fa-li fa fa-graduation-cap"></i>
+            <i class="fa-li fas fa-graduation-cap"></i>
             <div class="description">
               <p class="course">{{ .course }}{{ with .year }}, {{ . }}{{ end }}</p>
               <p class="institution">{{ .institution }}</p>
