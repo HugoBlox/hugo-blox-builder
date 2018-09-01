@@ -1,13 +1,12 @@
 <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
   {{ if .Params.custom_icon }}
     {{ range $.Params.custom_icon }}
-      {{ $pack := or .icon_pack "fa" }}
-      {{ $pack_prefix := $pack }}
-        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-          {{ $pack_prefix = "fa" }}
-        {{ end }}
-      <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} small-icon" aria-hidden="true"></i>
+    {{ $pack := or .icon_pack "fa" }}
+    {{ $pack_prefix := $pack }}
+    {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+      {{ $pack_prefix = "fa" }}
     {{ end }}
+    <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} small-icon" aria-hidden="true"></i>
   {{ else }}
     <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
   {{end}}
