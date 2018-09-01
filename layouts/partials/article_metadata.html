@@ -50,7 +50,7 @@
   {{ if gt $categoriesLen 0 }}
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fa fa-folder"></i>
+    <i class="fas fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
     <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).Permalink }}">{{ . }}</a>
     {{- if lt $k (sub $categoriesLen 1) -}}, {{ end }}
