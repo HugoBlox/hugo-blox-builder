@@ -13,8 +13,11 @@ summary = ""
 # Optional image to display on homepage.
 image_preview = ""
 
-# Optional external URL for project (replaces project detail page).
+# Optional external URL for project:
+#   replaces project detail page if keep_permalink==false
+#   display a link to the project website otherwise 
 external_link = ""
+keep_permalink = false
 
 # Does the project detail page use math formatting?
 math = false
