@@ -255,8 +255,9 @@ small,
 }
 
 #search-box::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: "\f002";
-  font-family: FontAwesome;
   font-size: 1rem;
   opacity: 0.25;
   line-height: 1rem;
@@ -613,7 +614,7 @@ ul.share li:last-of-type {
   margin-right: 0;
 }
 
-ul.share li .fa {
+ul.share li i {
   display: block;
   width: 30px;
   height: 30px;
@@ -632,7 +633,7 @@ ul.share li a {
   margin: 0;
 }
 
-ul.share li:hover .fa {
+ul.share li:hover i {
   transform: scale(1.4)
 }
 
@@ -975,7 +976,8 @@ article .article-metadata {
   transform: translate(0, -50%);
   opacity: 0;
   transition: all 0.2s ease-out;
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: '\f0c1';
   text-align: center;
   font-size: 3rem;
@@ -1449,15 +1451,18 @@ div.alert p:first-child::before {
   position: absolute;
   top: -0.5rem;
   left: -2rem;
-  font-family: 'FontAwesome';
   font-size: 1.5rem;
   color: #fff;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: '\f05a';
   width: 1.5rem;
   text-align: center;
 }
 
 div.alert-warning p:first-child::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   content: '\f071';
 }
 

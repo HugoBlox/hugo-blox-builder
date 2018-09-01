@@ -1,8 +1,13 @@
 +++
 # Feature/Skill widget.
-widget = "featurette"
+widget = "featurette"  # Do not modify this line!
+date = 2017-09-20T00:00:00
+
+# Activate this widget? true/false
 active = false
-date = "2017-11-21"
+
+title = ""
+subtitle = ""
 
 # Order that this section will appear in.
 weight = 20
