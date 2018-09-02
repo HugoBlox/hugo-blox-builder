@@ -58,19 +58,35 @@
     <div class="visible-xs space-below"></div>
     {{ end }}
 
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
-        <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
-          <div class="col-xs-12 col-sm-9" itemprop="datePublished">
-            {{ .Date.Format ($.Site.Params.publications.date_format | default "January, 2006") }}
+    {{ if .Params.custom_status }}
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          <div class="row">
+            <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "status" }}</div>
+            <div class="col-xs-12 col-sm-9" itemprop="datePublished">
+              {{.Params.custom_status | markdownify}}.
+            </div>
           </div>
         </div>
+        <div class="col-sm-1"></div>
       </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <div class="visible-xs space-below"></div>
+      <div class="visible-xs space-below"></div>
+    {{ else }}
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          <div class="row">
+            <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
+            <div class="col-xs-12 col-sm-9" itemprop="datePublished">
+              {{ .Date.Format ($.Site.Params.publications.date_format | default "January, 2006") }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="visible-xs space-below"></div>
+    {{ end}}
 
     <div class="row" style="padding-top: 10px">
       <div class="col-sm-1"></div>

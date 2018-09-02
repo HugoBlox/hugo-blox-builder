@@ -5,7 +5,11 @@
       {{- delimit . ", " | markdownify -}}
     {{- end -}}
   </span>
-  ({{- .Date.Format "2006" -}}).
+  {{ if .Params.custom_status }}
+    ({{ .Params.custom_status | markdownify }}).
+  {{ else }}
+    ({{- .Date.Format "2006" -}}).
+  {{ end}}
   <a href="{{ .Permalink }}" itemprop="name">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
     {{- .Params.publication_short | markdownify -}}.

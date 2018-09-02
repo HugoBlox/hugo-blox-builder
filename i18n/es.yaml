@@ -113,6 +113,9 @@
 - id: location
   translation: Localización
 
+- id: status
+  translation: Estado
+
 # Filtering
 
 - id: filter_by_type

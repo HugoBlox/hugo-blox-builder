@@ -57,6 +57,10 @@ url_source = ""
 #   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
 # url_custom = [{name = "Custom Link", url = "http://example.org"}]
 
+# Custom status (optional).
+#   Uncomment line below to enable. Replaces date with content of your choice.
+# custom_status = "In Press"
+
 # Does this page contain LaTeX math? (true/false)
 math = true
 
