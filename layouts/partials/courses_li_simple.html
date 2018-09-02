@@ -1,0 +1,27 @@
+<section>
+  <div class="pub-list-item" style="margin-bottom: 1rem">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 d-flex flex-column flex-md-row">
+        <span itemprop="name"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
+      </div>
+      <div class="col-xs-12 col-sm-2 d-flex flex-column flex-md-row" align="right">
+        <div class="talk-metadata">
+          {{ $date := .Params.time_start | default .Date }}
+          {{ (time $date).Format $.Site.Params.courses.date_format }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 d-flex flex-column flex-md-row">
+        <div class="talk-metadata">
+          {{ .Params.institution_course | markdownify }}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 d-flex flex-column flex-md-row" align="right">
+        <div class="talk-metadata">
+          {{ .Params.type_course }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
