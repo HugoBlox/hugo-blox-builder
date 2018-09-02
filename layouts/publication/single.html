@@ -58,32 +58,22 @@
     <div class="visible-xs space-below"></div>
     {{ end }}
 
-    {{ if .Params.access_type }}
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
-        <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "access" }}</div>
-            <div class="col-xs-12 col-sm-9">{{ .Params.access_type | markdownify }}</div>
+    {{ if .Params.custom_detail }}
+      {{ range $.Params.custom_detail }}
+      {{ $name := .title }}
+      {{ $text := .value }}
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          <div class="row">
+            <div class="col-xs-12 col-sm-3 pub-row-heading">{{ $name }}</div>
+              <div class="col-xs-12 col-sm-9">{{ $text | markdownify }}</div>
+          </div>
         </div>
+        <div class="col-sm-1"></div>
       </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <div class="visible-xs space-below"></div>
-    {{ end }}
-
-    {{ if .Params.license_type }}
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
-        <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "license" }}</div>
-            <div class="col-xs-12 col-sm-9">{{ .Params.license_type | markdownify }}</div>
-        </div>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <div class="visible-xs space-below"></div>
+      <div class="visible-xs space-below"></div>
+      {{ end }}
     {{ end }}
 
     <div class="row">
