@@ -1,8 +1,8 @@
 name = "Academic"
 license = "MIT"
 licenselink = "https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md"
-description = "Easily create beautifully simple academic or personal sites"
-homepage = "https://github.com/gcushen/hugo-academic"
+description = "The website designer for Hugo. Build anything and deploy with one click! Fully customizable with themes, plugins, and language packs."
+homepage = "https://sourcethemes.com/academic/"
 min_version = 0.48
 tags = ["academic",
         "portfolio",
