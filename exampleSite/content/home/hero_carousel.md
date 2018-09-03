@@ -33,7 +33,7 @@ height = "300px"
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Get Academic"
   cta_url = "https://sourcethemes.com/academic/"
-  cta_icon_pack = "fa"
+  cta_icon_pack = "fas"
   cta_icon = "graduation-cap"
 
 [[item]]
