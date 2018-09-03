@@ -16,9 +16,13 @@
   {{ end }}
 
   {{ range $page.Params.feature }}
-  {{ $pack := or .icon_pack "fa" }}
+  {{ $pack := or .icon_pack "fas" }}
+  {{ $pack_prefix := $pack }}
+  {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+    {{ $pack_prefix = "fa" }}
+  {{ end }}
   <div class="col-md-4">
-    {{ with .icon }}<div class="featurette-icon"><i class="{{ $pack }} {{ $pack }}-{{ . }}"></i></div>{{ end }}
+    {{ with .icon }}<div class="featurette-icon"><i class="{{ $pack }} {{ $pack_prefix }}-{{ . }}"></i></div>{{ end }}
     <h3>{{ .name | markdownify | emojify }}</h3>
     {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>

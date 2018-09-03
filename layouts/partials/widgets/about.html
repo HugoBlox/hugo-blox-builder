@@ -40,7 +40,7 @@
 
       <ul class="network-icon" aria-hidden="true">
         {{ range $.Site.Params.social }}
-        {{ $pack := or .icon_pack "fa" }}
+        {{ $pack := or .icon_pack "fas" }}
         {{ $pack_prefix := $pack }}
         {{ if in (slice "fab" "fas" "far" "fal") $pack }}
           {{ $pack_prefix = "fa" }}
