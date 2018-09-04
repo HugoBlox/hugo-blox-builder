@@ -12,10 +12,10 @@
 </a>
 {{ end }}
 {{ $directory := "static/files/citations/" }}
-{{ $filename := printf "%s%s.bib" $directory $.File.TranslationBaseName }}
+{{ $filename := printf "%s%s.bib" $directory $.File.Name }}
 {{ if fileExists $filename }}
 <button type="button" class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}} js-cite-modal"
-        data-filename="{{ printf "files/citations/%s.bib" $.File.TranslationBaseName | relURL }}">
+        data-filename="{{ printf "files/citations/%s.bib" $.File.Name | relURL }}">
   {{ i18n "btn_cite" }}
 </button>
 {{ end }}

@@ -2,7 +2,7 @@
 {{ $page := .page }}
 {{ $header := $page.Params.header }}
 
-<section id="{{ $page.File.TranslationBaseName }}" class="hero-overlay" style="
+<section id="{{ $page.File.Name }}" class="hero-overlay" style="
 {{ if $header.overlay_color }}
 background-color: {{ $header.overlay_color | default "transparent" }};
 {{ end }}
