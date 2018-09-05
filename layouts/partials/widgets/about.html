@@ -43,7 +43,7 @@
         {{ $pack := or .icon_pack "fas" }}
         {{ $pack_prefix := $pack }}
         {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-          {{ $pack_prefix = "fa" }}
+          {{ $pack_prefix := "fa" }}
         {{ end }}
         <li>
           <a itemprop="sameAs" href="{{ .link | safeURL }}" target="_blank" rel="noopener">
