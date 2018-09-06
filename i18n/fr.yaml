@@ -61,6 +61,9 @@
 - id: btn_download
   translation: Télécharger
 
+- id: btn_doi
+  translation: DOI
+
 # About widget
 
 - id: interests

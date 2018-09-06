@@ -26,6 +26,9 @@
 - id: btn_project
   translation: Proje
 
+- id: btn_doi
+  translation: DOI
+
 # About widget
 
 - id: interests
@@ -91,7 +94,7 @@
 # Default node titles
 
 - id: posts
-  translation: Blog içerikleri 
+  translation: Blog içerikleri
 
 - id: publications
   translation: Yayınlar
