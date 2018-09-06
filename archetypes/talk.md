@@ -8,6 +8,9 @@ draft = false
 time_start = {{ .Date }}
 time_end = {{ .Date }}
 
+# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
+authors = []
+
 # Abstract and optional shortened version.
 abstract = ""
 abstract_short = ""

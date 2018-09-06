@@ -10,7 +10,7 @@
       <h1 itemprop="name">{{ .Title }}</h1>
       <span class="pub-authors" itemprop="author">
         {{ with .Params.authors }}
-        {{ delimit . ", " }}
+        {{ delimit . ", " | markdownify }}
         {{ end }}
       </span>
       <span class="pull-right">
