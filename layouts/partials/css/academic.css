@@ -1070,7 +1070,7 @@ article .article-metadata {
 }
 
 .contact-symbol {
-  padding-top: .25rem;
+ margin-top: -.25rem;
 }
 
 .contact-email-obfuscate:before {
