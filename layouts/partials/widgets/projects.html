@@ -17,9 +17,12 @@
     {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
     {{ $default_filter_tag_raw := (index $page.Params.filter ($filter_default)).tag }}
     {{ $default_filter_tag := printf ".%s" (urlize $default_filter_tag_raw) }}
+    {{ $.Page.Scratch.Set "default_filter_tag" $default_filter_tag }}
     {{ if or (eq (substr $default_filter_tag_raw 0 1) "*") (eq (substr $default_filter_tag_raw 0 1) ".") }}
-      {{ $default_filter_tag = $default_filter_tag_raw }}
+      {{/* $default_filter_tag = $default_filter_tag_raw */}}
+      {{ $.Page.Scratch.Set "default_filter_tag" $default_filter_tag_raw }}
     {{ end }}
+    {{ $default_filter_tag := $.Page.Scratch.Get "default_filter_tag" }}
 
     <span class="hidden default-project-filter">{{ $default_filter_tag }}</span>
 

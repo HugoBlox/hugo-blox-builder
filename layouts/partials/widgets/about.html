@@ -41,10 +41,13 @@
       <ul class="network-icon" aria-hidden="true">
         {{ range $.Site.Params.social }}
         {{ $pack := or .icon_pack "fas" }}
-        {{ $pack_prefix := $pack }}
+        {{/* $pack_prefix := $pack */}}
+        {{ $.Page.Scratch.Set "pack_prefix" $pack }}
         {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-          {{ $pack_prefix = "fa" }}
+          {{/* $pack_prefix = "fa" */}}
+          {{ $.Page.Scratch.Set "pack_prefix" "fa" }}
         {{ end }}
+        {{ $pack_prefix := $.Page.Scratch.Get "pack_prefix" }}
         <li>
           <a itemprop="sameAs" href="{{ .link | safeURL }}" target="_blank" rel="noopener">
             <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
