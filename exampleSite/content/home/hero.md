@@ -25,12 +25,13 @@ weight = 3
 +++
 
 The highly flexible website framework for Hugo with an extensible plugin mechanism. Create a beautifully simple site in under 10 minutes :rocket:
-<br>
-<small><a id="academic-release" href="https://sourcethemes.com/academic/updates">Latest release</a></small>
-<br><br>
-<iframe style="display: inline-block;" src="https://ghbtns.com/github-btn.html?user=gcushen&amp;repo=hugo-academic&amp;type=star&amp;count=true&amp;size=large" scrolling="0" width="160px" height="30px" frameborder="0"></iframe>
-<iframe style="display: inline-block;" src="https://ghbtns.com/github-btn.html?user=gcushen&amp;repo=hugo-academic&amp;type=fork&amp;count=true&amp;size=large" scrolling="0" width="158px" height="30px" frameborder="0"></iframe>
-
+<div style="margin-top: -0.5rem;">
+  <a id="academic-release" href="https://sourcethemes.com/academic/updates">Latest release</a>
+</div>
+<div class="mt-3">
+  <a class="github-button" href="https://github.com/gcushen/hugo-academic" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gcushen/hugo-academic on GitHub">Star</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 <script type="text/javascript">
   (function defer() {
     if (window.jQuery) {

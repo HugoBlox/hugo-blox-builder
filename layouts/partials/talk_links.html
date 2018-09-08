@@ -2,28 +2,28 @@
 {{ $ := .content }}
 
 {{ with $.Params.url_pdf }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
 {{ with $.Params.url_slides }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_slides" }}
 </a>
 {{ end }}
 {{ with $.Params.url_video }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_video" }}
 </a>
 {{ end }}
 {{ with $.Params.url_code }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}">
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | absURL }}">
   {{ i18n "btn_code" }}
 </a>
 {{ end }}
 {{ range $.Params.projects }}
   {{ with ($.Site.GetPage (printf "project/%s" .)) }}
-  <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .Permalink }}">
+  <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .Permalink }}">
     {{ i18n "btn_project" }}
   </a>
   {{ else }}
@@ -31,7 +31,7 @@
   {{ end }}
 {{ end }}
 {{ range $.Params.url_custom }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}">
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .url | absURL }}">
   {{ .name }}
 </a>
 {{ end }}
