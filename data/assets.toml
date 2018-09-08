@@ -12,8 +12,8 @@
   sri = "sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js"
 [js.bootstrap]
-  version = "4.1.1"
-  sri = "sha512-YK1Mz9UiZmhbFzXgMbl3bO49wZ78Xj3h8TtTBLFHEAEjUBxsEZdXd8Il5RWbhPOyB653bGQDNVGGny2mORZq4A=="
+  version = "4.1.3"
+  sri = "sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ="
   url = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/js/bootstrap.min.js"
 [js.highlight]
   version = "9.12.0"
@@ -63,8 +63,8 @@
 # CSS
 
 [css.bootstrap]
-  version = "4.1.1"
-  sri = "sha512-iqRdf+0KMFmNZgdsA+8bz1MWIIXQBUCavPYVSVI83fcVfH2Y2PnNooLN04bgTNoUiQvIzidiIHJAcIP/uAEV9w=="
+  version = "4.1.3"
+  sri = "sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="
   url = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css"
 [css.fontAwesome]
   version = "5.3.1"
