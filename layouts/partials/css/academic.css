@@ -1322,16 +1322,6 @@ nav#navbar-main li.nav-item {
     max-height: 40px;
   }
 
-  /*.navbar-header {
-    float: none;
-    min-height: inherit;
-  }*/
-
-  /*.navbar-nav.mr-auto,
-  .navbar-nav.ml-auto {
-    float: none !important;
-  }*/
-
   .navbar-toggler {
     display: block;
   }
@@ -1340,19 +1330,6 @@ nav#navbar-main li.nav-item {
     top: 0;
     border-width: 0 0 1px;
   }
-
-  /*.navbar-collapse.collapse {
-    display: none !important;
-  }*/
-
-  /*.navbar-nav {
-    float: none !important;
-    margin-top: 7.5px;
-  }*/
-
-  /*.navbar-nav > li {
-    float: none;
-  }*/
 
   .navbar-nav > li.nav-item > a.nav-link {
     padding-top: 10px;
@@ -1372,7 +1349,6 @@ nav#navbar-main li.nav-item {
 
   .navbar-light .navbar-nav .open .dropdown-menu {
     position: static;
-    /*float: none;*/
     width: auto;
     margin-top: 0;
     background-color: transparent;
