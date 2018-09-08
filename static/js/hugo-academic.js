@@ -184,7 +184,7 @@
       let zoom = parseInt($('#map-zoom').val());
       let address = $('#map-dir').val();
       let api_key = $('#map-api-key').val();
-      
+
       if ( map_provider == 1 ) {
         let map = new GMaps({
           div: '#map',
@@ -299,7 +299,7 @@
       e.preventDefault();
       let filename = $(this).attr('data-filename');
       let modal = $('#modal');
-      modal.find('.modal-body').load( filename , function( response, status, xhr ) {
+      modal.find('.modal-body code').load( filename , function( response, status, xhr ) {
         if ( status == 'error' ) {
           let msg = "Error: ";
           $('#modal-error').html( msg + xhr.status + " " + xhr.statusText );
