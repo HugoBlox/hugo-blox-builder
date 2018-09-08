@@ -1205,6 +1205,7 @@ a.badge:hover {
   background-color: transparent;
 }
 
+.dropdown-menu,
 nav#navbar-main li.nav-item {
   font-size: {{ .Get "font_size_small" }}px;
 }
