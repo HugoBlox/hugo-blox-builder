@@ -11,7 +11,7 @@
       {{ delimit . ", " | markdownify }}
       {{ end }}
     </span>
-    <span class="pull-right">
+    <span class="float-right">
       {{ partial "share.html" . }}
     </span>
 
@@ -26,11 +26,11 @@
 
     {{ if (.Params.publication_types) and (ne (index .Params.publication_types 0) "0") }}
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication_type" }}</div>
-          <div class="col-xs-12 col-sm-9">
+          <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication_type" }}</div>
+          <div class="col-12 col-md-9">
             {{ range $index, $pubtype := .Params.publication_types }}
             <a href="{{ ($.Site.GetPage "section" "publication").Permalink }}#{{ . | urlize }}">
               {{ index $.Site.Params.publication_types (int .) }}
@@ -39,54 +39,54 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-md-1"></div>
     </div>
-    <div class="visible-xs space-below"></div>
+    <div class="d-md-none space-below"></div>
     {{ end }}
 
     {{ if .Params.publication }}
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "publication" }}</div>
-          <div class="col-xs-12 col-sm-9">{{ .Params.publication | markdownify }}</div>
+          <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication" }}</div>
+          <div class="col-12 col-md-9">{{ .Params.publication | markdownify }}</div>
         </div>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-md-1"></div>
     </div>
-    <div class="visible-xs space-below"></div>
+    <div class="d-md-none space-below"></div>
     {{ end }}
 
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading">{{ i18n "date" }}</div>
-          <div class="col-xs-12 col-sm-9" itemprop="datePublished">
+          <div class="col-12 col-md-3 pub-row-heading">{{ i18n "date" }}</div>
+          <div class="col-12 col-md-9" itemprop="datePublished">
             {{ .Date.Format ($.Site.Params.publications.date_format | default "January, 2006") }}
           </div>
         </div>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-md-1"></div>
     </div>
-    <div class="visible-xs space-below"></div>
+    <div class="d-sm-none space-below"></div>
 
     <div class="row" style="padding-top: 10px">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-10">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <div class="row">
-          <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">{{ i18n "links" }}</div>
-          <div class="col-xs-12 col-sm-9">
+          <div class="col-12 col-md-3 pub-row-heading" style="line-height:34px;">{{ i18n "links" }}</div>
+          <div class="col-12 col-md-9">
 
             {{ partial "publication_links" (dict "content" . "is_list" 0) }}
 
           </div>
         </div>
       </div>
-      <div class="col-sm-1"></div>
+      <div class="col-md-1"></div>
     </div>
-    <div class="visible-xs space-below"></div>
+    <div class="d-sm-none space-below"></div>
 
     <div class="space-below"></div>
 

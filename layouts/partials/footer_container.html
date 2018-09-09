@@ -15,7 +15,7 @@
       <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
       <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
-      <span class="pull-right" aria-hidden="true">
+      <span class="float-right" aria-hidden="true">
         <a href="#" id="back_to_top">
           <span class="button_icon">
             <i class="fas fa-chevron-up fa-2x"></i>
@@ -32,17 +32,19 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close btn-large" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ i18n "btn_cite" }}</h4>
+        <h5 class="modal-title">{{ i18n "btn_cite" }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div>
-        <pre><code class="modal-body tex"></code></pre>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-primary btn-outline js-copy-cite" href="#" target="_blank">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
           <i class="fas fa-copy"></i> {{ i18n "btn_copy" }}
         </a>
-        <a class="btn btn-primary btn-outline js-download-cite" href="#" target="_blank">
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
           <i class="fas fa-download"></i> {{ i18n "btn_download" }}
         </a>
         <div id="modal-error"></div>

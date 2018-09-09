@@ -3,11 +3,11 @@
 
 <!-- Projects widget -->
 <div class="row">
-  <div class="col-xs-12 col-md-4 section-heading">
+  <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
   </div>
-  <div class="col-xs-12 col-md-8">
+  <div class="col-12 col-lg-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
     {{ if $page.Params.filter }}
@@ -21,7 +21,7 @@
       {{ $default_filter_tag = $default_filter_tag_raw }}
     {{ end }}
 
-    <span class="hidden default-project-filter">{{ $default_filter_tag }}</span>
+    <span class="d-none default-project-filter">{{ $default_filter_tag }}</span>
 
     {{/* Only show filter buttons if there are multiple filters. */}}
     {{ if gt (len $page.Params.filter) 1 }}
@@ -36,7 +36,7 @@
               {{ else }}
                 {{ $.Scratch.Set "tag" (printf ".%s" (urlize .tag)) }}
               {{ end }}
-              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-large{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
+              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-lg{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
             {{ end }}
           </div>
         </div>
@@ -49,7 +49,7 @@
 
     <div class="row isotope projects-container js-layout-row">
         {{ range where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
-        <div class="col-md-12 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}" itemscope itemtype="http://schema.org/CreativeWork">
+        <div class="col-lg-12 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}" itemscope itemtype="http://schema.org/CreativeWork">
           <i class="far fa-copy pub-icon" aria-hidden="true"></i>
 
           <span class="project-title">
@@ -77,7 +77,7 @@
       {{   $.Scratch.Set "project_url" $project.Params.external_link }}
       {{   $.Scratch.Set "target" "target=\"_blank\"" }}
       {{ end }}
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-6 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
         <div class="card">
           {{ with $project.Params.image_preview }}
           <a href="{{ $.Scratch.Get "project_url" }}" title="" class="card-image hover-overlay"
