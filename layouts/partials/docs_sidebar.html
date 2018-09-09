@@ -1,0 +1,26 @@
+{{ $current_page := . }}
+
+{{ if eq $.Site.Params.search.engine 1 }}
+<form class="docs-search d-flex align-items-center">
+  <input name="q" type="search" class="form-control" id="search-query" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
+</form>
+{{ end }}
+
+<nav class="docs-links" id="docs-nav">
+  {{ range .Site.Menus.docs.ByWeight }}
+  <div class="docs-toc-item{{ if $current_page.IsMenuCurrent "docs" . }} active{{ end }}">
+    <a class="docs-toc-link" {{ if .URL }}href="{{ .URL }}"{{else if .HasChildren }}href="{{ (index .Children 0).URL }}"{{end}}>{{ .Name }}</a>
+
+    {{- if .HasChildren }}
+    <ul class="nav docs-sidenav">
+      {{ range .Children }}
+      <li {{ if $current_page.IsMenuCurrent "docs" . }}class="active"{{ end }}>
+        <a href="{{ .URL }}">{{ .Name }}</a>
+      </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+
+  </div>
+  {{ end }}
+</nav>

@@ -59,6 +59,10 @@
   version = "2.9.0"
   sri = "sha256-cJXigylnJlxvAdfFNHeS+IiMcKWS3Rf/cy3bl9bb0ng="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.js"
+[js.anchor]
+  version = "4.1.1"
+  sri = "sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/anchor-js/%s/anchor.min.js"
 
 # CSS
 

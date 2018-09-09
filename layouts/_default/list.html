@@ -9,9 +9,8 @@
 
 {{ partial "header_image.html" . }}
 
-<div class="article-container">
-
-  {{ with .Title }}<h1 class="my-4">{{ . }}</h1>{{ end }}
+<div class="universal-wrapper">
+  {{ with .Title }}<h1 class="pt-3">{{ . }}</h1>{{ end }}
 
   {{ with .Content }}
   <div class="article-style" itemprop="articleBody">{{ . }}</div>
@@ -34,7 +33,6 @@
   {{ end }}
 
   {{ partial "pagination" . }}
-
 </div>
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}

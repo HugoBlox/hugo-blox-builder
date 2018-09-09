@@ -268,7 +268,7 @@ small,
   overflow-x: hidden;
 }
 
-#search-query {
+#search-box #search-query {
   border: 1px solid #dedede;
   border-radius: 1rem;
   padding: 1rem 1rem 1rem 2rem; /* Wider left padding for search icon to fit in. */
@@ -297,6 +297,11 @@ small,
 /* Load more results button - hide when there are no more results. */
 #search-hits button[disabled] {
   display: none;
+}
+
+.form-control:focus {
+  border-color: {{ .Get "primary" }};
+  box-shadow: 0 0 0 .2rem {{ .Get "primary_light" }};
 }
 
 /*************************************************
@@ -1500,19 +1505,244 @@ div.alert a:hover {
 
 
 /*************************************************
+ *  Documentation layout
+ **************************************************/
+
+.docs-article-container {
+  max-width: 760px;
+}
+
+/* Documentation: article footer. */
+
+.docs .body-footer {
+  border-top: 1px solid #e8e8e8;
+  margin-top: 30px;
+  padding-top: 10px;
+  font-size: 14px;
+  color: #707070;
+}
+
+/* Docs content. */
+
+.docs-content {
+  order: 1;
+  position: relative;
+}
+
+.docs-content>h2[id],
+.docs-content>h3[id],
+.docs-content>h4[id] {
+  pointer-events: none;
+}
+
+.docs-content>ol li,
+.docs-content>ul li {
+  margin-bottom: .25rem;
+}
+
+/* Docs search. */
+
+.docs-search {
+  position: relative;
+  padding: 1rem 15px;
+  margin-right: -15px;
+  margin-left: -15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .05);
+}
+
+.docs-search .form-control:focus {
+  border-color: {{ .Get "primary" }};
+  box-shadow: 0 0 0 3px {{ .Get "primary_light" }};
+}
+
+/* Docs sidebar. */
+
+.docs-sidebar {
+  order: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .1)
+}
+
+@media (min-width:768px) {
+  .docs-sidebar {
+    border-right: 1px solid rgba(0, 0, 0, .1)
+  }
+  @supports ((position:-webkit-sticky) or (position:sticky)) {
+    .docs-sidebar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 71px;
+      z-index: 1000;
+      height: calc(100vh - 71px)
+    }
+  }
+}
+
+@media (min-width:1200px) {
+  .docs-sidebar {
+    flex: 0 1 320px
+  }
+}
+
+/* Docs sidebar li>a. */
+
+.docs-sidebar .nav>li>a {
+  display: block;
+  padding: .25rem 1.5rem;
+  font-size: 90%;
+  color: rgba(0, 0, 0, .65);
+}
+
+.docs-sidebar .nav>li>a:hover {
+  color: rgba(0, 0, 0, .85);
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.docs-sidebar .docs-toc-item.active a,
+.docs-sidebar .nav>.active:hover>a,
+.docs-sidebar .nav>.active>a {
+  font-weight: bold;
+  color: {{ .Get "primary" }};
+  background-color: transparent;
+}
+
+/* Docs links. */
+
+.docs-links {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media (min-width:768px) {
+  @supports (position: sticky) {
+    .docs-links {
+      max-height: calc(100vh - 5rem - 71px);
+      overflow-y: auto;
+    }
+  }
+}
+
+@media (min-width:768px) {
+  .docs-links {
+    display: block!important;
+  }
+}
+
+/* Docs TOC. */
+
+.docs-toc {
+  order: 2;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  font-size: .875rem
+}
+
+@supports ((position:-webkit-sticky) or (position:sticky)) {
+  .docs-toc {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 4rem;
+    height: calc(100vh - 4rem);
+    overflow-y: auto
+  }
+}
+
+/* Docs TOC item links. */
+
+.docs-toc-link {
+  display: block;
+  padding: .25rem 1.5rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, .65);
+}
+
+.docs-toc-link:hover {
+  color: rgba(0, 0, 0, .85);
+  text-decoration: none;
+}
+
+.docs-toc-item.active {
+  margin-bottom: 1rem;
+}
+
+.docs-toc-item.active:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.docs-toc-item.active>.docs-toc-link {
+  color: rgba(0, 0, 0, .85);
+}
+
+.docs-toc-item.active>.docs-toc-link:hover {
+  background-color: transparent;
+}
+
+.docs-toc-item.active>.docs-sidenav {
+  display: block;
+}
+
+/* Docs TOC nav. */
+
+#TableOfContents {
+  padding-left: 0;
+  border-left: 1px solid #eee;
+}
+
+#TableOfContents ul {
+  padding-left: 1rem;
+}
+
+#TableOfContents ul ul {
+  display: none;
+}
+
+#TableOfContents li {
+  display: block;
+}
+
+#TableOfContents li a {
+  display: block;
+  padding: .125rem 1.5rem;
+  color: #99979c;
+}
+
+#TableOfContents li a:hover {
+  color: {{ .Get "primary" }};
+  text-decoration: none;
+}
+
+/* Docs achnorjs links. */
+
+.anchorjs-link {
+  font-weight: 400;
+  color: {{ .Get "primary_dark" }};
+  transition: color .16s linear;
+}
+
+.anchorjs-link:hover {
+  color: {{ .Get "primary" }};
+  text-decoration: none;
+}
+
+/*************************************************
  *  Dark themed components
  **************************************************/
 
-body.dark {
+body.dark,
+.dark .docs-toc-link,
+.dark .docs-sidebar .nav > li:not(.active) > a,
+.dark .modal button.close,
+.dark input,
+.dark .form-control:focus {
   color: rgb(248, 248, 242);
 }
 
-.dark input {
-  color: rgb(248, 248, 242);
-}
-
-.dark .modal button.close {
-  color: rgb(248, 248, 242);
+.dark .form-control:focus {
+  background-color: rgb(68, 71, 90);
+  border-color: {{ .Get "primary" }};
+  box-shadow: 0 0 0 .2rem {{ .Get "primary_dark" }};
 }
 
 .dark h1,

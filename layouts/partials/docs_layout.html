@@ -1,0 +1,47 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+{{ $current_page := . }}
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      {{ partial "docs_sidebar.html" . }}
+    </div>
+
+    {{ if .Params.toc }}
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      {{ .TableOfContents }}
+    </div>
+    {{ end }}
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+      <div id="search-hits">
+        <!-- Search results will appear here -->
+      </div>
+      <article class="article" itemscope itemtype="http://schema.org/Article">
+
+        {{ partial "header_image.html" . }}
+
+        <div class="docs-article-container">
+          <h1 itemprop="name">{{ .Title }}</h1>
+
+          <div class="article-style" itemprop="articleBody">
+            {{ .Content }}
+          </div>
+
+          {{ partial "tags.html" . }}
+        </div>
+
+        <div class="body-footer">
+          {{ i18n "last_updated" }} {{ $.Lastmod.Format $.Site.Params.date_format }}
+        </div>
+
+      </article>
+
+      {{ partial "footer_section.html" . }}
+
+    </main>
+  </div>
+</div>
+
+{{ partial "footer.html" . }}

@@ -330,6 +330,9 @@
 
     // Initialise Google Maps if necessary.
     initMap();
+
+    // Fix Hugo's inbuilt Table of Contents.
+    $('#TableOfContents > ul > li > ul').unwrap().unwrap();
   });
 
 })(jQuery);

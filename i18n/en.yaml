@@ -145,6 +145,9 @@
 - id: search_placeholder
   translation: Search...
 
+- id: search_results
+  translation: Search Results
+
 - id: search_no_results
   translation: No results found
 

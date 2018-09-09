@@ -3,10 +3,10 @@
 
 {{ partial "header_image.html" . }}
 
-<div class="container">
-  <div class="row">
+<div class="universal-wrapper">
+  <div class="row pt-3">
     <div class="col-lg-12">
-      <h1 class="my-4">{{ .Title | default (i18n "talks") }}</h1>
+      <h1>{{ .Title | default (i18n "talks") }}</h1>
 
       {{ with .Content }}
       <div class="article-style" itemprop="articleBody">{{ . }}</div>

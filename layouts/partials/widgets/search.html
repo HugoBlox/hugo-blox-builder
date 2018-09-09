@@ -23,31 +23,3 @@
 
   </div>
 </div>
-
-{{ if eq $.Site.Params.search.engine 1 }}
-{{/* Fuse search result template. */}}
-<script id="search-hit-fuse-template" type="text/x-template">
-  <div class="search-hit" id="summary-{{"{{key}}"}}">
-    <div class="search-hit-content">
-      <div class="search-hit-name">
-        {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
-        <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
-        <p class="search-hit-description">{{"{{snippet}}"}}</p>
-      </div>
-    </div>
-  </div>
-</script>
-{{ else }}
-{{/* Algolia search result template. */}}
-<script id="search-hit-algolia-template" type="text/html">
-  <div class="search-hit">
-    <div class="search-hit-content">
-      <div class="search-hit-name">
-        {{ printf "<a href=\"%s\">{{{_highlightResult.title.value}}}</a>" "{{relpermalink}}" | safeHTML }}
-      </div>
-      <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
-      <p class="search-hit-description">{{ safeHTML "{{{_highlightResult.summary.value}}}" }}</p>
-    </div>
-  </div>
-</script>
-{{ end }}
