@@ -85,6 +85,7 @@ ul, ol, dl {
 h1, h2, h3, h4, h5, h6 {
   font-family: '{{ .Get "heading_font" }}', sans-serif;
   font-weight: 400;
+  margin-top: 1rem;
   margin-bottom: .5rem;
   line-height: 1.25;
   color: #313131;
