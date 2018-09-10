@@ -12,6 +12,7 @@
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
+    {{ if ne .Type "docs" }}
     <span class="float-right" aria-hidden="true">
       <a href="#" id="back_to_top">
         <span class="button_icon">
@@ -19,5 +20,6 @@
         </span>
       </a>
     </span>
+    {{ end }}
   </p>
 </footer>

@@ -10,7 +10,7 @@ type = "docs"  # Do not modify.
 
 # Add menu entry to sidebar.
 linktitle = "Example Page"
-[menu.docs]
+[menu.tutorial]
   parent = "Example Topic"
   weight = 1
 
