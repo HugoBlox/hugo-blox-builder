@@ -118,9 +118,9 @@
   <link rel="canonical" href="{{ .Permalink }}">
 
   <meta property="twitter:card" content="summary_large_image">
-  {{ range where $.Site.Params.social ".icon" "twitter" }}
-  <meta property="twitter:site" content="@{{ replaceRE "^//twitter.com/([^/]+)" "$1" .link }}">
-  <meta property="twitter:creator" content="@{{ replaceRE "^//twitter.com/([^/]+)" "$1" .link  }}">
+  {{ with .Site.Params.twitter }}
+  <meta property="twitter:site" content="@{{ . }}">
+  <meta property="twitter:creator" content="@{{ . }}">
   {{ end }}
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:url" content="{{ .Permalink }}">
