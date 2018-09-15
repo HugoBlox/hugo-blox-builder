@@ -236,6 +236,20 @@
   }
 
   /* ---------------------------------------------------------------------------
+   * GitHub API.
+   * --------------------------------------------------------------------------- */
+
+  function printLatestRelease(selector, repo) {
+    $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
+      let release = json[0];
+      $(selector).append(release.name);
+    }).fail(function( jqxhr, textStatus, error ) {
+      let err = textStatus + ", " + error;
+      console.log( "Request Failed: " + err );
+    });
+  }
+
+  /* ---------------------------------------------------------------------------
    * On window load.
    * --------------------------------------------------------------------------- */
 
@@ -333,6 +347,10 @@
 
     // Fix Hugo's inbuilt Table of Contents.
     $('#TableOfContents > ul > li > ul').unwrap().unwrap();
+
+    // Print latest Academic version if necessary.
+    if ($('#academic-release').length > 0)
+      printLatestRelease('#academic-release', $('#academic-release').data('repo'));
   });
 
 })(jQuery);
