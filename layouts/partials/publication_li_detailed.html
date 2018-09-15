@@ -7,7 +7,7 @@
   {{ end }}
   {{ if .Scratch.Get "image" }}
   <div>
-    <a href="{{ .Permalink }}">
+    <a href="{{ .RelPermalink }}">
       {{ $img_src := urls.Parse (.Scratch.Get "image") }}
       {{ if $img_src.Scheme }}
         <img src="{{ .Scratch.Get "image" }}" class="article-banner" itemprop="image">
@@ -19,7 +19,7 @@
   {{ end }}
 
   <h3 class="article-title" itemprop="name">
-    <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+    <a href="{{ .RelPermalink }}" itemprop="url">{{ .Title }}</a>
   </h3>
 
   <div class="pub-abstract" itemprop="text">

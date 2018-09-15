@@ -54,7 +54,7 @@
 
           <span class="project-title">
           {{ if .Content }}
-          <a href="{{ .Permalink }}">
+          <a href="{{ .RelPermalink }}">
           {{ else }}
             {{ with .Params.external_link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
           {{ end }}
@@ -71,7 +71,7 @@
     <div class="row isotope projects-container js-layout-masonry">
 
       {{ range $project := where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
-      {{ $.Scratch.Set "project_url" $project.Permalink }}
+      {{ $.Scratch.Set "project_url" $project.RelPermalink }}
       {{ $.Scratch.Set "target" "" }}
       {{ if $project.Params.external_link }}
       {{   $.Scratch.Set "project_url" $project.Params.external_link }}

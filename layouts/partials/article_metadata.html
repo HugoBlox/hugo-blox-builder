@@ -42,7 +42,7 @@
   {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
   {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
   <span class="middot-divider"></span>
-  <a href="{{ $.Permalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+  <a href="{{ $.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
   {{ if isset $.Params "categories" }}
@@ -52,7 +52,7 @@
   <span class="article-categories">
     <i class="fas fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
-    <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).Permalink }}">{{ . }}</a>
+    <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).RelPermalink }}">{{ . }}</a>
     {{- if lt $k (sub $categoriesLen 1) -}}, {{ end }}
     {{ end }}
   </span>

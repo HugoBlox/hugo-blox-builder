@@ -1,7 +1,7 @@
 <footer class="site-footer">
   {{ with .Site.GetPage "privacy.md" }}
   <p class="powered-by">
-    {{ printf "<a href=\"%s\">%s</a>" .Permalink .Title | safeHTML }}
+    {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
   </p>
   {{ end }}
 

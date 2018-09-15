@@ -5,7 +5,7 @@
 
   {{ $preview := $post.Params.header.preview | default true }}
   {{ if and $post.Params.header.image $preview }}
-  <a href="{{ $post.Permalink }}">
+  <a href="{{ $post.RelPermalink }}">
     {{ $img_src := urls.Parse $post.Params.header.image }}
     {{ if $img_src.Scheme }}
       <img src="{{ $post.Params.header.image }}" class="article-banner" itemprop="image">
@@ -15,7 +15,7 @@
   </a>
   {{end}}
   <h3 class="article-title" itemprop="headline">
-    <a href="{{ $post.Permalink }}" itemprop="url">{{ $post.Title }}</a>
+    <a href="{{ $post.RelPermalink }}" itemprop="url">{{ $post.Title }}</a>
   </h3>
   <div class="article-style" itemprop="articleBody">
     {{ if $post.Params.summary }}
@@ -27,7 +27,7 @@
     {{ end }}
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">
-    <a href="{{ $post.Permalink }}" class="btn btn-outline-primary my-1">
+    <a href="{{ $post.RelPermalink }}" class="btn btn-outline-primary my-1">
       {{ i18n "continue_reading" }}
     </a>
   </p>

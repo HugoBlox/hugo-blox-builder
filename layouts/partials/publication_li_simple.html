@@ -1,6 +1,6 @@
 <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
   <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
-  <a href="{{ .Permalink }}" itemprop="name">{{ .Title }}</a>
+  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>
   <div itemprop="author">
     {{ with .Params.authors }}
       {{- delimit . ", " | markdownify -}}

@@ -10,7 +10,7 @@
   <h2>{{ i18n "posts" }}</h2>
   {{ range first 5 (where .Site.RegularPages "Section" "post") }}
   <ul>
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   </ul>
   {{ end }}
   {{ end }}
@@ -20,7 +20,7 @@
   <h2>{{ i18n "publications" }}</h2>
   {{ range first 5 (where .Site.RegularPages "Section" "publication") }}
   <ul>
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   </ul>
   {{ end }}
   {{ end }}
@@ -30,7 +30,7 @@
   <h2>{{ i18n "talks" }}</h2>
   {{ range first 5 (sort (where .Site.RegularPages "Type" "talk") ".Params.time_start" "desc") }}
   <ul>
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   </ul>
   {{ end }}
   {{ end }}
@@ -40,7 +40,7 @@
   <h2>{{ i18n "projects" }}</h2>
   {{ range first 5 (where .Site.RegularPages "Section" "project") }}
   <ul>
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   </ul>
   {{ end }}
   {{ end }}

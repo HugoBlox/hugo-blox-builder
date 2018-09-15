@@ -10,7 +10,7 @@
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
     {{ if gt $posts_len $page.Params.count }}
     <p class="view-all">
-      <a href="{{ ($.Site.GetPage "section" "post").Permalink }}">
+      <a href="{{ ($.Site.GetPage "section" "post").RelPermalink }}">
         {{ i18n "more_posts" | markdownify }}
         <i class="fas fa-angle-double-right"></i>
       </a>

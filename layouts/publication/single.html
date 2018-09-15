@@ -32,7 +32,7 @@
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication_type" }}</div>
           <div class="col-12 col-md-9">
             {{ range $index, $pubtype := .Params.publication_types }}
-            <a href="{{ ($.Site.GetPage "section" "publication").Permalink }}#{{ . | urlize }}">
+            <a href="{{ ($.Site.GetPage "section" "publication").RelPermalink }}#{{ . | urlize }}">
               {{ index $.Site.Params.publication_types (int .) }}
             </a>
             {{ end }}
