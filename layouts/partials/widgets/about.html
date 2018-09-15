@@ -7,11 +7,9 @@
     <div id="profile">
 
       {{ if $.Site.Params.gravatar }}
-      <div class="portrait" style="background-image: url('https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200');"></div>
-      <meta itemprop="image" content="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200">
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image">
       {{ else if $.Site.Params.avatar }}
-      <div class="portrait" style="background-image: url('{{ (printf "img/%s" $.Site.Params.avatar) | absURL }}');"></div>
-      <meta itemprop="image" content="{{ (printf "img/%s" $.Site.Params.avatar) | absURL }}">
+      <img class="portrait" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image">
       {{ end }}
 
       <div class="portrait-title">
