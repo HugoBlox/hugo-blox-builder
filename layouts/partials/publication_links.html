@@ -66,6 +66,11 @@
   {{ i18n "btn_source" }}
 </a>
 {{ end }}
+{{ with $.Params.doi }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="https://doi.org/{{ . }}" target="_blank" rel="noopener">
+  DOI
+</a>
+{{ end }}
 {{ range $.Params.url_custom }}
 <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .url | relURL }}" target="_blank" rel="noopener">
   {{ .name }}
