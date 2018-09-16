@@ -10,7 +10,17 @@
 
     {{ if .Params.toc }}
     <div class="d-none d-xl-block col-xl-2 docs-toc">
+      {{ with (i18n "on_this_page") }}
+      <p class="docs-toc-title">{{.}}</p>
+      {{ end }}
+
       {{ .TableOfContents }}
+
+      <ul class="nav toc-top">
+        <li><a href="#">{{ i18n "back_to_top" | default "Back to top" }}</a></li>
+      </ul>
+
+      {{ partial "docs_toc_foot.html" . }}
     </div>
     {{ end }}
 
