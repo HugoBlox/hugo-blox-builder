@@ -1656,7 +1656,7 @@ div.alert a {
   background-color: transparent;
 }
 
-.docs-toc-item.active>.docs-sidenav {
+.docs-sidenav {
   display: block;
 }
 
