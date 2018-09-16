@@ -1,0 +1,6 @@
+{{ $non_data_attributes := slice "id" "class" }}
+<section data-noprocess data-shortcode-slide
+  {{ range $key, $value := $.Params }}
+      {{ $attribute := cond (in $non_data_attributes $key) $key (delimit (slice "data" $key) "-") }}
+      {{ $attribute | safeHTMLAttr }}="{{ $value }}"
+  {{ end }}>
