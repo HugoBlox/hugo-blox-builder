@@ -11,7 +11,11 @@
 
   {{ $scr := .Scratch }}
   {{/* Generate page description. */}}
-  {{ $scr.Set "description" .Site.Params.role }}
+  {{ if .Site.Params.meta_description }}
+    {{$scr.Set "description" .Site.Params.meta_description }}
+  {{ else }}
+    {{$scr.Set "description" .Site.Params.role }}
+  {{ end }}
   {{ if .Params.abstract }}
     {{ $scr.Set "description" .Params.abstract }}
   {{ else if .Params.summary }}

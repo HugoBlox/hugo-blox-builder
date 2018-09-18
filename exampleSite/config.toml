@@ -60,6 +60,9 @@ enableGitInfo = false
   name = "Lena Smith"
   role = "Professor of Artificial Intelligence"
 
+  # Description meta tag for search engines. If undefined, role is used in place.
+  meta_description = "Professor of Artificial Intelligence at Stanford University."
+
   # Organizations/Affiliations.
   #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
   organizations = [ { name = "Stanford University", url = "" } ]
