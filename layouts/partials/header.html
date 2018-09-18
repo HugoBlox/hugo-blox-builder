@@ -11,15 +11,19 @@
 
   {{ $scr := .Scratch }}
   {{/* Generate page description. */}}
-  {{ $scr.Set "description" .Site.Params.role }}
-  {{ if .Params.abstract }}
-    {{ $scr.Set "description" .Params.abstract }}
-  {{ else if .Params.summary }}
-    {{ $scr.Set "description" .Params.summary }}
+  {{ $desc := "" }}
+  {{ if .Params.summary }}
+    {{ $desc = .Params.summary }}
+  {{ else if .Params.abstract }}
+    {{ $desc = .Params.abstract }}
   {{ else if .IsPage }}
-    {{ $scr.Set "description" .Summary }}
+    {{ $desc = .Summary }}
+  {{ else if .Site.Params.description }}
+    {{ $desc = .Site.Params.description }}
+  {{ else }}
+    {{ $desc = .Site.Params.role }}
   {{ end }}
-  <meta name="description" content="{{ $scr.Get "description" }}">
+  <meta name="description" content="{{ $desc }}">
 
   {{ range .Translations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
@@ -125,8 +129,16 @@
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}">
-  <meta property="og:description" content="{{ $scr.Get "description" }}">
-  {{- with .Params.header.image }}<meta property="og:image" content="{{ printf "img/%s" . | absURL }}">{{end}}
+  <meta property="og:description" content="{{ $desc }}">
+  {{ $og_image := "" }}
+  {{ if .Params.header.image }}
+    {{ $og_image = .Params.header.image }}
+  {{ else if .Site.Params.sharing_image }}
+    {{ $og_image = .Site.Params.sharing_image }}
+  {{ else }}
+    {{ $og_image = "icon-192.png" }}
+  {{ end }}
+  {{- with $og_image }}<meta property="og:image" content="{{ printf "img/%s" . | absURL }}">{{end}}
   <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
   {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
