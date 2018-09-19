@@ -28,7 +28,7 @@
     <div class="project-toolbar">
       <div class="project-filters">
         <div class="btn-toolbar">
-          <div class="btn-group">
+          <div class="btn-group flex-wrap">
             {{ range $idx, $item := $page.Params.filter }}
             {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
             {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
