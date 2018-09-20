@@ -31,10 +31,11 @@
         {{ $.Scratch.Set "show_post" "1" }}
 
         {{/* If `tags_include` is set, exclude posts with no tags. */}}
-        {{ if and ($page.Params.tags_include) (lt (len .Params.tags) 1) }}
-          {{ $.Scratch.Set "show_post" "0" }}
+        {{ with (not .Params.tags) }}
+          {{ with $page.Params.tags_include }}
+            {{ $.Scratch.Set "show_post" "0" }}
+          {{end}}
         {{end}}
-
         {{/* If `tags_exclude` is set, exclude posts. */}}
         {{ range $key, $val := .Params.tags }}
           {{ if in $page.Params.tags_exclude $val }}
@@ -62,8 +63,10 @@
         {{ $.Scratch.Set "show_post" "1" }}
 
         {{/* If `tags_include` is set, exclude posts with no tags. */}}
-        {{ if and ($page.Params.tags_include) (lt (len .Params.tags) 1) }}
-          {{ $.Scratch.Set "show_post" "0" }}
+        {{ with (not .Params.tags) }}
+          {{ with $page.Params.tags_include }}
+            {{ $.Scratch.Set "show_post" "0" }}
+          {{end}}
         {{end}}
 
         {{/* If `tags_exclude` is set, exclude posts. */}}
