@@ -1547,6 +1547,21 @@ div.alert a {
     .docs-sidebar {
       position: -webkit-sticky;
       position: sticky;
+      top: 51px;
+      z-index: 1000;
+      height: calc(100vh - 51px)
+    }
+  }
+}
+
+@media (min-width:1200px) {
+  .docs-sidebar {
+    border-right: 1px solid rgba(0, 0, 0, .1)
+  }
+  @supports ((position:-webkit-sticky) or (position:sticky)) {
+    .docs-sidebar {
+      position: -webkit-sticky;
+      position: sticky;
       top: 71px;
       z-index: 1000;
       height: calc(100vh - 71px)
@@ -1585,6 +1600,12 @@ div.alert a {
 
 /* Docs links. */
 
+.docs-toggle {
+  line-height: 1;
+  font-size: 1.2rem;
+  color: {{ .Get "primary" }};
+}
+
 .docs-links {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1593,7 +1614,7 @@ div.alert a {
 }
 
 @media (min-width:768px) {
-  @supports (position: sticky) {
+  @supports ((position:-webkit-sticky) or (position:sticky)) {
     .docs-links {
       max-height: calc(100vh - 5rem - 71px);
       overflow-y: auto;
@@ -1620,8 +1641,8 @@ div.alert a {
   .docs-toc {
     position: -webkit-sticky;
     position: sticky;
-    top: 4rem;
-    height: calc(100vh - 4rem);
+    top: 71px;
+    height: calc(100vh - 71px);
     overflow-y: auto
   }
 }
