@@ -77,7 +77,7 @@
       {{   $.Scratch.Set "project_url" $project.Params.external_link }}
       {{   $.Scratch.Set "target" "target=\"_blank\"" }}
       {{ end }}
-      <div class="col-12 col-md-6 col-lg-4 col-xl-6 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
+      <div class="col-12 col-md-6 col-lg-4 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
         <div class="card">
           {{ with $project.Params.image_preview }}
           <a href="{{ $.Scratch.Get "project_url" }}" title="" class="card-image hover-overlay"

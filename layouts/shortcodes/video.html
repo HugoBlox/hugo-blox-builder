@@ -1,12 +1,27 @@
-{{ $directory := "img/" }}
-{{ $video := printf "%s%s" $directory (.Get "src") }}
-{{ $video_type := substr (.Get "src") -1 3 }}
-{{ $poster := printf "%s%s%s" $directory (substr (.Get "src") 0 -4) ".jpg" }}
-{{ if fileExists (printf "%s%s" "static/" $poster) }}
-  {{ .Scratch.Set "poster" ($poster | relURL) }}
-{{ else }}
-  {{ .Scratch.Set "poster" "" }}
+{{/* Enable video to be loaded from local page dir or media library at `static/img/`. */}}
+{{ $path := "" }}
+{{ $root_dir := "" }}
+{{ if .Get "library" }}
+  {{ $path = "img/" }}
+  {{ $root_dir = "static/" }}
 {{ end }}
-<video {{if (.Get "controls")}}controls{{else}}autoplay loop{{end}} {{with .Scratch.Get "poster"}}poster="{{.}}"{{end}}>
-  <source src="{{ $video | relURL }}" type="video/{{$video_type}}">
+
+{{ $video := printf "%s%s" $path (.Get "src") }}
+{{ $video_type := substr (.Get "src") -1 3 }}
+{{ if .Get "library" }}
+  {{ $video = $video | relURL }}
+{{ end }}
+
+{{ $poster := printf "%s%s%s" $path (substr (.Get "src") 0 -4) ".jpg" }}
+{{ $has_poster := fileExists (printf "%s%s" $root_dir $poster) }}
+{{ if and $has_poster (.Get "library") }}
+  {{ $poster = $poster | relURL }}
+{{ else if $has_poster }}
+  {{ $poster = $poster }}
+{{ else }}
+  {{ $poster = "" }}
+{{ end }}
+
+<video {{if (.Get "controls")}}controls{{else}}autoplay loop{{end}} {{with $poster}}poster="{{.}}"{{end}}>
+  <source src="{{ $video }}" type="video/{{$video_type}}">
 </video>
