@@ -1604,6 +1604,7 @@ div.alert a {
   line-height: 1;
   font-size: 1.2rem;
   color: {{ .Get "primary" }};
+  background-color: transparent;
 }
 
 .docs-links {
