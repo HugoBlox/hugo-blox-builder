@@ -6,6 +6,12 @@
 - id: table_of_contents
   translation: 目录
 
+- id: on_this_page
+  translation: 在本页
+
+- id: back_to_top
+  translation: 回到顶部
+
 # General
 
 - id: related
@@ -68,6 +74,11 @@
 
 - id: education
   translation: 教育经历
+
+# Experience widget
+
+- id: present
+  translation: 现在
 
 # Publications widget
 
@@ -139,6 +150,17 @@
 
 - id: projects
   translation: 项目
+
+# Search
+
+- id: search_placeholder
+  translation: 搜索...
+
+- id: search_results
+  translation: 搜索结果
+
+- id: search_no_results
+  translation: 没有找到结果
 
 # Error 404
 
