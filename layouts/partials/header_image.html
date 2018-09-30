@@ -1,4 +1,13 @@
-{{ if .Params.header.image }}
+{{ $featured := (.Resources.ByType "image").GetMatch "*featured*" }}
+{{ with $featured }}
+{{ $image := .Fill "1600x400" }}
+<div class="article-header">
+  <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" style="width: 100%; min-height: 400px; height: auto;">
+  {{ with $.Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+</div>
+{{end}}
+
+{{ if and .Params.header.image (not $featured) }}
 <div class="article-header">
   {{ $img_src := urls.Parse .Params.header.image }}
   {{ if $img_src.Scheme }}

@@ -81,8 +81,10 @@
         {{ $params := dict "post" . }}
         {{ if eq $page.Params.list_format 0 }}
           {{ partial "post_li_simple" $params }}
-        {{ else }}
+        {{ else if eq $page.Params.list_format 1 }}
           {{ partial "post_li_detailed" $params }}
+        {{ else }}
+          {{ partial "post_li_stream" $params }}
         {{ end }}
       {{end}}
 

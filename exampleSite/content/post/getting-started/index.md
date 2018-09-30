@@ -12,8 +12,7 @@ tags = ["Academic"]
 summary = "Create a beautifully simple website or blog in under 10 minutes."
 
 [header]
-image = "headers/getting-started.png"
-caption = "Image credit: [**Academic**](https://github.com/gcushen/hugo-academic/)"
+caption = "Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)"
 
 [[gallery_item]]
 album = "1"

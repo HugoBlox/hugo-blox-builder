@@ -60,7 +60,7 @@ enableGitInfo = false
 
   gravatar = false  # Get your avatar from Gravatar.com? (true/false)
   avatar = "portrait.jpg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
-  
+
   # Details for the Contact Widget
   email = "test@example.org"
   address = "Building 1 Room 1, Stanford University, California, 90210, USA"
@@ -107,7 +107,7 @@ enableGitInfo = false
 
   # Description for social sharing and search engines. If undefined, author role is used in place.
   description = ""
-  
+
   # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
   sharing_image = ""
 
