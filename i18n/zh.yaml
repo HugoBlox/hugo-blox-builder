@@ -11,6 +11,7 @@
 
 - id: back_to_top
   translation: 回到顶部
+
 # General
 
 - id: related
@@ -78,6 +79,7 @@
 
 - id: present
   translation: 现在
+
 # Publications widget
 
 - id: more_publications
@@ -159,6 +161,7 @@
 
 - id: search_no_results
   translation: 没有找到结果
+
 # Error 404
 
 - id: page_not_found
