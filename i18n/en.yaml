@@ -75,6 +75,11 @@
 - id: education
   translation: Education
 
+# Experience widget
+
+- id: present
+  translation: Present
+
 # Publications widget
 
 - id: more_publications

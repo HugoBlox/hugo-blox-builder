@@ -1,5 +1,5 @@
 +++
-title = "Slides"
+title = "{{ replace .Name "-" " " | title }}"
 
 [slides]
 # Choose a theme from https://github.com/hakimel/reveal.js#theming

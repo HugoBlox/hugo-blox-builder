@@ -1,5 +1,5 @@
 +++
-title = "{{ replace .TranslationBaseName "-" " " | title }}"
+title = "{{ replace .Name "-" " " | title }}"
 date = {{ .Date }}  # Schedule page publish date.
 draft = false
 
