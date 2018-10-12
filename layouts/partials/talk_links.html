@@ -27,7 +27,7 @@
     {{ i18n "btn_project" }}
   </a>
   {{ else }}
-    {{ errorf "The `projects` parameter in `content/%s` references a project file, `content/project/%s`, which cannot be found. Please either set `projects = []` or fix the reference." $.File.Path . }}
+    {{/* errorf "The `projects` parameter in `content/%s` references a project file, `content/project/%s`, which cannot be found. Please either set `projects = []` or fix the reference." $.File.Path . */}}
   {{ end }}
 {{ end }}
 {{ range $.Params.url_custom }}

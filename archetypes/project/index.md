@@ -10,22 +10,11 @@ tags = []
 # Project summary to display on homepage.
 summary = ""
 
-# Optional image to display on homepage.
-image_preview = ""
-
 # Optional external URL for project (replaces project detail page).
 external_link = ""
 
-# Does the project detail page use math formatting?
-math = false
-
-# Does the project detail page use source code highlighting?
-highlight = true
-
 # Featured image
-# Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
+# To use, add an image named `featured.jpg/png` to your project's folder. 
 [header]
-image = ""
-caption = ""
-
+caption = ""  # Optionally add a caption to the featured image.
 +++
