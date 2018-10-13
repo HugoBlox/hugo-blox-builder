@@ -37,6 +37,8 @@
         {{ partial "publication_li_apa" . }}
       {{ else if eq $page.Params.list_format 3 }}
         {{ partial "publication_li_mla" . }}
+      {{ else if eq $page.Params.list_format 4 }}
+        {{ partial "publication_li_stream" . }}
       {{ else }}
         {{ partial "publication_li_simple" . }}
       {{ end }}

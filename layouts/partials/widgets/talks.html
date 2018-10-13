@@ -29,6 +29,8 @@
     {{ range first $page.Params.count (sort ($.Scratch.Get "talks") ".Params.time_start" "desc") }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
+      {{ else if eq $page.Params.list_format 2 }}
+        {{ partial "talk_li_stream" . }}
       {{ else }}
         {{ partial "talk_li_simple" . }}
       {{ end }}

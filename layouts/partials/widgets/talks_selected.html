@@ -13,6 +13,8 @@
     {{ range (sort (where (where $.Site.RegularPages "Type" "talk") ".Params.selected" true) ".Params.time_start" "desc") }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
+      {{ else if eq $page.Params.list_format 2 }}
+        {{ partial "talk_li_stream" . }}
       {{ else }}
         {{ partial "talk_li_simple" . }}
       {{ end }}

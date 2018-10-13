@@ -745,6 +745,10 @@ article {
   color: rgba(0,0,0,0.54);
 }
 
+.stream-meta.article-metadata {
+  margin-bottom: 5px;
+}
+
 /* For article page only, not lists. */
 article .article-metadata {
   margin-bottom: 20px;

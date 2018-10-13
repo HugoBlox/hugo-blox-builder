@@ -25,9 +25,6 @@ publication_short = "In *ICMEW*"
 abstract = "We present a mobile visual clothing search system whereby a smart phone user can either choose a social networking photo or take a new photo of a person wearing clothing of interest and search for similar clothing in a retail database. From the query image, the person is detected, clothing is segmented, and clothing features are extracted and quantized. The information is sent from the phone client to a server, where the feature vector of the query image is used to retrieve similar clothing products from online databases. The phone's GPS location is used to re-rank results by retail store location. State of the art work focuses primarily on the recognition of a diverse range of clothing offline and pays little attention to practical applications. Evaluated on a challenging dataset, the system is relatively fast and achieves promising results."
 abstract_short = "A mobile visual clothing search system is presented whereby a smart phone user can either choose a social networking image or capture a new photo of a person wearing clothing of interest and search for similar clothing in a large cloud-based ecommerce database. The phone's GPS location is used to re-rank results by retail store location, to inform the user of local stores where similar clothing items can be tried on."
 
-# Featured image thumbnail (optional)
-image_preview = ""
-
 # Is this a selected publication? (true/false)
 selected = true
 
@@ -63,15 +60,15 @@ doi = ""
 # Does this page contain LaTeX math? (true/false)
 math = true
 
-# Does this page require source code highlighting? (true/false)
-highlight = true
-
 # Featured image
-# Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
-[header]
-image = "headers/bubbles-wide.jpg"
-caption = "My caption :smile:"
+# To use, add an image named `featured.jpg/png` to your page's folder. 
+[image]
+  # Caption (optional)
+  caption = "Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)"
 
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = ""
 +++
 
 More detail can easily be written here using *Markdown* and $\rm \LaTeX$ math code.

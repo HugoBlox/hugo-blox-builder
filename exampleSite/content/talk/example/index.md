@@ -12,8 +12,8 @@ time_end = 2030-06-01T15:00:00
 authors = []
 
 # Abstract and optional shortened version.
-abstract = ""
-abstract_short = ""
+abstract = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam."
+abstract_short = "An example talk using Academic's Markdown slides feature."
 
 # Name of event and optional event URL.
 event = "Academic Theme Conference"
@@ -45,15 +45,15 @@ url_code = ""
 # Does the content use math formatting?
 math = true
 
-# Does the content use source code highlighting?
-highlight = true
-
 # Featured image
-# Place your image in the `static/img/` folder and reference its filename below, e.g. `image = "example.jpg"`.
-[header]
-image = "headers/bubbles-wide.jpg"
-caption = "My caption :smile:"
+# To use, add an image named `featured.jpg/png` to your page's folder. 
+[image]
+  # Caption (optional)
+  caption = "Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)"
 
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = "Right"
 +++
 
 {{% alert note %}}
