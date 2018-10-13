@@ -2,22 +2,9 @@
 {{ partial "navbar.html" . }}
 <div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
 
-  {{ partial "header_image.html" . }}
+  {{ partial "page_header.html" . }}
 
   <div class="article-container">
-    <h1 itemprop="name">{{ .Title }}</h1>
-    <span class="pub-authors" itemprop="author">
-      {{ with .Params.authors }}
-      {{ delimit . ", " | markdownify }}
-      {{ end }}
-    </span>
-    <span class="float-right">
-      {{ partial "share.html" . }}
-    </span>
-
-    {{ if .Params.image }}
-    <img src="{{ "/img/" | relURL }}{{ .Params.image }}" class="pub-banner" itemprop="image">
-    {{end}}
 
     {{ if .Params.abstract }}
     <h3>{{ i18n "abstract" }}</h3>

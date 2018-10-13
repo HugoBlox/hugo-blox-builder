@@ -2,21 +2,9 @@
 {{ partial "navbar.html" . }}
 <div class="pub" itemscope itemtype="http://schema.org/Event">
 
-  {{ partial "header_image.html" . }}
+  {{ partial "page_header.html" . }}
 
   <div class="article-container">
-
-    <div class="pub-title">
-      <h1 itemprop="name">{{ .Title }}</h1>
-      <span class="pub-authors" itemprop="author">
-        {{ with .Params.authors }}
-        {{ delimit . ", " | markdownify }}
-        {{ end }}
-      </span>
-      <span class="float-right">
-        {{ partial "share.html" . }}
-      </span>
-    </div>
 
     {{ if .Params.abstract }}
       <h3>{{ i18n "abstract" }}</h3>

@@ -3,18 +3,9 @@
 
 <article class="article article-project" itemscope itemtype="http://schema.org/Article">
 
-  {{ partial "header_image.html" . }}
+  {{ partial "page_header.html" . }}
 
   <div class="article-container">
-
-    <div class="pub-title">
-      <h1 itemprop="name">{{ .Title }}</h1>
-      <span class="pub-authors" itemprop="author">&nbsp;</span>
-      <span class="float-right">
-        {{ partial "share.html" . }}
-      </span>
-    </div>
-
     {{ with .Params.external_link }}
     <a class="btn btn-outline-primary my-1" href="{{ . }}" target="_blank" rel="noopener">{{ i18n "open_project_site" }}</a>
     {{ end }}

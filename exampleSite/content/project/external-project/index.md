@@ -17,6 +17,11 @@ external_link = "http://example.org"
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your project's folder. 
-[header]
-caption = "Photo by Toa Heftiba on Unsplash"  # Optionally add a caption to the featured image.
+[image]
+  # Caption (optional)
+  caption = "Photo by Toa Heftiba on Unsplash"
+
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = "Smart"
 +++
