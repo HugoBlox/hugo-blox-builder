@@ -7,9 +7,9 @@
     <div id="profile">
 
       {{ if $.Site.Params.gravatar }}
-      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image">
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image" alt="Avatar">
       {{ else if $.Site.Params.avatar }}
-      <img class="portrait" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image">
+      <img class="portrait" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image" alt="Avatar">
       {{ end }}
 
       <div class="portrait-title">
