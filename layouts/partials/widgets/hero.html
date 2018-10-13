@@ -2,6 +2,12 @@
 {{ $page := .page }}
 {{ $header := $page.Params.header }}
 
+{{/* Compute image path outside of HTML style element due to Hugo limitation. */}}
+{{ $overlay_img := "" }}
+{{ if $header.overlay_img }}
+  {{ $overlay_img = (printf "img/%s" $header.overlay_img) | relURL }}
+{{end}}
+
 <section id="{{ $page.File.TranslationBaseName }}" class="hero-overlay" style="
 {{ if $header.overlay_color }}
 background-color: {{ $header.overlay_color | default "transparent" }};
@@ -9,7 +15,7 @@ background-color: {{ $header.overlay_color | default "transparent" }};
 {{ if $header.overlay_img }}
 background-image:
 {{ if $header.overlay_filter }}linear-gradient(rgba(0, 0, 0, {{ $header.overlay_filter }}), rgba(0, 0, 0, {{ $header.overlay_filter }})), {{ end }}
-url('{{ printf "img/%s" $header.overlay_img | relURL }}');
+url('{{ $overlay_img }}');
 {{ end }}
 ;">
 
