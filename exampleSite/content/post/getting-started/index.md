@@ -12,8 +12,15 @@ authors = []
 tags = ["Academic"]
 summary = "Create a beautifully simple website or blog in under 10 minutes."
 
+# Featured image
+# To use, add an image named `featured.jpg/png` to your project's folder. 
 [image]
-caption = "Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)"
+  # Caption (optional)
+  caption = "Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)"
+
+  # Focal point (optional)
+  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
+  focal_point = ""
 
 [[gallery_item]]
 album = "1"
