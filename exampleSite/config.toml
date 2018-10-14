@@ -217,7 +217,14 @@ enableGitInfo = false
     #   1 = Detailed
     #   2 = APA
     #   3 = MLA
-    publication_format = 3
+    #   4 = Stream
+    publication_format = 4
+
+    # Talk list format.
+    #   0 = Simple
+    #   1 = Detailed
+    #   2 = Stream
+    talk_format = 2
 
   # Social/Academic Networking
   #

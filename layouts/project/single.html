@@ -17,8 +17,14 @@
     {{ partial "tags.html" . }}
 
     {{ $page := . }}
-    {{ $project := .File.TranslationBaseName }}
-    {{ $project_path := printf "%s/%s/" .Section $project }}
+    {{ $project := .Slug }}
+    {{ if not $project }}{{/* If user did not explicitly set `slug` in front matter. */}}
+    {{ $project = .File.TranslationBaseName }}
+    {{ end }}
+    {{ if eq $project "index" }}{{/* Check if using dir-based page bundles. */}}
+    {{ $project = delimit (last 1 (split (substr .Dir 0 -1) "/")) "" }}
+    {{ end }}
+    {{ $project_path := .RelPermalink }}
 
     {{ if (.Site.Params.projects.list_children | default true) }}
       {{ $items := where (where .Site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
@@ -33,6 +39,8 @@
             {{ partial "publication_li_apa" . }}
           {{ else if eq $page.Site.Params.projects.publication_format 3 }}
             {{ partial "publication_li_mla" . }}
+          {{ else if eq $page.Site.Params.projects.publication_format 4 }}
+            {{ partial "publication_li_stream" . }}
           {{ else }}
             {{ partial "publication_li_simple" . }}
           {{ end }}
@@ -45,7 +53,13 @@
       {{ if ge $talks_len 1 }}
         <h2>{{ (i18n "talks") }}</h2>
         {{ range sort $items ".Params.time_start" "desc" }}
-          {{ partial "talk_li_simple" . }}
+          {{ if eq $page.Site.Params.projects.talk_format 1 }}
+            {{ partial "talk_li_detailed" . }}
+          {{ else if eq $page.Site.Params.projects.talk_format 2 }}
+            {{ partial "talk_li_stream" . }}
+          {{ else }}
+            {{ partial "talk_li_simple" . }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
