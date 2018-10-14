@@ -670,6 +670,10 @@ article {
   margin-bottom: 1rem;
 }
 
+.dark .page-subtitle {
+  color: rgba(255,255,255,0.54);
+}
+
 .split-header .page-subtitle {
   margin-bottom: 1.5rem;
 }
@@ -734,7 +738,11 @@ article {
 }
 
 .text-muted {
-  color: rgba(0,0,0,0.54) !important; /* Override Bootstrap */
+  color: rgba(0,0,0,0.54); /* Override Bootstrap */
+}
+
+.dark .text-muted {
+  color: rgba(255,255,255,0.54);
 }
 
 .article-metadata {
@@ -743,6 +751,10 @@ article {
   font-size: 14px;
   letter-spacing: 0.03em;
   color: rgba(0,0,0,0.54);
+}
+
+.dark .article-metadata {
+  color: rgba(255,255,255,0.54);
 }
 
 .stream-meta.article-metadata {
@@ -757,6 +769,10 @@ article .article-metadata {
 
 .article-metadata a {
   color: rgba(0,0,0,.54);
+}
+
+.dark .article-metadata a {
+  color: rgba(255,255,255,0.54);
 }
 
 .article-metadata a:hover {
@@ -889,6 +905,12 @@ article .article-metadata {
 .pub-list-item .pub-publication {
   color: rgba(0,0,0,0.54);
   font-size: 0.9rem;
+}
+
+
+.dark .pub-authors,
+.dark .pub-publication {
+  color: rgba(255,255,255,0.54);
 }
 
 .pub-list-item .pub-links {
@@ -1074,6 +1096,10 @@ article .article-metadata {
   font-size: 0.75rem;
 }
 
+.dark .card-text p {
+  color: rgb(248, 248, 242);
+}
+
 .card p:last-child {
   margin-bottom: 0;
 }
@@ -1168,6 +1194,12 @@ footer p {
 .site-footer,
 footer a#back_to_top i {
   color: rgba(0,0,0,0.54);
+}
+
+.dark .site-footer,
+.dark footer a#back_to_top i,
+.dark .docs .body-footer {
+  color: rgba(255,255,255,0.54);
 }
 
 /**************************************************
