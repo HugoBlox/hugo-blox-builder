@@ -11,11 +11,10 @@
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
-{{ $directory := "static/files/citations/" }}
-{{ $filename := printf "%s%s.bib" $directory $.File.TranslationBaseName }}
-{{ if fileExists $filename }}
+{{ $resource := $.Resources.GetMatch "*.bib" }}
+{{ with $resource }}
 <button type="button" class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}} js-cite-modal"
-        data-filename="{{ printf "files/citations/%s.bib" $.File.TranslationBaseName | relURL }}">
+        data-filename="{{ .RelPermalink }}">
   {{ i18n "btn_cite" }}
 </button>
 {{ end }}
