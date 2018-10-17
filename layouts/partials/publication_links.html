@@ -6,8 +6,21 @@
   {{ i18n "btn_preprint" }}
 </a>
 {{ end }}
-{{ with $.Params.url_pdf }}
-<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | relURL }}" target="_blank" rel="noopener">
+{{ $pdf := "" }}
+{{ $slug := "" }}
+{{ if eq $.File.TranslationBaseName "index" }}{{/* Check if using dir-based page bundles. */}}
+  {{ $slug = delimit (last 1 (split (substr $.Dir 0 -1) "/")) "" }}
+{{ end }}
+{{ $resource := $.Resources.GetMatch (printf "%s.pdf" $slug) }}
+{{ with $resource }}
+  {{ $pdf = .RelPermalink }}
+{{ else }}
+  {{ if $.Params.url_pdf }}
+    {{ $pdf = $.Params.url_pdf | relURL }}
+  {{ end }}
+{{ end }}
+{{ with $pdf }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . }}" target="_blank" rel="noopener">
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
