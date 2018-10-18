@@ -84,7 +84,7 @@
 
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent. */}}
   {{ with ($scr.Get "google_fonts") }}
-  <link rel="stylesheet" {{ printf "href=//fonts.googleapis.com/css?family=%s" . | safeHTMLAttr }}>
+  <link rel="stylesheet" {{ printf "href=\"//fonts.googleapis.com/css?family=%s\"" . | safeHTMLAttr }}>
   {{ end }}
 
   <link rel="stylesheet" href="{{ "styles.css" | relLangURL }}">
