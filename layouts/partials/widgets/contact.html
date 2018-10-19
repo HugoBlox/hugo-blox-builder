@@ -26,7 +26,7 @@
       <li>
         <i class="fa-li fas fa-comments fa-2x" aria-hidden="true"></i>
         <span>
-          <a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>
+          <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a>
         </span>
       </li>
       {{ end }}
@@ -35,7 +35,7 @@
       <li>
         <i class="fa-li fab fa-keybase fa-2x" aria-hidden="true"></i>
         <span>
-          <a href="https://keybase.io/{{ . }}" target="_blank" rel="noopener">@{{ . }}</a> on Keybase.
+          <a href="https://keybase.io/{{ . }}" target="_blank" rel="noopener noreferrer">@{{ . }}</a> on Keybase.
         </span>
       </li>
       {{ end }}
@@ -62,7 +62,7 @@
       <li>
         <i class="fa-li fab fa-telegram fa-2x" aria-hidden="true"></i>
         <span>
-        {{- if $autolink }}<a href="https://telegram.me/{{ . }}" target="_blank" rel="noopener">@{{ . }}</a>{{ else }}@{{ . }}{{ end -}}
+        {{- if $autolink }}<a href="https://telegram.me/{{ . }}" target="_blank" rel="noopener noreferrer">@{{ . }}</a>{{ else }}@{{ . }}{{ end -}}
         </span>
       </li>
       {{ end }}

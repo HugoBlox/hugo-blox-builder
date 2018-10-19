@@ -42,7 +42,7 @@
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "event" }}</div>
           <div class="col-12 col-md-9">
-            {{ with .Params.event_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ with .Params.event_url }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ end }}
             {{ .Params.event | markdownify }}
             {{ if .Params.event_url }}</a>{{ end }}
           </div>

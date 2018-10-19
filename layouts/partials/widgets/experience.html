@@ -47,7 +47,7 @@
             </div>
             <h4 class="card-title exp-title text-muted mt-0 mb-1">{{.title | markdownify | emojify}}</h4>
             <h4 class="card-title exp-company text-muted my-0">
-              {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
+              {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener noreferrer">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
             </h4>
             {{with .description}}<div class="card-text">{{. | markdownify | emojify}}</div>{{end}}
           </div>

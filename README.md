@@ -1,4 +1,4 @@
-<p align="center"><a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener"><img src="https://sourcethemes.com/academic/img/logo_200px.png" alt="Academic logo"></a></p>
+<p align="center"><a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener noreferrer"><img src="https://sourcethemes.com/academic/img/logo_200px.png" alt="Academic logo"></a></p>
 
 # Academic: the website designer for [Hugo](https://gohugo.io)
 

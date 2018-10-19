@@ -56,7 +56,7 @@
           {{ if .Content }}
           <a href="{{ .RelPermalink }}">
           {{ else }}
-            {{ with .Params.external_link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ with .Params.external_link }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ end }}
           {{ end }}
           {{ .Title }}
           {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
