@@ -25,6 +25,24 @@
 
 - id: btn_project
   translation: Projekt
+  
+- id: btn_preprint
+  translation: Preprint
+
+- id: btn_cite
+  translation: Zitieren
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Quelldokument
+
+- id: btn_copy
+  translation: Kopie
+
+- id: btn_download
+  translation: Download
 
 # About widget
 
