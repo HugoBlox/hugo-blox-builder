@@ -629,6 +629,10 @@ ul.share li i {
   color: #fff;
 }
 
+.dark ul.share li i {
+  color: rgb(68, 71, 90);
+}
+
 ul.share li a {
   background-color: #b5c6ce;
   display: block;
@@ -1284,10 +1288,20 @@ a.badge:hover {
   border-color: {{ .Get "primary" }};
 }
 
+.dark .btn-outline-primary:not(:disabled):not(.disabled).active,
+.dark .btn-outline-primary:not(:disabled):not(.disabled):active,
+.dark .show > .btn-outline-primary.dropdown-toggle {
+  color: rgb(68, 71, 90);
+}
+
 .btn-outline-primary:hover {
   color: #fff;
   background-color: {{ .Get "primary" }};
   border-color: {{ .Get "primary" }};
+}
+
+.dark .btn-outline-primary:hover {
+  color: rgb(68, 71, 90);
 }
 
 /*************************************************
@@ -1438,7 +1452,6 @@ nav#navbar-main li.nav-item {
 }
 
 .navbar-light .navbar-brand {
-  text-transform: uppercase;
   font-weight: bold;
   font-size: 1.2em;
   color: {{ .Get "menu_title" }};
@@ -1898,8 +1911,13 @@ body.dark,
 .dark .docs-sidebar .nav > li:not(.active) > a,
 .dark .modal button.close,
 .dark input,
+.dark .form-control,
 .dark .form-control:focus {
   color: rgb(248, 248, 242);
+}
+
+.dark .form-control {
+  background-color: rgb(68, 71, 90);
 }
 
 .dark .form-control:focus {
@@ -2034,4 +2052,9 @@ body.dark,
 .dark a.badge:focus,
 .dark a.badge:hover {
   color: rgba(255, 255, 255, .68);
+}
+
+.dark .btn-primary,
+.dark .btn.btn-primary.active {
+  color: initial;
 }

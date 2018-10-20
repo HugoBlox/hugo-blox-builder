@@ -34,13 +34,23 @@ caption = "Ocean"
 
 [[gallery_item]]
 album = "1"
+image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png"
+caption = "Forest"
+
+[[gallery_item]]
+album = "1"
 image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png"
 caption = "Dark"
 
 [[gallery_item]]
 album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png"
-caption = "Default"
+image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-apogee.png"
+caption = "Apogee"
+
+[[gallery_item]]
+album = "1"
+image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png"
+caption = "1950s"
 
 [[gallery_item]]
 album = "1"
@@ -49,8 +59,8 @@ caption = "Coffee theme with Playfair font"
 
 [[gallery_item]]
 album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png"
-caption = "1950s"
+image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-cupcake.png"
+caption = "Cupcake"
 +++
 
 **Academic** makes it easy to create a beautiful website for free using Markdown. Customize anything on your site with widgets, themes, and language packs.
@@ -83,6 +93,10 @@ Key features:
 Academic is available in different color themes and font themes.
 
 {{< gallery >}}
+
+## Ecosystem
+
+**[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
 
 ## Install
 
