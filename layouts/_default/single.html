@@ -12,6 +12,7 @@
     </div>
 
     {{ partial "tags.html" . }}
+    {{ partial "page_author.html" . }}
 
     {{ $related := .Site.RegularPages.Related . | first 5 }}
     {{ with $related }}

@@ -6,7 +6,7 @@
   {{ if $.Params.authors }}
   {{ $authorLen := len $.Params.authors }}
   <div>
-    {{ range $k, $v := $.Params.authors }}
+    {{ range $k, $v := $.Params.authors -}}
     <span itemscope itemprop="author" itemtype="http://schema.org/Person">
       <span itemprop="name">{{- $v -}}</span>
     </span>
@@ -32,14 +32,14 @@
     <meta itemprop="name" content="{{ $.Site.Params.name }}">
   </span>
 
-  {{ if ne $.Site.Params.reading_time false }}
+  {{ if not (or (eq .Site.Params.reading_time false) (eq .Params.reading_time false)) }}
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     {{ $.ReadingTime }} {{ i18n "minute_read" }}
   </span>
   {{ end }}
 
-  {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
+  {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments (eq $.Params.comments false))) }}
   {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
   <span class="middot-divider"></span>
   <a href="{{ $.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>

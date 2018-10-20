@@ -1,4 +1,4 @@
-{{ if .Site.Params.sharing }}
+{{ if and .Site.Params.sharing (ne .Params.share false) }}
 <div class="share-box" aria-hidden="true">
   <ul class="share">
     <li>
