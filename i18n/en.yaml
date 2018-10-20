@@ -98,6 +98,20 @@
 - id: more_talks
   translation: More Talks
 
+# Contact widget
+
+- id: contact_name
+  translation: Name
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Message
+
+- id: contact_send
+  translation: Send
+
 # Publication/Talk details
 
 - id: abstract
