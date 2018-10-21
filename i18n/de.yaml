@@ -1,7 +1,7 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Navigation umschalten
+  translation: Zur Navigation
 
 - id: table_of_contents
   translation: Inhaltsverzeichnis
