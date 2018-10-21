@@ -12,12 +12,6 @@ type = "docs"  # Do not modify.
 [menu.tutorial]
   name = "Overview"
   weight = 1
-
-# Featured image.
-# Uncomment below lines to use.
-# [header]
-# image = "headers/getting-started.png"
-# caption = "Image credit: [**Academic**](https://github.com/gcushen/hugo-academic/)"
 +++
 
 This feature can be used for publishing content such as:
