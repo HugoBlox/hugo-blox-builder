@@ -32,7 +32,7 @@
     <meta itemprop="name" content="{{ $.Site.Params.name }}">
   </span>
 
-  {{ if not (or (eq .Site.Params.reading_time false) (eq .Params.reading_time false)) }}
+  {{ if and (eq $.Type "post") (not (or (eq $.Site.Params.reading_time false) (eq $.Params.reading_time false))) }}
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     {{ $.ReadingTime }} {{ i18n "minute_read" }}
