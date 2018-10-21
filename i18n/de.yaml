@@ -3,13 +3,42 @@
 - id: toggle_navigation
   translation: Zur Navigation
 
+- id: table_of_contents
+  translation: Inhaltsverzeichnis
+
+- id: on_this_page
+  translation: Auf dieser Seite
+
+- id: back_to_top
+  translation: Zurück zum Anfang
+
+# General
+
+- id: related
+  translation: Ähnliches
+
+- id: minute_read
+  translation: Min. Lektüre
+
+- id: previous
+  translation: Zurück
+
+- id: next
+  translation: Weiter
+
+- id: figure
+  translation: "Abbildung %d:"
+
 # Buttons
 
-- id: btn_details
-  translation: Details
+- id: btn_preprint
+  translation: Preprint
 
 - id: btn_pdf
   translation: PDF
+
+- id: btn_cite
+  translation: Zitieren
 
 - id: btn_slides
   translation: Folien
@@ -26,6 +55,18 @@
 - id: btn_project
   translation: Projekt
 
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Quelldokument
+
+- id: btn_copy
+  translation: Kopie
+
+- id: btn_download
+  translation: Download
+
 # About widget
 
 - id: interests
@@ -33,6 +74,11 @@
 
 - id: education
   translation: Ausbildung
+
+# Experience widget
+
+- id: present
+  translation: Aktuell
 
 # Publications widget
 
@@ -66,6 +112,9 @@
 - id: date
   translation: Datum
 
+- id: last_updated
+  translation: Zuletzt aktualisiert am
+
 - id: links
   translation: Links
 
@@ -87,3 +136,47 @@
 
 - id: open_project_site
   translation: Zur Projektseite
+
+# Default node titles
+
+- id: posts
+  translation: Blog
+
+- id: publications
+  translation: Publikationen
+
+- id: talks
+  translation: Vorträge
+
+- id: projects
+  translation: Projekte
+
+# Search
+
+- id: search_placeholder
+  translation: Suche...
+
+- id: search_results
+  translation: Suchergebnisse
+
+- id: search_no_results
+  translation: Nichts gefunden
+
+# Error 404
+
+- id: page_not_found
+  translation: Seite nicht gefunden
+
+- id: 404_recommendations
+  translation: Suchst du vielleicht nach einer der folgenden Seiten?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies.
+
+- id: cookie_dismiss
+  translation: Verstanden!
+
+- id: cookie_learn
+  translation: Mehr erfahren
