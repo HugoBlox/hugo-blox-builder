@@ -2,14 +2,9 @@
 
     {{/* Config LaTeX math rendering. */}}
     {{ if or .Params.math .Site.Params.math }}
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        CommonHTML: { linebreaks: { automatic: true } },
-        tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: false },
-        TeX: { noUndefined: { attributes: { mathcolor: 'red', mathbackground: '#FFEEEE', mathsize: '90%' } } },
-        messageStyle: 'none'
-      });
-    </script>
+    {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
+    {{ $secureJS := $mathjax_config | resources.Fingerprint "sha512" }}
+    <script src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
     {{ end }}
 
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
