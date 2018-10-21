@@ -2,22 +2,38 @@
 {{ $ := .content }}
 
 {{ with $.Params.url_pdf }}
-<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | relURL }}" target="_blank" rel="noopener">
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
 {{ with $.Params.url_slides }}
-<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | relURL }}" target="_blank">
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank">
   {{ i18n "btn_slides" }}
 </a>
 {{ end }}
 {{ with $.Params.url_video }}
-<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | relURL }}" target="_blank" rel="noopener">
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
   {{ i18n "btn_video" }}
 </a>
 {{ end }}
 {{ with $.Params.url_code }}
-<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . | relURL }}" target="_blank" rel="noopener">
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
   {{ i18n "btn_code" }}
 </a>
 {{ end }}
@@ -31,7 +47,11 @@
   {{ end }}
 {{ end }}
 {{ range $.Params.url_custom }}
-<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .url | relURL }}" target="_blank" rel="noopener">
+{{ $link := .url }}
+{{ if not (urls.Parse .url).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .url) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
   {{ .name }}
 </a>
 {{ end }}
