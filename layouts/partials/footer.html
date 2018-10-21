@@ -2,9 +2,9 @@
 
     {{/* Config LaTeX math rendering. */}}
     {{ if or .Params.math .Site.Params.math }}
-    {{ $js := resources.Get "js/mathjax-config.js" }}
-    {{ $secureJS := $js | resources.Fingerprint "sha512" }}
-    <script type="text/javascript" src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+    {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
+    {{ $secureJS := $mathjax_config | resources.Fingerprint "sha512" }}
+    <script src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
     {{ end }}
 
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
