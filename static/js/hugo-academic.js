@@ -258,8 +258,11 @@
       // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).
       if (window.location.hash == "#top") {
         window.location.hash = ""
-      } else {
-        // If URL contains a hash, scroll to target ID taking into account responsive offset.
+      } else if (!$('.projects-container').length) {
+        // If URL contains a hash and there are no dynamically loaded images on the page,
+        // immediately scroll to target ID taking into account responsive offset.
+        // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
+        // location.
         scrollToAnchor();
       }
     }
@@ -291,6 +294,7 @@
           layoutMode: layout,
           filter: $section.find('.default-project-filter').text()
         });
+
         // Filter items when filter link is clicked.
         $section.find('.project-filters a').click(function() {
           let selector = $(this).attr('data-filter');
@@ -298,6 +302,15 @@
           $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
           return false;
         });
+
+        // If window hash is set, scroll to hash.
+        // Placing this within `imagesLoaded` prevents scrolling to the wrong location due to dynamic image loading
+        // affecting page layout and position of the target anchor ID.
+        // Note: If there are multiple project widgets on a page, ideally only perform this once after images
+        // from *all* project widgets have finished loading.
+        if (window.location.hash) {
+          scrollToAnchor();
+        }
       });
     });
 
