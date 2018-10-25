@@ -43,8 +43,12 @@
         {{ if in (slice "fab" "fas" "far" "fal") $pack }}
           {{ $pack_prefix = "fa" }}
         {{ end }}
+        {{ $target := "target=\"_blank\" rel=\"noopener\"" }}
+          {{ if not (urls.Parse .link).Scheme }}
+        {{ $target = "" }}
+        {{ end }}
         <li>
-          <a itemprop="sameAs" href="{{ .link | safeURL }}" target="_blank" rel="noopener">
+          <a itemprop="sameAs" href="{{ .link | relLangURL | safeURL }}" {{ $target | safeHTMLAttr }}>
             <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
           </a>
         </li>
