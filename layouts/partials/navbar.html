@@ -100,7 +100,7 @@
           <ul class="dropdown-menu">
             {{ range .Translations }}
             <li class="dropdown-item my-0 py-0 mx-0 px-0">
-              <a href="{{ .URL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+              <a href="{{ .Permalink }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 <span>{{ index .Site.Data.i18n.languages .Lang }}</span>
               </a>
             </li>
