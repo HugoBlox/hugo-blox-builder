@@ -4,7 +4,7 @@
     {{ if or .Params.math .Site.Params.math }}
     {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
     {{ $secureJS := $mathjax_config | resources.Fingerprint "sha512" }}
-    <script src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+    <script src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
     {{ end }}
 
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
