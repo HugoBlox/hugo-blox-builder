@@ -1052,26 +1052,21 @@ article .article-metadata {
  *  Projects
  **************************************************/
 
-#projects.home-section li {
+.project-widget-simple li {
   margin-bottom: 1rem;
 }
 
-#projects.home-section li:last-of-type {
+.project-widget-simple li:last-of-type {
   margin-bottom: 0;
 }
 
-#projects.home-section .project-title {
+.project-widget-simple .project-title {
   margin-bottom: 6px;
 }
 
-#projects.home-section .project-summary {
+.project-widget-simple .project-summary {
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
-}
-
-#projects.home-section .project-tags {
-  font-size: 0.75rem;
-  color: #9c9c9c;
 }
 
 .projects-container {
