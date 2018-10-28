@@ -25,11 +25,14 @@
         {{ $pack_prefix = "fa" }}
       {{ end }}
       {{ $target := "target=\"_blank\" rel=\"noopener\"" }}
-      {{ if not (urls.Parse .link).Scheme }}
+      {{ $link := .link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ if not $scheme }}
         {{ $target = "" }}
+        {{ $link = .link | relLangURL }}
       {{ end }}
       <li>
-        <a itemprop="sameAs" href="{{ .link | relLangURL | safeURL }}" {{ $target | safeHTMLAttr }}>
+        <a itemprop="sameAs" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
           <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
         </a>
       </li>

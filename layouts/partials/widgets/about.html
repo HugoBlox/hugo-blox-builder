@@ -44,12 +44,15 @@
           {{ $pack_prefix = "fa" }}
         {{ end }}
         {{ $target := "target=\"_blank\" rel=\"noopener\"" }}
-          {{ if not (urls.Parse .link).Scheme }}
-        {{ $target = "" }}
+        {{ $link := .link }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ if not $scheme }}
+          {{ $target = "" }}
+          {{ $link = .link | relLangURL }}
         {{ end }}
         <li>
-          <a itemprop="sameAs" href="{{ .link | relLangURL | safeURL }}" {{ $target | safeHTMLAttr }}>
-            <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
+          <a itemprop="sameAs" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+            <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>{{ $scheme }}
           </a>
         </li>
         {{ end }}
