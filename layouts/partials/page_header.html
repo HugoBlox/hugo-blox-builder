@@ -32,7 +32,7 @@
 {{ with $featured }}
 {{ $image := .Fill (printf "1600x400 q90 %s" $anchor) }}
 <div class="article-header d-xl-none">
-  <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
+  <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="{{ with $.Params.image.caption }}{{ . | markdownify | emojify }}>{{ end }}">
   {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
 </div>
 
@@ -54,7 +54,7 @@
     </div>
     <div class="col-6">
       <div class="split-header-image">
-        <img src="{{ $image.RelPermalink }}" itemprop="image" alt="">
+        <img src="{{ $image.RelPermalink }}" itemprop="image" alt="{{ with $.Params.image.caption }}{{ . | markdownify | emojify }}>{{ end }}">
         {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
       </div>
     </div>
