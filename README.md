@@ -12,6 +12,7 @@ Follow our easy [step by step guide](https://sourcethemes.com/academic/docs/inst
 - Updating? View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
 - Support development of Academic:
   - [Donate a coffee](https://paypal.me/cushen)
+  - [Become a backer on Patreon](https://www.patreon.com/cushen)
   - [Decorate your laptop or journal with an Academic sticker](https://www.redbubble.com/people/neutreno/works/34387919-academic)
   - [Wear the T-shirt](https://academic.threadless.com/)
 
