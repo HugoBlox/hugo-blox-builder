@@ -694,6 +694,12 @@ article {
   box-sizing: border-box;
 }
 
+/* Prevent FA's line height of 1 causing FA button links to be taller than other button links. */
+.btn-links .fab,
+.btn-links .fas {
+  line-height: inherit !important;
+}
+
 .split-header-image {
   position: relative; /* Required for caption positioning */
   clear: both;
@@ -983,7 +989,7 @@ article .article-metadata {
   color: rgba(255,255,255,0.54);
 }
 
-.pub-list-item .pub-links {
+.pub-list-item .btn-links {
   padding-top: 10px;
 }
 
