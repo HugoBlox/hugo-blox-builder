@@ -45,13 +45,12 @@
 
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
-        {{ $params := dict "post" . }}
         {{ if eq $page.Params.list_format 0 }}
-          {{ partial "post_li_simple" $params }}
+          {{ partial "post_li_simple" . }}
         {{ else if eq $page.Params.list_format 1 }}
-          {{ partial "post_li_detailed" $params }}
+          {{ partial "post_li_detailed" . }}
         {{ else }}
-          {{ partial "post_li_stream" $params }}
+          {{ partial "post_li_stream" . }}
         {{ end }}
       {{end}}
 
@@ -80,13 +79,12 @@
 
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
-        {{ $params := dict "post" . }}
         {{ if eq $page.Params.list_format 0 }}
-          {{ partial "post_li_simple" $params }}
+          {{ partial "post_li_simple" . }}
         {{ else if eq $page.Params.list_format 1 }}
-          {{ partial "post_li_detailed" $params }}
+          {{ partial "post_li_detailed" . }}
         {{ else }}
-          {{ partial "post_li_stream" $params }}
+          {{ partial "post_li_stream" . }}
         {{ end }}
       {{end}}
 
