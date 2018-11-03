@@ -11,12 +11,15 @@
   <div class="col-12 col-lg-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ if and $.Site.Params.email $page.Params.email_form }}
+    {{ if $page.Params.email_form }}
 
     {{ $post_action := "" }}
     {{ if eq $page.Params.email_form 1 }}
       {{ $post_action = "netlify" }}
     {{ else }}
+      {{ if not $.Site.Params.email }}
+        {{ errorf "Please set an email address for the contact form using the `email` parameter in `config.toml`. Otherwise, set `email_form = 0` to disable the contact form." }}
+      {{ end }}
       {{ $post_action = printf "action=\"https://formspree.io/%s\"" $.Site.Params.email }}
     {{end}}
 
