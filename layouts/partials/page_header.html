@@ -49,6 +49,8 @@
 
         {{ partial "page_metadata" (dict "content" $page "is_list" 1) }}
 
+        {{ partial "page_links_div.html" $page }}
+
         {{ partial "share.html" $page }}
       </div>
     </div>
@@ -69,6 +71,8 @@
   {{end}}
 
   {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
+
+  {{ partial "page_links_div.html" $page }}
 </div>
 {{else}}
   {{/* Case when page has no image */}}
@@ -87,6 +91,7 @@
 
   {{ if not .IsNode }}
     {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
+    {{ partial "page_links_div.html" $page }}
   {{end}}
 </div>
 {{end}}

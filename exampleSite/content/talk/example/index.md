@@ -37,9 +37,17 @@ projects = ["internal-project"]
 #   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
 tags = []
 
+# Slides (optional).
+#   Associate this talk with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides = "example-slides"` references 
+#   `content/slides/example-slides.md`.
+#   Otherwise, set `slides = ""`.
+slides = "example-slides"
+
 # Links (optional).
 url_pdf = ""
-url_slides = "slides/example-slides"
+url_slides = ""
 url_video = ""
 url_code = ""
 
