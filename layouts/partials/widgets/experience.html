@@ -34,9 +34,9 @@
           <div class="card-body">
             <div class="float-right text-muted exp-meta">
               <div>
-                {{ (time .date_start).Format ($.Params.date_format | default "January 2006") }} –
+                {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –
                 {{ if .date_end}}
-                  {{ (time .date_end).Format ($.Params.date_format | default "January 2006") }}
+                  {{ (time .date_end).Format ($page.Params.date_format | default "January 2006") }}
                 {{else}}
                   {{ i18n "present" | default "Present" }}
                 {{end}}
