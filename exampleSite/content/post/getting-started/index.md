@@ -30,44 +30,46 @@ summary = "Create a beautifully simple website or blog in under 10 minutes."
   # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
   focal_point = ""
 
+# Set captions for image gallery.
+
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png"
+album = "gallery"
+image = "theme-default.png"
 caption = "Default"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png"
+album = "gallery"
+image = "theme-ocean.png"
 caption = "Ocean"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png"
+album = "gallery"
+image = "theme-forest.png"
 caption = "Forest"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png"
+album = "gallery"
+image = "theme-dark.png"
 caption = "Dark"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-apogee.png"
+album = "gallery"
+image = "theme-apogee.png"
 caption = "Apogee"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png"
+album = "gallery"
+image = "theme-1950s.png"
 caption = "1950s"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png"
+album = "gallery"
+image = "theme-coffee-playfair.png"
 caption = "Coffee theme with Playfair font"
 
 [[gallery_item]]
-album = "1"
-image = "https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-cupcake.png"
+album = "gallery"
+image = "theme-cupcake.png"
 caption = "Cupcake"
 +++
 
