@@ -45,7 +45,7 @@
   <a href="{{ $.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
-  {{ if isset $.Params "categories" }}
+  {{ if $.Params.categories }}
   {{ $categoriesLen := len $.Params.categories }}
   {{ if gt $categoriesLen 0 }}
   <span class="middot-divider"></span>

@@ -1,4 +1,4 @@
-{{ $post := .post }}
+{{ $post := . }}
 
 <div class="card-simple" itemscope itemprop="blogPost" itemtype="http://schema.org/BlogPosting">
   {{ partial "page_metadata" (dict "content" $post "is_list" 1) }}
