@@ -29,14 +29,14 @@
 {{end}}
 
 {{/* Featured image */}}
-{{ with $featured }}
-{{ $image := .Fill (printf "1600x400 q90 %s" $anchor) }}
+{{ if and $featured (not $.Params.image.preview_only) }}
+{{ $image := $featured.Fill (printf "1600x400 q90 %s" $anchor) }}
 <div class="article-header d-xl-none">
   <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
   {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
 </div>
 
-{{ $image := .Fill (printf "680x500 q90 %s" $anchor) }}
+{{ $image := $featured.Fill (printf "680x500 q90 %s" $anchor) }}
 <div class="container-fluid split-header d-none d-xl-block">
   <div class="row">
     <div class="col-6">

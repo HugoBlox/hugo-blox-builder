@@ -30,6 +30,9 @@ summary = "Create a beautifully simple website or blog in under 10 minutes."
   # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
   focal_point = ""
 
+  # Show image only in page previews?
+  preview_only = false
+
 # Set captions for image gallery.
 
 [[gallery_item]]
