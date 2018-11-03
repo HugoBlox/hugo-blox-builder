@@ -2,105 +2,84 @@
 {{ $page := .page }}
 
 <!-- Projects widget -->
+{{ $widget_layout := $page.Params.widget_layout | default 0 }}
+{{ if eq $widget_layout 0 }}
+{{/* Standard dual-column layout. */}}
+
 <div class="row">
-  <div class="col-12 col-lg-4 section-heading">
+  <div class="col-xs-12 col-md-4 section-heading">
+
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+
   </div>
-  <div class="col-12 col-lg-8">
+  <div class="col-xs-12 col-md-8">
+
+{{ else }}
+{{/* Single column layout. */}}
+
+<div class="margin-auto">
+
+  <div class="center-text">
+    {{ with $page.Title }}<h1 class="mt-0">{{ . | markdownify }}</h1>{{ end }}
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div>
+{{ end }}
+
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
     {{ if $page.Params.filter }}
 
-    {{ $filter_default := default (int $page.Params.filter_default) 0 }}
+      {{ $filter_default := default (int $page.Params.filter_default) 0 }}
 
-    {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
-    {{ $default_filter_tag_raw := (index $page.Params.filter ($filter_default)).tag }}
-    {{ $default_filter_tag := printf ".%s" (urlize $default_filter_tag_raw) }}
-    {{ if or (eq (substr $default_filter_tag_raw 0 1) "*") (eq (substr $default_filter_tag_raw 0 1) ".") }}
-      {{ $default_filter_tag = $default_filter_tag_raw }}
-    {{ end }}
+      {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
+      {{ $default_filter_tag_raw := (index $page.Params.filter ($filter_default)).tag }}
+      {{ $default_filter_tag := printf ".js-id-%s" (replace $default_filter_tag_raw " " "-") }}
+      {{ if or (eq (substr $default_filter_tag_raw 0 1) "*") (eq (substr $default_filter_tag_raw 0 1) ".") }}
+        {{ $default_filter_tag = $default_filter_tag_raw }}
+      {{ end }}
 
-    <span class="d-none default-project-filter">{{ $default_filter_tag }}</span>
+      <span class="d-none default-project-filter">{{ $default_filter_tag }}</span>
 
-    {{/* Only show filter buttons if there are multiple filters. */}}
-    {{ if gt (len $page.Params.filter) 1 }}
-    <div class="project-toolbar">
-      <div class="project-filters">
-        <div class="btn-toolbar">
-          <div class="btn-group flex-wrap">
-            {{ range $idx, $item := $page.Params.filter }}
-            {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
-            {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
-                {{ $.Scratch.Set "tag" .tag }}
-              {{ else }}
-                {{ $.Scratch.Set "tag" (printf ".%s" (urlize .tag)) }}
+      {{/* Only show filter buttons if there are multiple filters. */}}
+      {{ if gt (len $page.Params.filter) 1 }}
+      <div class="project-toolbar">
+        <div class="project-filters">
+          <div class="btn-toolbar">
+            <div class="btn-group flex-wrap">
+              {{ range $idx, $item := $page.Params.filter }}
+                {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
+                {{ $data_filter := printf ".js-id-%s" (replace .tag " " "-") }}
+                {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
+                  {{ $data_filter = .tag }}
+                {{ end }}
+                <a href="#" data-filter="{{ $data_filter | safeHTMLAttr }}" class="btn btn-primary btn-lg{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
               {{ end }}
-              <a href="#" data-filter="{{ $.Scratch.Get "tag" }}" class="btn btn-primary btn-lg{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </div>
-    {{ end }}
-    {{ end }}
-
-    {{ if eq $page.Params.view 0 }}
-
-    <div class="row isotope projects-container js-layout-row">
-        {{ range where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
-        <div class="col-lg-12 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}" itemscope itemtype="http://schema.org/CreativeWork">
-          <i class="far fa-copy pub-icon" aria-hidden="true"></i>
-
-          <span class="project-title">
-          {{ if .Content }}
-          <a href="{{ .RelPermalink }}">
-          {{ else }}
-            {{ with .Params.external_link }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
-          {{ end }}
-          {{ .Title }}
-          {{ if .Content }}</a>{{ else }}{{ with .Params.external_link }}</a>{{ end }}{{ end }}
-          </span>
-          {{ with .Params.summary }}<p class="project-summary">{{ . | markdownify }}</p>{{ end }}
-        </div>
-        {{ end }}
-    </div>
-
-    {{ else }}
-
-    <div class="row isotope projects-container js-layout-masonry">
-
-      {{ range $project := where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
-        {{ $.Scratch.Set "project_url" $project.RelPermalink }}
-        {{ $.Scratch.Set "target" "" }}
-        {{ if $project.Params.external_link }}
-        {{   $.Scratch.Set "project_url" $project.Params.external_link }}
-        {{   $.Scratch.Set "target" "target=\"_blank\" rel=\"noopener\"" }}
-        {{ end }}
-        {{ $resource := ($project.Resources.ByType "image").GetMatch "*featured*" }}
-        {{ $anchor := $project.Params.image.focal_point | default "Smart" }}
-      <div class="col-12 col-md-6 col-lg-4 project-item isotope-item {{ delimit (apply .Params.tags "urlize" ".") " " }}">
-        <div class="card">
-          {{ with $resource }}
-          {{ $image := .Fill (printf "550x550 q90 %s" $anchor) }}
-          <a href="{{ $.Scratch.Get "project_url" }}" {{ $.Scratch.Get "target" | safeHTMLAttr }} class="card-image hover-overlay"
-             {{ $.Scratch.Get "target" | safeHTMLAttr }}>
-            <img src="{{ $image.RelPermalink }}" alt="" class="img-responsive">
-          </a>
-          {{ end }}
-          <div class="card-text">
-            <h4><a href="{{ $.Scratch.Get "project_url" }}" {{ $.Scratch.Get "target" | safeHTMLAttr }}>{{ .Title }}</a></h4>
-            <div class="card-desription">
-              {{ with $project.Params.summary }}<p>{{ . | markdownify }}</p>{{ end }}
             </div>
           </div>
         </div>
       </div>
       {{ end }}
-
-    </div>
-
     {{ end }}
+
+    <div class="row {{ if or $page.Params.filter (eq $page.Params.view 1) }}isotope projects-container{{end}} {{if eq $page.Params.view 1}}js-layout-masonry{{else}}js-layout-row{{end}} {{ if eq $page.Params.view 2 }}project-showcase mt-5{{end}}">
+      {{ range $idx, $item := where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
+        {{ $link := $item.RelPermalink }}
+        {{ $target := "" }}
+        {{ if $item.Params.external_link }}
+          {{ $link = $item.Params.external_link }}
+          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+        {{ if eq $page.Params.view 0 }}
+          {{ partial "project_li_simple" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
+        {{ else if eq $page.Params.view 1 }}
+          {{ partial "project_li_card" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
+        {{ else }}
+          {{ partial "project_li_showcase" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
+        {{ end }}
+      {{ end }}
+    </div>
 
   </div>
 </div>

@@ -12,5 +12,5 @@
   {{ else if .Params.publication }}
     {{- .Params.publication | markdownify -}}.
   {{ end }}
-  <p>{{ partial "publication_links" (dict "content" . "is_list" 1) }}</p>
+  <p>{{ partial "page_links" (dict "content" . "is_list" 1) }}</p>
 </div>

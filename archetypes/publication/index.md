@@ -36,6 +36,14 @@ selected = false
 #   Otherwise, set `projects = []`.
 projects = []
 
+# Slides (optional).
+#   Associate this page with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides = "example-slides"` references 
+#   `content/slides/example-slides.md`.
+#   Otherwise, set `slides = ""`.
+slides = ""
+
 # Tags (optional).
 #   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
 tags = []

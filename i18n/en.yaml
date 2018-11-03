@@ -129,9 +129,6 @@
 - id: last_updated
   translation: Last updated on
 
-- id: links
-  translation: Links
-
 - id: event
   translation: Event
 

@@ -79,6 +79,13 @@
   {{ i18n "btn_poster" }}
 </a>
 {{ end }}
+{{ if $.Params.slides }}
+  {{ with ($.Site.GetPage (printf "slides/%s" $.Params.slides)) }}
+  <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .RelPermalink }}" target="_blank">
+    {{ i18n "btn_slides" }}
+  </a>
+  {{ end }}
+{{ else }}
 {{ with $.Params.url_slides }}
 {{ $link := . }}
 {{ if not (urls.Parse .).Scheme }}
@@ -87,6 +94,7 @@
 <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
   {{ i18n "btn_slides" }}
 </a>
+{{ end }}
 {{ end }}
 {{ with $.Params.url_video }}
 {{ $link := . }}

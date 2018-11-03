@@ -957,7 +957,7 @@ article .article-metadata {
   line-height: 30px; /* Match share bar line height. */
 }
 
-.pub .pub-row-heading {
+.pub-row-heading {
   font-weight: bold;
 }
 
@@ -1082,6 +1082,14 @@ article .article-metadata {
 
 .project-item {
   margin-bottom: 1.5rem;
+}
+
+.project-showcase .project-item {
+  margin-bottom: 3rem;
+}
+
+.project-item:last-of-type {
+  margin-bottom: 0;
 }
 
 .isotope-item {
