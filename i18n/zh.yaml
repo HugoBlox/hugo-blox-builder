@@ -98,6 +98,20 @@
 - id: more_talks
   translation: 更多演讲
 
+# Contact widget
+
+- id: contact_name
+  translation: 姓名
+
+- id: contact_email
+  translation: 邮箱
+
+- id: contact_message
+  translation: 信息
+
+- id: contact_send
+  translation: 发送
+
 # Publication/Talk details
 
 - id: abstract
@@ -114,9 +128,6 @@
 
 - id: last_updated
   translation: 最近更新于
-
-- id: links
-  translation: 链接
 
 - id: event
   translation: 事件
