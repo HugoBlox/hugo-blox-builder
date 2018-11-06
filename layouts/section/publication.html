@@ -49,13 +49,7 @@
       <div id="container-publications">
         {{ range .Pages.ByDate.Reverse }}
 
-        {{ if .Params.publication_types }}
-          {{ $.Scratch.Set "pubtype" (index .Params.publication_types 0) }}
-        {{ else }}
-          {{ $.Scratch.Set "pubtype" 0 }}
-        {{ end }}
-
-        <div class="grid-sizer col-lg-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
+        <div class="grid-sizer col-lg-12 isotope-item{{ if .Params.publication_types }}{{ range .Params.publication_types }} pubtype-{{ . }}{{ end }}{{ else }} pubtype-0{{ end }} year-{{ .Date.Format "2006" }}">
           {{ if eq $.Params.list_format 1 }}
             {{ partial "publication_li_detailed" . }}
           {{ else if eq $.Params.list_format 2 }}
