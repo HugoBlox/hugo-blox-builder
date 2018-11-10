@@ -15,7 +15,7 @@
 {{end}}
 
 {{/* Header image */}}
-{{ if and .Params.header.image (not $featured) }}
+{{ if and .Params.header.image (not (and $featured (not .Params.image.preview_only))) }}
 <div class="article-header">
   {{ $img_src := urls.Parse .Params.header.image }}
   {{ if $img_src.Scheme }}
@@ -29,7 +29,7 @@
 {{end}}
 
 {{/* Featured image */}}
-{{ if and $featured (not $.Params.image.preview_only) }}
+{{ if and $featured (not .Params.image.preview_only) }}
 {{ $image := $featured.Fill (printf "1600x400 q90 %s" $anchor) }}
 <div class="article-header d-xl-none">
   <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
