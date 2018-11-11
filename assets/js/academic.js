@@ -1,6 +1,8 @@
 /*************************************************
- *  Academic: the personal website framework for Hugo.
+ *  Academic
  *  https://github.com/gcushen/hugo-academic
+ *
+ *  Core JS functions and initialization.
  **************************************************/
 
 (function($){

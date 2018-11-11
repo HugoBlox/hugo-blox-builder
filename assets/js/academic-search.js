@@ -1,6 +1,8 @@
 /*************************************************
- *  Academic: the website framework for Hugo.
+ *  Academic
  *  https://github.com/gcushen/hugo-academic
+ *
+ *  In-built Fuse based search algorithm.
  **************************************************/
 
 /* ---------------------------------------------------------------------------
@@ -149,25 +151,28 @@ function render(template, data) {
 * Initialize.
 * --------------------------------------------------------------------------- */
 
+// If Academic's in-built search is enabled and Fuse loaded, then initialize it.
+if (typeof Fuse === 'function') {
 // Wait for Fuse to initialize.
-$.getJSON( search_index_filename, function( search_index ) {
-  let fuse = new Fuse(search_index, fuseOptions);
+  $.getJSON(search_index_filename, function (search_index) {
+    let fuse = new Fuse(search_index, fuseOptions);
 
-  // On page load, check for search query in URL.
-  if (query = getSearchQuery('q')) {
-    $("#search-query").val(query);
-    initSearch(true, fuse);
-  }
-
-  // On search box key up, process query.
-  $('#search-query').keyup(function (e) {
-    clearTimeout($.data(this, 'searchTimer')); // Ensure only one timer runs!
-    if (e.keyCode == 13) {
+    // On page load, check for search query in URL.
+    if (query = getSearchQuery('q')) {
+      $("#search-query").val(query);
       initSearch(true, fuse);
-    } else {
-      $(this).data('searchTimer', setTimeout(function () {
-        initSearch(false, fuse);
-      }, 250));
     }
+
+    // On search box key up, process query.
+    $('#search-query').keyup(function (e) {
+      clearTimeout($.data(this, 'searchTimer')); // Ensure only one timer runs!
+      if (e.keyCode == 13) {
+        initSearch(true, fuse);
+      } else {
+        $(this).data('searchTimer', setTimeout(function () {
+          initSearch(false, fuse);
+        }, 250));
+      }
+    });
   });
-});
+}
