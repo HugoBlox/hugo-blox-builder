@@ -806,8 +806,8 @@ article .article-metadata {
 .article-style video {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   padding: 0;
 }
 
@@ -818,8 +818,8 @@ article .article-metadata {
 }
 
 .article-style figure {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .article-style figure img {
