@@ -1,0 +1,140 @@
+{{ $is_list := .is_list }}
+{{ $ := .content }}
+
+{{ with $.Params.url_preprint }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_preprint" }}
+</a>
+{{ end }}
+{{ $pdf := "" }}
+{{ $slug := "" }}
+{{ if eq $.File.TranslationBaseName "index" }}{{/* Check if using dir-based page bundles. */}}
+  {{ $slug = delimit (last 1 (split (substr $.Dir 0 -1) "/")) "" }}
+{{ end }}
+{{ $resource := $.Resources.GetMatch (printf "%s.pdf" $slug) }}
+{{ with $resource }}
+  {{ $pdf = .RelPermalink }}
+{{ else }}
+  {{ if $.Params.url_pdf }}
+    {{ $pdf = $.Params.url_pdf | relURL }}
+  {{ end }}
+{{ end }}
+{{ with $pdf }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . }}" target="_blank" rel="noopener">
+  {{ i18n "btn_pdf" }}
+</a>
+{{ end }}
+{{ $resource := $.Resources.GetMatch "*.bib" }}
+{{ with $resource }}
+<button type="button" class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}} js-cite-modal"
+        data-filename="{{ .RelPermalink }}">
+  {{ i18n "btn_cite" }}
+</button>
+{{ end }}
+{{ with $.Params.url_code }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_code" }}
+</a>
+{{ end }}
+{{ with $.Params.url_dataset }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_dataset" }}
+</a>
+{{ end }}
+{{ if $.Params.projects }}
+{{ range $.Params.projects }}
+  {{ with ($.Site.GetPage (printf "project/%s" .)) }}
+  <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .RelPermalink }}">
+    {{ i18n "btn_project" }}
+  </a>
+  {{ else }}
+    {{/* errorf "The `projects` parameter in `content/%s` references a project file, `content/project/%s`, which cannot be found. Please either set `projects = []` or fix the reference." $.File.Path . */}}
+  {{ end }}
+{{ end }}
+{{ else }}
+{{ with $.Params.url_project }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . }}" target="_blank" rel="noopener">
+  {{ i18n "btn_project" }}
+</a>
+{{ end }}
+{{ end }}
+{{ with $.Params.url_poster }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_poster" }}
+</a>
+{{ end }}
+{{ if $.Params.slides }}
+  {{ with ($.Site.GetPage (printf "slides/%s" $.Params.slides)) }}
+  <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .RelPermalink }}" target="_blank">
+    {{ i18n "btn_slides" }}
+  </a>
+  {{ end }}
+{{ else }}
+{{ with $.Params.url_slides }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_slides" }}
+</a>
+{{ end }}
+{{ end }}
+{{ with $.Params.url_video }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_video" }}
+</a>
+{{ end }}
+{{ with $.Params.url_source }}
+{{ $link := . }}
+{{ if not (urls.Parse .).Scheme }}
+{{ $link = (printf "%s%s" $.Dir .) | relURL }}
+{{ end }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link }}" target="_blank" rel="noopener">
+  {{ i18n "btn_source" }}
+</a>
+{{ end }}
+{{ with $.Params.doi }}
+<a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="https://doi.org/{{ . }}" target="_blank" rel="noopener">
+  DOI
+</a>
+{{ end }}
+{{ range $.Params.url_custom }}
+  {{ $pack := or .icon_pack "fas" }}
+  {{ $pack_prefix := $pack }}
+  {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+    {{ $pack_prefix = "fa" }}
+  {{ end }}
+  {{ $link := .url }}
+  {{ $scheme := (urls.Parse $link).Scheme }}
+  {{ $target := "" }}
+  {{ if not $scheme }}
+    {{ $link = (printf "%s%s" $.Dir .url) | relURL }}
+  {{ else if in (slice "http" "https") $scheme }}
+    {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+  {{ end }}
+  <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+    {{ if .icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} {{if .name}}mr-1{{end}}"></i>{{end}}
+    {{ with .name }}{{ . | safeHTML }}{{end}}
+  </a>
+{{ end }}

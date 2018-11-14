@@ -1,12 +1,11 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
 
-{{ partial "header_image.html" . }}
+{{ partial "page_header.html" . }}
 
 <div class="universal-wrapper">
   <div class="row">
     <div class="col-lg-12">
-      <h1>{{ .Title | default (i18n "publications") }}</h1>
 
       {{ with .Content }}
       <div class="article-style" itemprop="articleBody">{{ . }}</div>
@@ -63,6 +62,8 @@
             {{ partial "publication_li_apa" . }}
           {{ else if eq $.Params.list_format 3 }}
             {{ partial "publication_li_mla" . }}
+          {{ else if eq $.Params.list_format 4 }}
+            {{ partial "publication_li_stream" . }}
           {{ else }}
             {{ partial "publication_li_simple" . }}
           {{ end }}

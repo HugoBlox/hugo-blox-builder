@@ -1,0 +1,60 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<!-- Experience widget -->
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-12 col-lg-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if $page.Params.experience }}
+    {{ $exp_len := len $page.Params.experience }}
+    {{ range $idx, $key := sort $page.Params.experience ".date_start" "desc" }}
+    <div class="row experience">
+      <!-- Timeline -->
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col {{if gt $idx 0}}border-right{{end}}">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border {{if not .date_end}}exp-fill{{end}}">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col {{if lt $idx (sub $exp_len 1)}}border-right{{end}}">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      <!-- Content -->
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-right text-muted exp-meta">
+              <div>
+                {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –
+                {{ if .date_end}}
+                  {{ (time .date_end).Format ($page.Params.date_format | default "January 2006") }}
+                {{else}}
+                  {{ i18n "present" | default "Present" }}
+                {{end}}
+                {{with .location}}
+              </div>
+              <div class="text-right">{{.}}</div>
+              {{end}}
+            </div>
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">{{.title | markdownify | emojify}}</h4>
+            <h4 class="card-title exp-company text-muted my-0">
+              {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
+            </h4>
+            {{with .description}}<div class="card-text">{{. | markdownify | emojify}}</div>{{end}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+  </div>
+</div>

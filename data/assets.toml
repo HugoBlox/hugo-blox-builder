@@ -56,8 +56,8 @@
   sri = "sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U="
   url = "https://cdnjs.cloudflare.com/ajax/libs/mark.js/%s/jquery.mark.min.js"
 [js.instantsearch]
-  version = "2.9.0"
-  sri = "sha256-cJXigylnJlxvAdfFNHeS+IiMcKWS3Rf/cy3bl9bb0ng="
+  version = "2.10.2"
+  sri = "sha256-gFCtPk/sonctyfwYOgjrPoWApQ0rqB6ezBBZ7p32yGc="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.js"
 [js.anchor]
   version = "4.1.1"
@@ -71,8 +71,8 @@
   sri = "sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="
   url = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/%s/css/bootstrap.min.css"
 [css.fontAwesome]
-  version = "5.3.1"
-  sri = "sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  version = "5.4.1"
+  sri = "sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
   url = "https://use.fontawesome.com/releases/v%s/css/all.css"
 [css.academicons]
   version = "1.8.6"
@@ -91,8 +91,8 @@
   sri = "sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.css"
 [css.instantsearchTheme]
-  version = "2.9.0"
-  sri = "sha256-0vcZrdMQksHcHrY60tPnVK71jnB3wX/JpMcah5BffjA="
+  version = "2.10.2"
+  sri = "sha256-uL8LUd3zkI/lXvc/Hv/oOu8ld6RJcOZiUY/8c+I+3/o="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch-theme-algolia.min.css"
 [css.highlight]
   version = "9.12.0"

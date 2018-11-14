@@ -11,15 +11,19 @@
 
   {{ $scr := .Scratch }}
   {{/* Generate page description. */}}
-  {{ $scr.Set "description" .Site.Params.role }}
-  {{ if .Params.abstract }}
-    {{ $scr.Set "description" .Params.abstract }}
-  {{ else if .Params.summary }}
-    {{ $scr.Set "description" .Params.summary }}
+  {{ $desc := "" }}
+  {{ if .Params.summary }}
+    {{ $desc = .Params.summary }}
+  {{ else if .Params.abstract }}
+    {{ $desc = .Params.abstract }}
   {{ else if .IsPage }}
-    {{ $scr.Set "description" .Summary }}
+    {{ $desc = .Summary }}
+  {{ else if .Site.Params.description }}
+    {{ $desc = .Site.Params.description }}
+  {{ else }}
+    {{ $desc = .Site.Params.role }}
   {{ end }}
-  <meta name="description" content="{{ $scr.Get "description" }}">
+  <meta name="description" content="{{ $desc }}">
 
   {{ range .Translations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
@@ -80,7 +84,7 @@
 
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent. */}}
   {{ with ($scr.Get "google_fonts") }}
-  <link rel="stylesheet" href="{{ printf "//fonts.googleapis.com/css?family=%s" . }}">
+  <link rel="stylesheet" {{ printf "href=\"//fonts.googleapis.com/css?family=%s\"" . | safeHTMLAttr }}>
   {{ end }}
 
   <link rel="stylesheet" href="{{ "styles.css" | relLangURL }}">
@@ -125,8 +129,16 @@
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}">
-  <meta property="og:description" content="{{ $scr.Get "description" }}">
-  {{- with .Params.header.image }}<meta property="og:image" content="{{ printf "img/%s" . | absURL }}">{{end}}
+  <meta property="og:description" content="{{ $desc }}">
+  {{ $og_image := "" }}
+  {{ if .Params.header.image }}
+    {{ $og_image = .Params.header.image }}
+  {{ else if .Site.Params.sharing_image }}
+    {{ $og_image = .Site.Params.sharing_image }}
+  {{ else }}
+    {{ $og_image = "icon-192.png" }}
+  {{ end }}
+  {{- with $og_image }}<meta property="og:image" content="{{ printf "img/%s" . | absURL }}">{{end}}
   <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
   {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
@@ -142,4 +154,4 @@
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 
 </head>
-<body id="top" data-spy="scroll" data-target="{{ if or .IsHome .Params.widgets }}#navbar-main{{ else }}#toc{{ end }}" data-offset="71" {{ if not ($scr.Get "light") }}class="dark"{{ end }}>
+<body id="top" data-spy="scroll" data-target="{{ if or .IsHome .Params.widgets }}#navbar-main{{ else }}#TableOfContents{{ end }}" data-offset="71" {{ if not ($scr.Get "light") }}class="dark"{{ end }}>

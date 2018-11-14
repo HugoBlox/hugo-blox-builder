@@ -1,25 +1,18 @@
 <div class="pub-list-item card-simple" itemscope itemtype="http://schema.org/CreativeWork">
 
-  {{ if .Params.image_preview }}
-    {{ .Scratch.Set "image" .Params.image_preview }}
-  {{ else if .Params.header.image }}
-    {{ .Scratch.Set "image" .Params.header.image }}
-  {{ end }}
-  {{ if .Scratch.Get "image" }}
+  {{ $resource := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $anchor := .Params.image.focal_point | default "Smart" }}
+  {{ with $resource }}
+  {{ $image := .Fill (printf "918x517 q90 %s" $anchor) }}
   <div>
-    <a href="{{ .Permalink }}">
-      {{ $img_src := urls.Parse (.Scratch.Get "image") }}
-      {{ if $img_src.Scheme }}
-        <img src="{{ .Scratch.Get "image" }}" class="article-banner" itemprop="image">
-      {{ else }}
-        <img src="{{ "/img/" | relURL }}{{ .Scratch.Get "image" }}" class="article-banner" itemprop="image">
-      {{ end }}
+    <a href="{{ $.RelPermalink }}">
+      <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
     </a>
   </div>
-  {{ end }}
+  {{end}}
 
   <h3 class="article-title" itemprop="name">
-    <a href="{{ .Permalink }}" itemprop="url">{{ .Title }}</a>
+    <a href="{{ .RelPermalink }}" itemprop="url">{{ .Title }}</a>
   </h3>
 
   <div class="pub-abstract" itemprop="text">
@@ -45,8 +38,8 @@
     {{ .Date.Format "2006" }}
   </div>
 
-  <div class="pub-links">
-    {{ partial "publication_links" (dict "content" . "is_list" 1) }}
+  <div class="btn-links">
+    {{ partial "page_links" (dict "content" . "is_list" 1) }}
   </div>
 
 </div>

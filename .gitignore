@@ -1,3 +1,4 @@
 # IDE specific
 .idea/
 .vscode/
+resources/

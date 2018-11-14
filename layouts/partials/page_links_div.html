@@ -1,0 +1,28 @@
+{{/* Div wrapper around page links. */}}
+{{/* The wrapper is hidden when the page has no link buttons. */}}
+
+{{ $pdf_link := false }}
+{{ $cite_link := false }}
+
+{{ $slug := "" }}
+{{ if eq $.File.TranslationBaseName "index" }}{{/* Check if using dir-based page bundles. */}}
+  {{ $slug = delimit (last 1 (split (substr $.Dir 0 -1) "/")) "" }}
+{{ end }}
+{{ $resource := $.Resources.GetMatch (printf "%s.pdf" $slug) }}
+{{ with $resource }}
+  {{ $pdf_link = true }}
+{{ end }}
+
+{{ $resource := $.Resources.GetMatch "*.bib" }}
+{{ with $resource }}
+  {{ $cite_link = true }}
+{{ end }}
+
+{{ if $cite_link | or $pdf_link | or .Params.external_link | or .Params.url_preprint | or .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_source | or .Params.url_code | or .Params.url_dataset | or .Params.url_poster | or .Params.url_project | or .Params.url_custom | or .Params.projects | or .Params.slides }}
+<div class="btn-links mb-3">
+  {{ with .Params.external_link }}
+  <a class="btn btn-outline-primary my-1" href="{{ . }}" target="_blank" rel="noopener">{{ i18n "open_project_site" }}</a>
+  {{ end }}
+  {{ partial "page_links" (dict "content" . "is_list" 0) }}
+</div>
+{{ end }}

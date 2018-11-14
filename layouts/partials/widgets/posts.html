@@ -10,7 +10,7 @@
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
     {{ if gt $posts_len $page.Params.count }}
     <p class="view-all">
-      <a href="{{ ($.Site.GetPage "section" "post").Permalink }}">
+      <a href="{{ ($.Site.GetPage "section" "post").RelPermalink }}">
         {{ i18n "more_posts" | markdownify }}
         <i class="fas fa-angle-double-right"></i>
       </a>
@@ -31,10 +31,11 @@
         {{ $.Scratch.Set "show_post" "1" }}
 
         {{/* If `tags_include` is set, exclude posts with no tags. */}}
-        {{ if and ($page.Params.tags_include) (lt (len .Params.tags) 1) }}
-          {{ $.Scratch.Set "show_post" "0" }}
+        {{ with (not .Params.tags) }}
+          {{ with $page.Params.tags_include }}
+            {{ $.Scratch.Set "show_post" "0" }}
+          {{end}}
         {{end}}
-
         {{/* If `tags_exclude` is set, exclude posts. */}}
         {{ range $key, $val := .Params.tags }}
           {{ if in $page.Params.tags_exclude $val }}
@@ -44,11 +45,12 @@
 
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
-        {{ $params := dict "post" . }}
         {{ if eq $page.Params.list_format 0 }}
-          {{ partial "post_li_simple" $params }}
+          {{ partial "post_li_simple" . }}
+        {{ else if eq $page.Params.list_format 1 }}
+          {{ partial "post_li_detailed" . }}
         {{ else }}
-          {{ partial "post_li_detailed" $params }}
+          {{ partial "post_li_stream" . }}
         {{ end }}
       {{end}}
 
@@ -62,8 +64,10 @@
         {{ $.Scratch.Set "show_post" "1" }}
 
         {{/* If `tags_include` is set, exclude posts with no tags. */}}
-        {{ if and ($page.Params.tags_include) (lt (len .Params.tags) 1) }}
-          {{ $.Scratch.Set "show_post" "0" }}
+        {{ with (not .Params.tags) }}
+          {{ with $page.Params.tags_include }}
+            {{ $.Scratch.Set "show_post" "0" }}
+          {{end}}
         {{end}}
 
         {{/* If `tags_exclude` is set, exclude posts. */}}
@@ -75,11 +79,12 @@
 
       {{ $show_post := $.Scratch.Get "show_post" }}
       {{ if ne $show_post "0" }}
-        {{ $params := dict "post" . }}
         {{ if eq $page.Params.list_format 0 }}
-          {{ partial "post_li_simple" $params }}
+          {{ partial "post_li_simple" . }}
+        {{ else if eq $page.Params.list_format 1 }}
+          {{ partial "post_li_detailed" . }}
         {{ else }}
-          {{ partial "post_li_detailed" $params }}
+          {{ partial "post_li_stream" . }}
         {{ end }}
       {{end}}
 

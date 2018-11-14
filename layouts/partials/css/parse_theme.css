@@ -29,6 +29,18 @@
     {{- $scr.Set "background" "rgb(40, 42, 54)" -}}
   {{ end }}
 
+  {{ if $theme.link }}
+    {{- $scr.Set "link" $theme.link -}}
+  {{ else }}
+    {{- $scr.Set "link" $theme.primary -}}
+  {{ end }}
+
+  {{ if $theme.link_hover }}
+    {{- $scr.Set "link_hover" $theme.link_hover -}}
+  {{ else }}
+    {{- $scr.Set "link_hover" $theme.primary -}}
+  {{ end }}
+
   {{- $scr.Set "primary" $theme.primary -}}
   {{- $scr.Set "primary_light" $theme.primary_light -}}
   {{- $scr.Set "primary_dark" $theme.primary_dark -}}

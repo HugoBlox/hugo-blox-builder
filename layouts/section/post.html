@@ -1,11 +1,9 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
 
-{{ partial "header_image.html" . }}
+{{ partial "page_header.html" . }}
 
 <div class="universal-wrapper">
-
-  <h1>{{ .Title | default (i18n "posts") }}</h1>
 
   {{ with .Content }}
   <div class="article-style" itemprop="articleBody">{{ . }}</div>
@@ -13,11 +11,12 @@
 
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}
-    {{ $params := dict "post" . }}
     {{ if eq $.Params.list_format 0 }}
-      {{ partial "post_li_simple" $params }}
+      {{ partial "post_li_simple" . }}
+    {{ else if eq $.Params.list_format 1 }}
+      {{ partial "post_li_detailed" . }}
     {{ else }}
-      {{ partial "post_li_detailed" $params }}
+      {{ partial "post_li_stream" . }}
     {{ end }}
   {{ end }}
 

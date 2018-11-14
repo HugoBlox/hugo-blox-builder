@@ -3,7 +3,7 @@
 {{ $autolink := default true $page.Params.autolink }}
 
 <!-- Contact widget -->
-<div class="row">
+<div class="row contact-widget">
   <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
@@ -11,13 +11,44 @@
   <div class="col-12 col-lg-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
+    {{ if $page.Params.email_form }}
+
+    {{ $post_action := "" }}
+    {{ if eq $page.Params.email_form 1 }}
+      {{ $post_action = "netlify" }}
+    {{ else }}
+      {{ if not $.Site.Params.email }}
+        {{ errorf "Please set an email address for the contact form using the `email` parameter in `config.toml`. Otherwise, set `email_form = 0` to disable the contact form." }}
+      {{ end }}
+      {{ $post_action = printf "action=\"https://formspree.io/%s\"" $.Site.Params.email }}
+    {{end}}
+
+    <div class="mb-3">
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }}>
+        <div class="form-group form-inline">
+          <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
+          <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
+        </div>
+        <div class="form-group form-inline">
+          <label class="sr-only" for="inputEmail">{{ i18n "contact_email" }}</label>
+          <input type="email" name="email" class="form-control w-100" id="inputEmail" placeholder="{{ i18n "contact_email" | default "Email" }}" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
+          <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-primary px-3 py-2">{{ i18n "contact_send" | default "Send" }}</button>
+      </form>
+    </div>
+    {{end}}
+
     <ul class="fa-ul" itemscope>
 
-      {{ with $.Site.Params.email }}
+      {{ if and $.Site.Params.email (not $page.Params.email_form) }}
       <li>
         <i class="fa-li fas fa-envelope fa-2x" aria-hidden="true"></i>
         <span id="person-email" itemprop="email">
-        {{- if $autolink }}<a href="mailto:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+        {{- if $autolink }}<a href="mailto:{{ $.Site.Params.email }}">{{ $.Site.Params.email }}</a>{{ else }}{{ $.Site.Params.email }}{{ end -}}
         </span>
       </li>
       {{ end }}

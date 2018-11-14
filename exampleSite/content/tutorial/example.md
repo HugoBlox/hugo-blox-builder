@@ -13,12 +13,6 @@ linktitle = "Example Page"
 [menu.tutorial]
   parent = "Example Topic"
   weight = 1
-
-# Featured image.
-# Uncomment below lines to use.
-# [header]
-# image = "headers/getting-started.png"
-# caption = "Image credit: [**Academic**](https://github.com/gcushen/hugo-academic/)"
 +++
 
 In this tutorial, I'll share my top 10 tips for getting started with Academic:

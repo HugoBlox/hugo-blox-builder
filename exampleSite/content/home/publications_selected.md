@@ -17,6 +17,7 @@ weight = 10
 #   1 = Detailed
 #   2 = APA
 #   3 = MLA
+#   4 = Stream
 list_format = 1
 
 # Filter by publication type.

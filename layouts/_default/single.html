@@ -3,18 +3,16 @@
 
 <article class="article" itemscope itemtype="http://schema.org/Article">
 
-  {{ partial "header_image.html" . }}
+  {{ partial "page_header.html" . }}
 
   <div class="article-container">
-    <h1 itemprop="name">{{ .Title }}</h1>
-
-    {{ partial "article_metadata" (dict "content" . "is_list" 0) }}
 
     <div class="article-style" itemprop="articleBody">
       {{ .Content }}
     </div>
 
     {{ partial "tags.html" . }}
+    {{ partial "page_author.html" . }}
 
     {{ $related := .Site.RegularPages.Related . | first 5 }}
     {{ with $related }}

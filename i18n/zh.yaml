@@ -6,6 +6,12 @@
 - id: table_of_contents
   translation: 目录
 
+- id: on_this_page
+  translation: 在本页
+
+- id: back_to_top
+  translation: 回到顶部
+
 # General
 
 - id: related
@@ -69,6 +75,11 @@
 - id: education
   translation: 教育经历
 
+# Experience widget
+
+- id: present
+  translation: 现在
+
 # Publications widget
 
 - id: more_publications
@@ -87,6 +98,20 @@
 - id: more_talks
   translation: 更多演讲
 
+# Contact widget
+
+- id: contact_name
+  translation: 姓名
+
+- id: contact_email
+  translation: 邮箱
+
+- id: contact_message
+  translation: 信息
+
+- id: contact_send
+  translation: 发送
+
 # Publication/Talk details
 
 - id: abstract
@@ -103,9 +128,6 @@
 
 - id: last_updated
   translation: 最近更新于
-
-- id: links
-  translation: 链接
 
 - id: event
   translation: 事件
@@ -139,6 +161,17 @@
 
 - id: projects
   translation: 项目
+
+# Search
+
+- id: search_placeholder
+  translation: 搜索...
+
+- id: search_results
+  translation: 搜索结果
+
+- id: search_no_results
+  translation: 没有找到结果
 
 # Error 404
 

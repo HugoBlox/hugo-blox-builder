@@ -1,1 +1,1 @@
-<a href="{{ .Get 0 | absURL }}"{{ if len .Params | eq 2 }} target="_blank"{{ end }}>{{ .Inner }}</a>
+<a href="{{ .Get 0 | relURL }}"{{ if len .Params | eq 2 }} target="_blank"{{ end }}>{{ .Inner }}</a>

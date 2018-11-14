@@ -1,0 +1,97 @@
+{{ $page := . }}
+{{ $featured := (.Resources.ByType "image").GetMatch "*featured*" }}
+{{ $anchor := $page.Params.image.focal_point | default "Smart" }}
+
+{{/* Set default titles for node pages */}}
+{{ $title := .Title }}
+{{ if and (not $title) .IsNode }}
+  {{ if eq .Type "post" }}
+    {{ $title = i18n "posts" }}
+  {{ else if eq .Type "talk" }}
+    {{ $title = i18n "talks" }}
+  {{ else if eq .Type "publication" }}
+    {{ $title = i18n "publications" }}
+  {{end}}
+{{end}}
+
+{{/* Header image */}}
+{{ if and .Params.header.image (not (and $featured (not .Params.image.preview_only))) }}
+<div class="article-header">
+  {{ $img_src := urls.Parse .Params.header.image }}
+  {{ if $img_src.Scheme }}
+  <img src="{{ .Params.header.image }}" class="article-banner" itemprop="image" alt="">
+  {{ else }}
+  <img src="{{ (printf "/img/%s" .Params.header.image) | relURL }}" class="article-banner" itemprop="image" alt="">
+  {{ end }}
+
+  {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+</div>
+{{end}}
+
+{{/* Featured image */}}
+{{ if and $featured (not .Params.image.preview_only) }}
+{{ $image := $featured.Fill (printf "1600x400 q90 %s" $anchor) }}
+<div class="article-header d-xl-none">
+  <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
+  {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+</div>
+
+{{ $image := $featured.Fill (printf "680x500 q90 %s" $anchor) }}
+<div class="container-fluid split-header d-none d-xl-block">
+  <div class="row">
+    <div class="col-6">
+      <div class="split-header-content">
+        <h1 itemprop="name">{{ $title }}</h1>
+
+        {{ with $page.Params.subtitle }}
+        <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
+        {{end}}
+
+        {{ partial "page_metadata" (dict "content" $page "is_list" 1) }}
+
+        {{ partial "page_links_div.html" $page }}
+
+        {{ partial "share.html" $page }}
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="split-header-image">
+        <img src="{{ $image.RelPermalink }}" itemprop="image" alt="">
+        {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="article-container d-xl-none">
+  <h1 itemprop="name">{{ $title }}</h1>
+
+  {{ with $page.Params.subtitle }}
+  <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
+  {{end}}
+
+  {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
+
+  {{ partial "page_links_div.html" $page }}
+</div>
+{{else}}
+  {{/* Case when page has no image */}}
+
+  {{/* Wider container for nodes */}}
+  {{ $ctnr := "article-container" }}
+  {{ if $page.IsNode }}
+    {{ $ctnr = "universal-wrapper" }}
+  {{end}}
+<div class="{{$ctnr}} pt-3">
+  <h1 itemprop="name">{{ $title }}</h1>
+
+  {{ with $page.Params.subtitle }}
+  <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
+  {{end}}
+
+  {{ if not .IsNode }}
+    {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
+    {{ partial "page_links_div.html" $page }}
+  {{end}}
+</div>
+{{end}}

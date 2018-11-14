@@ -2,21 +2,9 @@
 {{ partial "navbar.html" . }}
 <div class="pub" itemscope itemtype="http://schema.org/Event">
 
-  {{ partial "header_image.html" . }}
+  {{ partial "page_header.html" . }}
 
   <div class="article-container">
-
-    <div class="pub-title">
-      <h1 itemprop="name">{{ .Title }}</h1>
-      <span class="pub-authors" itemprop="author">
-        {{ with .Params.authors }}
-        {{ delimit . ", " | markdownify }}
-        {{ end }}
-      </span>
-      <span class="float-right">
-        {{ partial "share.html" . }}
-      </span>
-    </div>
 
     {{ if .Params.abstract }}
       <h3>{{ i18n "abstract" }}</h3>
@@ -78,24 +66,6 @@
     <div class="d-md-none space-below"></div>
     {{ end }}
 
-    {{ if .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_code | or .Params.projects | or .Params.url_custom }}
-    <div class="row" style="padding-top: 10px">
-      <div class="col-md-1"></div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-12 col-md-3 pub-row-heading" style="line-height:34px;">{{ i18n "links" }}</div>
-          <div class="col-12 col-md-9">
-
-            {{ partial "talk_links" (dict "content" . "is_list" 0) }}
-
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-    <div class="d-md-none space-below"></div>
-    {{ end }}
-
     <div class="space-below"></div>
 
     <div class="article-style">
@@ -103,6 +73,7 @@
     </div>
 
     {{ partial "tags.html" . }}
+    {{ partial "page_author.html" . }}
 
   </div>
 </div>

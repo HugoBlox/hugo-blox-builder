@@ -1,0 +1,45 @@
+{{ if not (or (eq .Site.Params.profile false) (eq .Params.profile false)) }}
+
+{{ $author := "" }}
+{{ if .Params.authors }}
+  {{ $author = index .Params.authors 0 }}
+{{ end }}
+
+{{/* Display site author if page authors not explicitly specified or if first page author is site author. */}}
+{{ if or (not .Params.authors) (eq $author $.Site.Params.name) }}
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  {{ if $.Site.Params.gravatar }}
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image" alt="Avatar">
+  {{ else if $.Site.Params.avatar }}
+  <img class="portrait mr-3" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image" alt="Avatar">
+  {{ end }}
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="{{ "/" | relLangURL }}">{{ $.Site.Params.name }}</a></h5>
+    {{ with $.Site.Params.role }}<h6 class="card-subtitle">{{.}}</h6>{{end}}
+    {{ with $.Site.Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
+    <ul class="network-icon" aria-hidden="true">
+      {{ range $.Site.Params.social }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+        {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{ $link := .link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+        {{ $link = .link | relLangURL }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <li>
+        <a itemprop="sameAs" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+          <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{end}}
+{{end}}

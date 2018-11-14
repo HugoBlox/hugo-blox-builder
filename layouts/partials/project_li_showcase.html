@@ -1,0 +1,57 @@
+{{ $item := .item }}
+{{ $widget := .widget }}
+
+{{ $do_link := true }}
+{{ if $item.Params.external_link | or $item.Content }}
+  {{ $do_link = true }}
+{{ else }}
+  {{ $do_link = false }}
+{{ end }}
+
+{{ $link := .link }}
+{{ $target := .target }}
+
+{{ $order := "" }}
+{{ if and ($widget.Params.flip_alt_rows | default true) (not (modBool .index 2)) }}
+  {{ $order = "order-md-2" }}
+{{ end }}
+
+{{ $js_tag_classes := delimit (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") " " }}
+
+<div class="col-lg-12 project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}" itemscope itemtype="http://schema.org/CreativeWork">
+  <div class="row align-items-center" itemscope itemtype="http://schema.org/Event">
+    <div class="col-12 col-md-6">
+      <h3 class="article-title mb-0 mt-0" itemprop="name">
+        {{- if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }} itemprop="url">{{end -}}
+        {{ $item.Title }}
+        {{- if $do_link}}</a>{{end -}}
+      </h3>
+
+      {{ $summary := "" }}
+      {{ if $item.Params.summary }}
+        {{ $summary = $item.Params.summary | markdownify }}
+      {{ else if $item.Truncated }}
+        {{ $summary = $item.Summary }}
+      {{ end }}
+      {{ with $summary }}
+      <div class="article-style" itemprop="articleBody">
+        {{ . }}
+      </div>
+      {{ end }}
+
+      <div class="btn-links">
+        {{ partial "page_links" (dict "content" $item "is_list" 0) }}
+      </div>
+
+    </div>
+    <div class="col-12 col-md-6 order-first {{$order}}">
+      {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+      {{ with $resource }}
+      {{ $image := .Resize "540x" }}
+      {{if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{end}}
+        <img src="{{ $image.RelPermalink }}" itemprop="image" alt="">
+      {{if $do_link}}</a>{{end}}
+      {{end}}
+    </div>
+  </div>
+</div>
