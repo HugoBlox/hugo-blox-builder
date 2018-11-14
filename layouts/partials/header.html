@@ -121,7 +121,7 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
-  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:card" content="{{ .Site.Params.twitter_card_type | default "summary" }}">
   {{ with .Site.Params.twitter }}
   <meta property="twitter:site" content="@{{ . }}">
   <meta property="twitter:creator" content="@{{ . }}">

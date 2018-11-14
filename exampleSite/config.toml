@@ -113,6 +113,8 @@ enableGitInfo = false
 
   # Twitter username (without @). Used when a vistor shares your site on Twitter.
   twitter = ""
+  # Twitter card type. (refer to https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards )
+  twitter_card_type = ""
 
   # Diplay a logo in navigation bar rather than title (optional).
   #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
