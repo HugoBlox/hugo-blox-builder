@@ -164,11 +164,14 @@
 
 # Search
 
+- id: search
+  translation: Search
+
 - id: search_placeholder
   translation: Search...
 
 - id: search_results
-  translation: Search Results
+  translation: results found
 
 - id: search_no_results
   translation: No results found
