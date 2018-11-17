@@ -366,6 +366,18 @@
     // Print latest Academic version if necessary.
     if ($('#academic-release').length > 0)
       printLatestRelease('#academic-release', $('#academic-release').data('repo'));
+
+    // On search icon click toggle search dialog.
+    $('.js-search').click(function(e) {
+      e.preventDefault();
+      if ($('body').hasClass('searching')) {
+        $('body').removeClass('searching');
+      } else {
+        $('body').addClass('searching');
+        $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
+        $('#search-query').focus();
+      }
+    });
   });
 
 })(jQuery);
