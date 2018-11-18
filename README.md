@@ -44,6 +44,7 @@ Academic is available in different color themes and font themes.
 
 * **[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
 * **[Academic Scripts](https://github.com/sourcethemes/academic-scripts):** Scripts to help migrate content to new versions of Academic
+* **[Project KickstartR](https://github.com/sourcethemes/project-kickstart-r):** Create a Project, Team, or Conference **Landing Page** and **Knowledge Sharing Platform** with (R) Markdown
 
 ## Install
 
