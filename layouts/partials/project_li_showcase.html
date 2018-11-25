@@ -19,7 +19,7 @@
 {{ $js_tag_classes := delimit (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") " " }}
 
 <div class="col-lg-12 project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}" itemscope itemtype="http://schema.org/CreativeWork">
-  <div class="row align-items-center" itemscope itemtype="http://schema.org/Event">
+  <div class="row align-items-center">
     <div class="col-12 col-md-6">
       <h3 class="article-title mb-0 mt-0" itemprop="name">
         {{- if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }} itemprop="url">{{end -}}
