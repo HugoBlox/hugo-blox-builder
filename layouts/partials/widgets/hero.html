@@ -5,7 +5,7 @@
 {{/* Compute image path outside of HTML style element due to Hugo limitation. */}}
 {{ $overlay_img := "" }}
 {{ if $header.overlay_img }}
-  {{ $overlay_img = (printf "img/%s" $header.overlay_img) }}
+  {{ $overlay_img = (printf "img/%s" $header.overlay_img) | relURL }}
 {{end}}
 
 <section id="{{ $page.File.TranslationBaseName }}" class="hero-overlay" style="
