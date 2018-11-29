@@ -121,7 +121,23 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
-  <meta property="twitter:card" content="summary_large_image">
+  {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $og_image := "" }}
+  {{ $twitter_card := "summary_large_image" }}
+  {{ if $featured_image }}
+    {{ $og_image = $featured_image.Permalink }}
+  {{ else if .Params.header.image }}
+    {{ $og_image = .Params.header.image }}
+  {{ else if .Site.Params.sharing_image }}
+    {{ $og_image = .Site.Params.sharing_image }}
+  {{ else if .Site.Params.avatar }}
+    {{ $og_image = (printf "img/%s" $.Site.Params.avatar) | absURL }}
+    {{ $twitter_card = "summary" }}
+  {{ else }}
+    {{ $og_image = "icon-192.png" }}
+    {{ $twitter_card = "summary" }}
+  {{ end }}
+  <meta property="twitter:card" content="{{ $twitter_card }}">
   {{ with .Site.Params.twitter }}
   <meta property="twitter:site" content="@{{ . }}">
   <meta property="twitter:creator" content="@{{ . }}">
@@ -130,14 +146,6 @@
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}">
   <meta property="og:description" content="{{ $desc }}">
-  {{ $og_image := "" }}
-  {{ if .Params.header.image }}
-    {{ $og_image = .Params.header.image }}
-  {{ else if .Site.Params.sharing_image }}
-    {{ $og_image = .Site.Params.sharing_image }}
-  {{ else }}
-    {{ $og_image = "icon-192.png" }}
-  {{ end }}
   {{- with $og_image }}<meta property="og:image" content="{{ printf "img/%s" . | absURL }}">{{end}}
   <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
