@@ -55,7 +55,7 @@
     {{ if ne .Site.Params.search.engine 0 }}
     {{/* Configure search engine. */}}
     <script>
-      const search_index_filename = {{ "/index.json" | relURL }};
+      const search_index_filename = {{ "/index.json" | relLangURL }};
       const i18n = {
         'placeholder': {{ i18n "search_placeholder" }},
         'results': {{ i18n "search_results" }},
