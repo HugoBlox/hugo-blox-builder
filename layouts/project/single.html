@@ -15,15 +15,7 @@
     {{ partial "page_author.html" . }}
 
     {{ $page := . }}
-    {{ $project := .Slug }}
-    {{ if not $project }}{{/* If user did not explicitly set `slug` in front matter. */}}
-    {{ $project = .File.TranslationBaseName }}
-    {{ end }}
-    {{ if eq $project "index" }}{{/* Check if using dir-based page bundles. */}}
-    {{ $dir_sep := substr .Dir -1 1 }}
-    {{ $project = delimit (last 1 (split (substr .Dir 0 -1) $dir_sep)) "" }}
-    {{ end }}
-    {{ $project_path := .RelPermalink }}
+    {{ $project := .File.ContentBaseName }}
 
     {{ if (.Site.Params.projects.list_children | default true) }}
 
@@ -43,7 +35,6 @@
       {{ end }}
 
       {{ $items := where (where .Site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
-      {{ $items := $items | union (where (where .Site.RegularPages "Type" "publication") ".Params.url_project" $project_path) }}
       {{ $pubs_len := len $items }}
       {{ if ge $pubs_len 1 }}
         <h2>{{ (i18n "publications") }}</h2>
@@ -63,7 +54,6 @@
       {{ end }}
 
       {{ $items := where (where .Site.RegularPages "Type" "talk") ".Params.projects" "intersect" (slice $project) }}
-      {{ $items := $items | union (where (where .Site.RegularPages "Type" "talk") ".Params.url_project" $project_path) }}
       {{ $talks_len := len $items }}
       {{ if ge $talks_len 1 }}
         <h2>{{ (i18n "talks") }}</h2>
