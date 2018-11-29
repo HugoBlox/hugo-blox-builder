@@ -20,7 +20,8 @@
     {{ $project = .File.TranslationBaseName }}
     {{ end }}
     {{ if eq $project "index" }}{{/* Check if using dir-based page bundles. */}}
-    {{ $project = delimit (last 1 (split (substr .Dir 0 -1) "/")) "" }}
+    {{ $dir_sep := substr .Dir -1 1 }}
+    {{ $project = delimit (last 1 (split (substr .Dir 0 -1) $dir_sep)) "" }}
     {{ end }}
     {{ $project_path := .RelPermalink }}
 
