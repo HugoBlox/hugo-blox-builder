@@ -267,7 +267,49 @@
   }
 
   /* ---------------------------------------------------------------------------
-   * On window load.
+  * Toggle day/night mode.
+  * --------------------------------------------------------------------------- */
+
+  function toggleDarkMode() {
+    if ($('body').hasClass('dark')) {
+      $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+      $('body').removeClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-sun');
+      $('.js-dark-toggle i').addClass('fa-moon');
+      localStorage.setItem('dark_mode', '0');
+    } else {
+      $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+      $('body').addClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-moon');
+      $('.js-dark-toggle i').addClass('fa-sun');
+      localStorage.setItem('dark_mode', '1');
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+   * On document ready.
+   * --------------------------------------------------------------------------- */
+
+  $(document).ready(function() {
+    // Set dark mode if user chose it.
+    let default_mode = 0;
+    if ($('body').hasClass('dark')) {
+      default_mode = 1;
+    }
+    let dark_mode = parseInt(localStorage.getItem('dark_mode') || default_mode);
+    if (dark_mode) {
+      $('body').addClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-moon');
+      $('.js-dark-toggle i').addClass('fa-sun');
+    } else {
+      $('body').removeClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-sun');
+      $('.js-dark-toggle i').addClass('fa-moon');
+    }
+  });
+
+  /* ---------------------------------------------------------------------------
+   * On window loaded.
    * --------------------------------------------------------------------------- */
 
   $(window).on('load', function() {
@@ -396,6 +438,12 @@
         e.preventDefault();
         toggleSearchDialog();
       }
+    });
+
+    // Toggle day/night mode.
+    $('.js-dark-toggle').click(function(e) {
+      e.preventDefault();
+      toggleDarkMode();
     });
 
   });
