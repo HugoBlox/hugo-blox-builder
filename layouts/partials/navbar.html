@@ -114,6 +114,13 @@
           </ul>
         </li>
         {{ end }}
+
+        {{ if .Site.Params.day_night }}
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        {{ end }}
+
       </ul>
 
     </div><!-- /.navbar-collapse -->

@@ -26,13 +26,13 @@ body {
   line-height: inherit;
   color: inherit;
   background-color: {{ .Get "background" }};
-  margin-top: 71px; /* Offset body content by navbar height. */
+  margin-top: 70px; /* Offset body content by navbar height. */
   padding-top: 0;
   counter-reset: captions;
 }
 @media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
   body {
-    margin-top: 51px; /* Offset body content by navbar height. */
+    margin-top: 50px; /* Offset body content by navbar height. */
   }
 }
 
@@ -484,6 +484,14 @@ a[data-fancybox] img {
 
 .home-section:nth-of-type(even) {
   background-color: {{ .Get "home_section_even" }};
+}
+
+.dark .home-section {
+  background-color: {{ .Get "dark_home_section_odd" }};
+}
+
+.dark .home-section:nth-of-type(even) {
+  background-color: {{ .Get "dark_home_section_even" }};
 }
 
 @media screen and (max-width: 768px) {
@@ -1861,9 +1869,9 @@ div.alert a {
     .docs-sidebar {
       position: -webkit-sticky;
       position: sticky;
-      top: 51px;
+      top: 50px;
       z-index: 10;
-      height: calc(100vh - 51px)
+      height: calc(100vh - 50px)
     }
   }
 }
@@ -1876,9 +1884,9 @@ div.alert a {
     .docs-sidebar {
       position: -webkit-sticky;
       position: sticky;
-      top: 71px;
+      top: 70px;
       z-index: 10;
-      height: calc(100vh - 71px)
+      height: calc(100vh - 70px)
     }
   }
 }
@@ -1931,7 +1939,7 @@ div.alert a {
 @media (min-width:768px) {
   @supports ((position:-webkit-sticky) or (position:sticky)) {
     .docs-links {
-      max-height: calc(100vh - 5rem - 71px);
+      max-height: calc(100vh - 5rem - 70px);
       overflow-y: auto;
     }
   }
@@ -1956,8 +1964,8 @@ div.alert a {
   .docs-toc {
     position: -webkit-sticky;
     position: sticky;
-    top: 71px;
-    height: calc(100vh - 71px);
+    top: 70px;
+    height: calc(100vh - 70px);
     overflow-y: auto
   }
 }
@@ -2063,7 +2071,7 @@ body.dark,
 .dark .form-control,
 .dark .form-control:focus {
   color: rgb(248, 248, 242);
-  background: rgb(40, 42, 54);
+  background: {{ .Get "dark_background" }};
 }
 
 .dark .form-control {
