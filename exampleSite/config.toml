@@ -46,6 +46,7 @@ enableGitInfo = false
   hrefTargetBlank = true  # `true` opens external links in a new tab.
   fractions = true  # `false` disables smart fractions (e.g. 5/12 formatted as a fraction).
   smartypants = true  # `false` disables all smart punctuation substitutions (e.g. smart quotes, dashes, fractions).
+  extensions = ["backslashLineBreak"]
 
 [params]
   # AUTHOR SETUP
@@ -64,11 +65,18 @@ enableGitInfo = false
   # Details for the Contact Widget
   email = "test@example.org"
   address = "Building 1 Room 1, Stanford University, California, 90210, USA"
-  office_hours = "Monday 10:00 to 13:00 or email for appointment"
+  office_hours = """
+  Monday 10:00 to 13:00\\
+  Wednesday 09:00 to 10:00\\
+  Otherwise email to book an appointment
+  """
   phone = "888 888 88 88"
   skype = "echo123"
   telegram = ""
   keybase = ""  # Your keybase.io username.
+
+  # Enter an optional link for booking appointments (e.g. calendly.com).
+  appointment_url = ""
 
   # Discussion link (e.g. link to a forum, mailing list, or chat).
   #   Uncomment line below to use.

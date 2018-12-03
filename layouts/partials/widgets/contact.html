@@ -101,14 +101,21 @@
       {{ with $.Site.Params.address }}
       <li>
         <i class="fa-li fas fa-map-marker fa-2x" aria-hidden="true"></i>
-        <span id="person-address" itemprop="address">{{ replace . "\n" "<br>" | safeHTML }}</span>
+        <span id="person-address" itemprop="address">{{ . | markdownify | emojify }}</span>
       </li>
       {{ end }}
 
       {{ with $.Site.Params.office_hours }}
       <li>
         <i class="fa-li fas fa-clock fa-2x" aria-hidden="true"></i>
-        <span>{{ . }}</span>
+        <span>{{ . | markdownify | emojify }}</span>
+      </li>
+      {{ end }}
+
+      {{ with $.Site.Params.appointment_url }}
+      <li>
+        <i class="fa-li fas fa-calendar-check fa-2x" aria-hidden="true"></i>
+        <a href="{{ . }}" target="_blank" rel="noopener">{{ i18n "book_appointment" | default "Book an appointment" }}</a>
       </li>
       {{ end }}
 
