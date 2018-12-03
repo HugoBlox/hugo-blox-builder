@@ -112,6 +112,9 @@
 - id: contact_send
   translation: Send
 
+- id: book_appointment
+  translation: Book an appointment
+
 # Publication/Talk details
 
 - id: abstract
