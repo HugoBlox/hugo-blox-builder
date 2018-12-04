@@ -30,9 +30,9 @@
 
 {{/* Featured image */}}
 {{ if and $featured (not .Params.image.preview_only) }}
-{{ $image := $featured.Fill (printf "1600x400 q90 %s" $anchor) }}
+{{ $image := $featured.Resize "800x" }}
 <div class="article-header d-xl-none">
-  <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
+  <div class="featured-image" style="background-image: url('{{ $image.RelPermalink }}');"></div>
   {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
 </div>
 
