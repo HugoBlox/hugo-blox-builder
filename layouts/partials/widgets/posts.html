@@ -1,6 +1,19 @@
 {{ $ := .root }}
 {{ $page := .page }}
-{{ $posts_len := len (where (where $.Site.RegularPages "Type" "post") ".Params.notonhomepage" nil) }}
+
+{{ $query := where (where $.Site.RegularPages "Type" "post") ".Params.notonhomepage" nil }}
+{{ $archive_page := $.Site.GetPage "section" "post" }}
+
+{{/* Check if a filter should be applied. */}}
+{{ if $page.Params.filter_tag }}
+  {{ $archive_page = $.Site.GetPage (printf "tags/%s" $page.Params.filter_tag) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ else if $page.Params.filter_category }}
+  {{ $archive_page = $.Site.GetPage (printf "categories/%s" $page.Params.filter_category) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+
+{{ $count := len ($query) }}
 
 <!-- Blog Posts widget -->
 <div class="row">
@@ -8,9 +21,9 @@
 
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-    {{ if gt $posts_len $page.Params.count }}
+    {{ if gt $count $page.Params.count }}
     <p class="view-all">
-      <a href="{{ ($.Site.GetPage "section" "post").RelPermalink }}">
+      <a href="{{ $archive_page.RelPermalink }}">
         {{ i18n "more_posts" | markdownify }}
         <i class="fas fa-angle-double-right"></i>
       </a>
@@ -22,74 +35,15 @@
 
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ if gt (len $page.Params.tags_include) 0 }}
-      {{ $posts := where (where (where $.Site.RegularPages "Type" "post") ".Params.tags" "intersect" $page.Params.tags_include) ".Params.notonhomepage" nil }}
-
-      {{ $.Scratch.Add "show_post" "1" }}
-      {{ range $post := first $page.Params.count $posts }}
-
-        {{ $.Scratch.Set "show_post" "1" }}
-
-        {{/* If `tags_include` is set, exclude posts with no tags. */}}
-        {{ with (not .Params.tags) }}
-          {{ with $page.Params.tags_include }}
-            {{ $.Scratch.Set "show_post" "0" }}
-          {{end}}
-        {{end}}
-        {{/* If `tags_exclude` is set, exclude posts. */}}
-        {{ range $key, $val := .Params.tags }}
-          {{ if in $page.Params.tags_exclude $val }}
-          {{ $.Scratch.Set "show_post" "0" }}
-        {{end}}
-      {{end}}
-
-      {{ $show_post := $.Scratch.Get "show_post" }}
-      {{ if ne $show_post "0" }}
-        {{ if eq $page.Params.list_format 0 }}
-          {{ partial "post_li_simple" . }}
-        {{ else if eq $page.Params.list_format 1 }}
-          {{ partial "post_li_detailed" . }}
-        {{ else }}
-          {{ partial "post_li_stream" . }}
-        {{ end }}
-      {{end}}
-
+    {{ range $post := first $page.Params.count $query }}
+      {{ if eq $page.Params.list_format 0 }}
+        {{ partial "post_li_simple" . }}
+      {{ else if eq $page.Params.list_format 1 }}
+        {{ partial "post_li_detailed" . }}
+      {{ else }}
+        {{ partial "post_li_stream" . }}
       {{ end }}
-    {{ else}}
-      {{ $posts := where (where $.Site.RegularPages "Type" "post") ".Params.notonhomepage" nil }}
-
-      {{ $.Scratch.Add "show_post" "1" }}
-      {{ range $post := first $page.Params.count $posts }}
-
-        {{ $.Scratch.Set "show_post" "1" }}
-
-        {{/* If `tags_include` is set, exclude posts with no tags. */}}
-        {{ with (not .Params.tags) }}
-          {{ with $page.Params.tags_include }}
-            {{ $.Scratch.Set "show_post" "0" }}
-          {{end}}
-        {{end}}
-
-        {{/* If `tags_exclude` is set, exclude posts. */}}
-        {{ range $key, $val := .Params.tags }}
-          {{ if in $page.Params.tags_exclude $val }}
-          {{ $.Scratch.Set "show_post" "0" }}
-        {{end}}
-      {{end}}
-
-      {{ $show_post := $.Scratch.Get "show_post" }}
-      {{ if ne $show_post "0" }}
-        {{ if eq $page.Params.list_format 0 }}
-          {{ partial "post_li_simple" . }}
-        {{ else if eq $page.Params.list_format 1 }}
-          {{ partial "post_li_detailed" . }}
-        {{ else }}
-          {{ partial "post_li_stream" . }}
-        {{ end }}
-      {{end}}
-
-      {{ end }}
-    {{ end }}
+    {{end}}
 
   </div>
 </div>
