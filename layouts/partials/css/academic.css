@@ -598,6 +598,8 @@ a[data-fancybox] img {
   text-align: center;
   padding: 30px 10px;
   position: relative;
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.4);
+  border-radius: 10px;
 }
 
 #profile .portrait {
