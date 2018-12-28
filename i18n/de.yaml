@@ -98,6 +98,23 @@
 - id: more_talks
   translation: Weitere Vorträge
 
+# Contact widget
+
+- id: contact_name
+  translation: Name
+
+- id: contact_email
+  translation: E-Mail
+
+- id: contact_message
+  translation: Nachricht
+
+- id: contact_send
+  translation: Senden
+
+- id: book_appointment
+  translation: Termin vereinbaren
+
 # Publication/Talk details
 
 - id: abstract
@@ -114,9 +131,6 @@
 
 - id: last_updated
   translation: Zuletzt aktualisiert am
-
-- id: links
-  translation: Links
 
 - id: event
   translation: Veranstaltung
@@ -152,6 +166,9 @@
   translation: Projekte
 
 # Search
+
+- id: search
+  translation: Suche
 
 - id: search_placeholder
   translation: Suche...
