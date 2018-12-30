@@ -24,6 +24,7 @@
     {{ $desc = .Site.Params.role }}
   {{ end }}
   <meta name="description" content="{{ $desc }}">
+  <meta name="keywords" content="{{ .Site.Params.keywords }}">
 
   {{ range .Translations }}
   <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
