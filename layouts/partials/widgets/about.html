@@ -17,7 +17,7 @@
 {{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
 
 <!-- About widget -->
-<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person" itemref="{{ if $.Site.Params.email }}person-email{{ end }}{{ if $.Site.Params.phone }} person-telephone{{ end }}{{ if $.Site.Params.address}} person-address{{ end }}">
+<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <div class="col-12 col-lg-4">
     <div id="profile">
 
