@@ -14,17 +14,17 @@
       {{ $summary = .Summary }}
     {{ end }}
     {{ with $summary }}
-    <div class="article-style" itemprop="articleBody">
+    <div class="article-style">
       {{ . | truncate 135 }}
     </div>
     {{ end }}
 
     <div class="stream-meta article-metadata">
-      <div itemprop="author">
-        {{ with .Params.authors }}
-        {{- delimit . ", " | markdownify -}}
-        {{- end -}}
-      </div>
+      {{ with .Params.authors }}
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">
+          {{- delimit . "</span></span>, <span itemprop=\"author\" itemscope itemtype=\"http://schema.org/Person\"><span itemprop=\"name\">" | markdownify -}}
+      </span></span>
+      {{ end -}}
     </div>
 
     <div class="btn-links">
