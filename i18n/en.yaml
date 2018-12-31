@@ -75,7 +75,7 @@
 - id: education
   translation: Education
   
-# Course widget
+# Accomplishments widget
 
 - id: see_certificate
   translation: See certificate
