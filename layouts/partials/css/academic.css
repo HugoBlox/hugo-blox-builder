@@ -1215,6 +1215,30 @@ article .article-metadata {
 }
 
 /*************************************************
+ *  Accomplishments
+ **************************************************/
+ 
+.course {
+  margin-bottom: -0.5rem;
+}
+
+.course h6 {
+  font-size: 0.80rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.course h6 a {
+  border-bottom: solid 1px transparent;
+}
+
+.course h6 a:hover {
+  border-bottom: solid 1px;
+  text-decoration: none;
+}
+
+/*************************************************
  *  Card component
  **************************************************/
 
