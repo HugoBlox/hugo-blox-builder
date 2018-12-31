@@ -78,7 +78,16 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
   color: #313131;
   text-rendering: optimizeLegibility;
-  overflow-wrap: break-word; /* Ensures very long heading words do not overflow into content. */
+
+  /* Ensure long words do not overflow into content. */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+
+  /* Add a hyphen where the word breaks (use `&shy;` to insert a soft-hyphen in a word). */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
 }
 h1 {
   font-size: 2.25rem;
