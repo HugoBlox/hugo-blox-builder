@@ -74,6 +74,11 @@
 
 - id: education
   translation: Education
+  
+# Accomplishments widget
+
+- id: see_certificate
+  translation: See certificate
 
 # Experience widget
 
