@@ -62,9 +62,10 @@
     </div>
   </div>
   <div class="col-12 col-lg-8" itemprop="description">
-
-    {{ $page.Content }}
-
+    <div id="biography">
+      {{ $page.Content }}
+    </div>
+    
     <div class="row">
 
       {{ with $page.Params.interests }}
