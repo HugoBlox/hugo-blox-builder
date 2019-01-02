@@ -45,6 +45,20 @@
   <a href="{{ $.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
+  <!-- copied from partials/tags.html -->
+  {{ if isset $.Params "tags" }}
+
+  <span class="middot-divider"></span>
+  {{ $tagsLen := len $.Params.tags }}
+  {{ if gt $tagsLen 0 }}
+  <!-- <div class="article-tags"> -->
+    {{ range $k, $v := $.Params.tags }}
+    <a class="badge badge-light" href="{{ ($.Site.GetPage (printf "tags/%s" .)).RelPermalink }}">{{ . }}</a>
+    {{ end }}
+  <!-- </div> -->
+  {{ end }}
+  {{ end }}
+
   {{ if $.Params.categories }}
   {{ $categoriesLen := len $.Params.categories }}
   {{ if gt $categoriesLen 0 }}
