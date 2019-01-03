@@ -4,7 +4,7 @@
 
 **Academic** makes it easy to create a beautiful website for free using Markdown. Customize anything on your site with widgets, themes, and language packs.
 
-Follow our easy [step by step guide](https://sourcethemes.com/academic/docs/install/) to learn how to build your own free website with Academic. [Check out the personal demo](https://themes.gohugo.io/theme/academic/) or the [business demo](https://sourcethemes.com/academic/) of what you'll get in less than 10 minutes.
+Follow our easy [step by step guide](https://sourcethemes.com/academic/docs/install/) to learn how to build your own free website with Academic. [Check out the personal demo](https://themes.gohugo.io/academic/) or the [business demo](https://sourcethemes.com/academic/) of what you'll get in less than 10 minutes.
 
 - [View the documentation](https://sourcethemes.com/academic/docs/)
 - [Ask a question](http://discuss.gohugo.io/)
