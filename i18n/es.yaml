@@ -6,6 +6,12 @@
 - id: table_of_contents
   translation: Índice
 
+- id: on_this_page
+  translation: En esta página
+
+- id: back_to_top
+  translation: Regreso al inicio
+
 # General
 
 - id: related
@@ -69,6 +75,16 @@
 - id: education
   translation: Educación
 
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Ver certificado
+
+# Experience widget
+
+- id: present
+  translation: Actualmente
+
 # Publications widget
 
 - id: more_publications
@@ -87,6 +103,23 @@
 - id: more_talks
   translation: Más charlas
 
+# Contact widget
+
+- id: contact_name
+  translation: Nombre
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Mensaje
+
+- id: contact_send
+  translation: Enviar
+
+- id: book_appointment
+  translation: Solicitar una cita
+
 # Publication/Talk details
 
 - id: abstract
@@ -103,9 +136,6 @@
 
 - id: last_updated
   translation: Última actualización el
-
-- id: links
-  translation: Links
 
 - id: event
   translation: Evento
@@ -139,6 +169,20 @@
 
 - id: projects
   translation: Proyectos
+
+# Search
+
+- id: search
+  translation: Buscar
+
+- id: search_placeholder
+  translation: Buscar...
+
+- id: search_results
+  translation: resultados encontrados
+
+- id: search_no_results
+  translation: No se encontraron resultados
 
 # Error 404
 
