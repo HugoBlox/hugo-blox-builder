@@ -179,10 +179,10 @@
   translation: Recherche...
 
 - id: search_results
-  translation: résultats trouvés
+  translation: Résultats trouvés
 
 - id: search_no_results
-  translation: Pas de résultats trouvés
+  translation: Aucun résultat n'a été trouvé
 
 # Error 404
 
