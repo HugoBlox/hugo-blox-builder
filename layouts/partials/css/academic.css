@@ -1660,7 +1660,7 @@ table > tbody > tr:hover > th {
  *  Alerts
  **************************************************/
 
-div.alert p {
+div.alert > p {
   position: relative;
   display: block;
   font-size: 1rem;
@@ -1669,7 +1669,7 @@ div.alert p {
   margin-bottom: 0;
 }
 
-div.alert p:first-child::before {
+div.alert > p:first-child::before {
   position: absolute;
   top: -0.5rem;
   left: -2rem;
@@ -1682,7 +1682,7 @@ div.alert p:first-child::before {
   text-align: center;
 }
 
-div.alert-warning p:first-child::before {
+div.alert-warning > p:first-child::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   color: #ff3860;
