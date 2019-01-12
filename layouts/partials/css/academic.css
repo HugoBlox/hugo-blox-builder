@@ -785,12 +785,6 @@ article {
   box-sizing: border-box;
 }
 
-/* Prevent FA's line height of 1 causing FA button links to be taller than other button links. */
-.btn-links .fab,
-.btn-links .fas {
-  line-height: inherit !important;
-}
-
 .split-header-image {
   position: relative; /* Required for caption positioning */
   clear: both;
@@ -1462,8 +1456,13 @@ a.badge:hover {
   border-radius: .3rem;
 }
 
+.btn-links .btn {
+  padding: 5px .5rem 5px .5rem;
+  line-height: 1;
+}
+
 .btn.btn-sm {
-  padding: .4rem;
+  padding: 5px .4rem 5px .4rem;
   font-size: .6rem;
   border-radius: .2rem;
 }
