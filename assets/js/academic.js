@@ -431,10 +431,12 @@
     });
     $(document).on('keydown', function(e){
       if (e.which == 27) {
+        // `Esc` key pressed.
         if ($('body').hasClass('searching')) {
           toggleSearchDialog();
         }
-      } else if (e.which == 191) {
+      } else if (e.which == 191 && e.shiftKey == false && !$('input,textarea').is(':focus')) {
+        // `/` key pressed outside of text input.
         e.preventDefault();
         toggleSearchDialog();
       }
