@@ -4,7 +4,7 @@
   translation: Navigáció
 
 - id: table_of_contents
-  translation: Table of Contents
+  translation: Tartalomjegyzék
 
 - id: on_this_page
   translation: Ezen az oldalon
@@ -118,87 +118,89 @@
   translation: Elküldés
 
 - id: book_appointment
-  translation: Book an appointment
+  translation: Időpont kérése
 
 # Publication/Talk details
 
 - id: abstract
-  translation: Abstract
+  translation: Kivonat
 
 - id: publication
-  translation: Publication
+  translation: Publikáció
 
 - id: publication_type
-  translation: Type
+  translation: Típus
 
 - id: date
-  translation: Date
+  translation: Dátum
 
 - id: last_updated
-  translation: Last updated on
+  translation: Utoljára frissítve
 
 - id: event
-  translation: Event
+  translation: Esemény
 
 - id: location
-  translation: Location
+  translation: Helyszín
 
 # Filtering
 
 - id: filter_by_type
-  translation: Filter by type
+  translation: Szűrés
 
 - id: filter_all
-  translation: All
+  translation: Mind
 
 # Project details
 
 - id: open_project_site
-  translation: Go to Project Site
+  translation: Tovább a projekt oldalára
 
 # Default node titles
 
 - id: posts
-  translation: Posts
+  translation: Posztok
 
 - id: publications
-  translation: Publications
+  translation: Publikációk
 
 - id: talks
-  translation: Talks
+  translation: Előadások
 
 - id: projects
-  translation: Projects
+  translation: Projektek
 
 # Search
 
 - id: search
-  translation: Search
+  translation: Keresés
 
 - id: search_placeholder
-  translation: Search...
+  translation: Keresés...
 
 - id: search_results
-  translation: results found
+  translation: találat
 
 - id: search_no_results
-  translation: No results found
+  translation: Nincsen találat
 
 # Error 404
 
 - id: page_not_found
-  translation: Page not found
+  translation: Az oldal nem található
 
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Esetleg ezeket kereste?
 
 # Cookie consent
 
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Ez az oldal a legjobb felhasználói élmény érdekében sütiket használ.
 
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Rendben
 
 - id: cookie_learn
-  translation: Learn more
+  translation: További információk
+  
+
