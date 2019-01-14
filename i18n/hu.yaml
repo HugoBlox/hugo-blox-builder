@@ -1,0 +1,204 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Navigáció
+
+- id: table_of_contents
+  translation: Tartalomjegyzék
+
+- id: on_this_page
+  translation: Ezen az oldalon
+
+- id: back_to_top
+  translation: Vissza felülre
+
+# General
+
+- id: related
+  translation: Kapcsolódó anyagok
+
+- id: minute_read
+  translation: perc olvasás
+
+- id: previous
+  translation: Előző
+
+- id: next
+  translation: Következő
+
+- id: figure
+  translation: "%d. ábra:"
+
+# Buttons
+
+- id: btn_preprint
+  translation: Megjelenés előtt
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Idézet
+
+- id: btn_slides
+  translation: Diák
+
+- id: btn_video
+  translation: Videó
+
+- id: btn_code
+  translation: Kód
+
+- id: btn_dataset
+  translation: Adatcsomag
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Poszter
+
+- id: btn_source
+  translation: Forrás dokumentum
+
+- id: btn_copy
+  translation: Másolat
+
+- id: btn_download
+  translation: Letöltés
+
+# About widget
+
+- id: interests
+  translation: Érdeklődési terület
+
+- id: education
+  translation: Tanulmányok
+  
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Lásd a bizonyítányt
+
+# Experience widget
+
+- id: present
+  translation: Jelenleg
+
+# Publications widget
+
+- id: more_publications
+  translation: További publikációk
+
+# Posts widget
+
+- id: continue_reading
+  translation: OLVASS TOVÁBB
+
+- id: more_posts
+  translation: További posztok
+
+# Talks widget
+
+- id: more_talks
+  translation: Előadások
+
+# Contact widget
+
+- id: contact_name
+  translation: Név
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Üzenet
+
+- id: contact_send
+  translation: Elküldés
+
+- id: book_appointment
+  translation: Időpont kérése
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Kivonat
+
+- id: publication
+  translation: Publikáció
+
+- id: publication_type
+  translation: Típus
+
+- id: date
+  translation: Dátum
+
+- id: last_updated
+  translation: Utoljára frissítve
+
+- id: event
+  translation: Esemény
+
+- id: location
+  translation: Helyszín
+
+# Filtering
+
+- id: filter_by_type
+  translation: Szűrés
+
+- id: filter_all
+  translation: Mind
+
+# Project details
+
+- id: open_project_site
+  translation: Tovább a projekt oldalára
+
+# Default node titles
+
+- id: posts
+  translation: Posztok
+
+- id: publications
+  translation: Publikációk
+
+- id: talks
+  translation: Előadások
+
+- id: projects
+  translation: Projektek
+
+# Search
+
+- id: search
+  translation: Keresés
+
+- id: search_placeholder
+  translation: Keresés...
+
+- id: search_results
+  translation: találat
+
+- id: search_no_results
+  translation: Nincsen találat
+
+# Error 404
+
+- id: page_not_found
+  translation: Az oldal nem található
+
+- id: 404_recommendations
+  translation: Esetleg ezeket kereste?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Ez az oldal a legjobb felhasználói élmény érdekében sütiket használ.
+
+- id: cookie_dismiss
+  translation: Rendben
+
+- id: cookie_learn
+  translation: További információk
