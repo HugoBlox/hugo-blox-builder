@@ -1814,7 +1814,7 @@ table > tbody > tr:hover > th {
  *  Alerts
  **************************************************/
 
-div.alert p {
+div.alert > div {
   position: relative;
   display: block;
   font-size: 1rem;
@@ -1823,7 +1823,15 @@ div.alert p {
   margin-bottom: 0;
 }
 
-div.alert p:first-child::before {
+div.alert div > * {
+  margin-bottom: .5rem;  /* Use smaller paragraph spacing than usual. */
+}
+
+div.alert div > :last-child {
+  margin-bottom: 0;
+}
+
+div.alert > div:first-child::before {
   position: absolute;
   top: -0.5rem;
   left: -2rem;
@@ -1836,7 +1844,7 @@ div.alert p:first-child::before {
   text-align: center;
 }
 
-div.alert-warning p:first-child::before {
+div.alert-warning > div:first-child::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   color: #ff3860;
