@@ -132,7 +132,14 @@
     {{ $js_academic := resources.Get "js/academic.js" }}
     {{ $js_academic_search := resources.Get "js/academic-search.js" }}
     {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
-    {{ $js_bundle := slice $js_academic $js_academic_search }}
+    {{ $js_bundle := slice }}
+    {{ if eq .Site.Params.search.engine 1 }}
+      {{ $js_bundle = slice $js_academic $js_academic_search }}
+    {{ else if eq $.Site.Params.search.engine 2 }}
+      {{ $js_bundle = slice $js_academic $js_algolia_search }}
+    {{ else }}
+      {{ $js_bundle = slice $js_academic }}
+    {{ end }}
     {{ $js_bundle := $js_bundle | resources.Concat "js/academic-bundle-pre.js" | minify }}
     {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/academic.min.js" | fingerprint "md5" }}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
