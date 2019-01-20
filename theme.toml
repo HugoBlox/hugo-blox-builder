@@ -3,7 +3,7 @@ license = "MIT"
 licenselink = "https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md"
 description = "The website designer for Hugo. Build anything and deploy with one click! Fully customizable with themes, plugins, and language packs."
 homepage = "https://sourcethemes.com/academic/"
-min_version = "0.50"
+min_version = "0.53"
 tags = ["academic",
         "portfolio",
         "responsive",

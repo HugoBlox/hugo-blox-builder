@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbar">
 
       <!-- Left Nav Bar -->
-      {{ $align_right := .Site.Params.menus.align_right | default true }}
+      {{ $align_right := .Site.Params.menu_align_right | default true }}
       <ul class="navbar-nav {{ if $align_right }}ml-auto{{ else }}mr-auto{{ end }}">
         {{ range .Site.Menus.main }}
 
