@@ -21,9 +21,9 @@
 
     {{ $.Scratch.Set "talks" (where $.Site.RegularPages "Type" "talk") }}
 
-    {{/* Exclude talks shown in Selected Talks widget? */}}
-    {{ if $page.Params.exclude_selected }}
-    {{ $.Scratch.Set "talks" (where ($.Scratch.Get "talks") ".Params.selected" "!=" true) }}
+    {{/* Exclude talks shown in Featured Talks widget? */}}
+    {{ if $page.Params.exclude_featured }}
+    {{ $.Scratch.Set "talks" (where ($.Scratch.Get "talks") ".Params.featured" "!=" true) }}
     {{ end }}
 
     {{ range first $page.Params.count (sort ($.Scratch.Get "talks") ".Params.time_start" "desc") }}

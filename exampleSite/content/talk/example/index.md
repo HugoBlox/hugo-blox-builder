@@ -22,8 +22,8 @@ event_url = "https://example.org"
 # Location of event.
 location = "London, United Kingdom"
 
-# Is this a selected talk? (true/false)
-selected = false
+# Is this a featured talk? (true/false)
+featured = false
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.

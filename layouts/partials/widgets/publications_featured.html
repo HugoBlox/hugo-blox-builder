@@ -1,7 +1,7 @@
 {{ $ := .root }}
 {{ $page := .page }}
 
-<!-- Selected Publications widget -->
+<!-- Featured Publications widget -->
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
@@ -11,9 +11,9 @@
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
     {{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
-      {{ $.Scratch.Set "sel_pubs" (where (where (where $.Site.RegularPages "Type" "publication") ".Params.selected" true) ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
+      {{ $.Scratch.Set "sel_pubs" (where (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" true) ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
     {{ else }}
-      {{ $.Scratch.Set "sel_pubs" (where (where $.Site.RegularPages "Type" "publication") ".Params.selected" true) }}
+      {{ $.Scratch.Set "sel_pubs" (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" true) }}
     {{ end }}
 
     {{ $sel_pubs := $.Scratch.Get "sel_pubs" }}

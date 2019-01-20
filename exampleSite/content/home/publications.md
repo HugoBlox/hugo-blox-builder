@@ -33,7 +33,7 @@ list_format = 4
 #  6: Book chapter
 publication_type = "-1"
 
-# Exclude publications that are shown in the Selected Publications widget?
-exclude_selected = false
+# Exclude publications that are shown in the Featured Publications widget?
+exclude_featured = false
 +++
 
