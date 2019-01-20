@@ -1,0 +1,29 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+{{ partial "page_header.html" . }}
+
+<section id="about" class="home-section">
+  <div class="container">
+    {{/* Only show About widget if a profile has been configured for this user. */}}
+    {{ $widget := "widgets/about.html" }}
+    {{ $params := dict "root" $ "page" . "author" .Title }}
+    {{ with $.Site.GetPage (printf "/author/%s" (urlize .Title)) }}
+      {{ partial $widget $params }}
+    {{ end }}
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>{{ i18n "related" }}</h3>
+      <ul>
+        {{ range .Pages }}
+        <li>
+          <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Page Footer -->
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}

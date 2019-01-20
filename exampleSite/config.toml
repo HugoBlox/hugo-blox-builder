@@ -49,60 +49,6 @@ enableGitInfo = false
   extensions = ["backslashLineBreak"]
 
 [params]
-  # AUTHOR SETUP
-
-  # Your details.
-  name = "Lena Smith"
-  role = "Professor of Artificial Intelligence"
-
-  # Organizations/Affiliations.
-  #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-  organizations = [ { name = "Stanford University", url = "" } ]
-
-  gravatar = false  # Get your avatar from Gravatar.com? (true/false)
-  avatar = "portrait.jpg"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
-
-  # Details for the Contact Widget
-  email = "test@example.org"
-  address = "Building 1 Room 1, Stanford University, California, 90210, USA"
-  office_hours = """
-  Monday 10:00 to 13:00<br>
-  Wednesday 09:00 to 10:00<br>
-  Otherwise email to book an appointment
-  """
-  phone = "888 888 88 88"
-  skype = "echo123"
-  telegram = ""
-  keybase = ""  # Your keybase.io username.
-
-  # Enter an optional link for booking appointments (e.g. calendly.com).
-  appointment_url = ""
-
-  # Discussion link (e.g. link to a forum, mailing list, or chat).
-  #   Uncomment line below to use.
-  #   discussion = { name = "Discuss", url = "https://discourse.gohugo.io" }
-
-  # Enable/disable map in Contact widget.
-  # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
-  # a map provider below.
-  # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
-  #   https://developers.google.com/maps/documentation/javascript/get-api-key
-  # To use OpenStreetMap tiles, set `map = 2`.
-  # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
-  #   https://www.mapbox.com/studio/account/tokens
-  # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-  #
-  # Map provider:
-  #   0: No map
-  #   1: Google Maps
-  #   2: OpenStreetMap (Mapnik)
-  #   3: OpenStreetMap (Mapbox)
-  map = 0
-  map_api_key = ""
-  latitude = "37.4275"
-  longitude = "-122.1697"
-  zoom = 15
-
   # SITE SETUP
 
   # Color theme.
@@ -184,10 +130,54 @@ enableGitInfo = false
   #   Anonymize IP in Google Analytics (if enabled)
   privacy_pack = false
 
+  # Get user avatars from Gravatar.com? (true/false)
+  gravatar = false
+
   # Link custom CSS and JS assets
   #   (relative to /static/css and /static/js respectively)
   custom_css = []
   custom_js  = []
+
+  # Contact Widget setup
+    email = "test@example.org"
+    address = "Building 1 Room 1, Stanford University, California, 90210, USA"
+    office_hours = """
+    Monday 10:00 to 13:00<br>
+    Wednesday 09:00 to 10:00<br>
+    Otherwise email to book an appointment
+    """
+    phone = "888 888 88 88"
+    skype = "echo123"
+    telegram = ""
+    keybase = ""  # Your keybase.io username.
+
+    # Enter an optional link for booking appointments (e.g. calendly.com).
+    appointment_url = ""
+
+    # Discussion link (e.g. link to a forum, mailing list, or chat).
+    #   Uncomment line below to use.
+    #   discussion = { name = "Discuss", url = "https://discourse.gohugo.io" }
+
+    # Enable/disable map in Contact widget.
+    # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
+    # a map provider below.
+    # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
+    #   https://developers.google.com/maps/documentation/javascript/get-api-key
+    # To use OpenStreetMap tiles, set `map = 2`.
+    # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
+    #   https://www.mapbox.com/studio/account/tokens
+    # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+    #
+    # Map provider:
+    #   0: No map
+    #   1: Google Maps
+    #   2: OpenStreetMap (Mapnik)
+    #   3: OpenStreetMap (Mapbox)
+    map = 0
+    map_api_key = ""
+    latitude = "37.4275"
+    longitude = "-122.1697"
+    zoom = 15
 
   # Publication types.
   #   Used to categorize publications.
@@ -241,51 +231,6 @@ enableGitInfo = false
     #   1 = Detailed
     #   2 = Stream
     talk_format = 2
-
-  # Social/Academic Networking
-  #
-  # Icon pack "fab" includes the following social network icons:
-  #
-  #   twitter, weibo, linkedin, github, facebook, pinterest, google-plus,
-  #   youtube, instagram, soundcloud
-  #
-  #   For email icon, use "fas" icon pack, "envelope" icon, and
-  #   "mailto:your@email.com" as the link.
-  #
-  #   Full list: https://fontawesome.com/icons
-  #
-  # Icon pack "ai" includes the following academic icons:
-  #
-  #   cv, google-scholar, arxiv, orcid, researchgate, mendeley
-  #
-  #   Full list: https://jpswalsh.github.io/academicons/
-
-  [[params.social]]
-    icon = "envelope"
-    icon_pack = "fas"
-    link = "#contact"  # For a direct email link, use "mailto:test@example.org".
-
-  [[params.social]]
-    icon = "twitter"
-    icon_pack = "fab"
-    link = "https://twitter.com/GeorgeCushen"
-
-  [[params.social]]
-    icon = "google-scholar"
-    icon_pack = "ai"
-    link = "https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ"
-
-  [[params.social]]
-    icon = "github"
-    icon_pack = "fab"
-    link = "https://github.com/gcushen"
-
-  # Link to a PDF of your resume/CV from the About widget.
-  # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
-  # [[params.social]]
-  #   icon = "cv"
-  #   icon_pack = "ai"
-  #   link = "files/cv.pdf"
 
 # Navigation Links
 #   To link a homepage widget, specify the URL as a hash `#` followed by the filename of the
@@ -353,6 +298,7 @@ enableGitInfo = false
   tag = "tags"
   category = "categories"
   publication_type = "publication_types"
+  author = "authors"
 
 # Languages
 #   Create a [languages.X] block for each language you want, where X is the language ID.
@@ -367,8 +313,7 @@ enableGitInfo = false
 #  languageCode = "zh-Hans"
 #  title = "Chinese website title..."
 #  [languages.zh.params]
-#    name = "Your name in Chinese..."
-#    role = "Your role in Chinese..."
+#    description = "Site description in Chinese..."
 #  [[languages.zh.menu.main]]
 #    name = "Wo"
 #    url = "#about"
