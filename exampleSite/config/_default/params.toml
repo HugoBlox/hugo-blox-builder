@@ -1,0 +1,178 @@
+# SITE SETUP
+# Documentation: https://sourcethemes.com/academic/
+
+# Color theme.
+#   Choose from `default`, `ocean`, `forest`, `dark`, `apogee`, `1950s`, `coffee`, `cupcake`.
+color_theme = "default"
+# Enable users to switch between day and night mode?
+day_night = true
+
+# Font style.
+#   Choose from `default`, `classic`, or `playfair`.
+font = "default"
+
+# Description for social sharing and search engines. If undefined, superuser role is used in place.
+description = ""
+
+# Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
+sharing_image = ""
+
+# Twitter username (without @). Used when a vistor shares your site on Twitter.
+twitter = ""
+
+# Diplay a logo in navigation bar rather than title (optional).
+#   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
+logo = ""
+
+# Date and time format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
+#   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+date_format = "Jan 2, 2006"
+#   Examples: "3:04 pm" or "15:04"
+time_format = "3:04 PM"
+
+# Show estimated reading time for posts?
+reading_time = true
+
+# Display comment count? Requires commenting to be enabled.
+comment_count = true
+
+# Display next/previous section pager?
+section_pager = false
+
+# Enable global LaTeX math rendering?
+#   If false, you can enable it locally on a per page basis.
+math = false
+
+# Enable global source code highlighting? true/false
+# Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
+highlight = true
+# highlight_languages = ["r"]  # Add support for highlighting additional languages
+# highlight_style = "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
+
+# Enable native social sharing buttons?
+sharing = true
+
+# Privacy pack
+#   Show a cookie consent message to visitors
+#   Anonymize IP in Google Analytics (if enabled)
+privacy_pack = false
+
+# Get user avatars from Gravatar.com? (true/false)
+gravatar = false
+
+# Contact Widget setup
+  email = "test@example.org"
+  address = "Building 1 Room 1, Stanford University, California, 90210, USA"
+  # Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
+  office_hours = """Monday 10:00 to 13:00<br>
+                    Wednesday 09:00 to 10:00<br>
+                    Otherwise email to book an appointment"""
+  phone = "888 888 88 88"
+  skype = "echo123"
+  telegram = ""
+  keybase = ""  # Your keybase.io username.
+
+  # Enter an optional link for booking appointments (e.g. calendly.com).
+  appointment_url = ""
+
+  # Discussion link (e.g. link to a forum, mailing list, or chat).
+  #   Uncomment line below to use.
+  #   discussion = { name = "Discuss", url = "https://discourse.gohugo.io" }
+
+  # Enable/disable map in Contact widget.
+  # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
+  # a map provider below.
+  # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
+  #   https://developers.google.com/maps/documentation/javascript/get-api-key
+  # To use OpenStreetMap tiles, set `map = 2`.
+  # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+  #
+  # Map provider:
+  #   0: No map
+  #   1: Google Maps
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
+  map = 0
+  map_api_key = ""
+  latitude = "37.4275"
+  longitude = "-122.1697"
+  zoom = 15
+
+# Publication types.
+#   Used to categorize publications.
+#   The index of the publication type in the list is used as its unique numerical identifier.
+#   The numeric ID is used in a publication's frontmatter to categorize it.
+#   The language can be edited below.
+#   For multilingual sites, `publication_types` can be copied to each language section at the end of this file and
+#   translated.
+publication_types = [
+  'Uncategorized',  # 0
+  'Conference paper',  # 1
+  'Journal article',  # 2
+  'Manuscript',  # 3
+  'Report',  # 4
+  'Book',  # 5
+  'Book section'  # 6
+]
+
+# Align the main menu to the right of the page? (true/false)
+menu_align_right = true
+
+# Link custom CSS and JS assets
+#   (relative to /static/css and /static/js respectively)
+custom_css = []
+custom_js  = []
+
+# Configuration of talk pages.
+[talks]
+  # Show talk time?
+  time = true
+
+# Configuration of publication pages.
+[publications]
+  # Date format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
+  #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+  date_format = "January, 2006"
+
+# Configuration of project pages.
+[projects]
+  # List publications and talks related to the project?
+  list_children = true
+
+  # Post list format.
+  #   0 = Simple
+  #   1 = Detailed
+  #   2 = Stream
+  post_format = 2
+
+  # Publication list format.
+  #   0 = Simple
+  #   1 = Detailed
+  #   2 = APA
+  #   3 = MLA
+  #   4 = Stream
+  publication_format = 4
+
+  # Talk list format.
+  #   0 = Simple
+  #   1 = Detailed
+  #   2 = Stream
+  talk_format = 2
+
+# Search.
+[search]
+  # Search provider:
+  #   0: No search engine
+  #   1: Built-in (Fuse)
+  #   2: Algolia (https://www.algolia.com)
+  engine = 1
+
+  # Configuration of Algolia search engine.
+  # Paste the values from your Algolia dashboard.
+  [search.algolia]
+    app_id = ""
+    api_key = ""
+    index_name = ""
+    show_logo = false
