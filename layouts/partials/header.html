@@ -7,9 +7,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic {{ .Site.Data.academic.version }}">
   {{ .Hugo.Generator }}
-  {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
 
   {{ $scr := .Scratch }}
+
+  {{/* Attempt to load superuser. */}}
+  {{ $superuser_name := "" }}
+  {{ $superuser_username := "" }}
+  {{ $superuser_role := "" }}
+  {{ range first 1 (where (where $.Site.Pages "Section" "author") "Params.superuser" true) }}
+    {{ $superuser_name = .Params.name }}
+    {{ $superuser_username = .File.ContentBaseName }}
+    {{ $superuser_role = .Params.role }}
+  {{ end }}
+  {{ $scr.Set "superuser_username" $superuser_username }}{{/* For access from page_author.html. */}}
+
+  {{ with $superuser_name }}<meta name="author" content="{{ . }}">{{ end }}
+
   {{/* Generate page description. */}}
   {{ $desc := "" }}
   {{ if .Params.summary }}
@@ -21,7 +34,7 @@
   {{ else if .Site.Params.description }}
     {{ $desc = .Site.Params.description }}
   {{ else }}
-    {{ $desc = .Site.Params.role }}
+    {{ $desc = $superuser_role }}
   {{ end }}
   <meta name="description" content="{{ $desc }}">
 

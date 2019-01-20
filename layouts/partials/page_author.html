@@ -1,24 +1,38 @@
 {{ if not (or (eq .Site.Params.profile false) (eq .Params.profile false)) }}
 
-{{ $author := "" }}
-{{ if .Params.authors }}
-  {{ $author = index .Params.authors 0 }}
+{{/* Display superuser if superuser exists and page authors are not explicitly specified. */}}
+{{/* Otherwise, display first author if a profile for them exists. */}}
+
+{{ $author_urlize := "" }}
+{{ if and (not .Params.authors) (.Scratch.Get "superuser_username") }}
+  {{ $author_urlize = (.Scratch.Get "superuser_username") }}
+{{ else }}
+  {{ $first_author := "" }}
+  {{ if .Params.authors }}
+    {{ $first_author = index .Params.authors 0 }}
+  {{ end }}
+  {{ $author_urlize = urlize $first_author }}
 {{ end }}
 
-{{/* Display site author if page authors not explicitly specified or if first page author is site author. */}}
-{{ if or (not .Params.authors) (eq $author $.Site.Params.name) }}
+{{ $person_page_path := (printf "/author/%s" $author_urlize) }}
+{{ $person_page := $.Site.GetPage $person_page_path }}
+{{ with $person_page }}
+{{ $link := printf "/authors/%s" $author_urlize | relURL }}
+{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
 <div class="media author-card" itemscope itemtype="http://schema.org/Person">
-  {{ if $.Site.Params.gravatar }}
-  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image" alt="Avatar">
-  {{ else if $.Site.Params.avatar }}
-  <img class="portrait mr-3" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image" alt="Avatar">
+  {{ if and $.Site.Params.gravatar .Params.email }}
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" itemprop="image" alt="Avatar">
+  {{ else if $avatar }}
+  {{ $avatar_image := $avatar.Fill "250x250 Center" }}
+  <img class="portrait mr-3" src="{{ $avatar_image.RelPermalink }}" itemprop="image" alt="Avatar">
   {{ end }}
+
   <div class="media-body">
-    <h5 class="card-title" itemprop="name"><a href="{{ "/" | relLangURL }}">{{ $.Site.Params.name }}</a></h5>
-    {{ with $.Site.Params.role }}<h6 class="card-subtitle">{{.}}</h6>{{end}}
-    {{ with $.Site.Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
+    <h5 class="card-title" itemprop="name"><a href="{{ $link }}">{{ .Params.name }}</a></h5>
+    {{ with .Params.role }}<h6 class="card-subtitle">{{.}}</h6>{{end}}
+    {{ with .Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
     <ul class="network-icon" aria-hidden="true">
-      {{ range $.Site.Params.social }}
+      {{ range .Params.social }}
       {{ $pack := or .icon_pack "fas" }}
       {{ $pack_prefix := $pack }}
       {{ if in (slice "fab" "fas" "far" "fal") $pack }}

@@ -8,7 +8,11 @@
   <div>
     {{ range $k, $v := $.Params.authors -}}
     <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">{{- $v | markdownify -}}</span>
+      <span itemprop="name">
+        {{with $.Site.GetPage (printf "/authors/%s" $v) }}{{ printf "<a href=\"%s\">" .RelPermalink | safeHTML }}{{end}}
+        {{- $v | markdownify -}}
+        {{with $.Site.GetPage (printf "/authors/%s" $v) }}{{ printf "</a>" | safeHTML }}{{end}}
+      </span>
     </span>
     {{- if lt $k (sub $authorLen 1) -}}, {{ end }}
     {{ end }}
