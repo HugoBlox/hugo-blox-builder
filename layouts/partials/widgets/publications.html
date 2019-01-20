@@ -25,8 +25,8 @@
       {{ $.Scratch.Set "recent_pubs" (where $.Site.RegularPages "Type" "publication") }}
     {{ end }}
 
-    {{ if $page.Params.exclude_selected }}
-      {{ $.Scratch.Set "recent_pubs" ( ($.Scratch.Get "recent_pubs") | intersect (where (where $.Site.RegularPages "Type" "publication") ".Params.selected" "!=" true) ) }}
+    {{ if $page.Params.exclude_featured }}
+      {{ $.Scratch.Set "recent_pubs" ( ($.Scratch.Get "recent_pubs") | intersect (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" "!=" true) ) }}
     {{ end }}
 
     {{ $recent_pubs := $.Scratch.Get "recent_pubs" }}

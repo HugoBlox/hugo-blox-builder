@@ -25,8 +25,8 @@ publication_short = ""
 abstract = ""
 abstract_short = ""
 
-# Is this a selected publication? (true/false)
-selected = false
+# Is this a featured publication? (true/false)
+featured = false
 
 # Projects (optional).
 #   Associate this publication with one or more of your projects.

@@ -1,7 +1,7 @@
 {{ $ := .root }}
 {{ $page := .page }}
 
-<!-- Selected Talks widget -->
+<!-- Featured Talks widget -->
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
@@ -10,7 +10,7 @@
   <div class="col-12 col-lg-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ range (sort (where (where $.Site.RegularPages "Type" "talk") ".Params.selected" true) ".Params.time_start" "desc") }}
+    {{ range (sort (where (where $.Site.RegularPages "Type" "talk") ".Params.featured" true) ".Params.time_start" "desc") }}
       {{ if eq $page.Params.list_format 1 }}
         {{ partial "talk_li_detailed" . }}
       {{ else if eq $page.Params.list_format 2 }}
