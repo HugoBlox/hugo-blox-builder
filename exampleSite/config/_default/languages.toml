@@ -9,10 +9,11 @@
 # Uncomment the lines below to configure your website in a second language.
 #[zh]
 #  languageCode = "zh-Hans"
+#  contentDir = "content/zh"
 #  title = "Chinese website title..."
-#  [languages.zh.params]
+#  [zh.params]
 #    description = "Site description in Chinese..."
-#  [[languages.zh.menu.main]]
+#  [[zh.menu.main]]
 #    name = "Wo"
 #    url = "#about"
 #    weight = 1
