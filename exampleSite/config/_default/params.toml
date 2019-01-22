@@ -49,7 +49,7 @@ highlight = true
 # highlight_languages = ["r"]  # Add support for highlighting additional languages
 # highlight_style = "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 
-# Enable native social sharing buttons?
+# Enable in-built social sharing buttons?
 sharing = true
 
 # Privacy pack
