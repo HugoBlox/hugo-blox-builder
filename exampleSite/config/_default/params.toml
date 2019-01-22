@@ -118,7 +118,7 @@ publication_types = [
 ]
 
 # Align the main menu to the right of the page? (true/false)
-menu_align_right = true
+menu_align_right = false
 
 # Link custom CSS and JS assets
 #   (relative to /static/css and /static/js respectively)
