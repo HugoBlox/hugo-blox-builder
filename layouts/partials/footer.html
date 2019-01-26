@@ -140,13 +140,12 @@
     {{ else }}
       {{ $js_bundle = slice $js_academic }}
     {{ end }}
+    {{ range .Site.Params.plugins_js }}
+      {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
+    {{ end }}
     {{ $js_bundle := $js_bundle | resources.Concat "js/academic-bundle-pre.js" | minify }}
     {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/academic.min.js" | fingerprint "md5" }}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
-
-    {{ range .Site.Params.custom_js }}
-    <script src="{{ "/js/" | relURL }}{{ . }}"></script>
-    {{ end }}
 
   </body>
 </html>

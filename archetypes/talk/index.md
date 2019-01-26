@@ -7,6 +7,7 @@ draft = false
 #   End time can optionally be hidden by prefixing the line with `#`.
 time_start = {{ .Date }}
 time_end = {{ .Date }}
+all_day = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = []

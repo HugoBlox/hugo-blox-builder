@@ -143,6 +143,27 @@
 - id: location
   translation: Location
 
+- id: pub_uncat
+  translation: Uncategorized
+
+- id: pub_conf
+  translation: Conference paper
+
+- id: pub_journal
+  translation: Journal article
+
+- id: pub_manuscript
+  translation: Manuscript
+
+- id: pub_report
+  translation: Report
+
+- id: pub_book
+  translation: Book
+
+- id: pub_book_section
+  translation: Book section
+
 # Filtering
 
 - id: filter_by_type
