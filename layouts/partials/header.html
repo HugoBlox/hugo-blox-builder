@@ -101,8 +101,16 @@
   {{ end }}
 
   <link rel="stylesheet" href="{{ "styles.css" | relLangURL }}">
-  {{ range .Site.Params.custom_css }}
-  <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
+  {{ if .Site.Params.plugins_css }}
+    {{ $css_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" .Site.Data.academic.version }}
+    {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
+    {{ $css_bundle := slice }}
+    {{ range .Site.Params.plugins_css }}
+      {{ $css_bundle = $css_bundle | append (resources.Get (printf "css/%s.css" .)) }}
+    {{ end }}
+    {{ $css_bundle := $css_bundle | resources.Concat "css/academic-bundle-pre.css" | minify }}
+    {{ $css_bundle := slice $css_bundle_head $css_bundle | resources.Concat "css/academic.css" | fingerprint "md5" }}
+    <link rel="stylesheet" href="{{ $css_bundle.RelPermalink }}">
   {{ end }}
 
   {{ if not .Site.IsServer }}

@@ -53,47 +53,11 @@
       </li>
       {{ end }}
 
-      {{ with $.Site.Params.discussion }}
-      <li>
-        <i class="fa-li fas fa-comments fa-2x" aria-hidden="true"></i>
-        <span>
-          <a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>
-        </span>
-      </li>
-      {{ end }}
-
-      {{ with $.Site.Params.keybase }}
-      <li>
-        <i class="fa-li fab fa-keybase fa-2x" aria-hidden="true"></i>
-        <span>
-          <a href="https://keybase.io/{{ . }}" target="_blank" rel="noopener">@{{ . }}</a> on Keybase.
-        </span>
-      </li>
-      {{ end }}
-
       {{ with $.Site.Params.phone }}
       <li>
         <i class="fa-li fas fa-phone fa-2x" aria-hidden="true"></i>
         <span id="person-telephone" itemprop="telephone">
         {{- if $autolink }}<a href="tel:{{ . }}">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
-        </span>
-      </li>
-      {{ end }}
-
-      {{ with $.Site.Params.skype }}
-      <li>
-        <i class="fa-li fab fa-skype fa-2x" aria-hidden="true"></i>
-        <span>
-        {{- if $autolink }}<a href="skype:{{ . }}?call">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
-        </span>
-      </li>
-      {{ end }}
-
-      {{ with $.Site.Params.telegram }}
-      <li>
-        <i class="fa-li fab fa-telegram fa-2x" aria-hidden="true"></i>
-        <span>
-        {{- if $autolink }}<a href="https://telegram.me/{{ . }}" target="_blank" rel="noopener">@{{ . }}</a>{{ else }}@{{ . }}{{ end -}}
         </span>
       </li>
       {{ end }}
@@ -116,6 +80,27 @@
       <li>
         <i class="fa-li fas fa-calendar-check fa-2x" aria-hidden="true"></i>
         <a href="{{ . }}" target="_blank" rel="noopener">{{ i18n "book_appointment" | default "Book an appointment" }}</a>
+      </li>
+      {{ end }}
+
+      {{/* Contact links. */}}
+      {{ range $.Site.Params.contact_links }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+        {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{ $link := .link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+        {{ $link = .link | relLangURL }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <li>
+        <i class="fa-li {{ $pack }} {{ $pack_prefix }}-{{ .icon }} fa-2x" aria-hidden="true"></i>
+        <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>{{.name|markdownify|emojify|safeHTML}}</a>
       </li>
       {{ end }}
 

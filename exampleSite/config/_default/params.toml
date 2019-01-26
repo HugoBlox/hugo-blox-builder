@@ -24,123 +24,115 @@ twitter = ""
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
 logo = ""
 
-# Date and time format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
-#   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
-date_format = "Jan 2, 2006"
-#   Examples: "3:04 pm" or "15:04"
-time_format = "3:04 PM"
-
-# Show estimated reading time for posts?
-reading_time = true
-
-# Display comment count? Requires commenting to be enabled.
-comment_count = true
-
-# Display next/previous section pager?
-section_pager = false
-
-# Enable global LaTeX math rendering?
-#   If false, you can enable it locally on a per page basis.
-math = false
-
 # Enable global source code highlighting? true/false
 # Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
 highlight = true
 # highlight_languages = ["r"]  # Add support for highlighting additional languages
 # highlight_style = "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 
-# Enable in-built social sharing buttons?
-sharing = true
+# Enable global LaTeX math rendering?
+#   If false, you can enable it locally on a per page basis.
+math = false
 
 # Privacy pack
 #   Show a cookie consent message to visitors
 #   Anonymize IP in Google Analytics (if enabled)
 privacy_pack = false
 
+# Date and time format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
+#   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+date_format = "Jan 2, 2006"
+#   Examples: "3:04 pm" or "15:04"
+time_format = "3:04 PM"
+
+############################
+## Contact Widget setup   ##
+############################
+
+# Enter contact details (optional). To hide a field, clear it to "".
+email = "test@example.org"
+phone = "888 888 88 88"
+address = "Building 1 Room 1, Stanford University, California, 90210, USA"
+
+# Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
+office_hours = """Monday 10:00 to 13:00<br>
+                  Wednesday 09:00 to 10:00<br>
+                  Otherwise email to book an appointment"""
+
+# Enter an optional link for booking appointments (e.g. calendly.com).
+appointment_url = ""
+
+# Contact links
+#   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
+contact_links = [
+  {icon = "twitter", icon_pack = "fab", name = "DM Me", link = "https://twitter.com/Twitter"},
+  {icon = "skype", icon_pack = "fab", name = "Skype Me", link = "skype:echo123?call"},
+  {icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/"},
+  {icon = "comments", icon_pack = "fas", name = "Discuss on Forum", link = "https://discourse.gohugo.io"},
+  # {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://telegram.me/@Telegram"},
+  ]
+
+# Display a map.
+# To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
+# a map provider below.
+# To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
+#   https://developers.google.com/maps/documentation/javascript/get-api-key
+# To use OpenStreetMap tiles, set `map = 2`.
+# To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
+#   https://www.mapbox.com/studio/account/tokens
+# To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+#
+# Map provider:
+#   0: No map
+#   1: Google Maps
+#   2: OpenStreetMap (Mapnik)
+#   3: OpenStreetMap (Mapbox)
+map = 0
+map_api_key = ""
+latitude = "37.4275"
+longitude = "-122.1697"
+zoom = 15
+
+############################
+## Plugins                ##
+############################
+
+# Load CSS and JS plugins
+#   E.g. To load `/assets/css/custom.css`, set `plugins_css = ["custom"]`.
+#   E.g. To load `/assets/js/custom.js`, set `plugins_js = ["custom"]`.
+plugins_css = []
+plugins_js  = []
+
+############################
+## Advanced options       ##
+############################
+
 # Get user avatars from Gravatar.com? (true/false)
 gravatar = false
-
-# Contact Widget setup
-  email = "test@example.org"
-  address = "Building 1 Room 1, Stanford University, California, 90210, USA"
-  # Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
-  office_hours = """Monday 10:00 to 13:00<br>
-                    Wednesday 09:00 to 10:00<br>
-                    Otherwise email to book an appointment"""
-  phone = "888 888 88 88"
-  skype = "echo123"
-  telegram = ""
-  keybase = ""  # Your keybase.io username.
-
-  # Enter an optional link for booking appointments (e.g. calendly.com).
-  appointment_url = ""
-
-  # Discussion link (e.g. link to a forum, mailing list, or chat).
-  #   Uncomment line below to use.
-  #   discussion = { name = "Discuss", url = "https://discourse.gohugo.io" }
-
-  # Enable/disable map in Contact widget.
-  # To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
-  # a map provider below.
-  # To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
-  #   https://developers.google.com/maps/documentation/javascript/get-api-key
-  # To use OpenStreetMap tiles, set `map = 2`.
-  # To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
-  #   https://www.mapbox.com/studio/account/tokens
-  # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-  #
-  # Map provider:
-  #   0: No map
-  #   1: Google Maps
-  #   2: OpenStreetMap (Mapnik)
-  #   3: OpenStreetMap (Mapbox)
-  map = 0
-  map_api_key = ""
-  latitude = "37.4275"
-  longitude = "-122.1697"
-  zoom = 15
-
-# Publication types.
-#   Used to categorize publications.
-#   The index of the publication type in the list is used as its unique numerical identifier.
-#   The numeric ID is used in a publication's frontmatter to categorize it.
-#   The language can be edited below.
-#   For multilingual sites, `publication_types` can be copied to each language section at the end of this file and
-#   translated.
-publication_types = [
-  'Uncategorized',  # 0
-  'Conference paper',  # 1
-  'Journal article',  # 2
-  'Manuscript',  # 3
-  'Report',  # 4
-  'Book',  # 5
-  'Book section'  # 6
-]
 
 # Align the main menu to the right of the page? (true/false)
 menu_align_right = false
 
-# Link custom CSS and JS assets
-#   (relative to /static/css and /static/js respectively)
-custom_css = []
-custom_js  = []
+# Show estimated reading time for posts? (true/false)
+reading_time = true
 
-# Configuration of talk pages.
-[talks]
-  # Show talk time?
-  time = true
+# Display comment count (if commenting enabled in config.toml)? (true/false)
+comment_count = true
+
+# Display next/previous section pager? (true/false)
+section_pager = false
+
+# Enable in-built social sharing buttons? (true/false)
+sharing = true
 
 # Configuration of publication pages.
 [publications]
   # Date format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
-  date_format = "January, 2006"
+  date_format = "January 2006"
 
 # Configuration of project pages.
 [projects]
-  # List publications and talks related to the project?
-  list_children = true
-
   # Post list format.
   #   0 = Simple
   #   1 = Detailed
@@ -165,7 +157,7 @@ custom_js  = []
 [search]
   # Search provider:
   #   0: No search engine
-  #   1: Built-in (Fuse)
+  #   1: Academic (built-in)
   #   2: Algolia (https://www.algolia.com)
   engine = 1
 

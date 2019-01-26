@@ -24,9 +24,11 @@
         <div class="col-auto">
           <select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group="pubtype">
             <option value="*">{{ i18n "filter_all" }}</option>
+            {{ partial "pub_types.html" $ }}
             {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
             <option value=".pubtype-{{ (int $index) }}">
-              {{ index $.Site.Params.publication_types (int $index) }}
+              {{ $pub_types := $.Scratch.Get "pub_types" }}
+              {{ index $pub_types (int $index) }}
             </option>
             {{ end }}
           </select>
