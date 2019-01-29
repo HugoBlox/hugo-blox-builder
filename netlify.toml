@@ -1,0 +1,9 @@
+[build]
+  command = "hugo --themesDir ../../ -t hugo-academic"
+  base    = "exampleSite"
+  publish = "exampleSite/public"
+  HUGO_VERSION = "0.53"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.production.environment]
+  HUGO_ENV = "production"
