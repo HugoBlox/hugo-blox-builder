@@ -1,5 +1,5 @@
 [build]
-  command = "hugo --themesDir ../../ -t hugo-academic"
+  command = "hugo --themesDir ../../ -t repo"
   base    = "exampleSite"
   publish = "exampleSite/public"
   HUGO_VERSION = "0.53"
