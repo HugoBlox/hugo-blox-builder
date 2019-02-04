@@ -1,47 +1,44 @@
 {{ $ := .root }}
 {{ $page := .page }}
-{{ $pubs_len := len (where $.Site.RegularPages "Type" "publication") }}
+
+{{ $query := where $.Site.RegularPages "Type" "publication" }}
+{{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
+  {{ $query = where $query ".Params.publication_types" "intersect" (slice $page.Params.publication_type) }}
+{{ end }}
+{{ if $page.Params.exclude_featured }}
+  {{ $query = $query | intersect (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" "!=" true) }}
+{{ end }}
+
+{{ $count := len $query }}
 
 <!-- Publications widget -->
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-    {{ if gt $pubs_len $page.Params.count }}
-    <p class="view-all">
-      <a href="{{ ($.Site.GetPage "section" "publication").RelPermalink }}">
-        {{ i18n "more_publications" | markdownify }}
-        <i class="fas fa-angle-double-right"></i>
-      </a>
-    </p>
-    {{ end }}
   </div>
   <div class="col-12 col-lg-8">
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
-    {{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
-      {{ $.Scratch.Set "recent_pubs" (where (where $.Site.RegularPages "Type" "publication") ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
-    {{ else }}
-      {{ $.Scratch.Set "recent_pubs" (where $.Site.RegularPages "Type" "publication") }}
-    {{ end }}
-
-    {{ if $page.Params.exclude_featured }}
-      {{ $.Scratch.Set "recent_pubs" ( ($.Scratch.Get "recent_pubs") | intersect (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" "!=" true) ) }}
-    {{ end }}
-
-    {{ $recent_pubs := $.Scratch.Get "recent_pubs" }}
-    {{ range first $page.Params.count $recent_pubs }}
-      {{ if eq $page.Params.list_format 1 }}
-        {{ partial "publication_li_detailed" . }}
-      {{ else if eq $page.Params.list_format 2 }}
-        {{ partial "publication_li_apa" . }}
-      {{ else if eq $page.Params.list_format 3 }}
-        {{ partial "publication_li_mla" . }}
-      {{ else if eq $page.Params.list_format 4 }}
-        {{ partial "publication_li_stream" . }}
+    {{ range first $page.Params.count $query }}
+      {{ if eq $page.Params.view 1 }}
+        {{ partial "publication_li_list" . }}
+      {{ else if eq $page.Params.view 3 }}
+        {{ partial "publication_li_card" . }}
+      {{ else if eq $page.Params.view 4 }}
+        {{ partial "publication_li_citation" . }}
       {{ else }}
-        {{ partial "publication_li_simple" . }}
+        {{ partial "publication_li_compact" . }}
       {{ end }}
+    {{ end }}
+
+    {{ if gt $count $page.Params.count }}
+    <div class="see-all">
+      <a href="{{ ($.Site.GetPage "section" "publication").RelPermalink }}">
+        {{ i18n "more_publications" | markdownify }}
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </div>
     {{ end }}
 
   </div>

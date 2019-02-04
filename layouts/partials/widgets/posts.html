@@ -13,37 +13,36 @@
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 
-{{ $count := len ($query) }}
+{{ $count := len $query }}
 
 <!-- Blog Posts widget -->
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
-
     <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-    {{ if gt $count $page.Params.count }}
-    <p class="view-all">
-      <a href="{{ $archive_page.RelPermalink }}">
-        {{ i18n "more_posts" | markdownify }}
-        <i class="fas fa-angle-double-right"></i>
-      </a>
-    </p>
-    {{ end }}
-
   </div>
   <div class="col-12 col-lg-8">
 
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
     {{ range $post := first $page.Params.count $query }}
-      {{ if eq $page.Params.list_format 0 }}
-        {{ partial "post_li_simple" . }}
-      {{ else if eq $page.Params.list_format 1 }}
-        {{ partial "post_li_detailed" . }}
+      {{ if eq $page.Params.view 1 }}
+        {{ partial "post_li_list" . }}
+      {{ else if eq $page.Params.view 3 }}
+        {{ partial "post_li_card" . }}
       {{ else }}
-        {{ partial "post_li_stream" . }}
+        {{ partial "post_li_compact" . }}
       {{ end }}
     {{end}}
+
+    {{ if gt $count $page.Params.count }}
+    <div class="see-all">
+      <a href="{{ $archive_page.RelPermalink }}">
+        {{ i18n "more_posts" | markdownify }}
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </div>
+    {{ end }}
 
   </div>
 </div>

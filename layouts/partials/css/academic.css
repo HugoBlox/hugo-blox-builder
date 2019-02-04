@@ -523,6 +523,15 @@ a[data-fancybox] img {
 }
 
 /*************************************************
+ *  Widgets (common)
+ **************************************************/
+
+.see-all {
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+/*************************************************
  *  Hero Widget
  **************************************************/
 
@@ -600,7 +609,7 @@ a[data-fancybox] img {
 }
 
 /*************************************************
- *  Biography
+ *  About widget
  **************************************************/
 
 #profile {
@@ -1069,35 +1078,12 @@ article .article-metadata {
   margin-right: auto;
 }
 
-.pub .pub-authors {
-  font-style: italic;
-  line-height: 30px; /* Match share bar line height. */
-}
-
 .pub-row-heading {
   font-weight: bold;
 }
 
 .pub-list-item .pub-abstract {
   font-size: 1rem;
-}
-
-.pub-list-item .pub-authors {
-  line-height: normal;
-  font-style: normal;
-  font-size: 0.9rem;
-  color: rgba(0,0,0,0.54);
-}
-
-.pub-list-item .pub-publication {
-  color: rgba(0,0,0,0.54);
-  font-size: 0.9rem;
-}
-
-
-.dark .pub-authors,
-.dark .pub-publication {
-  color: rgba(255,255,255,0.54);
 }
 
 .pub-list-item .btn-links {

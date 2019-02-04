@@ -22,12 +22,12 @@
     {{ if ge $count 1 }}
       <h2>{{ (i18n "posts") }}</h2>
       {{ range $items }}
-        {{ if eq $page.Site.Params.projects.post_format 0 }}
-          {{ partial "post_li_simple" . }}
-        {{ else if eq $page.Site.Params.projects.post_format 1 }}
-          {{ partial "post_li_detailed" . }}
+        {{ if eq $page.Site.Params.projects.post_format 1 }}
+          {{ partial "post_li_list" . }}
+        {{ else if eq $page.Site.Params.projects.post_format 3 }}
+          {{ partial "post_li_card" . }}
         {{ else }}
-          {{ partial "post_li_stream" . }}
+          {{ partial "post_li_compact" . }}
         {{ end }}
       {{ end }}
     {{ end }}
@@ -38,15 +38,13 @@
       <h2>{{ (i18n "publications") }}</h2>
       {{ range $items }}
         {{ if eq $page.Site.Params.projects.publication_format 1 }}
-          {{ partial "publication_li_detailed" . }}
-        {{ else if eq $page.Site.Params.projects.publication_format 2 }}
-          {{ partial "publication_li_apa" . }}
+          {{ partial "publication_li_list" . }}
         {{ else if eq $page.Site.Params.projects.publication_format 3 }}
-          {{ partial "publication_li_mla" . }}
+          {{ partial "publication_li_card" . }}
         {{ else if eq $page.Site.Params.projects.publication_format 4 }}
-          {{ partial "publication_li_stream" . }}
+          {{ partial "publication_li_citation" . }}
         {{ else }}
-          {{ partial "publication_li_simple" . }}
+          {{ partial "publication_li_compact" . }}
         {{ end }}
       {{ end }}
     {{ end }}
@@ -57,11 +55,11 @@
       <h2>{{ (i18n "talks") }}</h2>
       {{ range sort $items ".Params.time_start" "desc" }}
         {{ if eq $page.Site.Params.projects.talk_format 1 }}
-          {{ partial "talk_li_detailed" . }}
-        {{ else if eq $page.Site.Params.projects.talk_format 2 }}
-          {{ partial "talk_li_stream" . }}
+          {{ partial "talk_li_list" . }}
+        {{ else if eq $page.Site.Params.projects.talk_format 3 }}
+          {{ partial "talk_li_card" . }}
         {{ else }}
-          {{ partial "talk_li_simple" . }}
+          {{ partial "talk_li_compact" . }}
         {{ end }}
       {{ end }}
     {{ end }}

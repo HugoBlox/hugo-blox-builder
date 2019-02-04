@@ -71,9 +71,9 @@
           {{ $link = $item.Params.external_link }}
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
-        {{ if eq $page.Params.view 0 }}
-          {{ partial "project_li_simple" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
-        {{ else if eq $page.Params.view 1 }}
+        {{ if eq $page.Params.view 1 }}
+          {{ partial "project_li_list" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
+        {{ else if eq $page.Params.view 3 }}
           {{ partial "project_li_card" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
         {{ else }}
           {{ partial "project_li_showcase" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}

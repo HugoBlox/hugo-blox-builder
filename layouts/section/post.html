@@ -11,12 +11,12 @@
 
   {{ $paginator := .Paginate .Data.Pages }}
   {{ range $paginator.Pages }}
-    {{ if eq $.Params.list_format 0 }}
-      {{ partial "post_li_simple" . }}
-    {{ else if eq $.Params.list_format 1 }}
-      {{ partial "post_li_detailed" . }}
+    {{ if eq $.Params.view 1 }}
+      {{ partial "post_li_list" . }}
+    {{ else if eq $.Params.view 3 }}
+      {{ partial "post_li_card" . }}
     {{ else }}
-      {{ partial "post_li_stream" . }}
+      {{ partial "post_li_compact" . }}
     {{ end }}
   {{ end }}
 

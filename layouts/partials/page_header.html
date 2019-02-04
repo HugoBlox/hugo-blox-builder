@@ -47,7 +47,7 @@
         <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
         {{end}}
 
-        {{ partial "page_metadata" (dict "content" $page "is_list" 1) }}
+        {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
 
         {{ partial "page_links_div.html" $page }}
 
@@ -70,8 +70,7 @@
   <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
   {{end}}
 
-  {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
-
+  {{ partial "page_metadata" (dict "content" $page "is_list" 0 "share" true) }}
   {{ partial "page_links_div.html" $page }}
 </div>
 {{else}}
@@ -90,7 +89,7 @@
   {{end}}
 
   {{ if not .IsNode }}
-    {{ partial "page_metadata" (dict "content" $page "is_list" 0) }}
+    {{ partial "page_metadata" (dict "content" $page "is_list" 0 "share" true) }}
     {{ partial "page_links_div.html" $page }}
   {{end}}
 </div>
