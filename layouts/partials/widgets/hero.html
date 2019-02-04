@@ -2,10 +2,10 @@
 {{ $page := .page }}
 {{ $header := $page.Params.header }}
 
-{{/* Compute image path outside of HTML style element due to Hugo limitation. */}}
+{{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
 {{ $overlay_img := "" }}
 {{ if $header.overlay_img }}
-  {{ $overlay_img = (printf "img/%s" $header.overlay_img) | relURL }}
+  {{ $overlay_img = printf "img/%s" $header.overlay_img | absURL }}
 {{end}}
 
 <section id="{{ $page.File.TranslationBaseName }}" class="hero-overlay" style="
