@@ -143,6 +143,27 @@
 - id: location
   translation: Lieu
 
+- id: pub_uncat
+  translation: Non catégorisé
+
+- id: pub_conf
+  translation: Document de conference
+
+- id: pub_journal
+  translation: Article de journal
+
+- id: pub_manuscript
+  translation: Manuscript
+
+- id: pub_report
+  translation: Rapport
+
+- id: pub_book
+  translation: Livre
+
+- id: pub_book_section
+  translation: Section de livre
+
 # Filtering
 
 - id: filter_by_type
