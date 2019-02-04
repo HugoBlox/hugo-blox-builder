@@ -21,9 +21,7 @@
 
     <div class="stream-meta article-metadata">
       <div itemprop="author">
-        {{ with .Params.authors }}
-        {{- delimit . ", " | markdownify -}}
-        {{- end -}}
+        {{ partial "page_metadata_authors" . }}
       </div>
     </div>
 

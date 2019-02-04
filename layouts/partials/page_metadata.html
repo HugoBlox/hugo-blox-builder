@@ -1,4 +1,5 @@
 {{ $is_list := .is_list }}
+{{ $share := .share | default false }}
 {{ $ := .content }}
 
 <meta content="{{ $.Params.Date }}" itemprop="datePublished">
@@ -11,16 +12,7 @@
   {{ $authorLen := len $.Params.authors }}
   {{ if gt $authorLen 0 }}
   <div>
-    {{ range $k, $v := $.Params.authors -}}
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">
-        {{with $.Site.GetPage (printf "/authors/%s" $v) }}{{ printf "<a href=\"%s\">" .RelPermalink | safeHTML }}{{end}}
-        {{- $v | markdownify -}}
-        {{with $.Site.GetPage (printf "/authors/%s" $v) }}{{ printf "</a>" | safeHTML }}{{end}}
-      </span>
-    </span>
-    {{- if lt $k (sub $authorLen 1) -}}, {{ end }}
-    {{ end }}
+    {{ partial "page_metadata_authors" $ }}
   </div>
   {{ end }}
   {{ end }}
@@ -36,6 +28,17 @@
       {{ end }}
     {{ end }}
     <time>{{ $date }}</time>
+  </span>
+  {{ end }}
+
+  {{ if and (eq $is_list 1) (eq $.Type "publication") }}
+  <span class="middot-divider"></span>
+  <span class="pub-publication">
+    {{ if $.Params.publication_short }}
+      {{ $.Params.publication_short | markdownify }}
+    {{ else if $.Params.publication }}
+      {{ $.Params.publication | markdownify }}
+    {{ end }}
   </span>
   {{ end }}
 
@@ -66,8 +69,8 @@
   {{ end }}
   {{ end }}
 
-  {{ if ne $is_list 1 }}
-  {{ partial "share.html" $ }}
+  {{ if $share }}
+    {{ partial "share.html" $ }}
   {{ end }}
 
 </div>

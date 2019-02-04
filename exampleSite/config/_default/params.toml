@@ -131,27 +131,19 @@ sharing = true
   #   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
   date_format = "January 2006"
 
+  # Citation style ("apa" or "mla")
+  citation_style = "apa"
+
 # Configuration of project pages.
 [projects]
-  # Post list format.
-  #   0 = Simple
-  #   1 = Detailed
-  #   2 = Stream
-  post_format = 2
-
-  # Publication list format.
-  #   0 = Simple
-  #   1 = Detailed
-  #   2 = APA
-  #   3 = MLA
-  #   4 = Stream
-  publication_format = 4
-
-  # Talk list format.
-  #   0 = Simple
-  #   1 = Detailed
-  #   2 = Stream
-  talk_format = 2
+  # Views for associated content.
+  #   1: List
+  #   2: Compact
+  #   3: Card
+  #   4: Citation (publications only)
+  post_view = 2
+  publication_view = 4
+  talk_view = 2
 
 # Search.
 [search]

@@ -1,8 +1,14 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
-{{ partial "page_header.html" . }}
 
-<section id="about" class="home-section">
+{{/* Just display author name as title if user profile unavailable. */}}
+{{ if not ($.Site.GetPage (printf "/author/%s" (urlize .Title))) }}
+<div class="universal-wrapper pt-3">
+  <h1 itemprop="name">{{ .Title }}</h1>
+</div>
+{{ end }}
+
+<section id="about" class="pt-5">
   <div class="container">
     {{/* Only show About widget if a profile has been configured for this user. */}}
     {{ $widget := "widgets/about.html" }}

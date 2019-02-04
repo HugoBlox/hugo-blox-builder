@@ -18,16 +18,14 @@
 
     {{ $sel_pubs := $.Scratch.Get "sel_pubs" }}
     {{ range $sel_pubs }}
-      {{ if eq $page.Params.list_format 1 }}
-        {{ partial "publication_li_detailed" . }}
-      {{ else if eq $page.Params.list_format 2 }}
-        {{ partial "publication_li_apa" . }}
-      {{ else if eq $page.Params.list_format 3 }}
-        {{ partial "publication_li_mla" . }}
-      {{ else if eq $page.Params.list_format 4 }}
-        {{ partial "publication_li_stream" . }}
+      {{ if eq $page.Params.view 1 }}
+        {{ partial "publication_li_list" . }}
+      {{ else if eq $page.Params.view 3 }}
+        {{ partial "publication_li_card" . }}
+      {{ else if eq $page.Params.view 4 }}
+        {{ partial "publication_li_citation" . }}
       {{ else }}
-        {{ partial "publication_li_simple" . }}
+        {{ partial "publication_li_compact" . }}
       {{ end }}
     {{ end }}
 
