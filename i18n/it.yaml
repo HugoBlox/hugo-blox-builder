@@ -6,10 +6,16 @@
 - id: table_of_contents
   translation: Indice dei Contenuti
 
+- id: on_this_page
+  translation: In questa pagina
+
+- id: back_to_top
+  translation: Torna su
+
 # General
 
 - id: related
-  translation: Related
+  translation: Correlato
 
 - id: minute_read
   translation: minuti
@@ -53,7 +59,7 @@
   translation: Poster
 
 - id: btn_source
-  translation: Source Document
+  translation: Sorgente
 
 - id: btn_copy
   translation: Copia
@@ -68,6 +74,16 @@
 
 - id: education
   translation: Formazione
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Guarda il certificato
+
+# Experience widget
+
+- id: present
+  translation: Present
 
 # Publications widget
 
@@ -87,6 +103,23 @@
 - id: more_talks
   translation: Altre Conferenze
 
+# Contact widget
+
+- id: contact_name
+  translation: Nome
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Messaggio
+
+- id: contact_send
+  translation: Invio
+
+- id: book_appointment
+  translation: Richiedi un appuntamento
+
 # Publication/Talk details
 
 - id: abstract
@@ -104,14 +137,32 @@
 - id: last_updated
   translation: Aggiornato il
 
-- id: links
-  translation: Link
-
 - id: event
   translation: Evento
 
 - id: location
   translation: Luogo
+
+- id: pub_uncat
+  translation: Uncategorized
+
+- id: pub_conf
+  translation: Conference paper
+
+- id: pub_journal
+  translation: Journal article
+
+- id: pub_manuscript
+  translation: Manoscritto
+
+- id: pub_report
+  translation: Report
+
+- id: pub_book
+  translation: Libro
+
+- id: pub_book_section
+  translation: Sezione Libro
 
 # Filtering
 
@@ -142,6 +193,9 @@
 
 # Search
 
+- id: search
+  translation: Cerca
+
 - id: search_placeholder
   translation: Cerca...
 
@@ -157,7 +211,7 @@
   translation: Pagina non trovata
 
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Forse stavate carcando uno di questi?
 
 # Cookie consent
 
