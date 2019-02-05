@@ -1,5 +1,10 @@
 +++
 title = "{{ replace .Name "-" " " | title }}"
+subtitle = ""
+
+# Add a summary to display on homepage (optional).
+summary = ""
+
 date = {{ .Date }}
 draft = false
 
