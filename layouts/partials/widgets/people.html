@@ -1,0 +1,50 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<div class="row justify-content-center people-widget">
+  {{ with $page.Title }}
+  <div class="col-md-12 section-heading">
+    <h1>{{ . | markdownify | emojify }}</h1>
+    {{ if $page.Params.subtitle }}<p>{{ $page.Params.subtitle | markdownify | emojify }}</p>{{ end }}
+  </div>
+  {{ end }}
+
+  {{ with $page.Content }}
+  <div class="col-md-12">
+    <p>{{ . | markdownify }}</p>
+  </div>
+  {{ end }}
+
+  {{ range $page.Params.user_groups }}
+  <div class="col-md-12">
+    <h2 class="mb-4">{{ . | markdownify }}</h2>
+  </div>
+
+  {{ $query := where (where $.Site.Pages "Section" "author") ".Params.user_groups" "intersect" (slice .) }}
+  {{ range $query }}
+
+  {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+  {{/* Get link to user's profile page. */}}
+  {{ $link := printf "/authors/%s" (path.Base (path.Split .Path).Dir) | relURL }}
+  <div class="col-12 col-sm-auto people-person">
+    {{ $src := "" }}
+    {{ if $.Site.Params.gravatar }}
+      {{ $src = printf "https://s.gravatar.com/avatar/%s?s=200" (md5 .Params.email) }}
+    {{ else if $avatar }}
+      {{ $avatar_image := $avatar.Fill "150x150 Center" }}
+      {{ $src = $avatar_image.RelPermalink }}
+    {{ end }}
+    {{ if $src }}
+      <a href="{{ $link}}"><img class="portrait" src="{{ $src }}" alt="Avatar"></a>
+    {{ end }}
+
+    <div class="portrait-title">
+      <h2><a href="{{ $link }}">{{ .Params.name }}</a></h2>
+      {{ with .Params.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
+      {{ with .Params.interests }}<p class="people-interests">{{ delimit . ", " | markdownify | emojify }}</p>{{ end }}
+    </div>
+  </div>
+
+  {{ end }}
+  {{ end }}
+</div>
