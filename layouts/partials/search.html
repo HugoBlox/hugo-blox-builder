@@ -1,0 +1,32 @@
+<aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>{{ i18n "search" }}</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        {{ if eq $.Site.Params.search.engine 1 }}
+        <input name="q" id="search-query" placeholder="{{i18n "search_placeholder"}}" autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        {{ else }}
+        <!-- Search box will appear here -->
+        {{ end }}
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        <!-- Search results will appear here -->
+      </div>
+
+    </section>
+  </div>
+</aside>

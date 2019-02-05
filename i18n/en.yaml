@@ -74,6 +74,11 @@
 
 - id: education
   translation: Education
+  
+# Accomplishments widget
+
+- id: see_certificate
+  translation: See certificate
 
 # Experience widget
 
@@ -83,7 +88,7 @@
 # Publications widget
 
 - id: more_publications
-  translation: More Publications
+  translation: See all publications
 
 # Posts widget
 
@@ -91,12 +96,12 @@
   translation: CONTINUE READING
 
 - id: more_posts
-  translation: More Posts
+  translation: See all posts
 
 # Talks widget
 
 - id: more_talks
-  translation: More Talks
+  translation: See all talks
 
 # Contact widget
 
@@ -111,6 +116,9 @@
 
 - id: contact_send
   translation: Send
+
+- id: book_appointment
+  translation: Book an appointment
 
 # Publication/Talk details
 
@@ -134,6 +142,27 @@
 
 - id: location
   translation: Location
+
+- id: pub_uncat
+  translation: Uncategorized
+
+- id: pub_conf
+  translation: Conference paper
+
+- id: pub_journal
+  translation: Journal article
+
+- id: pub_manuscript
+  translation: Manuscript
+
+- id: pub_report
+  translation: Report
+
+- id: pub_book
+  translation: Book
+
+- id: pub_book_section
+  translation: Book section
 
 # Filtering
 
@@ -164,11 +193,14 @@
 
 # Search
 
+- id: search
+  translation: Search
+
 - id: search_placeholder
   translation: Search...
 
 - id: search_results
-  translation: Search Results
+  translation: results found
 
 - id: search_no_results
   translation: No results found

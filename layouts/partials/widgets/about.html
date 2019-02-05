@@ -1,31 +1,38 @@
 {{ $ := .root }}
 {{ $page := .page }}
 
+{{ $author := "" }}
+{{ if .author }}
+  {{ $author = .author }}
+{{ else }}
+  {{ $author = $page.Params.author }}
+{{end}}
+
+{{ $person_page_path := (printf "/author/%s" (urlize $author)) }}
+{{ $person_page := $.Site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist." $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
+{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+
 <!-- About widget -->
 <div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person" itemref="{{ if $.Site.Params.email }}person-email{{ end }}{{ if $.Site.Params.phone }} person-telephone{{ end }}{{ if $.Site.Params.address}} person-address{{ end }}">
   <div class="col-12 col-lg-4">
     <div id="profile">
 
       {{ if $.Site.Params.gravatar }}
-      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image" alt="Avatar">
-      {{ else if $.Site.Params.avatar }}
-      <img class="portrait" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image" alt="Avatar">
+      <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" itemprop="image" alt="Avatar">
+      {{ else if $avatar }}
+      {{ $avatar_image := $avatar.Fill "250x250 Center" }}
+      <img class="portrait" src="{{ $avatar_image.RelPermalink }}" itemprop="image" alt="Avatar">
       {{ end }}
 
       <div class="portrait-title">
-        <h2 itemprop="name">{{ $.Site.Params.name }}</h2>
-        {{ with $.Site.Params.role }}<h3 itemprop="jobTitle">{{ . }}</h3>{{ end }}
+        <h2 itemprop="name">{{ $person.name }}</h2>
+        {{ with $person.role }}<h3 itemprop="jobTitle">{{ . }}</h3>{{ end }}
 
-        {{/* Support legacy `organization` option. */}}
-        {{ if $.Site.Params.organization }}
-        <h3 itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
-          {{ with $.Site.Params.organization_url }}<a href="{{ . }}" target="_blank" itemprop="url" rel="noopener">{{ end }}
-            <span itemprop="name">{{ $.Site.Params.organization }}</span>
-          {{ if $.Site.Params.organization_url }}</a>{{ end }}
-        </h3>
-        {{ end }}
-
-        {{ range $.Site.Params.organizations }}
+        {{ range $person.organizations }}
         <h3 itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
           {{ with .url }}<a href="{{ . }}" target="_blank" itemprop="url" rel="noopener">{{ end }}
           <span itemprop="name">{{ .name }}</span>
@@ -34,10 +41,10 @@
         {{ end }}
       </div>
 
-      <link itemprop="url" href="{{ $.Site.BaseURL }}">
+      <link itemprop="url" href="{{ .Permalink }}">
 
       <ul class="network-icon" aria-hidden="true">
-        {{ range $.Site.Params.social }}
+        {{ range $person.social }}
         {{ $pack := or .icon_pack "fas" }}
         {{ $pack_prefix := $pack }}
         {{ if in (slice "fab" "fas" "far" "fal") $pack }}
@@ -63,22 +70,25 @@
   </div>
   <div class="col-12 col-lg-8" itemprop="description">
 
-    {{ $page.Content }}
+    {{/* Only display widget title in explicit instances of about widget, not in author pages. */}}
+    {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
+
+    {{ $person_page.Content }}
 
     <div class="row">
 
-      {{ with $page.Params.interests }}
+      {{ with $person.interests }}
       <div class="col-md-5">
         <h3>{{ i18n "interests" | markdownify }}</h3>
         <ul class="ul-interests">
-          {{ range .interests }}
-          <li>{{ . | markdownify }}</li>
+          {{ range . }}
+          <li>{{ . | markdownify | emojify }}</li>
           {{ end }}
         </ul>
       </div>
       {{ end }}
 
-      {{ with $page.Params.education }}
+      {{ with $person.education }}
       <div class="col-md-7">
         <h3>{{ i18n "education" | markdownify }}</h3>
         <ul class="ul-edu fa-ul">

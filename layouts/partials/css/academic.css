@@ -26,13 +26,13 @@ body {
   line-height: inherit;
   color: inherit;
   background-color: {{ .Get "background" }};
-  margin-top: 71px; /* Offset body content by navbar height. */
+  margin-top: 70px; /* Offset body content by navbar height. */
   padding-top: 0;
   counter-reset: captions;
 }
 @media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
   body {
-    margin-top: 51px; /* Offset body content by navbar height. */
+    margin-top: 50px; /* Offset body content by navbar height. */
   }
 }
 
@@ -78,7 +78,16 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
   color: #313131;
   text-rendering: optimizeLegibility;
-  overflow-wrap: break-word; /* Ensures very long heading words do not overflow into content. */
+
+  /* Ensure long words do not overflow into content. */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+
+  /* Add a hyphen where the word breaks (use `&shy;` to insert a soft-hyphen in a word). */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
 }
 h1 {
   font-size: 2.25rem;
@@ -238,6 +247,80 @@ small,
 /*************************************************
  *  Search.
  **************************************************/
+
+.search-results {
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  background-color: {{ .Get "background" }};
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow: scroll;
+  position: fixed;
+  visibility: hidden;
+  z-index: -99;
+}
+
+.dark .search-results {
+  background-color: rgb(40, 42, 54);
+}
+
+.searching {
+  overflow: hidden;
+}
+
+.searching .search-results {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  visibility: visible;
+  z-index: 11; /* Second highest index, after navbar. */
+}
+
+.searching #search-box #search-query {
+  width: 100%;
+}
+
+.search-results > .container {
+  padding-top: 70px;  /* Navbar height. */
+}
+@media screen and (max-width: 1200px) {
+  .search-results > .container {
+    padding-top: 50px;  /* Navbar height. */
+  }
+}
+
+.search-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 70px;  /* Navbar height. */
+  background-color: {{ .Get "background" }};
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+@media screen and (max-width: 1200px) {
+  .search-header {
+    top: 50px;  /* Navbar height. */
+  }
+}
+
+.dark .search-header {
+  background-color: rgb(40, 42, 54);
+}
+
+.search-header h1 {
+  margin: 0;
+  line-height: 1;
+}
+
+.col-search-close {
+  text-align: right;
+}
+
+.search-header i {
+  font-size: 2rem;
+  line-height: 1;
+}
 
 #search-box {
   position: relative; /* Required for search icon positioning. */
@@ -412,6 +495,14 @@ a[data-fancybox] img {
   background-color: {{ .Get "home_section_even" }};
 }
 
+.dark .home-section {
+  background-color: {{ .Get "dark_home_section_odd" }};
+}
+
+.dark .home-section:nth-of-type(even) {
+  background-color: {{ .Get "dark_home_section_even" }};
+}
+
 @media screen and (max-width: 768px) {
   .home-section {
     padding: 60px 0 60px 0;
@@ -429,6 +520,15 @@ a[data-fancybox] img {
   font-weight: 400;
   font-size: 1.1rem;
   color: #b2b2b2;
+}
+
+/*************************************************
+ *  Widgets (common)
+ **************************************************/
+
+.see-all {
+  margin-top: 2rem;
+  text-transform: uppercase;
 }
 
 /*************************************************
@@ -509,7 +609,7 @@ a[data-fancybox] img {
 }
 
 /*************************************************
- *  Biography
+ *  About widget
  **************************************************/
 
 #profile {
@@ -694,12 +794,6 @@ article {
   box-sizing: border-box;
 }
 
-/* Prevent FA's line height of 1 causing FA button links to be taller than other button links. */
-.btn-links .fab,
-.btn-links .fas {
-  line-height: inherit !important;
-}
-
 .split-header-image {
   position: relative; /* Required for caption positioning */
   clear: both;
@@ -714,6 +808,32 @@ article {
 .article-banner {
   width: 100%;
   height: auto;
+}
+
+.featured-image {
+  width: 100%;
+  background-position: left;
+  background-origin: border-box;
+  background-size: cover;
+  height: 60vh;
+  min-height: 500px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto
+}
+
+@media screen and (max-width: 1199px) {
+  .featured-image {
+    min-height: 400px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .featured-image {
+    min-height: 300px;
+  }
 }
 
 .article-header-caption {
@@ -958,35 +1078,12 @@ article .article-metadata {
   margin-right: auto;
 }
 
-.pub .pub-authors {
-  font-style: italic;
-  line-height: 30px; /* Match share bar line height. */
-}
-
 .pub-row-heading {
   font-weight: bold;
 }
 
 .pub-list-item .pub-abstract {
   font-size: 1rem;
-}
-
-.pub-list-item .pub-authors {
-  line-height: normal;
-  font-style: normal;
-  font-size: 0.9rem;
-  color: rgba(0,0,0,0.54);
-}
-
-.pub-list-item .pub-publication {
-  color: rgba(0,0,0,0.54);
-  font-size: 0.9rem;
-}
-
-
-.dark .pub-authors,
-.dark .pub-publication {
-  color: rgba(255,255,255,0.54);
 }
 
 .pub-list-item .btn-links {
@@ -1104,6 +1201,30 @@ article .article-metadata {
 
 .isotope-item:hover{
   z-index: 3;
+}
+
+/*************************************************
+ *  Accomplishments
+ **************************************************/
+ 
+.course {
+  margin-bottom: -0.5rem;
+}
+
+.course h6 {
+  font-size: 0.80rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.course h6 a {
+  border-bottom: solid 1px transparent;
+}
+
+.course h6 a:hover {
+  border-bottom: solid 1px;
+  text-decoration: none;
 }
 
 /*************************************************
@@ -1321,8 +1442,13 @@ a.badge:hover {
   border-radius: .3rem;
 }
 
+.btn-links .btn {
+  padding: 5px .5rem 5px .5rem;
+  line-height: 1;
+}
+
 .btn.btn-sm {
-  padding: .4rem;
+  padding: 5px .4rem 5px .4rem;
   font-size: .6rem;
   border-radius: .2rem;
 }
@@ -1674,7 +1800,7 @@ table > tbody > tr:hover > th {
  *  Alerts
  **************************************************/
 
-div.alert p {
+div.alert > div {
   position: relative;
   display: block;
   font-size: 1rem;
@@ -1683,7 +1809,15 @@ div.alert p {
   margin-bottom: 0;
 }
 
-div.alert p:first-child::before {
+div.alert div > * {
+  margin-bottom: .5rem;  /* Use smaller paragraph spacing than usual. */
+}
+
+div.alert div > :last-child {
+  margin-bottom: 0;
+}
+
+div.alert > div:first-child::before {
   position: absolute;
   top: -0.5rem;
   left: -2rem;
@@ -1696,7 +1830,7 @@ div.alert p:first-child::before {
   text-align: center;
 }
 
-div.alert-warning p:first-child::before {
+div.alert-warning > div:first-child::before {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   color: #ff3860;
@@ -1787,9 +1921,9 @@ div.alert a {
     .docs-sidebar {
       position: -webkit-sticky;
       position: sticky;
-      top: 51px;
-      z-index: 1000;
-      height: calc(100vh - 51px)
+      top: 50px;
+      z-index: 10;
+      height: calc(100vh - 50px)
     }
   }
 }
@@ -1802,9 +1936,9 @@ div.alert a {
     .docs-sidebar {
       position: -webkit-sticky;
       position: sticky;
-      top: 71px;
-      z-index: 1000;
-      height: calc(100vh - 71px)
+      top: 70px;
+      z-index: 10;
+      height: calc(100vh - 70px)
     }
   }
 }
@@ -1857,7 +1991,7 @@ div.alert a {
 @media (min-width:768px) {
   @supports ((position:-webkit-sticky) or (position:sticky)) {
     .docs-links {
-      max-height: calc(100vh - 5rem - 71px);
+      max-height: calc(100vh - 5rem - 70px);
       overflow-y: auto;
     }
   }
@@ -1882,8 +2016,8 @@ div.alert a {
   .docs-toc {
     position: -webkit-sticky;
     position: sticky;
-    top: 71px;
-    height: calc(100vh - 71px);
+    top: 70px;
+    height: calc(100vh - 70px);
     overflow-y: auto
   }
 }
@@ -1989,6 +2123,7 @@ body.dark,
 .dark .form-control,
 .dark .form-control:focus {
   color: rgb(248, 248, 242);
+  background: {{ .Get "dark_background" }};
 }
 
 .dark .form-control {

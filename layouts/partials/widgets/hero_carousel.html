@@ -20,7 +20,7 @@
       {{ if $item.overlay_img }}
       background-image:
       {{ if $item.overlay_filter }}linear-gradient(rgba(0, 0, 0, {{ $item.overlay_filter }}), rgba(0, 0, 0, {{ $item.overlay_filter }})), {{ end }}
-      url('{{ printf "img/%s" $item.overlay_img | relURL }}');
+      url('{{ printf "img/%s" $item.overlay_img | absURL }}');
       {{ end }}
       ;">
       <div class="container" style="text-align: {{$item.align | default "left"}};">

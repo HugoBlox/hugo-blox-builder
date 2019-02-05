@@ -252,7 +252,64 @@
   }
 
   /* ---------------------------------------------------------------------------
-   * On window load.
+  * Toggle search dialog.
+  * --------------------------------------------------------------------------- */
+
+  function toggleSearchDialog() {
+    if ($('body').hasClass('searching')) {
+      $('[id=search-query]').blur();
+      $('body').removeClass('searching');
+    } else {
+      $('body').addClass('searching');
+      $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
+      $('#search-query').focus();
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+  * Toggle day/night mode.
+  * --------------------------------------------------------------------------- */
+
+  function toggleDarkMode() {
+    if ($('body').hasClass('dark')) {
+      $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+      $('body').removeClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-sun');
+      $('.js-dark-toggle i').addClass('fa-moon');
+      localStorage.setItem('dark_mode', '0');
+    } else {
+      $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+      $('body').addClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-moon');
+      $('.js-dark-toggle i').addClass('fa-sun');
+      localStorage.setItem('dark_mode', '1');
+    }
+  }
+
+  /* ---------------------------------------------------------------------------
+   * On document ready.
+   * --------------------------------------------------------------------------- */
+
+  $(document).ready(function() {
+    // Set dark mode if user chose it.
+    let default_mode = 0;
+    if ($('body').hasClass('dark')) {
+      default_mode = 1;
+    }
+    let dark_mode = parseInt(localStorage.getItem('dark_mode') || default_mode);
+    if (dark_mode) {
+      $('body').addClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-moon');
+      $('.js-dark-toggle i').addClass('fa-sun');
+    } else {
+      $('body').removeClass('dark');
+      $('.js-dark-toggle i').removeClass('fa-sun');
+      $('.js-dark-toggle i').addClass('fa-moon');
+    }
+  });
+
+  /* ---------------------------------------------------------------------------
+   * On window loaded.
    * --------------------------------------------------------------------------- */
 
   $(window).on('load', function() {
@@ -366,6 +423,31 @@
     // Print latest Academic version if necessary.
     if ($('#academic-release').length > 0)
       printLatestRelease('#academic-release', $('#academic-release').data('repo'));
+
+    // On search icon click toggle search dialog.
+    $('.js-search').click(function(e) {
+      e.preventDefault();
+      toggleSearchDialog();
+    });
+    $(document).on('keydown', function(e){
+      if (e.which == 27) {
+        // `Esc` key pressed.
+        if ($('body').hasClass('searching')) {
+          toggleSearchDialog();
+        }
+      } else if (e.which == 191 && e.shiftKey == false && !$('input,textarea').is(':focus')) {
+        // `/` key pressed outside of text input.
+        e.preventDefault();
+        toggleSearchDialog();
+      }
+    });
+
+    // Toggle day/night mode.
+    $('.js-dark-toggle').click(function(e) {
+      e.preventDefault();
+      toggleDarkMode();
+    });
+
   });
 
 })(jQuery);

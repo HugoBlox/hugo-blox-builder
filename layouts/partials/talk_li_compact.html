@@ -20,6 +20,22 @@
     {{ end }}
 
     <div class="stream-meta article-metadata">
+      <div>
+        {{ $date := .Params.time_start | default .Date }}
+        {{ (time $date).Format $.Site.Params.date_format }}
+        {{ if not .Params.all_day }}
+          {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+          {{ with .Params.time_end }}
+            &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
+          {{ end }}
+        {{ end }}
+
+        {{ if .Params.event }}
+          <span class="middot-divider"></span> {{ .Params.event | markdownify }}
+        {{ else if .Params.event_short }}
+          <span class="middot-divider"></span> {{ .Params.event_short | markdownify }}
+        {{ end }}
+      </div>
       <div itemprop="author">
         {{ with .Params.authors }}
         {{- delimit . ", " | markdownify -}}

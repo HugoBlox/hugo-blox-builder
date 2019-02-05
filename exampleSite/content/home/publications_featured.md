@@ -1,24 +1,22 @@
 +++
-# Selected Publications widget.
+# Featured Publications widget.
 # This widget displays publications from `content/publication/` which have
-# `selected = true` in their `+++` front matter.
-widget = "publications_selected"
-active = true
-date = 2016-04-20T00:00:00
+# `featured = true` in their front matter.
+widget = "publications_featured"  # Do not modify this line!
+active = true  # Activate this widget? true/false
 
-title = "Selected Publications"
+title = "Featured Publications"
 subtitle = ""
 
 # Order that this section will appear in.
 weight = 10
 
-# List format.
-#   0 = Simple
-#   1 = Detailed
-#   2 = APA
-#   3 = MLA
-#   4 = Stream
-list_format = 1
+# View.
+#   1 = List
+#   2 = Compact
+#   3 = Card
+#   4 = Citation
+view = 3
 
 # Filter by publication type.
 # -1: Any

@@ -1,0 +1,53 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<!-- Accomplishments widget -->
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-12 col-lg-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if $page.Params.item }}
+    {{ range $idx, $key := sort $page.Params.item ".date_start" "desc" }}
+    <div class="row experience">
+      <!-- Content -->
+      <div class="col py-2">
+        <div class="card course">
+          <div class="card-body">
+            <div class="float-right text-muted exp-meta">
+              <div class="text-right">
+                {{ (time .date_start).Format ($page.Params.date_format | default "Jan 2006") }}
+                {{ if .date_end}}
+                – {{ (time .date_end).Format ($page.Params.date_format | default "Jan 2006") }}
+                {{end}}
+              </div>
+              <div class="text-right">
+                {{ if .certificate_url }}
+                <h6 class="card-title exp-company text-muted my-0">
+                  <a href="{{.certificate_url}}" target="_blank" rel="noopener">
+                    {{ i18n "see_certificate" | default "See certificate" }}
+                  </a>
+                </h6>
+                {{ end }}
+              </div>
+            </div>
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">{{.title | markdownify | emojify}}</h4>
+            <h4 class="card-title exp-company text-muted my-0">
+              {{- with .organization_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}
+                {{.organization | markdownify | emojify}}
+              {{with .organization_url}}</a>{{end -}}
+            </h4>
+            {{with .description}}
+            <div class="card-text">{{. | markdownify | emojify}}</div>
+            {{end}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+  </div>
+</div>

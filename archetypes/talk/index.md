@@ -7,6 +7,7 @@ draft = false
 #   End time can optionally be hidden by prefixing the line with `#`.
 time_start = {{ .Date }}
 time_end = {{ .Date }}
+all_day = false
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = []
@@ -22,8 +23,8 @@ event_url = ""
 # Location of event.
 location = ""
 
-# Is this a selected talk? (true/false)
-selected = false
+# Is this a featured talk? (true/false)
+featured = false
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.

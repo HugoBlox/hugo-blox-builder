@@ -1,4 +1,5 @@
 <div class="pub-list-item card-simple" itemscope itemtype="http://schema.org/CreativeWork">
+  {{ partial "page_metadata" (dict "content" $ "is_list" 1) }}
 
   {{ $resource := (.Resources.ByType "image").GetMatch "*featured*" }}
   {{ $anchor := .Params.image.focal_point | default "Smart" }}
@@ -17,25 +18,10 @@
 
   <div class="pub-abstract" itemprop="text">
     {{ if .Params.abstract_short }}
-    {{ .Params.abstract_short | markdownify }}
+      {{ .Params.abstract_short | markdownify }}
     {{ else }}
-    {{ .Params.abstract | markdownify}}
+      {{ .Params.abstract | markdownify}}
     {{ end }}
-  </div>
-
-  <div class="pub-authors" itemprop="author">
-    {{ with .Params.authors }}
-    {{ delimit . ", " | markdownify }}
-    {{ end }}
-  </div>
-
-  <div class="pub-publication">
-    {{ if .Params.publication_short }}
-    {{ .Params.publication_short | markdownify }},
-    {{ else if .Params.publication }}
-    {{ .Params.publication | markdownify }},
-    {{ end }}
-    {{ .Date.Format "2006" }}
   </div>
 
   <div class="btn-links">

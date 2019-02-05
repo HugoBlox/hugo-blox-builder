@@ -1,0 +1,12 @@
+[build]
+  command = "hugo --themesDir ../../"
+  base    = "exampleSite"
+  publish = "exampleSite/public"
+
+[build.environment]
+  HUGO_THEME = "repo"
+  HUGO_VERSION = "0.53"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.production.environment]
+  HUGO_ENV = "production"

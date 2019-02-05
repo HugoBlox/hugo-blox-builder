@@ -7,9 +7,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic {{ .Site.Data.academic.version }}">
   {{ .Hugo.Generator }}
-  {{ with .Site.Params.name }}<meta name="author" content="{{ . }}">{{ end }}
 
   {{ $scr := .Scratch }}
+
+  {{/* Attempt to load superuser. */}}
+  {{ $superuser_name := "" }}
+  {{ $superuser_username := "" }}
+  {{ $superuser_role := "" }}
+  {{ range first 1 (where (where $.Site.Pages "Section" "author") "Params.superuser" true) }}
+    {{ $superuser_name = .Params.name }}
+    {{ $superuser_username = delimit (last 1 (split (substr .File.Dir 0 -1) "/")) "" }}
+    {{ $superuser_role = .Params.role }}
+  {{ end }}
+  {{ $scr.Set "superuser_username" $superuser_username }}{{/* For access from page_author.html. */}}
+
+  {{ with $superuser_name }}<meta name="author" content="{{ . }}">{{ end }}
+
   {{/* Generate page description. */}}
   {{ $desc := "" }}
   {{ if .Params.summary }}
@@ -21,7 +34,7 @@
   {{ else if .Site.Params.description }}
     {{ $desc = .Site.Params.description }}
   {{ else }}
-    {{ $desc = .Site.Params.role }}
+    {{ $desc = $superuser_role }}
   {{ end }}
   <meta name="description" content="{{ $desc }}">
 
@@ -88,8 +101,16 @@
   {{ end }}
 
   <link rel="stylesheet" href="{{ "styles.css" | relLangURL }}">
-  {{ range .Site.Params.custom_css }}
-  <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
+  {{ if .Site.Params.plugins_css }}
+    {{ $css_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" .Site.Data.academic.version }}
+    {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
+    {{ $css_bundle := slice }}
+    {{ range .Site.Params.plugins_css }}
+      {{ $css_bundle = $css_bundle | append (resources.Get (printf "css/%s.css" .)) }}
+    {{ end }}
+    {{ $css_bundle := $css_bundle | resources.Concat "css/academic-bundle-pre.css" | minify }}
+    {{ $css_bundle := slice $css_bundle_head $css_bundle | resources.Concat "css/academic.css" | fingerprint "md5" }}
+    <link rel="stylesheet" href="{{ $css_bundle.RelPermalink }}">
   {{ end }}
 
   {{ if not .Site.IsServer }}
@@ -121,7 +142,23 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
-  <meta property="twitter:card" content="summary_large_image">
+  {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $og_image := "" }}
+  {{ $twitter_card := "summary_large_image" }}
+  {{ if $featured_image }}
+    {{ $og_image = $featured_image.Permalink }}
+  {{ else if .Params.header.image }}
+    {{ $og_image = printf "img/%s" .Params.header.image | absURL }}
+  {{ else if .Site.Params.sharing_image }}
+    {{ $og_image = printf "img/%s" .Site.Params.sharing_image | absURL }}
+  {{ else if .Site.Params.avatar }}
+    {{ $og_image = (printf "img/%s" $.Site.Params.avatar) | absURL }}
+    {{ $twitter_card = "summary" }}
+  {{ else }}
+    {{ $og_image = "img/icon-192.png" | absURL }}
+    {{ $twitter_card = "summary" }}
+  {{ end }}
+  <meta property="twitter:card" content="{{ $twitter_card }}">
   {{ with .Site.Params.twitter }}
   <meta property="twitter:site" content="@{{ . }}">
   <meta property="twitter:creator" content="@{{ . }}">
@@ -130,15 +167,7 @@
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}">
   <meta property="og:description" content="{{ $desc }}">
-  {{ $og_image := "" }}
-  {{ if .Params.header.image }}
-    {{ $og_image = .Params.header.image }}
-  {{ else if .Site.Params.sharing_image }}
-    {{ $og_image = .Site.Params.sharing_image }}
-  {{ else }}
-    {{ $og_image = "icon-192.png" }}
-  {{ end }}
-  {{- with $og_image }}<meta property="og:image" content="{{ printf "img/%s" . | absURL }}">{{end}}
+  {{- with $og_image }}<meta property="og:image" content="{{ . }}">{{end}}
   <meta property="og:locale" content="{{ .Site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
   {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
@@ -155,3 +184,4 @@
 
 </head>
 <body id="top" data-spy="scroll" data-target="{{ if or .IsHome .Params.widgets }}#navbar-main{{ else }}#TableOfContents{{ end }}" data-offset="71" {{ if not ($scr.Get "light") }}class="dark"{{ end }}>
+  {{ partial "search" . }}

@@ -1,0 +1,33 @@
+{{ $ := .root }}
+{{ $page := .page }}
+
+<!-- Featured Publications widget -->
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="col-12 col-lg-8">
+    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+
+    {{ if and ($page.Params.publication_type) (ne $page.Params.publication_type "-1") }}
+      {{ $.Scratch.Set "sel_pubs" (where (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" true) ".Params.publication_types" "intersect" (slice $page.Params.publication_type)) }}
+    {{ else }}
+      {{ $.Scratch.Set "sel_pubs" (where (where $.Site.RegularPages "Type" "publication") ".Params.featured" true) }}
+    {{ end }}
+
+    {{ $sel_pubs := $.Scratch.Get "sel_pubs" }}
+    {{ range $sel_pubs }}
+      {{ if eq $page.Params.view 1 }}
+        {{ partial "publication_li_list" . }}
+      {{ else if eq $page.Params.view 3 }}
+        {{ partial "publication_li_card" . }}
+      {{ else if eq $page.Params.view 4 }}
+        {{ partial "publication_li_citation" . }}
+      {{ else }}
+        {{ partial "publication_li_compact" . }}
+      {{ end }}
+    {{ end }}
+
+  </div>
+</div>
