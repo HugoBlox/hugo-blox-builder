@@ -2,10 +2,10 @@
 <nav>
   <ul class="pagination justify-content-center">
     {{ if .Paginator.HasPrev }}
-    <li class="page-item"><a class="page-link" href="{{ .Paginator.Prev.URL | relLangURL }}">&laquo;</a></li>
+    <li class="page-item"><a class="page-link" href="{{ .Paginator.Prev.URL }}">&laquo;</a></li>
     {{ end }}
     {{ if .Paginator.HasNext }}
-    <li class="page-item"><a class="page-link" href="{{ .Paginator.Next.URL | relLangURL }}">&raquo;</a></li>
+    <li class="page-item"><a class="page-link" href="{{ .Paginator.Next.URL }}">&raquo;</a></li>
     {{ end }}
   </ul>
 </nav>
