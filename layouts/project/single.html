@@ -23,7 +23,7 @@
       <h2>{{ (i18n "posts") }}</h2>
       {{ range $items }}
         {{ if eq $page.Site.Params.projects.post_format 1 }}
-          {{ partial "post_li_list" . }}
+          {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.post_format 3 }}
           {{ partial "post_li_card" . }}
         {{ else }}
@@ -38,7 +38,7 @@
       <h2>{{ (i18n "publications") }}</h2>
       {{ range $items }}
         {{ if eq $page.Site.Params.projects.publication_format 1 }}
-          {{ partial "publication_li_list" . }}
+          {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.publication_format 3 }}
           {{ partial "publication_li_card" . }}
         {{ else if eq $page.Site.Params.projects.publication_format 4 }}
@@ -55,7 +55,7 @@
       <h2>{{ (i18n "talks") }}</h2>
       {{ range sort $items ".Params.time_start" "desc" }}
         {{ if eq $page.Site.Params.projects.talk_format 1 }}
-          {{ partial "talk_li_list" . }}
+          {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.talk_format 3 }}
           {{ partial "talk_li_card" . }}
         {{ else }}

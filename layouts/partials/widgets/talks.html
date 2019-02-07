@@ -20,7 +20,7 @@
 
     {{ range first $page.Params.count (sort $talks ".Params.time_start" "desc") }}
       {{ if eq $page.Params.view 1 }}
-        {{ partial "talk_li_list" . }}
+        {{ partial "li_list" . }}
       {{ else if eq $page.Params.view 3 }}
         {{ partial "talk_li_card" . }}
       {{ else }}
