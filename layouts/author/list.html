@@ -16,18 +16,23 @@
     {{ with $.Site.GetPage (printf "/author/%s" (urlize .Title)) }}
       {{ partial $widget $params }}
     {{ end }}
+
+    {{ $query := where .Pages ".IsNode" false }}
+    {{ $count := len $query }}
+    {{ if $count }}
     <div class="article-widget">
       <div class="hr-light"></div>
-      <h3>{{ i18n "related" }}</h3>
+      <h3>{{ i18n "user_profile_latest" | default "Latest" }}</h3>
       <ul>
-        {{ range .Pages }}
+        {{ range $query }}
         <li>
-          <a href="{{ .Permalink }}">{{ .Title }}</a>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </li>
         {{ end }}
       </ul>
     </div>
   </div>
+  {{ end }}
 </section>
 
 <!-- Page Footer -->

@@ -74,7 +74,10 @@
 
 - id: education
   translation: Education
-  
+
+- id: user_profile_latest
+  translation: Latest
+
 # Accomplishments widget
 
 - id: see_certificate
