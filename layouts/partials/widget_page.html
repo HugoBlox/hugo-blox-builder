@@ -18,7 +18,7 @@
   {{ if in (slice "hero" "hero_carousel") $page.Params.widget }}
     {{ partial $widget $params }}
   {{ else }}
-  <section id="{{ $page.File.TranslationBaseName }}" class="home-section">
+  <section id="{{ $page.File.TranslationBaseName }}" class="home-section{{ with $page.Params.css_class }} {{ . }}{{ end }}">
     <div class="container">
       {{ partial $widget $params }}
     </div>
