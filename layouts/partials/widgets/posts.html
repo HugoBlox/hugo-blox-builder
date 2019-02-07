@@ -27,7 +27,7 @@
 
     {{ range $post := first $page.Params.count $query }}
       {{ if eq $page.Params.view 1 }}
-        {{ partial "post_li_list" . }}
+        {{ partial "li_list" . }}
       {{ else if eq $page.Params.view 3 }}
         {{ partial "post_li_card" . }}
       {{ else }}
