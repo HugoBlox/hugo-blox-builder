@@ -20,10 +20,12 @@ let fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 2,
   keys: [
-    {name:'title', weight:0.8},
+    {name:'title', weight:0.99}, /* 1.0 doesn't work o_O */
     {name:'summary', weight:0.6},
-    {name:'content', weight:0.5},
-    {name:'tags', weight:0.3}
+    {name:'authors', weight:0.5},
+    {name:'content', weight:0.2},
+    {name:'tags', weight:0.5},
+    {name:'categories', weight:0.5}
   ]
 };
 
