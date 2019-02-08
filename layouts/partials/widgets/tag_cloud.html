@@ -19,7 +19,7 @@
       {{ $delta := sub $max $min }}
       {{ $fontStep := div $fontDelta $delta }}
 
-      <div id="tag-cloud">
+      <div class="tag-cloud">
         {{ range $name, $taxonomy := $.Site.Taxonomies.tags }}
           {{ $tagCount := len $taxonomy.Pages }}
           {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}

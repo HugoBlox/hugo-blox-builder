@@ -2,3 +2,6 @@
 .idea/
 .vscode/
 resources/
+
+# Jupyter
+.ipynb_checkpoints/
