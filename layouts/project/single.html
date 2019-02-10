@@ -22,9 +22,9 @@
     {{ if ge $count 1 }}
       <h2>{{ (i18n "posts") }}</h2>
       {{ range $items }}
-        {{ if eq $page.Site.Params.projects.post_format 1 }}
+        {{ if eq $page.Site.Params.projects.post_view 1 }}
           {{ partial "li_list" . }}
-        {{ else if eq $page.Site.Params.projects.post_format 3 }}
+        {{ else if eq $page.Site.Params.projects.post_view 3 }}
           {{ partial "post_li_card" . }}
         {{ else }}
           {{ partial "post_li_compact" . }}
@@ -37,11 +37,11 @@
     {{ if ge $pubs_len 1 }}
       <h2>{{ (i18n "publications") }}</h2>
       {{ range $items }}
-        {{ if eq $page.Site.Params.projects.publication_format 1 }}
+        {{ if eq $page.Site.Params.projects.publication_view 1 }}
           {{ partial "li_list" . }}
-        {{ else if eq $page.Site.Params.projects.publication_format 3 }}
+        {{ else if eq $page.Site.Params.projects.publication_view 3 }}
           {{ partial "publication_li_card" . }}
-        {{ else if eq $page.Site.Params.projects.publication_format 4 }}
+        {{ else if eq $page.Site.Params.projects.publication_view 4 }}
           {{ partial "publication_li_citation" . }}
         {{ else }}
           {{ partial "publication_li_compact" . }}
@@ -54,9 +54,9 @@
     {{ if ge $talks_len 1 }}
       <h2>{{ (i18n "talks") }}</h2>
       {{ range sort $items ".Params.time_start" "desc" }}
-        {{ if eq $page.Site.Params.projects.talk_format 1 }}
+        {{ if eq $page.Site.Params.projects.talk_view 1 }}
           {{ partial "li_list" . }}
-        {{ else if eq $page.Site.Params.projects.talk_format 3 }}
+        {{ else if eq $page.Site.Params.projects.talk_view 3 }}
           {{ partial "talk_li_card" . }}
         {{ else }}
           {{ partial "talk_li_compact" . }}
