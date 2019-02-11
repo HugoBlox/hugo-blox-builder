@@ -1,0 +1,89 @@
+{{ $item := . }}
+
+{{ $microdata_type := "CreativeWork" }}
+{{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
+{{ $show_buttons := false }}
+
+{{/* Dynamic view adjusts to content type. */}}
+{{ if eq $item.Type "post" }}
+  {{ $microdata_type = "BlogPosting" }}
+{{ else if eq $item.Type "talk" }}
+  {{ $microdata_type = "Event" }}
+  {{ $show_authors_only = true }}
+  {{ $show_buttons = true }}
+{{ else if eq $item.Type "publication" }}
+  {{ $microdata_type = "ScholarlyArticle" }}
+  {{ $show_authors_only = true }}
+  {{ $show_buttons = true }}
+{{ end }}
+
+{{/* Get summary. */}}
+{{ $summary := "" }}
+{{ if $item.Params.summary }}
+  {{ $summary = $item.Params.summary | markdownify | emojify }}
+{{ else if .Params.abstract }}
+  {{ $summary = .Params.abstract | markdownify | emojify }}
+{{ else if $item.Truncated }}
+  {{ $summary = $item.Summary }}
+{{ end }}
+
+<div class="media stream-item" itemscope itemtype="http://schema.org/{{$microdata_type}}">
+  <div class="media-body">
+
+    <h3 class="article-title mb-0 mt-0" itemprop="name">
+      <a href="{{ $item.RelPermalink }}" itemprop="url">{{ $item.Title }}</a>
+    </h3>
+
+    {{ with $summary }}
+    <div class="article-style" itemprop="articleBody">
+      {{ . | truncate 135 }}
+    </div>
+    {{ end }}
+
+    <div class="stream-meta article-metadata">
+
+      {{ if eq $item.Type "talk" }}
+      <div>
+        <span itemprop="startDate">
+          {{ $date := $item.Params.time_start | default $item.Date }}
+          {{ (time $date).Format $.Site.Params.date_format }}
+          {{ if not $item.Params.all_day }}
+          {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+          {{ end }}
+          {{ with .Params.time_end }}
+          &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
+          {{ end }}
+        </span>
+        {{ with $item.Params.location }}
+        <span class="middot-divider"></span>
+        <span itemprop="location">{{ . }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{ if and $show_authors_only $item.Params.authors }}
+      <div itemprop="author">
+        {{ partial "page_metadata_authors" $item }}
+      </div>
+      {{ else if not $show_authors_only }}
+        {{ partial "page_metadata" (dict "content" $item "is_list" 1) }}
+      {{ end }}
+    </div>
+
+    {{ if $show_buttons }}
+    <div class="btn-links">
+      {{ partial "page_links" (dict "content" $item "is_list" 1) }}
+    </div>
+    {{ end }}
+
+  </div>
+  <div class="ml-3">
+    {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+    {{ with $resource }}
+    {{ $image := .Resize "150x" }}
+    <a href="{{ $item.RelPermalink }}">
+      <img src="{{ $image.RelPermalink }}" itemprop="image">
+    </a>
+    {{end}}
+  </div>
+</div>

@@ -27,7 +27,7 @@
         {{ else if eq $page.Site.Params.projects.post_view 3 }}
           {{ partial "post_li_card" . }}
         {{ else }}
-          {{ partial "post_li_compact" . }}
+          {{ partial "li_compact" . }}
         {{ end }}
       {{ end }}
     {{ end }}
@@ -44,7 +44,7 @@
         {{ else if eq $page.Site.Params.projects.publication_view 4 }}
           {{ partial "publication_li_citation" . }}
         {{ else }}
-          {{ partial "publication_li_compact" . }}
+          {{ partial "li_compact" . }}
         {{ end }}
       {{ end }}
     {{ end }}
@@ -59,7 +59,7 @@
         {{ else if eq $page.Site.Params.projects.talk_view 3 }}
           {{ partial "talk_li_card" . }}
         {{ else }}
-          {{ partial "talk_li_compact" . }}
+          {{ partial "li_compact" . }}
         {{ end }}
       {{ end }}
     {{ end }}

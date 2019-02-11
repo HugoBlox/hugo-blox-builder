@@ -1,7 +1,9 @@
 +++
 title = "{{ replace .Name "-" " " | title }}"
 date = {{ .Date }}  # Schedule page publish date.
-draft = false
+
+# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
+authors = []
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
@@ -9,22 +11,36 @@ time_start = {{ .Date }}
 time_end = {{ .Date }}
 all_day = false
 
-# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = []
-
-# Abstract and optional shortened version.
-abstract = ""
-abstract_short = ""
+# Location of event.
+location = ""
 
 # Name of event and optional event URL.
 event = ""
 event_url = ""
 
-# Location of event.
-location = ""
+# Abstract. What's your talk about?
+abstract = ""
+
+# Summary. An optional shortened abstract.
+summary = ""
 
 # Is this a featured talk? (true/false)
 featured = false
+
+# Tags (optional).
+#   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
+tags = []
+
+# Markdown Slides (optional).
+#   Associate this page with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides = "example-slides"` references 
+#   `content/slides/example-slides.md`.
+#   Otherwise, set `slides = ""`.
+slides = ""
+
+# Optional filename of your slides within your talk folder or a URL.
+url_slides = ""
 
 # Projects (optional).
 #   Associate this talk with one or more of your projects.
@@ -34,21 +50,8 @@ featured = false
 #   Otherwise, set `projects = []`.
 projects = []
 
-# Slides (optional).
-#   Associate this page with Markdown slides.
-#   Simply enter your slide deck's filename without extension.
-#   E.g. `slides = "example-slides"` references 
-#   `content/slides/example-slides.md`.
-#   Otherwise, set `slides = ""`.
-slides = ""
-
-# Tags (optional).
-#   Set `tags = []` for no tags, or use the form `tags = ["A Tag", "Another Tag"]` for one or more tags.
-tags = []
-
 # Links (optional).
 url_pdf = ""
-url_slides = ""
 url_video = ""
 url_code = ""
 
