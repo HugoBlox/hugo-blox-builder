@@ -24,7 +24,7 @@ publication_short = ""
 abstract = ""
 
 # Summary. An optional shortened abstract.
-abstract_short = ""
+summary = ""
 
 # Digital Object Identifier (DOI)
 doi = ""
