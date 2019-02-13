@@ -130,7 +130,7 @@
   DOI
 </a>
 {{ end }}
-{{ range $.Params.url_custom }}
+{{ range $.Params.links }}
   {{ $pack := or .icon_pack "fas" }}
   {{ $pack_prefix := $pack }}
   {{ if in (slice "fab" "fas" "far" "fal") $pack }}
