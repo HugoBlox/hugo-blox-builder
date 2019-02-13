@@ -103,18 +103,54 @@
    * Filter publications.
    * --------------------------------------------------------------------------- */
 
+  // Active publication filters.
+  let pubFilters = {};
+
+  // Search term.
+  let searchRegex;
+
+  // Filter values (concatenated).
+  let filterValues;
+
+  // Publication container.
   let $grid_pubs = $('#container-publications');
+
+  // Initialise Isotope.
   $grid_pubs.isotope({
     itemSelector: '.isotope-item',
     percentPosition: true,
     masonry: {
       // Use Bootstrap compatible grid layout.
       columnWidth: '.grid-sizer'
+    },
+    filter: function() {
+      let $this = $(this);
+      let searchResults = searchRegex ? $this.text().match( searchRegex ) : true;
+      let filterResults = filterValues ? $this.is( filterValues ) : true;
+      return searchResults && filterResults;
     }
   });
 
-  // Active publication filters.
-  let pubFilters = {};
+  // Filter by search term.
+  let $quickSearch = $('.filter-search').keyup( debounce( function() {
+    searchRegex = new RegExp( $quickSearch.val(), 'gi' );
+    $grid_pubs.isotope();
+  }) );
+
+  // Debounce input to prevent spamming filter requests.
+  function debounce( fn, threshold ) {
+    let timeout;
+    threshold = threshold || 100;
+    return function debounced() {
+      clearTimeout( timeout );
+      let args = arguments;
+      let _this = this;
+      function delayed() {
+        fn.apply( _this, args );
+      }
+      timeout = setTimeout( delayed, threshold );
+    };
+  }
 
   // Flatten object by concatenating values.
   function concatValues( obj ) {
@@ -135,10 +171,10 @@
     pubFilters[ filterGroup ] = this.value;
 
     // Combine filters.
-    let filterValues = concatValues( pubFilters );
+    filterValues = concatValues( pubFilters );
 
     // Activate filters.
-    $grid_pubs.isotope({ filter: filterValues });
+    $grid_pubs.isotope();
 
     // If filtering by publication type, update the URL hash to enable direct linking to results.
     if (filterGroup == "pubtype") {
@@ -165,10 +201,10 @@
     // Set filter.
     let filterGroup = 'pubtype';
     pubFilters[ filterGroup ] = filterValue;
-    let filterValues = concatValues( pubFilters );
+    filterValues = concatValues( pubFilters );
 
     // Activate filters.
-    $grid_pubs.isotope({ filter: filterValues });
+    $grid_pubs.isotope();
 
     // Set selected option.
     $('.pubtype-select').val(filterValue);
