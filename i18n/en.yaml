@@ -167,14 +167,6 @@
 - id: pub_book_section
   translation: Book section
 
-# Filtering
-
-- id: filter_by_type
-  translation: Filter by type
-
-- id: filter_all
-  translation: All
-
 # Project details
 
 - id: open_project_site

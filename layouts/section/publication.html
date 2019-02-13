@@ -17,13 +17,14 @@
         {{ $.Scratch.SetInMap "years" $year $year }}
       {{ end }}
 
-      <div class="form-row mb-3">
+      <div class="form-row mb-4">
         <div class="col-auto">
-          {{ i18n "filter_by_type" }}:
+          <input type="search" class="filter-search" placeholder="{{ i18n "search_placeholder" }}" autocapitalize="off"
+          autocomplete="off" autocorrect="off" role="textbox" spellcheck="false">
         </div>
         <div class="col-auto">
           <select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group="pubtype">
-            <option value="*">{{ i18n "filter_all" }}</option>
+            <option value="*">{{ i18n "publication_type" }}</option>
             {{ partial "pub_types.html" $ }}
             {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
             <option value=".pubtype-{{ (int $index) }}">
@@ -35,7 +36,7 @@
         </div>
         <div class="col-auto">
           <select class="pub-filters form-control form-control-sm" data-filter-group="year">
-            <option value="*">{{ i18n "filter_all" }}</option>
+            <option value="*">{{ i18n "date" }}</option>
             {{ $years_sorted := $.Scratch.GetSortedMapValues "years" }}
             {{ if $years_sorted }}
             {{ range $year := sort $years_sorted "" "desc" }}
