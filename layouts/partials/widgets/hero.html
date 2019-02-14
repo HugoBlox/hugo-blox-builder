@@ -20,19 +20,67 @@ url('{{ $overlay_img }}')
 ;">
 
   <div class="container">
-
-    <h1 class="hero-title" itemprop="headline">
-      {{ with $page.Title }}{{ . | markdownify }}{{ end }}
-    </h1>
-
-    {{ with $page.Content }}
-    <p class="hero-lead">{{ . | markdownify }}</p>
+    {{ if $page.Params.hero_media }}
+    <div class="row">
+      <div class="col-md-6 order-md-1 text-center text-md-left">
     {{ end }}
 
-    {{ if $page.Params.cta.url }}
-    <p><a href="{{ $page.Params.cta.url }}" class="btn btn-outline-light btn-lg">{{ $page.Params.cta.label | safeHTML}}</a></p>
+        <h1 class="hero-title" itemprop="headline">
+          {{ with $page.Title }}{{ . | markdownify }}{{ end }}
+        </h1>
+
+        {{ with $page.Content }}
+        <div class="hero-lead">{{ . }}</div>
+        {{ end }}
+
+        {{/* Call-to-action link */}}
+        {{ if $page.Params.cta.url }}
+          {{ $pack := or $page.Params.cta.icon_pack "fas" }}
+          {{ $pack_prefix := $pack }}
+          {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+            {{ $pack_prefix = "fa" }}
+          {{ end }}
+          {{ $link := $page.Params.cta.url }}
+          {{ $scheme := (urls.Parse $link).Scheme }}
+          {{ $target := "" }}
+          {{ if not $scheme }}
+            {{ $link = $link | relLangURL }}
+          {{ else if in (slice "http" "https") $scheme }}
+            {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+        <p class="cta-btns">
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="btn btn-light btn-lg">{{ if $page.Params.cta.icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ $page.Params.cta.icon }}" aria-hidden="true"></i> {{end}}{{ $page.Params.cta.label | markdownify | emojify | safeHTML }}</a>
+
+          {{/* Alternative Call-to-action link */}}
+          {{ if $page.Params.cta_alt.url }}
+            {{ $link := $page.Params.cta_alt.url }}
+            {{ $scheme := (urls.Parse $link).Scheme }}
+            {{ $target := "" }}
+            {{ if not $scheme }}
+              {{ $link = $link | relLangURL }}
+            {{ else if in (slice "http" "https") $scheme }}
+              {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="hero-cta-alt pl-4">{{ $page.Params.cta_alt.label | markdownify | emojify | safeHTML }} <i class="fas fa-angle-right"></i></a>
+          {{ end }}
+        </p>
+        {{ end }}
+
+        {{/* Call-to-action note */}}
+        {{ with $page.Params.cta_note }}
+        <p class="hero-note text-muted mb-0">
+          {{ .label | markdownify | emojify | safeHTML }}
+        </p>
+        {{ end }}
+
+      {{/* Hero image */}}
+      {{ if $page.Params.hero_media }}
+      </div>
+      <div class="col-6 mx-auto col-md-6 order-md-2 hero-media">
+        <img src="{{ printf "img/%s" $page.Params.hero_media | relURL }}" alt="">
+      </div>
+    </div>
     {{ end }}
 
   </div>
-
 </section>

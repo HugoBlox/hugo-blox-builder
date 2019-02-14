@@ -559,22 +559,58 @@ a[data-fancybox] img {
 
 .hero-overlay .hero-title,
 .hero-overlay .hero-lead,
-.hero-overlay .btn {
+.hero-overlay .hero-cta-alt,
+.hero-overlay .hero-note {
   color: #fff;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  /*text-shadow: 1px 1px 4px rgba(0,0,0,0.5);*/ /* Uncomment to standout on complicated backgrounds. */
 }
 
-.hero-overlay a {
+.hero-overlay a:not(.hero-overlay .btn) {
   color: #fff;
 }
 
 .hero-overlay .hero-lead a {
-  color: #fff;
-  text-decoration-line: underline;
+  text-decoration: underline;
+}
+
+.hero-overlay .cta-btns {
+  margin-bottom: 16px;
+}
+
+.hero-overlay .btn {
+  color: {{ .Get "primary_dark" }};
+  padding: .6em 2.1em;
+}
+
+a.hero-cta-alt {
+  display: inline-block;
+  position: relative;
+  transition-duration: .2s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  font-size: 1.1rem;
+}
+
+a.hero-cta-alt:active,
+a.hero-cta-alt:focus,
+a.hero-cta-alt:hover {
+  transform: scale(1.1);
 }
 
 .hero-overlay .btn-lg {
   font-size: 1.1rem;
+}
+
+.hero-overlay .hero-note {
+  font-size: 0.8rem;
+}
+
+.hero-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
 }
 
 /*************************************************
