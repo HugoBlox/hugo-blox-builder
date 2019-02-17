@@ -6,6 +6,7 @@
   {{ $images := ($.Page.Resources.ByType "image").Match (printf "%s/*" $album) }}
   {{ with $images }}
   {{ range $images }}
+    {{ $image := .Resize "x190" }}
     {{/* Check if the user set a caption for this image */}}
     {{ $filename := .Name }}
     {{ $caption := "" }}
@@ -15,7 +16,7 @@
     {{ end }}
     {{ end }}
   <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.}}"{{ end }}>
-  <img src="{{ .RelPermalink }}" alt="">
+  <img src="{{ $image.RelPermalink }}" alt="">
   </a>
   {{end}}
 
