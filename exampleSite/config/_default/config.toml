@@ -54,6 +54,11 @@ preserveTaxonomyNames = true
 	latexDashes = true
   extensions = ["backslashLineBreak"]
 
+[imaging]
+  resampleFilter = "lanczos"
+  quality = 90
+  anchor = "smart"  # Anchor for cropping. Options include Smart and Center.
+
 # Taxonomies.
 [taxonomies]
   tag = "tags"
