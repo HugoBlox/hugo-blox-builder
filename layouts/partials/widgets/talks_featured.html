@@ -14,7 +14,7 @@
       {{ if eq $page.Params.view 1 }}
         {{ partial "li_list" . }}
       {{ else if eq $page.Params.view 3 }}
-        {{ partial "talk_li_card" . }}
+        {{ partial "li_card" . }}
       {{ else }}
         {{ partial "li_compact" . }}
       {{ end }}
