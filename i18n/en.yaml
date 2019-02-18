@@ -95,9 +95,6 @@
 
 # Posts widget
 
-- id: continue_reading
-  translation: CONTINUE READING
-
 - id: more_posts
   translation: See all posts
 

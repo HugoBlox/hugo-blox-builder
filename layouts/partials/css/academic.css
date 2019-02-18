@@ -1043,11 +1043,13 @@ article .article-metadata {
   margin-bottom: 2rem;
 }
 
-.media.stream-item .article-title {
+.media.stream-item .article-title,
+.card-simple .article-title {
   font-size: 1.2rem;
 }
 
-.media.stream-item .article-style {
+.media.stream-item .article-style,
+.card-simple .article-style {
   margin-top: 2px;
   font-size: 0.8rem;
 }

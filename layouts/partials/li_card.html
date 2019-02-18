@@ -1,0 +1,82 @@
+{{ $item := . }}
+
+{{ $microdata_type := "CreativeWork" }}
+{{ $show_buttons := false }}
+
+{{/* Dynamic view adjusts to content type. */}}
+{{ if eq $item.Type "post" }}
+  {{ $microdata_type = "BlogPosting" }}
+{{ else if eq $item.Type "talk" }}
+  {{ $microdata_type = "Event" }}
+  {{ $show_buttons = true }}
+{{ else if eq $item.Type "publication" }}
+  {{ $microdata_type = "ScholarlyArticle" }}
+  {{ $show_buttons = true }}
+{{ end }}
+
+{{/* Get summary. */}}
+{{ $summary := "" }}
+{{ if $item.Params.summary }}
+  {{ $summary = $item.Params.summary | markdownify | emojify }}
+{{ else if .Params.abstract }}
+  {{ $summary = .Params.abstract | markdownify | emojify }}
+{{ else if $item.Truncated }}
+  {{ $summary = $item.Summary }}
+{{ else }}
+  {{ $summary = $item.Content }}
+{{ end }}
+
+<div class="card-simple" itemscope itemtype="http://schema.org/{{$microdata_type}}">
+
+  {{ if eq $item.Type "talk" }}
+  <div class="article-metadata">
+    {{ if $item.Params.authors }}
+    <div itemprop="author">
+      {{ partial "page_metadata_authors" $item }}
+    </div>
+    {{ end }}
+    <span itemprop="startDate">
+      {{ $date := $item.Params.time_start | default $item.Date }}
+      {{ (time $date).Format $.Site.Params.date_format }}
+      {{ if not $item.Params.all_day }}
+        {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+        {{ with .Params.time_end }}
+        &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
+        {{ end }}
+      {{ end }}
+    </span>
+    {{ with $item.Params.location }}
+    <span class="middot-divider"></span>
+    <span itemprop="location">{{ . }}</span>
+    {{ end }}
+  </div>
+  {{ else }}
+    {{ partial "page_metadata" (dict "content" $item "is_list" 1) }}
+  {{ end }}
+
+  {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
+  {{ with $resource }}
+  {{ $image := .Fill (printf "918x517 q90 %s" $anchor) }}
+  <a href="{{ $item.RelPermalink }}">
+      <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
+  </a>
+  {{end}}
+
+  <h3 class="article-title mb-1 mt-3" itemprop="name">
+    <a href="{{ $item.RelPermalink }}" itemprop="url">{{ $item.Title }}</a>
+  </h3>
+
+  {{ with $summary }}
+  <div class="article-style" itemprop="articleBody">
+    {{ . }}
+  </div>
+  {{ end }}
+
+  {{ if $show_buttons }}
+  <div class="btn-links">
+    {{ partial "page_links" (dict "content" $item "is_list" 1) }}
+  </div>
+  {{ end }}
+
+</div>

@@ -25,7 +25,7 @@
         {{ if eq $page.Site.Params.projects.post_view 1 }}
           {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.post_view 3 }}
-          {{ partial "post_li_card" . }}
+          {{ partial "li_card" . }}
         {{ else }}
           {{ partial "li_compact" . }}
         {{ end }}
@@ -40,9 +40,9 @@
         {{ if eq $page.Site.Params.projects.publication_view 1 }}
           {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.publication_view 3 }}
-          {{ partial "publication_li_card" . }}
+          {{ partial "li_card" . }}
         {{ else if eq $page.Site.Params.projects.publication_view 4 }}
-          {{ partial "publication_li_citation" . }}
+          {{ partial "li_citation" . }}
         {{ else }}
           {{ partial "li_compact" . }}
         {{ end }}
@@ -57,7 +57,7 @@
         {{ if eq $page.Site.Params.projects.talk_view 1 }}
           {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.talk_view 3 }}
-          {{ partial "talk_li_card" . }}
+          {{ partial "li_card" . }}
         {{ else }}
           {{ partial "li_compact" . }}
         {{ end }}
