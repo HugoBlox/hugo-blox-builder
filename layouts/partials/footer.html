@@ -107,7 +107,7 @@
     {{ end }}
 
     {{/* Fuse search engine. */}}
-    {{ if eq .Site.Params.search.engine 1 }}
+    {{ if and (eq .Site.Params.search.engine 1) ($scr.Get "use_cdn") }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
     {{ end }}
