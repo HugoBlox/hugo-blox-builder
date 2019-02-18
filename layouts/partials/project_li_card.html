@@ -7,7 +7,7 @@
 {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
 {{ $js_tag_classes := delimit (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") " " }}
 
-<div class="col-12 col-md-6 col-lg-4 project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
+<div class="project-card project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
   <div class="card">
     {{ with $resource }}
     {{ $image := .Resize (printf "550x q90 %s") }}
