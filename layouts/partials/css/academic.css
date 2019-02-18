@@ -1267,8 +1267,31 @@ article .article-metadata {
   margin-bottom: 2rem;
 }
 
+.project-card {
+  position: relative;
+  width: calc(33.3% - 2*20px); /* Fluid 3 columns (inc. 20px gutter) */
+}
+@media screen and (max-width: 1199px) {
+  .project-card {
+    width: calc(50% - 20px); /* Fluid 2 columns (inc. 20px gutter) */
+  }
+}
+@media screen and (max-width: 768px) {
+  .project-card {
+    width: 100%; /* 1 column */
+  }
+}
+
 .project-item {
   margin-bottom: 1.5rem;
+}
+
+.project-card.project-item {
+  margin: 0 0 20px 0; /* Set to Isotope's gutter size */
+}
+
+.project-card .card {
+  margin: 0; /* Remove default card margin and use Isotope gutter */
 }
 
 .project-showcase .project-item {

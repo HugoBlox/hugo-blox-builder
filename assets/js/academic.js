@@ -385,9 +385,11 @@
     $('.projects-container').each(function(index, container) {
       let $container = $(container);
       let $section = $container.closest('section');
-      let layout = 'masonry';
+      let layout;
       if ($section.find('.isotope').hasClass('js-layout-row')) {
         layout = 'fitRows';
+      } else {
+        layout = 'masonry';
       }
 
       $container.imagesLoaded(function() {
@@ -395,6 +397,9 @@
         $container.isotope({
           itemSelector: '.isotope-item',
           layoutMode: layout,
+          masonry: {
+            gutter: 20
+          },
           filter: $section.find('.default-project-filter').text()
         });
 
