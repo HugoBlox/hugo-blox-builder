@@ -487,6 +487,22 @@ a[data-fancybox] img {
   animation-delay: 0.15s;
 }
 
+/* Override dark colors that may be inherited from body.dark */
+.home-section.dark,
+.home-section.dark h1,
+.home-section.dark h3 {
+  color: rgb(248, 248, 242);
+}
+
+/* Create the parallax scrolling effect */
+.parallax {
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .home-section:first-of-type {
   padding-top: 50px;
 }
@@ -535,7 +551,7 @@ a[data-fancybox] img {
  *  Hero Widget
  **************************************************/
 
-.hero-overlay {
+.wg-hero {
   padding: 3em 0;
   clear: both;
   background-size: cover;
@@ -557,27 +573,27 @@ a[data-fancybox] img {
   font-size: 1.35rem;
 }
 
-.hero-overlay .hero-title,
-.hero-overlay .hero-lead,
-.hero-overlay .hero-cta-alt,
-.hero-overlay .hero-note {
+.wg-hero .hero-title,
+.wg-hero .hero-lead,
+.wg-hero .hero-cta-alt,
+.wg-hero .hero-note {
   color: #fff;
   /*text-shadow: 1px 1px 4px rgba(0,0,0,0.5);*/ /* Uncomment to standout on complicated backgrounds. */
 }
 
-.hero-overlay a:not(.hero-overlay .btn) {
+.wg-hero a:not(.wg-hero .btn) {
   color: #fff;
 }
 
-.hero-overlay .hero-lead a {
+.wg-hero .hero-lead a {
   text-decoration: underline;
 }
 
-.hero-overlay .cta-btns {
+.wg-hero .cta-btns {
   margin-bottom: 16px;
 }
 
-.hero-overlay .btn {
+.wg-hero .btn {
   color: {{ .Get "primary_dark" }};
   padding: .6em 2.1em;
 }
@@ -597,11 +613,11 @@ a.hero-cta-alt:hover {
   transform: scale(1.1);
 }
 
-.hero-overlay .btn-lg {
+.wg-hero .btn-lg {
   font-size: 1.1rem;
 }
 
-.hero-overlay .hero-note {
+.wg-hero .hero-note {
   font-size: 0.8rem;
 }
 
