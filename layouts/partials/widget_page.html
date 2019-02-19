@@ -13,14 +13,40 @@
 
 <!-- Widgets -->
 {{ range $index, $page := where (where .Data.Pages "Section" $section) ".Params.active" "!=" false }}
+  {{/* Begin widget styling */}}
+  {{ $bg := $page.Params.background }}
+  {{ $style := "" }}
+
+  {{ if $bg.color }}
+    {{ $style = printf "background-color: %s;" ($bg.color | default "transparent") }}
+  {{ end }}
+
+  {{ if and $bg.gradient_start $bg.gradient_end }}
+    {{ $style = printf "%sbackground-image: linear-gradient(%s, %s);" $style $bg.gradient_start $bg.gradient_end }}
+  {{ end }}
+
+  {{ if $bg.image }}
+    {{ $darken := "" }}
+    {{ if $bg.image_darken }}
+      {{ $darken = printf "linear-gradient(rgba(0, 0, 0, %s), rgba(0, 0, 0, %s))," (string $bg.image_darken) (string $bg.image_darken) }}
+    {{ end }}
+    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
+    {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "img/%s" $bg.image | absURL) }}
+  {{ end }}
+
+  {{ with $page.Params.css_custom }}
+    {{ $style = print $style . }}
+  {{ end }}
+
   {{ $params := dict "root" $ "page" $page }}
-  {{ $widget := printf "widgets/%s.html" ( or $page.Params.widget "custom" ) }}
-  {{ if in (slice "hero" "hero_carousel") $page.Params.widget }}
-    {{ partial $widget $params }}
+  {{ $widget := or $page.Params.widget "custom" }}
+  {{ $widget_path := printf "widgets/%s.html" $widget }}
+  {{ if in (slice "slider") $widget }}
+    {{ partial $widget_path $params }}
   {{ else }}
-  <section id="{{ $page.File.TranslationBaseName }}" class="home-section{{ with $page.Params.css_class }} {{ . }}{{ end }}">
+  <section id="{{ $page.File.TranslationBaseName }}" class="home-section {{ printf "wg-%s" (replace $widget "_" "-") }} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{ with $page.Params.css_class }}{{ . }}{{ end }}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
     <div class="container">
-      {{ partial $widget $params }}
+      {{ partial $widget_path $params }}
     </div>
   </section>
   {{ end }}
