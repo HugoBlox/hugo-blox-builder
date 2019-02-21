@@ -34,6 +34,11 @@ user_groups = ["Researchers", "Visitors"]
 
 # List qualifications (such as academic degrees)
 [[education.courses]]
+  certificate = "IoT Interfaces and Biology"
+  institution = "Massachusetts Institute of Technology"
+  year = 2017
+
+[[education.courses]]
   course = "PhD in Artificial Intelligence"
   institution = "Stanford University"
   year = 2012
