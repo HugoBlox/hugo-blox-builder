@@ -96,7 +96,7 @@
 # Posts widget
 
 - id: more_posts
-  translation: Weitere Blogbeiträge
+  translation: Weitere Blogeinträge
 
 # Talks widget
 
@@ -143,26 +143,13 @@
 - id: location
   translation: Ort
 
-- id: pub_uncat
-  translation: Unketegorisiert
+# Filtering
 
-- id: pub_conf
-  translation: Konferenzpapier
+- id: filter_by_type
+  translation: Filter nach Typ
 
-- id: pub_journal
-  translation: Journalartikel
-
-- id: pub_manuscript
-  translation: Manuskript
-
-- id: pub_report
-  translation: Bericht
-
-- id: pub_book
-  translation: Buch
-
-- id: pub_book_section
-  translation: Buchkapitel
+- id: filter_all
+  translation: Alle
 
 # Project details
 
