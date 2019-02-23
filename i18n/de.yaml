@@ -73,7 +73,15 @@
   translation: Interessen
 
 - id: education
-  translation: Ausbildung
+  translation: Education
+
+- id: user_profile_latest
+  translation: Aktuellste
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Zertifikat anzeigen
 
 # Experience widget
 
@@ -87,11 +95,8 @@
 
 # Posts widget
 
-- id: continue_reading
-  translation: WEITERLESEN
-
 - id: more_posts
-  translation: Weitere Blogeinträge
+  translation: Weitere Blogbeiträge
 
 # Talks widget
 
@@ -138,13 +143,26 @@
 - id: location
   translation: Ort
 
-# Filtering
+- id: pub_uncat
+  translation: Unketegorisiert
 
-- id: filter_by_type
-  translation: Filter nach Typ
+- id: pub_conf
+  translation: Konferenzpapier
 
-- id: filter_all
-  translation: Alle
+- id: pub_journal
+  translation: Journalartikel
+
+- id: pub_manuscript
+  translation: Manuskript
+
+- id: pub_report
+  translation: Bericht
+
+- id: pub_book
+  translation: Buch
+
+- id: pub_book_section
+  translation: Buchkapitel
 
 # Project details
 
