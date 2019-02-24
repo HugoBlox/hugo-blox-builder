@@ -88,20 +88,19 @@
 - id: present
   translation: Present
 
-# Publications widget
+# Pages widget
 
-- id: more_publications
-  translation: See all publications
-
-# Posts widget
+- id: more_pages
+  translation: See all
 
 - id: more_posts
   translation: See all posts
 
-# Talks widget
-
 - id: more_talks
   translation: See all talks
+
+- id: more_publications
+  translation: See all publications
 
 # Contact widget
 
@@ -169,7 +168,7 @@
 - id: open_project_site
   translation: Go to Project Site
 
-# Default node titles
+# Default titles for archive pages
 
 - id: posts
   translation: Posts

@@ -1,22 +1,22 @@
 +++
-# Custom widget.
-# An example of using the custom widget to create your own homepage section.
-# To create more sections, duplicate this file and edit the values below as desired.
+# A Demo section created with the Custom widget.
+# Any elements can be added in the body: https://sourcethemes.com/academic/docs/writing-markdown-latex/
+# Add more sections by duplicating this file and customizing to your requirements.
+
 widget = "custom"  # Do not modify this line!
 active = true  # Activate this widget? true/false
+weight = 60  # Order that this section will appear.
 
 # Note: a full width section format can be enabled by commenting out the `title` and `subtitle` with a `#`.
 title = "Teaching"
 subtitle = ""
 
-# Order that this section will appear in.
-weight = 60
+[design.background]
+  # Apply a background color, gradient, or image.
+  #   Uncomment (by removing `#`) an option to apply it.
+  #   Choose a light or dark text color by setting `text_color_light`.
+  #   Any HTML color name or Hex value is valid.
 
-# Background (optional).
-#   Choose from a background color, gradient, or image.
-#   Choose a dark or light text color, by setting `text_color_light`.
-#   Delete or comment out (by prefixing `#`) any unused options.
-[background]
   # Background color.
   # color = "navy"
   

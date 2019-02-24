@@ -2,19 +2,19 @@
 {{ partial "navbar.html" . }}
 
 <!-- Flag for jQuery -->
-<span id="homepage" style="display: none"></span>
+<span id="homepage" class="d-none"></span>
 
+{{ $section := "" }}
 {{ if .IsHome }}
-  {{ .Scratch.Set "section" "home" }}
+  {{ $section = "home" }}
 {{ else }}
-  {{ .Scratch.Set "section" .Section }}
+  {{ $section = .Section }}
 {{ end }}
-{{ $section := .Scratch.Get "section" }}
 
 <!-- Widgets -->
-{{ range $index, $page := where (where .Data.Pages "Section" $section) ".Params.active" "!=" false }}
+{{ range $index, $st := where (where .Data.Pages "Section" $section) ".Params.active" "!=" false }}
   {{/* Begin widget styling */}}
-  {{ $bg := $page.Params.background }}
+  {{ $bg := $st.Params.design.background }}
   {{ $style := "" }}
 
   {{ if $bg.color }}
@@ -34,17 +34,17 @@
     {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "img/%s" $bg.image | absURL) }}
   {{ end }}
 
-  {{ with $page.Params.css_custom }}
+  {{ with $st.Params.advanced.css_custom }}
     {{ $style = print $style . }}
   {{ end }}
 
-  {{ $params := dict "root" $ "page" $page }}
-  {{ $widget := or $page.Params.widget "custom" }}
+  {{ $params := dict "root" $ "page" $st }}
+  {{ $widget := or $st.Params.widget "custom" }}
   {{ $widget_path := printf "widgets/%s.html" $widget }}
   {{ if in (slice "slider") $widget }}
     {{ partial $widget_path $params }}
   {{ else }}
-  <section id="{{ $page.File.TranslationBaseName }}" class="home-section {{ printf "wg-%s" (replace $widget "_" "-") }} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{ with $page.Params.css_class }}{{ . }}{{ end }}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+  <section id="{{ $st.File.TranslationBaseName }}" class="home-section {{ printf "wg-%s" (replace $widget "_" "-") }} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{ with $st.Params.advanced.css_class }}{{ . }}{{ end }}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
     <div class="container">
       {{ partial $widget_path $params }}
     </div>

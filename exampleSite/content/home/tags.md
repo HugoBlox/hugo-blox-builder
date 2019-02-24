@@ -3,7 +3,7 @@
 widget = "tag_cloud"  # Do not modify this line!
 active = true  # Activate this widget? true/false
 
-title = "Tags"
+title = "Popular Topics"
 subtitle = ""
 
 # Order that this section will appear in.
