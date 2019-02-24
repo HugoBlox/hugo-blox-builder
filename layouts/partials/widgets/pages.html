@@ -5,8 +5,13 @@
 {{ $st := .page }}
 {{ $items_type := $st.Params.content.page_type | default "post" }}
 {{ $items_offset := $st.Params.content.offset | default 0 }}
-{{ $items_count := $st.Params.content.count | default 5 }}
-{{ $items_sort := $st.Params.content.order| default "desc" }}
+{{ $items_count := $st.Params.content.count }}
+{{ if eq $items_count 0 }}
+  {{ $items_count = 65535 }}
+{{ else }}
+  {{ $items_count = $items_count | default 5 }}
+{{ end }}
+{{ $items_sort := $st.Params.content.order | default "desc" }}
 
 {{/* Query */}}
 {{ $query := where $.Site.RegularPages "Type" $items_type }}
@@ -29,13 +34,6 @@
   {{ $query = where $query "Params.featured" "!=" true }}
 {{ end }}
 
-{{/* Offset */}}
-{{ if gt $items_offset 0 }}
-  {{ $query = first $items_count (after $items_offset $query) }}
-{{ else }}
-  {{ $query = first $items_count $query }}
-{{ end }}
-
 {{/* Sort */}}
 {{ $sort_by := "" }}
 {{ if eq $items_type "talk" }}
@@ -43,8 +41,15 @@
 {{ else }}
   {{ $sort_by = "Date" }}
 {{ end }}
-
 {{ $query = sort $query $sort_by $items_sort }}
+
+{{/* Offset and Limit */}}
+{{ if gt $items_offset 0 }}
+  {{ $query = first $items_count (after $items_offset $query) }}
+{{ else }}
+  {{ $query = first $items_count $query }}
+{{ end }}
+
 {{ $count := len $query }}
 
 {{/* Localisation */}}

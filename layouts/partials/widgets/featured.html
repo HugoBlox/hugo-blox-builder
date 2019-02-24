@@ -1,0 +1,61 @@
+{{/* Featured Content Widget */}}
+
+{{/* Initialise */}}
+{{ $ := .root }}
+{{ $st := .page }}
+{{ $items_type := $st.Params.content.page_type | default "post" }}
+{{ $items_count := $st.Params.content.count | default 65535 }}
+{{ $items_sort := $st.Params.content.order| default "desc" }}
+
+{{/* Query */}}
+{{ $query := where (where $.Site.RegularPages "Type" $items_type) "Params.featured" true }}
+
+{{/* Filters */}}
+{{ if $st.Params.content.filters.tag }}
+  {{ $archive_page := $.Site.GetPage (printf "tags/%s" $st.Params.filters.content.tag) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+{{ if $st.Params.content.filters.category }}
+  {{ $archive_page := $.Site.GetPage (printf "categories/%s" $st.Params.filters.content.category) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+{{ if $st.Params.content.filters.publication_type }}
+  {{ $archive_page := $.Site.GetPage (printf "publication_types/%s" $st.Params.content.filters.publication_type) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+
+{{/* Sort */}}
+{{ $sort_by := "" }}
+{{ if eq $items_type "talk" }}
+  {{ $sort_by = "Params.time_start" }}
+{{ else }}
+  {{ $sort_by = "Date" }}
+{{ end }}
+{{ $query = sort $query $sort_by $items_sort }}
+
+{{/* Limit */}}
+{{ $query = first $items_count $query }}
+
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
+    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+  </div>
+  <div class="col-12 col-lg-8">
+
+    {{ with $st.Content }}<p>{{ . }}</p>{{ end }}
+
+    {{ range $post := $query }}
+      {{ if eq $st.Params.design.view 1 }}
+        {{ partial "li_list" . }}
+      {{ else if eq $st.Params.design.view 3 }}
+        {{ partial "li_card" . }}
+      {{ else if eq $st.Params.design.view 3 | and (eq $st.Type "publication") }}
+        {{ partial "li_citation" . }}
+      {{ else }}
+        {{ partial "li_compact" . }}
+      {{ end }}
+    {{end}}
+
+  </div>
+</div>
