@@ -34,7 +34,7 @@
     {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "img/%s" $bg.image | absURL) }}
   {{ end }}
 
-  {{ with $st.Params.advanced.css_custom }}
+  {{ with $st.Params.advanced.css_style }}
     {{ $style = print $style . }}
   {{ end }}
 
