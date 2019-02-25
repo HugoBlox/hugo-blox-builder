@@ -33,6 +33,12 @@
 {{ if $st.Params.content.filters.exclude_featured }}
   {{ $query = where $query "Params.featured" "!=" true }}
 {{ end }}
+{{ if $st.Params.content.filters.exclude_upcoming }}
+  {{ $query = where $query "Params.time_start" "<=" now }}
+{{ end }}
+{{ if $st.Params.content.filters.exclude_past }}
+  {{ $query = where $query "Params.time_start" ">=" now }}
+{{ end }}
 
 {{/* Sort */}}
 {{ $sort_by := "" }}

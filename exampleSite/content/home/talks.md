@@ -28,6 +28,8 @@ subtitle = ""
     category = ""
     publication_type = ""
     exclude_featured = false
+    exclude_upcoming = false
+    exclude_past = false
   
 [design]
   # Toggle between the various page layout types.
