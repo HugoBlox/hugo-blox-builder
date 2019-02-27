@@ -16,9 +16,9 @@
     </a>
     {{ end }}
     <div class="card-text">
-      <h4><a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a></h4>
+      <h4><a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{ $item.Title | markdownify | emojify }}</a></h4>
       <div class="card-desription">
-        {{ with $item.Params.summary }}<p>{{ . | markdownify }}</p>{{ end }}
+        {{ with $item.Params.summary }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
       </div>
     </div>
   </div>

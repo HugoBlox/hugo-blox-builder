@@ -12,7 +12,7 @@
 {{ $target := .target }}
 
 {{ $order := "" }}
-{{ if and ($widget.Params.flip_alt_rows | default true) (not (modBool .index 2)) }}
+{{ if and ($widget.Params.design.flip_alt_rows | default true) (not (modBool .index 2)) }}
   {{ $order = "order-md-2" }}
 {{ end }}
 
@@ -23,19 +23,19 @@
     <div class="col-12 col-md-6">
       <h3 class="article-title mb-0 mt-0" itemprop="name">
         {{- if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }} itemprop="url">{{end -}}
-        {{ $item.Title }}
+        {{ $item.Title | markdownify | emojify }}
         {{- if $do_link}}</a>{{end -}}
       </h3>
 
       {{ $summary := "" }}
       {{ if $item.Params.summary }}
-        {{ $summary = $item.Params.summary | markdownify }}
+        {{ $summary = $item.Params.summary }}
       {{ else if $item.Truncated }}
         {{ $summary = $item.Summary }}
       {{ end }}
       {{ with $summary }}
       <div class="article-style" itemprop="articleBody">
-        {{ . }}
+        {{ . | markdownify | emojify }}
       </div>
       {{ end }}
 
