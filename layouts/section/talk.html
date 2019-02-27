@@ -18,7 +18,7 @@
         </div>
         <div class="col-lg-10">
 
-          {{ range sort .Pages ".Params.time_start" "desc" }}
+          {{ range .Pages }}
             {{ if eq $.Params.view 1 }}
               {{ partial "li_list" . }}
             {{ else if eq $.Params.view 3 }}

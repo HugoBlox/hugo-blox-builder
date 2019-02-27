@@ -34,14 +34,9 @@
   {{ $query = where $query "Params.featured" "!=" true }}
 {{ end }}
 
-{{/* Sort */}}
-{{ $sort_by := "" }}
-{{ if eq $items_type "talk" }}
-  {{ $sort_by = "Params.time_start" }}
-{{ else }}
-  {{ $sort_by = "Date" }}
-{{ end }}
-{{ $query = sort $query $sort_by $items_sort }}
+{{/* Sort (use Hugo default for now) */}}
+{{/* $sort_by := "Date" */}}
+{{/* $query = sort $query $sort_by $items_sort */}}
 
 {{/* Offset and Limit */}}
 {{ if gt $items_offset 0 }}

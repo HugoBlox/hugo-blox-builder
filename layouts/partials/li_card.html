@@ -36,11 +36,11 @@
     </div>
     {{ end }}
     <span itemprop="startDate">
-      {{ $date := $item.Params.time_start | default $item.Date }}
+      {{ $date := $item.Date }}
       {{ (time $date).Format $.Site.Params.date_format }}
       {{ if not $item.Params.all_day }}
         {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
-        {{ with .Params.time_end }}
+        {{ with $item.Params.date_end }}
         &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
         {{ end }}
       {{ end }}
