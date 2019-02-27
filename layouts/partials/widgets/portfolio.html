@@ -1,16 +1,19 @@
-{{ $ := .root }}
-{{ $page := .page }}
+{{/* Portfolio Widget */}}
 
-<!-- Projects widget -->
-{{ $widget_layout := $page.Params.widget_layout | default 0 }}
-{{ if eq $widget_layout 0 }}
+{{/* Initialise */}}
+{{ $ := .root }}
+{{ $st := .page }}
+{{ $items_type := $st.Params.content.page_type | default "project" }}
+{{ $columns := $st.Params.design.columns | default "2" }}
+
+{{ if ne $columns "1" }}
 {{/* Standard dual-column layout. */}}
 
 <div class="row">
   <div class="col-xs-12 col-md-4 section-heading">
 
-    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with $st.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
 
   </div>
   <div class="col-xs-12 col-md-8">
@@ -21,20 +24,20 @@
 <div class="margin-auto">
 
   <div class="center-text">
-    {{ with $page.Title }}<h1 class="mt-0">{{ . | markdownify }}</h1>{{ end }}
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with $st.Title }}<h1 class="mt-0">{{ . | markdownify | emojify }}</h1>{{ end }}
+    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>
   <div>
 {{ end }}
 
-    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with $st.Content }}<p>{{ . }}</p>{{ end }}
 
-    {{ if $page.Params.filter }}
+    {{ if $st.Params.content.filter_button }}
 
-      {{ $filter_default := default (int $page.Params.filter_default) 0 }}
+      {{ $filter_default := default (int $st.Params.content.filter_default) 0 }}
 
       {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
-      {{ $default_filter_tag_raw := (index $page.Params.filter ($filter_default)).tag }}
+      {{ $default_filter_tag_raw := (index $st.Params.content.filter_button ($filter_default)).tag }}
       {{ $default_filter_tag := printf ".js-id-%s" (replace $default_filter_tag_raw " " "-") }}
       {{ if or (eq (substr $default_filter_tag_raw 0 1) "*") (eq (substr $default_filter_tag_raw 0 1) ".") }}
         {{ $default_filter_tag = $default_filter_tag_raw }}
@@ -43,12 +46,12 @@
       <span class="d-none default-project-filter">{{ $default_filter_tag }}</span>
 
       {{/* Only show filter buttons if there are multiple filters. */}}
-      {{ if gt (len $page.Params.filter) 1 }}
+      {{ if gt (len $st.Params.content.filter_button) 1 }}
       <div class="project-toolbar">
         <div class="project-filters">
           <div class="btn-toolbar">
             <div class="btn-group flex-wrap">
-              {{ range $idx, $item := $page.Params.filter }}
+              {{ range $idx, $item := $st.Params.content.filter_button }}
                 {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
                 {{ $data_filter := printf ".js-id-%s" (replace .tag " " "-") }}
                 {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
@@ -63,20 +66,20 @@
       {{ end }}
     {{ end }}
 
-    <div class="{{ if or $page.Params.filter (eq $page.Params.view 3) }}isotope projects-container{{end}} {{if eq $page.Params.view 3}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $page.Params.view 5 }}project-showcase mt-5{{end}}">
-      {{ range $idx, $item := where $.Site.RegularPages "Type" ($page.Params.folder | default "project") }}
+    <div class="{{ if or $st.Params.content.filter_button (eq $st.Params.design.view 3) }}isotope projects-container{{end}} {{if eq $st.Params.design.view 3}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $st.Params.design.view 5 }}project-showcase mt-5{{end}}">
+      {{ range $idx, $item := where $.Site.RegularPages "Type" $items_type }}
         {{ $link := $item.RelPermalink }}
         {{ $target := "" }}
         {{ if $item.Params.external_link }}
           {{ $link = $item.Params.external_link }}
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
-        {{ if eq $page.Params.view 1 }}
-          {{ partial "project_li_list" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
-        {{ else if eq $page.Params.view 3 }}
-          {{ partial "project_li_card" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
+        {{ if eq $st.Params.design.view 1 }}
+          {{ partial "project_li_list" (dict "widget" $st "index" $idx "item" $item "link" $link "target" $target) }}
+        {{ else if eq $st.Params.design.view 3 }}
+          {{ partial "project_li_card" (dict "widget" $st "index" $idx "item" $item "link" $link "target" $target) }}
         {{ else }}
-          {{ partial "project_li_showcase" (dict "widget" $page "index" $idx "item" $item "link" $link "target" $target) }}
+          {{ partial "project_li_showcase" (dict "widget" $st "index" $idx "item" $item "link" $link "target" $target) }}
         {{ end }}
       {{ end }}
     </div>

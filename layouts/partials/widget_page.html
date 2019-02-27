@@ -39,7 +39,9 @@
   {{ end }}
 
   {{ $params := dict "root" $ "page" $st }}
-  {{ $widget := or $st.Params.widget "custom" }}
+  {{ $widget := or $st.Params.widget "blank" }}
+  {{ if eq $widget "custom" }}{{ $widget = "blank" }}{{ end }}{{/* Support legacy Custom widget */}}
+  {{ if eq $widget "projects" }}{{ $widget = "portfolio" }}{{ end }}{{/* Support legacy Projects widget */}}
   {{ $widget_path := printf "widgets/%s.html" $widget }}
   {{ if in (slice "slider") $widget }}
     {{ partial $widget_path $params }}

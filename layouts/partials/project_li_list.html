@@ -8,8 +8,8 @@
   <i class="far fa-copy pub-icon" aria-hidden="true"></i>
 
   <span class="project-title">
-    <a href="{{ $link }}" {{ $target | safeHTMLAttr }} itemprop="url">{{ $item.Title }}</a>
+    <a href="{{ $link }}" {{ $target | safeHTMLAttr }} itemprop="url">{{ $item.Title | markdownify | emojify }}</a>
   </span>
 
-  {{ with $item.Params.summary }}<p class="project-summary">{{ . | markdownify }}</p>{{ end }}
+  {{ with $item.Params.summary }}<p class="project-summary">{{ . | markdownify | emojify }}</p>{{ end }}
 </div>
