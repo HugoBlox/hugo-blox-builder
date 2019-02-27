@@ -33,6 +33,12 @@
 {{ if $st.Params.content.filters.exclude_featured }}
   {{ $query = where $query "Params.featured" "!=" true }}
 {{ end }}
+{{ if $st.Params.content.filters.exclude_past }}
+  {{ $query = where $query "Date" "<=" now }}
+{{ end }}
+{{ if $st.Params.content.filters.exclude_future }}
+  {{ $query = where $query "Date" ">" now }}
+{{ end }}
 
 {{/* Sort (use Hugo default for now) */}}
 {{/* $sort_by := "Date" */}}
