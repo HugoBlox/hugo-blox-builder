@@ -53,7 +53,7 @@
     {{ $talks_len := len $items }}
     {{ if ge $talks_len 1 }}
       <h2>{{ (i18n "talks") }}</h2>
-      {{ range sort $items ".Params.time_start" "desc" }}
+      {{ range $items }}
         {{ if eq $page.Site.Params.projects.talk_view 1 }}
           {{ partial "li_list" . }}
         {{ else if eq $page.Site.Params.projects.talk_view 3 }}

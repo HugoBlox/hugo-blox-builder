@@ -1,15 +1,17 @@
 +++
 title = "Example Talk"
-date = 2017-01-01T00:00:00  # Schedule page publish date (not talk date).
-
-# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = []
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-time_start = 2030-06-01T13:00:00
-time_end = 2030-06-01T15:00:00
+date = 2030-06-01T13:00:00
+date_end = 2030-06-01T15:00:00
 all_day = false
+
+# Schedule page publish date (NOT talk date).
+publishDate = 2017-01-01T00:00:00
+
+# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
+authors = []
 
 # Location of event.
 location = "London, United Kingdom"
@@ -54,6 +56,9 @@ projects = ["internal-project"]
 url_pdf = ""
 url_video = ""
 url_code = ""
+
+# Demo talk page uses LaTeX math.
+math = true
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 

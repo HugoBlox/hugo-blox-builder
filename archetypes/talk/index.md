@@ -1,15 +1,17 @@
 +++
 title = "{{ replace .Name "-" " " | title }}"
-date = {{ .Date }}  # Schedule page publish date.
-
-# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = []
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-time_start = {{ .Date }}
-time_end = {{ .Date }}
+date = {{ .Date }}
+date_end = {{ .Date }}
 all_day = false
+
+# Schedule page publish date (NOT talk date).
+publishDate = {{ .Date }}
+
+# Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
+authors = []
 
 # Location of event.
 location = ""

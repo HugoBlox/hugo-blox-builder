@@ -24,14 +24,9 @@
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 
-{{/* Sort */}}
-{{ $sort_by := "" }}
-{{ if eq $items_type "talk" }}
-  {{ $sort_by = "Params.time_start" }}
-{{ else }}
-  {{ $sort_by = "Date" }}
-{{ end }}
-{{ $query = sort $query $sort_by $items_sort }}
+{{/* Sort (use Hugo default for now) */}}
+{{/* $sort_by := "Date" */}}
+{{/* $query = sort $query $sort_by $items_sort */}}
 
 {{/* Limit */}}
 {{ $query = first $items_count $query }}
