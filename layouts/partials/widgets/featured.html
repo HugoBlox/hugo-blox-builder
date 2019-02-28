@@ -24,9 +24,9 @@
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 
-{{/* Sort (use Hugo default for now) */}}
-{{/* $sort_by := "Date" */}}
-{{/* $query = sort $query $sort_by $items_sort */}}
+{{/* Sort */}}
+{{ $sort_by := "Date" }}
+{{ $query = sort $query $sort_by $items_sort }}
 
 {{/* Limit */}}
 {{ $query = first $items_count $query }}
