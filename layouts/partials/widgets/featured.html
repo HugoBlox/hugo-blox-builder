@@ -45,7 +45,7 @@
         {{ partial "li_list" . }}
       {{ else if eq $st.Params.design.view 3 }}
         {{ partial "li_card" . }}
-      {{ else if eq $st.Params.design.view 3 | and (eq $st.Type "publication") }}
+      {{ else if eq $st.Params.design.view 4 | and (eq $items_type "publication") }}
         {{ partial "li_citation" . }}
       {{ else }}
         {{ partial "li_compact" . }}
