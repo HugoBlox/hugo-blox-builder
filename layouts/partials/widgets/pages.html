@@ -40,6 +40,8 @@
   {{ $query = where $query "Date" "<" now }}
 {{ end }}
 
+{{ $count := len $query }}
+
 {{/* Sort */}}
 {{ $sort_by := "Date" }}
 {{ $query = sort $query $sort_by $items_sort }}
@@ -50,8 +52,6 @@
 {{ else }}
   {{ $query = first $items_count $query }}
 {{ end }}
-
-{{ $count := len $query }}
 
 {{/* Localisation */}}
 {{ $i18n := "" }}
