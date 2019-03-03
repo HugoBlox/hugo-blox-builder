@@ -4,7 +4,7 @@
   {{/* APA Style */}}
   {{ if eq ($.Site.Params.publications.citation_style | default "apa") "apa" }}
 
-  <span itemprop="author">
+  <span itemprop="author" class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" . }}
   </span>
   ({{- .Date.Format "2006" -}}).
@@ -19,7 +19,7 @@
   {{/* MLA Style */}}
   {{ else }}
 
-  <span itemprop="author">
+  <span itemprop="author" class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" . }}
   </span>.
   <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
