@@ -1352,22 +1352,19 @@ article .article-metadata {
  *  Accomplishments
  **************************************************/
  
-.course {
-  margin-bottom: -0.5rem;
+.card.course {
+  margin-bottom: 1rem; /* More compact spacing than Experience widget as typically more items here. */
 }
 
-.course h6 {
-  font-size: 0.80rem;
-  font-weight: 700;
-  line-height: 1.5;
-  text-transform: uppercase;
+.card.course:last-of-type {
+  margin-bottom: 0;
 }
 
-.course h6 a {
+.course .card-subtitle a {
   border-bottom: solid 1px transparent;
 }
 
-.course h6 a:hover {
+.course .card-subtitle a:hover {
   border-bottom: solid 1px;
   text-decoration: none;
 }
