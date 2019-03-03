@@ -32,23 +32,22 @@
       <div class="col py-2">
         <div class="card">
           <div class="card-body">
-            <div class="float-right text-muted exp-meta">
-              <div class="text-right">
-                {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –
-                {{ if .date_end}}
-                  {{ (time .date_end).Format ($page.Params.date_format | default "January 2006") }}
-                {{else}}
-                  {{ i18n "present" | default "Present" }}
-                {{end}}
-              </div>
-              {{with .location}}
-              <div class="text-right">{{.}}</div>
-              {{end}}
-            </div>
             <h4 class="card-title exp-title text-muted mt-0 mb-1">{{.title | markdownify | emojify}}</h4>
             <h4 class="card-title exp-company text-muted my-0">
               {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
             </h4>
+            <div class="text-muted exp-meta">
+              {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –
+              {{ if .date_end}}
+                {{ (time .date_end).Format ($page.Params.date_format | default "January 2006") }}
+              {{else}}
+                {{ i18n "present" | default "Present" }}
+              {{end}}
+              {{with .location}}
+                <span class="middot-divider"></span>
+                <span>{{.}}</span>
+              {{end}}
+            </div>
             {{with .description}}<div class="card-text">{{. | markdownify | emojify}}</div>{{end}}
           </div>
         </div>
