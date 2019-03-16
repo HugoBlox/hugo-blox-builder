@@ -88,23 +88,19 @@
 - id: present
   translation: 现在
 
-# Publications widget
+# Pages widget
 
-- id: more_publications
-  translation: 更多出版物
-
-# Posts widget
-
-- id: continue_reading
-  translation: 继续阅读
+- id: more_pages
+  translation: 查看全部
 
 - id: more_posts
-  translation: 更多文章
-
-# Talks widget
+  translation: 查看全部文章
 
 - id: more_talks
-  translation: 更多演讲
+  translation: 查看全部演讲
+
+- id: more_publications
+  translation: 查看全部出版物
 
 # Contact widget
 
@@ -167,20 +163,12 @@
 - id: pub_book_section
   translation: 章节
 
-# Filtering
-
-- id: filter_by_type
-  translation: 按类型过滤
-
-- id: filter_all
-  translation: 全部
-
 # Project details
 
 - id: open_project_site
   translation: 访问项目网站
 
-# Default node titles
+# Default titles for archive pages
 
 - id: posts
   translation: 文章
