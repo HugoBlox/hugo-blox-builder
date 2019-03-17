@@ -1,14 +1,12 @@
 +++
-# Custom widget.
-widget = "custom"  # Do not modify this line!
+# Gallery section using the Blank widget and Gallery element (shortcode).
+widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
+headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
+weight = 66  # Order that this section will appear.
 
-# Note: a full width section format can be enabled by commenting out the `title` and `subtitle` with a `#`.
 title = "Gallery"
 subtitle = ""
-
-# Order that this section will appear in.
-weight = 66
 +++
 
 {{< gallery >}}
