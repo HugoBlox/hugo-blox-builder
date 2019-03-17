@@ -1,6 +1,5 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  {{ range (where .Data.Pages "Section" "!=" "home") }}
-    {{ if not .Params.widget }}
+  {{ range .Data.Pages }}
     <url>
     {{ if .IsTranslated }}
       <xhtml:link rel="alternate" href="{{ .Permalink }}" hreflang="{{ .Lang }}"/>{{ range .Translations }}
@@ -11,6 +10,5 @@
       <changefreq>{{ . }}</changefreq>{{ end }}{{ if ge .Sitemap.Priority 0.0 }}
       <priority>{{ .Sitemap.Priority }}</priority>{{ end }}
     </url>
-    {{ end }}
   {{ end }}
 </urlset>

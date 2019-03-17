@@ -2,7 +2,8 @@
 # A Recent and Upcoming Talks section created with the Pages widget.
 # This section displays recent talks from `content/talk/`.
 
-widget = "pages"  # Do not modify this line!
+widget = "pages"  # See https://sourcethemes.com/academic/docs/page-builder/
+headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 70  # Order that this section will appear.
 

@@ -4,15 +4,17 @@
 <!-- Flag for jQuery -->
 <span id="homepage" class="d-none"></span>
 
-{{ $section := "" }}
+{{/* Get widget page path */}}
+{{ $page := "" }}
 {{ if .IsHome }}
-  {{ $section = "home" }}
+  {{ $page = "/home" }}
 {{ else }}
-  {{ $section = .Section }}
+  {{ $page = .File.Path }}
 {{ end }}
 
-<!-- Widgets -->
-{{ range $index, $st := where (where .Data.Pages "Section" $section) ".Params.active" "!=" false }}
+{{/* Load page sections */}}
+{{ $headless_bundle := .Site.GetPage $page }}
+{{ range $index, $st := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
   {{/* Begin widget styling */}}
   {{ $bg := $st.Params.design.background }}
   {{ $style := "" }}
@@ -39,14 +41,17 @@
   {{ end }}
 
   {{ $params := dict "root" $ "page" $st }}
+  {{ $hash_id := replace $st.File.ContentBaseName "index" (path.Base (path.Split .Path).Dir) }}
+
   {{ $widget := or $st.Params.widget "blank" }}
   {{ if eq $widget "custom" }}{{ $widget = "blank" }}{{ end }}{{/* Support legacy Custom widget */}}
   {{ if eq $widget "projects" }}{{ $widget = "portfolio" }}{{ end }}{{/* Support legacy Projects widget */}}
+
   {{ $widget_path := printf "widgets/%s.html" $widget }}
   {{ if in (slice "slider") $widget }}
     {{ partial $widget_path $params }}
   {{ else }}
-  <section id="{{ $st.File.TranslationBaseName }}" class="home-section {{ printf "wg-%s" (replace $widget "_" "-") }} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{ with $st.Params.advanced.css_class }}{{ . }}{{ end }}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+  <section id="{{ $hash_id }}" class="home-section {{ printf "wg-%s" (replace $widget "_" "-") }} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{ with $st.Params.advanced.css_class }}{{ . }}{{ end }}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
     <div class="container">
       {{ partial $widget_path $params }}
     </div>
@@ -54,6 +59,5 @@
   {{ end }}
 {{ end }}
 
-<!-- Page Footer -->
 {{ partial "footer_container.html" . }}
 {{ partial "footer.html" . }}

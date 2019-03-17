@@ -1,11 +1,22 @@
-{{ $album := "gallery" }}
-{{ with .Get "album" }}{{ $album = . }}{{ end }}
-{{ $album_path := printf "%s/*" $album }}
-{{/* if eq .Page.Type "home" */}}{{/* $album_path = "*" */}}{{/* end */}}
+{{/* Get album folder or default to `gallery/`. */}}
+{{ $album := "" }}
+{{ with .Get "album" }}{{ $album = . }}{{else}}{{ $album = "gallery" }}{{end}}
+
+{{/* Set image path and page bundle that images are associated with. */}}
+{{ $album_path := "" }}
+{{ $resource_page := "" }}
+{{ if eq .Page.Parent.Type "widget_page" }}
+  {{ $album_path = printf "%s/%s/*" (path.Base (path.Split .Page.Path).Dir) $album }}
+  {{ $resource_page = $.Page.Parent }}
+{{ else }}
+  {{ $album_path = printf "%s/*" $album }}
+  {{ $resource_page = $.Page }}
+{{ end }}
+
 <div class="gallery">
 
   {{/* Attempt to automatically load gallery images from page bundle */}}
-  {{ $images := ($.Page.Resources.ByType "image").Match $album_path }}
+  {{ $images := ($resource_page.Resources.ByType "image").Match $album_path }}
   {{ with $images }}
   {{ range $images }}
     {{ $image := .Resize "x190" }}
@@ -39,7 +50,7 @@
   </a>
   {{end}}
   {{else}}
-  {{ errorf "Unable to load gallery in %s." .Page.Filename }}
+    {{ errorf "Unable to load gallery in %s." .Page.Filename }}
   {{end}}
   {{end}}
 </div>
