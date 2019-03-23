@@ -19,11 +19,11 @@
 
 {{/* Filters */}}
 {{ if $st.Params.content.filters.tag }}
-  {{ $archive_page = $.Site.GetPage (printf "tags/%s" $st.Params.filters.content.tag) }}
+  {{ $archive_page = $.Site.GetPage (printf "tags/%s" $st.Params.content.filters.tag) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 {{ if $st.Params.content.filters.category }}
-  {{ $archive_page = $.Site.GetPage (printf "categories/%s" $st.Params.filters.content.category) }}
+  {{ $archive_page = $.Site.GetPage (printf "categories/%s" $st.Params.content.filters.category) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 {{ if $st.Params.content.filters.publication_type }}
