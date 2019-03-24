@@ -12,7 +12,7 @@ title = "Academic"
 baseurl = "/"
 
 # Enter a copyright notice to display in the site footer.
-# To display a copyright symbol, type `&copy;`.
+# To display a copyright symbol, type `&copy;`. For current year, type `{year}`.
 copyright = ""
 
 # Enable analytics by entering your Google Analytics tracking ID
