@@ -36,6 +36,11 @@
     {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "img/%s" $bg.image | absURL) }}
   {{ end }}
 
+  {{ with $st.Params.design.spacing.padding }}
+    {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
+    {{ $style = print $style $style_pad }}
+  {{ end }}
+
   {{ with $st.Params.advanced.css_style }}
     {{ $style = print $style . }}
   {{ end }}
