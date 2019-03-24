@@ -6,7 +6,7 @@
   {{ end }}
 
   <p class="powered-by">
-    {{ with .Site.Copyright }}{{ . | markdownify}} &middot; {{ end }}
+    {{ with .Site.Copyright }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
