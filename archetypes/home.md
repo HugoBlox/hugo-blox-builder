@@ -1,6 +1,7 @@
 +++
 # A section created with the Blank widget.
-widget = "blank"  # Do not modify this line!
+widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
+headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 1  # Order that this section will appear.
 
@@ -31,6 +32,10 @@ subtitle = ""
 
   # Text color (true=light or false=dark).
   # text_color_light = true
+
+[design.spacing]
+  # Customize the section spacing. Order is top, right, bottom, left.
+  # padding = ["0px", "0px", "0px", "0px"]
 
 [advanced]
  # Custom CSS. 

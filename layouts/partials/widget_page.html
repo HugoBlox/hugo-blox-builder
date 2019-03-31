@@ -4,16 +4,20 @@
 <!-- Flag for jQuery -->
 <span id="homepage" class="d-none"></span>
 
-{{/* Get widget page path */}}
+{{/* Get widget page */}}
 {{ $page := "" }}
 {{ if .IsHome }}
   {{ $page = "/home" }}
 {{ else }}
   {{ $page = .File.Path }}
 {{ end }}
+{{ $headless_bundle := site.GetPage $page }}
+{{/* Check homepage exists */}}
+{{ if not $headless_bundle }}
+  {{ errorf "Homepage not found or duplicate homepages detected for a localization! Add the `home/` folder (especially `/home/index.md`) to each language's content folder. For example, your site should have a `content/home/` folder containing `index.md` and your homepage sections, or for multi-language sites, `content/en/home/` and `content/zh/home/` etc. Refer to the 'Build Your Homepage' and 'Language' documentation at https://sourcethemes.com/academic/docs/ and the example homepage at https://github.com/gcushen/hugo-academic/tree/master/exampleSite/content/home/index.md ." }}
+{{ end }}
 
 {{/* Load page sections */}}
-{{ $headless_bundle := .Site.GetPage $page }}
 {{ range $index, $st := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
   {{/* Begin widget styling */}}
   {{ $bg := $st.Params.design.background }}
