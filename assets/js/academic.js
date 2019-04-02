@@ -65,6 +65,10 @@
       // Prevent default click behavior.
       event.preventDefault();
 
+      if (isSearchDialogOpen()) {
+        closeSearchDialog();
+      }
+
       // Use jQuery's animate() method for smooth page scrolling.
       // The numerical parameter specifies the time (ms) taken to scroll to the specified hash.
       $('html, body').animate({
@@ -291,10 +295,18 @@
   * Toggle search dialog.
   * --------------------------------------------------------------------------- */
 
+  function isSearchDialogOpen() {
+    return $('body').hasClass('searching');
+  }
+
+  function closeSearchDialog() {
+    $('[id=search-query]').blur();
+    $('body').removeClass('searching');
+  }
+
   function toggleSearchDialog() {
-    if ($('body').hasClass('searching')) {
-      $('[id=search-query]').blur();
-      $('body').removeClass('searching');
+    if (isSearchDialogOpen()) {
+      closeSearchDialog();
     } else {
       $('body').addClass('searching');
       $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
