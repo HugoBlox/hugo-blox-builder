@@ -1,0 +1,216 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Vis/skjul navigation
+
+- id: table_of_contents
+  translation: Indholdsfortegnelse
+
+- id: on_this_page
+  translation: På denne side
+
+- id: back_to_top
+  translation: Til toppen
+
+# General
+
+- id: related
+  translation: Relaterede
+
+- id: minute_read
+  translation: min læsning
+
+- id: previous
+  translation: Forrige
+
+- id: next
+  translation: Næste
+
+- id: figure
+  translation: "Figur %d:"
+
+# Buttons
+
+- id: btn_preprint
+  translation: Eksempel
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citer
+
+- id: btn_slides
+  translation: Præsentation
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kode
+
+- id: btn_dataset
+  translation: Datasæt
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Plakat
+
+- id: btn_source
+  translation: Kilde kode
+
+- id: btn_copy
+  translation: Kopier
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: Interesser
+
+- id: education
+  translation: Uddannelse
+
+- id: user_profile_latest
+  translation: Seneste
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Certifikat
+
+# Experience widget
+
+- id: present
+  translation: Nuværende
+
+# Pages widget
+
+- id: more_pages
+  translation: Se alle
+
+- id: more_posts
+  translation: Se alle indlæg
+
+- id: more_talks
+  translation: Se alle foredrag
+
+- id: more_publications
+  translation: Se alle udgivelser
+
+# Contact widget
+
+- id: contact_name
+  translation: Navn
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Besked
+
+- id: contact_send
+  translation: Send
+
+- id: book_appointment
+  translation: Reserver en aftale
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Abstrakt
+
+- id: publication
+  translation: Udgivelse
+
+- id: publication_type
+  translation: Type
+
+- id: date
+  translation: Dato
+
+- id: last_updated
+  translation: Sidst opdateret
+
+- id: event
+  translation: Begivenhed
+
+- id: location
+  translation: Lokation
+
+- id: pub_uncat
+  translation: Ikke katagoriseret 
+
+- id: pub_conf
+  translation: Konference artikel
+
+- id: pub_journal
+  translation: Videnskablig artikel
+
+- id: pub_manuscript
+  translation: Manuskript
+
+- id: pub_report
+  translation: Rapport
+
+- id: pub_book
+  translation: Bog
+
+- id: pub_book_section
+  translation: Bøger
+
+# Project details
+
+- id: open_project_site
+  translation: Gå til projekt side
+
+# Default titles for archive pages
+
+- id: posts
+  translation: Indlæg
+
+- id: publications
+  translation: Udgivelser
+
+- id: talks
+  translation: Foredrag
+
+- id: projects
+  translation: Projekter
+
+# Search
+
+- id: search
+  translation: Søg
+
+- id: search_placeholder
+  translation: Søg...
+
+- id: search_results
+  translation: resultater fundet
+
+- id: search_no_results
+  translation: Ingen resultater fundet
+
+# Error 404
+
+- id: page_not_found
+  translation: Side blev ikke fundet
+
+- id: 404_recommendations
+  translation: Måske du ledte efter dette?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Denne side benytter cookies for at sikre den bedste oplevelse.
+
+- id: cookie_dismiss
+  translation: Accepter
+
+- id: cookie_learn
+  translation: Læs mere
