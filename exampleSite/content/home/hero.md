@@ -48,7 +48,7 @@ hero_media = "hero-academic.png"
   label = '<a id="academic-release" href="https://sourcethemes.com/academic/updates" data-repo="gcushen/hugo-academic">Latest release <!-- V --></a>'
 +++
 
-**The Best Way to Create the Website You Want from Markdown (or RStudio/Jupyter)**
+**The Best Way to Create the Website You Want from Markdown (or Jupyter/RStudio)**
 
 Build **Anything** with Widgets
 
