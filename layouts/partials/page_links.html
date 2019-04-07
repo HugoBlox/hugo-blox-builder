@@ -2,6 +2,7 @@
 {{ $ := .content }}
 {{ $link := "" }}
 
+{{/* ***** TODO: Deprecate `url_preprint` in favour of `url_pdf` given there's now a dedicated "Preprint" pub. type. ***** */}}
 {{ with $.Params.url_preprint }}
   {{ $resource := $.Resources.GetMatch . }}
   {{ if $resource }}
@@ -22,6 +23,7 @@
     {{ $pdf = $.Params.url_pdf | relURL }}
   {{ end }}
 {{ end }}
+
 {{ with $pdf }}
 <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ . }}" target="_blank" rel="noopener">
   {{ i18n "btn_pdf" }}

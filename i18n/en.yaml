@@ -151,8 +151,8 @@
 - id: pub_journal
   translation: Journal article
 
-- id: pub_manuscript
-  translation: Manuscript
+- id: pub_preprint
+  translation: Preprint
 
 - id: pub_report
   translation: Report
@@ -162,6 +162,12 @@
 
 - id: pub_book_section
   translation: Book section
+
+- id: pub_thesis
+  translation: Thesis
+
+- id: pub_patent
+  translation: Patent
 
 # Project details
 
