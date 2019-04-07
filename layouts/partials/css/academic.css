@@ -595,15 +595,15 @@ a[data-fancybox] img {
   font-size: 1.35rem;
 }
 
-.wg-hero .hero-title,
-.wg-hero .hero-lead,
-.wg-hero .hero-cta-alt,
-.wg-hero .hero-note {
+.wg-hero.dark .hero-title,
+.wg-hero.dark .hero-lead,
+.wg-hero.dark .hero-cta-alt,
+.wg-hero.dark .hero-note {
   color: #fff;
   /*text-shadow: 1px 1px 4px rgba(0,0,0,0.5);*/ /* Uncomment to standout on complicated backgrounds. */
 }
 
-.wg-hero a:not(.wg-hero .btn) {
+.wg-hero.dark a:not(.wg-hero .btn) {
   color: #fff;
 }
 
@@ -616,8 +616,11 @@ a[data-fancybox] img {
 }
 
 .wg-hero .btn {
-  color: {{ .Get "primary_dark" }};
   padding: .6em 2.1em;
+}
+
+.wg-hero.dark .btn {
+  color: {{ .Get "primary_dark" }};
 }
 
 a.hero-cta-alt {
