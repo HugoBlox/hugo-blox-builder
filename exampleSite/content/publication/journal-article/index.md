@@ -52,7 +52,7 @@ projects = []
 #   E.g. `slides = "example-slides"` references 
 #   `content/slides/example-slides.md`.
 #   Otherwise, set `slides = ""`.
-slides = "example-slides"
+slides = "example"
 
 # Links (optional).
 url_pdf = "http://arxiv.org/pdf/1512.04133v1"
