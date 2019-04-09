@@ -46,12 +46,20 @@ tags = ["Source Themes"]
 #   Otherwise, set `projects = []`.
 projects = ["internal-project"]
 
+# Slides (optional).
+#   Associate this publication with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides = "example-slides"` references 
+#   `content/slides/example-slides.md`.
+#   Otherwise, set `slides = ""`.
+slides = "example"
+
 # Links (optional).
 url_pdf = "http://eprints.soton.ac.uk/352095/1/Cushen-IMV2013.pdf"
 url_code = "#"
 url_dataset = "#"
 url_project = ""
-url_slides = "#"
+url_slides = ""
 url_video = "#"
 url_poster = "#"
 url_source = "#"
