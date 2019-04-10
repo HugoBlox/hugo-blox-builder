@@ -492,16 +492,24 @@ a[data-fancybox] img {
 .home-section.dark h1,
 .home-section.dark h2,
 .home-section.dark h3,
-.home-section.dark a:not(.btn):not(.alert a) {
+.home-section.dark a:not(.btn) {
   color: rgb(248, 248, 242);
 }
 
 /* Underline links in dark sections to separate them from text */
-.home-section.dark a:not(.btn):not(.hero-cta-alt):not(.alert a) {
+.home-section.dark a:not(.btn):not(.hero-cta-alt) {
   text-decoration: underline;
 }
 
+/* Revert Alert Box Link style (.home-section.dark style above should not be applied to it) */
+.home-section.dark .alert a {
+  color: inherit !important;
+  text-decoration: inherit !important;
+}
+
 /* Big underline style for links in dark sections */
+/* Disabled as it's an experimental style that requires CSS NOT Selector Level 4 (only in Safari) */
+/*
 .home-section.dark.big-underline a:not(.btn):not(.hero-cta-alt):not(.alert a) {
   text-decoration: none;
   position: relative;
@@ -514,7 +522,7 @@ a[data-fancybox] img {
   right: 0;
   position: absolute;
   top: 100%;
-}
+}*/
 
 /* Create the parallax scrolling effect */
 .parallax {
@@ -598,7 +606,7 @@ a[data-fancybox] img {
 .wg-hero.dark .hero-title,
 .wg-hero.dark .hero-lead,
 .wg-hero.dark .hero-cta-alt,
-.wg-hero.dark .hero-note {
+.wg-hero.dark .hero-note > * {
   color: #fff;
   /*text-shadow: 1px 1px 4px rgba(0,0,0,0.5);*/ /* Uncomment to standout on complicated backgrounds. */
 }
