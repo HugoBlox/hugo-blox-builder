@@ -1,6 +1,7 @@
 +++
 title = "{{ replace .Name "-" " " | title }}"
 date = {{ .Date }}
+publishdate = {{ .Date }}
 
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = []
