@@ -1,11 +1,15 @@
 <p align="center"><a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener"><img src="https://sourcethemes.com/academic/img/logo_200px.png" alt="Academic logo"></a></p>
 
-# Academic: the website designer for [Hugo](https://gohugo.io)
+# [Academic](https://sourcethemes.com/academic/): the website builder for [Hugo](https://gohugo.io)
 
-**Academic** makes it easy to create a beautiful website for free using Markdown. Customize anything on your site with widgets, themes, and language packs.
+### The Page Builder to Easily Create Professional Websites :pencil2: :newspaper: :rocket:
 
-Follow our easy [step by step guide](https://sourcethemes.com/academic/docs/install/) to learn how to build your own free website with Academic. [Check out the personal demo](https://academic-demo.netlify.com/) or the [business demo](https://sourcethemes.com/academic/) of what you'll get in less than 10 minutes.
+**Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 _widgets_, _themes_, and _language packs_ included!**
 
+[Check out the latest **demo**](https://academic-demo.netlify.com/) of what you'll get in less than 10 minutes, or [view the **showcase**](https://sourcethemes.com/academic/#expo) of personal, project, and business sites.
+
+- [**Setup Academic**](#install)
+- [**Get Started**](https://sourcethemes.com/academic/docs/get-started/)
 - [View the documentation](https://sourcethemes.com/academic/docs/)
 - [Ask a question](http://discuss.gohugo.io/)
 - [Request a feature or report a bug](https://github.com/gcushen/hugo-academic/issues)
@@ -34,10 +38,13 @@ Follow our easy [step by step guide](https://sourcethemes.com/academic/docs/inst
 - **Multi-user** - Each author gets their own profile page
 - **Privacy Pack** - Assists with GDPR
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
+- **One-Click Deployment** - No servers. No databases. Only files.
 
 ## Color Themes
 
-Academic is available in different color themes and font themes.
+Academic comes with **day (light) and night (dark) mode** built-in. Click the sun/moon icon in the top right of the [Demo](https://academic-demo.netlify.com/) to see it in action!
+
+Choose a stunning color and font theme for your site. Themes are fully customizable and include:
 
 | `default` | `ocean` | `forest` | `dark` |
 | --- | --- | --- | --- |
@@ -56,24 +63,27 @@ Academic is available in different color themes and font themes.
 
 You can choose from one of the following four methods to install:
 
-* one-click install using your web browser (recommended)
+* **one-click install using your web browser (recommended)**
 * install on your computer using Git with the Command Prompt/Terminal app
 * install on your computer by downloading the ZIP files
 * install on your computer with RStudio
 
-### Quick install using your web browser
+### Install with web browser
 
-1. [Install Academic with Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/sourcethemes/academic-kickstart)
-    * Netlify will provide you with a customizable URL to access your new site
-2. On GitHub, go to your newly created `academic-kickstart` repository and edit `config.toml` to personalize your site. Shortly after saving the file, your site will automatically update
-3. Read the [Quick Start Guide](https://sourcethemes.com/academic/docs/) to learn how to add Markdown content. For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://academic-demo.netlify.com/)
+[Install Academic with Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/sourcethemes/academic-kickstart)
+  * One-click install of Academic creates an `academic-kickstart` repository in your GitHub or GitLab account
+  * Netlify will provide you with a customizable URL to access your new site, [or get your own domain](https://sourcethemes.com/academic/docs/domain/)
+  * Shortly after editing content in your repository, your site will automatically update
+  * Optionally, use [Git](https://git-scm.com/downloads) to clone your new repository to your computer for offline editing
 
 ### Install with Git
 
 Prerequisites:
 
 * [Download and install Git](https://git-scm.com/downloads)
-* [Download and install Hugo](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo v0.53](https://gohugo.io/getting-started/installing/#quick-install)
+
+Install:
 
 1. [Fork](https://github.com/sourcethemes/academic-kickstart#fork-destination-box) the *Academic Kickstart* repository and clone your fork with Git: 
 
@@ -88,36 +98,38 @@ Prerequisites:
 
 ### Install with ZIP
 
+Prerequisites:
+
+* [Download and install Hugo v0.53](https://gohugo.io/getting-started/installing/#quick-install)
+
+Install:
+
 1. [Download](https://github.com/sourcethemes/academic-kickstart/archive/master.zip) and extract *Academic Kickstart*
-2. [Download](https://github.com/gcushen/hugo-academic/archive/master.zip) and extract the *Academic theme* to the `themes/academic/` folder from the above step
+2. [Download](https://github.com/gcushen/hugo-academic/archive/master.zip) and extract the *Academic theme* files from the `hugo-academic-master` folder to the `themes/academic/` folder in *Academic Kickstart*
 
 ### Install with RStudio
 
-[View the guide to installing Academic with RStudio](https://sourcethemes.com/academic/docs/install/#install-with-rstudio)
+[Install Academic with RStudio](https://sourcethemes.com/academic/docs/install/#install-with-rstudio)
 
-## Quick start
+## Demo content
 
-1. If you installed on your computer, view your new website by running the following command:
-      
-       hugo server
+For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://academic-demo.netlify.com/).
 
-    Now visit [localhost:1313](http://localhost:1313) and your new Academic powered website will appear. Otherwise, if using Netlify, they will provide you with your URL.
-           
-2. Read the [Quick Start Guide](https://sourcethemes.com/academic/docs/) to learn how to add Markdown content, customize your site, and deploy it. For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://academic-demo.netlify.com/)
+If you wish to initialise your site with the demo content, copy the contents of the `themes/academic/exampleSite/` folder to your website root folder, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started. The following command can be used to accomplish this:
 
-3. Build your site by running the `hugo` command. Then [host it for free using Github Pages](https://georgecushen.com/create-your-website-with-hugo/) or Netlify (refer to the first installation method). Alternatively, copy the generated `public/` directory (by FTP, Rsync, etc.) to your production web server (such as a university's hosting service).
+```bash
+cp -av themes/academic/exampleSite/* .
+```
+
+## Get Started
+
+[View the guide to Personalize and Deploy your new site](https://sourcethemes.com/academic/docs/get-started/).
 
 ## Updating
 
 [View the Update Guide](https://sourcethemes.com/academic/docs/update/).
 
 Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) to help keep track of [updates](https://sourcethemes.com/academic/updates).
-
-## Feedback & Contributing
-
-Please use the [issue tracker](https://github.com/gcushen/hugo-academic/issues) to let me know about any bugs or feature requests, or alternatively make a pull request.
-
-For support, head over to the [Hugo discussion forum](http://discuss.gohugo.io).
 
 ## License
 
