@@ -274,7 +274,7 @@ small,
   transform: scale(1);
   -webkit-transform: scale(1);
   visibility: visible;
-  z-index: 11; /* Second highest index, after navbar. */
+  z-index: 1031; /* Highest index, higher than navbar. */
 }
 
 .searching #search-box #search-query {
