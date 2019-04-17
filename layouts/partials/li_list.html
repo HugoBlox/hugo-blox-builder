@@ -26,11 +26,11 @@
   <div class="article-metadata">
     <span itemprop="startDate">
       {{ $date := $item.Date }}
-      {{ (time $date).Format $.Site.Params.date_format }}
+      {{ (time $date).Format site.Params.date_format }}
       {{ if not $item.Params.all_day }}
-        {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+        {{ (time $date).Format (site.Params.time_format | default "3:04 PM") }}
         {{ with $item.Params.date_end }}
-        &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
+        &mdash; {{ (time .).Format (site.Params.time_format | default "3:04 PM") }}
         {{ end }}
       {{ end }}
     </span>

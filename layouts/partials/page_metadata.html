@@ -19,9 +19,9 @@
 
   {{ if not (in (slice "talk" "page") $.Type) }}
   <span class="article-date">
-    {{ $date := $.Lastmod.Format $.Site.Params.date_format }}
+    {{ $date := $.Lastmod.Format site.Params.date_format }}
     {{ if eq $.Type "publication" }}
-      {{ $date = $.Date.Format ($.Site.Params.publications.date_format | default "January, 2006") }}
+      {{ $date = $.Date.Format (site.Params.publications.date_format | default "January, 2006") }}
     {{ else }}
       {{ if ne $.Params.Lastmod $.Params.Date }}
           {{ i18n "last_updated" }}
@@ -42,15 +42,15 @@
   </span>
   {{ end }}
 
-  {{ if and (eq $.Type "post") (not (or (eq $.Site.Params.reading_time false) (eq $.Params.reading_time false))) }}
+  {{ if and (eq $.Type "post") (not (or (eq site.Params.reading_time false) (eq $.Params.reading_time false))) }}
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     {{ $.ReadingTime }} {{ i18n "minute_read" }}
   </span>
   {{ end }}
 
-  {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments (eq $.Params.comments false))) }}
-  {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
+  {{ $comments_enabled := and site.DisqusShortname (not (or site.Params.disable_comments (eq $.Params.comments false))) }}
+  {{ if and $comments_enabled (site.Params.comment_count | default true) }}
   <span class="middot-divider"></span>
   <a href="{{ $.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
@@ -62,7 +62,7 @@
   <span class="article-categories">
     <i class="fas fa-folder"></i>
     {{ range $k, $v := $.Params.categories }}
-    <a href="{{ ($.Site.GetPage (printf "categories/%s" .)).RelPermalink }}">{{ . }}</a>
+    <a href="{{ (site.GetPage (printf "categories/%s" .)).RelPermalink }}">{{ . }}</a>
     {{- if lt $k (sub $categoriesLen 1) -}}, {{ end }}
     {{ end }}
   </span>

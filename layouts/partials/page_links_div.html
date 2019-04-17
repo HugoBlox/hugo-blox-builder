@@ -1,19 +1,20 @@
 {{/* Div wrapper around page links. */}}
 {{/* The wrapper is hidden when the page has no link buttons. */}}
 
+{{ $page := . }}
 {{ $pdf_link := false }}
 {{ $cite_link := false }}
 
 {{ $slug := "" }}
-{{ if eq $.File.TranslationBaseName "index" }}{{/* Check if using dir-based page bundles. */}}
-  {{ $slug = delimit (last 1 (split (substr $.Dir 0 -1) "/")) "" }}
+{{ if eq $page.File.TranslationBaseName "index" }}{{/* Check if using dir-based page bundles. */}}
+  {{ $slug = delimit (last 1 (split (substr $page.File.Dir 0 -1) "/")) "" }}
 {{ end }}
-{{ $resource := $.Resources.GetMatch (printf "%s.pdf" $slug) }}
+{{ $resource := $page.Resources.GetMatch (printf "%s.pdf" $slug) }}
 {{ with $resource }}
   {{ $pdf_link = true }}
 {{ end }}
 
-{{ $resource := $.Resources.GetMatch "*.bib" }}
+{{ $resource := $page.Resources.GetMatch "*.bib" }}
 {{ with $resource }}
   {{ $cite_link = true }}
 {{ end }}
@@ -23,6 +24,6 @@
   {{ with .Params.external_link }}
   <a class="btn btn-outline-primary my-1" href="{{ . }}" target="_blank" rel="noopener">{{ i18n "open_project_site" }}</a>
   {{ end }}
-  {{ partial "page_links" (dict "content" . "is_list" 0) }}
+  {{ partial "page_links" (dict "page" $page "is_list" 0) }}
 </div>
 {{ end }}

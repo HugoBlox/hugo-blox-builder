@@ -1,25 +1,42 @@
 name = "Academic"
 license = "MIT"
 licenselink = "https://github.com/gcushen/hugo-academic/blob/master/LICENSE.md"
-description = "The website designer for Hugo. Build anything and deploy with one click! Fully customizable with themes, plugins, and language packs."
+description = "The website builder for Hugo. Build *anything* with widgets and deploy with one click! Fully personalize your site with themes, plugins, and language packs."
 homepage = "https://sourcethemes.com/academic/"
-min_version = "0.53"
-tags = ["academic",
+min_version = "0.55"
+tags = ["widgets",
+        "resume",
         "portfolio",
         "responsive",
-        "student",
+        "clean",
         "personal",
-        "university",
+        "company",
         "blog",
-        "minimal"
+        "minimal",
+        "light",
+        "dark",
+        "multilingual",
+        "documentation",
+        "landing page",
+        "projects",
+        "single page",
+        "contact form",
+        "mobile",
+        "gallery",
+        "search",
+        "presentation",
+        "simple",
+        "minimalist",
+        "starter",
+        "modern",
+        "one page",
+        "customizable",
+        "technical",
+        "product",
+        "slide"
         ]
-features = ["academic profile",
-            "research publication system",
-            "projects",
-            "blog",
-            "teaching",
-            "contact"
-            ]
+features = ["page builder", "widgets", "themes", "search", "research publication system", "filterable portfolio",
+            "blog", "create courses", "talks", "events", "slides", "gallery", "contact form"]
 
 [author]
   name = "George Cushen"

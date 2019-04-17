@@ -5,7 +5,7 @@
 
 [build.environment]
   HUGO_THEME = "repo"
-  HUGO_VERSION = "0.53"
+  HUGO_VERSION = "0.55.2"
   HUGO_ENABLEGITINFO = "true"
 
 [context.production.environment]

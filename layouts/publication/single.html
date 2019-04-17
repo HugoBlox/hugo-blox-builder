@@ -21,7 +21,7 @@
             {{ partial "pub_types.html" $ }}
             {{ $pub_types := $.Scratch.Get "pub_types" }}
             {{ range $index, $pubtype := .Params.publication_types }}
-            <a href="{{ ($.Site.GetPage "section" "publication").RelPermalink }}#{{ . | urlize }}">
+            <a href="{{ (site.GetPage "section" "publication").RelPermalink }}#{{ . | urlize }}">
               {{ index $pub_types (int .) }}
             </a>
             {{ end }}

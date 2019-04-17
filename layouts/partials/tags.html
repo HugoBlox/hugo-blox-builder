@@ -3,7 +3,7 @@
 {{ if gt $tagsLen 0 }}
 <div class="article-tags">
   {{ range $k, $v := $.Params.tags }}
-  <a class="badge badge-light" href="{{ ($.Site.GetPage (printf "tags/%s" .)).RelPermalink }}">{{ . }}</a>
+  <a class="badge badge-light" href="{{ (site.GetPage (printf "tags/%s" .)).RelPermalink }}">{{ . }}</a>
   {{ end }}
 </div>
 {{ end }}

@@ -15,12 +15,12 @@
 {{ end }}
 
 {{ $person_page_path := (printf "/author/%s" $author_urlize) }}
-{{ $person_page := $.Site.GetPage $person_page_path }}
+{{ $person_page := site.GetPage $person_page_path }}
 {{ with $person_page }}
 {{ $link := printf "/authors/%s" $author_urlize | relURL }}
 {{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
 <div class="media author-card" itemscope itemtype="http://schema.org/Person">
-  {{ if and $.Site.Params.gravatar .Params.email }}
+  {{ if and site.Params.gravatar .Params.email }}
   <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" itemprop="image" alt="Avatar">
   {{ else if $avatar }}
   {{ $avatar_image := $avatar.Fill "250x250 Center" }}

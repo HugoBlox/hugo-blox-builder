@@ -42,8 +42,8 @@
     {{ end }}
 
     {{/* Comments JS. */}}
-    {{ $comments_enabled := and $.Site.DisqusShortname (not (or $.Site.Params.disable_comments $.Params.disable_comments)) }}
-    {{ if and $comments_enabled ($.Site.Params.comment_count | default true) }}
+    {{ $comments_enabled := and site.DisqusShortname (not (or site.Params.disable_comments $.Params.disable_comments)) }}
+    {{ if and $comments_enabled (site.Params.comment_count | default true) }}
     <script id="dsq-count-scr" src="//{{ .Site.DisqusShortname }}.disqus.com/count.js" async></script>
     {{ end }}
 
@@ -78,7 +78,7 @@
     </script>
     {{ end }}
 
-    {{ if eq $.Site.Params.search.engine 1 }}
+    {{ if eq site.Params.search.engine 1 }}
     {{/* Fuse search result template. */}}
     <script id="search-hit-fuse-template" type="text/x-template">
       <div class="search-hit" id="summary-{{"{{key}}"}}">
@@ -91,7 +91,7 @@
       </div>
       </div>
     </script>
-    {{ else if eq $.Site.Params.search.engine 2 }}
+    {{ else if eq site.Params.search.engine 2 }}
     {{/* Algolia search result template. */}}
     <script id="search-hit-algolia-template" type="text/html">
       <div class="search-hit">
@@ -135,7 +135,7 @@
     {{ $js_bundle := slice }}
     {{ if eq .Site.Params.search.engine 1 }}
       {{ $js_bundle = slice $js_academic $js_academic_search }}
-    {{ else if eq $.Site.Params.search.engine 2 }}
+    {{ else if eq site.Params.search.engine 2 }}
       {{ $js_bundle = slice $js_academic $js_algolia_search }}
     {{ else }}
       {{ $js_bundle = slice $js_academic }}
