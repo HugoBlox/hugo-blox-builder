@@ -20,12 +20,12 @@
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "date" }}</div>
           <div class="col-12 col-md-9" itemprop="datePublished">
             {{ $date := .Date }}
-            {{ (time $date).Format $.Site.Params.date_format }}
+            {{ (time $date).Format site.Params.date_format }}
             <div class="talk-time">
               {{ if not .Params.all_day }}
-                {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+                {{ (time $date).Format (site.Params.time_format | default "3:04 PM") }}
                 {{ with .Params.date_end }}
-                  &mdash; {{ (time .).Format ($.Site.Params.time_format | default "3:04 PM") }}
+                  &mdash; {{ (time .).Format (site.Params.time_format | default "3:04 PM") }}
                 {{ end }}
               {{ end }}
             </div>

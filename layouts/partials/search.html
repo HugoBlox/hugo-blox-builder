@@ -12,7 +12,7 @@
       </div>
 
       <div id="search-box">
-        {{ if eq $.Site.Params.search.engine 1 }}
+        {{ if eq site.Params.search.engine 1 }}
         <input name="q" id="search-query" placeholder="{{i18n "search_placeholder"}}" autocapitalize="off"
         autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
         {{ else }}

@@ -10,14 +10,14 @@
     <span><i class="fas fa-bars"></i></span>
   </button>
 
-  {{ if eq $.Site.Params.search.engine 1 }}
+  {{ if eq site.Params.search.engine 1 }}
   <input name="q" type="search" class="form-control" id="search-query" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
   {{ end }}
 </form>
 
 <nav class="collapse docs-links" id="docs-nav">
   {{ with (index .Site.Menus $menu_name) }}
-  {{ range (index $.Site.Menus $menu_name).ByWeight }}
+  {{ range (index site.Menus $menu_name).ByWeight }}
   <div class="docs-toc-item{{ if $current_page.IsMenuCurrent $menu_name . }} active{{ end }}">
     <a class="docs-toc-link" {{ if .URL }}href="{{ .URL }}"{{else if .HasChildren }}href="{{ (index .Children 0).URL }}"{{end}}>{{ .Name }}</a>
 

@@ -74,22 +74,20 @@ You can choose from one of the following four methods to install:
   * One-click install of Academic creates an `academic-kickstart` repository in your GitHub or GitLab account
   * Netlify will provide you with a customizable URL to access your new site, [or get your own domain](https://sourcethemes.com/academic/docs/domain/)
   * Shortly after editing content in your repository, your site will automatically update
-  * Optionally, use [Git](https://git-scm.com/downloads) to clone your new repository to your computer for offline editing
+  * Optionally, to edit your site in a [Markdown editor](https://www.typora.io) on your computer, perform the steps in the [*Install with Git*](#install-with-git) section below
 
 ### Install with Git
 
 Prerequisites:
 
 * [Download and install Git](https://git-scm.com/downloads)
-* [Download and install Hugo v0.53](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo v0.55.2+](https://gohugo.io/getting-started/installing/#quick-install)
 
 Install:
 
-1. [Fork](https://github.com/sourcethemes/academic-kickstart#fork-destination-box) the *Academic Kickstart* repository and clone your fork with Git: 
+1. [Fork](https://github.com/sourcethemes/academic-kickstart#fork-destination-box) the *Academic Kickstart* repository and clone your fork with Git, replacing `sourcethemes` with your GitHub username (unless you wish to clone without forking): 
 
        git clone https://github.com/sourcethemes/academic-kickstart.git My_Website
-    
-    *Note that if you forked Academic Kickstart, the above command should be edited to clone your fork, i.e. replace `sourcethemes` with your GitHub username.*
 
 2. Initialize the theme:
 
@@ -100,7 +98,7 @@ Install:
 
 Prerequisites:
 
-* [Download and install Hugo v0.53](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo v0.55.2+](https://gohugo.io/getting-started/installing/#quick-install)
 
 Install:
 

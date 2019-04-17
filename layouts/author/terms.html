@@ -12,7 +12,7 @@
     {{ $paginator := .Paginate .Data.Pages }}
     {{ range $k, $v := $paginator.Pages }}
       {{ $person_page_path := (printf "/author/%s" (urlize $v.Title)) }}
-      {{ $person_page := $.Site.GetPage $person_page_path }}
+      {{ $person_page := site.GetPage $person_page_path }}
       {{ $name := "" }}
       {{ if $person_page }}
         {{ $person := $person_page.Params }}

@@ -9,7 +9,7 @@
 {{end}}
 
 {{ $person_page_path := (printf "/author/%s" (urlize $author)) }}
-{{ $person_page := $.Site.GetPage $person_page_path }}
+{{ $person_page := site.GetPage $person_page_path }}
 {{ if not $person_page }}
   {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist." $person_page_path }}
 {{end}}
@@ -17,11 +17,11 @@
 {{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
 
 <!-- About widget -->
-<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person" itemref="{{ if $.Site.Params.email }}person-email{{ end }}{{ if $.Site.Params.phone }} person-telephone{{ end }}{{ if $.Site.Params.address}} person-address{{ end }}">
+<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person" itemref="{{ if site.Params.email }}person-email{{ end }}{{ if site.Params.phone }} person-telephone{{ end }}{{ if site.Params.address}} person-address{{ end }}">
   <div class="col-12 col-lg-4">
     <div id="profile">
 
-      {{ if $.Site.Params.gravatar }}
+      {{ if site.Params.gravatar }}
       <img class="portrait" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=200')" itemprop="image" alt="Avatar">
       {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "250x250 Center" }}

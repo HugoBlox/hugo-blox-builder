@@ -5,10 +5,10 @@
   {{ range $k, $v := $.Params.authors -}}
     <span itemscope itemprop="author" itemtype="http://schema.org/Person">
       <span itemprop="name">
-        {{ $link := ($.Site.GetPage (printf "/authors/%s" $v)).RelPermalink }}
+        {{ $link := (site.GetPage (printf "/authors/%s" (urlize $v))).RelPermalink }}
 
       {{ $person_page_path := (printf "/author/%s" (urlize $v)) }}
-      {{ $person_page := $.Site.GetPage $person_page_path }}
+      {{ $person_page := site.GetPage $person_page_path }}
       {{ if $person_page }}
         {{ $person := $person_page.Params }}
         {{- printf "<a href=\"%s\">%s</a>" $link $person.name | safeHTML -}}

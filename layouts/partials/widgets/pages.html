@@ -14,20 +14,20 @@
 {{ $items_sort := $st.Params.content.order | default "desc" }}
 
 {{/* Query */}}
-{{ $query := where $.Site.RegularPages "Type" $items_type }}
-{{ $archive_page := $.Site.GetPage "Section" $items_type }}
+{{ $query := where site.RegularPages "Type" $items_type }}
+{{ $archive_page := site.GetPage "Section" $items_type }}
 
 {{/* Filters */}}
 {{ if $st.Params.content.filters.tag }}
-  {{ $archive_page = $.Site.GetPage (printf "tags/%s" $st.Params.content.filters.tag) }}
+  {{ $archive_page = site.GetPage (printf "tags/%s" $st.Params.content.filters.tag) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 {{ if $st.Params.content.filters.category }}
-  {{ $archive_page = $.Site.GetPage (printf "categories/%s" $st.Params.content.filters.category) }}
+  {{ $archive_page = site.GetPage (printf "categories/%s" $st.Params.content.filters.category) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 {{ if $st.Params.content.filters.publication_type }}
-  {{ $archive_page = $.Site.GetPage (printf "publication_types/%s" $st.Params.content.filters.publication_type) }}
+  {{ $archive_page = site.GetPage (printf "publication_types/%s" $st.Params.content.filters.publication_type) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 {{ if $st.Params.content.filters.exclude_featured }}

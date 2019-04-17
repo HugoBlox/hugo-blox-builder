@@ -17,10 +17,10 @@
     {{ if eq $page.Params.email_form 1 }}
       {{ $post_action = "netlify" }}
     {{ else }}
-      {{ if not $.Site.Params.email }}
+      {{ if not site.Params.email }}
         {{ errorf "Please set an email address for the contact form using the `email` parameter in `config.toml`. Otherwise, set `email_form = 0` to disable the contact form." }}
       {{ end }}
-      {{ $post_action = printf "action=\"https://formspree.io/%s\"" $.Site.Params.email }}
+      {{ $post_action = printf "action=\"https://formspree.io/%s\"" site.Params.email }}
     {{end}}
 
     <div class="mb-3">
@@ -44,16 +44,16 @@
 
     <ul class="fa-ul" itemscope>
 
-      {{ if and $.Site.Params.email (not $page.Params.email_form) }}
+      {{ if and site.Params.email (not $page.Params.email_form) }}
       <li>
         <i class="fa-li fas fa-envelope fa-2x" aria-hidden="true"></i>
         <span id="person-email" itemprop="email">
-        {{- if $autolink }}<a href="mailto:{{ $.Site.Params.email }}">{{ $.Site.Params.email }}</a>{{ else }}{{ $.Site.Params.email }}{{ end -}}
+        {{- if $autolink }}<a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>{{ else }}{{ site.Params.email }}{{ end -}}
         </span>
       </li>
       {{ end }}
 
-      {{ with $.Site.Params.phone }}
+      {{ with site.Params.phone }}
       <li>
         <i class="fa-li fas fa-phone fa-2x" aria-hidden="true"></i>
         <span id="person-telephone" itemprop="telephone">
@@ -62,21 +62,21 @@
       </li>
       {{ end }}
 
-      {{ with $.Site.Params.address }}
+      {{ with site.Params.address }}
       <li>
         <i class="fa-li fas fa-map-marker fa-2x" aria-hidden="true"></i>
         <span id="person-address" itemprop="address">{{ . | markdownify | emojify }}</span>
       </li>
       {{ end }}
 
-      {{ with $.Site.Params.office_hours }}
+      {{ with site.Params.office_hours }}
       <li>
         <i class="fa-li fas fa-clock fa-2x" aria-hidden="true"></i>
         <span>{{ . | markdownify | emojify }}</span>
       </li>
       {{ end }}
 
-      {{ with $.Site.Params.appointment_url }}
+      {{ with site.Params.appointment_url }}
       <li>
         <i class="fa-li fas fa-calendar-check fa-2x" aria-hidden="true"></i>
         <a href="{{ . }}" target="_blank" rel="noopener">{{ i18n "book_appointment" | default "Book an appointment" }}</a>
@@ -84,7 +84,7 @@
       {{ end }}
 
       {{/* Contact links. */}}
-      {{ range $.Site.Params.contact_links }}
+      {{ range site.Params.contact_links }}
       {{ $pack := or .icon_pack "fas" }}
       {{ $pack_prefix := $pack }}
       {{ if in (slice "fab" "fas" "far" "fal") $pack }}
@@ -106,14 +106,14 @@
 
     </ul>
 
-    {{ if $.Site.Params.map }}
+    {{ if site.Params.map }}
     <div class="d-none">
-      <input id="map-provider" value="{{ $.Site.Params.map }}">
-      <input id="map-lat" value="{{ $.Site.Params.latitude }}">
-      <input id="map-lng" value="{{ $.Site.Params.longitude }}">
-      <input id="map-dir" value="{{ $.Site.Params.address }}">
-      <input id="map-zoom" value="{{ $.Site.Params.zoom | default "15" }}">
-      <input id="map-api-key" value="{{ $.Site.Params.map_api_key }}">
+      <input id="map-provider" value="{{ site.Params.map }}">
+      <input id="map-lat" value="{{ site.Params.latitude }}">
+      <input id="map-lng" value="{{ site.Params.longitude }}">
+      <input id="map-dir" value="{{ site.Params.address }}">
+      <input id="map-zoom" value="{{ site.Params.zoom | default "15" }}">
+      <input id="map-api-key" value="{{ site.Params.map_api_key }}">
     </div>
     <div id="map"></div>
     {{ end }}

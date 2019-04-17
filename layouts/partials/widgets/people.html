@@ -11,7 +11,7 @@
 
   {{ with $page.Content }}
   <div class="col-md-12">
-    <p>{{ . | markdownify }}</p>
+    <p>{{ . }}</p>
   </div>
   {{ end }}
 
@@ -20,18 +20,18 @@
     <h2 class="mb-4">{{ . | markdownify }}</h2>
   </div>
 
-  {{ $query := where (where $.Site.Pages "Section" "author") ".Params.user_groups" "intersect" (slice .) }}
+  {{ $query := where (where site.Pages "Section" "author") ".Params.user_groups" "intersect" (slice .) }}
   {{ range $query }}
 
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
   {{/* Get link to user's profile page. */}}
   {{ $link := "" }}
-  {{ with $.Site.GetPage (printf "/authors/%s" (path.Base (path.Split .Path).Dir)) }}
+  {{ with site.GetPage (printf "/authors/%s" (path.Base (path.Split .Path).File.Dir)) }}
     {{ $link = .RelPermalink }}
   {{ end }}
   <div class="col-12 col-sm-auto people-person">
     {{ $src := "" }}
-    {{ if $.Site.Params.gravatar }}
+    {{ if site.Params.gravatar }}
       {{ $src = printf "https://s.gravatar.com/avatar/%s?s=200" (md5 .Params.email) }}
     {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "150x150 Center" }}

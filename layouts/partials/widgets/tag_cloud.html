@@ -3,28 +3,28 @@
 
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+    <h1>{{ with $page.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
+    {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>
   <div class="col-12 col-lg-8">
-    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with $page.Content }}<p>{{ . }}</p>{{ end }}
 
-    {{ if not (eq (len $.Site.Taxonomies.tags) 0) }}
+    {{ if not (eq (len site.Taxonomies.tags) 0) }}
       {{ $fontSmall := 0.8 }}
       {{ $fontBig := 2.5 }}
 
       {{ $fontDelta := sub $fontBig $fontSmall }}
-      {{ $min := len (index $.Site.Taxonomies.tags.ByCount.Reverse 0).Pages }}
-      {{ $max := add (len (index $.Site.Taxonomies.tags.ByCount 0).Pages) 1 }}
+      {{ $min := len (index site.Taxonomies.tags.ByCount.Reverse 0).Pages }}
+      {{ $max := add (len (index site.Taxonomies.tags.ByCount 0).Pages) 1 }}
       {{ $delta := sub $max $min }}
       {{ $fontStep := div $fontDelta $delta }}
 
       <div class="tag-cloud">
-        {{ range $name, $taxonomy := $.Site.Taxonomies.tags }}
+        {{ range $name, $taxonomy := site.Taxonomies.tags }}
           {{ $tagCount := len $taxonomy.Pages }}
           {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
           {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
-          <a href="{{ ($.Site.GetPage (printf "tags/%s" $name)).RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ $name }}</a>
+          <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ $name }}</a>
         {{ end }}
       </div>
     {{ end }}

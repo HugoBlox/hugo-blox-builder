@@ -40,7 +40,6 @@ paginate = 10  # Number of items per page in paginated lists.
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
 ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-preserveTaxonomyNames = true
 
 [outputs]
   home = [ "HTML", "CSS", "RSS", "JSON" ]

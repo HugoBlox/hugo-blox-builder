@@ -4,7 +4,7 @@
 {{- /* Add the index page of docs separately since it's not in RegularPages above. */ -}}
 {{- $pages := $pages | union (where (where .Site.Pages "Kind" "section") "Type" "docs") -}}
 {{- /* Add author pages to index so their bios can be searched. Hide empty `/author/` node. */ -}}
-{{- $pages := $pages | union (where (where $.Site.Pages "Section" "author") "Params.name" "!=" nil) -}}
+{{- $pages := $pages | union (where (where site.Pages "Section" "author") "Params.name" "!=" nil) -}}
 
 {{- range $pages -}}
   {{- /* Do not index drafts or private pages. */ -}}
@@ -29,7 +29,7 @@
     {{- if eq .Section "author" -}}
       {{- $title = .Params.name -}}
       {{- $dir := path.Base (path.Split .Path).Dir -}}
-      {{- with $.Site.GetPage (printf "/authors/%s" (path.Base (path.Split .Path).Dir)) -}}
+      {{- with site.GetPage (printf "/authors/%s" (path.Base (path.Split .Path).Dir)) -}}
         {{- $permalink = .Permalink -}}
         {{- $rel_permalink = .RelPermalink -}}
       {{- end -}}
@@ -41,7 +41,7 @@
           {{- $authors = slice -}}
             {{- range $k, $v := .Params.authors -}}
               {{- $person_page_path := (printf "/author/%s" (urlize $v)) -}}
-              {{- $person_page := $.Site.GetPage $person_page_path -}}
+              {{- $person_page := site.GetPage $person_page_path -}}
               {{- if $person_page -}}
                 {{- $person := $person_page.Params -}}
                 {{- $authors = $authors | append $person.name -}}
@@ -54,7 +54,7 @@
     {{- end -}}
 
     {{- /* Add page to index. */ -}}
-    {{- $index = $index | append (dict "objectID" .UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" $permalink "relpermalink" $rel_permalink "title" $title "summary" (plainify $desc) "content" .Plain "authors" $authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories) -}}
+    {{- $index = $index | append (dict "objectID" .File.UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" $permalink "relpermalink" $rel_permalink "title" $title "summary" (plainify $desc) "content" .Plain "authors" $authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories) -}}
 
   {{- end -}}
 {{- end -}}
