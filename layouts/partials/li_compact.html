@@ -66,13 +66,13 @@
         {{ partial "page_metadata_authors" $item }}
       </div>
       {{ else if not $show_authors_only }}
-        {{ partial "page_metadata" (dict "content" $item "is_list" 1) }}
+        {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
       {{ end }}
     </div>
 
     {{ if $show_buttons }}
     <div class="btn-links">
-      {{ partial "page_links" (dict "content" $item "is_list" 1) }}
+      {{ partial "page_links" (dict "page" $item "is_list" 1) }}
     </div>
     {{ end }}
 

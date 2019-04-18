@@ -51,7 +51,7 @@
     {{ end }}
   </div>
   {{ else }}
-    {{ partial "page_metadata" (dict "content" $item "is_list" 1) }}
+    {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
   {{ end }}
 
   {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
@@ -75,7 +75,7 @@
 
   {{ if $show_buttons }}
   <div class="btn-links">
-    {{ partial "page_links" (dict "content" $item "is_list" 1) }}
+    {{ partial "page_links" (dict "page" $item "is_list" 1) }}
   </div>
   {{ end }}
 
