@@ -14,7 +14,7 @@
   {{ else if .Params.publication }}
   {{- .Params.publication | markdownify -}}.
   {{ end }}
-  <p>{{ partial "page_links" (dict "content" . "is_list" 1) }}</p>
+  <p>{{ partial "page_links" (dict "page" . "is_list" 1) }}</p>
 
   {{/* MLA Style */}}
   {{ else }}
@@ -29,7 +29,7 @@
   {{- .Params.publication | markdownify -}},
   {{ end }}
   {{- .Date.Format "2006" -}}.
-  <p>{{ partial "page_links" (dict "content" . "is_list" 1) }}</p>
+  <p>{{ partial "page_links" (dict "page" . "is_list" 1) }}</p>
 
   {{ end }}
 </div>
