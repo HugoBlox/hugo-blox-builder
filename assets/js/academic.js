@@ -311,8 +311,8 @@
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').removeClass('dark');
       if (codeHlEnabled) {
-        codeHlLight.disabled = true;
-        codeHlDark.disabled = false;
+        codeHlLight.disabled = false;
+        codeHlDark.disabled = true;
       }
       $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
       localStorage.setItem('dark_mode', '0');
@@ -320,8 +320,8 @@
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').addClass('dark');
       if (codeHlEnabled) {
-        codeHlLight.disabled = false;
-        codeHlDark.disabled = true;
+        codeHlLight.disabled = true;
+        codeHlDark.disabled = false;
       }
       $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
       localStorage.setItem('dark_mode', '1');
