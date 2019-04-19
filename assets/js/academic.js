@@ -306,33 +306,24 @@
   * Toggle day/night mode.
   * --------------------------------------------------------------------------- */
 
-  function toggleDarkMode() {
-    let light_sheet = $('link[title=hl-light]')[0];
-    let dark_sheet = $('link[title=hl-dark]')[0];
-
+  function toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark) {
     if ($('body').hasClass('dark')) {
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').removeClass('dark');
-      if (light_sheet) {
-        light_sheet.disabled = true;
+      if (codeHlEnabled) {
+        codeHlLight.disabled = true;
+        codeHlDark.disabled = false;
       }
-      if (dark_sheet) {
-        dark_sheet.disabled = false;
-      }
-      $('.js-dark-toggle i').removeClass('fa-sun');
-      $('.js-dark-toggle i').addClass('fa-moon');
+      $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
       localStorage.setItem('dark_mode', '0');
     } else {
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').addClass('dark');
-      if (light_sheet) {
-        light_sheet.disabled = false;
+      if (codeHlEnabled) {
+        codeHlLight.disabled = false;
+        codeHlDark.disabled = true;
       }
-      if (dark_sheet) {
-        dark_sheet.disabled = true;
-      }
-      $('.js-dark-toggle i').removeClass('fa-moon');
-      $('.js-dark-toggle i').addClass('fa-sun');
+      $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
       localStorage.setItem('dark_mode', '1');
     }
   }
@@ -349,30 +340,32 @@
     }
     let dark_mode = parseInt(localStorage.getItem('dark_mode') || default_mode);
 
-    let light_sheet = $('link[title=hl-light]')[0];
-    let dark_sheet = $('link[title=hl-dark]')[0];
+    // Is code highlighting enabled in site config?
+    const codeHlEnabled = $('link[title=hl-light]').length > 0;
+    const codeHlLight = $('link[title=hl-light]')[0];
+    const codeHlDark = $('link[title=hl-dark]')[0];
 
     if (dark_mode) {
       $('body').addClass('dark');
-      if (light_sheet) {
-        light_sheet.disabled = true;
+      if (codeHlEnabled) {
+        codeHlLight.disabled = true;
+        codeHlDark.disabled = false;
       }
-      if (dark_sheet) {
-        dark_sheet.disabled = false;
-      }
-      $('.js-dark-toggle i').removeClass('fa-moon');
-      $('.js-dark-toggle i').addClass('fa-sun');
+      $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
     } else {
       $('body').removeClass('dark');
-      if (light_sheet) {
-        light_sheet.disabled = false;
+      if (codeHlEnabled) {
+        codeHlLight.disabled = false;
+        codeHlDark.disabled = true;
       }
-      if (dark_sheet) {
-        dark_sheet.disabled = true;
-      }
-      $('.js-dark-toggle i').removeClass('fa-sun');
-      $('.js-dark-toggle i').addClass('fa-moon');
+      $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
     }
+
+    // Toggle day/night mode.
+    $('.js-dark-toggle').click(function(e) {
+      e.preventDefault();
+      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark);
+    });
   });
 
   /* ---------------------------------------------------------------------------
@@ -512,12 +505,6 @@
         e.preventDefault();
         toggleSearchDialog();
       }
-    });
-
-    // Toggle day/night mode.
-    $('.js-dark-toggle').click(function(e) {
-      e.preventDefault();
-      toggleDarkMode();
     });
 
   });
