@@ -335,6 +335,10 @@
   $(document).ready(function() {
     // Set dark mode if user chose it.
     let default_mode = 0;
+    // Check whether it is in dark mode on macOS (with Safari)
+    if (window.matchMedia("(prefers-color-scheme: dark)")){
+      default_mode = 1;
+    }
     if ($('body').hasClass('dark')) {
       default_mode = 1;
     }
