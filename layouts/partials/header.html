@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic {{ .Site.Data.academic.version }}">
-  {{ .Hugo.Generator }}
 
   {{ $scr := .Scratch }}
 
@@ -14,7 +13,7 @@
   {{ $superuser_name := "" }}
   {{ $superuser_username := "" }}
   {{ $superuser_role := "" }}
-  {{ range first 1 (where (where $.Site.Pages "Section" "author") "Params.superuser" true) }}
+  {{ range first 1 (where (where site.Pages "Section" "author") "Params.superuser" true) }}
     {{ $superuser_name = .Params.name }}
     {{ $superuser_username = delimit (last 1 (split (substr .File.Dir 0 -1) "/")) "" }}
     {{ $superuser_role = .Params.role }}
@@ -74,7 +73,8 @@
     {{ if ($scr.Get "highlight_enabled") }}
       {{ $v := $css.highlight.version }}
       {{ with .Site.Params.highlight_style }}
-        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" disabled>" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
       {{ else }}
         {{ if eq ($scr.Get "light") true }}
           {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\">" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
@@ -133,9 +133,9 @@
   {{ end }}
   {{ end }}
 
-  {{ if or .Site.RSSLink .RSSLink }}
-  <link rel="alternate" href="{{ .RSSLink | default .Site.RSSLink  }}" type="application/rss+xml" title="{{ .Site.Title }}">
-  <link rel="feed" href="{{ .RSSLink | default .Site.RSSLink }}" type="application/rss+xml" title="{{ .Site.Title }}">
+  {{ with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}">
+  <link rel="feed" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}">
   {{ end }}
 
   <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
@@ -154,7 +154,7 @@
   {{ else if .Site.Params.sharing_image }}
     {{ $og_image = printf "img/%s" .Site.Params.sharing_image | absURL }}
   {{ else if .Site.Params.avatar }}
-    {{ $og_image = (printf "img/%s" $.Site.Params.avatar) | absURL }}
+    {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}
     {{ $twitter_card = "summary" }}
   {{ else }}
     {{ $og_image = "img/icon-192.png" | absURL }}
