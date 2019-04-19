@@ -1,15 +1,15 @@
 {{ $is_list := .is_list }}
 {{ $share := .share | default false }}
-{{ $ := .content }}
+{{ $page := .page }}
 
-<meta content="{{ $.Params.Date }}" itemprop="datePublished">
-<meta content="{{ $.Params.LastMod }}" itemprop="dateModified">
+<meta content="{{ $page.Params.Date }}" itemprop="datePublished">
+<meta content="{{ $page.Params.LastMod }}" itemprop="dateModified">
 
 <div class="article-metadata">
 
   {{/* If `authors` is set and is not empty. */}}
-  {{ if $.Params.authors }}
-  {{ $authorLen := len $.Params.authors }}
+  {{ if $page.Params.authors }}
+  {{ $authorLen := len $page.Params.authors }}
   {{ if gt $authorLen 0 }}
   <div>
     {{ partial "page_metadata_authors" $ }}
@@ -17,13 +17,13 @@
   {{ end }}
   {{ end }}
 
-  {{ if not (in (slice "talk" "page") $.Type) }}
+  {{ if not (in (slice "talk" "page") $page.Type) }}
   <span class="article-date">
-    {{ $date := $.Lastmod.Format site.Params.date_format }}
-    {{ if eq $.Type "publication" }}
-      {{ $date = $.Date.Format (site.Params.publications.date_format | default "January, 2006") }}
+    {{ $date := $page.Lastmod.Format site.Params.date_format }}
+    {{ if eq $page.Type "publication" }}
+      {{ $date = $page.Date.Format (site.Params.publications.date_format | default "January, 2006") }}
     {{ else }}
-      {{ if ne $.Params.Lastmod $.Params.Date }}
+      {{ if ne $page.Params.Lastmod $page.Params.Date }}
           {{ i18n "last_updated" }}
       {{ end }}
     {{ end }}
@@ -31,37 +31,37 @@
   </span>
   {{ end }}
 
-  {{ if and (eq $is_list 1) (eq $.Type "publication") }}
+  {{ if and (eq $is_list 1) (eq $page.Type "publication") }}
   <span class="middot-divider"></span>
   <span class="pub-publication">
-    {{ if $.Params.publication_short }}
-      {{ $.Params.publication_short | markdownify }}
-    {{ else if $.Params.publication }}
-      {{ $.Params.publication | markdownify }}
+    {{ if $page.Params.publication_short }}
+      {{ $page.Params.publication_short | markdownify }}
+    {{ else if $page.Params.publication }}
+      {{ $page.Params.publication | markdownify }}
     {{ end }}
   </span>
   {{ end }}
 
-  {{ if and (eq $.Type "post") (not (or (eq site.Params.reading_time false) (eq $.Params.reading_time false))) }}
+  {{ if and (eq $page.Type "post") (not (or (eq site.Params.reading_time false) (eq $page.Params.reading_time false))) }}
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    {{ $.ReadingTime }} {{ i18n "minute_read" }}
+    {{ $page.ReadingTime }} {{ i18n "minute_read" }}
   </span>
   {{ end }}
 
-  {{ $comments_enabled := and site.DisqusShortname (not (or site.Params.disable_comments (eq $.Params.comments false))) }}
+  {{ $comments_enabled := and site.DisqusShortname (not (or site.Params.disable_comments (eq $page.Params.comments false))) }}
   {{ if and $comments_enabled (site.Params.comment_count | default true) }}
   <span class="middot-divider"></span>
-  <a href="{{ $.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+  <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
-  {{ if $.Params.categories }}
-  {{ $categoriesLen := len $.Params.categories }}
+  {{ if $page.Params.categories }}
+  {{ $categoriesLen := len $page.Params.categories }}
   {{ if gt $categoriesLen 0 }}
   <span class="middot-divider"></span>
   <span class="article-categories">
     <i class="fas fa-folder"></i>
-    {{ range $k, $v := $.Params.categories }}
+    {{ range $k, $v := $page.Params.categories }}
     <a href="{{ (site.GetPage (printf "categories/%s" .)).RelPermalink }}">{{ . }}</a>
     {{- if lt $k (sub $categoriesLen 1) -}}, {{ end }}
     {{ end }}
