@@ -73,7 +73,8 @@
     {{ if ($scr.Get "highlight_enabled") }}
       {{ $v := $css.highlight.version }}
       {{ with .Site.Params.highlight_style }}
-        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" disabled>" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
       {{ else }}
         {{ if eq ($scr.Get "light") true }}
           {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\">" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
