@@ -96,7 +96,7 @@
       {{ if not $scheme }}
         {{ $link = .link | relLangURL }}
       {{ else if in (slice "http" "https") $scheme }}
-        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ $target = "target=\"_blank\" rel=\"noopener me\"" }}
       {{ end }}
       <li>
         <i class="fa-li {{ $pack }} {{ $pack_prefix }}-{{ .icon }} fa-2x" aria-hidden="true"></i>
