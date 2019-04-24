@@ -11,9 +11,9 @@
   </ol>
 
   <!-- Carousel slides wrapper -->
-  <div class="carousel-inner" style="min-height: {{$page.Params.height | default "300px"}};">
+  <div class="carousel-inner">
     {{ range $index, $item := $page.Params.item }}
-    <div class="wg-hero dark carousel-item{{ if eq $index 0 }} active{{ end }}" style="min-height: inherit;
+    <div class="wg-hero dark carousel-item{{ if eq $index 0 }} active{{ end }}" style="
       {{ if $item.overlay_color }}
       background-color: {{ $item.overlay_color | default "transparent" }};
       {{ end }}

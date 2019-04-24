@@ -13,7 +13,6 @@
     {{ else }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.bootstrap.url $js.bootstrap.version) $js.bootstrap.sri | safeHTML }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.isotope.url $js.isotope.version) $js.isotope.sri | safeHTML }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
 
@@ -129,16 +128,16 @@
 
     {{ $js_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" .Site.Data.academic.version }}
     {{ $js_bundle_head := $js_comment | resources.FromString "js/bundle-head.js" }}
+    {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
     {{ $js_academic := resources.Get "js/academic.js" }}
     {{ $js_academic_search := resources.Get "js/academic-search.js" }}
     {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
-    {{ $js_bundle := slice }}
+    {{ $js_bootstrap := resources.Get "js/vendor/bootstrap.min.js" }}
+    {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
     {{ if eq .Site.Params.search.engine 1 }}
-      {{ $js_bundle = slice $js_academic $js_academic_search }}
+      {{ $js_bundle = $js_bundle | append $js_academic_search }}
     {{ else if eq site.Params.search.engine 2 }}
-      {{ $js_bundle = slice $js_academic $js_algolia_search }}
-    {{ else }}
-      {{ $js_bundle = slice $js_academic }}
+      {{ $js_bundle = $js_bundle | append $js_algolia_search }}
     {{ end }}
     {{ range .Site.Params.plugins_js }}
       {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}

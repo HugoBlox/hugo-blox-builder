@@ -329,6 +329,22 @@
   }
 
   /* ---------------------------------------------------------------------------
+  * Normalize Bootstrap Carousel Slide Heights.
+  * --------------------------------------------------------------------------- */
+
+  function normalizeCarouselSlideHeights() {
+    $('.carousel').each(function(){
+      // Get carousel slides.
+      let items = $('.carousel-item', this);
+      // Reset all slide heights.
+      items.css('min-height', 0);
+      // Normalize all slide heights.
+      let maxHeight = Math.max.apply(null, items.map(function(){return $(this).outerHeight()}).get());
+      items.css('min-height', maxHeight + 'px');
+    })
+  }
+
+  /* ---------------------------------------------------------------------------
    * On document ready.
    * --------------------------------------------------------------------------- */
 
@@ -508,5 +524,8 @@
     });
 
   });
+
+  // Normalize Bootstrap carousel slide heights.
+  $(window).on('load resize orientationchange', normalizeCarouselSlideHeights);
 
 })(jQuery);
