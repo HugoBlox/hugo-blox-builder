@@ -9,14 +9,14 @@
  **************************************************/
 
 html {
-  font-family: '{{ .Get "body_font" }}', sans-serif;
-  font-size: {{ .Get "font_size_small" }}px;
+  font-family: $sta-font-body, sans-serif;
+  font-size: #{$sta-font-size-small}px;
   color: rgba(0,0,0,0.8);
   line-height: 1.65;
 }
 @media screen and (min-width: 58em) {
   html {
-    font-size: {{ .Get "font_size" }}px;
+    font-size: #{$sta-font-size}px;
   }
 }
 
@@ -25,7 +25,7 @@ body {
   font-size: 1rem;
   line-height: inherit;
   color: inherit;
-  background-color: {{ .Get "background" }};
+  background-color: $sta-background;
   margin-top: 70px; /* Offset body content by navbar height. */
   padding-top: 0;
   counter-reset: captions;
@@ -63,7 +63,7 @@ ul, ol, dl {
 
 /* Navigation bar text */
 .navbar-light {
-  font-family: '{{ .Get "nav_font" }}', sans-serif;
+  font-family: $sta-font-nav, sans-serif;
   font-weight: 400;
   line-height: 1.25;
   text-rendering: optimizeLegibility;
@@ -71,7 +71,7 @@ ul, ol, dl {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: '{{ .Get "heading_font" }}', sans-serif;
+  font-family: $sta-font-heading, sans-serif;
   font-weight: 400;
   margin-top: 1rem;
   margin-bottom: .5rem;
@@ -109,14 +109,14 @@ h4, h5, h6 {
 
 a,
 h3.article-title a:hover {
-  color: {{ .Get "link" }};
+  color: $sta-link;
   text-decoration: none;
   transition: color 0.6s ease;
 }
 
 a:hover,
 a:focus {
-  color: {{ .Get "link_hover" }};
+  color: $sta-link-hover;
 }
 
 img,
@@ -143,7 +143,7 @@ figcaption {
   line-height: 1.25;
   font-size: 1rem;
   margin-bottom: 1.65rem;
-  font-family: '{{ .Get "heading_font" }}', sans-serif;
+  font-family: $sta-font-heading, sans-serif;
 }
 
 figcaption.numbered:before {
@@ -165,7 +165,7 @@ figcaption h4 {
 
 pre,
 code {
-  font-family: '{{ .Get "mono_font" }}', monospace;
+  font-family: '$sta-font-mono', monospace;
   color: #c7254e;
   background-color: #f9f2f4;
 }
@@ -251,7 +251,7 @@ small,
 .search-results {
   transform: scale(0);
   -webkit-transform: scale(0);
-  background-color: {{ .Get "background" }};
+  background-color: $sta-background;
   bottom: 0;
   left: 0;
   right: 0;
@@ -294,7 +294,7 @@ small,
   position: -webkit-sticky;
   position: sticky;
   top: 70px;  /* Navbar height. */
-  background-color: {{ .Get "background" }};
+  background-color: $sta-background;
   padding-top: 2rem;
   padding-bottom: 1rem;
 }
@@ -372,8 +372,8 @@ small,
 }
 
 .form-control:focus {
-  border-color: {{ .Get "primary" }};
-  box-shadow: 0 0 0 .2rem {{ .Get "primary_light" }};
+  border-color: $sta-primary;
+  box-shadow: 0 0 0 .2rem $sta-primary-light;
 }
 
 /*************************************************
@@ -381,7 +381,7 @@ small,
  **************************************************/
 
 .modal-content {
-  background: {{ .Get "background" }};
+  background: $sta-background;
 }
 
 .modal-title {
@@ -481,7 +481,7 @@ a[data-fancybox] img {
 }
 
 .home-section {
-  background-color: {{ .Get "home_section_odd" }};
+  background-color: $sta-home-section-odd;
   padding: 110px 0 110px 0;
   animation: intro 0.3s both;
   animation-delay: 0.15s;
@@ -538,15 +538,15 @@ a[data-fancybox] img {
 }
 
 .home-section:nth-of-type(even) {
-  background-color: {{ .Get "home_section_even" }};
+  background-color: $sta-home-section-even;
 }
 
 .dark .home-section {
-  background-color: {{ .Get "dark_home_section_odd" }};
+  background-color: $sta-dark-home-section-odd;
 }
 
 .dark .home-section:nth-of-type(even) {
-  background-color: {{ .Get "dark_home_section_even" }};
+  background-color: $sta-dark-home-section-even;
 }
 
 @media screen and (max-width: 768px) {
@@ -628,7 +628,7 @@ a[data-fancybox] img {
 }
 
 .wg-hero.dark .btn {
-  color: {{ .Get "primary_dark" }};
+  color: $sta-primary-dark;
 }
 
 a.hero-cta-alt {
@@ -663,6 +663,18 @@ a.hero-cta-alt:hover {
 }
 
 /*************************************************
+ *  Slider Widget
+ **************************************************/
+
+/* The Slider widget reuses the Hero widget's `.wg-hero` class.
+ * We must remove the `animation` and `clear` in this instance or
+ * multiple slides can be `.active` at once. */
+.carousel-inner .wg-hero {
+  animation: none;
+  clear: none;
+}
+
+/*************************************************
  *  Featurette Widget
  **************************************************/
 
@@ -688,7 +700,7 @@ a.hero-cta-alt:hover {
 .featurette-icon {
   display: block;
   width: 100%;
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
   font-size: 3rem;
   text-align: center;
 }
@@ -1028,7 +1040,7 @@ article .article-metadata {
 }
 
 .article-metadata a:hover {
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
 }
 
 .middot-divider {
@@ -1281,11 +1293,11 @@ article .article-metadata {
 
 .experience .m-2 .border,
 .experience .col.border-right {
-  border-color: {{ .Get "primary" }} !important;
+  border-color: $sta-primary !important;
 }
 
 .experience .m-2 .border.exp-fill {
-  background-color: {{ .Get "primary" }} !important;
+  background-color: $sta-primary !important;
 }
 
 /*************************************************
@@ -1375,7 +1387,7 @@ article .article-metadata {
 /*************************************************
  *  Accomplishments
  **************************************************/
- 
+
 .card.course {
   margin-bottom: 1rem; /* More compact spacing than Experience widget as typically more items here. */
 }
@@ -1610,14 +1622,14 @@ a.badge:hover {
 .tag-cloud a:active,
 .tag-cloud a:focus,
 .tag-cloud a:hover {
-  color: {{ .Get "primary_dark" }};
+  color: $sta-primary-dark;
   transform: scale(1.2);
 }
 
 .dark .tag-cloud a:active,
 .dark .tag-cloud a:focus,
 .dark .tag-cloud a:hover {
-  color: {{ .Get "primary_light" }};
+  color: $sta-primary-light;
 }
 
 /*************************************************
@@ -1647,13 +1659,13 @@ a.badge:hover {
  **************************************************/
 
 .btn-primary {
-  border-color: {{ .Get "primary" }};
-  background: {{ .Get "primary" }};
+  border-color: $sta-primary;
+  background: $sta-primary;
 }
 
 .btn-outline-primary {
-  border-color: {{ .Get "primary" }};
-  color: {{ .Get "primary" }};
+  border-color: $sta-primary;
+  color: $sta-primary;
 }
 
 .btn-primary:hover,
@@ -1661,7 +1673,7 @@ a.badge:hover {
 .btn-primary.active,
 .btn-primary:visited,
 .open > .dropdown-toggle.btn-primary {
-  background: {{ .Get "primary" }};
+  background: $sta-primary;
 }
 
 .btn-outline-light:hover,
@@ -1674,8 +1686,8 @@ a.badge:hover {
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .show > .btn-outline-primary.dropdown-toggle {
   color: #fff;
-  background-color: {{ .Get "primary" }};
-  border-color: {{ .Get "primary" }};
+  background-color: $sta-primary;
+  border-color: $sta-primary;
 }
 
 .dark .btn-outline-primary:not(:disabled):not(.disabled).active,
@@ -1686,8 +1698,8 @@ a.badge:hover {
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: {{ .Get "primary" }};
-  border-color: {{ .Get "primary" }};
+  background-color: $sta-primary;
+  border-color: $sta-primary;
 }
 
 .dark .btn-outline-primary:hover {
@@ -1714,18 +1726,18 @@ a.badge:hover {
 
 .btn-toolbar .btn.btn-primary:hover,
 .btn-toolbar .btn.btn-primary:focus {
-  background-color: {{ .Get "primary_light" }} !important;
+  background-color: $sta-primary-light !important;
 }
 
 .btn-toolbar .btn.btn-primary:active,
 .btn-toolbar .btn.btn-primary.active {
-  background-color: {{ .Get "primary_dark" }} !important;
+  background-color: $sta-primary-dark !important;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 .2rem {{ .Get "primary_light" }};
+  box-shadow: 0 0 0 .2rem $sta-primary-light;
 }
 
 /*************************************************
@@ -1737,7 +1749,7 @@ a.badge:hover {
 }
 
 .navbar-light {
-  background: {{ .Get "menu_primary" }} !important;
+  background: $sta-menu-primary !important;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11)
 }
 
@@ -1746,7 +1758,7 @@ a.badge:hover {
 }
 
 .navbar-toggler {
-  color: {{ .Get "menu_text" }} !important;
+  color: $sta-menu-text !important;
 }
 
 .navbar-light .navbar-toggler:focus,
@@ -1756,7 +1768,7 @@ a.badge:hover {
 
 .dropdown-menu,
 nav#navbar-main li.nav-item {
-  font-size: {{ .Get "font_size_small" }}px;
+  font-size: #{$sta-font-size-small}px;
 }
 
 .navbar-light .navbar-nav>.nav-item>.nav-link,
@@ -1765,24 +1777,24 @@ nav#navbar-main li.nav-item {
   white-space: nowrap;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
-  color: {{ .Get "menu_text" }};
+  color: $sta-menu-text;
   font-weight: 600;
 }
 
 .navbar-light .navbar-nav>.nav-item>.nav-link:focus {
-  color: {{ .Get "menu_text" }};
+  color: $sta-menu-text;
   background-color: transparent;
 }
 
 .navbar-light .navbar-nav>.nav-item>.nav-link:hover {
-  color: {{ .Get "menu_text_active" }};
+  color: $sta-menu-text-active;
   background-color: transparent;
 }
 
 .navbar-light .navbar-nav>li.nav-item>a.active,
 .navbar-light .navbar-nav>li.nav-item>a.active:focus,
 .navbar-light .navbar-nav>li.nav-item>a.active:hover {
-  color: {{ .Get "menu_text_active" }};
+  color: $sta-menu-text-active;
   font-weight: 700;
   background-color: transparent !important; /* Override Bootstrap. */
 }
@@ -1800,11 +1812,11 @@ nav#navbar-main li.nav-item {
 }
 
 .navbar-light .navbar-toggler .icon-bar {
-  background-color: {{ .Get "menu_text" }} !important;
+  background-color: $sta-menu-text !important;
 }
 
 .dropdown-menu {
-  background-color: {{ .Get "menu_primary" }} !important;
+  background-color: $sta-menu-primary !important;
 }
 
 .dropdown-menu > li > a {
@@ -1813,23 +1825,23 @@ nav#navbar-main li.nav-item {
   clear: both;
   font-weight: 400;
   line-height: 1.42857143;
-  color: {{ .Get "menu_text" }};
+  color: $sta-menu-text;
   white-space: nowrap;
 }
 
 .dropdown-menu>li>a:focus,
 .dropdown-menu>li>a:hover {
-  color: {{ .Get "menu_text_active" }};
+  color: $sta-menu-text-active;
   text-decoration: none;
-  background-color: {{ .Get "menu_primary" }};
+  background-color: $sta-menu-primary;
 }
 
 .dropdown-menu > .active,
 .dropdown-menu > .active:focus,
 .dropdown-menu > .active:hover {
-  color: {{ .Get "menu_primary" }};
+  color: $sta-menu-primary;
   text-decoration: none;
-  background-color: {{ .Get "menu_text_active" }};
+  background-color: $sta-menu-text-active;
   outline: 0;
 }
 
@@ -1837,19 +1849,19 @@ nav#navbar-main li.nav-item {
 .navbar-light .navbar-nav>.open>a:focus,
 .navbar-light .navbar-nav>.open>a:hover,
 .navbar-light .navbar-nav>.open>a:visited {
-  color: {{ .Get "menu_text" }} !important;
-  background-color: {{ .Get "menu_primary" }} !important;
+  color: $sta-menu-text !important;
+  background-color: $sta-menu-primary !important;
 }
 
 .navbar-light .navbar-brand {
   font-weight: bold;
   font-size: 1.2em;
-  color: {{ .Get "menu_title" }};
+  color: $sta-menu-title;
 }
 
 .navbar-light .navbar-brand:focus,
 .navbar-light .navbar-brand:hover {
-  color: {{ .Get "menu_title" }};
+  color: $sta-menu-title;
   background-color: transparent;
 }
 
@@ -1891,7 +1903,7 @@ nav#navbar-main li.nav-item {
     clear: both;
     font-weight: 400;
     line-height: 1.42857143;
-    color: {{ .Get "menu_text" }};
+    color: $sta-menu-text;
     white-space: nowrap;
   }
 
@@ -1907,7 +1919,7 @@ nav#navbar-main li.nav-item {
   .navbar-light .navbar-nav .open .dropdown-menu > li > a {
     padding: 5px 15px 5px 25px;
     line-height: 20px;
-    color: {{ .Get "menu_text" }};
+    color: $sta-menu-text;
   }
 
   .navbar-light .navbar-nav .open .dropdown-menu > li > a:focus,
@@ -1919,7 +1931,7 @@ nav#navbar-main li.nav-item {
   .navbar-light .navbar-nav .open .dropdown-menu >.nav-item> .active,
   .navbar-light .navbar-nav .open .dropdown-menu >.nav-item> .active:focus,
   .navbar-light .navbar-nav .open .dropdown-menu >.nav-item> .active:hover {
-    color: {{ .Get "menu_text_active" }};
+    color: $sta-menu-text-active;
     background-color: transparent;
   }
 
@@ -2091,8 +2103,8 @@ div.alert a {
 }
 
 .docs-search .form-control:focus {
-  border-color: {{ .Get "primary" }};
-  box-shadow: 0 0 0 3px {{ .Get "primary_light" }};
+  border-color: $sta-primary;
+  box-shadow: 0 0 0 3px $sta-primary-light;
 }
 
 /* Docs sidebar. */
@@ -2157,7 +2169,7 @@ div.alert a {
 .docs-sidebar .nav>.active:hover>a,
 .docs-sidebar .nav>.active>a {
   font-weight: bold;
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
   background-color: transparent;
 }
 
@@ -2166,7 +2178,7 @@ div.alert a {
 .docs-toggle {
   line-height: 1;
   font-size: 1.2rem;
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
   background-color: transparent;
 }
 
@@ -2283,7 +2295,7 @@ ul.toc-top {
 
 #TableOfContents li a:hover,
 .toc-top li a:hover {
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
   text-decoration: none;
 }
 
@@ -2291,12 +2303,12 @@ ul.toc-top {
 
 .anchorjs-link {
   font-weight: 400;
-  color: {{ .Get "primary_dark" }};
+  color: $sta-primary-dark;
   transition: color .16s linear;
 }
 
 .anchorjs-link:hover {
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
   text-decoration: none;
 }
 
@@ -2312,7 +2324,7 @@ body.dark,
 .dark .form-control,
 .dark .form-control:focus {
   color: rgb(248, 248, 242);
-  background: {{ .Get "dark_background" }};
+  background: $sta-dark-background;
 }
 
 .dark .form-control {
@@ -2321,8 +2333,8 @@ body.dark,
 
 .dark .form-control:focus {
   background-color: rgb(68, 71, 90);
-  border-color: {{ .Get "primary" }};
-  box-shadow: 0 0 0 .2rem {{ .Get "primary_dark" }};
+  border-color: $sta-primary;
+  box-shadow: 0 0 0 .2rem $sta-primary-dark;
 }
 
 .dark h1,
@@ -2354,7 +2366,7 @@ body.dark,
 }
 
 .dark ul.share li a {
-  background-color: {{ .Get "primary" }};
+  background-color: $sta-primary;
 }
 
 .dark table table {
@@ -2407,7 +2419,7 @@ body.dark,
 }
 
 .dark .card h4 a {
-  color: {{ .Get "primary" }};
+  color: $sta-primary;
   border-bottom: solid 1px transparent;
 }
 
