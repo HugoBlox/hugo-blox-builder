@@ -12,7 +12,7 @@
   {{ $authorLen := len $page.Params.authors }}
   {{ if gt $authorLen 0 }}
   <div>
-    {{ partial "page_metadata_authors" $ }}
+    {{ partial "page_metadata_authors" $page }}
   </div>
   {{ end }}
   {{ end }}
