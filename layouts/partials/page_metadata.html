@@ -55,18 +55,16 @@
   <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
-  {{ if $page.Params.categories }}
-  {{ $categoriesLen := len $page.Params.categories }}
-  {{ if gt $categoriesLen 0 }}
+  {{ $taxonomy := "categories" }}
+  {{ with $page.Param $taxonomy }}
   <span class="middot-divider"></span>
   <span class="article-categories">
     <i class="fas fa-folder"></i>
-    {{ range $k, $v := $page.Params.categories }}
-    <a href="{{ (site.GetPage (printf "categories/%s" .)).RelPermalink }}">{{ . }}</a>
-    {{- if lt $k (sub $categoriesLen 1) -}}, {{ end }}
-    {{ end }}
+    {{ range $index, $value := . -}}
+      {{- if gt $index 0 }}, {{ end -}}
+      <a href="{{ (site.GetPage (printf "/%s/%s" $taxonomy (. | urlize))).RelPermalink }}">{{ . }}</a>
+    {{- end -}}
   </span>
-  {{ end }}
   {{ end }}
 
   {{ if $share }}
