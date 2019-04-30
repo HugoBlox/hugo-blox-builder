@@ -21,7 +21,8 @@
   {{- $theme := $.Param "slides.theme" | default "black" -}}
   <link rel="stylesheet" href="{{ $cdn_url_reveal }}/css/theme/{{ $theme }}.min.css">
 
-  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version "dracula") | safeHTML }}
+  {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
+  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
 
   {{ $css := resources.Get "css/reveal.css" }}
   {{ $css_custom := resources.Get "css/reveal_custom.css" }}
