@@ -1,4 +1,4 @@
-{{ if .Site.Params.privacy_pack }}
+{{ if site.Params.privacy_pack }}
 {{ $scr := .Scratch }}
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
@@ -20,7 +20,7 @@
         "message": {{ i18n "cookie_message" | default "This website uses cookies to ensure you get the best experience on our website." }},
         "dismiss": {{ i18n "cookie_dismiss" | default "Got it!" }},
         "link": {{ i18n "cookie_learn" | default "Learn more" }},
-        "href": {{ with .Site.GetPage "privacy.md" }}{{ printf "%s" .RelPermalink }}{{ else }}"https://cookies.insites.com"{{ end }}
+        "href": {{ with site.GetPage "privacy.md" }}{{ printf "%s" .RelPermalink }}{{ else }}"https://cookies.insites.com"{{ end }}
       }
     })});
 </script>

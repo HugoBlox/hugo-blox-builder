@@ -15,7 +15,7 @@
 
     {{ if ne .Type "page" }}
       {{ partial "page_author.html" . }}
-      {{ $related := .Site.RegularPages.Related . | first 5 }}
+      {{ $related := site.RegularPages.Related . | first 5 }}
       {{ with $related }}
       <div class="article-widget">
         <div class="hr-light"></div>
@@ -29,7 +29,7 @@
       {{ end }}
     {{ end }}
 
-    {{ if .Site.Params.section_pager }}
+    {{ if site.Params.section_pager }}
     <div class="article-widget">
       {{ partial "section_pager.html" . }}
     </div>

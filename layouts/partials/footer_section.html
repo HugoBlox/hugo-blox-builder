@@ -1,12 +1,12 @@
 <footer class="site-footer">
-  {{ with .Site.GetPage "privacy.md" }}
+  {{ with site.GetPage "privacy.md" }}
   <p class="powered-by">
     {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
   </p>
   {{ end }}
 
   <p class="powered-by">
-    {{ with .Site.Copyright }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
+    {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
