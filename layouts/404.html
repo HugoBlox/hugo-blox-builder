@@ -5,7 +5,7 @@
   <h1>{{ i18n "page_not_found" }}</h1>
   <p>{{ i18n "404_recommendations" }}</p>
 
-  {{ $query := .Site.RegularPages }}
+  {{ $query := site.RegularPages }}
   {{ $count := len $query }}
   {{ if gt $count 0 }}
     <h2>{{ i18n "user_profile_latest" }}</h2>

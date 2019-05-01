@@ -1,13 +1,13 @@
     {{ $scr := $.Scratch }}
 
     {{/* Config LaTeX math rendering. */}}
-    {{ if or .Params.math .Site.Params.math }}
+    {{ if or .Params.math site.Params.math }}
     {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
     <script src="{{ $mathjax_config.RelPermalink }}"></script>
     {{ end }}
 
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
-    {{ $js := .Site.Data.assets.js }}
+    {{ $js := site.Data.assets.js }}
     {{ if not ($scr.Get "use_cdn") }}
       <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
     {{ else }}
@@ -19,31 +19,31 @@
       {{ if $.Scratch.Get "highlight_enabled" }}
         {{ $v := $js.highlight.version }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight.url $v) $js.highlight.sri | safeHTML }}
-        {{ range .Site.Params.highlight_languages }}
+        {{ range site.Params.highlight_languages }}
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
         {{ end }}
       {{ end }}
 
       {{/* LaTeX math rendering. */}}
-      {{ if or .Params.math .Site.Params.math }}
+      {{ if or .Params.math site.Params.math }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" async></script>" (printf $js.mathJax.url $js.mathJax.version) $js.mathJax.sri | safeHTML }}
       {{ end }}
     {{ end }}
 
     {{/* Maps JS. */}}
-    {{ if eq .Site.Params.map 1 }}
-      <script async defer src="//maps.googleapis.com/maps/api/js?key={{ .Site.Params.map_api_key }}"></script>
+    {{ if eq site.Params.map 1 }}
+      <script async defer src="//maps.googleapis.com/maps/api/js?key={{ site.Params.map_api_key }}"></script>
       {{ if ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
       {{ end }}
-    {{ else if and (or (eq .Site.Params.map 2) (eq .Site.Params.map 3)) ($scr.Get "use_cdn") }}
+    {{ else if and (or (eq site.Params.map 2) (eq site.Params.map 3)) ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
     {{ end }}
 
     {{/* Comments JS. */}}
     {{ $comments_enabled := and site.DisqusShortname (not (or site.Params.disable_comments $.Params.disable_comments)) }}
     {{ if and $comments_enabled (site.Params.comment_count | default true) }}
-    <script id="dsq-count-scr" src="//{{ .Site.DisqusShortname }}.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//{{ site.DisqusShortname }}.disqus.com/count.js" async></script>
     {{ end }}
 
     {{/* Initialise code highlighting. */}}
@@ -51,7 +51,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
     {{ end }}
 
-    {{ if ne .Site.Params.search.engine 0 }}
+    {{ if ne site.Params.search.engine 0 }}
     {{/* Configure search engine. */}}
     <script>
       const search_index_filename = {{ "/index.json" | relLangURL }};
@@ -106,27 +106,27 @@
     {{ end }}
 
     {{/* Fuse search engine. */}}
-    {{ if and (eq .Site.Params.search.engine 1) ($scr.Get "use_cdn") }}
+    {{ if and (eq site.Params.search.engine 1) ($scr.Get "use_cdn") }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
     {{ end }}
 
     {{/* Algolia search engine. */}}
-    {{ if eq .Site.Params.search.engine 2 }}
+    {{ if eq site.Params.search.engine 2 }}
     {{ if ($scr.Get "use_cdn") }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
     {{ end }}
     <script>
       const algoliaConfig = {
-        appId: {{ .Site.Params.search.algolia.app_id }},
-        apiKey: {{ .Site.Params.search.algolia.api_key }},
-        indexName: {{ .Site.Params.search.algolia.index_name }},
-        poweredBy: {{ .Site.Params.search.algolia.show_logo | default false }}
+        appId: {{ site.Params.search.algolia.app_id }},
+        apiKey: {{ site.Params.search.algolia.api_key }},
+        indexName: {{ site.Params.search.algolia.index_name }},
+        poweredBy: {{ site.Params.search.algolia.show_logo | default false }}
       };
     </script>
     {{ end }}
 
-    {{ $js_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" .Site.Data.academic.version }}
+    {{ $js_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" site.Data.academic.version }}
     {{ $js_bundle_head := $js_comment | resources.FromString "js/bundle-head.js" }}
     {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
     {{ $js_academic := resources.Get "js/academic.js" }}
@@ -134,12 +134,12 @@
     {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
     {{ $js_bootstrap := resources.Get "js/vendor/bootstrap.min.js" }}
     {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
-    {{ if eq .Site.Params.search.engine 1 }}
+    {{ if eq site.Params.search.engine 1 }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
     {{ else if eq site.Params.search.engine 2 }}
       {{ $js_bundle = $js_bundle | append $js_algolia_search }}
     {{ end }}
-    {{ range .Site.Params.plugins_js }}
+    {{ range site.Params.plugins_js }}
       {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
     {{ end }}
     {{ $js_bundle := $js_bundle | resources.Concat "js/academic-bundle-pre.js" | minify }}
