@@ -37,9 +37,11 @@
 
           {{ partial "tags.html" . }}
 
+          {{ if site.Params.docs_section_pager }}
           <div class="article-widget">
             {{ partial "section_pager.html" . }}
           </div>
+          {{ end }}
         </div>
 
         <div class="body-footer">
