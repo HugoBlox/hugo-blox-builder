@@ -63,11 +63,11 @@
         {{ $is_same_page := $is_link_in_current_path }}
         {{ if gt (len $hash) 0 }}
           {{ $hash = index $hash 0 }}
-          {{ $hash_removed := (replace .URL $hash "") }}
+          {{ $hash_removed := replace .URL $hash "" }}
           {{ if eq (len $hash_removed) 0 }}
             {{ $hash_removed = "/" }}{{/* Add robustness for `/#SECTION` or `#SECTION` in `menus.toml`. */}}
           {{ end }}
-          {{ $is_same_page = eq $current_page.RelPermalink $hash_removed }}
+          {{ $is_same_page = eq (path.Dir $current_page.RelPermalink) (path.Dir ($hash_removed|relLangURL)) }}
         {{ end }}
 
         <li class="nav-item">

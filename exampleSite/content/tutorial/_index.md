@@ -37,7 +37,7 @@ For example, if you delete this folder, you can remove the following from your m
 ```toml
 [[main]]
   name = "Tutorials"
-  url = "/tutorial/"
+  url = "tutorial/"
   weight = 50
 ```
 
@@ -46,6 +46,6 @@ Or, if you are creating an online course, you can rename the `tutorial` folder t
 ```toml
 [[main]]
   name = "My Course"
-  url = "/course/"
+  url = "course/"
   weight = 50
 ```
