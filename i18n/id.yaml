@@ -1,146 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Buka navigasi
-
 - id: table_of_contents
   translation: Daftar isi
-
-# General
-
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
 - id: related
   translation: Terkait
-
 - id: minute_read
   translation: menit untuk membaca
-
 - id: previous
   translation: Sebelumnya
-
 - id: next
   translation: Selanjutnya
-
-# Buttons
-
+- id: figure
+  translation: 'Figure %d:'
 - id: btn_preprint
   translation: Pracetak
-
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: Sitasi
-
 - id: btn_slides
   translation: Presentasi
-
 - id: btn_video
   translation: Video
-
 - id: btn_code
   translation: Skrip Kode
-
 - id: btn_dataset
   translation: Dataset
-
 - id: btn_project
   translation: Proyek
-
 - id: btn_poster
   translation: Poster
-
 - id: btn_source
   translation: Sumber dokumen
-
 - id: btn_copy
   translation: Salin
-
 - id: btn_download
   translation: Unduh
-
-# About widget
-
 - id: interests
   translation: Minat
-
 - id: education
   translation: Pendidikan
-
-# Publications widget
-
-- id: more_publications
-  translation: Publikasi lainnya
-
-# Posts widget
-
-- id: continue_reading
-  translation: Baca selengkapnya
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Tulisan lainnya
-
-# Talks widget
-
 - id: more_talks
   translation: Presentasi lainnya
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: Publikasi lainnya
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
   translation: Abstrak
-
 - id: publication
   translation: Publikasi
-
 - id: publication_type
   translation: Jenis
-
 - id: date
   translation: Tanggal
-
 - id: last_updated
   translation: Terakhir diperbaharui
-
-- id: links
-  translation: Tautan
-
 - id: event
   translation: Acara
-
 - id: location
   translation: Lokasi
-
-# Filtering
-
-- id: filter_by_type
-  translation: Saring berdasarkan jenis
-
-- id: filter_all
-  translation: Semua
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Ke laman proyek
-
-# Default node titles
-
 - id: posts
   translation: Tulisan
-
 - id: publications
   translation: Publikasi
-
 - id: talks
   translation: Presentasi
-
 - id: projects
   translation: Proyek
-
-# Error 404
-
+- id: search
+  translation: Search
+- id: search_placeholder
+  translation: Search...
+- id: search_results
+  translation: results found
+- id: search_no_results
+  translation: No results found
 - id: page_not_found
   translation: Laman tidak ditemukan
-
 - id: 404_recommendations
   translation: Apakah ini yang Anda cari?
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+- id: cookie_dismiss
+  translation: Got it!
+- id: cookie_learn
+  translation: Learn more

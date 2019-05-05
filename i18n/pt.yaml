@@ -1,100 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Alterar navegação
-
-# Buttons
-
-- id: btn_details
-  translation: Detalhes
-
+- id: table_of_contents
+  translation: Table of Contents
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
+- id: related
+  translation: Related
+- id: minute_read
+  translation: min read
+- id: previous
+  translation: Previous
+- id: next
+  translation: Next
+- id: figure
+  translation: 'Figure %d:'
+- id: btn_preprint
+  translation: Preprint
 - id: btn_pdf
   translation: PDF
-
+- id: btn_cite
+  translation: Cite
 - id: btn_slides
   translation: Slides
-
 - id: btn_video
   translation: Vídeo
-
 - id: btn_code
   translation: Código
-
 - id: btn_dataset
   translation: Dados
-
 - id: btn_project
   translation: Projeto
-
-# About widget
-
+- id: btn_poster
+  translation: Poster
+- id: btn_source
+  translation: Source Document
+- id: btn_copy
+  translation: Copy
+- id: btn_download
+  translation: Download
 - id: interests
   translation: Interesses
-
 - id: education
   translation: Formação
-
-# Publications widget
-
-- id: more_publications
-  translation: Mais Publicações
-
-# Posts widget
-
-- id: continue_reading
-  translation: CONTINUE LENDO
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Mais Posts
-
-# Talks widget
-
 - id: more_talks
   translation: Mais Palestras
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: Mais Publicações
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
   translation: Resumo
-
 - id: publication
   translation: Publicação
-
 - id: publication_type
   translation: Tipo
-
 - id: date
   translation: Data
-
-- id: links
-  translation: Links
-
+- id: last_updated
+  translation: Last updated on
 - id: event
   translation: Evento
-
 - id: location
   translation: Local
-
-# Filtering
-
-- id: filter_by_type
-  translation: Filtro por tipo
-
-- id: filter_all
-  translation: Todos
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Ir para o site do projeto
-
-# Default node titles
-
 - id: posts
   translation: Posts
-
 - id: publications
   translation: Publicações
-
 - id: talks
   translation: Palestras
+- id: projects
+  translation: Projects
+- id: search
+  translation: Search
+- id: search_placeholder
+  translation: Search...
+- id: search_results
+  translation: results found
+- id: search_no_results
+  translation: No results found
+- id: page_not_found
+  translation: Page not found
+- id: 404_recommendations
+  translation: Perhaps you were looking for one of these?
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+- id: cookie_dismiss
+  translation: Got it!
+- id: cookie_learn
+  translation: Learn more

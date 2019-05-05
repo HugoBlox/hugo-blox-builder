@@ -1,169 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: ナビゲーションの切り替え
-
 - id: table_of_contents
   translation: 目次
-
-# General
-
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
 - id: related
   translation: 関連項目
-
 - id: minute_read
   translation: 分で読める
-
 - id: previous
   translation: 前へ
-
 - id: next
   translation: 次へ
-
 - id: figure
-  translation: "図 %d:"
-
-# Buttons
-
+  translation: '図 %d:'
 - id: btn_preprint
   translation: プレプリント
-
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: 引用
-
 - id: btn_slides
   translation: スライド
-
 - id: btn_video
   translation: 動画
-
 - id: btn_code
   translation: コード
-
 - id: btn_dataset
   translation: データセット
-
 - id: btn_project
   translation: プロジェクト
-
 - id: btn_poster
   translation: ポスター
-
 - id: btn_source
   translation: ソース
-
 - id: btn_copy
   translation: コピー
-
 - id: btn_download
   translation: ダウンロード
-
-# About widget
-
 - id: interests
   translation: 興味・関心
-
 - id: education
   translation: 学歴
-
-# Publications widget
-
-- id: more_publications
-  translation: 発表文献一覧
-
-# Posts widget
-
-- id: continue_reading
-  translation: 続きを読む
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: 投稿一覧
-
-# Talks widget
-
 - id: more_talks
   translation: 登壇一覧
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: 発表文献一覧
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
-  translation: 概要 
-
+  translation: 概要
 - id: publication
   translation: 収録
-
 - id: publication_type
   translation: タイプ
-
 - id: date
   translation: 日付
-
 - id: last_updated
   translation: 最終更新
-
-- id: links
-  translation: リンク
-
 - id: event
   translation: イベント
-
 - id: location
   translation: 場所
-
-# Filtering
-
-- id: filter_by_type
-  translation: 文献の種類
-
-- id: filter_all
-  translation: 全て
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: プロジェクトのサイトへ
-
-# Default node titles
-
 - id: posts
   translation: 投稿
-
 - id: publications
   translation: 発表文献
-
 - id: talks
   translation: 登壇
-
 - id: projects
   translation: プロジェクト
-
-# Search
-
+- id: search
+  translation: Search
 - id: search_placeholder
   translation: 検索...
-
+- id: search_results
+  translation: results found
 - id: search_no_results
   translation: 結果が見つかりませんでした
-
-# Error 404
-
 - id: page_not_found
   translation: ページが見つかりませんでした
-
 - id: 404_recommendations
   translation: あなたが探しているものはこれらの中にあるかもしれません
-
-# Cookie consent
-
 - id: cookie_message
   translation: このウェブサイトはあなたが最高の体験を得るためにクッキーを使用します。
-
 - id: cookie_dismiss
   translation: はい
-
 - id: cookie_learn
   translation: 詳細を見る
-

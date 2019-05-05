@@ -1,146 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Chuyển Điều Hướng
-
 - id: table_of_contents
-  translation: Mục Lục 
-
-# General
-
+  translation: Mục Lục
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
 - id: related
-  translation: Bài Liên Quan 
-
+  translation: Bài Liên Quan
 - id: minute_read
   translation: phút để đọc
-
 - id: previous
   translation: Trước
-
 - id: next
   translation: Sau
-
-# Buttons
-
+- id: figure
+  translation: 'Figure %d:'
 - id: btn_preprint
   translation: Bản Thảo
-
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: Trích Dẫn
-
 - id: btn_slides
   translation: Slides
-
 - id: btn_video
   translation: Video
-
 - id: btn_code
   translation: Mã Nguồn
-
 - id: btn_dataset
   translation: Dữ liệu
-
 - id: btn_project
   translation: Dự Án
-
 - id: btn_poster
   translation: Poster
-
 - id: btn_source
   translation: Mã Nguồn
-
 - id: btn_copy
   translation: Sao Chép
-
 - id: btn_download
-  translation: Tải Về 
-
-# About widget
-
+  translation: Tải Về
 - id: interests
   translation: Hướng Nghiên Cứu
-
 - id: education
   translation: Học Vấn
-
-# Publications widget
-
-- id: more_publications
-  translation: Các Công Trình
-
-# Posts widget
-
-- id: continue_reading
-  translation: ĐỌC TIẾP
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Bài Đăng Khác
-
-# Talks widget
-
 - id: more_talks
   translation: Thuyết Trình Khác
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: Các Công Trình
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
   translation: Tóm tắt
-
 - id: publication
   translation: Công Trình
-
 - id: publication_type
   translation: Phân Loại
-
 - id: date
   translation: Thời Gian
-
 - id: last_updated
   translation: Cập Nhật Lần Cuối
-
-- id: links
-  translation: Liên Kết
-
 - id: event
   translation: Sự Kiện
-
 - id: location
   translation: Địa Điểm
-
-# Filtering
-
-- id: filter_by_type
-  translation: Phân Loại
-
-- id: filter_all
-  translation: Tất Cả
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Đến Trang Dự Án
-
-# Default node titles
-
 - id: posts
   translation: Bài Đăng
-
 - id: publications
   translation: Công Trình
-
 - id: talks
   translation: Thuyết Trình
-
 - id: projects
-  translation: Dự Án 
-
-# Error 404
-
+  translation: Dự Án
+- id: search
+  translation: Search
+- id: search_placeholder
+  translation: Search...
+- id: search_results
+  translation: results found
+- id: search_no_results
+  translation: No results found
 - id: page_not_found
-  translation: Trang không tìm thấy 
-
+  translation: Trang không tìm thấy
 - id: 404_recommendations
   translation: Có thể bạn đang tìm những trang này
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+- id: cookie_dismiss
+  translation: Got it!
+- id: cookie_learn
+  translation: Learn more

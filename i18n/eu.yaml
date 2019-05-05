@@ -1,100 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Txandakatu nabigazioa
-
-# Buttons
-
-- id: btn_details
-  translation: Xehetasunak
-
+- id: table_of_contents
+  translation: Table of Contents
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
+- id: related
+  translation: Related
+- id: minute_read
+  translation: min read
+- id: previous
+  translation: Previous
+- id: next
+  translation: Next
+- id: figure
+  translation: 'Figure %d:'
+- id: btn_preprint
+  translation: Preprint
 - id: btn_pdf
   translation: PDF
-
+- id: btn_cite
+  translation: Cite
 - id: btn_slides
   translation: Diapositibak
-
 - id: btn_video
   translation: Bideoa
-
 - id: btn_code
   translation: Kodea
-
 - id: btn_dataset
   translation: Datu-sorta
-
 - id: btn_project
   translation: Proiektua
-
-# About widget
-
+- id: btn_poster
+  translation: Poster
+- id: btn_source
+  translation: Source Document
+- id: btn_copy
+  translation: Copy
+- id: btn_download
+  translation: Download
 - id: interests
   translation: Interesak
-
 - id: education
   translation: Ikasketak
-
-# Publications widget
-
-- id: more_publications
-  translation: Argitalpen gehiago
-
-# Posts widget
-
-- id: continue_reading
-  translation: JARRAITU IRAKURTZEN
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Bidalketa gehiago
-
-# Talks widget
-
 - id: more_talks
   translation: Hitzaldi gehiago
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: Argitalpen gehiago
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
   translation: Laburpena
-
 - id: publication
   translation: Non argitaratua
-
 - id: publication_type
   translation: Mota
-
 - id: date
   translation: Data
-
-- id: links
-  translation: Loturak
-
+- id: last_updated
+  translation: Last updated on
 - id: event
   translation: Ekitaldia
-
 - id: location
   translation: Kokalekua
-
-# Filtering
-
-- id: filter_by_type
-  translation: Iragazi motaren arabera
-
-- id: filter_all
-  translation: Denak
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Joan proiektuaren webgunera
-
-# Default node titles
-
 - id: posts
   translation: Bidalketak
-
 - id: publications
   translation: Argitalpenak
-
 - id: talks
   translation: Hitzaldiak
+- id: projects
+  translation: Projects
+- id: search
+  translation: Search
+- id: search_placeholder
+  translation: Search...
+- id: search_results
+  translation: results found
+- id: search_no_results
+  translation: No results found
+- id: page_not_found
+  translation: Page not found
+- id: 404_recommendations
+  translation: Perhaps you were looking for one of these?
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+- id: cookie_dismiss
+  translation: Got it!
+- id: cookie_learn
+  translation: Learn more
