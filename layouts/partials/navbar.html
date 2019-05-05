@@ -1,3 +1,4 @@
+{{ $current_page := . }}
 <nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
   <div class="container">
 
@@ -55,8 +56,22 @@
           {{ end }}
         {{ end }}
 
+        {{/* Get active page. */}}
+        {{ $is_link_in_current_path := in $current_page.RelPermalink .URL }}
+        {{ $is_widget_page := or $current_page.IsHome (eq $current_page.Type "widget_page") }}
+        {{ $hash := findRE "#(.+)" .URL }}
+        {{ $is_same_page := $is_link_in_current_path }}
+        {{ if gt (len $hash) 0 }}
+          {{ $hash = index $hash 0 }}
+          {{ $hash_removed := (replace .URL $hash "") }}
+          {{ if eq (len $hash_removed) 0 }}
+            {{ $hash_removed = "/" }}{{/* Add robustness for `/#SECTION` or `#SECTION` in `menus.toml`. */}}
+          {{ end }}
+          {{ $is_same_page = eq $current_page.RelPermalink $hash_removed }}
+        {{ end }}
+
         <li class="nav-item">
-          <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+          <a class="nav-link {{if $is_link_in_current_path }} active{{end}}" href="{{.URL | relLangURL}}"{{ if and $is_widget_page $is_same_page }} data-target="{{$hash}}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
             {{ .Pre }}
             <span>{{ .Name | safeHTML }}</span>
             {{ .Post }}

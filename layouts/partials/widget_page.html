@@ -1,8 +1,8 @@
 {{ partial "header.html" . }}
 {{ partial "navbar.html" . }}
 
-<!-- Flag for jQuery -->
-<span id="homepage" class="d-none"></span>
+{{/* Notify JS that this is a widget page */}}
+<span class="js-widget-page d-none"></span>
 
 {{/* Get widget page */}}
 {{ $page := "" }}
