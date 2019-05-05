@@ -1,0 +1,366 @@
+/*************************************************
+ *  Page content
+ **************************************************/
+
+article {
+  animation: intro 0.3s both;
+  animation-delay: 0.15s;
+}
+
+.article-container {
+  max-width: 760px;
+  padding: 0 20px 0 20px;
+  margin: 0 auto 0 auto;
+}
+
+.split-header {
+  margin-bottom: 2rem;
+}
+
+.split-header .share-box {
+  float: left;
+}
+
+.page-subtitle {
+  font-size: 1.15rem;
+  color: rgba(0,0,0,.54);
+  margin-bottom: 1rem;
+}
+
+.dark .page-subtitle {
+  color: rgba(255,255,255,0.54);
+}
+
+.split-header .page-subtitle {
+  margin-bottom: 1.5rem;
+}
+
+.split-header-content {
+  max-width: 612px;
+  width: 100%;
+  padding: 60px 60px 32px 0;
+  margin-left: auto;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.split-header-image {
+  position: relative; /* Required for caption positioning */
+  clear: both;
+  max-width: 580px;
+}
+
+.article-header {
+  position: relative; /* Required for caption positioning */
+  clear: both;
+}
+
+.article-banner {
+  width: 100%;
+  height: auto;
+}
+
+.featured-image {
+  width: 100%;
+  background-position: left;
+  background-origin: border-box;
+  background-size: cover;
+  height: 60vh;
+  min-height: 500px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto
+}
+
+@media screen and (max-width: 1199px) {
+  .featured-image {
+    min-height: 400px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .featured-image {
+    min-height: 300px;
+  }
+}
+
+.article-header-caption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: .7em;
+  background: #000;
+  text-align: right;
+  z-index: 5;
+  opacity: 0.65;
+  border-radius: 5px 0 0 0;
+}
+@media (min-width: 64em) {
+  .article-header-caption {
+    padding: 5px 10px;
+  }
+}
+
+.article-header-caption a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.article-title {
+  font-size: 1.75rem;
+}
+
+.article-title a {
+  color: #151515;
+  transition: color 0.6s ease;
+}
+
+.text-muted {
+  color: rgba(0,0,0,0.54); /* Override Bootstrap */
+}
+
+.dark .text-muted {
+  color: rgba(255,255,255,0.54);
+}
+
+.article-metadata {
+  margin-bottom: 15px;
+  overflow: hidden;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  color: rgba(0,0,0,0.54);
+}
+
+.dark .article-metadata {
+  color: rgba(255,255,255,0.54);
+}
+
+.stream-meta.article-metadata {
+  margin-bottom: 5px;
+}
+
+/* For article page only, not lists. */
+article .article-metadata {
+  margin-bottom: 20px;
+  line-height: 30px; /* Match share bar line height. */
+}
+
+.article-metadata a {
+  color: rgba(0,0,0,.54);
+}
+
+.dark .article-metadata a {
+  color: rgba(255,255,255,0.54);
+}
+
+.article-metadata a:hover {
+  color: $sta-primary;
+}
+
+.middot-divider {
+  padding-right: .45em;
+  padding-left: .45em;
+  font-size: 15px;
+}
+
+.middot-divider::after {
+  content: '\00B7';
+}
+
+.article-style img,
+.article-style video {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 0;
+}
+
+.article-style td img,
+.article-style td video {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.article-style figure {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.article-style figure img {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.article-widget {
+  padding-top: 1rem;
+}
+
+.article-widget h3 {
+  margin-top: 0;
+}
+
+.hr-light {
+  border-top: 1px solid rgba(0,0,0,.05);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#comments {
+  padding-top: 1rem;
+}
+
+/*************************************************
+ *  Publications
+ **************************************************/
+
+.pub-banner {
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pub-row-heading {
+  font-weight: bold;
+}
+
+#container-publications {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.li-cite-author {
+  font-size: 1em;
+  color: inherit;
+}
+
+.li-cite-author a {
+  color: inherit;
+}
+
+.dark .li-cite-author a {
+  color: rgb(248, 248, 242);
+}
+
+/*************************************************
+ *  Author profile card
+ **************************************************/
+
+.author-card {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,.05);
+}
+
+.dark .author-card {
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+
+.author-card .portrait {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-card .card-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.author-card .card-title a {
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.dark .author-card .card-title,
+.dark .author-card .card-title a {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.author-card p {
+  margin-bottom: 5px;
+}
+
+.author-card .card-subtitle {
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 7px;
+}
+
+.dark .author-card .card-subtitle {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.author-card .card-text {
+  color: rgba(0, 0, 0, 0.76);
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.dark .author-card .card-text {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+/*************************************************
+ *  Sharing
+ **************************************************/
+
+.share-box {
+  float: right;
+}
+
+ul.share {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.share li {
+  display: inline-flex;
+  margin-right: 5px;
+}
+
+ul.share li:last-of-type {
+  margin-right: 0;
+}
+
+ul.share li i {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: center;
+  transition: all 150ms ease-in-out;
+  color: #fff;
+}
+
+.dark ul.share li i {
+  color: rgb(68, 71, 90);
+}
+
+ul.share li a {
+  background-color: #b5c6ce;
+  display: block;
+  border-radius: 50%;
+  text-decoration: none !important;
+  margin: 0;
+}
+
+ul.share li:hover i {
+  transform: scale(1.4)
+}

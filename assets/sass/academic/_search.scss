@@ -1,0 +1,131 @@
+/*************************************************
+ *  Search
+ **************************************************/
+
+.search-results {
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  background-color: $sta-background;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow: scroll;
+  position: fixed;
+  visibility: hidden;
+  z-index: -99;
+}
+
+.dark .search-results {
+  background-color: rgb(40, 42, 54);
+}
+
+.searching {
+  overflow: hidden;
+}
+
+.searching .search-results {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  visibility: visible;
+  z-index: 1031; /* Highest index, higher than navbar. */
+}
+
+.searching #search-box #search-query {
+  width: 100%;
+}
+
+.search-results > .container {
+  padding-top: 70px;  /* Navbar height. */
+}
+@media screen and (max-width: 1200px) {
+  .search-results > .container {
+    padding-top: 50px;  /* Navbar height. */
+  }
+}
+
+.search-header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 70px;  /* Navbar height. */
+  background-color: $sta-background;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+@media screen and (max-width: 1200px) {
+  .search-header {
+    top: 50px;  /* Navbar height. */
+  }
+}
+
+.dark .search-header {
+  background-color: rgb(40, 42, 54);
+}
+
+.search-header h1 {
+  margin: 0;
+  line-height: 1;
+}
+
+.col-search-close {
+  text-align: right;
+}
+
+.search-header i {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+#search-box {
+  position: relative; /* Required for search icon positioning. */
+  margin-bottom: 0.5rem;
+}
+
+#search-box::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: "\f002";
+  font-size: 1rem;
+  opacity: 0.25;
+  line-height: 1rem;
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  overflow-x: hidden;
+}
+
+#search-box #search-query {
+  border: 1px solid #dedede;
+  border-radius: 1rem;
+  padding: 1rem 1rem 1rem 2rem; /* Wider left padding for search icon to fit in. */
+  width: 250px;
+  line-height: 1rem;
+  height: 1rem;
+  font-size: 0.8rem;
+}
+
+.search-hit em {
+  font-style: normal;
+  background-color: #FFE0B2;
+  color: #E65100;
+  border-bottom: 1px solid #E65100;
+}
+
+.search-hit-type {
+  margin-bottom: 0 !important; /* Override .article-metadata margin. */
+  text-transform: capitalize;
+}
+
+.search-hit-description {
+  font-size: 0.7rem;
+}
+
+/* Load more results button - hide when there are no more results. */
+#search-hits button[disabled] {
+  display: none;
+}
+
+.form-control:focus {
+  border-color: $sta-primary;
+  box-shadow: 0 0 0 .2rem $sta-primary-light;
+}

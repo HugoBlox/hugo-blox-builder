@@ -1,0 +1,547 @@
+/*************************************************
+ *  Page Builder: sections and widgets
+ **************************************************/
+
+@keyframes intro {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.home-section {
+  background-color: $sta-home-section-odd;
+  padding: 110px 0 110px 0;
+  animation: intro 0.3s both;
+  animation-delay: 0.15s;
+}
+
+/* Override dark colors that may be inherited from body.dark */
+.home-section.dark,
+.home-section.dark h1,
+.home-section.dark h2,
+.home-section.dark h3,
+.home-section.dark a:not(.btn) {
+  color: rgb(248, 248, 242);
+}
+
+/* Underline links in dark sections to separate them from text */
+.home-section.dark a:not(.btn):not(.hero-cta-alt) {
+  text-decoration: underline;
+}
+
+/* Revert Alert Box Link style (.home-section.dark style above should not be applied to it) */
+.home-section.dark .alert a {
+  color: inherit !important;
+  text-decoration: inherit !important;
+}
+
+/* Big underline style for links in dark sections */
+/* Disabled as it's an experimental style that requires CSS NOT Selector Level 4 (only in Safari) */
+/*
+.home-section.dark.big-underline a:not(.btn):not(.hero-cta-alt):not(.alert a) {
+  text-decoration: none;
+  position: relative;
+}
+.home-section.dark.big-underline a:not(.btn):not(.hero-cta-alt):not(.alert a):after {
+  background: #fff;
+  content: "";
+  height: 2px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 100%;
+}*/
+
+/* Create the parallax scrolling effect */
+.parallax {
+  height: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.home-section:first-of-type {
+  padding-top: 50px;
+}
+
+.home-section:nth-of-type(even) {
+  background-color: $sta-home-section-even;
+}
+
+.dark .home-section {
+  background-color: $sta-dark-home-section-odd;
+}
+
+.dark .home-section:nth-of-type(even) {
+  background-color: $sta-dark-home-section-even;
+}
+
+@media screen and (max-width: 768px) {
+  .home-section {
+    padding: 60px 0 60px 0;
+  }
+  .home-section:first-of-type {
+    padding-top: 40px;
+  }
+}
+
+.section-heading h1 {
+  margin: 0 0 10px 0;
+}
+
+.section-heading p {
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: #b2b2b2;
+}
+
+/*************************************************
+ *  Widgets (common)
+ **************************************************/
+
+.see-all {
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+/* Reset code highlighting style in Alerts when Alert is child of a `.dark` widget, but Alert should be light.` */
+/* But will this affect page which should have dark Alert? */
+.dark .alert pre,
+.dark .alert code {
+  color: initial;
+  background-color: initial;
+}
+
+/*************************************************
+ *  Hero Widget
+ **************************************************/
+
+.wg-hero {
+  padding: 3em 0;
+  clear: both;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: intro 0.3s both;
+  animation-delay: 0s;
+  animation-delay: 0.25s;
+}
+
+.hero-title {
+  font-size: 2.7rem;
+  margin-top: 0;
+  line-height: 1;
+}
+
+.hero-lead {
+  max-width: 768px;
+  font-size: 1.35rem;
+}
+
+.wg-hero.dark .hero-title,
+.wg-hero.dark .hero-lead,
+.wg-hero.dark .hero-cta-alt,
+.wg-hero.dark .hero-note > * {
+  color: #fff;
+  /*text-shadow: 1px 1px 4px rgba(0,0,0,0.5);*/ /* Uncomment to standout on complicated backgrounds. */
+}
+
+.wg-hero.dark a:not(.wg-hero .btn) {
+  color: #fff;
+}
+
+.wg-hero .hero-lead a {
+  text-decoration: underline;
+}
+
+.wg-hero .cta-btns {
+  margin-bottom: 16px;
+}
+
+.wg-hero .btn {
+  padding: .6em 2.1em;
+}
+
+.wg-hero.dark .btn {
+  color: $sta-primary-dark;
+}
+
+a.hero-cta-alt {
+  display: inline-block;
+  position: relative;
+  transition-duration: .2s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  font-size: 1.1rem;
+}
+
+a.hero-cta-alt:active,
+a.hero-cta-alt:focus,
+a.hero-cta-alt:hover {
+  transform: scale(1.1);
+}
+
+.wg-hero .btn-lg {
+  font-size: 1.1rem;
+}
+
+.wg-hero .hero-note {
+  font-size: 0.8rem;
+}
+
+.hero-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+/*************************************************
+ *  Slider Widget
+ **************************************************/
+
+/* The Slider widget reuses the Hero widget's `.wg-hero` class.
+ * We must remove the `animation` and `clear` in this instance or
+ * multiple slides can be `.active` at once. */
+.carousel-inner .wg-hero {
+  animation: none;
+  clear: none;
+}
+
+/*************************************************
+ *  Featurette Widget
+ **************************************************/
+
+.featurette {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #555;
+  text-align: center;
+}
+
+.featurette h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-weight: 400;
+  color: #333;
+}
+
+.dark .featurette,
+.dark .featurette h3 {
+  color: #fff;
+}
+
+.featurette-icon {
+  display: block;
+  width: 100%;
+  color: $sta-primary;
+  font-size: 3rem;
+  text-align: center;
+}
+
+/*************************************************
+ *  About widget
+ **************************************************/
+
+#profile {
+  text-align: center;
+  padding: 30px 10px;
+  position: relative;
+}
+
+.portrait {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.portrait-title h2 {
+  font-size: 1.75em;
+  font-weight: 300;
+  color: #000000;
+  margin: 20px 0 10px 0;
+}
+
+.portrait-title h3 {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(0,0,0, 0.54);
+  margin: 0px 0 10px 0;
+}
+
+ul.network-icon {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+#profile .network-icon {
+  margin-top: 30px;
+}
+
+.network-icon li {
+  margin-right: 10px;
+}
+
+.network-icon li:last-of-type {
+  margin-right: 0;
+}
+
+.network-icon li:hover {
+  transform: scale(1.2)
+}
+
+.big-icon {
+  font-size: 2rem;
+}
+
+ul.ul-interests li {
+  font-size: 0.9rem;
+}
+
+ul.ul-edu {
+  list-style: none;
+}
+
+ul.ul-edu li {
+  position: relative;
+  padding: 0px 15px 4px 3px;
+}
+
+ul.ul-edu li .description p {
+  margin: 0;
+}
+
+ul.ul-edu li .description p.course {
+  font-size: 0.9rem;
+}
+
+ul.ul-edu li .description p.institution {
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.6);
+}
+
+/*************************************************
+ * Experience
+ **************************************************/
+
+.exp-title {
+  text-transform: none !important;
+}
+
+.exp-company {
+  font-weight: normal !important;
+  text-transform: none !important;
+}
+
+.exp-meta {
+  font-size: 0.8rem;
+}
+
+.experience .card-text,
+.experience .card-text p {
+  color: #000 !important;
+  font-size: 0.75rem !important;
+}
+
+.dark .experience .text-muted {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark .experience .card-text,
+.dark .experience .card-text p {
+  color: rgb(248, 248, 242) !important;
+}
+
+.card .card-text ul {
+  margin-top: -1rem;
+  margin-bottom: 0rem;
+}
+
+.experience .m-2 .border,
+.experience .col.border-right {
+  border-color: $sta-primary !important;
+}
+
+.experience .m-2 .border.exp-fill {
+  background-color: $sta-primary !important;
+}
+
+/*************************************************
+ * Talks
+ **************************************************/
+
+.talk-metadata {
+  color: #4b4f56;
+  font-size: 0.8rem;
+}
+
+/*************************************************
+ *  Projects
+ **************************************************/
+
+.project-widget-simple li {
+  margin-bottom: 1rem;
+}
+
+.project-widget-simple li:last-of-type {
+  margin-bottom: 0;
+}
+
+.project-widget-simple .project-title {
+  margin-bottom: 6px;
+}
+
+.project-widget-simple .project-summary {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.projects-container {
+  display: block;
+  position: relative;
+  /*margin-top: 5rem;*/
+  overflow: hidden;
+}
+
+.project-toolbar{
+  margin-bottom: 2rem;
+}
+
+.project-card {
+  position: relative;
+  width: calc(33.3% - 2*20px); /* Fluid 3 columns (inc. 20px gutter) */
+}
+@media screen and (max-width: 1199px) {
+  .project-card {
+    width: calc(50% - 20px); /* Fluid 2 columns (inc. 20px gutter) */
+  }
+}
+@media screen and (max-width: 768px) {
+  .project-card {
+    width: 100%; /* 1 column */
+  }
+}
+
+.project-item {
+  margin-bottom: 1.5rem;
+}
+
+.project-card.project-item {
+  margin: 0 0 20px 0; /* Set to Isotope's gutter size */
+}
+
+.project-card .card {
+  margin: 0; /* Remove default card margin and use Isotope gutter */
+}
+
+.project-showcase .project-item {
+  margin-bottom: 3rem;
+}
+
+.project-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-item:hover{
+  z-index: 3;
+}
+
+/*************************************************
+ *  Accomplishments
+ **************************************************/
+
+.card.course {
+  margin-bottom: 1rem; /* More compact spacing than Experience widget as typically more items here. */
+}
+
+.card.course:last-of-type {
+  margin-bottom: 0;
+}
+
+.course .card-subtitle a {
+  border-bottom: solid 1px transparent;
+}
+
+.course .card-subtitle a:hover {
+  border-bottom: solid 1px;
+  text-decoration: none;
+}
+
+/*************************************************
+ *  People widget
+ **************************************************/
+
+.people-widget {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.people-widget .portrait-title h2 {
+  font-size: 1rem;
+}
+
+.people-widget .portrait-title h3 {
+  font-size: 0.7rem;
+}
+
+.people-widget .portrait {
+  width: 80%;
+  max-width: 150px;
+  height: auto;
+}
+
+@media (min-width: 576px) {
+  .people-widget  .col-sm-auto {
+    max-width: 30% !important;
+  }
+}
+@media (min-width: 992px) {
+  .people-widget  .col-sm-auto {
+    max-width: 20% !important;
+  }
+}
+
+/*************************************************
+ *  Contact
+ **************************************************/
+
+.contact-widget .fa-ul {
+  margin-left: 3.14285714rem; /* Must be > `fa-2x` icon size. */
+}
+
+.contact-widget .fa-li {
+  position: absolute;
+  left: -3.14285714rem; /* Negative of `.contact-widget .fa-ul` margin. */
+  width: 2rem; /* Match `fa-2x` icon size. */
+  top: 0.14285714em; /* Default FA value. */
+  text-align: center;
+}
+
+.contact-widget li {
+  padding-top: 0.8rem; /* Align text with bottom of `fa-2x` icon. */
+  margin-bottom: 0.3rem;
+}
+
+.contact-widget li:last-of-type {
+  margin-bottom: 0;
+}
+
+#map {
+  height: 350px;
+  width: 100%;
+}
