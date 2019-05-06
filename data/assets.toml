@@ -8,8 +8,8 @@
 # JavaScript
 
 [js.jQuery]
-  version = "3.3.1"
-  sri = "sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg=="
+  version = "3.4.1"
+  sri = "sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   url = "https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js"
 [js.highlight]
   version = "9.12.0"

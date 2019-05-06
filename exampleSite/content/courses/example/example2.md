@@ -1,7 +1,7 @@
 +++
-title = "Example Page 1"
+title = "Example Page 2"
 
-date = 2018-09-09T00:00:00  # Date published
+date = 2019-05-05T00:00:00  # Date published
 # lastmod = 2018-09-09T00:00:00  # Date modified
 
 draft = false  # Is this a draft? true/false
@@ -9,18 +9,18 @@ toc = true  # Show table of contents? true/false
 type = "docs"  # Do not modify.
 
 # Prev/next pager order (if `docs_section_pager` enabled in `params.toml`)
-weight = 1
+weight = 2
 
 # Add menu entry to sidebar.
-linktitle = "Tips 1-2"  # Menu text - remove to use page title instead.
-[menu.tutorial]
+linktitle = "Tips 3-4"  # Menu text - remove to use page title instead.
+[menu.example]
   parent = "Example Topic"  # ID of parent menu entry.
-  weight = 1  # Position of link in menu.
+  weight = 2  # Position of link in menu.
 +++
 
-In this tutorial, I'll share my top 10 tips for getting started with Academic:
+Here are some more tips for getting started with Academic:
 
-## Tip 1
+## Tip 3
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.
 
@@ -33,7 +33,7 @@ Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet,
 Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.
 
 
-## Tip 2
+## Tip 4
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.
 

@@ -1,0 +1,20 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+
+{{ partial "page_header.html" . }}
+
+<div class="universal-wrapper">
+  {{ with .Content }}
+  <div class="article-style" itemprop="articleBody">{{ . }}</div>
+  {{ end }}
+  <ul>
+    {{ if gt (len .Sections) 0}}
+    {{ range .Sections }}
+    <li><h5><a href="{{.RelPermalink}}">{{.LinkTitle}}</a></h5> {{with .Params.summary}}<p>{{. | plainify | emojify}}</p>{{end}}</li>
+    {{end}}
+    {{end}}
+  </ul>
+</div>
+
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}
