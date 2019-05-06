@@ -1,8 +1,9 @@
-+++
-title = "Courses"
+---
+title: Courses
 
-# Optional featured image (relative to `static/img/` folder).
-[header]
-image = ""
-caption = ""
-+++
+# Optional header image (relative to `static/img/` folder).
+header:
+  caption: ""
+  image: ""
+---
+

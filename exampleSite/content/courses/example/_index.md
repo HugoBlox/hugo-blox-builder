@@ -1,24 +1,25 @@
-+++
+---
 # Course title, summary, and position.
-linktitle = "An Example Course"
-summary = "Learn how to use Academic's docs layout for publishing online courses, software documentation, and tutorials."
-weight = 1  # Position of this course in course index. Comment out to order by date instead.
+linktitle: An Example Course
+summary: Learn how to use Academic's docs layout for publishing online courses, software documentation, and tutorials.
+weight: 1
 
-# Page title
-title = "Overview"
-
-date = 2018-09-09T00:00:00  # Date published
-# lastmod = 2018-09-09T00:00:00  # Date modified
-
-draft = false  # Is this a draft? true/false
-toc = true  # Show table of contents? true/false
-type = "docs"  # Do not modify.
+# Page metadata.
+title: Overview
+date: "2018-09-09T00:00:00Z"
+lastmod: "2018-09-09T00:00:00Z"
+draft: false  # Is this a draft? true/false
+toc: true  # Show table of contents? true/false
+type: docs  # Do not modify.
 
 # Add menu entry to sidebar.
-[menu.example]
-  name = "Overview"  # Declare this menu item as a parent with ID `name`.
-  weight = 1  # Position of link in menu.
-+++
+# - name: Declare this menu item as a parent with ID `name`.
+# - weight: Position of link in menu.
+menu:
+  example:
+    name: Overview
+    weight: 1
+---
 
 ## Flexibility
 

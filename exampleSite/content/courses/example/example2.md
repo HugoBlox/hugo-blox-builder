@@ -1,22 +1,18 @@
-+++
-title = "Example Page 2"
-
-date = 2019-05-05T00:00:00  # Date published
-# lastmod = 2018-09-09T00:00:00  # Date modified
-
-draft = false  # Is this a draft? true/false
-toc = true  # Show table of contents? true/false
-type = "docs"  # Do not modify.
+---
+title: Example Page 2
+linktitle: Tips 3-4
+toc: true
+type: docs
+date: "2019-05-05T00:00:00+01:00"
+draft: false
+menu:
+  example:
+    parent: Example Topic
+    weight: 2
 
 # Prev/next pager order (if `docs_section_pager` enabled in `params.toml`)
-weight = 2
-
-# Add menu entry to sidebar.
-linktitle = "Tips 3-4"  # Menu text - remove to use page title instead.
-[menu.example]
-  parent = "Example Topic"  # ID of parent menu entry.
-  weight = 2  # Position of link in menu.
-+++
+weight: 2
+---
 
 Here are some more tips for getting started with Academic:
 
