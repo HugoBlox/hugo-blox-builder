@@ -4,11 +4,7 @@
 {{ $page := . }}
 {{ $pdf_link := false }}
 {{ $cite_link := false }}
-
-{{ $slug := "" }}
-{{ if eq $page.File.TranslationBaseName "index" }}{{/* Check if using dir-based page bundles. */}}
-  {{ $slug = delimit (last 1 (split (substr $page.File.Dir 0 -1) "/")) "" }}
-{{ end }}
+{{ $slug := $page.File.ContentBaseName }}
 {{ $resource := $page.Resources.GetMatch (printf "%s.pdf" $slug) }}
 {{ with $resource }}
   {{ $pdf_link = true }}

@@ -15,7 +15,7 @@
   {{ $superuser_role := "" }}
   {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
     {{ $superuser_name = .Params.name }}
-    {{ $superuser_username = delimit (last 1 (split (substr .File.Dir 0 -1) "/")) "" }}
+    {{ $superuser_username = path.Base (path.Split .Path).Dir }}
     {{ $superuser_role = .Params.role }}
   {{ end }}
   {{ $scr.Set "superuser_username" $superuser_username }}{{/* For access from page_author.html. */}}
