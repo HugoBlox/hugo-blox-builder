@@ -18,8 +18,7 @@
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication_type" }}</div>
           <div class="col-12 col-md-9">
-            {{ partial "pub_types.html" $ }}
-            {{ $pub_types := $.Scratch.Get "pub_types" }}
+            {{ $pub_types := partial "functions/get_pub_types" $ }}
             {{ range $index, $pubtype := .Params.publication_types }}
             <a href="{{ (site.GetPage "section" "publication").RelPermalink }}#{{ . | urlize }}">
               {{ index $pub_types (int .) }}

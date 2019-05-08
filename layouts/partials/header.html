@@ -42,7 +42,7 @@
   {{ end }}
   <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
-  {{ partial "css/parse_theme.css" . }}
+  {{ partial "functions/parse_theme" . }}
   {{ $css := site.Data.assets.css }}
   {{ $js := site.Data.assets.js }}
   {{ if ne ($scr.Get "primary") "#fff" }}

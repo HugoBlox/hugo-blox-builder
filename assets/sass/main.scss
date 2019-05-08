@@ -1,6 +1,6 @@
 {{- $scr := .Scratch -}}
 {{- $site := $scr.Get "site" -}}
-{{- partial "css/parse_theme.css" . -}}
+{{- partial "functions/parse_theme" . -}}
 
 $sta-font-size: {{ $scr.Get "font_size" }};
 $sta-font-size-small: {{ $scr.Get "font_size_small" }};
