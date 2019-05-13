@@ -333,15 +333,16 @@
    * --------------------------------------------------------------------------- */
 
   $(document).ready(function() {
-    // Set dark mode if user chose it.
     let default_mode = 0;
-    // Check whether it is in dark mode on macOS (with Safari)
-    if (window.matchMedia("(prefers-color-scheme: dark)")){
+    // Change default color mode to dark if it is in dark mode on macOS (with Safari)
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches){
       default_mode = 1;
     }
+    // Change default color mode to dark if the color_theme set by user is dark
     if ($('body').hasClass('dark')) {
       default_mode = 1;
     }
+    // Set dark mode if user chose it instead of using default_mode
     let dark_mode = parseInt(localStorage.getItem('dark_mode') || default_mode);
 
     // Is code highlighting enabled in site config?
