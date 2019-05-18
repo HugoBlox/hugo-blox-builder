@@ -205,6 +205,13 @@ a.hero-cta-alt:hover {
  *  Slider Widget
  **************************************************/
 
+/* Clear `.home-section` as padding and animation interferes with Slider's layout and animations. */
+.home-section.wg-slider {
+  padding: 0;
+  animation: none;
+  animation-delay: unset;
+}
+
 /* The Slider widget reuses the Hero widget's `.wg-hero` class.
  * We must remove the `animation` and `clear` in this instance or
  * multiple slides can be `.active` at once. */

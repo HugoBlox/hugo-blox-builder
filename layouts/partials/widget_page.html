@@ -49,7 +49,7 @@
     {{ $style = print $style . }}
   {{ end }}
 
-  {{ $params := dict "root" $ "page" $st }}
+  {{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
   {{ $hash_id := replace $st.File.ContentBaseName "index" (path.Base (path.Split .Path).Dir) }}
 
   {{ $widget := or $st.Params.widget "blank" }}
@@ -57,15 +57,23 @@
   {{ if eq $widget "projects" }}{{ $widget = "portfolio" }}{{ end }}{{/* Support legacy Projects widget */}}
 
   {{ $widget_path := printf "widgets/%s.html" $widget }}
+  {{ $widget_args := dict "root" $ "page" $st "hash_id" $hash_id }}
+  {{ $css_classes := $st.Params.advanced.css_class | default "" }}
+  {{ $extra_attributes := "" }}
+  {{ $use_container := true }}
+
+  {{/* Special case: Slider widget. */}}
   {{ if in (slice "slider") $widget }}
-    {{ partial $widget_path $params }}
-  {{ else }}
-  <section id="{{ $hash_id }}" class="home-section {{ printf "wg-%s" (replace $widget "_" "-") }} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{ with $st.Params.advanced.css_class }}{{ . }}{{ end }}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
-    <div class="container">
-      {{ partial $widget_path $params }}
-    </div>
-  </section>
+    {{ $css_classes = print $css_classes " carousel slide" }}
+    {{ $extra_attributes = printf "data-ride=\"carousel\" data-interval=\"%s\"" (string $st.Params.interval | default "5000") }}
+    {{ $use_container = false }}
   {{ end }}
+
+  <section id="{{$hash_id}}" class="home-section {{printf "wg-%s" (replace $widget "_" "-")}} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}}parallax{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+    {{if $use_container}}<div class="container">{{end}}
+      {{ partial $widget_path $widget_args }}
+    {{if $use_container}}</div>{{end}}
+  </section>
 {{ end }}
 
 {{ partial "footer_container.html" . }}
