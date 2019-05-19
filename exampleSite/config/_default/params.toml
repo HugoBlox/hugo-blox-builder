@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/
 
 # Color theme.
-#   Choose from `default`, `ocean`, `forest`, `dark`, `apogee`, `1950s`, `coffee`, `cupcake`.
+#   Choose from `default`, `ocean`, `forest`, `dark`, `apogee`, `1950s`, `coffee`, `cupcake`, `strawberry`.
 color_theme = "default"
 # Enable users to switch between day and night mode?
 day_night = true

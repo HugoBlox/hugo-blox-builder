@@ -2,6 +2,9 @@
 {{- $site := $scr.Get "site" -}}
 {{- partial "functions/parse_theme" . -}}
 
+$sta-darken-percentage: 10%;
+$sta-lighten-percentage: 10%;
+
 $sta-font-size: {{ $scr.Get "font_size" }};
 $sta-font-size-small: {{ $scr.Get "font_size_small" }};
 
@@ -11,8 +14,8 @@ $sta-font-nav: {{ $scr.Get "nav_font" }};
 $sta-font-mono: {{ $scr.Get "mono_font" }};
 
 $sta-primary: {{ $scr.Get "primary" }};
-$sta-primary-light: {{ $scr.Get "primary_light" }};
-$sta-primary-dark: {{ $scr.Get "primary_dark" }};
+$sta-primary-light: lighten($sta-primary, $sta-lighten-percentage);
+$sta-primary-dark: darken($sta-primary, $sta-darken-percentage);
 
 $sta-link: {{ $scr.Get "link" }};
 $sta-link-hover: {{ $scr.Get "link_hover" }};

@@ -54,6 +54,8 @@ Choose a stunning color and font theme for your site. Themes are fully customiza
 | --- | --- | --- | --- |
 | ![apogee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-apogee.png) | ![1950s theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) | ![cupcake theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-cupcake.png) |
 
+[Browse more themes...](https://sourcethemes.com/academic/themes/)
+
 ## Ecosystem
 
 * **[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
