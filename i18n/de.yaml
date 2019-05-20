@@ -43,7 +43,7 @@
 - id: interests
   translation: Interessen
 - id: education
-  translation: Education
+  translation: Ausbildung
 - id: user_profile_latest
   translation: Aktuellste
 - id: see_certificate
@@ -51,7 +51,7 @@
 - id: present
   translation: Aktuell
 - id: more_pages
-  translation: See all
+  translation: Alle anzeigen
 - id: more_posts
   translation: Weitere Blogbeiträge
 - id: more_talks
