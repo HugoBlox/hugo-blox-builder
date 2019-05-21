@@ -121,7 +121,7 @@
 - id: page_not_found
   translation: Seite nicht gefunden
 - id: 404_recommendations
-  translation: Suchst du vielleicht nach einer der folgenden Seiten?
+  translation: Suchen Sie vielleicht nach einer der folgenden Seiten?
 - id: cookie_message
   translation: Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies.
 - id: cookie_dismiss
