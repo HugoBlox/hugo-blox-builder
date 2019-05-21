@@ -83,7 +83,7 @@
 - id: location
   translation: Ort
 - id: pub_uncat
-  translation: Unketegorisiert
+  translation: Unkategorisiert
 - id: pub_conf
   translation: Konferenzpapier
 - id: pub_journal
