@@ -1,8 +1,9 @@
 {{ $current_page := . }}
-{{ $menu_name := (path.Base (path.Split .Path).Dir) }}
-{{ with (index site.Menus $menu_name) }}
-{{ else }}
-{{ errorf "Please define menu items named `[menu.%s]` in your %s front matter or define `[[menu.%s]]` in `config.toml`." $menu_name .Path $menu_name }}
+
+{{/* Dynamically load menu for this docs page. */}}
+{{ $menu_name := path.Base (path.Split .CurrentSection.File).Dir }}
+{{ if not (index site.Menus $menu_name) }}
+  {{ errorf "Please define menu items named `menu: %s:` in your %s front matter or define `[[menu.%s]]` in `config/default/menus.toml`. See https://sourcethemes.com/academic/docs/managing-content/#menus" $menu_name .Path $menu_name }}
 {{ end }}
 
 <form class="docs-search d-flex align-items-center">
