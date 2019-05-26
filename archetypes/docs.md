@@ -1,25 +1,23 @@
-+++
-title = "{{ replace .Name "-" " " | title }}"
-date = {{ .Date }}
-draft = false
-type = "docs"  # Do not modify.
+---
+# Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-# Show table of contents? true/false
-toc = true
+title: "{{ replace .Name "-" " " | title }}"
+linktitle: "{{ replace .Name "-" " " | title }}"
+summary:
+date: {{ .Date }}
+lastmod: {{ .Date }}
+draft: false  # Is this a draft? true/false
+toc: true  # Show table of contents? true/false
+type: docs  # Do not modify.
 
 # Add menu entry to sidebar.
-
-# Uncomment to customize menu title, e.g. to abbreviate page title.
-# linktitle = "Example"
-
-# Substitute `tutorial` with the name of your tutorials folder.
-[menu.tutorial]
-  # Define a parent ID if this page is a parent.
-  name = "YourParentID"
-  
-  # Reference a parent ID if this page is a child.
-  # parent = "YourParentID"
-  
-  # Order that this page appears in the menu.
-  weight = 1
-+++
+# - Substitute `example` with the name of your course/documentation folder.
+# - name: Declare this menu item as a parent with ID `name`.
+# - parent: Reference a parent ID if this page is a child.
+# - weight: Position of link in menu.
+menu:
+  example:
+    name: YourParentID
+    # parent: YourParentID
+    weight: 1
+---

@@ -1,45 +1,41 @@
-+++
-title = "{{ replace .Name "-" " " | title }}"
-date = {{ .Date }}
-draft = false
+---
+# Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-# Tags: can be used for filtering projects.
-# Example: `tags = ["machine-learning", "deep-learning"]`
-tags = []
-
-# Project summary to display on homepage.
-summary = ""
-
-# Slides (optional).
-#   Associate this page with Markdown slides.
-#   Simply enter your slide deck's filename without extension.
-#   E.g. `slides = "example-slides"` references 
-#   `content/slides/example-slides.md`.
-#   Otherwise, set `slides = ""`.
-slides = ""
+title: "{{ replace .Name "-" " " | title }}"
+summary: ""
+authors: []
+tags: []
+categories: []
+date: {{ .Date }}
 
 # Optional external URL for project (replaces project detail page).
-external_link = ""
-
-# Links (optional).
-url_pdf = ""
-url_code = ""
-url_dataset = ""
-url_slides = ""
-url_video = ""
-url_poster = ""
-
-# Custom links (optional).
-#   Uncomment line below to enable. For multiple links, use the form `[{...}, {...}, {...}]`.
-# links = [{icon_pack = "fab", icon="twitter", name="Follow", url = "https://twitter.com"}]
+external_link: ""
 
 # Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
-[image]
-  # Caption (optional)
-  caption = ""
+# To use, add an image named `featured.jpg/png` to your page's folder.
+# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
+image:
+  caption: ""
+  focal_point: ""
+  preview_only: false
 
-  # Focal point (optional)
-  # Options: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight
-  focal_point = ""
-+++
+# Custom links (optional).
+#   Uncomment and edit lines below to show custom links.
+# links:
+# - name: Follow
+#   url: https://twitter.com
+#   icon_pack: fab
+#   icon: twitter
+
+url_code: ""
+url_pdf: ""
+url_slides: ""
+url_video: ""
+
+# Slides (optional).
+#   Associate this project with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
+#   Otherwise, set `slides = ""`.
+slides: ""
+---
