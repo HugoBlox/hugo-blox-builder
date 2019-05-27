@@ -306,7 +306,7 @@
   * Toggle day/night mode.
   * --------------------------------------------------------------------------- */
 
-  function toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark) {
+  function toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled) {
     if ($('body').hasClass('dark')) {
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').removeClass('dark');
@@ -316,6 +316,10 @@
       }
       $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
       localStorage.setItem('dark_mode', '0');
+      if (diagramEnabled) {
+        // TODO: Investigate Mermaid.js approach to re-render diagrams with new theme without reloading.
+        location.reload();
+      }
     } else {
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').addClass('dark');
@@ -325,6 +329,10 @@
       }
       $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
       localStorage.setItem('dark_mode', '1');
+      if (diagramEnabled) {
+        // TODO: Investigate Mermaid.js approach to re-render diagrams with new theme without reloading.
+        location.reload();
+      }
     }
   }
 
@@ -360,12 +368,16 @@
     const codeHlEnabled = $('link[title=hl-light]').length > 0;
     const codeHlLight = $('link[title=hl-light]')[0];
     const codeHlDark = $('link[title=hl-dark]')[0];
+    const diagramEnabled = $('script[title=mermaid]').length > 0;
 
     if (dark_mode) {
       $('body').addClass('dark');
       if (codeHlEnabled) {
         codeHlLight.disabled = true;
         codeHlDark.disabled = false;
+      }
+      if (diagramEnabled) {
+        mermaid.initialize({ theme: 'dark' });
       }
       $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
     } else {
@@ -374,13 +386,16 @@
         codeHlLight.disabled = false;
         codeHlDark.disabled = true;
       }
+      if (diagramEnabled) {
+        mermaid.initialize({ theme: 'default' });
+      }
       $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
     }
 
     // Toggle day/night mode.
     $('.js-dark-toggle').click(function(e) {
       e.preventDefault();
-      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark);
+      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
     });
   });
 

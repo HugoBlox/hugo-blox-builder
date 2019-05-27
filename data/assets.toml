@@ -59,6 +59,10 @@
   version = "4.1.1"
   sri = "sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck="
   url = "https://cdnjs.cloudflare.com/ajax/libs/anchor-js/%s/anchor.min.js"
+[js.mermaid]
+  version = "8.0.0"
+  sri = "sha256-0w92bcB21IY5+rGI84MGj52jNfHNbXVeQLrZ0CGdjNY="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/%s/mermaid.min.js"
 
 # CSS
 
