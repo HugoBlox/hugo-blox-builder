@@ -43,7 +43,7 @@
 - id: interests
   translation: Interessen
 - id: education
-  translation: Ausbildung
+  translation: Bildung
 - id: user_profile_latest
   translation: Aktuellste
 - id: see_certificate
