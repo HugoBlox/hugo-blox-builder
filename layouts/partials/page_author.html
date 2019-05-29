@@ -19,6 +19,11 @@
 {{ $taxonomy := "authors" }}
 {{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_urlized) }}
 {{ with $profile_page }}
+  {{/* If it's a personal site and primary page author is superuser, link to the homepage rather than their profile page. */}}
+  {{ $profile_url := .RelPermalink }}
+  {{ if and (not site.Data.organization.name) (eq .Params.superuser true) }}
+    {{ $profile_url = site.BaseURL }}
+  {{ end }}
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
   <div class="media author-card" itemscope itemtype="http://schema.org/Person">
     {{ if and site.Params.gravatar .Params.email }}
@@ -29,7 +34,7 @@
     {{ end }}
 
     <div class="media-body">
-      <h5 class="card-title" itemprop="name"><a href="{{.RelPermalink}}">{{.Params.name}}</a></h5>
+      <h5 class="card-title" itemprop="name"><a href="{{$profile_url}}">{{.Params.name}}</a></h5>
       {{ with .Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
       {{ with .Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
       <ul class="network-icon" aria-hidden="true">
