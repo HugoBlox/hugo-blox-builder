@@ -1,5 +1,5 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
+
 <div class="universal-wrapper pt-3">
 
   <h1>{{ i18n "page_not_found" }}</h1>
@@ -27,5 +27,5 @@
   {{ end }}
 
 </div>
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+
+{{- end -}}

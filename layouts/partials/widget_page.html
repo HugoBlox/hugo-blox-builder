@@ -1,5 +1,4 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
 
 {{/* Notify JS that this is a widget page */}}
 <span class="js-widget-page d-none"></span>
@@ -76,5 +75,4 @@
   </section>
 {{ end }}
 
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+{{- end -}}

@@ -1,5 +1,4 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
 
 {{ partial "page_header.html" . }}
 
@@ -36,5 +35,5 @@
   </div>
 
 </div>
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+
+{{- end -}}
