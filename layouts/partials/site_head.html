@@ -181,7 +181,8 @@
   {{ end }}
 
   {{ partial "cookie_consent" . }}
-  {{ partial "head_custom" . }}
+
+  {{ partial "custom_head" . }}
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
 
