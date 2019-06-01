@@ -150,5 +150,4 @@
     {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/academic.min.js" | fingerprint "md5" }}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
 
-  </body>
-</html>
+    {{ partial "custom_js" . }}

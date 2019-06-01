@@ -1,5 +1,4 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
 
 <article class="article" itemscope itemtype="http://schema.org/Article">
 
@@ -40,5 +39,4 @@
   </div>
 </article>
 
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+{{- end -}}

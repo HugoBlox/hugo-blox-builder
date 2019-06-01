@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="{{ site.LanguageCode | default "en-us" }}">
 <head>
 
   <meta charset="utf-8">
@@ -183,10 +181,9 @@
   {{ end }}
 
   {{ partial "cookie_consent" . }}
-  {{ partial "head_custom" . }}
+
+  {{ partial "custom_head" . }}
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
 
 </head>
-<body id="top" data-spy="scroll" data-target="{{ if or .IsHome (eq .Type "widget_page") }}#navbar-main{{else}}#TableOfContents{{end}}" data-offset="71" {{ if not ($scr.Get "light") }}class="dark"{{end}}>
-  {{ partial "search" . }}
