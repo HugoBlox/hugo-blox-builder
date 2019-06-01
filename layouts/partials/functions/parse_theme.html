@@ -2,7 +2,7 @@
 
 {{/* Attempt to load font style specified by user. */}}
 {{- $font_index := site.Params.font | default "default" -}}
-{{ if isset site.Data.fonts $font_index }}
+{{ if (index site.Data.fonts $font_index) }}
   {{- $font := index site.Data.fonts $font_index -}}
   {{- $scr.Set "google_fonts" $font.google_fonts -}}
   {{- $scr.Set "body_font" $font.body_font -}}
@@ -17,7 +17,7 @@
 
 {{/* Attempt to load color theme specified by user. */}}
 {{- $theme_index := site.Params.color_theme | default "default" -}}
-{{ if isset site.Data.themes $theme_index }}
+{{ if (index site.Data.themes $theme_index) }}
   {{ $theme := index site.Data.themes $theme_index }}
 
   {{- $scr.Set "light" ($theme.light | default true) -}}
