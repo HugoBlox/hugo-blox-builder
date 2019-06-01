@@ -13,12 +13,13 @@
 
   {{ partial "site_js.html" . }}
 
+  {{ if ne .Type "docs" }}
   <div class="container">
     {{ partial "site_footer.html" . }}
   </div>
+  {{ end }}
 
   {{ partial "citation.html" . }}
 
 </body>
-
 </html>
