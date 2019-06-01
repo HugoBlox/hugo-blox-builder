@@ -467,11 +467,14 @@ a.badge:hover {
  *  Tables
  **************************************************/
 
+/* Based on Bootstrap's `table-responsive` style. */
 table {
+  display: block;
   width: 100%;
-  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin-bottom: 1rem;
-  font-size: 0.93rem;
+  font-size: 0.8rem;
 }
 
 table > thead > tr > th,
