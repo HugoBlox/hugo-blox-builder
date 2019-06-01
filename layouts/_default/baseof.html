@@ -9,11 +9,16 @@
 
   {{ partial "navbar.html" . }}
 
-  {{ partial "docs_layout.html" . }}
+  {{ block "main" . }}{{ end }}
 
   {{ partial "site_js.html" . }}
+
+  <div class="container">
+    {{ partial "site_footer.html" . }}
+  </div>
+
+  {{ partial "citation.html" . }}
 
 </body>
 
 </html>
-
