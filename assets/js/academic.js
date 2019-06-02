@@ -280,7 +280,7 @@
   function printLatestRelease(selector, repo) {
     $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
       let release = json[0];
-      $(selector).append(release.name);
+      $(selector).append(' '+release.name);
     }).fail(function( jqxhr, textStatus, error ) {
       let err = textStatus + ", " + error;
       console.log( "Request Failed: " + err );
@@ -520,9 +520,10 @@
     // Initialise Google Maps if necessary.
     initMap();
 
-    // Print latest Academic version if necessary.
-    if ($('#academic-release').length > 0)
-      printLatestRelease('#academic-release', $('#academic-release').data('repo'));
+    // Print latest version of GitHub projects.
+    let githubReleaseSelector = '.js-github-release';
+    if ($(githubReleaseSelector).length > 0)
+      printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
 
     // On search icon click toggle search dialog.
     $('.js-search').click(function(e) {

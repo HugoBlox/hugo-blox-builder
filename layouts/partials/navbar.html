@@ -28,18 +28,14 @@
         {{ if .HasChildren }}
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
-            {{ .Pre }}
-            <span>{{ .Name | safeHTML }}</span>
-            {{ .Post }}
+            {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             {{ range .Children }}
             <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
-                {{ .Pre }}
-                <span>{{ .Name | safeHTML }}</span>
-                {{ .Post }}
+                {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
               </a>
             </li>
             {{ end }}
@@ -72,9 +68,7 @@
 
         <li class="nav-item">
           <a class="nav-link {{if $is_link_in_current_path }} active{{end}}" href="{{.URL | relLangURL}}"{{ if and $is_widget_page $is_same_page }} data-target="{{$hash}}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
-            {{ .Pre }}
-            <span>{{ .Name | safeHTML }}</span>
-            {{ .Post }}
+            {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
           </a>
         </li>
 
@@ -98,9 +92,7 @@
 
         <li class="nav-item">
           <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
-          {{ .Pre }}
-          <span>{{ .Name | safeHTML }}</span>
-          {{ .Post }}
+            {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
           </a>
         </li>
 
