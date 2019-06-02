@@ -357,6 +357,13 @@
    * --------------------------------------------------------------------------- */
 
   $(document).ready(function() {
+    // Fix Hugo's auto-generated Table of Contents.
+    //   Must be performed prior to initializing ScrollSpy.
+    $('#TableOfContents > ul > li > ul').unwrap().unwrap();
+    $('#TableOfContents').addClass('nav flex-column');
+    $('#TableOfContents li').addClass('nav-item');
+    $('#TableOfContents li a').addClass('nav-link');
+
     // Set dark mode if user chose it.
     let default_mode = 0;
     if ($('body').hasClass('dark')) {
@@ -512,9 +519,6 @@
 
     // Initialise Google Maps if necessary.
     initMap();
-
-    // Fix Hugo's inbuilt Table of Contents.
-    $('#TableOfContents > ul > li > ul').unwrap().unwrap();
 
     // Print latest Academic version if necessary.
     if ($('#academic-release').length > 0)

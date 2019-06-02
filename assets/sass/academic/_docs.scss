@@ -240,6 +240,12 @@ ul.toc-top {
   text-decoration: none;
 }
 
+/* ScrollSpy active link style. */
+#TableOfContents li a.active {
+  color: $sta-primary;
+  font-weight: 700;
+}
+
 /* Docs achnorjs links. */
 
 .anchorjs-link {
