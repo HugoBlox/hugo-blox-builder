@@ -37,7 +37,7 @@
 - id: btn_source
   translation: Documento Fonte
 - id: btn_copy
-  translation: Cópia
+  translation: Copiar
 - id: btn_download
   translation: Download
 - id: interests
