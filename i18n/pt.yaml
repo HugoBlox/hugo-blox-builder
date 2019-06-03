@@ -1,27 +1,27 @@
 - id: toggle_navigation
   translation: Alterar navegação
 - id: table_of_contents
-  translation: Table of Contents
+  translation: Lista de Conteúdos
 - id: on_this_page
-  translation: On this page
+  translation: Nesta página
 - id: back_to_top
-  translation: Back to top
+  translation: Voltar para o topo
 - id: related
-  translation: Related
+  translation: Relacionados
 - id: minute_read
-  translation: min read
+  translation: minutos de leitura
 - id: previous
-  translation: Previous
+  translation: Anterior
 - id: next
-  translation: Next
+  translation: Próximo
 - id: figure
-  translation: 'Figure %d:'
+  translation: 'Figura %d:'
 - id: btn_preprint
-  translation: Preprint
+  translation: Pré-impressão
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
-  translation: Cite
+  translation: Citação
 - id: btn_slides
   translation: Slides
 - id: btn_video
@@ -33,11 +33,11 @@
 - id: btn_project
   translation: Projeto
 - id: btn_poster
-  translation: Poster
+  translation: Pôster
 - id: btn_source
-  translation: Source Document
+  translation: Documento Fonte
 - id: btn_copy
-  translation: Copy
+  translation: Copiar
 - id: btn_download
   translation: Download
 - id: interests
@@ -45,13 +45,13 @@
 - id: education
   translation: Formação
 - id: user_profile_latest
-  translation: Latest
+  translation: Recentes
 - id: see_certificate
-  translation: See certificate
+  translation: Ver certificado
 - id: present
-  translation: Present
+  translation: Presente
 - id: more_pages
-  translation: See all
+  translation: Ver todas
 - id: more_posts
   translation: Mais Posts
 - id: more_talks
@@ -59,15 +59,15 @@
 - id: more_publications
   translation: Mais Publicações
 - id: contact_name
-  translation: Name
+  translation: Nome
 - id: contact_email
   translation: Email
 - id: contact_message
-  translation: Message
+  translation: Mensagem
 - id: contact_send
-  translation: Send
+  translation: Enviar
 - id: book_appointment
-  translation: Book an appointment
+  translation: Agendar um horário
 - id: abstract
   translation: Resumo
 - id: publication
@@ -77,29 +77,29 @@
 - id: date
   translation: Data
 - id: last_updated
-  translation: Last updated on
+  translation: Última atualização em
 - id: event
   translation: Evento
 - id: location
   translation: Local
 - id: pub_uncat
-  translation: Uncategorized
+  translation: Sem categoria
 - id: pub_conf
-  translation: Conference paper
+  translation: Artigo de conferência
 - id: pub_journal
-  translation: Journal article
+  translation: Artigo de revista
 - id: pub_preprint
-  translation: Preprint
+  translation: Pré-impressão
 - id: pub_report
-  translation: Report
+  translation: Relatório
 - id: pub_book
-  translation: Book
+  translation: Livro
 - id: pub_book_section
-  translation: Book section
+  translation: Seção de livro
 - id: pub_thesis
-  translation: Thesis
+  translation: Tese
 - id: pub_patent
-  translation: Patent
+  translation: Patente
 - id: open_project_site
   translation: Ir para o site do projeto
 - id: posts
@@ -109,22 +109,22 @@
 - id: talks
   translation: Palestras
 - id: projects
-  translation: Projects
+  translation: Projetos
 - id: search
-  translation: Search
+  translation: Pesquisar
 - id: search_placeholder
-  translation: Search...
+  translation: Pesquisar...
 - id: search_results
-  translation: results found
+  translation: Resultados encontrados
 - id: search_no_results
-  translation: No results found
+  translation: Sem resultados
 - id: page_not_found
-  translation: Page not found
+  translation: Página não encontrada
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Você está procurando por um desses?
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Este site contém cookies para garantir que você tenha a melhor experência.
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Entendi!
 - id: cookie_learn
-  translation: Learn more
+  translation: Saiba mais
