@@ -17,7 +17,7 @@
 - id: figure
   translation: 'Figura %d:'
 - id: btn_preprint
-  translation: Preimpresión
+  translation: Prepublicación
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
@@ -27,7 +27,7 @@
 - id: btn_video
   translation: Vídeo
 - id: btn_code
-  translation: Código
+  translation: Código fuente
 - id: btn_dataset
   translation: Datos
 - id: btn_project
@@ -45,13 +45,13 @@
 - id: education
   translation: Educación
 - id: user_profile_latest
-  translation: Latest
+  translation: Recientes
 - id: see_certificate
   translation: Ver certificado
 - id: present
   translation: Actualmente
 - id: more_pages
-  translation: See all
+  translation: Ver todo
 - id: more_posts
   translation: Más posts
 - id: more_talks
@@ -83,23 +83,23 @@
 - id: location
   translation: Localización
 - id: pub_uncat
-  translation: Uncategorized
+  translation: Sin categoría
 - id: pub_conf
-  translation: Conference paper
+  translation: Artículo de conferencia
 - id: pub_journal
-  translation: Journal article
+  translation: Artículo de revista
 - id: pub_preprint
-  translation: Preprint
+  translation: Prepublicación
 - id: pub_report
-  translation: Report
+  translation: Informe
 - id: pub_book
-  translation: Book
+  translation: Libro
 - id: pub_book_section
-  translation: Book section
+  translation: Capítulo de libro
 - id: pub_thesis
-  translation: Thesis
+  translation: Tesis
 - id: pub_patent
-  translation: Patent
+  translation: Patente
 - id: open_project_site
   translation: Ir al sitio del proyecto
 - id: posts
@@ -107,7 +107,7 @@
 - id: publications
   translation: Publicaciones
 - id: talks
-  translation: Conferencias
+  translation: Charlas
 - id: projects
   translation: Proyectos
 - id: search
