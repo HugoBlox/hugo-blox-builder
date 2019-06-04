@@ -1,0 +1,53 @@
+[[social_icons]]
+  id      = "email"
+  baseurl = "mailto:?body=A must-read paper. Check it out at %s&subject=%s"
+  title   = "Email me"
+  icon    = "fas fa-envelope"
+
+[[social_icons]]
+  id      = "facebook"
+  baseurl = "https://www.facebook.com/sharer.php?u=%s&t=%s"
+  title   = "Facebook"
+  icon    = "fab fa-facebook"
+
+[[social_icons]]
+  id      = "twitter"
+  baseurl = "https://twitter.com/intent/tweet?url=%s&text=%s"
+  title   = "Twitter"
+  icon    = "fab fa-twitter"
+
+[[social_icons]]
+  id      = "reddit"
+  baseurl = "https://reddit.com/submit?url=%s&title=%s"
+  title   = "Reddit"
+  icon    = "fab fa-reddit-alien"
+
+[[social_icons]]
+  id      = "linkedin"
+  baseurl = "https://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s"
+  title   = "LinkedIn"
+  icon    = "fab fa-linkedin"
+
+[[social_icons]]
+  id      = "weibo"
+  baseurl = "https://service.weibo.com/share/share.php?url=%s&title=%s"
+  title   = "Weibo"
+  icon    = "fab fa-weibo"
+
+#[[social_icons]]
+#  id      = "xing"
+#  baseurl = "https://www.xing.com/profile/%s"
+#  title   = "Xing"
+#  icon    = "fab fa-xing"
+
+#[[social_icons]]
+#  id      = "bandcamp"
+#  baseurl = "https://%s.bandcamp.com/"
+#  title   = "Bandcamp"
+#  icon    = "fab fa-bandcamp"
+
+#[[social_icons]]
+#  id      = "keybase"
+#  baseurl = "https://keybase.io/%s"
+#  title   = "Keybase"
+#  icon    = "fab fa-keybase"
