@@ -1,12 +1,25 @@
 {{ $ := .root }}
 {{ $page := .page }}
+{{ $columns := $page.Params.design.columns | default "2" }}
 
 <div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $page.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+  {{ if ne $columns "1" }}
+  <div class="col-12 col-lg-4">
+    <div class="section-heading academic-widget-two-column">
+      {{ with $page.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
   </div>
   <div class="col-12 col-lg-8">
+
+  {{ else }}
+  <div class="col-lg-12">
+    <div class="section-heading academic-widget-one-column">
+      {{ with $page.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
+  {{ end }}
+
     {{ with $page.Content }}<p>{{ . }}</p>{{ end }}
 
     {{ if not (eq (len site.Taxonomies.tags) 0) }}

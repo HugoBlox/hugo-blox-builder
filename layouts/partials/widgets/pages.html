@@ -65,12 +65,25 @@
   {{ $i18n = "more_pages" }}
 {{ end }}
 
+{{ $columns := $st.Params.design.columns | default "2" }}
+
 <div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
-    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+  {{ if ne $columns "1" }}
+  <div class="col-12 col-lg-4">
+    <div class="section-heading academic-widget-two-column">
+      {{ with $st.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
   </div>
   <div class="col-12 col-lg-8">
+
+  {{ else }}
+  <div class="col-lg-12">
+    <div class="section-heading academic-widget-one-column">
+      {{ with $st.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
+  {{ end }}
 
     {{ with $st.Content }}<p>{{ . }}</p>{{ end }}
 

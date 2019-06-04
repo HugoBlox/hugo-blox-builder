@@ -1,13 +1,28 @@
 {{ $ := .root }}
 {{ $page := .page }}
+{{ $columns := $page.Params.design.columns | default "2" }}
 
 <!-- Accomplishments widget -->
 <div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  {{ if ne $columns "1" }}
+  <div class="col-12 col-lg-4">
+    <div class="section-heading academic-widget-two-column">
+      {{ with $page.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
   </div>
   <div class="col-12 col-lg-8">
+
+  {{ else }}
+  <div class="col-lg-12">
+    <div class="section-heading academic-widget-one-column">
+      {{ with $page.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
+  {{ end }}
+
+    {{ $page.Content }}
+
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
     {{ if $page.Params.item }}

@@ -1,14 +1,27 @@
 {{ $ := .root }}
 {{ $page := .page }}
 {{ $autolink := default true $page.Params.autolink }}
+{{ $columns := $page.Params.design.columns | default "2" }}
 
 <!-- Contact widget -->
 <div class="row contact-widget">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
+  {{ if ne $columns "1" }}
+  <div class="col-12 col-lg-4">
+    <div class="section-heading academic-widget-two-column">
+      {{ with $page.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
   </div>
   <div class="col-12 col-lg-8">
+
+  {{ else }}
+  <div class="col-lg-12">
+    <div class="section-heading academic-widget-one-column">
+      {{ with $page.Title }}<h1>{{ . | markdownify | emojify }}</h1>{{ end }}
+      {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    </div>
+  {{ end }}
+
     {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
 
     {{ if $page.Params.email_form }}
