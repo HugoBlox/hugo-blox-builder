@@ -1,14 +1,16 @@
 {{ if and site.Params.sharing (ne .Params.share false) }}
 <div class="share-box" aria-hidden="true">
   <ul class="share">
-    {{ range .Site.Data.social_pubshare.social_icons }}
-    <li>
-        <a class="{{ .id }}"
-           href="{{ printf .baseurl ($.Permalink | html) ($.Title | html) }}"
-           title="Share via {{ .title }}" target="_blank" rel="noopener">
-           <i class="{{ .icon }}"></i>
-        </a>
-    </li>
+    {{ range .Params.social }}
+      {{ range where $.Site.Data.social_pubshare.social_icons "id" . }}
+        <li>
+            <a class="{{ .title }}"
+               href="{{ printf .baseurl ($.Permalink | html) ($.Title | html) }}"
+               title="Share via {{ .title }}" target="_blank" rel="noopener">
+               <i class="{{ .icon }}"></i>
+            </a>
+        </li>
+      {{ end }}
     {{ end }}
   </ul>
 </div>
