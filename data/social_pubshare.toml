@@ -1,7 +1,7 @@
 [[social_icons]]
   id      = "email"
   baseurl = "mailto:?body=A must-read paper. Check it out at %s&subject=%s"
-  title   = "Email me"
+  title   = "Email"
   icon    = "fas fa-envelope"
 
 [[social_icons]]
