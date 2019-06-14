@@ -3,15 +3,17 @@
 {{ with .Get "album" }}{{ $album = . }}{{else}}{{ $album = "gallery" }}{{end}}
 
 {{/* Set image path and page bundle that images are associated with. */}}
-{{ $album_path := "" }}
+{{ $album_dir := "" }}
 {{ $resource_page := "" }}
 {{ if eq .Page.Parent.Type "widget_page" }}
-  {{ $album_path = printf "%s/%s/*" (path.Base (path.Split .Page.Path).Dir) $album }}
+  {{ $album_dir = printf "%s/%s" (path.Base (path.Split .Page.Path).Dir) $album }}
   {{ $resource_page = $.Page.Parent }}
 {{ else }}
-  {{ $album_path = printf "%s/*" $album }}
+  {{ $album_dir = $album }}
   {{ $resource_page = $.Page }}
 {{ end }}
+{{ $album_path := printf "%s/*" $album_dir }}
+
 
 <div class="gallery">
 
@@ -25,7 +27,7 @@
     {{ $caption := "" }}
     {{ if $.Page.Params.gallery_item }}
     {{ range (where $.Page.Params.gallery_item "album" $album) }}
-      {{if eq (printf "%s/%s" $album .image) $filename}}{{ with .caption }}{{ $caption = . }}{{end}}{{end}}
+      {{if eq (printf "%s/%s" $album_dir .image) $filename}}{{ with .caption }}{{ $caption = . }}{{end}}{{end}}
     {{ end }}
     {{ end }}
   <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.}}"{{ end }}>
