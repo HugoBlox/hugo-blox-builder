@@ -51,8 +51,8 @@ gallery_item:
   caption: Coffee theme with Playfair font
   image: theme-coffee-playfair.png
 - album: gallery
-  caption: Cupcake
-  image: theme-cupcake.png
+  caption: Strawberry
+  image: theme-strawberry.png
 ---
 
 **Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 _widgets_, _themes_, and _language packs_ included!**
