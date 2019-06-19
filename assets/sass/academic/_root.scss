@@ -280,7 +280,7 @@ a[data-fancybox] {
   text-decoration: none;
 }
 
-a[data-fancybox] img {
+.gallery a[data-fancybox] img {
   height: 250px;
   max-width: inherit;
   display: inherit;
