@@ -4,15 +4,15 @@
   {{ $image_src = printf "img/%s" $image_src | relURL }}
 {{ end }}
 {{ $lightbox := eq (.Get "lightbox" | default "false") "true" }}
-{{ $group := .Get "lightbox-group" | default "figures" }}
+{{ $group := .Get "lightbox-group" | default "" }}
 
 <figure{{ with .Get "class" }} class="{{.}}"{{ end }}>
 {{ if $lightbox }}
-  <a data-fancybox="{{ $group }}" data-src="{{ $image_src }}" href="javascript:;" {{ with .Get "caption"}}data-caption="{{ . | markdownify | emojify }}"{{ end }}>
+  <a data-fancybox="{{$group}}" href="{{$image_src}}" {{ with .Get "caption"}}data-caption="{{ .|markdownify|emojify }}"{{ end }}>
 {{ else if .Get "link"}}
-  <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{ . }}"{{ end }}{{ with .Get "rel" }} rel="{{ . }}"{{ end }}>
+  <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{.}}"{{ end }}{{ with .Get "rel" }} rel="{{.}}"{{ end }}>
 {{ end }}
-<img src="{{ $image_src }}" {{ if or (.Get "alt") (.Get "caption") }}alt="{{ with .Get "alt"}}{{.}}{{else}}{{ .Get "caption" }}{{ end }}" {{ end }}{{ with .Get "width" }}width="{{.}}" {{ end }}{{ with .Get "height" }}height="{{.}}" {{ end }}/>
+<img src="{{$image_src}}" {{ if or (.Get "alt") (.Get "caption") }}alt="{{ with .Get "alt"}}{{.}}{{else}}{{ .Get "caption" }}{{ end }}" {{ end }}{{ with .Get "width" }}width="{{.}}" {{ end }}{{ with .Get "height" }}height="{{.}}" {{ end }}>
 {{ if or $lightbox (.Get "link") }}</a>{{ end }}
 {{ if or (or (.Get "title") (.Get "caption")) (.Get "attr")}}
 {{ $figure := split (i18n "figure" | default "Figure %d:") "%d" }}
