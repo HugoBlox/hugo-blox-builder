@@ -10,7 +10,7 @@
   {{ $pdf_link = true }}
 {{ end }}
 
-{{ $resource := $page.Resources.GetMatch "*.bib" }}
+{{ $resource := $page.Resources.GetMatch "cite.bib" }}
 {{ with $resource }}
   {{ $cite_link = true }}
 {{ end }}
