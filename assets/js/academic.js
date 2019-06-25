@@ -528,6 +528,13 @@
     // On search icon click toggle search dialog.
     $('.js-search').click(function(e) {
       e.preventDefault();
+
+      // Clear the query params from the URL when closing the search dialog
+      if ($('body').hasClass('searching') && window.history.pushState) {
+        let urlWithoutSearchParams = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+        window.history.pushState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
+      }
+
       toggleSearchDialog();
     });
     $(document).on('keydown', function(e){
