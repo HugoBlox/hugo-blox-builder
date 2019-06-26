@@ -49,6 +49,13 @@
     }
   }
 
+  function removeQueryParamsFromUrl() {
+    if (window.history.pushState) {
+      let urlWithoutSearchParams = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+      window.history.pushState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
+    }
+  }
+
   // Check for hash change event and fix responsive offset for hash links (e.g. Markdown footnotes).
   window.addEventListener("hashchange", scrollToAnchor);
 
@@ -295,6 +302,7 @@
     if ($('body').hasClass('searching')) {
       $('[id=search-query]').blur();
       $('body').removeClass('searching');
+      removeQueryParamsFromUrl();
     } else {
       $('body').addClass('searching');
       $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
@@ -528,13 +536,6 @@
     // On search icon click toggle search dialog.
     $('.js-search').click(function(e) {
       e.preventDefault();
-
-      // Clear the query params from the URL when closing the search dialog
-      if ($('body').hasClass('searching') && window.history.pushState) {
-        let urlWithoutSearchParams = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
-        window.history.pushState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
-      }
-
       toggleSearchDialog();
     });
     $(document).on('keydown', function(e){
