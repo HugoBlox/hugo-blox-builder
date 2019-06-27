@@ -96,7 +96,7 @@
 
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent. */}}
   {{ with ($scr.Get "google_fonts") }}
-  <link rel="stylesheet" {{ printf "href=\"//fonts.googleapis.com/css?family=%s\"" . | safeHTMLAttr }}>
+  <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css?family=%s&display=swap\"" . | safeHTMLAttr }}>
   {{ end }}
 
   {{ $css_options := (dict "targetPath" "css/academic.css" "outputStyle" "compressed") }}
@@ -170,7 +170,10 @@
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}">
   <meta property="og:description" content="{{ $desc }}">
-  {{- with $og_image }}<meta property="og:image" content="{{ . }}">{{end}}
+  {{- with $og_image -}}
+  <meta property="og:image" content="{{.}}">
+  <meta property="twitter:image" content="{{.}}">
+  {{- end -}}
   <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
   {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">

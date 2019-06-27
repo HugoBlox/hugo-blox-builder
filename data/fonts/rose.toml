@@ -1,0 +1,15 @@
+# Font style metadata
+name = "Rose"
+
+# Optional Google font URL
+google_fonts = "Cutive+Mono|Lora:400,700|Roboto:400,700"
+
+# Font families
+heading_font = "Lora"
+body_font = "Roboto"
+nav_font = "Lora"
+mono_font = "Cutive Mono"
+
+# Font size
+font_size = "20"
+font_size_small = "16"
