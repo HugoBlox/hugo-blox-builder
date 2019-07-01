@@ -6,7 +6,7 @@
   {{ with .Content }}
   <div class="article-style" itemprop="articleBody">{{ . }}</div>
   {{ end }}
-  <ul>
+  <ul class="list-unstyled">
     {{ if gt (len .Sections) 0}}
     {{ range .Sections }}
     <li><h5><a href="{{.RelPermalink}}">{{.LinkTitle}}</a></h5> {{with .Params.summary}}<p>{{. | plainify | emojify}}</p>{{end}}</li>
