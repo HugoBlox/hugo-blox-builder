@@ -50,9 +50,9 @@
   }
 
   function removeQueryParamsFromUrl() {
-    if (window.history.pushState) {
+    if (window.history.replaceState) {
       let urlWithoutSearchParams = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
-      window.history.pushState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
+      window.history.replaceState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
     }
   }
 
