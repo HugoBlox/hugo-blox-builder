@@ -13,14 +13,6 @@ article {
   margin: 0 auto 0 auto;
 }
 
-.split-header {
-  margin-bottom: 2rem;
-}
-
-.split-header .share-box {
-  float: left;
-}
-
 .page-subtitle {
   font-size: 1.15rem;
   color: rgba(0,0,0,.54);
@@ -29,25 +21,6 @@ article {
 
 .dark .page-subtitle {
   color: rgba(255,255,255,0.54);
-}
-
-.split-header .page-subtitle {
-  margin-bottom: 1.5rem;
-}
-
-.split-header-content {
-  max-width: 612px;
-  width: 100%;
-  padding: 60px 60px 32px 0;
-  margin-left: auto;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.split-header-image {
-  position: relative; /* Required for caption positioning */
-  clear: both;
-  max-width: 580px;
 }
 
 .article-header {
@@ -60,30 +33,17 @@ article {
   height: auto;
 }
 
+.featured-image-wrapper {
+  position: relative;
+  padding-left: 0; /* Override container padding. */
+  padding-right: 0; /* Override container padding. */
+}
+
 .featured-image {
+  position: relative;
   width: 100%;
-  background-position: left;
-  background-origin: border-box;
-  background-size: cover;
-  height: 60vh;
-  min-height: 500px;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto
-}
-
-@media screen and (max-width: 1199px) {
-  .featured-image {
-    min-height: 400px;
-    height: auto;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .featured-image {
-    min-height: 300px;
-  }
+  display: block;
+  margin: 0 auto;
 }
 
 .article-header-caption {
