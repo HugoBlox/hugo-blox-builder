@@ -23,9 +23,10 @@
    */
   function scrollToAnchor(target) {
     // If `target` is undefined or HashChangeEvent object, set it to window's hash.
-    target = (typeof target === 'undefined' || typeof target === 'object') ? window.location.hash : target;
-    // Escape colons from IDs, such as those found in Markdown footnote links.
-    target = target.replace(/:/g, '\\:');
+    // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
+    target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
+    // Escape special chars from IDs, such as colons found in Markdown footnote links.
+    target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
 
     // If target element exists, scroll to it taking into account fixed navigation bar offset.
     if($(target).length) {
@@ -35,6 +36,8 @@
       }, 600, function () {
         $('body').removeClass('scrolling');
       });
+    }else{
+      console.warn('Cannot scroll to '+target+'. ID not found!');
     }
   }
 
