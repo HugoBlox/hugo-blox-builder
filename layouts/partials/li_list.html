@@ -20,7 +20,7 @@
 
 <div class="view-list-item" itemscope itemtype="http://schema.org/{{$microdata_type}}">
   <i class="far {{$icon}} pub-icon" aria-hidden="true"></i>
-  <a href="{{ $item.RelPermalink }}" itemprop="url"><span itemprop="name">{{ $item.Title }}</span></a>
+  <a href="{{ $item.RelPermalink }}" itemprop="url"><span itemprop="name">{{ $item.Title | markdownify | emojify }}</span></a>
 
   {{ if eq $item.Type "talk" }}
   <div class="article-metadata">
