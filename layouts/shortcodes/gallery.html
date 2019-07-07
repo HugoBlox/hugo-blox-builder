@@ -21,14 +21,14 @@
   {{ range $images }}
     {{ $image := .Resize "x190" }}
     {{/* Check if the user set a caption for this image */}}
-    {{ $filename := .Name }}
+    {{ $filename := path.Base .Name }}
     {{ $caption := "" }}
     {{ if $.Page.Params.gallery_item }}
-    {{ range (where $.Page.Params.gallery_item "album" $album) }}
-      {{if eq (printf "%s/%s" $album .image) $filename}}{{ with .caption }}{{ $caption = . }}{{end}}{{end}}
+      {{ range (where (where $.Page.Params.gallery_item "album" $album) "image" $filename) }}
+        {{ $caption = .caption }}
+      {{ end }}
     {{ end }}
-    {{ end }}
-  <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.}}"{{ end }}>
+  <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
   <img src="{{ $image.RelPermalink }}" alt="">
   </a>
   {{end}}
@@ -45,12 +45,12 @@
       {{ $.Scratch.Set "src" (printf "img/%s" .image | relURL) }}
     {{ end }}
   {{ end }}
-  <a data-fancybox="gallery{{ with .album }}-{{.}}{{ end }}" {{ with .caption }}data-caption="{{.}}"{{ end }} href="{{$.Scratch.Get "src"}}">
+  <a data-fancybox="gallery{{ with .album }}-{{.}}{{ end }}" {{ with .caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }} href="{{$.Scratch.Get "src"}}">
     <img src="{{$.Scratch.Get "src"}}" alt="">
   </a>
   {{end}}
   {{else}}
-    {{ errorf "Unable to load gallery in %s." .Page.Filename }}
+    {{ errorf "Unable to load gallery in %s." .Page.File.Filename }}
   {{end}}
   {{end}}
 </div>

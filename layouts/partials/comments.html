@@ -1,4 +1,4 @@
-{{ if and .Site.DisqusShortname (not (or .Site.Params.disable_comments .Params.disable_comments)) }}
+{{ if and site.DisqusShortname (not (or site.Params.disable_comments .Params.disable_comments)) }}
 <section id="comments">
   {{ template "_internal/disqus.html" . }}
 </section>

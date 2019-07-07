@@ -1,0 +1,53 @@
+{{- $scr := .Scratch -}}
+
+{{/* Attempt to load font style specified by user. */}}
+{{- $font_index := site.Params.font | default "default" -}}
+{{ if (index site.Data.fonts $font_index) }}
+  {{- $font := index site.Data.fonts $font_index -}}
+  {{- $scr.Set "google_fonts" $font.google_fonts -}}
+  {{- $scr.Set "body_font" $font.body_font -}}
+  {{- $scr.Set "heading_font" $font.heading_font -}}
+  {{- $scr.Set "nav_font" $font.nav_font -}}
+  {{- $scr.Set "mono_font" $font.mono_font -}}
+  {{- $scr.Set "font_size" $font.font_size -}}
+  {{- $scr.Set "font_size_small" $font.font_size_small -}}
+{{ else }}
+  {{ errorf "The `%s` font theme was not found! Check that the `font` option in `config/_default/params.toml` matches the name of an installed font theme." $font_index }}
+{{ end }}
+
+{{/* Attempt to load color theme specified by user. */}}
+{{- $theme_index := site.Params.color_theme | default "default" -}}
+{{ if (index site.Data.themes $theme_index) }}
+  {{ $theme := index site.Data.themes $theme_index }}
+
+  {{- $scr.Set "light" ($theme.light | default true) -}}
+
+  {{ if $theme.light }}
+    {{- $scr.Set "background" ($theme.background | default "#fff") -}}
+    {{- $scr.Set "dark_background" "rgb(40, 42, 54)" -}}
+    {{- $scr.Set "home_section_odd" $theme.home_section_odd -}}
+    {{- $scr.Set "home_section_even" $theme.home_section_even -}}
+    {{- $scr.Set "dark_home_section_odd" "hsla(231, 15%, 18%, 1)" -}}
+    {{- $scr.Set "dark_home_section_even" "hsla(231, 15%, 16%, 1)" -}}
+  {{ else }}
+    {{- $scr.Set "background" ($theme.background | default "#fff") -}}
+    {{- $scr.Set "dark_background" ($theme.background | default "rgb(40, 42, 54)") -}}
+    {{- $scr.Set "home_section_odd" "rgb(255, 255, 255)" -}}
+    {{- $scr.Set "home_section_even" "rgb(247, 247, 247)" -}}
+    {{- $scr.Set "dark_home_section_odd" $theme.home_section_odd -}}
+    {{- $scr.Set "dark_home_section_even" $theme.home_section_even -}}
+  {{ end }}
+
+  {{- $scr.Set "link" ($theme.link | default $theme.primary) -}}
+  {{- $scr.Set "link_hover" ($theme.link_hover | default $theme.primary) -}}
+
+  {{- $scr.Set "primary" $theme.primary -}}
+
+  {{- $scr.Set "menu_primary" $theme.menu_primary -}}
+  {{- $scr.Set "menu_text" $theme.menu_text -}}
+  {{- $scr.Set "menu_text_active" $theme.menu_text_active -}}
+  {{- $scr.Set "menu_title" $theme.menu_title -}}
+
+{{ else }}
+  {{ errorf "The `%s` color theme was not found! Check that the `color_theme` option in `config/_default/params.toml` matches the name of an installed color theme." $theme_index }}
+{{ end }}

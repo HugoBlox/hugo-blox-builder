@@ -1,5 +1,4 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
 
 <article class="article article-project" itemscope itemtype="http://schema.org/Article">
 
@@ -17,14 +16,14 @@
     {{ $page := . }}
     {{ $project := .File.ContentBaseName }}
 
-    {{ $items := where (where .Site.RegularPages "Type" "post") ".Params.projects" "intersect" (slice $project) }}
+    {{ $items := where (where site.RegularPages "Type" "post") ".Params.projects" "intersect" (slice $project) }}
     {{ $count := len $items }}
     {{ if ge $count 1 }}
       <h2>{{ (i18n "posts") }}</h2>
       {{ range $items }}
-        {{ if eq $page.Site.Params.projects.post_view 1 }}
+        {{ if eq site.Params.projects.post_view 1 }}
           {{ partial "li_list" . }}
-        {{ else if eq $page.Site.Params.projects.post_view 3 }}
+        {{ else if eq site.Params.projects.post_view 3 }}
           {{ partial "li_card" . }}
         {{ else }}
           {{ partial "li_compact" . }}
@@ -32,16 +31,16 @@
       {{ end }}
     {{ end }}
 
-    {{ $items := where (where .Site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
+    {{ $items := where (where site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
     {{ $pubs_len := len $items }}
     {{ if ge $pubs_len 1 }}
       <h2>{{ (i18n "publications") }}</h2>
       {{ range $items }}
-        {{ if eq $page.Site.Params.projects.publication_view 1 }}
+        {{ if eq site.Params.projects.publication_view 1 }}
           {{ partial "li_list" . }}
-        {{ else if eq $page.Site.Params.projects.publication_view 3 }}
+        {{ else if eq site.Params.projects.publication_view 3 }}
           {{ partial "li_card" . }}
-        {{ else if eq $page.Site.Params.projects.publication_view 4 }}
+        {{ else if eq site.Params.projects.publication_view 4 }}
           {{ partial "li_citation" . }}
         {{ else }}
           {{ partial "li_compact" . }}
@@ -49,14 +48,14 @@
       {{ end }}
     {{ end }}
 
-    {{ $items := where (where .Site.RegularPages "Type" "talk") ".Params.projects" "intersect" (slice $project) }}
+    {{ $items := where (where site.RegularPages "Type" "talk") ".Params.projects" "intersect" (slice $project) }}
     {{ $talks_len := len $items }}
     {{ if ge $talks_len 1 }}
       <h2>{{ (i18n "talks") }}</h2>
       {{ range $items }}
-        {{ if eq $page.Site.Params.projects.talk_view 1 }}
+        {{ if eq site.Params.projects.talk_view 1 }}
           {{ partial "li_list" . }}
-        {{ else if eq $page.Site.Params.projects.talk_view 3 }}
+        {{ else if eq site.Params.projects.talk_view 3 }}
           {{ partial "li_card" . }}
         {{ else }}
           {{ partial "li_compact" . }}
@@ -67,11 +66,10 @@
   </div>
 </article>
 
-{{ if .Site.Params.section_pager }}
+{{ if site.Params.section_pager }}
 <div class="article-container article-widget">
   {{ partial "section_pager.html" . }}
 </div>
 {{ end }}
 
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+{{- end -}}

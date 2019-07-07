@@ -43,8 +43,8 @@ function getSearchQuery(name) {
 
 // Set query in URI without reloading the page.
 function updateURL(url) {
-  if (history.pushState) {
-    window.history.pushState({path:url}, '', url);
+  if (history.replaceState) {
+    window.history.replaceState({path:url}, '', url);
   }
 }
 

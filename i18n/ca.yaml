@@ -1,160 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Barra de navegació
-
 - id: table_of_contents
   translation: Index
-
-# General
-
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
 - id: related
   translation: Relacionat
-
 - id: minute_read
   translation: min de lectura
-
 - id: previous
   translation: Anterior
-
 - id: next
   translation: Següent
-
 - id: figure
-  translation: "Figura %d:"
-
-# Buttons
-
+  translation: 'Figura %d:'
 - id: btn_preprint
   translation: Preimpresió
-
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: Cita
-
 - id: btn_slides
   translation: Diapositives
-
 - id: btn_video
   translation: Vídeo
-
 - id: btn_code
   translation: Códi
-
 - id: btn_dataset
   translation: Dades
-
 - id: btn_project
   translation: Projecte
-
 - id: btn_poster
   translation: Poster
-
 - id: btn_source
   translation: Font
-
 - id: btn_copy
   translation: Copia
-
 - id: btn_download
   translation: Baixa
-
-# About widget
-
 - id: interests
   translation: Interessos
-
 - id: education
   translation: Educació
-
-# Publications widget
-
-- id: more_publications
-  translation: Més publicacions
-
-# Posts widget
-
-- id: continue_reading
-  translation: CONTINUAR LLEGINT
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Més entrades
-
-# Talks widget
-
 - id: more_talks
   translation: Més xerrades
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: Més publicacions
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
   translation: Resum
-
 - id: publication
   translation: Publicació
-
 - id: publication_type
   translation: Tipus
-
 - id: date
   translation: Data
-
 - id: last_updated
   translation: Última actualizació el
-
-- id: links
-  translation: Enllaços
-
 - id: event
   translation: Event
-
 - id: location
   translation: Ubicació
-
-# Filtering
-
-- id: filter_by_type
-  translation: Filtrar per tipus
-
-- id: filter_all
-  translation: Tot
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Obre el lloc del web del projecte
-
-# Default node titles
-
 - id: posts
   translation: Entrada
-
 - id: publications
   translation: Publicació
-
 - id: talks
   translation: Conferència
-
 - id: projects
   translation: Projectes
-
-# Error 404
-
+- id: search
+  translation: Search
+- id: search_placeholder
+  translation: Search...
+- id: search_results
+  translation: results found
+- id: search_no_results
+  translation: No results found
 - id: page_not_found
   translation: No s'ha trobat la pàgina
-
 - id: 404_recommendations
   translation: Buscaves alguna d'aquestes?
-
-# Cookie consent
-
 - id: cookie_message
   translation: Aquet lloc web fa servir cookies per garantitzar una millor experiència.
-
 - id: cookie_dismiss
   translation: D'acord
-
 - id: cookie_learn
   translation: Més informació

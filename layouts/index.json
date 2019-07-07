@@ -1,10 +1,10 @@
 {{- /* Generate the search index. */ -}}
 {{- $index := slice -}}
-{{- $pages := .Site.RegularPages -}}
+{{- $pages := site.RegularPages -}}
 {{- /* Add the index page of docs separately since it's not in RegularPages above. */ -}}
-{{- $pages := $pages | union (where (where .Site.Pages "Kind" "section") "Type" "docs") -}}
-{{- /* Add author pages to index so their bios can be searched. Hide empty `/author/` node. */ -}}
-{{- $pages := $pages | union (where (where site.Pages "Section" "author") "Params.name" "!=" nil) -}}
+{{- $pages := $pages | union (where (where site.Pages "Kind" "section") "Type" "docs") -}}
+{{- /* Add author pages to index so their bios can be searched. Hide empty `/authors/` node. */ -}}
+{{- $pages := $pages | union (where (where site.Pages "Section" "authors") "Params.name" "!=" nil) -}}
 
 {{- range $pages -}}
   {{- /* Do not index drafts or private pages. */ -}}
@@ -26,10 +26,10 @@
     {{- $permalink := .Permalink -}}
 
     {{/* Correct the title and URL for author profile pages. */}}
-    {{- if eq .Section "author" -}}
+    {{- if eq .Section "authors" -}}
       {{- $title = .Params.name -}}
-      {{- $dir := path.Base (path.Split .Path).Dir -}}
-      {{- with site.GetPage (printf "/authors/%s" (path.Base (path.Split .Path).Dir)) -}}
+      {{- $username := path.Base (path.Split .Path).Dir -}}
+      {{- with site.GetPage (printf "/authors/%s" $username) -}}
         {{- $permalink = .Permalink -}}
         {{- $rel_permalink = .RelPermalink -}}
       {{- end -}}
@@ -40,9 +40,9 @@
         {{- if gt $authorLen 0 -}}
           {{- $authors = slice -}}
             {{- range $k, $v := .Params.authors -}}
-              {{- $person_page_path := (printf "/author/%s" (urlize $v)) -}}
+              {{- $person_page_path := (printf "/authors/%s" (urlize $v)) -}}
               {{- $person_page := site.GetPage $person_page_path -}}
-              {{- if $person_page -}}
+              {{- if and $person_page $person_page.File -}}
                 {{- $person := $person_page.Params -}}
                 {{- $authors = $authors | append $person.name -}}
               {{- else -}}

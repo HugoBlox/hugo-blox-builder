@@ -1,146 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Εναλλαγή πλοήγησης
-
 - id: table_of_contents
   translation: Πίνακας περιεχομένων
-
-# General
-
+- id: on_this_page
+  translation: On this page
+- id: back_to_top
+  translation: Back to top
 - id: related
   translation: Σχετικά
-
 - id: minute_read
   translation: λεπτά διαβάσματος
-
 - id: previous
   translation: Προηγούμενο
-
 - id: next
   translation: Επόμενο
-
-# Buttons
-
+- id: figure
+  translation: 'Figure %d:'
 - id: btn_preprint
   translation: Προ-δημοσίευση
-
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: Βιβλιογραφική αναφορά
-
 - id: btn_slides
   translation: Διαφάνεια
-
 - id: btn_video
   translation: Βίντεο
-
 - id: btn_code
   translation: Κώδικας
-
 - id: btn_dataset
   translation: Δεδομένα
-
 - id: btn_project
   translation: Ερευνητικό πρόγραμμα
-
 - id: btn_poster
   translation: Ανακοίνωση συνεδρίου
-
 - id: btn_source
   translation: Πηγαίος κώδικας
-
 - id: btn_copy
   translation: Αντιγραφή
-
 - id: btn_download
   translation: Λήψη
-
-# About widget
-
 - id: interests
   translation: Ενδιαφέροντα
-
 - id: education
   translation: Εκπαίδευση
-
-# Publications widget
-
-- id: more_publications
-  translation: Περισσότερες δημοσιεύσεις
-
-# Posts widget
-
-- id: continue_reading
-  translation: Συνέχεια
-
+- id: user_profile_latest
+  translation: Latest
+- id: see_certificate
+  translation: See certificate
+- id: present
+  translation: Present
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Περισσότερες αναρτήσεις
-
-# Talks widget
-
 - id: more_talks
   translation: Περισσότερες ομιλίες
-
-# Publication/Talk details
-
+- id: more_publications
+  translation: Περισσότερες δημοσιεύσεις
+- id: contact_name
+  translation: Name
+- id: contact_email
+  translation: Email
+- id: contact_message
+  translation: Message
+- id: contact_send
+  translation: Send
+- id: book_appointment
+  translation: Book an appointment
 - id: abstract
   translation: Περίληψη
-
 - id: publication
   translation: Δημοσίευση
-
 - id: publication_type
   translation: Τύπος
-
 - id: date
   translation: Ημερομηνία
-
 - id: last_updated
   translation: Τελευταία ενημέρωση
-
-- id: links
-  translation: Σύνδεσμοι
-
 - id: event
   translation: Συμβάν
-
 - id: location
   translation: Τοποθεσία
-
-# Filtering
-
-- id: filter_by_type
-  translation: Φιλτράρισμα κατά τύπο
-
-- id: filter_all
-  translation: Όλα
-
-# Project details
-
+- id: pub_uncat
+  translation: Uncategorized
+- id: pub_conf
+  translation: Conference paper
+- id: pub_journal
+  translation: Journal article
+- id: pub_preprint
+  translation: Preprint
+- id: pub_report
+  translation: Report
+- id: pub_book
+  translation: Book
+- id: pub_book_section
+  translation: Book section
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Προς ιστοσελίδα ερευνητικού προγράμματος
-
-# Default node titles
-
 - id: posts
   translation: Αναρτήσεις
-
 - id: publications
   translation: Δημοσιεύσεις
-
 - id: talks
   translation: Ομιλίες
-
 - id: projects
   translation: Ερευνητικά προγράμματα
-
-# Error 404
-
+- id: search
+  translation: Search
+- id: search_placeholder
+  translation: Search...
+- id: search_results
+  translation: results found
+- id: search_no_results
+  translation: No results found
 - id: page_not_found
   translation: Η ιστοσελίδα δεν βρέθηκε
-
 - id: 404_recommendations
   translation: Μήπως ψάχνατε για μια από αυτές;
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+- id: cookie_dismiss
+  translation: Got it!
+- id: cookie_learn
+  translation: Learn more

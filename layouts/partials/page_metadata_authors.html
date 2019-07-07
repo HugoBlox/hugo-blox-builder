@@ -1,23 +1,17 @@
-{{/* If `authors` is set and is not empty. */}}
-{{ if $.Params.authors }}
-{{ $authorLen := len $.Params.authors }}
-{{ if gt $authorLen 0 }}
-  {{ range $k, $v := $.Params.authors -}}
-    <span itemscope itemprop="author" itemtype="http://schema.org/Person">
-      <span itemprop="name">
-        {{ $link := (site.GetPage (printf "/authors/%s" (urlize $v))).RelPermalink }}
+{{/* Display author list. */}}
 
-      {{ $person_page_path := (printf "/author/%s" (urlize $v)) }}
-      {{ $person_page := site.GetPage $person_page_path }}
-      {{ if $person_page }}
-        {{ $person := $person_page.Params }}
-        {{- printf "<a href=\"%s\">%s</a>" $link $person.name | safeHTML -}}
+{{ $taxonomy := "authors" }}
+{{ with .Param $taxonomy }}
+  {{ range $index, $value := . }}
+    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy (. | urlize)) -}}
+    {{- $name := $profile_page.Params.name | default ($value|markdownify) -}}
+    {{- if gt $index 0 }}, {{ end -}}
+    <span itemprop="author name" itemtype="http://schema.org/Person">
+      {{- with $profile_page -}}
+        <a href="{{.RelPermalink}}">{{$name}}</a>
       {{- else -}}
-                {{- printf "<a href=\"%s\">%s</a>" $link ($v | markdownify) | safeHTML -}}
+        {{$name}}
       {{- end -}}
-      </span>{{- /* This comment removes whitespace */ -}}
     </span>
-    {{- if lt $k (sub $authorLen 1) -}}, {{ end }}
-  {{ end }}
-{{ end }}
+  {{- end -}}
 {{ end }}

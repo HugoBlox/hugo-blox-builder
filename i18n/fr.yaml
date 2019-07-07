@@ -1,225 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Ouvrir la barre de navigation
-
 - id: table_of_contents
   translation: Table des matières
-
 - id: on_this_page
   translation: Dans cette page
-
 - id: back_to_top
   translation: Retourner au début
-
-# General
-
 - id: related
   translation: Sur le même sujet
-
 - id: minute_read
   translation: min de lecture
-
 - id: previous
   translation: Précédent
-
 - id: next
   translation: Suivant
-
 - id: figure
-  translation: "Figure %d:"
-
-# Buttons
-
+  translation: 'Figure %d:'
 - id: btn_preprint
-  translation: Prétirage
-
+  translation: Preprint
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: Citation
-
 - id: btn_slides
   translation: Diapositives
-
 - id: btn_video
   translation: Vidéo
-
 - id: btn_code
   translation: Code
-
 - id: btn_dataset
   translation: Jeu de données
-
 - id: btn_project
   translation: Projet
-
 - id: btn_poster
   translation: Poster
-
 - id: btn_source
   translation: Document source
-
 - id: btn_copy
   translation: Copier
-
 - id: btn_download
   translation: Télécharger
-
-# About widget
-
 - id: interests
   translation: Intérêts
-
 - id: education
   translation: Formation
-
-# Accomplishments widget
-
+- id: user_profile_latest
+  translation: Récents
 - id: see_certificate
-  translation: Voir certification
-
-# Experience widget
-
+  translation: Voir certificat
 - id: present
   translation: Actuellement
-
-# Publications widget
-
-- id: more_publications
-  translation: Plus de publications
-
-# Posts widget
-
-- id: continue_reading
-  translation: CONTINUER LA LECTURE
-
+- id: more_pages
+  translation: Voir tout
 - id: more_posts
   translation: Plus de posts
-
-# Talks widget
-
 - id: more_talks
   translation: Plus de présentations
-
-# Contact widget
-
+- id: more_publications
+  translation: Plus de publications
 - id: contact_name
   translation: Nom
-
 - id: contact_email
-  translation: Email
-
+  translation: E-mail
 - id: contact_message
   translation: Message
-
 - id: contact_send
   translation: Envoyer
-
 - id: book_appointment
   translation: Demander un rendez-vous
-
-# Publication/Talk details
-
 - id: abstract
   translation: Résumé
-
 - id: publication
   translation: Publication
-
 - id: publication_type
   translation: Type
-
 - id: date
   translation: Date
-
 - id: last_updated
   translation: Dernière mise à jour le
-
 - id: event
-  translation: Événement
-
+  translation: Évènement
 - id: location
   translation: Lieu
-
 - id: pub_uncat
   translation: Non catégorisé
-
 - id: pub_conf
-  translation: Document de conference
-
+  translation: Article de conférence
 - id: pub_journal
-  translation: Article de journal
-
-- id: pub_manuscript
-  translation: Manuscript
-
+  translation: Article de revue
+- id: pub_preprint
+  translation: Preprint
 - id: pub_report
   translation: Rapport
-
 - id: pub_book
   translation: Livre
-
 - id: pub_book_section
-  translation: Section de livre
-
-# Filtering
-
-- id: filter_by_type
-  translation: Filtrer par type
-
-- id: filter_all
-  translation: Tout
-
-# Project details
-
+  translation: Chapitre de livre
+- id: pub_thesis
+  translation: Thèse
+- id: pub_patent
+  translation: Brevet
 - id: open_project_site
   translation: Aller sur le site du projet
-
-# Default node titles
-
 - id: posts
   translation: Posts
-
 - id: publications
   translation: Publications
-
 - id: talks
   translation: Présentations
-
 - id: projects
   translation: Projets
-
-# Search
-
 - id: search
   translation: Rechercher
-
 - id: search_placeholder
   translation: Recherche...
-
 - id: search_results
   translation: Résultats trouvés
-
 - id: search_no_results
   translation: Aucun résultat n'a été trouvé
-
-# Error 404
-
 - id: page_not_found
   translation: Page non disponible
-
 - id: 404_recommendations
   translation: Vous cherchiez peut-être une des pages suivantes ?
-
-# Cookie consent
-
 - id: cookie_message
   translation: Ce site utilise des cookies pour vous assurer la meilleure expérience.
-
 - id: cookie_dismiss
   translation: Accepter
-
 - id: cookie_learn
   translation: En savoir plus

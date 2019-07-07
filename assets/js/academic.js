@@ -23,9 +23,10 @@
    */
   function scrollToAnchor(target) {
     // If `target` is undefined or HashChangeEvent object, set it to window's hash.
-    target = (typeof target === 'undefined' || typeof target === 'object') ? window.location.hash : target;
-    // Escape colons from IDs, such as those found in Markdown footnote links.
-    target = target.replace(/:/g, '\\:');
+    // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
+    target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
+    // Escape special chars from IDs, such as colons found in Markdown footnote links.
+    target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
 
     // If target element exists, scroll to it taking into account fixed navigation bar offset.
     if($(target).length) {
@@ -35,6 +36,8 @@
       }, 600, function () {
         $('body').removeClass('scrolling');
       });
+    }else{
+      console.warn('Cannot scroll to '+target+'. ID not found!');
     }
   }
 
@@ -49,6 +52,13 @@
     }
   }
 
+  function removeQueryParamsFromUrl() {
+    if (window.history.replaceState) {
+      let urlWithoutSearchParams = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
+      window.history.replaceState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
+    }
+  }
+
   // Check for hash change event and fix responsive offset for hash links (e.g. Markdown footnotes).
   window.addEventListener("hashchange", scrollToAnchor);
 
@@ -60,8 +70,8 @@
     // Store requested URL hash.
     let hash = this.hash;
 
-    // If we are on the homepage and the navigation bar link is to a homepage section.
-    if ( hash && $(hash).length && ($("#homepage").length > 0)) {
+    // If we are on a widget page and the navbar link is to a section on the same page.
+    if ( this.pathname === window.location.pathname && hash && $(hash).length && ($(".js-widget-page").length > 0)) {
       // Prevent default click behavior.
       event.preventDefault();
 
@@ -280,7 +290,7 @@
   function printLatestRelease(selector, repo) {
     $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
       let release = json[0];
-      $(selector).append(release.name);
+      $(selector).append(' '+release.name);
     }).fail(function( jqxhr, textStatus, error ) {
       let err = textStatus + ", " + error;
       console.log( "Request Failed: " + err );
@@ -293,9 +303,27 @@
 
   function toggleSearchDialog() {
     if ($('body').hasClass('searching')) {
+      // Clear search query and hide search modal.
       $('[id=search-query]').blur();
-      $('body').removeClass('searching');
+      $('body').removeClass('searching compensate-for-scrollbar');
+
+      // Remove search query params from URL as user has finished searching.
+      removeQueryParamsFromUrl();
+
+      // Prevent fixed positioned elements (e.g. navbar) moving due to scrollbars.
+      $('#fancybox-style-noscroll').remove();
     } else {
+      // Prevent fixed positioned elements (e.g. navbar) moving due to scrollbars.
+      if ( !$('#fancybox-style-noscroll').length && document.body.scrollHeight > window.innerHeight ) {
+        $('head').append(
+          '<style id="fancybox-style-noscroll">.compensate-for-scrollbar{margin-right:' +
+          (window.innerWidth - document.documentElement.clientWidth) +
+          'px;}</style>'
+        );
+        $('body').addClass('compensate-for-scrollbar');
+      }
+
+      // Show search modal.
       $('body').addClass('searching');
       $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
       $('#search-query').focus();
@@ -306,7 +334,7 @@
   * Toggle day/night mode.
   * --------------------------------------------------------------------------- */
 
-  function toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark) {
+  function toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled) {
     if ($('body').hasClass('dark')) {
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').removeClass('dark');
@@ -316,6 +344,10 @@
       }
       $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
       localStorage.setItem('dark_mode', '0');
+      if (diagramEnabled) {
+        // TODO: Investigate Mermaid.js approach to re-render diagrams with new theme without reloading.
+        location.reload();
+      }
     } else {
       $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       $('body').addClass('dark');
@@ -325,7 +357,27 @@
       }
       $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
       localStorage.setItem('dark_mode', '1');
+      if (diagramEnabled) {
+        // TODO: Investigate Mermaid.js approach to re-render diagrams with new theme without reloading.
+        location.reload();
+      }
     }
+  }
+
+  /* ---------------------------------------------------------------------------
+  * Normalize Bootstrap Carousel Slide Heights.
+  * --------------------------------------------------------------------------- */
+
+  function normalizeCarouselSlideHeights() {
+    $('.carousel').each(function(){
+      // Get carousel slides.
+      let items = $('.carousel-item', this);
+      // Reset all slide heights.
+      items.css('min-height', 0);
+      // Normalize all slide heights.
+      let maxHeight = Math.max.apply(null, items.map(function(){return $(this).outerHeight()}).get());
+      items.css('min-height', maxHeight + 'px');
+    })
   }
 
   /* ---------------------------------------------------------------------------
@@ -333,6 +385,13 @@
    * --------------------------------------------------------------------------- */
 
   $(document).ready(function() {
+    // Fix Hugo's auto-generated Table of Contents.
+    //   Must be performed prior to initializing ScrollSpy.
+    $('#TableOfContents > ul > li > ul').unwrap().unwrap();
+    $('#TableOfContents').addClass('nav flex-column');
+    $('#TableOfContents li').addClass('nav-item');
+    $('#TableOfContents li a').addClass('nav-link');
+
     // Get theme variation (day/night).
     let defaultThemeVariation;
     if ($('body').hasClass('dark')) {
@@ -351,12 +410,16 @@
     const codeHlEnabled = $('link[title=hl-light]').length > 0;
     const codeHlLight = $('link[title=hl-light]')[0];
     const codeHlDark = $('link[title=hl-dark]')[0];
+    const diagramEnabled = $('script[title=mermaid]').length > 0;
 
     if (dark_mode) {
       $('body').addClass('dark');
       if (codeHlEnabled) {
         codeHlLight.disabled = true;
         codeHlDark.disabled = false;
+      }
+      if (diagramEnabled) {
+        mermaid.initialize({ theme: 'dark' });
       }
       $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
     } else {
@@ -365,13 +428,16 @@
         codeHlLight.disabled = false;
         codeHlDark.disabled = true;
       }
+      if (diagramEnabled) {
+        mermaid.initialize({ theme: 'default' });
+      }
       $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
     }
 
     // Toggle day/night mode.
     $('.js-dark-toggle').click(function(e) {
       e.preventDefault();
-      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark);
+      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
     });
   });
 
@@ -489,12 +555,10 @@
     // Initialise Google Maps if necessary.
     initMap();
 
-    // Fix Hugo's inbuilt Table of Contents.
-    $('#TableOfContents > ul > li > ul').unwrap().unwrap();
-
-    // Print latest Academic version if necessary.
-    if ($('#academic-release').length > 0)
-      printLatestRelease('#academic-release', $('#academic-release').data('repo'));
+    // Print latest version of GitHub projects.
+    let githubReleaseSelector = '.js-github-release';
+    if ($(githubReleaseSelector).length > 0)
+      printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
 
     // On search icon click toggle search dialog.
     $('.js-search').click(function(e) {
@@ -515,5 +579,8 @@
     });
 
   });
+
+  // Normalize Bootstrap carousel slide heights.
+  $(window).on('load resize orientationchange', normalizeCarouselSlideHeights);
 
 })(jQuery);

@@ -1,0 +1,198 @@
+/*************************************************
+ *  Navigation bar
+ **************************************************/
+
+.navbar {
+  min-height: 70px !important;
+}
+
+.navbar-light {
+  background: $sta-menu-primary !important;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11)
+}
+
+.navbar-light .navbar-toggler {
+  border-color: transparent;
+}
+
+.navbar-toggler {
+  color: $sta-menu-text !important;
+}
+
+.navbar-light .navbar-toggler:focus,
+.navbar-light .navbar-toggler:hover {
+  background-color: transparent;
+}
+
+.dropdown-menu,
+nav#navbar-main li.nav-item {
+  font-size: #{$sta-font-size-small}px;
+}
+
+.navbar-light .navbar-nav>.nav-item>.nav-link,
+.navbar-light .navbar-nav>.nav-item>.nav-link:focus,
+.navbar-light .navbar-nav>.nav-item>.nav-link:hover {
+  white-space: nowrap;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+  color: $sta-menu-text;
+}
+
+.navbar-light .navbar-nav>.nav-item>.nav-link:focus {
+  color: $sta-menu-text;
+  background-color: transparent;
+}
+
+.navbar-light .navbar-nav>.nav-item>.nav-link:hover {
+  color: $sta-menu-text-active;
+  background-color: transparent;
+}
+
+.navbar-light .navbar-nav>li.nav-item>a.active,
+.navbar-light .navbar-nav>li.nav-item>a.active:focus,
+.navbar-light .navbar-nav>li.nav-item>a.active:hover {
+  color: $sta-menu-text-active;
+  font-weight: 700;
+  background-color: transparent !important; /* Override Bootstrap. */
+}
+
+.navbar-brand,
+.navbar-nav li.nav-item a.nav-link {
+  height: inherit;
+  line-height: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.navbar-brand img {
+  max-height: 50px;
+}
+
+.navbar-light .navbar-toggler .icon-bar {
+  background-color: $sta-menu-text !important;
+}
+
+.dropdown-menu {
+  background-color: $sta-menu-primary !important;
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: $sta-menu-text;
+  white-space: nowrap;
+}
+
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+  color: $sta-menu-text-active;
+  text-decoration: none;
+  background-color: $sta-menu-primary;
+}
+
+.dropdown-menu > .active,
+.dropdown-menu > .active:focus,
+.dropdown-menu > .active:hover {
+  color: $sta-menu-primary;
+  text-decoration: none;
+  background-color: $sta-menu-text-active;
+  outline: 0;
+}
+
+.navbar-light .navbar-nav>.open>a,
+.navbar-light .navbar-nav>.open>a:focus,
+.navbar-light .navbar-nav>.open>a:hover,
+.navbar-light .navbar-nav>.open>a:visited {
+  color: $sta-menu-text !important;
+  background-color: $sta-menu-primary !important;
+}
+
+.navbar-light .navbar-brand {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: $sta-menu-title;
+}
+
+.navbar-light .navbar-brand:focus,
+.navbar-light .navbar-brand:hover {
+  color: $sta-menu-title;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1200px) {
+  .navbar {
+    min-height: 50px !important;
+  }
+
+  .navbar-brand,
+  .navbar-nav li.nav-item a.nav-link {
+    height: inherit;
+    line-height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .navbar-brand img {
+    max-height: 40px;
+  }
+
+  .navbar-toggler {
+    display: block;
+  }
+
+  .fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+  }
+
+  .navbar-nav > li.nav-item > a.nav-link {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: normal;
+  }
+
+  .dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: $sta-menu-text;
+    white-space: nowrap;
+  }
+
+  .navbar-light .navbar-nav .open .dropdown-menu {
+    position: static;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .navbar-light .navbar-nav .open .dropdown-menu > li > a {
+    padding: 5px 15px 5px 25px;
+    line-height: 20px;
+    color: $sta-menu-text;
+  }
+
+  .navbar-light .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-light .navbar-nav .open .dropdown-menu > li > a:hover {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  .navbar-light .navbar-nav .open .dropdown-menu >.nav-item> .active,
+  .navbar-light .navbar-nav .open .dropdown-menu >.nav-item> .active:focus,
+  .navbar-light .navbar-nav .open .dropdown-menu >.nav-item> .active:hover {
+    color: $sta-menu-text-active;
+    background-color: transparent;
+  }
+
+  .collapse.in {
+    display: block !important;
+  }
+}

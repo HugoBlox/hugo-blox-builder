@@ -1,5 +1,3 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
 {{ $current_page := . }}
 
 <div class="container-fluid docs">
@@ -10,15 +8,11 @@
 
     {{ if .Params.toc }}
     <div class="d-none d-xl-block col-xl-2 docs-toc">
-      {{ with (i18n "on_this_page") }}
-      <p class="docs-toc-title">{{.}}</p>
-      {{ end }}
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">{{ i18n "on_this_page" }}</a></li>
+      </ul>
 
       {{ .TableOfContents }}
-
-      <ul class="nav toc-top">
-        <li><a href="#">{{ i18n "back_to_top" | default "Back to top" }}</a></li>
-      </ul>
 
       {{ partial "docs_toc_foot.html" . }}
     </div>
@@ -36,6 +30,12 @@
           </div>
 
           {{ partial "tags.html" . }}
+
+          {{ if site.Params.docs_section_pager }}
+          <div class="article-widget">
+            {{ partial "section_pager.html" . }}
+          </div>
+          {{ end }}
         </div>
 
         <div class="body-footer">
@@ -44,10 +44,8 @@
 
       </article>
 
-      {{ partial "footer_section.html" . }}
+      {{ partial "site_footer.html" . }}
 
     </main>
   </div>
 </div>
-
-{{ partial "footer.html" . }}

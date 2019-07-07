@@ -1,0 +1,192 @@
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
+
+  {{ $scr := .Scratch }}
+
+  {{/* Attempt to load superuser. */}}
+  {{ $superuser_name := "" }}
+  {{ $superuser_username := "" }}
+  {{ $superuser_role := "" }}
+  {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
+    {{ $superuser_name = .Params.name }}
+    {{ $superuser_username = path.Base (path.Split .Path).Dir }}
+    {{ $superuser_role = .Params.role }}
+  {{ end }}
+  {{ $scr.Set "superuser_username" $superuser_username }}{{/* For access from page_author.html. */}}
+
+  {{ with $superuser_name }}<meta name="author" content="{{ . }}">{{ end }}
+
+  {{/* Generate page description. */}}
+  {{ $desc := "" }}
+  {{ if .Params.summary }}
+    {{ $desc = .Params.summary }}
+  {{ else if .Params.abstract }}
+    {{ $desc = .Params.abstract }}
+  {{ else if .IsPage }}
+    {{ $desc = .Summary }}
+  {{ else if site.Params.description }}
+    {{ $desc = site.Params.description }}
+  {{ else }}
+    {{ $desc = $superuser_role }}
+  {{ end }}
+  <meta name="description" content="{{ $desc }}">
+
+  {{ range .Translations }}
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+  {{ end }}
+  <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
+
+  {{ partial "functions/parse_theme" . }}
+  {{ $css := site.Data.assets.css }}
+  {{ $js := site.Data.assets.js }}
+  {{ if ne ($scr.Get "primary") "#fff" }}
+  <meta name="theme-color" content="{{ $scr.Get "primary" }}">
+  {{ end }}
+
+  {{/* Attempt to load local vendor CSS, otherwise load from CDN. */}}
+  {{ $scr.Set "vendor_css_filename" "main.min.css" }}
+  {{ $scr.Set "vendor_js_filename" "main.min.js" }}
+  {{ if and (fileExists (printf "static/css/vendor/%s" ($scr.Get "vendor_css_filename"))) (fileExists (printf "static/js/vendor/%s" ($scr.Get "vendor_js_filename"))) }}
+    {{ $scr.Set "use_cdn" 0 }}
+    <link rel="stylesheet" href="{{ printf "/css/vendor/%s" ($scr.Get "vendor_css_filename") | relURL }}">
+  {{ else }}
+    {{ $scr.Set "use_cdn" 1 }}
+    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.academicons.url $css.academicons.version) $css.academicons.sri | safeHTML }}
+    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.fontAwesome.url $css.fontAwesome.version) $css.fontAwesome.sri | safeHTML }}
+    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.fancybox.url $css.fancybox.version) $css.fancybox.sri | safeHTML }}
+
+    {{/* Default to enabling highlighting, but allow the user to override it in .Params or site.Params.
+         Use $scr to store "highlight_enabled", so that we can read it again in footer.html. */}}
+    {{ $scr.Set "highlight_enabled" true }}
+    {{ if isset .Params "highlight" }}
+      {{ $scr.Set "highlight_enabled" .Params.highlight }}
+    {{ else if isset site.Params "highlight" }}
+      {{ $scr.Set "highlight_enabled" site.Params.highlight }}
+    {{ end }}
+    {{ if ($scr.Get "highlight_enabled") }}
+      {{ $v := $css.highlight.version }}
+      {{ with site.Params.highlight_style }}
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
+        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" disabled>" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
+      {{ else }}
+        {{ if eq ($scr.Get "light") true }}
+          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\">" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
+          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" disabled>" (printf $css.highlight.url $css.highlight.version "dracula") | safeHTML }}
+        {{ else }}
+          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\" disabled>" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
+          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\">" (printf $css.highlight.url $css.highlight.version "dracula") | safeHTML }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    {{ if or (eq site.Params.map 2) (eq site.Params.map 3) }}
+    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
+    {{ end }}
+
+    {{ if eq site.Params.search.engine 2 }}
+      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
+      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearchTheme.url $css.instantsearchTheme.version) $css.instantsearchTheme.sri | safeHTML }}
+    {{ end }}
+
+  {{ end }}
+
+  {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent. */}}
+  {{ with ($scr.Get "google_fonts") }}
+  <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css?family=%s&display=swap\"" . | safeHTMLAttr }}>
+  {{ end }}
+
+  {{ $css_options := (dict "targetPath" "css/academic.css" "outputStyle" "compressed") }}
+  {{ $sass_template := resources.Get "sass/main.scss" }}
+  {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options | minify | fingerprint "md5" }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+
+  {{ if site.Params.plugins_css }}
+    {{ $css_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" site.Data.academic.version }}
+    {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
+    {{ $css_bundle := slice }}
+    {{ range site.Params.plugins_css }}
+      {{ $css_bundle = $css_bundle | append (resources.Get (printf "css/%s.css" .)) }}
+    {{ end }}
+    {{ $css_bundle := $css_bundle | resources.Concat "css/academic-bundle-pre.css" | minify }}
+    {{ $css_bundle := slice $css_bundle_head $css_bundle | resources.Concat "css/academic.css" | fingerprint "md5" }}
+    <link rel="stylesheet" href="{{ $css_bundle.RelPermalink }}">
+  {{ end }}
+
+  {{ if not site.IsServer }}
+  {{ if site.GoogleAnalytics }}
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', '{{ site.GoogleAnalytics }}', 'auto');
+      {{ if site.Params.privacy_pack }}ga('set', 'anonymizeIp', true);{{ end }}
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    {{ if ($scr.Get "use_cdn") }}
+    {{ printf "<script async src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.autotrack.url $js.autotrack.version) $js.autotrack.sri | safeHTML }}
+    {{ end }}
+  {{ end }}
+  {{ end }}
+
+  {{ with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}">
+  <link rel="feed" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}">
+  {{ end }}
+
+  <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+  <link rel="icon" type="image/png" href="{{ "/img/icon.png" | relURL }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ "/img/icon-192.png" | relURL }}">
+
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $og_image := "" }}
+  {{ $twitter_card := "summary_large_image" }}
+  {{ if $featured_image }}
+    {{ $og_image = $featured_image.Permalink }}
+  {{ else if .Params.header.image }}
+    {{ $og_image = printf "img/%s" .Params.header.image | absURL }}
+  {{ else if site.Params.sharing_image }}
+    {{ $og_image = printf "img/%s" site.Params.sharing_image | absURL }}
+  {{ else if site.Params.avatar }}
+    {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}
+    {{ $twitter_card = "summary" }}
+  {{ else }}
+    {{ $og_image = "img/icon-192.png" | absURL }}
+    {{ $twitter_card = "summary" }}
+  {{ end }}
+  <meta property="twitter:card" content="{{ $twitter_card }}">
+  {{ with site.Params.twitter }}
+  <meta property="twitter:site" content="@{{ . }}">
+  <meta property="twitter:creator" content="@{{ . }}">
+  {{ end }}
+  <meta property="og:site_name" content="{{ site.Title }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}">
+  <meta property="og:description" content="{{ $desc }}">
+  {{- with $og_image -}}
+  <meta property="og:image" content="{{.}}">
+  <meta property="twitter:image" content="{{.}}">
+  {{- end -}}
+  <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}">
+  {{ if .IsPage }}
+  {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+  {{ else if not .Date.IsZero }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ else }}
+  {{ if not .Date.IsZero }}<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ end }}
+
+  {{ partial "cookie_consent" . }}
+
+  {{ partial "custom_head" . }}
+
+  <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
+
+</head>

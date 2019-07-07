@@ -1,11 +1,4 @@
-{{ if .Params.widgets }}
-
-{{ partial "widget_page.html" . }}
-
-{{ else }}
-
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
 
 {{ partial "page_header.html" . }}
 
@@ -32,7 +25,5 @@
 
   {{ partial "pagination" . }}
 </div>
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
 
-{{ end }}
+{{- end -}}

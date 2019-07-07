@@ -1,5 +1,4 @@
-{{ partial "header.html" . }}
-{{ partial "navbar.html" . }}
+{{- define "main" -}}
 
 {{ partial "page_header.html" . }}
 
@@ -25,10 +24,9 @@
         <div class="col-auto">
           <select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group="pubtype">
             <option value="*">{{ i18n "publication_type" }}</option>
-            {{ partial "pub_types.html" $ }}
-            {{ range $index, $taxonomy := .Site.Taxonomies.publication_types }}
+            {{ $pub_types := partial "functions/get_pub_types" $ }}
+            {{ range $index, $taxonomy := site.Taxonomies.publication_types }}
             <option value=".pubtype-{{ (int $index) }}">
-              {{ $pub_types := $.Scratch.Get "pub_types" }}
               {{ index $pub_types (int $index) }}
             </option>
             {{ end }}
@@ -76,5 +74,5 @@
     </div>
   </div>
 </div>
-{{ partial "footer_container.html" . }}
-{{ partial "footer.html" . }}
+
+{{- end -}}

@@ -1,40 +1,20 @@
-{{ if and .Site.Params.sharing (ne .Params.share false) }}
+{{ if and site.Params.sharing (ne .Params.share false) }}
 <div class="share-box" aria-hidden="true">
   <ul class="share">
-    <li>
-      <a class="twitter"
-         href="https://twitter.com/intent/tweet?text={{ .Title | html }}&amp;url={{ .Permalink | html }}"
-         target="_blank" rel="noopener">
-        <i class="fab fa-twitter"></i>
-      </a>
-    </li>
-    <li>
-      <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u={{ .Permalink | html }}"
-         target="_blank" rel="noopener">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-    </li>
-    <li>
-      <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ .Permalink | html }}&amp;title={{ .Title | html }}"
-         target="_blank" rel="noopener">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-    </li>
-    <li>
-      <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url={{ .Permalink | html }}&amp;title={{ .Title | html }}"
-         target="_blank" rel="noopener">
-        <i class="fab fa-weibo"></i>
-      </a>
-    </li>
-    <li>
-      <a class="email"
-         href="mailto:?subject={{ .Title | html }}&amp;body={{ .Permalink | html }}">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </li>
+    {{ range where site.Data.page_sharer.buttons "enable" true }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+        {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{ $link := replace .url "{url}" ($.Permalink | htmlEscape) }}
+      {{ $link = replace $link "{title}" ($.Title | htmlEscape) }}
+      <li>
+        <a href="{{$link|safeURL}}" target="_blank" rel="noopener" class="share-btn-{{.id}}">
+          <i class="{{$pack}} {{$pack_prefix}}-{{.icon}}"></i>
+        </a>
+      </li>
+    {{ end }}
   </ul>
 </div>
 {{ end }}

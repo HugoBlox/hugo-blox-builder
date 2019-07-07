@@ -1,225 +1,130 @@
-# Navigation
-
 - id: toggle_navigation
   translation: Attiva la navigazione
-
 - id: table_of_contents
   translation: Indice dei Contenuti
-
 - id: on_this_page
   translation: In questa pagina
-
 - id: back_to_top
   translation: Torna su
-
-# General
-
 - id: related
   translation: Correlato
-
 - id: minute_read
   translation: minuti
-
 - id: previous
   translation: Precedente
-
 - id: next
   translation: Prossimo
-
 - id: figure
-  translation: "Immagine %d:"
-
-# Buttons
-
+  translation: 'Immagine %d:'
 - id: btn_preprint
   translation: Preprint
-
 - id: btn_pdf
   translation: PDF
-
 - id: btn_cite
   translation: Citazione
-
 - id: btn_slides
   translation: Slides
-
 - id: btn_video
   translation: Video
-
 - id: btn_code
   translation: Codice
-
 - id: btn_dataset
   translation: Dataset
-
 - id: btn_project
   translation: Progetti
-
 - id: btn_poster
   translation: Poster
-
 - id: btn_source
   translation: Sorgente
-
 - id: btn_copy
   translation: Copia
-
 - id: btn_download
   translation: Download
-
-# About widget
-
 - id: interests
   translation: Interessi
-
 - id: education
   translation: Formazione
-
-# Accomplishments widget
-
+- id: user_profile_latest
+  translation: Latest
 - id: see_certificate
   translation: Guarda il certificato
-
-# Experience widget
-
 - id: present
   translation: Present
-
-# Publications widget
-
-- id: more_publications
-  translation: Altre pubblicazioni
-
-# Posts widget
-
-- id: continue_reading
-  translation: LEGGI TUTTO
-
+- id: more_pages
+  translation: See all
 - id: more_posts
   translation: Altri Post
-
-# Talks widget
-
 - id: more_talks
   translation: Altre Conferenze
-
-# Contact widget
-
+- id: more_publications
+  translation: Altre pubblicazioni
 - id: contact_name
   translation: Nome
-
 - id: contact_email
   translation: Email
-
 - id: contact_message
   translation: Messaggio
-
 - id: contact_send
   translation: Invio
-
 - id: book_appointment
   translation: Richiedi un appuntamento
-
-# Publication/Talk details
-
 - id: abstract
   translation: Abstract
-
 - id: publication
   translation: Publicazione
-
 - id: publication_type
   translation: Tipo
-
 - id: date
   translation: Data
-
 - id: last_updated
   translation: Aggiornato il
-
 - id: event
   translation: Evento
-
 - id: location
   translation: Luogo
-
 - id: pub_uncat
   translation: Uncategorized
-
 - id: pub_conf
   translation: Conference paper
-
 - id: pub_journal
   translation: Journal article
-
-- id: pub_manuscript
-  translation: Manoscritto
-
+- id: pub_preprint
+  translation: Preprint
 - id: pub_report
   translation: Report
-
 - id: pub_book
   translation: Libro
-
 - id: pub_book_section
   translation: Sezione Libro
-
-# Filtering
-
-- id: filter_by_type
-  translation: Filtra per tipo
-
-- id: filter_all
-  translation: Tutto
-
-# Project details
-
+- id: pub_thesis
+  translation: Thesis
+- id: pub_patent
+  translation: Patent
 - id: open_project_site
   translation: Apri il sito del Progetto
-
-# Default node titles
-
 - id: posts
   translation: Post
-
 - id: publications
   translation: Pubblicazioni
-
 - id: talks
   translation: Conferenze
-
 - id: projects
   translation: Progetti
-
-# Search
-
 - id: search
   translation: Cerca
-
 - id: search_placeholder
   translation: Cerca...
-
 - id: search_results
   translation: Risultati della ricerca
-
 - id: search_no_results
   translation: Nessun risultato
-
-# Error 404
-
 - id: page_not_found
   translation: Pagina non trovata
-
 - id: 404_recommendations
   translation: Forse stavate carcando uno di questi?
-
-# Cookie consent
-
 - id: cookie_message
   translation: Questo sito usa i cookies per garantire la migliore esperienza di navigazione.
-
 - id: cookie_dismiss
   translation: Ok!
-
 - id: cookie_learn
   translation: Leggi i dettagli

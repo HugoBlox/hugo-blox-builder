@@ -1,15 +1,16 @@
-<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+{{ $current_page := . }}
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
   <div class="container">
 
     <!-- Brand and toggle get grouped for better mobile display -->
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
-        {{- if .Site.Params.logo -}}
-        <img src="{{ printf "/img/%s" .Site.Params.logo | relURL }}" alt="{{ .Site.Title }}">
+        {{- if site.Params.logo -}}
+        <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
         {{- else -}}
-        {{- .Site.Title -}}
+        {{- site.Title -}}
         {{- end -}}
       </a>
-      {{ if or .Site.Menus.main .IsTranslated }}
+      {{ if or site.Menus.main .IsTranslated }}
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="{{ i18n "toggle_navigation" }}">
         <span><i class="fas fa-bars"></i></span>
@@ -20,25 +21,21 @@
     <div class="collapse navbar-collapse" id="navbar">
 
       <!-- Left Nav Bar -->
-      {{ $align_right := .Site.Params.menu_align_right | default true }}
+      {{ $align_right := site.Params.menu_align_right | default true }}
       <ul class="navbar-nav {{ if $align_right }}ml-auto{{ else }}mr-auto{{ end }}">
-        {{ range .Site.Menus.main }}
+        {{ range site.Menus.main }}
 
         {{ if .HasChildren }}
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
-            {{ .Pre }}
-            <span>{{ .Name | safeHTML }}</span>
-            {{ .Post }}
+            {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             {{ range .Children }}
             <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
-                {{ .Pre }}
-                <span>{{ .Name | safeHTML }}</span>
-                {{ .Post }}
+                {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
               </a>
             </li>
             {{ end }}
@@ -55,23 +52,35 @@
           {{ end }}
         {{ end }}
 
+        {{/* Get active page. */}}
+        {{ $is_link_in_current_path := in $current_page.RelPermalink .URL }}
+        {{ $is_widget_page := or $current_page.IsHome (eq $current_page.Type "widget_page") }}
+        {{ $hash := findRE "#(.+)" .URL }}
+        {{ $is_same_page := $is_link_in_current_path }}
+        {{ if gt (len $hash) 0 }}
+          {{ $hash = index $hash 0 }}
+          {{ $hash_removed := replace .URL $hash "" }}
+          {{ if eq (len $hash_removed) 0 }}
+            {{ $hash_removed = "/" }}{{/* Add robustness for `/#SECTION` or `#SECTION` in `menus.toml`. */}}
+          {{ end }}
+          {{ $is_same_page = eq (path.Dir $current_page.RelPermalink) (path.Dir ($hash_removed|relLangURL)) }}
+        {{ end }}
+
         <li class="nav-item">
-          <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
-            {{ .Pre }}
-            <span>{{ .Name | safeHTML }}</span>
-            {{ .Post }}
+          <a class="nav-link {{if $is_link_in_current_path }} active{{end}}" href="{{.URL | relLangURL}}"{{ if and $is_widget_page $is_same_page }} data-target="{{$hash}}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+            {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
           </a>
         </li>
 
         {{ end }}
         {{ end }}
 
-      {{ if not $align_right | and (.IsTranslated | or .Site.Menus.main_right | or .Site.Params.search.engine | or .Site.Params.day_night) }}
+      {{ if not $align_right | and (.IsTranslated | or site.Menus.main_right | or site.Params.search.engine | or site.Params.day_night) }}
       </ul>
       <ul class="navbar-nav ml-auto">
       {{ end }}
 
-        {{ range .Site.Menus.main_right }}
+        {{ range site.Menus.main_right }}
 
         {{/* Set target for link. */}}
         {{ $.Scratch.Set "target" "" }}
@@ -83,15 +92,13 @@
 
         <li class="nav-item">
           <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
-          {{ .Pre }}
-          <span>{{ .Name | safeHTML }}</span>
-          {{ .Post }}
+            {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
           </a>
         </li>
 
         {{ end }}
 
-        {{ if .Site.Params.search.engine }}
+        {{ if site.Params.search.engine }}
         <li class="nav-item">
           <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
@@ -101,13 +108,13 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
             <i class="fas fa-globe" aria-hidden="true"></i>
-            <span>{{ index .Site.Data.i18n.languages .Lang }}</span>
+            <span>{{ index site.Data.i18n.languages .Lang }}</span>
           </a>
           <ul class="dropdown-menu">
             {{ range .Translations }}
             <li class="dropdown-item my-0 py-0 mx-0 px-0">
               <a href="{{ .Permalink }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
-                <span>{{ index .Site.Data.i18n.languages .Lang }}</span>
+                <span>{{ index site.Data.i18n.languages .Lang }}</span>
               </a>
             </li>
             {{ end }}
@@ -115,7 +122,7 @@
         </li>
         {{ end }}
 
-        {{ if .Site.Params.day_night }}
+        {{ if site.Params.day_night }}
         <li class="nav-item">
           <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
         </li>
