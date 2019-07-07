@@ -34,10 +34,14 @@
         {{ end }}
 
         {{ if $item.cta_url }}
-        {{ $pack := or .icon_pack "fa" }}
+        {{ $pack := or .cta_icon_pack "fas" }}
+        {{ $pack_prefix := $pack }}
+        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+          {{ $pack_prefix = "fa" }}
+        {{ end }}
         <p>
           <a href="{{ $item.cta_url }}" class="btn btn-light btn-lg">
-            {{- with $item.cta_icon -}}<i class="{{ $pack }} {{ $pack }}-{{ . }}" style="padding-right: 10px;"></i>{{- end -}}
+            {{- with $item.cta_icon -}}<i class="{{ $pack }} {{ $pack_prefix }}-{{ . }}" style="padding-right: 10px;"></i>{{- end -}}
             {{- $item.cta_label | emojify | safeHTML -}}
           </a>
         </p>
