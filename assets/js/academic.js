@@ -81,7 +81,7 @@
     event.preventDefault();
     $('html, body').animate({
       'scrollTop': 0
-    }, 800, function() {
+    }, 800, function() {default_m
       window.location.hash = "";
     });
   });
@@ -333,17 +333,19 @@
    * --------------------------------------------------------------------------- */
 
   $(document).ready(function() {
-    let default_mode = 0;
-    // Change default color mode to dark if it is in dark mode on macOS (with Safari)
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches){
-      default_mode = 1;
-    }
-    // Change default color mode to dark if the color_theme set by user is dark
+    // Get theme variation (day/night).
+    let defaultThemeVariation;
     if ($('body').hasClass('dark')) {
-      default_mode = 1;
+      // The `color_theme` of the site is dark.
+      defaultThemeVariation = 1;
+    } else if ($('.js-dark-toggle').length && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
+      defaultThemeVariation = 1;
+    } else {
+      // Default to day (light) theme.
+      defaultThemeVariation = 0;
     }
-    // Set dark mode if user chose it instead of using default_mode
-    let dark_mode = parseInt(localStorage.getItem('dark_mode') || default_mode);
+    let dark_mode = parseInt(localStorage.getItem('dark_mode') || defaultThemeVariation);
 
     // Is code highlighting enabled in site config?
     const codeHlEnabled = $('link[title=hl-light]').length > 0;
