@@ -34,7 +34,7 @@
         {{ end }}
 
         {{ if $item.cta_url }}
-        {{ $pack := or .cta_icon_pack "fa" }}
+        {{ $pack := or .cta_icon_pack "fas" }}
         {{ $pack_prefix := $pack }}
         {{ if in (slice "fab" "fas" "far" "fal") $pack }}
           {{ $pack_prefix = "fa" }}
