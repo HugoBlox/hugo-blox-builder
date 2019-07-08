@@ -39,7 +39,15 @@
         </div>
 
         <div class="body-footer">
-          {{ i18n "last_updated" }} {{ $.Lastmod.Format site.Params.date_format }}
+          <p>{{ i18n "last_updated" }} {{ $.Lastmod.Format site.Params.date_format }}</p>
+
+          {{ if site.Params.edit_page.repo_url | and site.Params.edit_page.editable.docs | and (ne .Params.editable false) | or .Params.editable }}
+          <p class="edit-page">
+            <a href="{{site.Params.edit_page.repo_url}}/blob/master/content/{{.File.Path}}">
+              <i class="fas fa-pen pr-2"></i>{{ i18n "edit_page" | default "Edit this page" }}
+            </a>
+          </p>
+          {{ end }}
         </div>
 
       </article>

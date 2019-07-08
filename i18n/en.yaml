@@ -29,6 +29,9 @@
 - id: figure
   translation: "Figure %d:"
 
+- id: edit_page
+  translation: Edit this page
+
 # Buttons
 
 - id: btn_preprint
