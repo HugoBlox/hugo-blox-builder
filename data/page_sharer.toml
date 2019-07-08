@@ -56,3 +56,11 @@
   icon_pack = "fab"
   icon = "reddit-alien"
   enable = false
+
+[[buttons]]
+  id = "pinterest"
+  url = "https://pinterest.com/pin/create/link/?url={url}&description={title}"
+  title = "Pinterest"
+  icon_pack = "fab"
+  icon = "pinterest"
+  enable = false
