@@ -91,7 +91,7 @@
     event.preventDefault();
     $('html, body').animate({
       'scrollTop': 0
-    }, 800, function() {default_m
+    }, 800, function() {
       window.location.hash = "";
     });
   });
