@@ -8,7 +8,7 @@
     {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
   </div>
   <div class="col-12 col-lg-8">
-    {{ with $page.Content }}<p>{{ . | markdownify }}</p>{{ end }}
+    {{ with $page.Content }}{{ . }}{{ end }}
 
     {{ if $page.Params.experience }}
     {{ $exp_len := len $page.Params.experience }}

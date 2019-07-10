@@ -72,7 +72,7 @@
   </div>
   <div class="col-12 col-lg-8">
 
-    {{ with $st.Content }}<p>{{ . }}</p>{{ end }}
+    {{ with $st.Content }}{{ . }}{{ end }}
 
     {{ range $post := $query }}
       {{ if eq $st.Params.design.view 1 }}
