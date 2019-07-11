@@ -30,7 +30,7 @@
   <div>
 {{ end }}
 
-    {{ with $st.Content }}<p>{{ . }}</p>{{ end }}
+    {{ with $st.Content }}{{ . }}{{ end }}
 
     {{ if $st.Params.content.filter_button }}
 
