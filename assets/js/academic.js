@@ -11,9 +11,13 @@
    * Responsive scrolling for URL hashes.
    * --------------------------------------------------------------------------- */
 
-  // Dynamically get responsive navigation bar offset.
-  let $navbar = $('.navbar');
-  let navbar_offset = $navbar.innerHeight();
+  // Dynamically get responsive navigation bar height for offsetting Scrollspy.
+  function getNavBarHeight() {
+    let $navbar = $('.navbar');
+    let navbar_offset = $navbar.innerHeight();
+    console.debug('Navbar height: ' + navbar_offset);
+    return navbar_offset;
+  }
 
   /**
    * Responsive hash scrolling.
@@ -30,9 +34,10 @@
 
     // If target element exists, scroll to it taking into account fixed navigation bar offset.
     if($(target).length) {
+      let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight());  // Round up to highlight right ID!
       $('body').addClass('scrolling');
       $('html, body').animate({
-        scrollTop: $(target).offset().top - navbar_offset
+        scrollTop: elementOffset
       }, 600, function () {
         $('body').removeClass('scrolling');
       });
@@ -46,7 +51,7 @@
     let $body = $('body');
     let data = $body.data('bs.scrollspy');
     if (data) {
-      data._config.offset = navbar_offset;
+      data._config.offset = getNavBarHeight();
       $body.data('bs.scrollspy', data);
       $body.scrollspy('refresh');
     }
@@ -77,8 +82,15 @@
 
       // Use jQuery's animate() method for smooth page scrolling.
       // The numerical parameter specifies the time (ms) taken to scroll to the specified hash.
+      let elementOffset = Math.ceil($(hash).offset().top - getNavBarHeight());  // Round up to highlight right ID!
+
+      // Uncomment to debug.
+      // let scrollTop = $(window).scrollTop();
+      // let scrollDelta = (elementOffset - scrollTop);
+      // console.debug('Scroll Delta: ' + scrollDelta);
+
       $('html, body').animate({
-        scrollTop: $(hash).offset().top - navbar_offset
+        scrollTop: elementOffset
       }, 800);
     }
   });
@@ -446,6 +458,9 @@
    * --------------------------------------------------------------------------- */
 
   $(window).on('load', function() {
+    // Re-initialize Scrollspy with dynamic navbar height offset.
+    fixScrollspy();
+
     if (window.location.hash) {
       // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).
       if (window.location.hash == "#top") {
@@ -458,10 +473,6 @@
         scrollToAnchor();
       }
     }
-
-    // Initialize Scrollspy.
-    let $body = $('body');
-    $body.scrollspy({offset: navbar_offset });
 
     // Call `fixScrollspy` when window is resized.
     let resizeTimer;
