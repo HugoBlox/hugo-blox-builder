@@ -404,6 +404,17 @@
     $('#TableOfContents li').addClass('nav-item');
     $('#TableOfContents li a').addClass('nav-link');
 
+    // Fix Mermaid.js clash with Highlight.js.
+    let mermaids = [];
+    [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
+    for (i = 0; i < mermaids.length; i++) {
+      $(mermaids[i]).unwrap('pre');  // Remove <pre> wrapper.
+      $(mermaids[i]).replaceWith(function(){
+        // Convert <code> block to <div> and add `mermaid` class so that Mermaid will parse it.
+        return $("<div />").append($(this).contents()).addClass('mermaid');
+      });
+    }
+
     // Get theme variation (day/night).
     let defaultThemeVariation;
     if ($('body').hasClass('dark')) {
@@ -460,6 +471,10 @@
   $(window).on('load', function() {
     // Re-initialize Scrollspy with dynamic navbar height offset.
     fixScrollspy();
+
+    // Fix inline math (workaround lack of Mathjax support in Blackfriday).
+    // Note `.MathJax_Preview` won't exist until after Mathjax has parsed the page, so call on page *load*.
+    $('.MathJax_Preview').unwrap('code');
 
     if (window.location.hash) {
       // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).

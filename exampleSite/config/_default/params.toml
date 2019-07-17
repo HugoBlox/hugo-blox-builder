@@ -24,15 +24,19 @@ twitter = ""
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
 logo = ""
 
-# Enable global source code highlighting? true/false
+# Enable source code highlighting? true/false
 # Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
 highlight = true
-# highlight_languages = ["r"]  # Add support for highlighting additional languages
+highlight_languages = ["r"]  # Add support for highlighting additional languages
 # highlight_style = "github"  # For supported styles, see https://cdnjs.com/libraries/highlight.js/
 
-# Enable global LaTeX math rendering?
-#   If false, you can enable it locally on a per page basis.
+# Enable LaTeX math rendering? true/false
+#   If false, you can enable math on a per page basis as needed.
 math = false
+
+# Enable diagram rendering? true/false
+#   If false, you can enable diagrams on a per page basis as needed.
+diagram = false
 
 # Privacy pack
 #   Show a cookie consent message to visitors
