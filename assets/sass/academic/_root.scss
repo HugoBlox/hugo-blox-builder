@@ -55,6 +55,10 @@ ul, ol, dl {
   margin-bottom: 1rem;
 }
 
+ul.task-list {
+  list-style: none;
+}
+
 /* Navigation bar text */
 .navbar-light {
   font-family: $sta-font-nav, sans-serif;

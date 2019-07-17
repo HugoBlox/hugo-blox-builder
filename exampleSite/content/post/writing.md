@@ -7,7 +7,7 @@ diagram: true
 
 Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.
 
-Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.
+**Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.**
 
 On this page, you'll find some examples of the types of technical content that can be rendered with Academic.
 
@@ -46,11 +46,13 @@ Note that math blocks should be wrapped with `<div>...</div>` and inline math wr
 $$</div>
 ```
 
-renders as `$\gamma_{n} = \frac{\mathbf x_{n}}{y}$`  $\gamma_{n} = \frac{\mathbf x_{n}}{y}$
+renders as
 
 <div>
 $$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
 </div>
+
+Or inline math like *\`$\gamma_{n} = \frac{\mathbf x_{n}}{y}$\`* renders as `$\gamma_{n} = \frac{\mathbf x_{n}}{y}$`.
 
 ### Diagrams
 
@@ -134,9 +136,17 @@ gantt
   another task      : 24d
 ```
 
-### Task lists
+### Todo lists
 
 You can even write your todo lists in Academic too:
+
+```markdown
+- [x] Write math example
+- [x] Write diagram example
+- [ ] Do something else
+```
+
+renders as
 
 - [x] Write math example
 - [x] Write diagram example
