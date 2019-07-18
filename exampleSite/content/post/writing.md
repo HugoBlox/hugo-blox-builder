@@ -35,7 +35,17 @@ data.head()
 
 Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file or by adding `math: true` to your page front matter.
 
-Note that math blocks should be wrapped with `<div>...</div>` and inline math wrapped with `<span>...</span>` as otherwise your math will be parsed as Markdown.
+To render a math *block*, wrap your LaTeX math with
+
+    <div>$$...$$</div>
+    
+whereas to render *inline* math, wrap your LaTeX math with backticks
+
+    `$...$`
+    
+otherwise your math will be parsed as Markdown.
+
+Example math block:
 
 ```html
 <div>$$
@@ -52,7 +62,7 @@ renders as
 $$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
 </div>
 
-Or inline math like *\`$\gamma_{n} = \frac{\mathbf x_{n}}{y}$\`* renders as `$\gamma_{n} = \frac{\mathbf x_{n}}{y}$`.
+Example inline math `\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2` renders as `$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$`.
 
 ### Diagrams
 
@@ -151,3 +161,23 @@ renders as
 - [x] Write math example
 - [x] Write diagram example
 - [ ] Do something else
+
+### Tables
+
+Represent your data in tables:
+
+```markdown
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+```
+
+renders as
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+### Did you find this page helpful? Consider sharing it 🙌
