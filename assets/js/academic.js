@@ -404,6 +404,9 @@
     $('#TableOfContents li').addClass('nav-item');
     $('#TableOfContents li a').addClass('nav-link');
 
+    // Fix Mmark task lists (remove bullet points).
+    $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
+
     // Fix Mermaid.js clash with Highlight.js.
     let mermaids = [];
     [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
@@ -471,10 +474,6 @@
   $(window).on('load', function() {
     // Re-initialize Scrollspy with dynamic navbar height offset.
     fixScrollspy();
-
-    // Fix inline math (workaround lack of Mathjax support in Blackfriday).
-    // Note `.MathJax_Preview` won't exist until after Mathjax has parsed the page, so call on page *load*.
-    $('.MathJax_Preview').unwrap('code');
 
     if (window.location.hash) {
       // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).

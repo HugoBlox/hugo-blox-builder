@@ -3,6 +3,7 @@ title: Writing technical content in Academic
 date: 2019-07-12
 math: true
 diagram: true
+markup: mmark
 ---
 
 Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.
@@ -33,36 +34,24 @@ data.head()
 
 ### Math
 
-Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file or by adding `math: true` to your page front matter.
+Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file and adding `markup: mmark` to your page front matter.
 
-To render a math *block*, wrap your LaTeX math with
-
-    <div>$$...$$</div>
-    
-whereas to render *inline* math, wrap your LaTeX math with backticks
-
-    `$...$`
-    
-otherwise your math will be parsed as Markdown.
+To render *inline* or *block* math, wrap your LaTeX math with `$$...$$`.
 
 Example math block:
 
-```html
-<div>$$
-\gamma_{n} = \frac{ 
+```tex
+$$\gamma_{n} = \frac{ 
 \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
 \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
-{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}
-$$</div>
+{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
 ```
 
 renders as
 
-<div>
 $$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-</div>
 
-Example inline math `\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2` renders as `$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$`.
+Example inline math `$$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$$` renders as $$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$$ .
 
 ### Diagrams
 
@@ -179,5 +168,15 @@ renders as
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
+
+### Asides
+
+```markdown
+A> A Markdown aside is equivalent to using the Alert Shortcode, but simpler to use.
+```
+
+renders as
+
+A> A Markdown aside is equivalent to using the Alert Shortcode, but simpler to use.
 
 ### Did you find this page helpful? Consider sharing it 🙌
