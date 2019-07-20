@@ -529,15 +529,20 @@ table > tbody > tr:hover > th {
 }
 
 /*************************************************
- *  Alerts
+ *  Article Alerts (Shortcode) and Asides (Mmark)
  **************************************************/
 
+.article-style aside p,
 div.alert > div {
   position: relative;
   display: block;
   font-size: 1rem;
   margin-left: 2rem;
   margin-top: 0;
+}
+
+/* No bottom margin for Alert boxes and but not Asides (use default `p` style). */
+div.alert > div {
   margin-bottom: 0;
 }
 
@@ -549,6 +554,7 @@ div.alert div > :last-child {
   margin-bottom: 0;
 }
 
+.article-style aside p::before,
 div.alert > div:first-child::before {
   position: absolute;
   top: -0.5rem;
@@ -569,12 +575,14 @@ div.alert-warning > div:first-child::before {
   content: '\f071';
 }
 
+.article-style aside a,
 div.alert a {
   color: currentColor;
   text-decoration: none;
   border-bottom: solid 1px currentColor;
 }
 
+.article-style aside,
 .alert-note {
   color: #12537e;
   background-color: #f6fbfe;
