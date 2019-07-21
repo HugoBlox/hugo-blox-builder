@@ -19,16 +19,7 @@
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "date" }}</div>
           <div class="col-12 col-md-9" itemprop="datePublished">
-            {{ $date := .Date }}
-            {{ (time $date).Format site.Params.date_format }}
-            <div class="talk-time">
-              {{ if not .Params.all_day }}
-                {{ (time $date).Format (site.Params.time_format | default "3:04 PM") }}
-                {{ with .Params.date_end }}
-                  &mdash; {{ (time .).Format (site.Params.time_format | default "3:04 PM") }}
-                {{ end }}
-              {{ end }}
-            </div>
+            {{ partial "functions/get_event_dates" . }}
           </div>
         </div>
       </div>

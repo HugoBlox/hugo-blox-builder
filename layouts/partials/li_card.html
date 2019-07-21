@@ -36,14 +36,7 @@
     </div>
     {{ end }}
     <span itemprop="startDate">
-      {{ $date := $item.Date }}
-      {{ (time $date).Format site.Params.date_format }}
-      {{ if not $item.Params.all_day }}
-        {{ (time $date).Format (site.Params.time_format | default "3:04 PM") }}
-        {{ with $item.Params.date_end }}
-        &mdash; {{ (time .).Format (site.Params.time_format | default "3:04 PM") }}
-        {{ end }}
-      {{ end }}
+      {{ partial "functions/get_event_dates" $item }}
     </span>
     {{ with $item.Params.location }}
     <span class="middot-divider"></span>
