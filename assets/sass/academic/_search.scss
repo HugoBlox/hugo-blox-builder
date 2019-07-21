@@ -17,7 +17,7 @@
 }
 
 .dark .search-results {
-  background-color: rgb(40, 42, 54);
+  background-color: $sta-dark-background;
 }
 
 .searching {
@@ -59,7 +59,7 @@
 }
 
 .dark .search-header {
-  background-color: rgb(40, 42, 54);
+  background-color: $sta-dark-background;
 }
 
 .search-header h1 {
@@ -128,4 +128,15 @@
 .form-control:focus {
   border-color: $sta-primary;
   box-shadow: 0 0 0 .2rem $sta-primary-light;
+}
+
+/* DARK themed components. */
+
+/* Algolia search input */
+.dark .ais-search-box--input {
+  background-color: $sta-dark-background;;
+}
+
+.dark #search-query {
+  background-color: $sta-dark-background;;
 }
