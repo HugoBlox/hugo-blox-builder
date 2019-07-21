@@ -7,7 +7,7 @@
   {{/* Show search box if Academic's search engine is enabled. */}}
   {{ if eq site.Params.search.engine 1 }}
   <form class="d-flex align-items-center mb-3">
-    <input name="q" type="search" class="form-control" id="search-query" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
+    <input name="q" type="search" class="form-control" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
   </form>
   {{ end }}
 
