@@ -11,6 +11,18 @@
 {{ $link := .link }}
 {{ $target := .target }}
 
+{{/* Get summary. */}}
+{{ $summary := "" }}
+{{ if $item.Params.summary }}
+  {{ $summary = $item.Params.summary | markdownify | emojify }}
+{{ else if .Params.abstract }}
+  {{ $summary = .Params.abstract | markdownify | emojify }}
+{{ else if $item.Truncated }}
+  {{ $summary = $item.Summary }}
+{{ else }}
+  {{ $summary = $item.Content }}
+{{ end }}
+
 {{ $order := "" }}
 {{ if and ($widget.Params.design.flip_alt_rows | default true) (not (modBool .index 2)) }}
   {{ $order = "order-md-2" }}
@@ -27,15 +39,9 @@
         {{- if $do_link}}</a>{{end -}}
       </h3>
 
-      {{ $summary := "" }}
-      {{ if $item.Params.summary }}
-        {{ $summary = $item.Params.summary }}
-      {{ else if $item.Truncated }}
-        {{ $summary = $item.Summary }}
-      {{ end }}
       {{ with $summary }}
       <div class="article-style" itemprop="articleBody">
-        {{ . | markdownify | emojify }}
+        {{ . }}
       </div>
       {{ end }}
 
