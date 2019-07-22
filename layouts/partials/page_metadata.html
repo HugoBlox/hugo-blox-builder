@@ -49,10 +49,12 @@
   </span>
   {{ end }}
 
-  {{ $comments_enabled := and site.DisqusShortname (in (slice "post" "page") $page.Type) (not (or site.Params.disable_comments (eq $page.Params.comments false))) }}
-  {{ if and $comments_enabled (site.Params.comment_count | default true) }}
+  {{/* Show Disqus comment count if enabled. */}}
+  {{ $disqus_enabled := eq site.Params.comments.engine 1 | and (index site.Params.comments.commentable $page.Type) | and (ne $page.Params.commentable false) | or $page.Params.commentable }}
+  {{ if and $disqus_enabled (site.Params.comments.disqus.show_count | default true) }}
   <span class="middot-divider"></span>
   <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+  <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
   {{ end}}
 
   {{ $taxonomy := "categories" }}

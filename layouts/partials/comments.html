@@ -1,5 +1,9 @@
-{{ if and site.DisqusShortname (not (or site.Params.disable_comments .Params.disable_comments)) }}
+{{ if site.Params.comments.engine | and (index site.Params.comments.commentable .Type) | and (ne .Params.commentable false) | or .Params.commentable }}
 <section id="comments">
-  {{ template "_internal/disqus.html" . }}
+  {{ if eq site.Params.comments.engine 1 }}
+    {{ partial "comments/disqus.html" . }}
+  {{ else if eq site.Params.comments.engine 2 }}
+    {{ partial "comments/commento.html" . }}
+  {{ end }}
 </section>
 {{ end }}

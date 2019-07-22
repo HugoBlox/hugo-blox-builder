@@ -44,12 +44,6 @@
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
     {{ end }}
 
-    {{/* Comments JS. */}}
-    {{ $comments_enabled := and site.DisqusShortname (not (or site.Params.disable_comments $.Params.disable_comments)) }}
-    {{ if and $comments_enabled (site.Params.comment_count | default true) }}
-    <script id="dsq-count-scr" src="https://{{ site.DisqusShortname }}.disqus.com/count.js" async></script>
-    {{ end }}
-
     {{/* Initialise code highlighting. */}}
     {{ if $.Scratch.Get "highlight_enabled" }}
     <script>hljs.initHighlightingOnLoad();</script>

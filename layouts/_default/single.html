@@ -2,7 +2,7 @@
 
 <article class="article" itemscope itemtype="http://schema.org/Article">
 
-  {{ partial "page_header.html" . }}
+  {{ partial "page_header" . }}
 
   <div class="article-container">
 
@@ -10,10 +10,12 @@
       {{ .Content }}
     </div>
 
-    {{ partial "tags.html" . }}
+    {{ partial "edit_page" . }}
+
+    {{ partial "tags" . }}
 
     {{ if ne .Type "page" }}
-      {{ partial "page_author.html" . }}
+      {{ partial "page_author" . }}
       {{ $related := site.RegularPages.Related . | first 5 }}
       {{ with $related }}
       <div class="article-widget">
@@ -30,11 +32,11 @@
 
     {{ if site.Params.section_pager }}
     <div class="article-widget">
-      {{ partial "section_pager.html" . }}
+      {{ partial "section_pager" . }}
     </div>
     {{ end }}
 
-    {{ partial "comments.html" . }}
+    {{ partial "comments" . }}
 
   </div>
 </article>
