@@ -3,7 +3,7 @@
 {{ if .Get "library" }}
   {{ $image_src = printf "img/%s" $image_src | relURL }}
 {{ end }}
-{{ $lightbox := eq (.Get "lightbox" | default "false") "true" }}
+{{ $lightbox := eq (.Get "lightbox" | default "true") "true" }}
 {{ $group := .Get "lightbox-group" | default "" }}
 
 <figure{{ with .Get "class" }} class="{{.}}"{{ end }}>
