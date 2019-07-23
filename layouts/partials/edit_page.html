@@ -1,7 +1,16 @@
-{{ if site.Params.edit_page.repo_url | and (index site.Params.edit_page.editable .Type) | and (ne .Params.editable false) | or .Params.editable }}
-<p class="edit-page">
-  <a href="{{site.Params.edit_page.repo_url}}/edit/{{site.Params.edit_page.repo_branch | default "master"}}/content/{{.File.Path}}">
-    <i class="fas fa-pen pr-2"></i>{{ i18n "edit_page" | default "Edit this page" }}
-  </a>
-</p>
+{{ if (or site.Params.edit_page .Params.edit_page) }}
+  {{ $edit_page :=  site.Params.edit_page }}
+  {{ $editable := index $edit_page.editable .Type  | and (ne .Params.editable false) | or .Params.editable}}
+  {{ if .Params.edit_page }}
+    {{ $edit_page =  .Params.edit_page }}
+    {{ $editable = ne .Params.editable false}}
+  {{ end }}
+
+  {{ if $edit_page.repo_url | and $editable }}
+  <p class="edit-page">
+    <a href="{{$edit_page.repo_url}}/edit/{{$edit_page.repo_branch | default "master"}}/content/{{.File.Path}}">
+      <i class="fas fa-pen pr-2"></i>{{ i18n "edit_page" | default "Edit this page" }}
+    </a>
+  </p>
+  {{ end }}
 {{ end }}
