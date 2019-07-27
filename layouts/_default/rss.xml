@@ -7,9 +7,9 @@
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ if eq  .Title  site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ site.Title }}{{ end }}</title>
+    <title>{{ if eq  .Title  site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{.}} {{ i18n "feed_on" | default "on" }} {{ end }}{{ site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne  .Title  site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ site.Title }}</description>
+    <description>{{ i18n "feed_recent_content" | default "Recent content" }} {{ if ne  .Title  site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}{{ i18n "feed_on" | default "on" }} {{ site.Title }}</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>{{ with site.LanguageCode }}
     <language>{{.}}</language>{{end}}{{ with site.Author.email }}
     <managingEditor>{{.}}{{ with site.Author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with site.Author.email }}
