@@ -16,6 +16,8 @@
   translation: Weiter
 - id: figure
   translation: 'Abbildung %d:'
+- id: edit_page
+  translation: Seite editieren
 - id: btn_preprint
   translation: Preprint
 - id: btn_pdf
