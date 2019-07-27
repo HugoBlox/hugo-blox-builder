@@ -130,3 +130,9 @@
   translation: Verstanden!
 - id: cookie_learn
   translation: Mehr erfahren
+- id: feed_recent_content
+  translation: Aktuelle Inhalte
+- id: feed_in
+  translation: in
+- id: feed_on
+  translation: auf
