@@ -19,7 +19,7 @@
 - id: edit_page
   translation: Seite editieren
 - id: btn_preprint
-  translation: Preprint
+  translation: Vorabdruck
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
