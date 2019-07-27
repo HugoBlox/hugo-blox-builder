@@ -107,8 +107,7 @@
         {{ if .IsTranslated }}
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
-            <i class="fas fa-globe" aria-hidden="true"></i>
-            <span>{{ index site.Data.i18n.languages .Lang }}</span>
+            <i class="fas fa-globe mr-1" aria-hidden="true"></i><span>{{ index site.Data.i18n.languages .Lang }}</span>
           </a>
           <ul class="dropdown-menu">
             {{ range .Translations }}
