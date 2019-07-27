@@ -12,7 +12,11 @@
   {{ end }}
 
   <p class="powered-by">
-    {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
+    {{ if .Site.Params.CopyrightHTML }}
+      {{ with .Site.Params.CopyrightHTML }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
+    {{ else }}
+      {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
+    {{ end }}
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
