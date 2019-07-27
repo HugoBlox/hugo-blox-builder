@@ -124,6 +124,12 @@
     </script>
     {{ end }}
 
+    {{/* Disqus Comment Count JS. */}}
+    {{ $disqus_enabled := eq site.Params.comments.engine 1 | and (index site.Params.comments.commentable .Type) | and (ne .Params.commentable false) | or .Params.commentable }}
+    {{ if and $disqus_enabled (site.Params.comments.disqus.show_count | default true) }}
+    <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
+    {{ end }}
+
     {{ $js_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" site.Data.academic.version }}
     {{ $js_bundle_head := $js_comment | resources.FromString "js/bundle-head.js" }}
     {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
