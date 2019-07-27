@@ -34,14 +34,6 @@
   enable = true
 
 [[buttons]]
-  id = "xing"
-  url = "https://www.xing.com/spi/shares/new?url={url}&title={title}"
-  title = "Xing"
-  icon_pack = "fab"
-  icon = "xing"
-  enable = false
-
-[[buttons]]
   id = "whatsapp"
   url = "https://web.whatsapp.com/send?text={title}%20{url}"
   title = "WhatsApp"
@@ -71,4 +63,12 @@
   title = "Pinterest"
   icon_pack = "fab"
   icon = "pinterest"
+  enable = false
+
+[[buttons]]
+  id = "xing"
+  url = "https://www.xing.com/spi/shares/new?url={url}&title={title}"
+  title = "Xing"
+  icon_pack = "fab"
+  icon = "xing"
   enable = false
