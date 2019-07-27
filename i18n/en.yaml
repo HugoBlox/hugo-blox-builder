@@ -223,3 +223,14 @@
 
 - id: cookie_learn
   translation: Learn more
+
+# Web syndication
+
+- id: feed_recent_content
+  translation: Recent content
+
+- id: feed_in
+  translation: in
+
+- id: feed_on
+  translation: "on"
