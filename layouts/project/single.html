@@ -13,6 +13,8 @@
     {{ partial "tags.html" . }}
     {{ partial "page_author.html" . }}
 
+    {{ partial "comments" . }}
+
     {{ $page := . }}
     {{ $project := .File.ContentBaseName }}
 
