@@ -1,0 +1,18 @@
+{{- $scr := .Scratch -}}
+{
+  "name": "{{site.Title}}",
+  "lang": "{{site.LanguageCode}}",
+  "theme_color": "{{ $scr.Get "primary" }}",
+  "background_color": "{{ $scr.Get "primary" }}",
+  "icons": [{
+    "src": "img/icon-192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+    }{{- if (fileExists "static/img/icon-512.png") -}}, {
+    "src": "img/icon-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+     }{{end}}],
+  "display": "standalone",
+  "start_url": "./?utm_source=web_app_manifest"
+}
