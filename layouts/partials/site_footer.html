@@ -1,7 +1,13 @@
 <footer class="site-footer">
-  {{ with site.GetPage "privacy.md" }}
+  {{ if (or (site.GetPage "legal.md") (site.GetPage "privacy.md")) }}
   <p class="powered-by">
-    {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
+    {{ with site.GetPage "legal.md" }}
+      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
+    {{ end }}
+    {{ with site.GetPage "privacy.md" }}
+      {{ if site.GetPage "legal.md" }} &middot; {{ end }}
+      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
+    {{ end }}
   </p>
   {{ end }}
 
