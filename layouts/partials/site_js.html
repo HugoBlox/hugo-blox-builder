@@ -125,8 +125,7 @@
     {{ end }}
 
     {{/* Disqus Comment Count JS. */}}
-    {{ $disqus_enabled := eq site.Params.comments.engine 1 | and (index site.Params.comments.commentable .Type) | and (ne .Params.commentable false) | or .Params.commentable }}
-    {{ if and $disqus_enabled (site.Params.comments.disqus.show_count | default true) }}
+    {{ if and (eq site.Params.comments.engine 1) (site.Params.comments.disqus.show_count | default true) }}
     <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
     {{ end }}
 
