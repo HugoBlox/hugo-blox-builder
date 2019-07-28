@@ -16,7 +16,7 @@
     {{ $superuser_username = path.Base (path.Split .Path).Dir }}
     {{ $superuser_role = .Params.role }}
   {{ end }}
-  {{ $scr.Set "superuser_username" $superuser_username }}{{/* For access from page_author.html. */}}
+  {{ $scr.Set "superuser_username" $superuser_username }}{{/* Set superuser globally for page_author.html. */}}
 
   {{ with $superuser_name }}<meta name="author" content="{{ . }}">{{ end }}
 
@@ -156,6 +156,9 @@
     {{ $og_image = printf "img/%s" .Params.header.image | absURL }}
   {{ else if site.Params.sharing_image }}
     {{ $og_image = printf "img/%s" site.Params.sharing_image | absURL }}
+  {{ else if site.Params.logo }}
+    {{ $og_image = (printf "img/%s" site.Params.logo) | absURL }}
+    {{ $twitter_card = "summary" }}
   {{ else if site.Params.avatar }}
     {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}
     {{ $twitter_card = "summary" }}
@@ -163,6 +166,7 @@
     {{ $og_image = "img/icon-192.png" | absURL }}
     {{ $twitter_card = "summary" }}
   {{ end }}
+  {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
   <meta property="twitter:card" content="{{ $twitter_card }}">
   {{ with site.Params.twitter }}
   <meta property="twitter:site" content="@{{ . }}">
@@ -178,11 +182,14 @@
   {{- end -}}
   <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}">
   {{ if .IsPage }}
-  {{ if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
-  {{ else if not .Date.IsZero }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
-  {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+    {{ if not .PublishDate.IsZero }}
+      <meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+    {{ else if not .Date.IsZero }}
+      <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+    {{ end }}
+    {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
   {{ else }}
-  {{ if not .Date.IsZero }}<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+    {{ if not .Date.IsZero }}<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
   {{ end }}
 
   {{ partial "cookie_consent" . }}
