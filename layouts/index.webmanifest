@@ -5,14 +5,15 @@
   "theme_color": "{{ $scr.Get "primary" }}",
   "background_color": "{{ $scr.Get "primary" }}",
   "icons": [{
-    "src": "/img/icon-192.png",
+    "src": "{{site.BaseURL}}img/icon-192.png",
     "sizes": "192x192",
     "type": "image/png"
     }{{- if (fileExists "static/img/icon-512.png") -}}, {
-    "src": "/img/icon-512.png",
+    "src": "{{site.BaseURL}}img/icon-512.png",
     "sizes": "512x512",
     "type": "image/png"
      }{{end}}],
-  "display": "standalone",
-  "start_url": "./?utm_source=web_app_manifest"
+  "display": "standalone",{{if .IsTranslated}}
+  "start_url": "{{.Permalink}}?utm_source=web_app_manifest"{{else}}
+  "start_url": "./?utm_source=web_app_manifest"{{end}}
 }
