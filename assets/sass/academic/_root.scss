@@ -532,6 +532,12 @@ table > tbody > tr:hover > th {
  *  Article Alerts (Shortcode) and Asides (Mmark)
  **************************************************/
 
+/* Style asides as Bootstrap alerts. */
+.article-style aside {
+  @extend .alert;
+}
+
+/* Asides use <p> block element whereas alerts use <div>. */
 .article-style aside p,
 div.alert > div {
   position: relative;
@@ -539,10 +545,6 @@ div.alert > div {
   font-size: 1rem;
   margin-left: 2rem;
   margin-top: 0;
-}
-
-/* No bottom margin for Alert boxes and but not Asides (use default `p` style). */
-div.alert > div {
   margin-bottom: 0;
 }
 
