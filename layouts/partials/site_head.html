@@ -138,12 +138,9 @@
   <link rel="alternate" href="{{.RelPermalink}}" type="application/rss+xml" title="{{site.Title}}">
   {{ end }}
 
-  {{ range .AlternativeOutputFormats }}
-  <link rel="{{.Rel}}" type="{{.MediaType.Type}}" href="{{.RelPermalink | safeURL}}">
-  {{ end }}
-
-  <link rel="icon" type="image/png" href="{{ "/img/icon.png" | relURL }}">
-  <link rel="apple-touch-icon" type="image/png" href="{{ "/img/icon-192.png" | relURL }}">
+  <link rel="manifest" href="{{ "index.webmanifest" | relURL }}">
+  <link rel="icon" type="image/png" href="{{ "img/icon-32.png" | relURL }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ "img/icon-192.png" | relURL }}">
 
   <link rel="canonical" href="{{ .Permalink }}">
 
