@@ -1,26 +1,34 @@
 {{ $ := .root }}
-{{ $page := .page }}
+{{ $st := .page }}
+
+{{ $items_count := $st.Params.content.count }}
+{{ if eq $items_count 0 }}
+  {{ $items_count = 65535 }}
+{{ else }}
+  {{ $items_count = $items_count | default 20 }}
+{{ end }}
 
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $page.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+    <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
+    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>
   <div class="col-12 col-lg-8">
-    {{ with $page.Content }}{{ . }}{{ end }}
+    {{ with $st.Content }}{{ . }}{{ end }}
 
     {{ if not (eq (len site.Taxonomies.tags) 0) }}
+      {{ $tags := first $items_count site.Taxonomies.tags.ByCount }}
       {{ $fontSmall := 0.8 }}
       {{ $fontBig := 2.5 }}
 
       {{ $fontDelta := sub $fontBig $fontSmall }}
-      {{ $min := len (index site.Taxonomies.tags.ByCount.Reverse 0).Pages }}
-      {{ $max := add (len (index site.Taxonomies.tags.ByCount 0).Pages) 1 }}
+      {{ $min := len (index ($tags).Reverse 0).Pages }}
+      {{ $max := add (len (index $tags 0).Pages) 1 }}
       {{ $delta := sub $max $min }}
       {{ $fontStep := div $fontDelta $delta }}
 
       <div class="tag-cloud">
-        {{ range $name, $taxonomy := site.Taxonomies.tags }}
+        {{ range $name, $taxonomy := $tags }}
           {{ $tagCount := len $taxonomy.Pages }}
           {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
           {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}

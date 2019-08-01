@@ -7,4 +7,8 @@ weight = 120  # Order that this section will appear.
 
 title = "Popular Topics"
 subtitle = ""
+
+[content]
+  # Choose how many tags you would like to display (0 = all tags)
+  count = 20
 +++
