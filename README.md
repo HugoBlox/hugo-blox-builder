@@ -42,19 +42,13 @@
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
 - **One-Click Deployment** - No servers. No databases. Only files.
 
-## Color Themes
+## Themes
 
 Academic comes with **day (light) and night (dark) mode** built-in. Click the sun/moon icon in the top right of the [Demo](https://academic-demo.netlify.com/) to see it in action!
 
-Choose a stunning color and font theme for your site. Themes are fully customizable and include:
+Choose a stunning theme for your site and [customize it](https://sourcethemes.com/academic/docs/customization/#custom-theme) to your liking:
 
-| `default` | `ocean` | `forest` | `dark` |
-| --- | --- | --- | --- |
-| ![default theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-default.png) | ![ocean theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-ocean.png) | ![forest theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-forest.png) | ![dark theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-dark.png) |
-
-| `apogee` | `1950s` | `coffee` | `strawberry` |
-| --- | --- | --- | --- |
-| ![apogee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-apogee.png) | ![1950s theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-1950s.png) | ![coffee theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-coffee-playfair.png) | ![cupcake theme](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/theme-strawberry.png) |
+[![Themes](https://raw.githubusercontent.com/gcushen/hugo-academic/master/images/themes.png)](https://sourcethemes.com/academic/themes/)
 
 [Browse more themes...](https://sourcethemes.com/academic/themes/)
 
