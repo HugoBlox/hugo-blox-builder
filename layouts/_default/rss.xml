@@ -25,7 +25,7 @@
       <link>{{ .Permalink }}</link>
     </image>
     {{end -}}
-    {{ range $pages }}{{ if not .Params.DisableRSS }}
+    {{ range $pages }}{{ if not .Params.DisableFeed }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
