@@ -1,5 +1,11 @@
+{{/* Pages Widget */}}
+
+{{/* Initialise */}}
 {{ $ := .root }}
 {{ $st := .page }}
+{{ $taxonomy := $st.Params.content.taxonomy | default "tags" }}
+{{ $fontSmall := $st.Params.design.font_size_min | default 0.8 }}
+{{ $fontBig := $st.Params.design.font_size_max | default 2.5 }}
 
 {{ $items_count := $st.Params.content.count }}
 {{ if eq $items_count 0 }}
@@ -7,6 +13,10 @@
 {{ else }}
   {{ $items_count = $items_count | default 20 }}
 {{ end }}
+
+{{/* Query */}}
+{{ $tags := first $items_count (index site.Taxonomies $taxonomy).ByCount }}
+{{ $count := len $tags }}
 
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
@@ -16,10 +26,7 @@
   <div class="col-12 col-lg-8">
     {{ with $st.Content }}{{ . }}{{ end }}
 
-    {{ if not (eq (len site.Taxonomies.tags) 0) }}
-      {{ $tags := first $items_count site.Taxonomies.tags.ByCount }}
-      {{ $fontSmall := 0.8 }}
-      {{ $fontBig := 2.5 }}
+    {{ if ne $count 0 }}
 
       {{ $fontDelta := sub $fontBig $fontSmall }}
       {{ $min := len (index ($tags).Reverse 0).Pages }}
@@ -28,8 +35,8 @@
       {{ $fontStep := div $fontDelta $delta }}
 
       <div class="tag-cloud">
-        {{ range $name, $taxonomy := $tags }}
-          {{ $tagCount := len $taxonomy.Pages }}
+        {{ range $name, $term := (sort $tags ".Page.Title" "asc") }}
+          {{ $tagCount := len $term.Pages }}
           {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
           {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
           <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ .Page.Title }}</a>
