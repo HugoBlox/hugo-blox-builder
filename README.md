@@ -52,6 +52,10 @@ Choose a stunning theme for your site and [customize it](https://sourcethemes.co
 
 [Browse more themes...](https://sourcethemes.com/academic/themes/)
 
+## The Future of Technical Content Writing
+
+[![Writing technical content](https://sourcethemes.com/academic/img/docs/writing-technical-content.gif)](https://academic-demo.netlify.com/post/writing-technical-content/)
+
 ## Ecosystem
 
 * **[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
