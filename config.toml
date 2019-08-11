@@ -1,0 +1,9 @@
+[outputFormats.JSONIndex]
+    name          = "JSONIndex"
+    mediaType     = "application/json"
+    baseName      = "searchindex" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = searchindex.json
+    isPlainText   = false
+    rel           = "alternate"
+    isHTML        = false
+    noUgly        = true
+    permalinkable = false
