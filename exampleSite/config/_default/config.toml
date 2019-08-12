@@ -43,6 +43,23 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   home = [ "HTML", "RSS", "JSONIndex", "WebAppManifest" ]
   section = [ "HTML", "RSS" ]
 
+[mediaTypes."application/manifest+json"]
+  suffixes = ["webmanifest"]
+
+[outputFormats.WebAppManifest]
+  mediaType = "application/manifest+json"
+  rel = "manifest"
+
+[outputFormats.JSONIndex]
+    name          = "JSONIndex"
+    mediaType     = "application/json"
+    baseName      = "searchindex" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = searchindex.json
+    isPlainText   = false
+    rel           = "alternate"
+    isHTML        = false
+    noUgly        = true
+    permalinkable = false
+
 # Configure BlackFriday Markdown rendering.
 #   See: https://gohugo.io/getting-started/configuration/#configure-blackfriday
 [blackfriday]
