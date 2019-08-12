@@ -1,0 +1,11 @@
+[mediaTypes."application/manifest+json"]
+    suffixes      = ["webmanifest"]
+[outputFormats.WebAppManifest]
+    name          = "WebAppManifest"
+    mediaType     = "application/manifest+json"
+    baseName      = "site" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = site.webmanifest
+    isPlainText   = false
+    rel           = "manifest"
+    isHTML        = false
+    noUgly        = true
+    permalinkable = false
