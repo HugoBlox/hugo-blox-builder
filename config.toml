@@ -7,7 +7,6 @@
     isHTML        = false
     noUgly        = true
     permalinkable = false
-
 [mediaTypes."application/manifest+json"]
     suffixes      = ["webmanifest"]
 [outputFormats.WebAppManifest]
