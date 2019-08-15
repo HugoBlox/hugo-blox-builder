@@ -19,12 +19,13 @@
       {{ partial $widget $params }}
     {{end}}
 
-    {{ $query := where .Pages ".IsNode" false }}
+	{{/* List only publications */}}
+    {{ $query := and (where .Pages ".IsNode" false) (where .Pages "Section" "publication") }}
     {{ $count := len $query }}
     {{ if $count }}
     <div class="article-widget">
       <div class="hr-light"></div>
-      <h3>{{ i18n "user_profile_latest" | default "Latest" }}</h3>
+      <h3>{{ printf "%s (%d)" (i18n "publications") $count | default "Publications" }}</h3>
       <ul>
         {{ range $query }}
         <li>
@@ -34,6 +35,41 @@
       </ul>
     </div>
     {{ end }}
+
+    {{/* List only posts */}}
+    {{ $query := and (where .Pages ".IsNode" false) (where .Pages "Section" "post") }}
+    {{ $count := len $query }}
+    {{ if $count }}
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>{{ i18n "posts" | default "Posts"}}</h3>
+      <ul>
+        {{ range $query }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{/* List only talks */}}
+    {{ $query := and (where .Pages ".IsNode" false) (where .Pages "Section" "talk") }}
+    {{ $count := len $query }}
+    {{ if $count }}
+    <div class="article-widget">
+      <div class="hr-light"></div>
+      <h3>{{ i18n "talks" | default "Talks"}}</h3>
+      <ul>
+        {{ range $query }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+	
   </div>
 </section>
 
