@@ -156,6 +156,7 @@ sharing = true
   #   0: Disabled
   #   1: Disqus (https://disqus.com)
   #   2: Commento (https://commento.io)
+  #   3: Gitalk (https://gitalk.github.io/)
   engine = 0
 
   # Which page types are commentable?
@@ -165,6 +166,25 @@ sharing = true
   [comments.disqus]
     shortname = ""  # Paste the shortname from your Disqus dashboard.
     show_count = true  # Show comment count in page header? (true/false)
+
+  # Configuration of Gitalk
+  [comments.gitalk]
+    on = true
+    clientID = "" # GitHub Application Client ID
+    clientSecret = "" # GitHub Application Client Secret
+    repo  = "" # GitHub repo
+    owner = "" # GitHub repo owner
+    admin = [""] # GitHub repo owner and collaborators, only these guys can initialize github issues
+    labels = [""]  # default to ["Gitalk"]
+    distractionFreeMode = false # Facebook-like distraction free mode.
+    pagerDirection = 'last' # set to 'last' or 'first'
+    createIssueManually = false # Gitalk will create a corresponding github issue
+    enableHotKey = true  # cmd | ctrl + enter to commit comment  for your every single page automatically
+    [gitalk.flipMoveOptions] # Comment list animation, more on https://github.com/joshwcomeau/react-flip-move/blob/master/documentation/enter_leave_animations.md
+        staggerDelayBy = 150
+        appearAnimation = 'elevator'
+        enterAnimation = 'elevator'
+        leaveAnimation = 'elevator'
 
 # Search.
 [search]
