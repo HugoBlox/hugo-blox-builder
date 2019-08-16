@@ -2,19 +2,21 @@
     name          = "JSONIndex"
     mediaType     = "application/json"
     baseName      = "searchindex" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = searchindex.json
-    isPlainText   = false
+    isPlainText   = true
     rel           = "alternate"
     isHTML        = false
-    noUgly        = true
+    noUgly        = false
     permalinkable = false
+    notAlternative = true
 [mediaTypes."application/manifest+json"]
     suffixes      = ["webmanifest"]
 [outputFormats.WebAppManifest]
     name          = "WebAppManifest"
     mediaType     = "application/manifest+json"
     baseName      = "site" # generated file = <baseName>.<mediaType."application/json".suffixes[0]> = site.webmanifest
-    isPlainText   = false
+    isPlainText   = true
     rel           = "manifest"
     isHTML        = false
-    noUgly        = true
+    noUgly        = false
     permalinkable = false
+    notAlternative = true
