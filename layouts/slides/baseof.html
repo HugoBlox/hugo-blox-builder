@@ -9,9 +9,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
 
-  <link rel="manifest" href="{{ "index.webmanifest" | relURL }}">
-  <link rel="icon" type="image/png" href="{{ "img/icon-32.png" | relURL }}">
-  <link rel="apple-touch-icon" type="image/png" href="{{ "img/icon-192.png" | relURL }}">
+  <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
+  {{ if ("img/icon-32.png" | relLangURL | fileExists) -}}
+    <link rel="icon" type="image/png" href="{{ "img/icon-32.png" | relLangURL }}">
+  {{- else -}}
+    <link rel="icon" type="image/png" href="{{ "img/icon-32.png" | absURL }}">
+  {{- end }}
+  {{ if ("img/icon-192.png" | relLangURL | fileExists) -}}
+    <link rel="apple-touch-icon" type="image/png" href="{{ "img/icon-192.png" | relLangURL }}">
+  {{- else -}}
+    <link rel="apple-touch-icon" type="image/png" href="{{ "img/icon-192.png" | absURL }}">
+  {{- end }}
 
   <link rel="canonical" href="{{ .Permalink }}">
 

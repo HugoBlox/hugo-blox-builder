@@ -6,11 +6,19 @@
   "theme_color": "{{ $scr.Get "primary" }}",
   "background_color": "{{ $scr.Get "primary" }}",
   "icons": [{
-    "src": "img/icon-192.png",
+    {{ if ("img/icon-192.png" | relLangURL | fileExists) -}}
+      "src": "{{ "img/icon-192.png" | relLangURL }}",
+    {{- else -}}
+      "src": "/img/icon-192.png",
+    {{- end }}
     "sizes": "192x192",
     "type": "image/png"
     }, {
-    "src": "img/icon-512.png",
+    {{ if ("img/icon-512.png" | relLangURL | fileExists) -}}
+      "src": "{{ "img/icon-512.png" | relLangURL }}",
+    {{- else -}}
+      "src": "/img/icon-512.png",
+    {{- end }}
     "sizes": "512x512",
     "type": "image/png"
      }],
