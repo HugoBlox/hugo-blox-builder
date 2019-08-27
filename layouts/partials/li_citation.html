@@ -8,7 +8,11 @@
     {{ partial "page_metadata_authors" . }}
   </span>
   ({{- .Date.Format "2006" -}}).
-  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  {{ if site.Params.publications.disable_links_title }} <!-- Unlink publication's title if disable_links_title is true -->
+    <a itemprop="name">{{ .Title }}</a>.
+  {{ else }}
+    <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  {{ end }}
   {{ if .Params.publication_short }}
   {{- .Params.publication_short | markdownify -}}.
   {{ else if .Params.publication }}
@@ -22,7 +26,11 @@
   <span itemprop="author" class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" . }}
   </span>.
-  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  {{ if site.Params.publications.disable_links_title }} <!-- Unlink publication's title if disable_links_title is true -->
+    <a itemprop="name">{{ .Title }}</a>.
+  {{ else }}
+    <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  {{ end }}
   {{ if .Params.publication_short }}
   {{- .Params.publication_short | markdownify -}},
   {{ else if .Params.publication }}

@@ -138,6 +138,12 @@ sharing = true
 
   # Citation style ("apa" or "mla")
   citation_style = "apa"
+  
+  # If true, publication's titles won't be linked to publication's pages
+  disable_links_title = false
+  
+  # If true, publication's authors won't be linked to their profile pages
+  disable_links_authors = false
 
 # Configuration of project pages.
 [projects]

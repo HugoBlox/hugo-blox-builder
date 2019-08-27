@@ -8,7 +8,11 @@
     {{- if gt $index 0 }}, {{ end -}}
     <span itemprop="author name" itemtype="http://schema.org/Person">
       {{- with $profile_page -}}
-        <a href="{{.RelPermalink}}">{{$name}}</a>
+        { if site.Params.publications.disable_links_authors }} <!-- Unlink publication's authors if disable_links_authors is true -->
+          <a>{{$name}}</a>
+        {{- else -}}
+          <a href="{{.RelPermalink}}">{{$name}}</a>
+        {{- end -}}
       {{- else -}}
         {{$name}}
       {{- end -}}
