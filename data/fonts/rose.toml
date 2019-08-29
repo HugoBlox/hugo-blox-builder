@@ -9,7 +9,3 @@ heading_font = "Lora"
 body_font = "Roboto"
 nav_font = "Lora"
 mono_font = "Cutive Mono"
-
-# Font size
-font_size = "20"
-font_size_small = "16"
