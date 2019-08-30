@@ -1,9 +1,11 @@
 {{- define "main" -}}
 
-{{ if not (isset site.Params "color_theme") }}
+{{/* Check that user fully installed Academic. */}}
+{{ if not (isset site.Params "theme") }}
   {{ errorf "Please complete the installation of Academic by following the steps at https://sourcethemes.com/academic/docs/install/" }}
 {{ end }}
 
+{{/* Generate homepage. */}}
 {{ partial "widget_page.html" . }}
 
 {{- end -}}
