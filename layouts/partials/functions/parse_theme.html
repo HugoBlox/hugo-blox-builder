@@ -1,7 +1,15 @@
 {{- $scr := .Scratch -}}
 
+{{- $theme_index := (site.Params.theme | lower | replaceRE "\\s" "_") | default "minimal" -}}
+{{- $font_index := (index site.Data.themes $theme_index).font_theme | default (site.Params.font | lower | replaceRE "\\s" "_") | default $theme_index | default "minimal" -}}
+
+{{- $font_size := site.Params.font_size | default "m" -}}
+{{- $font_sizes := dict "s" 16 "m" 21 "l" 25 -}}
+{{- $font_size_numeric := (index $font_sizes $font_size) | default (index $font_sizes "m") -}}
+{{- $scr.Set "font_size" $font_size_numeric -}}
+{{- $scr.Set "font_size_small" (mul 0.77 $font_size_numeric) -}}
+
 {{/* Attempt to load font style specified by user. */}}
-{{- $font_index := site.Params.font | default "default" -}}
 {{ if (index site.Data.fonts $font_index) }}
   {{- $font := index site.Data.fonts $font_index -}}
   {{- $scr.Set "google_fonts" $font.google_fonts -}}
@@ -9,14 +17,11 @@
   {{- $scr.Set "heading_font" $font.heading_font -}}
   {{- $scr.Set "nav_font" $font.nav_font -}}
   {{- $scr.Set "mono_font" $font.mono_font -}}
-  {{- $scr.Set "font_size" $font.font_size -}}
-  {{- $scr.Set "font_size_small" $font.font_size_small -}}
 {{ else }}
-  {{ errorf "The `%s` font theme was not found! Check that the `font` option in `config/_default/params.toml` matches the name of an installed font theme." $font_index }}
+  {{ errorf "The `%s` font set was not found! Check that the `font` option in `config/_default/params.toml` matches the name of an installed font set." $font_index }}
 {{ end }}
 
 {{/* Attempt to load color theme specified by user. */}}
-{{- $theme_index := site.Params.color_theme | default "default" -}}
 {{ if (index site.Data.themes $theme_index) }}
   {{ $theme := index site.Data.themes $theme_index }}
 
@@ -49,5 +54,5 @@
   {{- $scr.Set "menu_title" $theme.menu_title -}}
 
 {{ else }}
-  {{ errorf "The `%s` color theme was not found! Check that the `color_theme` option in `config/_default/params.toml` matches the name of an installed color theme." $theme_index }}
+  {{ errorf "The `%s` color theme was not found! Check that the `theme` option in `config/_default/params.toml` matches the name of an installed color theme." $theme_index }}
 {{ end }}

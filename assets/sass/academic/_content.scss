@@ -118,6 +118,10 @@ article .article-metadata {
   color: $sta-primary;
 }
 
+.article-categories {
+  white-space: nowrap; /* Keep category icon on same line as category links, otherwise context lost. */
+}
+
 .middot-divider {
   padding-right: .45em;
   padding-left: .45em;
