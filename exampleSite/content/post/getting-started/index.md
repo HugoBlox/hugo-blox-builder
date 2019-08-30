@@ -29,50 +29,25 @@ image:
 #   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
 #   Otherwise, set `projects = []`.
 projects: []
-
-# Set captions for image gallery.
-gallery_item:
-- album: gallery
-  caption: Default
-  image: theme-default.png
-- album: gallery
-  caption: Ocean
-  image: theme-ocean.png
-- album: gallery
-  caption: Forest
-  image: theme-forest.png
-- album: gallery
-  caption: Dark
-  image: theme-dark.png
-- album: gallery
-  caption: Apogee
-  image: theme-apogee.png
-- album: gallery
-  caption: 1950s
-  image: theme-1950s.png
-- album: gallery
-  caption: Coffee theme with Playfair font
-  image: theme-coffee-playfair.png
-- album: gallery
-  caption: Strawberry
-  image: theme-strawberry.png
 ---
 
 **Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 _widgets_, _themes_, and _language packs_ included!**
 
 [Check out the latest **demo**](https://academic-demo.netlify.com/) of what you'll get in less than 10 minutes, or [view the **showcase**](https://sourcethemes.com/academic/#expo) of personal, project, and business sites.
 
-- [**Setup Academic**](#install)
-- [**Get Started**](https://sourcethemes.com/academic/docs/get-started/)
-- [View the documentation](https://sourcethemes.com/academic/docs/)
-- [Ask a question](http://discuss.gohugo.io/)
-- [Request a feature or report a bug](https://github.com/gcushen/hugo-academic/issues)
-- Updating? View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
-- Support development of Academic:
-  - [Donate a coffee](https://paypal.me/cushen)
-  - [Become a backer on Patreon](https://www.patreon.com/cushen)
-  - [Decorate your laptop or journal with an Academic sticker](https://www.redbubble.com/people/neutreno/works/34387919-academic)
-  - [Wear the T-shirt](https://academic.threadless.com/)
+- 👉 [**Get Started**](#install)
+- 📚 [View the **documentation**](https://sourcethemes.com/academic/docs/)
+- 💬 [**Ask a question** on the forum](https://discourse.gohugo.io)
+- 👥 [Chat with the **community**](https://spectrum.chat/academic)
+- 🐦 Twitter: [@source_themes](https://twitter.com/source_themes) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithAcademic](https://twitter.com/search?q=%23MadeWithAcademic&src=typd)
+- 💡 [Request a **feature** or report a **bug**](https://github.com/gcushen/hugo-academic/issues)
+- ⬆️ **Updating?** View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
+- :heart: **Support development** of Academic:
+  - ☕️ [**Donate a coffee**](https://paypal.me/cushen)
+  - 💵 [Become a backer on **Patreon**](https://www.patreon.com/cushen)
+  - 🖼️ [Decorate your laptop or journal with an Academic **sticker**](https://www.redbubble.com/people/neutreno/works/34387919-academic)
+  - 👕 [Wear the **T-shirt**](https://academic.threadless.com/)
+  - :woman_technologist: [**Contribute**](https://sourcethemes.com/academic/docs/contribute/)
 
 {{< figure src="https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png" lightbox="true" >}}
 
@@ -94,13 +69,11 @@ gallery_item:
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
 - **One-Click Deployment** - No servers. No databases. Only files.
 
-## Color Themes
+## Themes
 
-Academic comes with **day (light) and night (dark) mode** built-in. Click the sun/moon icon in the top right of the [Demo](https://academic-demo.netlify.com/) to see it in action!
+Academic comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, visitors can  choose their preferred mode - click the sun/moon icon in the top right of the [Demo](https://academic-demo.netlify.com/) to see it in action! Day/night mode can also be disabled by the site admin in `params.toml`.
 
-Choose a stunning color and font theme for your site. Themes are fully customizable and include:
-
-{{< gallery >}}
+[Choose a stunning **theme** and **font**](https://sourcethemes.com/academic/themes/) for your site. Themes are fully [customizable](https://sourcethemes.com/academic/docs/customization/#custom-theme).
 
 ## Ecosystem
 
