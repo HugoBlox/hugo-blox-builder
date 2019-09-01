@@ -47,15 +47,10 @@
 .search-header {
   position: -webkit-sticky;
   position: sticky;
-  top: 70px;  /* Navbar height. */
+  top: 0;
   background-color: $sta-background;
   padding-top: 2rem;
   padding-bottom: 1rem;
-}
-@media screen and (max-width: 1200px) {
-  .search-header {
-    top: 50px;  /* Navbar height. */
-  }
 }
 
 .dark .search-header {

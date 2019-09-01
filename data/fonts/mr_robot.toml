@@ -9,7 +9,3 @@ heading_font = "Orbitron"
 body_font = "B612 Mono"
 nav_font = "B612 Mono"
 mono_font = "B612 Mono"
-
-# Font size
-font_size = "20"
-font_size_small = "16"
