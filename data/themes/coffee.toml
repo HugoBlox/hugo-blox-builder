@@ -18,4 +18,4 @@ background = "hsla(16, 24%, 85%, 1)"
 home_section_odd = "hsla(16, 24%, 85%, 1)"
 home_section_even = "hsla(16, 24%, 80%, 1)"
 
-font = "rose"
+font_theme = "rose"
