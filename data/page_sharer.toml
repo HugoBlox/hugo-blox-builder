@@ -72,3 +72,11 @@
   icon_pack = "fab"
   icon = "xing"
   enable = false
+
+[[buttons]]
+  id = "tumblr"
+  url = "https://www.tumblr.com/widgets/share/tool?canonicalUrl={url}&title={title}"
+  title = "Tumblr"
+  icon_pack = "fab"
+  icon = "tumblr"
+  enable = false

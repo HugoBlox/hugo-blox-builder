@@ -31,7 +31,7 @@
       <h4><a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{ $item.Title | markdownify | emojify }}</a></h4>
       {{ with $summary }}
       <div class="article-style">
-        {{ . | truncate 135 }}
+        <p>{{ . | truncate 135 }}</p>
       </div>
       {{ end }}
     </div>
