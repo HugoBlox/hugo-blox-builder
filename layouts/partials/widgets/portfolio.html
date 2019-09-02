@@ -67,7 +67,11 @@
     {{ end }}
 
     <div class="{{ if or $st.Params.content.filter_button (eq $st.Params.design.view 3) }}isotope projects-container{{end}} {{if eq $st.Params.design.view 3}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $st.Params.design.view 5 }}project-showcase mt-5{{end}}">
-      {{ range $idx, $item := where site.RegularPages "Type" $items_type }}
+      {{ $query := where site.RegularPages "Type" $items_type }}
+      {{ if $st.Params.folder }}
+        {{ $query = $query | intersect (where site.RegularPages "Section" $st.Params.folder )}}
+      {{end}}
+      {{ range $idx, $item := $query }}
 
         {{ $link := $item.RelPermalink }}
         {{ $target := "" }}
