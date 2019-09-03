@@ -1,7 +1,7 @@
 {{- $scr := .Scratch -}}
 
 {{- $theme_index := (site.Params.theme | lower | replaceRE "\\s" "_") | default "minimal" -}}
-{{- $font_index := (index site.Data.themes $theme_index).font_theme | default (site.Params.font | lower | replaceRE "\\s" "_") | default $theme_index | default "minimal" -}}
+{{- $font_index := (index site.Data.themes $theme_index).font | default (site.Params.font | lower | replaceRE "\\s" "_") | default $theme_index | default "minimal" -}}
 
 {{- $font_size := site.Params.font_size | default "m" -}}
 {{- $font_sizes := dict "s" 16 "m" 21 "l" 25 -}}
