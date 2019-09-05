@@ -19,9 +19,9 @@
 <div class="article-header">
   {{ $img_src := urls.Parse .Params.header.image }}
   {{ if $img_src.Scheme }}
-  <img src="{{ .Params.header.image }}" class="article-banner" itemprop="image" alt="">
+  <img src="{{ .Params.header.image }}" class="article-banner" alt="">
   {{ else }}
-  <img src="{{ (printf "/img/%s" .Params.header.image) | relURL }}" class="article-banner" itemprop="image" alt="">
+  <img src="{{ (printf "/img/%s" .Params.header.image) | relURL }}" class="article-banner" alt="">
   {{ end }}
 
   {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
@@ -53,7 +53,7 @@
 {{end}}
 
 <div class="article-container pt-3">
-  <h1 itemprop="name">{{ $title }}</h1>
+  <h1>{{ $title }}</h1>
 
   {{ with $page.Params.subtitle }}
   <p class="page-subtitle">{{ . | markdownify | emojify }}</p>
@@ -79,7 +79,7 @@
     {{ $ctnr = "universal-wrapper" }}
   {{end}}
 <div class="{{$ctnr}} pt-3">
-  <h1 itemprop="name">{{ $title }}</h1>
+  <h1>{{ $title }}</h1>
 
   {{ with $page.Params.subtitle }}
   <p class="page-subtitle">{{ . | markdownify | emojify }}</p>

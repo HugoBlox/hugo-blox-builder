@@ -2,10 +2,10 @@
 {{ $summary := .summary }}
 {{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
 
-{{/* Get microdata type. */}}
-{{ $microdata_type := "Article" }}
+{{/* Get schema type. */}}
+{{ $schema := "Article" }}
 {{ if eq $page.Type "post" }}
-  {{ $microdata_type = "BlogPosting" }}
+  {{ $schema = "BlogPosting" }}
 {{ end }}
 
 {{/* Get author name. */}}
@@ -25,7 +25,7 @@
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": {{$schema}},
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": {{$page.Permalink}}
