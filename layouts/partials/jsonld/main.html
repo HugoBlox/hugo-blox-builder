@@ -1,0 +1,14 @@
+{{ $page := .page }}
+{{ $summary := .summary }}
+
+{{- if $page.IsHome -}}
+
+  {{ partial "jsonld/website.html" $page }}
+
+{{- else if $page.IsPage -}}
+
+  {{ if or (eq $page.Type "post") (eq $page.Type "publication") }}
+    {{ partial "jsonld/article.html" (dict "page" $page "summary" $summary) }}
+  {{ end }}
+
+{{- end }}
