@@ -2,9 +2,6 @@
 {{ $share := .share | default false }}
 {{ $page := .page }}
 
-<meta content="{{ $page.Params.Date }}" itemprop="datePublished">
-<meta content="{{ $page.Params.LastMod }}" itemprop="dateModified">
-
 <div class="article-metadata">
 
   {{/* If `authors` is set and is not empty. */}}
@@ -27,7 +24,7 @@
           {{ i18n "last_updated" }}
       {{ end }}
     {{ end }}
-    <time>{{ $date }}</time>
+    {{ $date }}
   </span>
   {{ end }}
 

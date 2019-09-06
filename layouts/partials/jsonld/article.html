@@ -1,0 +1,49 @@
+{{ $page := .page }}
+{{ $summary := .summary }}
+{{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
+
+{{/* Get schema type. */}}
+{{ $schema := "Article" }}
+{{ if eq $page.Type "post" }}
+  {{ $schema = "BlogPosting" }}
+{{ end }}
+
+{{/* Get author name. */}}
+{{ $author_username := "" }}
+{{ if and (not $page.Params.authors) ($page.Scratch.Get "superuser_username") }}
+  {{ $author_username = $page.Scratch.Get "superuser_username" }}
+{{ else if $page.Params.authors }}
+  {{ $author_username = index $page.Params.authors 0 }}
+{{ end }}
+{{ $author := "" }}
+{{ $taxonomy := "authors" }}
+{{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_username) }}
+{{ with $profile_page }}
+  {{ $author = .Params.name | default .Title }}
+{{ end }}
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": {{$schema}},
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{$page.Permalink}}
+    },
+    "headline": {{$page.Title}},
+    {{ if $featured_image }}
+    "image": [
+      {{$featured_image.Permalink}}
+    ],
+    {{end}}
+    "datePublished": {{ $page.PublishDate.Format "2006-01-02T15:04:05Z07:00" }},
+    "dateModified": {{ $page.Lastmod.Format "2006-01-02T15:04:05Z07:00" }},
+    {{with $author}}
+    "author": {
+      "@type": "Person",
+      "name": {{.}}
+    },
+    {{end}}
+    "description": {{$summary}}
+  }
+</script>
