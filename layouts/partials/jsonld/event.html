@@ -28,7 +28,16 @@
   {{ with $page.Params.location }}
   "location": {
     "@type": "Place",
-    "name": {{. | plainify}}
+    "name": {{. | plainify}}{{if $page.Params.address}},
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{$page.Params.address.street | default ""}},
+      "addressLocality": {{$page.Params.address.city | default ""}},
+      "postalCode": {{$page.Params.address.postcode | default ""}},
+      "addressRegion": {{$page.Params.address.region | default ""}},
+      "addressCountry": {{$page.Params.address.country | default ""}}
+    }
+    {{end}}
   },
   {{end}}
   {{ if $featured_image }}

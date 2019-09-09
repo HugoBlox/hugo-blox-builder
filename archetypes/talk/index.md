@@ -5,6 +5,12 @@ title: "{{ replace .Name "-" " " | title }}"
 event:
 event_url:
 location:
+address:
+  street:
+  city:
+  region:
+  postcode:
+  country:
 summary:
 abstract:
 
