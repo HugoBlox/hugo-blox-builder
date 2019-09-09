@@ -11,4 +11,8 @@
     {{ partial "jsonld/article.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 
+  {{ if eq $page.Type "talk" }}
+    {{ partial "jsonld/event.html" (dict "page" $page "summary" $summary) }}
+  {{ end }}
+
 {{- end }}

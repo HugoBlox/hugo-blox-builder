@@ -2,12 +2,6 @@
 {{ $summary := .summary }}
 {{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
 
-{{/* Get schema type. */}}
-{{ $schema := "Article" }}
-{{ if eq $page.Type "post" }}
-  {{ $schema = "BlogPosting" }}
-{{ end }}
-
 {{/* Get author name. */}}
 {{ $author_username := "" }}
 {{ if and (not $page.Params.authors) ($page.Scratch.Get "superuser_username") }}
@@ -25,21 +19,29 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": {{$schema}},
+  "@type": "Event",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": {{$page.Permalink}}
   },
-  "headline": {{$page.Title}},
+  "name": {{$page.Title}},
+  {{ with $page.Params.location }}
+  "location": {
+    "@type": "Place",
+    "name": {{. | plainify}}
+  },
+  {{end}}
   {{ if $featured_image }}
   "image": [
     {{$featured_image.Permalink}}
   ],
   {{end}}
-  "datePublished": {{ $page.PublishDate.Format "2006-01-02T15:04:05Z07:00" }},
-  "dateModified": {{ $page.Lastmod.Format "2006-01-02T15:04:05Z07:00" }},
+  "startDate": {{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }},
+  {{with $page.Params.date_end}}
+  "endDate": {{ (time .).Format "2006-01-02T15:04:05Z07:00" }},
+  {{end}}
   {{with $author}}
-  "author": {
+  "performer": {
     "@type": "Person",
     "name": {{.}}
   },
