@@ -2,7 +2,7 @@
 # Documentation: https://sourcethemes.com/academic/
 
 # Choose a theme.
-#   Latest themes (may require updating Academic): https://sourcethemes.com/academic/themes/
+#   Latest themes (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in themes in `themes/academic/data/themes/`
 #   Browse user installed themes in `data/themes/`
 theme = "minimal"
@@ -10,15 +10,15 @@ theme = "minimal"
 # Enable users to switch between day and night mode?
 day_night = true
 
-# Overrride the theme's font set (optional).
-#   Latest font sets (may require updating Academic): https://sourcethemes.com/academic/themes/
+# Override the theme's font set (optional).
+#   Latest font sets (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in font sets in `themes/academic/data/fonts/`
 #   Browse user installed font sets in `data/fonts/`
 font = ""
 
 # Choose a font size.
-# Sizes: s (small), m (medium), l (large)
-font_size = "m"
+# Sizes: XS (extra small), S (small), M (medium), L (large - DEFAULT), XL (extra large)
+font_size = "L"
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
 description = ""
@@ -108,6 +108,10 @@ map_api_key = ""
 latitude = "37.4275"
 longitude = "-122.1697"
 zoom = 15
+
+# Address line delimiter
+# Popular separators are ", " (comma), "<br>" (new line), " " (space)
+address_delimiter = ", "
 
 ############################
 ## Plugins                ##
