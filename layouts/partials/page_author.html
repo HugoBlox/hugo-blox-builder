@@ -25,18 +25,18 @@
     {{ $profile_url = site.BaseURL }}
   {{ end }}
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
-  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  <div class="media author-card">
     {{ if and site.Params.gravatar .Params.email }}
-      <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" itemprop="image" alt="Avatar">
+      <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="Avatar">
     {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "250x250 Center" }}
-      <img class="portrait mr-3" src="{{ $avatar_image.RelPermalink }}" itemprop="image" alt="Avatar">
+      <img class="portrait mr-3" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
     {{ end }}
 
     <div class="media-body">
-      <h5 class="card-title" itemprop="name"><a href="{{$profile_url}}">{{.Params.name}}</a></h5>
+      <h5 class="card-title"><a href="{{$profile_url}}">{{.Params.name}}</a></h5>
       {{ with .Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
-      {{ with .Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
+      {{ with .Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
       <ul class="network-icon" aria-hidden="true">
         {{ range .Params.social }}
           {{ $pack := or .icon_pack "fas" }}
@@ -53,7 +53,7 @@
             {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
           {{ end }}
           <li>
-            <a itemprop="sameAs" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+            <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
               <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
             </a>
           </li>

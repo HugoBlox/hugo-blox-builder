@@ -6,7 +6,7 @@
     {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy (. | urlize)) -}}
     {{- $name := $profile_page.Params.name | default ($value|markdownify) -}}
     {{- if gt $index 0 }}, {{ end -}}
-    <span itemprop="author name" itemtype="http://schema.org/Person">
+    <span>
       {{- with $profile_page -}}
         <a href="{{.RelPermalink}}">{{$name}}</a>
       {{- else -}}

@@ -1,6 +1,6 @@
 {{ $item := . }}
 
-{{ $microdata_type := "CreativeWork" }}
+{{/* Dynamic view adjusts to content type. */}}
 {{ $icon_pack := "far" }}
 {{ $icon := "fa-file-alt" }}
 {{ $show_authors := false }}
@@ -11,44 +11,38 @@
   {{ $link = $item.Params.external_link }}
   {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
 {{ end }}
-
-{{/* Dynamic view adjusts to content type. */}}
 {{ if eq $item.Type "post" }}
-  {{ $microdata_type = "BlogPosting" }}
   {{ $icon = "fa-newspaper" }}
 {{ else if eq $item.Type "talk" }}
-  {{ $microdata_type = "Event" }}
   {{ $icon = "fa-calendar-alt" }}
 {{ else if eq $item.Type "publication" }}
-  {{ $microdata_type = "ScholarlyArticle" }}
   {{ $show_authors = true }}
   {{ $show_buttons = true }}
 {{ else if eq $item.Type "project" }}
-  {{ $microdata_type = "CreativeWork" }}
   {{ $icon_pack = "fas" }}
   {{ $icon = "fa-project-diagram" }}
   {{ $show_authors = true }}
   {{ $show_buttons = true }}
 {{ end }}
 
-<div class="view-list-item" itemscope itemtype="http://schema.org/{{$microdata_type}}">
+<div class="view-list-item">
   <i class="{{$icon_pack}} {{$icon}} pub-icon" aria-hidden="true"></i>
-  <a href="{{$link}}" {{ $target | safeHTMLAttr }} itemprop="url"><span itemprop="name">{{ $item.Title }}</span></a>
+  <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
 
   {{ if eq $item.Type "talk" }}
   <div class="article-metadata">
-    <span itemprop="startDate">
+    <span>
       {{ partial "functions/get_event_dates" $item }}
     </span>
     {{ with $item.Params.location }}
     <span class="middot-divider"></span>
-    <span itemprop="location">{{ . }}</span>
+    <span>{{ . }}</span>
     {{ end }}
   </div>
   {{ end }}
 
   {{ if and $show_authors $item.Params.authors }}
-  <div class="article-metadata" itemprop="author">
+  <div class="article-metadata">
     {{ partial "page_metadata_authors" $item }}
   </div>
   {{ end }}

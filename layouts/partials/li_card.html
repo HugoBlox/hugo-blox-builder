@@ -1,16 +1,11 @@
 {{ $item := . }}
 
-{{ $microdata_type := "CreativeWork" }}
-{{ $show_buttons := false }}
 
 {{/* Dynamic view adjusts to content type. */}}
-{{ if eq $item.Type "post" }}
-  {{ $microdata_type = "BlogPosting" }}
-{{ else if eq $item.Type "talk" }}
-  {{ $microdata_type = "Event" }}
+{{ $show_buttons := false }}
+{{ if eq $item.Type "talk" }}
   {{ $show_buttons = true }}
 {{ else if eq $item.Type "publication" }}
-  {{ $microdata_type = "ScholarlyArticle" }}
   {{ $show_buttons = true }}
 {{ end }}
 
@@ -26,21 +21,21 @@
   {{ $summary = $item.Content }}
 {{ end }}
 
-<div class="card-simple" itemscope itemtype="http://schema.org/{{$microdata_type}}">
+<div class="card-simple">
 
   {{ if eq $item.Type "talk" }}
   <div class="article-metadata">
     {{ if $item.Params.authors }}
-    <div itemprop="author">
+    <div>
       {{ partial "page_metadata_authors" $item }}
     </div>
     {{ end }}
-    <span itemprop="startDate">
+    <span>
       {{ partial "functions/get_event_dates" $item }}
     </span>
     {{ with $item.Params.location }}
     <span class="middot-divider"></span>
-    <span itemprop="location">{{ . }}</span>
+    <span>{{ . }}</span>
     {{ end }}
   </div>
   {{ else }}
@@ -52,16 +47,16 @@
   {{ with $resource }}
   {{ $image := .Fill (printf "918x517 q90 %s" $anchor) }}
   <a href="{{ $item.RelPermalink }}">
-      <img src="{{ $image.RelPermalink }}" class="article-banner" itemprop="image" alt="">
+      <img src="{{ $image.RelPermalink }}" class="article-banner" alt="">
   </a>
   {{end}}
 
-  <h3 class="article-title mb-1 mt-3" itemprop="name">
-    <a href="{{ $item.RelPermalink }}" itemprop="url">{{ $item.Title }}</a>
+  <h3 class="article-title mb-1 mt-3">
+    <a href="{{ $item.RelPermalink }}">{{ $item.Title }}</a>
   </h3>
 
   {{ with $summary }}
-  <div class="article-style" itemprop="articleBody">
+  <div class="article-style">
     <p>{{.}}</p>
   </div>
   {{ end }}
