@@ -61,7 +61,7 @@
 - id: contact_name
   translation: Имя
 - id: contact_email
-  translation: еmail
+  translation: адрес электронной почты
 - id: contact_message
   translation: Сообщение
 - id: contact_send
