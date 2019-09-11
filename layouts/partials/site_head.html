@@ -95,8 +95,9 @@
   {{ end }}
 
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent. */}}
+  {{/* Hugo's htmlEscape cannot escape "|" in Google Font URIs so we implement our own escape functionality. */}}
   {{ with ($scr.Get "google_fonts") }}
-  <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css?family=%s&display=swap\"" (htmlEscape .) | safeHTMLAttr }}>
+  <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css?family=%s&display=swap\"" . | replaceRE "\\|" "%7C" | safeHTMLAttr }}>
   {{ end }}
 
   {{ $css_options := (dict "targetPath" "css/academic.css" "outputStyle" "compressed") }}
