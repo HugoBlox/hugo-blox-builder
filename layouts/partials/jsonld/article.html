@@ -22,6 +22,9 @@
   {{ $author = .Params.name | default .Title }}
 {{ end }}
 
+{{ $publisher := site.Params.org_name | default site.Title }}
+{{ $logo_url := printf "img/%s" (site.Params.logo | default "icon-512.png") | absURL }}
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -44,6 +47,14 @@
     "name": {{.}}
   },
   {{end}}
+  "publisher": {
+    "@type": "Organization",
+    "name": {{$publisher}},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{$logo_url}}
+    }
+  },
   "description": {{$summary}}
 }
 </script>
