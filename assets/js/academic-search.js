@@ -84,9 +84,17 @@ function searchAcademic(query, fuse) {
 // Parse search results.
 function parseResults(query, results) {
   $.each( results, function(key, value) {
-    let content = value.item.content;
+    let content_key = value.item.section;
+    let content = "";
     let snippet = "";
     let snippetHighlights = [];
+
+    // Show abstract in results for content types where the abstract is often the primary content.
+    if (["publication", "talk"].includes(content_key)) {
+      content = value.item.summary;
+    } else {
+      content = value.item.content;
+    }
 
     if ( fuseOptions.tokenize ) {
       snippetHighlights.push(query);
@@ -102,14 +110,13 @@ function parseResults(query, results) {
     }
 
     if (snippet.length < 1) {
-      snippet += content.substring(0, summaryLength*2);
+      snippet += value.item.summary;  // Alternative fallback: `content.substring(0, summaryLength*2);`
     }
 
     // Load template.
-    var template = $('#search-hit-fuse-template').html();
+    let template = $('#search-hit-fuse-template').html();
 
     // Localize content types.
-    let content_key = value.item.section;
     if (content_key in content_type) {
       content_key = content_type[content_key];
     }
