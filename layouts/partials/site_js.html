@@ -35,12 +35,12 @@
     {{ end }}
 
     {{/* Maps JS. */}}
-    {{ if eq site.Params.map 1 }}
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map_api_key }}"></script>
+    {{ if eq site.Params.map.engine 1 }}
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map.api_key }}"></script>
       {{ if ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
       {{ end }}
-    {{ else if and (or (eq site.Params.map 2) (eq site.Params.map 3)) ($scr.Get "use_cdn") }}
+    {{ else if and (or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3)) ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
     {{ end }}
 

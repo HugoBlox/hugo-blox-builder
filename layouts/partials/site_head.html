@@ -83,7 +83,7 @@
       {{ end }}
     {{ end }}
 
-    {{ if or (eq site.Params.map 2) (eq site.Params.map 3) }}
+    {{ if or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3) }}
     {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
     {{ end }}
 
