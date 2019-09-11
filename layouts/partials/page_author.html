@@ -16,12 +16,13 @@
   {{ $author_urlized = urlize $first_author }}
 {{ end }}
 
+{{ $site_type := site.Params.site_type | default "Person" }}
 {{ $taxonomy := "authors" }}
 {{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_urlized) }}
 {{ with $profile_page }}
   {{/* If it's a personal site and primary page author is superuser, link to the homepage rather than their profile page. */}}
   {{ $profile_url := .RelPermalink }}
-  {{ if and (not site.Data.organization.name) (eq .Params.superuser true) }}
+  {{ if and (eq $site_type "Person") (eq .Params.superuser true) }}
     {{ $profile_url = site.BaseURL }}
   {{ end }}
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
