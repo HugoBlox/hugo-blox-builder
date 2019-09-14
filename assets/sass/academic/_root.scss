@@ -138,10 +138,10 @@ video {
 figcaption {
   display: block;
   margin-top: 0.75em;
-  line-height: 1.25;
-  font-size: 1rem;
   margin-bottom: 1.65rem;
-  font-family: $sta-font-heading, sans-serif;
+  line-height: 1.4;
+  font-size: 0.76rem;
+  text-align: center;
 }
 
 figcaption.numbered:before {
@@ -152,13 +152,6 @@ figcaption.numbered:before {
 
 figcaption.numbered {
   counter-increment: captions;
-}
-
-figcaption h4 {
-  display: inline;
-  font-size: 1rem;
-  font-weight: 400;
-  margin: 0;
 }
 
 pre,
