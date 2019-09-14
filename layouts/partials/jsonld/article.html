@@ -8,20 +8,7 @@
   {{ $schema = "BlogPosting" }}
 {{ end }}
 
-{{/* Get author name. */}}
-{{ $author_username := "" }}
-{{ if and (not $page.Params.authors) ($page.Scratch.Get "superuser_username") }}
-  {{ $author_username = $page.Scratch.Get "superuser_username" }}
-{{ else if $page.Params.authors }}
-  {{ $author_username = index $page.Params.authors 0 }}
-{{ end }}
-{{ $author := "" }}
-{{ $taxonomy := "authors" }}
-{{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_username) }}
-{{ with $profile_page }}
-  {{ $author = .Params.name | default .Title }}
-{{ end }}
-
+{{ $author := partial "functions/get_author_name" $page }}
 {{ $publisher := site.Params.org_name | default site.Title }}
 {{ $logo_url := printf "img/%s" (site.Params.logo | default "icon-512.png") | absURL }}
 
