@@ -64,7 +64,7 @@
       {{ end }}
 
       {{ $addr_formatted := "" }}{{/* Scoping for maps. */}}
-      {{ if $data.address }}
+      {{ if $data.address.street | or $data.address.city | or $data.address.region | or $data.address.postcode | or $data.address.country }}
         {{ $addr := slice }}
         {{with $data.address.street}}{{$addr = $addr | append .}}{{end}}
         {{with $data.address.city}}{{$addr = $addr | append .}}{{end}}
