@@ -1,5 +1,10 @@
+{{/* People Content Widget */}}
+
+{{/* Initialise */}}
 {{ $ := .root }}
 {{ $page := .page }}
+{{ $items_show_icons := $page.Params.show_icons | default false }}
+{{ $items_show_interests := $page.Params.show_interests | default true }}
 
 <div class="row justify-content-center people-widget">
   {{ with $page.Title }}
@@ -44,7 +49,12 @@
     <div class="portrait-title">
       <h2>{{with $link}}<a href="{{.}}">{{end}}{{ .Params.name }}{{if $link}}</a>{{end}}</h2>
       {{ with .Params.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
-      {{ with .Params.interests }}<p class="people-interests">{{ delimit . ", " | markdownify | emojify }}</p>{{ end }}
+      {{ if $items_show_icons }}
+        {{ partial "network_icon.html" . }}
+      {{ end }}
+      {{ if $items_show_interests }}
+        {{ with .Params.interests }}<p class="people-interests">{{ delimit . ", " | markdownify | emojify }}</p>{{ end }}
+      {{ end }}
     </div>
   </div>
 

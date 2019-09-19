@@ -16,4 +16,10 @@ user_groups = ["Principal Investigators",
                "Administration",
                "Visitors",
                "Alumni"]
+
+# Show social/academic networking icons
+show_icons = false
+
+# Show the interests of the users
+show_interests = true
 +++
