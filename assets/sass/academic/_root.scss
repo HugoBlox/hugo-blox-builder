@@ -135,6 +135,12 @@ video {
   margin: 0 auto;
 }
 
+// Center all figure images by default.
+figure img {
+  @extend .margin-auto;
+}
+
+// Center all figure captions by default.
 figcaption {
   display: block;
   margin-top: 0.75em;
@@ -343,7 +349,7 @@ footer p {
 }
 
 site-footer,
-footer a#back_to_top i {
+footer a.back-to-top i {
   color: rgba(0,0,0,0.54);
 }
 

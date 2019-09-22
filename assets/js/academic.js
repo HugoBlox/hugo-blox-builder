@@ -29,11 +29,12 @@
     // If `target` is undefined or HashChangeEvent object, set it to window's hash.
     // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
     target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
-    // Escape special chars from IDs, such as colons found in Markdown footnote links.
-    target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
 
     // If target element exists, scroll to it taking into account fixed navigation bar offset.
     if($(target).length) {
+      // Escape special chars from IDs, such as colons found in Markdown footnote links.
+      target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
+
       let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight());  // Round up to highlight right ID!
       $('body').addClass('scrolling');
       $('html, body').animate({
@@ -42,7 +43,7 @@
         $('body').removeClass('scrolling');
       });
     }else{
-      console.warn('Cannot scroll to '+target+'. ID not found!');
+      console.debug('Cannot scroll to target `#'+target+'`. ID not found!');
     }
   }
 
@@ -93,19 +94,6 @@
         scrollTop: elementOffset
       }, 800);
     }
-  });
-
-  /* ---------------------------------------------------------------------------
-   * Smooth scrolling for Back To Top link.
-   * --------------------------------------------------------------------------- */
-
-  $('#back_to_top').on('click', function(event) {
-    event.preventDefault();
-    $('html, body').animate({
-      'scrollTop': 0
-    }, 800, function() {
-      window.location.hash = "";
-    });
   });
 
   /* ---------------------------------------------------------------------------
@@ -542,6 +530,16 @@
       // Useful for changing hash manually (e.g. in development):
       // window.addEventListener('hashchange', filter_publications, false);
     }
+
+    // Scroll to top of page.
+    $('.back-to-top').click( function(event) {
+      event.preventDefault();
+      $('html, body').animate({
+        'scrollTop': 0
+      }, 800, function() {
+        window.location.hash = "";
+      });
+    });
 
     // Load citation modal on 'Cite' click.
     $('.js-cite-modal').click(function(e) {
