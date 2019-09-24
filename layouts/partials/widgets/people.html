@@ -20,12 +20,12 @@
   </div>
   {{ end }}
 
-  {{ range $page.Params.user_groups }}
+  {{ range $page.Params.content.user_groups }}
   <div class="col-md-12">
     <h2 class="mb-4">{{ . | markdownify }}</h2>
   </div>
 
-  {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
+  {{ $query := where (where site.Pages "Section" "authors") ".Params.content.user_groups" "intersect" (slice .) }}
   {{ range $query }}
 
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
