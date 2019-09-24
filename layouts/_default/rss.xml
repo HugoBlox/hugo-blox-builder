@@ -1,6 +1,6 @@
 {{- /* Generate RSS v2 with full page content. */ -}}
 {{- /* Upstream Hugo bug - RSS dates can be in future: https://github.com/gohugoio/hugo/issues/3918 */ -}}
-{{- $pages := .Data.Pages -}}
+{{- $pages := .Site.Pages -}}
 {{- $limit := site.Config.Services.RSS.Limit -}}
 {{- if ge $limit 1 -}}
   {{- $pages = $pages | first $limit -}}
