@@ -8,8 +8,12 @@
     {{- $name := $profile_page.Params.name | default ($value|markdownify) -}}
     {{- if gt $index 0 }}, {{ end -}}
     <span>
-      {{- with $profile_page -}}
-        {{ if $link_authors }}<a href="{{.RelPermalink}}">{{$name}}</a>{{else}}{{$name}}{{end}}
+      {{- if site.Params.link_authors -}}
+        {{- with $profile_page -}}
+          <a href="{{.RelPermalink}}">{{$name}}</a>
+        {{- else -}}
+          {{$name}}
+        {{- end -}}
       {{- else -}}
         {{$name}}
       {{- end -}}
