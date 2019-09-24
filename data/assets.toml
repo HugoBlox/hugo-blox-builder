@@ -27,10 +27,6 @@
   version = "4.1.4"
   sri = "sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q="
   url = "https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/%s/imagesloaded.pkgd.min.js"
-[js.autotrack]
-  version = "2.4.1"
-  sri = "sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g=="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/autotrack/%s/autotrack.js"
 [js.gmaps]
   version = "0.4.25"
   sri = "sha256-7vjlAeb8OaTrCXZkCNun9djzuB2owUsaO72kXaFDBJs="

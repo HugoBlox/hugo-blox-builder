@@ -243,3 +243,10 @@ plugins_js  = []
   engine = 2
   api_key = ""
   zoom = 15
+
+############################
+## Marketing
+############################
+[marketing]
+  google_analytics = ""
+  google_tag_manager = ""
