@@ -38,7 +38,7 @@
       <h5 class="card-title"><a href="{{$profile_url}}">{{.Params.name}}</a></h5>
       {{ with .Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
       {{ with .Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
-      {{ partial "social_icons" . }}
+      {{ partial "social_links" . }}
     </div>
   </div>
 {{end}}{{/* Profile page block */}}
