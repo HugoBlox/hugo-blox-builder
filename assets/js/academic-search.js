@@ -14,11 +14,11 @@ let fuseOptions = {
   shouldSort: true,
   includeMatches: true,
   tokenize: true,
-  threshold: 0.0,
+  threshold: search_config.threshold,  // Set to ~0.3 for parsing diacritics and CJK languages.
   location: 0,
   distance: 100,
   maxPatternLength: 32,
-  minMatchCharLength: 2,
+  minMatchCharLength: search_config.minLength,  // Set to 1 for parsing CJK languages.
   keys: [
     {name:'title', weight:0.99}, /* 1.0 doesn't work o_O */
     {name:'summary', weight:0.6},
@@ -158,7 +158,7 @@ function render(template, data) {
 // If Academic's in-built search is enabled and Fuse loaded, then initialize it.
 if (typeof Fuse === 'function') {
 // Wait for Fuse to initialize.
-  $.getJSON(search_index_filename, function (search_index) {
+  $.getJSON(search_config.indexURI, function (search_index) {
     let fuse = new Fuse(search_index, fuseOptions);
 
     // On page load, check for search query in URL.
