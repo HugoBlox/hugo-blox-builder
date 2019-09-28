@@ -32,7 +32,7 @@
   }
 
   gtag('js', new Date());
-  gtag('config', '{{$ga}}', {{$gtag_config}});
+  gtag('config', '{{$ga}}', {{$gtag_config|safeJS}});
 
   // Outbound link tracking.
   document.addEventListener('click', onClickCallback, false);
