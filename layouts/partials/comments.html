@@ -4,6 +4,8 @@
     {{ partial "comments/disqus.html" . }}
   {{ else if eq site.Params.comments.engine 2 }}
     {{ partial "comments/commento.html" . }}
+  {{ else if eq site.Params.comments.engine 3 }}
+    {{ partial "comments/utterances.html" . }}
   {{ end }}
 </section>
 {{ end }}

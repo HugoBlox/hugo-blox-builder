@@ -207,6 +207,13 @@ plugins_js  = []
     shortname = ""  # Paste the shortname from your Disqus dashboard.
     show_count = true  # Show comment count in page header? (true/false)
 
+  # Configuration of Utteranc.es
+  [comments.utterances]
+    repo = "username/repo" # Repo where the comments will live
+    issueterm = "pathname" # How Utterances will match comment to page
+    label = "comment" # Label applied to issue by utteranc.es bot
+    theme = "" # See https://utteranc.es/#theme for themes
+
 ############################
 ## Search
 ############################
