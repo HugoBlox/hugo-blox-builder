@@ -27,6 +27,9 @@ subtitle = ""
   # Show user's interests? (true/false)
   show_interests = true
   
+  # Show user's organizations? (true/false)
+  show_organizations = false
+
 [design.background]
   # Apply a background color, gradient, or image.
   #   Uncomment (by removing `#`) an option to apply it.
