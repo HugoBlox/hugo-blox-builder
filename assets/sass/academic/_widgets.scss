@@ -55,13 +55,17 @@
   top: 100%;
 }*/
 
-/* Create the parallax scrolling effect */
-.parallax {
-  height: 100%;
-  background-attachment: fixed;
+/* Default background image properties for home sections. */
+.home-section.bg-image {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* Create a parallax-like scrolling effect. */
+.parallax {
+  height: 100%;
+  background-attachment: fixed;
 }
 
 .home-section:first-of-type {
