@@ -13,8 +13,12 @@
 
   // Dynamically get responsive navigation bar height for offsetting Scrollspy.
   function getNavBarHeight() {
-    let $navbar = $('.navbar');
+    let $navbar = $('#navbar-main');
+    let $navbar_collapse_show = $('#navbar-main .navbar-collapse.collapse.show');
     let navbar_offset = $navbar.innerHeight();
+    if ($navbar_collapse_show.length){
+      navbar_offset -= $navbar_collapse_show.innerHeight();
+    }
     console.debug('Navbar height: ' + navbar_offset);
     return navbar_offset;
   }

@@ -1,7 +1,9 @@
+{{ if site.Params.edit_page }}{{/* Make `edit_page` optional in `params.toml` - prevent errors if it's removed. */}}
 {{ if site.Params.edit_page.repo_url | and (index site.Params.edit_page.editable .Type) | and (ne .Params.editable false) | or .Params.editable }}
 <p class="edit-page">
   <a href="{{site.Params.edit_page.repo_url}}/edit/{{site.Params.edit_page.repo_branch | default "master"}}/content/{{.File.Path}}">
     <i class="fas fa-pen pr-2"></i>{{ i18n "edit_page" | default "Edit this page" }}
   </a>
 </p>
+{{ end }}
 {{ end }}
