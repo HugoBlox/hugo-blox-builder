@@ -137,6 +137,14 @@ cp -av themes/academic/exampleSite/* .
 
 Feel free to *star* the project on [Github](https://github.com/gcushen/hugo-academic/) and follow [@source_themes](https://twitter.com/source_themes) on Twitter to help keep track of [updates](https://sourcethemes.com/academic/updates).
 
+## Optional: Hugo server with Docker container
+
+Go to a folder where you want to keep the files for your Hugo web site and run:
+
+    docker run -d --name hugo -p 80:1313 chasg/hugo server --bind "0.0.0.0" -p 1313 --themesDir /app/themes && docker cp    hugo:/app/site $(pwd) && docker stop hugo && docker rm hugo && docker run -d -v $(pwd)/site:/app/site --name hugo -p 80:1313 chasg/hugo server --bind "0.0.0.0" -p 1313 --themesDir /app/themes
+
+Browse localhost:80 to view your Hugo web server. 
+
 ## License
 
 Copyright 2016-present [George Cushen](https://georgecushen.com).
