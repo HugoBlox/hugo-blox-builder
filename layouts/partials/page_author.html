@@ -1,6 +1,7 @@
 {{/* Author profile box */}}
 
-{{ if not (or (eq site.Params.profile false) (eq .Params.profile false)) }}
+{{/* Don't show author box on normal pages or if author box disabled. */}}
+{{ if ne .Type "page" | and (not (or (eq site.Params.profile false) (eq .Params.profile false))) }}
 
 {{/* Display superuser if superuser exists and page authors are not explicitly specified. */}}
 {{/* Otherwise, display first author if a profile for them exists. */}}
@@ -26,7 +27,7 @@
     {{ $profile_url = site.BaseURL }}
   {{ end }}
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
-  <div class="media author-card">
+  <div class="media author-card content-widget-hr">
     {{ if and site.Params.gravatar .Params.email }}
       <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="Avatar">
     {{ else if $avatar }}

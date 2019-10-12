@@ -50,18 +50,8 @@
 
     <div class="article-style">{{ .Content }}</div>
 
-    {{ partial "tags.html" . }}
-    {{ partial "page_author.html" . }}
-
-    {{ partial "comments" . }}
+    {{ partial "page_footer" . }}
 
   </div>
 </div>
-
-{{ if site.Params.section_pager }}
-<div class="article-container article-widget">
-  {{ partial "section_pager.html" . }}
-</div>
-{{ end }}
-
 {{- end -}}

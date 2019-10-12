@@ -22,8 +22,7 @@
     {{ $query := where .Pages ".IsNode" false }}
     {{ $count := len $query }}
     {{ if $count }}
-    <div class="article-widget">
-      <div class="hr-light"></div>
+    <div class="article-widget content-widget-hr">
       <h3>{{ i18n "user_profile_latest" | default "Latest" }}</h3>
       <ul>
         {{ range $query }}

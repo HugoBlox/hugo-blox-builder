@@ -103,7 +103,6 @@ article {
 /* For article page only, not lists. */
 article .article-metadata {
   margin-bottom: 20px;
-  line-height: 30px; /* Match share bar line height. */
 }
 
 .article-metadata a {
@@ -157,24 +156,6 @@ article .article-metadata {
   margin-bottom: 0;
 }
 
-.article-widget {
-  padding-top: 1rem;
-}
-
-.article-widget h3 {
-  margin-top: 0;
-}
-
-.hr-light {
-  border-top: 1px solid rgba(0,0,0,.05);
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-#comments {
-  padding-top: 1rem;
-}
-
 /*************************************************
  *  Publications
  **************************************************/
@@ -210,18 +191,81 @@ article .article-metadata {
 }
 
 /*************************************************
- *  Author profile card
+ *  Content widgets
  **************************************************/
 
-.author-card {
-  margin-top: 1rem;
-  padding-top: 1rem;
+.content-widget-hr {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
   border-top: 1px solid rgba(0,0,0,.05);
 }
 
-.dark .author-card {
+.dark .content-widget-hr {
   border-top: 1px solid rgba(255,255,255,.05);
 }
+
+/*************************************************
+ *  Tags
+ **************************************************/
+
+.article-tags {
+  margin-top: 1.2rem;
+}
+
+/*************************************************
+ *  Sharing
+ **************************************************/
+
+.share-box {
+  margin-top: 0.7rem;
+}
+
+ul.share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.share li {
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+ul.share li:last-of-type {
+  margin-right: 0;
+}
+
+ul.share li i {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 22px;
+  text-align: center;
+  transition: all 150ms ease-in-out;
+}
+
+ul.share li a {
+  text-decoration: none !important;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.dark ul.share li a {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+ul.share li:hover i {
+  transform: scale(1.2)
+}
+
+/*************************************************
+ *  Author profile card
+ **************************************************/
 
 .author-card .portrait {
   width: 60px;
@@ -273,54 +317,21 @@ article .article-metadata {
 }
 
 /*************************************************
- *  Sharing
+ *  Comments
  **************************************************/
 
-.share-box {
-  float: right;
+#comments {
+  padding-top: 1rem;
 }
 
-ul.share {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/*************************************************
+ *  Related content
+ **************************************************/
+
+.article-widget {
+  padding-top: 1.2rem;  /* Match .content-widget-hr */
 }
 
-ul.share li {
-  display: inline-flex;
-  margin-right: 5px;
-}
-
-ul.share li:last-of-type {
-  margin-right: 0;
-}
-
-ul.share li i {
-  display: block;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 16px;
-  text-align: center;
-  transition: all 150ms ease-in-out;
-  color: #fff;
-}
-
-.dark ul.share li i {
-  color: rgb(68, 71, 90);
-}
-
-ul.share li a {
-  background-color: #b5c6ce;
-  display: block;
-  border-radius: 50%;
-  text-decoration: none !important;
-  margin: 0;
-}
-
-ul.share li:hover i {
-  transform: scale(1.4)
+.article-widget h3 {
+  margin-top: 0;
 }
