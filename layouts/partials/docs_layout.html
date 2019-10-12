@@ -3,7 +3,7 @@
 <div class="container-fluid docs">
   <div class="row flex-xl-nowrap">
     <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
-      {{ partial "docs_sidebar.html" . }}
+      {{ partial "docs_sidebar" . }}
     </div>
 
     {{ if .Params.toc }}
@@ -14,7 +14,7 @@
 
       {{ .TableOfContents }}
 
-      {{ partial "docs_toc_foot.html" . }}
+      {{ partial "docs_toc_foot" . }}
     </div>
     {{ end }}
 
@@ -33,7 +33,7 @@
 
           {{ if site.Params.docs_section_pager }}
           <div class="article-widget">
-            {{ partial "section_pager.html" . }}
+            {{ partial "section_pager" . }}
           </div>
           {{ end }}
         </div>
@@ -48,7 +48,7 @@
 
       </article>
 
-      {{ partial "site_footer.html" . }}
+      {{ partial "site_footer" . }}
 
     </main>
   </div>
