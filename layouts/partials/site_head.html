@@ -106,7 +106,7 @@
   {{- if (eq (getenv "HUGO_ENV") "production") -}}
     {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
   {{- end -}}
-  {{ $sass_template := resources.Get "sass/main.scss" }}
+  {{ $sass_template := resources.Get "scss/main.scss" }}
   {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options }}
   {{ $style := slice $css_bundle_head $style | resources.Concat "css/academic.css" }}
   {{- if (eq (getenv "HUGO_ENV") "production") -}}
