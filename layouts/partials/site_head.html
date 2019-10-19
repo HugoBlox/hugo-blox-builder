@@ -100,22 +100,19 @@
   <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css?family=%s&display=swap\"" . | replaceRE "\\|" "%7C" | safeHTMLAttr }}>
   {{ end }}
 
-  {{ $css_options := (dict "targetPath" "css/academic.css" "outputStyle" "compressed") }}
+  {{ $css_comment := printf "/*!* Source Themes Academic v%s (https://sourcethemes.com/academic/) */\n" site.Data.academic.version }}
+  {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
+  {{ $css_options := dict "targetPath" "css/academic.css" }}
+  {{- if (eq (getenv "HUGO_ENV") "production") -}}
+    {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
+  {{- end -}}
   {{ $sass_template := resources.Get "sass/main.scss" }}
-  {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options | minify | fingerprint "md5" }}
+  {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options }}
+  {{ $style := slice $css_bundle_head $style | resources.Concat "css/academic.css" }}
+  {{- if (eq (getenv "HUGO_ENV") "production") -}}
+    {{- $style = $style | minify | fingerprint "md5" -}}
+  {{- end -}}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
-
-  {{ if site.Params.plugins_css }}
-    {{ $css_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" site.Data.academic.version }}
-    {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
-    {{ $css_bundle := slice }}
-    {{ range site.Params.plugins_css }}
-      {{ $css_bundle = $css_bundle | append (resources.Get (printf "css/%s.css" .)) }}
-    {{ end }}
-    {{ $css_bundle := $css_bundle | resources.Concat "css/academic-bundle-pre.css" | minify }}
-    {{ $css_bundle := slice $css_bundle_head $css_bundle | resources.Concat "css/academic.css" | fingerprint "md5" }}
-    <link rel="stylesheet" href="{{ $css_bundle.RelPermalink }}">
-  {{ end }}
 
   {{ partial "marketing/google_analytics" . }}
   {{ partial "marketing/google_tag_manager" . }}
