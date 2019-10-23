@@ -23,7 +23,7 @@
       {{ if $.Scratch.Get "highlight_enabled" }}
         {{ $v := $js.highlight.version }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight.url $v) $js.highlight.sri | safeHTML }}
-        {{ range site.Params.highlight_languages }}
+        {{ range .Params.highlight_languages }}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
         {{ end }}
       {{ end }}
