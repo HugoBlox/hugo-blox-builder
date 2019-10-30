@@ -103,7 +103,7 @@
   {{ $css_comment := printf "/*!* Source Themes Academic v%s (https://sourcethemes.com/academic/) */\n" site.Data.academic.version }}
   {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
   {{ $css_options := dict "targetPath" "css/academic.css" }}
-  {{- if (eq (getenv "HUGO_ENV") "production") -}}
+  {{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") -}}
     {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
   {{- end -}}
   {{ $sass_template := resources.Get "scss/main.scss" }}
