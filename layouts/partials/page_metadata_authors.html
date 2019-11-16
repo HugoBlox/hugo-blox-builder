@@ -2,11 +2,22 @@
 
 {{ $taxonomy := "authors" }}
 {{ with .Param $taxonomy }}
+  {{ $authors_max := index (sort (slice (site.Params.publications.authors_max | default (len .)) (len .))) 0 }}
+  {{ $limit_authors := gt (len .) $authors_max }}
+  {{ $authors_limited := . }}
+  {{ if $limit_authors }}
+    {{ if gt $authors_max 1 }}
+      {{ $authors_limited = union (first (sub $authors_max 1) .) (last 1 .) }}
+    {{ else }}
+      {{ $authors_limited = first $authors_max . }}
+    {{ end }}
+  {{ end }}
   {{ $link_authors := site.Params.link_authors | default true }}
-  {{ range $index, $value := . }}
+  {{ range $index, $value := $authors_limited }}
     {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy (. | urlize)) -}}
     {{- $name := $profile_page.Params.name | default ($value|markdownify) -}}
     {{- if gt $index 0 }}, {{ end -}}
+    {{- if and $limit_authors (eq $index (sub $authors_max 1)) }} ..., {{ end -}}
     <span>
       {{- if and $profile_page $link_authors -}}
         <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
