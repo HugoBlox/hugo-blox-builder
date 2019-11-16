@@ -14,11 +14,7 @@
   // Dynamically get responsive navigation bar height for offsetting Scrollspy.
   function getNavBarHeight() {
     let $navbar = $('#navbar-main');
-    let $navbar_collapse_show = $('#navbar-main .navbar-collapse.collapse.show');
-    let navbar_offset = $navbar.innerHeight();
-    if ($navbar_collapse_show.length){
-      navbar_offset -= $navbar_collapse_show.innerHeight();
-    }
+    let navbar_offset = $navbar.outerHeight();
     console.debug('Navbar height: ' + navbar_offset);
     return navbar_offset;
   }
@@ -437,7 +433,7 @@
         codeHlDark.disabled = false;
       }
       if (diagramEnabled) {
-        mermaid.initialize({ theme: 'dark' });
+        mermaid.initialize({ theme: 'dark', securityLevel: 'loose' });
       }
       $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
     } else {
@@ -447,7 +443,7 @@
         codeHlDark.disabled = true;
       }
       if (diagramEnabled) {
-        mermaid.initialize({ theme: 'default' });
+        mermaid.initialize({ theme: 'default', securityLevel: 'loose' });
       }
       $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
     }
@@ -455,6 +451,14 @@
     // Toggle day/night mode.
     $('.js-dark-toggle').click(function(e) {
       e.preventDefault();
+      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
+    });
+
+    // Live update of day/night mode on system preferences update (no refresh required).
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    darkModeMediaQuery.addListener((e) => {
+      const darkModeOn = e.matches;
+      console.log(`Dark mode is ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
       toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
     });
   });
@@ -609,5 +613,17 @@
 
   // Normalize Bootstrap carousel slide heights.
   $(window).on('load resize orientationchange', normalizeCarouselSlideHeights);
+
+  // Automatic main menu dropdowns on mouse over.
+  $('body').on('mouseenter mouseleave', '.dropdown', function (e) {
+    var dropdown = $(e.target).closest('.dropdown');
+    var menu = $('.dropdown-menu', dropdown);
+    dropdown.addClass('show');
+    menu.addClass('show');
+    setTimeout(function () {
+      dropdown[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
+      menu[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
+    }, 300);
+  });
 
 })(jQuery);
