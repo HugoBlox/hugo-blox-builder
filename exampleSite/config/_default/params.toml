@@ -180,6 +180,9 @@ plugins_js  = []
 
   # Citation style ("apa" or "mla")
   citation_style = "apa"
+  
+  # Limit authors listed for publications
+  authors_max = 10
 
 # Configuration of project pages.
 [projects]
