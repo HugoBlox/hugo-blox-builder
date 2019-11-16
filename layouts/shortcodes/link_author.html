@@ -1,0 +1,15 @@
+{{ $link_authors := site.Params.link_authors | default true }}
+{{ $value := ( .Get 0 ) }}
+{{- $profile_page := site.GetPage (printf "/authors/%s"  ($value | urlize)) -}}
+{{- $name := $profile_page.Params.name | default ($value|markdownify) -}}
+{{- if $profile_page.GetPage "_index.md" -}}
+  <span>
+    {{- if and $profile_page $link_authors -}}
+       <a href="{{$profile_page.RelPermalink}}">{{ $name }}</a>
+    {{- else -}}
+        {{$name}}
+    {{- end -}}
+  </span>
+  {{- else -}}
+    <a href="{{$profile_page.RelPermalink}}">{{ .Inner }}</a>
+{{- end -}}
