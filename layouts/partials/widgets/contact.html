@@ -65,16 +65,10 @@
 
       {{ $addr_formatted := "" }}{{/* Scoping for maps. */}}
       {{ if $data.address.street | or $data.address.city | or $data.address.region | or $data.address.postcode | or $data.address.country }}
-        {{ $addr := slice }}
-        {{with $data.address.street}}{{$addr = $addr | append .}}{{end}}
-        {{with $data.address.city}}{{$addr = $addr | append .}}{{end}}
-        {{with $data.address.region}}{{$addr = $addr | append .}}{{end}}
-        {{with $data.address.postcode}}{{$addr = $addr | append .}}{{end}}
-        {{with $data.address.country}}{{$addr = $addr | append .}}{{end}}
-        {{ $addr_formatted = delimit $addr (site.Params.list_delimiter | default ", ") }}
+        {{ $addr_formatted = partial "functions/get_address" (dict "root" . "address" $data.address) }}
         <li>
           <i class="fa-li fas fa-map-marker fa-2x" aria-hidden="true"></i>
-          <span id="person-address">{{ $addr_formatted }}</span>
+          <span id="person-address">{{$addr_formatted}}</span>
         </li>
       {{ end }}
 

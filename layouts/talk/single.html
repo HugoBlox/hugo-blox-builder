@@ -38,7 +38,7 @@
             {{ .Params.event | markdownify }}
             {{ if .Params.event_url }}</a>{{ end }}
           </div>
-        </div> 
+        </div>
       </div>
       <div class="col-md-1"></div>
     </div>
@@ -53,15 +53,8 @@
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "location" }}</div>
           <div class="col-12 col-md-9">{{ .Params.location | markdownify }}</div>
           {{ if .Params.address }}
-            {{ $addr := slice }}
-            {{with .Params.address.street}}{{$addr = $addr | append .}}{{end}}
-            {{with .Params.address.city}}{{$addr = $addr | append .}}{{end}}
-            {{with .Params.address.region}}{{$addr = $addr | append .}}{{end}}
-            {{with .Params.address.postcode}}{{$addr = $addr | append .}}{{end}}
-            {{with .Params.address.country}}{{$addr = $addr | append .}}{{end}}
-            {{ $addr_formatted := delimit $addr (site.Params.list_delimiter | default ", ") }}
             <div class="col-md-3"></div>
-            <div class="col-12 col-md-9">{{$addr_formatted}}</div>
+            <div class="col-12 col-md-9">{{partial "functions/get_address" (dict "root" . "address" .Params.address) }}}}</div>
           {{end}}
         </div>
       </div>
