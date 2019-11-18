@@ -54,7 +54,7 @@
           <div class="col-12 col-md-9">{{ .Params.location | markdownify }}</div>
           {{ if .Params.address }}
             <div class="col-md-3"></div>
-            <div class="col-12 col-md-9">{{partial "functions/get_address" (dict "root" . "address" .Params.address) }}}}</div>
+            <div class="col-12 col-md-9">{{partial "functions/get_address" (dict "root" . "address" .Params.address) }}</div>
           {{end}}
         </div>
       </div>
