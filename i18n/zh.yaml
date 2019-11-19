@@ -32,6 +32,9 @@
 - id: edit_page
   translation: 编辑本页
 
+- id: word_count
+  translation: 字
+
 # Buttons
 
 - id: btn_preprint

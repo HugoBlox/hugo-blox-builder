@@ -45,6 +45,13 @@
   </span>
   {{ end }}
 
+  {{ if and (eq $page.Type "post") (not (or (eq site.Params.word_count false) (eq $page.Params.word_count false))) }}
+  <span class="middot-divider"></span>
+  <span class="article-word-count">
+    {{ $page.WordCount }} {{ i18n "word_count" }} 
+  </span>
+  {{ end }}
+
   {{/* Show Disqus comment count if enabled. */}}
   {{ $disqus_enabled := eq site.Params.comments.engine 1 | and (index site.Params.comments.commentable $page.Type) | and (ne $page.Params.commentable false) | or $page.Params.commentable }}
   {{ if and $disqus_enabled (site.Params.comments.disqus.show_count | default true) }}
