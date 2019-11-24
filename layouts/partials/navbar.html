@@ -7,7 +7,7 @@
     {{if $show_logo}}
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
         {{- if site.Params.logo -}}
-          <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
+          <img class="img-responsive" src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
         {{- else -}}
           {{- site.Title -}}
         {{- end -}}
