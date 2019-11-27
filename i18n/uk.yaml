@@ -1,0 +1,225 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Перемкнути навігацію
+
+- id: table_of_contents
+  translation: Зміст
+
+- id: on_this_page
+  translation: на сторінці
+
+- id: back_to_top
+  translation: Повернутися догори
+
+# General
+
+- id: related
+  translation: Подібні
+
+- id: minute_read
+  translation: хв читання
+
+- id: previous
+  translation: Попередній
+
+- id: next
+  translation: Наступний
+
+- id: figure
+  translation: "Схема %d:"
+
+- id: edit_page
+  translation: Редагувати цю сторінку
+
+# Buttons
+
+- id: btn_preprint
+  translation: Попередній друк
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Цитувати
+
+- id: btn_slides
+  translation: Слайди
+
+- id: btn_video
+  translation: Відео
+
+- id: btn_code
+  translation: Код
+
+- id: btn_dataset
+  translation: Набір даних
+
+- id: btn_project
+  translation: Проєкт
+
+- id: btn_poster
+  translation: Постер
+
+- id: btn_source
+  translation: Вихідний документ
+
+- id: btn_copy
+  translation: Копія
+
+- id: btn_download
+  translation: Завантажити
+
+# About widget
+
+- id: interests
+  translation: Зацікавлення
+
+- id: education
+  translation: Освіта
+
+- id: user_profile_latest
+  translation: Останні
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Переглянути сертифікат
+
+# Experience widget
+
+- id: present
+  translation: Теперішній
+
+# Pages widget
+
+- id: more_pages
+  translation: Переглянути все
+
+- id: more_posts
+  translation: Переглянути всі пости
+
+- id: more_talks
+  translation: Переглянути всі бесіди
+
+- id: more_publications
+  translation: Переглянути всі публікації
+
+# Contact widget
+
+- id: contact_name
+  translation: Ім'я
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Повідомлення
+
+- id: contact_send
+  translation: Надіслати
+
+- id: book_appointment
+  translation: Призначити зустріч
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Анотація
+
+- id: publication
+  translation: Публікація
+
+- id: publication_type
+  translation: Тип
+
+- id: date
+  translation: Дата
+
+- id: last_updated
+  translation: Останнє оновлення
+
+- id: event
+  translation: Подія
+
+- id: location
+  translation: Місце
+
+- id: pub_uncat
+  translation: Без категорії
+
+- id: pub_conf
+  translation: Стаття для конференції
+
+- id: pub_journal
+  translation: Стаття для журнала
+
+- id: pub_preprint
+  translation: Попередній друк
+
+- id: pub_report
+  translation: Доповідь
+
+- id: pub_book
+  translation: Книга
+
+- id: pub_book_section
+  translation: Розділ книги
+
+- id: pub_thesis
+  translation: Тезис
+
+- id: pub_patent
+  translation: Патент
+
+# Project details
+
+- id: open_project_site
+  translation: Перейти на сайт проєкта
+
+# Default titles for archive pages
+
+- id: posts
+  translation: Дописи
+
+- id: publications
+  translation: Публікації
+
+- id: talks
+  translation: Бесіди
+
+- id: projects
+  translation: Проєкти
+
+# Search
+
+- id: search
+  translation: Пошук
+
+- id: search_placeholder
+  translation: Пошук...
+
+- id: search_results
+  translation: Знайдені результати
+
+- id: search_no_results
+  translation: Результатів не знайдено
+
+# Error 404
+
+- id: page_not_found
+  translation: Не вдалося знайти сторінку
+
+- id: 404_recommendations
+  translation: Можливо, Ви шукали щось з цього?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Щоб упевнитись у зручності користування сайтом, ми використовуємо кукі-файли.
+
+- id: cookie_dismiss
+  translation: Зрозуміло!
+
+- id: cookie_learn
+  translation: Дізнатися більше
