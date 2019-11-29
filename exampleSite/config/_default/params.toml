@@ -212,6 +212,13 @@ plugins_js  = []
     shortname = ""  # Paste the shortname from your Disqus dashboard.
     show_count = true  # Show comment count in page header? (true/false)
 
+  # Configuration of Commento
+  [comments.commento]
+    # Set this url if you want to use a self hosted instance of commento.
+    # Otherwise leave empty.
+    # E.g. "https://commento.example.com"
+    url = ""
+
 ############################
 ## Search
 ############################
