@@ -47,6 +47,8 @@
     {{/* Initialise code highlighting. */}}
     {{ if $.Scratch.Get "highlight_enabled" }}
     <script>const code_highlighting = true;</script>
+    {{ else }}
+    <script>const code_highlighting = false;</script>
     {{ end }}
 
     {{ if ne site.Params.search.engine 0 }}
