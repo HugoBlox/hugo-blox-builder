@@ -21,7 +21,7 @@
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
-  translation: Процетировать
+  translation: Процитировать
 - id: btn_slides
   translation: Слайды
 - id: btn_video
@@ -121,7 +121,7 @@
 - id: page_not_found
   translation: Страница не найдена
 - id: 404_recommendations
-  translation: Вы наверное искали один из тесисов?
+  translation: Вы наверное искали один из тезисов?
 - id: cookie_message
   translation: Для комфорной навигации на этом сайте используются куки (cookies).
 - id: cookie_dismiss
