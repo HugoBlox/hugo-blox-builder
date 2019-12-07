@@ -59,6 +59,10 @@ ul.task-list {
   list-style: none;
 }
 
+ul.task-list li input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
 /* Navigation bar text */
 .navbar-light {
   font-family: $sta-font-nav, sans-serif;

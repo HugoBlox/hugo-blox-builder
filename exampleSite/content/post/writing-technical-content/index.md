@@ -3,7 +3,6 @@ title: Writing technical content in Academic
 date: 2019-07-12
 math: true
 diagram: true
-markup: mmark
 image:
   placement: 3
   caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
@@ -37,7 +36,7 @@ data.head()
 
 ### Math
 
-Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file and adding `markup: mmark` to your page front matter.
+Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file.
 
 To render *inline* or *block* math, wrap your LaTeX math with `$$...$$`.
 
@@ -186,14 +185,18 @@ renders as
 
 ### Asides
 
-Academic supports a Markdown extension for asides, also referred to as *notices* or *hints*. By prefixing a paragraph with `A>`, it will render as an aside. You can enable this feature by adding `markup: mmark` to your page front matter, or alternatively using the [*Alert* shortcode](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts).
+Academic supports a [shortcode for asides](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts), also referred to as *notices*, *hints*, or *alerts*. By wrapping a paragraph in `{{%/* alert note */%}} ... {{%/* /alert */%}}`, it will render as an aside.
 
 ```markdown
-A> A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{%/* alert note */%}}
+A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{%/* /alert */%}}
 ```
 
 renders as
 
-A> A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{% alert note %}}
+A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{% /alert %}}
 
 ### Did you find this page helpful? Consider sharing it 🙌
