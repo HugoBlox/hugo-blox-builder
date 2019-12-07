@@ -1,10 +1,10 @@
 {{ $current_page := . }}
+{{ $show_logo := site.Params.main_menu.show_logo | default true }}
 <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
   <div class="container">
 
-    <!-- Brand and toggle get grouped for better mobile display -->
-    {{ $show_logo := site.Params.main_menu.show_logo | default true }}
     {{if $show_logo}}
+    <div class="d-none d-lg-inline-flex">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
         {{- if site.Params.logo -}}
           <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
@@ -12,6 +12,7 @@
           {{- site.Title -}}
         {{- end -}}
       </a>
+    </div>
     {{end}}
 
     {{ if site.Menus.main }}
@@ -20,6 +21,18 @@
     <span><i class="fas fa-bars"></i></span>
     </button>
     {{ end }}
+
+    {{if $show_logo}}
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="{{ "/" | relLangURL }}">
+      {{- if site.Params.logo -}}
+      <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
+      {{- else -}}
+      {{- site.Title -}}
+      {{- end -}}
+      </a>
+    </div>
+    {{end}}
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     {{ $align_menu := site.Params.main_menu.align | default "l" }}
