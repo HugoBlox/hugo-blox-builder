@@ -32,15 +32,6 @@
 - id: edit_page
   translation: Redigera den här sidan
 
-- id: powered_by
-  translation: Drivs med
-
-- id: theme_name
-  translation: Academic temat
-
-- id: for
-  translation: för
-
 # Buttons
 
 - id: btn_preprint

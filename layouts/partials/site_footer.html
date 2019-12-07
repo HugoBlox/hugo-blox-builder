@@ -5,8 +5,8 @@
     {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
     {{ end }}
     {{ with site.GetPage "terms.md" }}
-    {{ if site.GetPage "privacy.md" }} &middot; {{ end }}
-    {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
+     {{ if site.GetPage "privacy.md" }} &middot; {{ end }}
+     {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
     {{ end }}
   </p>
   {{ end }}
@@ -14,9 +14,8 @@
   <p class="powered-by">
     {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}} &middot; {{ end }}
 
-    {{ i18n "powered_by" }}
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">{{ i18n "theme_name" }}</a>
-    {{ i18n "for" }}
+     Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">"Academic theme"</a>for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
     {{ if not (in (slice "docs" "updates") .Type) }}
