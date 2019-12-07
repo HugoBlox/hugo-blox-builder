@@ -218,8 +218,9 @@ ul.toc-top {
   padding-left: 0;
 }
 
+// TOC indentation for each level.
 #TableOfContents ul ul {
-  display: none;
+  padding-left: 0.8rem;
 }
 
 #TableOfContents li {
