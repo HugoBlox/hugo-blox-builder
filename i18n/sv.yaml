@@ -1,0 +1,225 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Växla navigering
+
+- id: table_of_contents
+  translation: Innehållsförteckning
+
+- id: on_this_page
+  translation: Innehåll
+
+- id: back_to_top
+  translation: Tillbaka till toppen
+
+# General
+
+- id: related
+  translation: Relaterad
+
+- id: minute_read
+  translation: Min Läsning
+
+- id: previous
+  translation: Föregående
+
+- id: next
+  translation: Nästa
+
+- id: figure
+  translation: "Figur %d:"
+
+- id: edit_page
+  translation: Redigera den här sidan
+
+# Buttons
+
+- id: btn_preprint
+  translation: Manuscript
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citera
+
+- id: btn_slides
+  translation: Presentationer
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kod
+
+- id: btn_dataset
+  translation: Datauppsättning
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Affisch
+
+- id: btn_source
+  translation: Källdokument
+
+- id: btn_copy
+  translation: Kopia
+
+- id: btn_download
+  translation: Ladda ner
+
+# About widget
+
+- id: interests
+  translation: Intressen
+
+- id: education
+  translation: Utbildning
+
+- id: user_profile_latest
+  translation: Senaste Inläggen
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Se certifikat
+
+# Experience widget
+
+- id: present
+  translation: Nuvarande
+
+# Pages widget
+
+- id: more_pages
+  translation: Se allt
+
+- id: more_posts
+  translation: Se alla inlägg
+
+- id: more_talks
+  translation: Se alla föredrag
+
+- id: more_publications
+  translation: Se alla publikationer
+
+# Contact widget
+
+- id: contact_name
+  translation: Namn
+
+- id: contact_email
+  translation: E-post
+
+- id: contact_message
+  translation: Meddelande
+
+- id: contact_send
+  translation: Skicka
+
+- id: book_appointment
+  translation: Boka ett möte
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Abstrakt
+
+- id: publication
+  translation: Publikation
+
+- id: publication_type
+  translation: Typ
+
+- id: date
+  translation: Datum
+
+- id: last_updated
+  translation: Senast uppdaterad
+
+- id: event
+  translation: Event
+
+- id: location
+  translation: Plats
+
+- id: pub_uncat
+  translation: Okategoriserad
+
+- id: pub_conf
+  translation: Konferensbidrag
+
+- id: pub_journal
+  translation: Tidskriftsartikel
+
+- id: pub_preprint
+  translation: Manuscript
+
+- id: pub_report
+  translation: Rapport
+
+- id: pub_book
+  translation: Bok
+
+- id: pub_book_section
+  translation: Bok sektion
+
+- id: pub_thesis
+  translation: Avhandling
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Gå till projektsidan
+
+# Default titles for archive pages
+
+- id: posts
+  translation: Inlägg
+
+- id: publications
+  translation: Publikationer
+
+- id: talks
+  translation: Föredrag
+
+- id: projects
+  translation: Projekt
+
+# Search
+
+- id: search
+  translation: Sök
+
+- id: search_placeholder
+  translation: Sök...
+
+- id: search_results
+  translation: hittade resultat
+
+- id: search_no_results
+  translation: Inga resultat funna
+
+# Error 404
+
+- id: page_not_found
+  translation: Sidan hittas inte
+
+- id: 404_recommendations
+  translation: Kanske letade du efter en av dessa?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Denna webbplats använder kakor för att säkerställa att du får den bästa upplevelsen på vår webbplats.
+
+- id: cookie_dismiss
+  translation: Jag fattar!
+
+- id: cookie_learn
+  translation: Lär dig mer
