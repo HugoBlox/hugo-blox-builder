@@ -32,7 +32,15 @@
       <link>{{ .Permalink }}</link>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       <guid>{{ .Permalink }}</guid>
-      <description>{{ .Content | html }}</description>
+      <description>
+        {{- $featured := (.Resources.ByType "image").GetMatch "*featured*" -}}
+        {{- if $featured -}}
+          &lt;a href=&#34;{{ .Permalink }}&#34; title=&#34;{{ .Title }}&#34;&gt;
+          &lt;img src=&#34;{{ ($featured.Resize "600x").RelPermalink }}&#34; alt=&#34;{{ .Title }}&#34;&gt;
+          &lt;/a&gt;
+        {{- end -}}
+        {{ .Content | html }}
+      </description>
     </item>
     {{ end }}
   </channel>
