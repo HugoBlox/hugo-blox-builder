@@ -385,6 +385,12 @@
    * --------------------------------------------------------------------------- */
 
   $(document).ready(function() {
+    // Fix Goldmark table of contents.
+    // - Must be performed prior to initializing ScrollSpy.
+    $('#TableOfContents').addClass('nav flex-column');
+    $('#TableOfContents li').addClass('nav-item');
+    $('#TableOfContents li a').addClass('nav-link');
+
     // Fix Goldmark task lists (remove bullet points).
     $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
 
