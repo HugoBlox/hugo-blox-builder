@@ -56,8 +56,8 @@
   sri = "sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck="
   url = "https://cdnjs.cloudflare.com/ajax/libs/anchor-js/%s/anchor.min.js"
 [js.mermaid]
-  version = "8.3.1"
-  sri = "sha256-vOIuDSYDirTfyr+S2MjFnhOz6Rgiz4ODFAHATG0rFxw="
+  version = "8.4.3"
+  sri = ""  # SRI unavailable.
   url = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/%s/mermaid.min.js"
 
 # CSS
