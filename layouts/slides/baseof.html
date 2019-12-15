@@ -43,18 +43,22 @@
 
   {{ block "main" . }}{{ end }}
 
-  <script src="{{ $cdn_url_reveal }}/lib/js/head.min.js"></script>
   <script src="{{ $cdn_url_reveal }}/js/reveal.min.js"></script>
 
   <script>
     window.revealPlugins = { dependencies: [
+      // Interpret Markdown in <section> elements.
       { src: '{{ $cdn_url_reveal }}/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
       { src: '{{ $cdn_url_reveal }}/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      // Enable code highlighting.
       { src: '{{ $cdn_url_reveal }}/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      // Enable zooming.
       { src: '{{ $cdn_url_reveal }}/plugin/zoom-js/zoom.js', async: true },
+      // Enable math.
       { src: '{{ $cdn_url_reveal }}/plugin/math/math.js', async: true },
+      // Enable exporting deck to PDF.
       { src: '{{ $cdn_url_reveal }}/plugin/print-pdf/print-pdf.js', async: true },
-      // Notes plugin must be loaded locally as CDN is missing `notes.html`.
+      // Enable speaker notes. Notes plugin must be loaded locally as CDN is missing `notes.html`.
       { src: '{{ "js/vendor/reveal.js/plugin/notes/notes.js" | relURL }}', async: true }
     ]};
 
