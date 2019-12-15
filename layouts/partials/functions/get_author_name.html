@@ -12,7 +12,7 @@
   {{ $author_username = $page.Scratch.Get "superuser_username" }}
 {{ else if $page.Params.authors }}
   {{ $author = index $page.Params.authors 0 }}
-  {{ $author_username = urlize $author }}
+  {{ $author_username = anchorize $author }}
 {{ end }}
 
 {{ $taxonomy := "authors" }}

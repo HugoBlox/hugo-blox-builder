@@ -14,7 +14,7 @@
   {{ if .Params.authors }}
     {{ $first_author = index .Params.authors 0 }}
   {{ end }}
-  {{ $author_urlized = urlize $first_author }}
+  {{ $author_urlized = anchorize $first_author }}
 {{ end }}
 
 {{ $site_type := site.Params.site_type | default "Person" }}
