@@ -17,6 +17,10 @@
   {{ $author_urlized = anchorize $first_author }}
 {{ end }}
 
+{{ range $key, $value := $.Params.authors }}
+{{ $author := $value }}
+{{ $author_urlized = urlize $author }}
+
 {{ $site_type := site.Params.site_type | default "Person" }}
 {{ $taxonomy := "authors" }}
 {{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_urlized) }}
@@ -44,3 +48,4 @@
   </div>
 {{end}}{{/* Profile page block */}}
 {{end}}{{/* Show profile block */}}
+{{ end }}
