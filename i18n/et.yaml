@@ -35,7 +35,7 @@
 # Buttons
 
 - id: btn_preprint
-  translation: Preprint
+  translation: Eeltrükk
 
 - id: btn_pdf
   translation: PDF
@@ -89,7 +89,7 @@
 # Experience widget
 
 - id: present
-  translation: Present
+  translation: Praegu
 
 # Pages widget
 
@@ -155,7 +155,7 @@
   translation: Artikkel
 
 - id: pub_preprint
-  translation: Preprint
+  translation: Eeltrükk
 
 - id: pub_report
   translation: Raport
