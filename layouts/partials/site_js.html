@@ -1,11 +1,5 @@
     {{ $scr := $.Scratch }}
 
-    {{/* Config LaTeX math rendering. */}}
-    {{ if or .Params.math site.Params.math }}
-    {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
-    <script src="{{ $mathjax_config.RelPermalink }}"></script>
-    {{ end }}
-
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
     {{ $js := site.Data.assets.js }}
     {{ if not ($scr.Get "use_cdn") }}
@@ -28,10 +22,6 @@
         {{ end }}
       {{ end }}
 
-      {{/* LaTeX math rendering. */}}
-      {{ if or .Params.math site.Params.math }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" async></script>" (printf $js.mathJax.url $js.mathJax.version) $js.mathJax.sri | safeHTML }}
-      {{ end }}
     {{ end }}
 
     {{/* Maps JS. */}}

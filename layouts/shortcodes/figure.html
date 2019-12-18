@@ -21,7 +21,7 @@
   <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{.}}"{{ end }}{{ with .Get "rel" }} rel="{{.}}"{{ end }}>
 {{ end -}}
 
-<img src="{{$image_src}}" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}" {{end}}{{ with .Get "height" }}height="{{.}}" {{end}}>
+<img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}" {{end}}{{ with .Get "height" }}height="{{.}}" {{end}}>
 
 {{- if or $lightbox (.Get "link") }}</a>{{ end }}
 

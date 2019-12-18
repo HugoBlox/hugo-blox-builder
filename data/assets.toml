@@ -19,6 +19,7 @@
   version = "3"
   sri = ""  # No SRI as dynamically generated.
   url = "https://cdn.jsdelivr.net/npm/mathjax@%s/es5/tex-chtml.js"
+  async = true
 [js.isotope]
   version = "3.0.6"
   sri = "sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI="
@@ -59,6 +60,11 @@
   version = "8.4.3"
   sri = ""  # SRI unavailable.
   url = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/%s/mermaid.min.js"
+[js.lazysizes]
+  version = "5.1.2"
+  sri = "sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/%s/lazysizes.min.js"
+  async = true
 
 # CSS
 
