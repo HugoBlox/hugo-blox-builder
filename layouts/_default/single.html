@@ -10,33 +10,7 @@
       {{ .Content }}
     </div>
 
-    {{ partial "page_edit" . }}
-
-    {{ partial "tags" . }}
-
-    {{ if ne .Type "page" }}
-      {{ partial "page_author" . }}
-      {{ $related := site.RegularPages.Related . | first 5 }}
-      {{ with $related }}
-      <div class="article-widget">
-        <div class="hr-light"></div>
-        <h3>{{ i18n "related" }}</h3>
-        <ul>
-          {{ range . }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-          {{ end }}
-        </ul>
-      </div>
-      {{ end }}
-    {{ end }}
-
-    {{ if site.Params.section_pager }}
-    <div class="article-widget">
-      {{ partial "section_pager" . }}
-    </div>
-    {{ end }}
-
-    {{ partial "comments" . }}
+    {{ partial "page_footer" . }}
 
   </div>
 </article>

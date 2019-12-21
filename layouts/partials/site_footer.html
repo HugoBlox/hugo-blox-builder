@@ -7,7 +7,7 @@
     {{ with site.GetPage "terms.md" }}
       {{ if site.GetPage "privacy.md" }} &middot; {{ end }}
       {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
-    {{ end }}    
+    {{ end }}
   </p>
   {{ end }}
 
@@ -18,9 +18,9 @@
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
-    {{ if ne .Type "docs" }}
+    {{ if not (in (slice "docs" "updates") .Type) }}
     <span class="float-right" aria-hidden="true">
-      <a href="#" id="back_to_top">
+      <a href="#" class="back-to-top">
         <span class="button_icon">
           <i class="fas fa-chevron-up fa-2x"></i>
         </span>

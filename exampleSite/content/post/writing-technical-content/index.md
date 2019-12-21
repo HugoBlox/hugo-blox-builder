@@ -3,7 +3,6 @@ title: Writing technical content in Academic
 date: 2019-07-12
 math: true
 diagram: true
-markup: mmark
 image:
   placement: 3
   caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
@@ -37,9 +36,9 @@ data.head()
 
 ### Math
 
-Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file and adding `markup: mmark` to your page front matter.
+Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file.
 
-To render *inline* or *block* math, wrap your LaTeX math with `$$...$$`.
+To render *inline* or *block* math, wrap your LaTeX math with `$...$` or `$$...$$`, respectively.
 
 Example **math block**:
 
@@ -54,7 +53,7 @@ renders as
 
 $$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
 
-Example **inline math** `$$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$$` renders as $$\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2$$ .
+Example **inline math** `$\nabla F(\mathbf{x}_{n})$` renders as $\nabla F(\mathbf{x}_{n})$.
 
 Example **multi-line math** using the `\\` math linebreak:
 
@@ -75,79 +74,141 @@ Academic supports a Markdown extension for diagrams. You can enable this feature
 An example **flowchart**:
 
     ```mermaid
-    graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
+    graph TD
+    A[Hard] -->|Text| B(Round)
+    B --> C{Decision}
+    C -->|One| D[Result 1]
+    C -->|Two| E[Result 2]
     ```
 
 renders as
 
 ```mermaid
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
+graph TD
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
 ```
 
 An example **sequence diagram**:
 
     ```mermaid
     sequenceDiagram
-      participant Alice
-      participant Bob
-      Alice->John: Hello John, how are you?
-      loop Healthcheck
-          John->John: Fight against hypochondria
-      end
-      Note right of John: Rational thoughts <br/>prevail...
-      John-->Alice: Great!
-      John->Bob: How about you?
-      Bob-->John: Jolly good!
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
     ```
 
 renders as
 
 ```mermaid
 sequenceDiagram
-  participant Alice
-  participant Bob
-  Alice->John: Hello John, how are you?
-  loop Healthcheck
-      John->John: Fight against hypochondria
-  end
-  Note right of John: Rational thoughts <br/>prevail...
-  John-->Alice: Great!
-  John->Bob: How about you?
-  Bob-->John: Jolly good!
+Alice->>John: Hello John, how are you?
+loop Healthcheck
+    John->>John: Fight against hypochondria
+end
+Note right of John: Rational thoughts!
+John-->>Alice: Great!
+John->>Bob: How about you?
+Bob-->>John: Jolly good!
 ```
 
 An example **Gantt diagram**:
 
     ```mermaid
     gantt
-      dateFormat  YYYY-MM-DD
-      section Section
-      A task           :a1, 2014-01-01, 30d
-      Another task     :after a1  , 20d
-      section Another
-      Task in sec      :2014-01-12  , 12d
-      another task      : 24d
+    section Section
+    Completed :done,    des1, 2014-01-06,2014-01-08
+    Active        :active,  des2, 2014-01-07, 3d
+    Parallel 1   :         des3, after des1, 1d
+    Parallel 2   :         des4, after des1, 1d
+    Parallel 3   :         des5, after des3, 1d
+    Parallel 4   :         des6, after des4, 1d
     ```
 
 renders as
 
 ```mermaid
 gantt
-  dateFormat  YYYY-MM-DD
-  section Section
-  A task           :a1, 2014-01-01, 30d
-  Another task     :after a1  , 20d
-  section Another
-  Task in sec      :2014-01-12  , 12d
-  another task      : 24d
+section Section
+Completed :done,    des1, 2014-01-06,2014-01-08
+Active        :active,  des2, 2014-01-07, 3d
+Parallel 1   :         des3, after des1, 1d
+Parallel 2   :         des4, after des1, 1d
+Parallel 3   :         des5, after des3, 1d
+Parallel 4   :         des6, after des4, 1d
+```
+
+An example **class diagram**:
+
+    ```mermaid
+    classDiagram
+    Class01 <|-- AveryLongClass : Cool
+    <<interface>> Class01
+    Class09 --> C2 : Where am i?
+    Class09 --* C3
+    Class09 --|> Class07
+    Class07 : equals()
+    Class07 : Object[] elementData
+    Class01 : size()
+    Class01 : int chimp
+    Class01 : int gorilla
+    class Class10 {
+      <<service>>
+      int id
+      size()
+    }
+    ```
+
+renders as
+
+```mermaid
+classDiagram
+Class01 <|-- AveryLongClass : Cool
+<<interface>> Class01
+Class09 --> C2 : Where am i?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+class Class10 {
+  <<service>>
+  int id
+  size()
+}
+```
+
+An example **state diagram**:
+
+    ```mermaid
+    stateDiagram
+    [*] --> Still
+    Still --> [*]
+    Still --> Moving
+    Moving --> Still
+    Moving --> Crash
+    Crash --> [*]
+    ```
+
+renders as
+
+```mermaid
+stateDiagram
+[*] --> Still
+Still --> [*]
+Still --> Moving
+Moving --> Still
+Moving --> Crash
+Crash --> [*]
 ```
 
 ### Todo lists
@@ -186,14 +247,18 @@ renders as
 
 ### Asides
 
-Academic supports a Markdown extension for asides, also referred to as *notices* or *hints*. By prefixing a paragraph with `A>`, it will render as an aside. You can enable this feature by adding `markup: mmark` to your page front matter, or alternatively using the [*Alert* shortcode](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts).
+Academic supports a [shortcode for asides](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts), also referred to as *notices*, *hints*, or *alerts*. By wrapping a paragraph in `{{%/* alert note */%}} ... {{%/* /alert */%}}`, it will render as an aside.
 
 ```markdown
-A> A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{%/* alert note */%}}
+A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{%/* /alert */%}}
 ```
 
 renders as
 
-A> A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{% alert note %}}
+A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
+{{% /alert %}}
 
 ### Did you find this page helpful? Consider sharing it 🙌

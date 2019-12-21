@@ -1,8 +1,12 @@
 # SITE SETUP
 # Documentation: https://sourcethemes.com/academic/
 
+############################
+## Theme
+############################
+
 # Choose a theme.
-#   Latest themes (may require updating Academic): https://sourcethemes.com/academic/themes/
+#   Latest themes (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in themes in `themes/academic/data/themes/`
 #   Browse user installed themes in `data/themes/`
 theme = "minimal"
@@ -10,28 +14,45 @@ theme = "minimal"
 # Enable users to switch between day and night mode?
 day_night = true
 
-# Overrride the theme's font set (optional).
-#   Latest font sets (may require updating Academic): https://sourcethemes.com/academic/themes/
+# Override the theme's font set (optional).
+#   Latest font sets (may require updating): https://sourcethemes.com/academic/themes/
 #   Browse built-in font sets in `themes/academic/data/fonts/`
 #   Browse user installed font sets in `data/fonts/`
 font = ""
 
 # Choose a font size.
-# Sizes: s (small), m (medium), l (large)
-font_size = "m"
+# Sizes: XS (extra small), S (small), M (medium), L (large - DEFAULT), XL (extra large)
+font_size = "L"
+
+############################
+## Basic Info
+############################
+
+# Website type
+#   Improve how search engines understand your site.
+#   For personal sites, choose "Person".
+#   For organizations and projects, choose from https://schema.org/Organization#subtypes
+#   E.g. Person, Organization, LocalBusiness, Project, EducationalOrganization
+site_type = "Person"
+
+# Local business type (optional)
+# If you entered "LocalBusiness" above, choose the type of business from https://schema.org/LocalBusiness#subtypes
+local_business_type = ""
+
+# Organization name (optional)
+# Enter an organization or project name. Defaults to the site title from `config.toml`.
+org_name = ""
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
 description = ""
 
-# Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
-sharing_image = ""
-
-# Twitter username (without @). Used when a visitor shares your site on Twitter.
-twitter = ""
-
 # Display a logo in navigation bar rather than title (optional).
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
 logo = ""
+
+############################
+## Site Features
+############################
 
 # Enable source code highlighting? true/false
 # Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
@@ -53,27 +74,34 @@ diagram = false
 privacy_pack = false
 
 # Enable visitors to edit pages?
-# `repo` defines the repository URL. `editable` defines which page types can be edited.
-edit_page = {repo_url = "https://github.com/gcushen/hugo-academic", repo_branch = "master", editable = {docs = true, page = false, post = false}}
-
-# Date and time format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
-#   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
-date_format = "Jan 2, 2006"
-#   Examples: "3:04 pm" or "15:04"
-time_format = "3:04 PM"
+#   `repo` defines the repository URL. `editable` defines which page types can be edited.
+edit_page = {repo_url = "https://github.com/gcushen/hugo-academic", content_dir = "", repo_branch = "master", editable = {docs = true, page = false, post = false}}
 
 ############################
-## Contact Widget setup   ##
+## Contact details
+##
+## These details power the Contact widget (if enabled).
+## Additionally, for organizations, these details may be used to enrich search engine results.
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
 email = "test@example.org"
 phone = "888 888 88 88"
-address = "Building 1 Room 1, Stanford University, California, 90210, USA"
 
-# Office hours: use `<br>` to insert a line break, or set to "" to remove office hours
-office_hours = """Monday 10:00 to 13:00<br>
-                  Wednesday 09:00 to 10:00"""
+# Address
+# For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
+address = {street = "450 Serra Mall", city = "Stanford", region = "CA", postcode = "94305", country = "United States", country_code = "US"}
+
+# Geographic coordinates
+# To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
+coordinates = {latitude = "37.4275", longitude = "-122.1697"}
+
+# Directions for visitors to locate you.
+directions = "Enter Building 1 and take the stairs to Office 200 on Floor 2"
+
+# Office hours
+# A list of your office hours. To remove, set to an empty list `[]`.
+office_hours = ["Monday 10:00 to 13:00", "Wednesday 09:00 to 10:00"]
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
 appointment_url = "https://calendly.com"
@@ -88,46 +116,38 @@ contact_links = [
   # {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://telegram.me/@Telegram"},
   ]
 
-# Display a map.
-# To show your address on a map in the contact widget, you need to enter your latitude, longitude and choose
-# a map provider below.
-# To use Google Maps, set `map = 1` and enter your API key that can be obtained here:
-#   https://developers.google.com/maps/documentation/javascript/get-api-key
-# To use OpenStreetMap tiles, set `map = 2`.
-# To use OpenStreetMap on a high traffic site, set `map = 3` and enter your API key that can be obtained here:
-#   https://www.mapbox.com/studio/account/tokens
-# To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-#
-# Map provider:
-#   0: No map
-#   1: Google Maps
-#   2: OpenStreetMap (Mapnik)
-#   3: OpenStreetMap (Mapbox)
-map = 2
-map_api_key = ""
-latitude = "37.4275"
-longitude = "-122.1697"
-zoom = 15
-
 ############################
-## Plugins                ##
+## Social
 ############################
 
-# Load CSS and JS plugins
-#   E.g. To load `/assets/css/custom.css`, set `plugins_css = ["custom"]`.
-#   E.g. To load `/assets/js/custom.js`, set `plugins_js = ["custom"]`.
-plugins_css = []
-plugins_js  = []
+# Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
+sharing_image = ""
+
+# Twitter username (without @). Used when a visitor shares your site on Twitter.
+twitter = ""
 
 ############################
-## Advanced options       ##
+## Regional Settings
+############################
+
+# Date and time format (refer to https://sourcethemes.com/academic/docs/customization/#date-format )
+#   Examples: "Mon, Jan 2, 2006" or "2006-01-02"
+date_format = "Jan 2, 2006"
+#   Examples: "3:04 pm" or "15:04"
+time_format = "3:04 PM"
+
+# Address format (choose from the [address_formats] list below or add you own to the list).
+address_format = "en-us"
+
+############################
+## Advanced
 ############################
 
 # Get user avatars from Gravatar.com? (true/false)
 gravatar = false
 
-# Align the main menu to the right of the page? (true/false)
-menu_align_right = false
+# Main menu alignment (l = left, c = center, r = right) and logo options.
+main_menu = {align = "l", show_logo = true}
 
 # Show estimated reading time for posts? (true/false)
 reading_time = true
@@ -138,6 +158,21 @@ docs_section_pager = true  # Display pager in Docs layout (e.g. tutorials)?
 
 # Enable in-built social sharing buttons? (true/false)
 sharing = true
+
+# Link authors to their profile page? (true/false)
+link_authors = true
+
+# Load JS plugins
+#   E.g. To load `/assets/js/custom.js`, set `plugins_js = ["custom"]`.
+plugins_js  = []
+
+# Available address formats.
+[address_formats]
+  en-us = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ' ', '']}
+  en-gb = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ', ', '']}
+  de = {order = ['street', 'postcode', 'city'], delimiters = [', ', ' ', '']}
+  fr-fr = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
+  zh = {order = ['postcode', 'region', 'city', 'street'], delimiters = [' ', ' ', ' ', '']}
 
 # Configuration of publication pages.
 [publications]
@@ -159,7 +194,9 @@ sharing = true
   publication_view = 2
   talk_view = 2
 
-# Comments.
+############################
+## Comments
+############################
 [comments]
   # Comment provider:
   #   0: Disabled
@@ -175,7 +212,14 @@ sharing = true
     shortname = ""  # Paste the shortname from your Disqus dashboard.
     show_count = true  # Show comment count in page header? (true/false)
 
-# Search.
+  # Configuration of Commento.
+  [comments.commento]
+    # If self-hosting Commento, enter its URL here (e.g. "https://commento.?.com"), otherwise leave empty.
+    url = ""
+
+############################
+## Search
+############################
 [search]
   # Search provider:
   #   0: No search engine
@@ -190,3 +234,32 @@ sharing = true
     api_key = ""
     index_name = ""
     show_logo = false
+
+############################
+## Maps
+############################
+[map]
+  # To show your address on a map in the Contact widget, enter your latitude and longitude (above)
+  # and choose a map provider below.
+  #
+  # To use Google Maps, set `engine` to 1 and enter your API key that can be obtained here:
+  #   https://developers.google.com/maps/documentation/javascript/get-api-key
+  # To use OpenStreetMap tiles, set `engine` to 2.
+  # To use OpenStreetMap on a high traffic site, set `engine` to 3 and enter your API key that can be obtained here:
+  #   https://www.mapbox.com/studio/account/tokens
+  #
+  # Map provider:
+  #   0: No map
+  #   1: Google Maps
+  #   2: OpenStreetMap (Mapnik)
+  #   3: OpenStreetMap (Mapbox)
+  engine = 2
+  api_key = ""
+  zoom = 15
+
+############################
+## Marketing
+############################
+[marketing]
+  google_analytics = ""
+  google_tag_manager = ""

@@ -14,7 +14,7 @@
   url = "https://www.facebook.com/sharer.php?u={url}&t={title}"
   title = "Facebook"
   icon_pack = "fab"
-  icon = "facebook-f"
+  icon = "facebook"
   enable = true
 
 [[buttons]]

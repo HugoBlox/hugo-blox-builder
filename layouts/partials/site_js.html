@@ -1,11 +1,5 @@
     {{ $scr := $.Scratch }}
 
-    {{/* Config LaTeX math rendering. */}}
-    {{ if or .Params.math site.Params.math }}
-    {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
-    <script src="{{ $mathjax_config.RelPermalink }}"></script>
-    {{ end }}
-
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
     {{ $js := site.Data.assets.js }}
     {{ if not ($scr.Get "use_cdn") }}
@@ -28,36 +22,34 @@
         {{ end }}
       {{ end }}
 
-      {{/* LaTeX math rendering. */}}
-      {{ if or .Params.math site.Params.math }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" async></script>" (printf $js.mathJax.url $js.mathJax.version) $js.mathJax.sri | safeHTML }}
-      {{ end }}
     {{ end }}
 
     {{/* Maps JS. */}}
-    {{ if eq site.Params.map 1 }}
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map_api_key }}"></script>
+    {{ if eq site.Params.map.engine 1 }}
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map.api_key }}"></script>
       {{ if ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
       {{ end }}
-    {{ else if and (or (eq site.Params.map 2) (eq site.Params.map 3)) ($scr.Get "use_cdn") }}
+    {{ else if and (or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3)) ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
     {{ end }}
 
     {{/* Initialise code highlighting. */}}
     {{ if $.Scratch.Get "highlight_enabled" }}
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script>const code_highlighting = true;</script>
+    {{ else }}
+    <script>const code_highlighting = false;</script>
     {{ end }}
 
     {{ if ne site.Params.search.engine 0 }}
     {{/* Configure search engine. */}}
+    {{ $min_length := site.Params.search.academic.min_length | default 1 }}
+    {{ $threshold := site.Params.search.academic.threshold | default 0.3 }}
+    {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
+    {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
     <script>
-      const search_index_filename = {{ "/searchindex.json" | relLangURL }};
-      const i18n = {
-        'placeholder': {{ i18n "search_placeholder" }},
-        'results': {{ i18n "search_results" }},
-        'no_results': {{ i18n "search_no_results" }}
-      };
+      const search_config = {{ $search_config | jsonify | safeJS }};
+      const i18n = {{ $search_i18n | jsonify | safeJS }};
       const content_type = {
         'post': {{ i18n "posts" }},
         'project': {{ i18n "projects" }},

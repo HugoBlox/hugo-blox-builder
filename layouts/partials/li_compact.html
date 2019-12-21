@@ -1,6 +1,6 @@
 {{ $item := . }}
 
-{{ $microdata_type := "CreativeWork" }}
+{{/* Dynamic view adjusts to content type. */}}
 {{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
 {{ $show_buttons := false }}
 {{ $link := $item.RelPermalink }}
@@ -9,20 +9,13 @@
   {{ $link = $item.Params.external_link }}
   {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
 {{ end }}
-
-{{/* Dynamic view adjusts to content type. */}}
-{{ if eq $item.Type "post" }}
-  {{ $microdata_type = "BlogPosting" }}
-{{ else if eq $item.Type "talk" }}
-  {{ $microdata_type = "Event" }}
+{{ if eq $item.Type "talk" }}
   {{ $show_authors_only = true }}
   {{ $show_buttons = true }}
 {{ else if eq $item.Type "publication" }}
-  {{ $microdata_type = "ScholarlyArticle" }}
   {{ $show_authors_only = true }}
   {{ $show_buttons = true }}
 {{ else if eq $item.Type "project" }}
-  {{ $microdata_type = "CreativeWork" }}
   {{ $show_authors_only = true }}
   {{ $show_buttons = true }}
 {{ end }}
@@ -37,15 +30,15 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-<div class="media stream-item" itemscope itemtype="http://schema.org/{{$microdata_type}}">
+<div class="media stream-item">
   <div class="media-body">
 
-    <h3 class="article-title mb-0 mt-0" itemprop="name">
-      <a href="{{$link}}" {{ $target | safeHTMLAttr }} itemprop="url">{{ $item.Title }}</a>
+    <h3 class="article-title mb-0 mt-0">
+      <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
     </h3>
 
     {{ with $summary }}
-    <div class="article-style" itemprop="articleBody">
+    <div class="article-style">
       {{ . | truncate 135 }}
     </div>
     {{ end }}
@@ -54,18 +47,18 @@
 
       {{ if eq $item.Type "talk" }}
       <div>
-        <span itemprop="startDate">
+        <span>
           {{ partial "functions/get_event_dates" $item }}
         </span>
         {{ with $item.Params.location }}
         <span class="middot-divider"></span>
-        <span itemprop="location">{{ . }}</span>
+        <span>{{ . }}</span>
         {{ end }}
       </div>
       {{ end }}
 
       {{ if and $show_authors_only $item.Params.authors }}
-      <div itemprop="author">
+      <div>
         {{ partial "page_metadata_authors" $item }}
       </div>
       {{ else if not $show_authors_only }}
@@ -85,7 +78,7 @@
     {{ with $resource }}
     {{ $image := .Resize "150x" }}
     <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
-      <img src="{{ $image.RelPermalink }}" itemprop="image">
+      <img src="{{ $image.RelPermalink }}" alt="">
     </a>
     {{end}}
   </div>

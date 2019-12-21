@@ -1,0 +1,601 @@
+/*************************************************
+ *  Academic's Core
+ **************************************************/
+
+html {
+  font-family: $sta-font-body, sans-serif;
+  font-size: #{$sta-font-size-small}px;
+  color: rgba(0,0,0,0.8);
+  line-height: 1.65;
+}
+@media screen and (min-width: 58em) {
+  html {
+    font-size: #{$sta-font-size}px;
+  }
+}
+
+body {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: inherit;
+  color: inherit;
+  background-color: $sta-background;
+  margin-top: 70px; /* Offset body content by navbar height. */
+  padding-top: 0;
+  counter-reset: captions;
+}
+@media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
+  body {
+    margin-top: 50px; /* Offset body content by navbar height. */
+  }
+}
+
+.max-width-640 {
+  max-width: 640px;
+}
+
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-text {
+  text-align: center;
+}
+
+/* Body text */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ul.task-list {
+  list-style: none;
+}
+
+ul.task-list li input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Navigation bar text */
+.navbar-light {
+  font-family: $sta-font-nav, sans-serif;
+  font-weight: 400;
+  line-height: 1.25;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $sta-font-heading, sans-serif;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+
+  /* Ensure long words do not overflow into content. */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+
+  /* Add a hyphen where the word breaks (use `&shy;` to insert a soft-hyphen in a word). */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual;
+}
+h1 {
+  font-size: 2.25rem;
+}
+h2 {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+h3 {
+  font-weight: 700;
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+}
+h4, h5, h6 {
+  font-weight: 700;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+a,
+h3.article-title a:hover {
+  color: $sta-link;
+  text-decoration: none;
+  transition: color 0.6s ease;
+}
+
+a:hover,
+a:focus {
+  color: $sta-link-hover;
+}
+
+img,
+video {
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+.img-responsive {
+  /* Extend Bootstrap declaration with centering. */
+  margin: 0 auto;
+}
+
+// Center all figure images by default.
+figure img {
+  @extend .margin-auto;
+}
+
+// Center all figure captions by default.
+figcaption {
+  display: block;
+  margin-top: 0.75em;
+  margin-bottom: 1.65rem;
+  line-height: 1.4;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+figcaption.numbered:before {
+  font-weight: 700;
+  text-transform: uppercase;
+  content: attr(data-pre) counter(captions) attr(data-post);
+}
+
+figcaption.numbered {
+  counter-increment: captions;
+}
+
+pre,
+code {
+  font-family: $sta-font-mono, monospace;
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
+
+pre {
+  margin: 0 0 1rem 0;
+  background-color: rgb(248, 248, 248); /* Match default highlight theme. */
+  border-color: rgb(248, 248, 248);
+  font-size: 0.7rem;
+  border-radius: 4px;
+}
+
+pre code {
+  white-space: pre; /* Override Bootstrap to preserve line breaks in code. */
+  overflow-x: auto;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+/* Quotes */
+blockquote {
+  padding: .5rem 1rem;
+  margin: .8rem 0;
+  color: #7a7a7a;
+  border-left: .25rem solid #e5e5e5;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 30em) {
+  blockquote {
+    padding-right: 5rem;
+    padding-left: 1.25rem;
+  }
+}
+
+.markup-quote {
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, rgba(233, 231, 245, 1), rgba(233, 231, 245, 1));
+}
+
+.space-below {
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 768px) {
+  .space-below {
+    margin-bottom: 10px;
+  }
+}
+
+.universal-wrapper {
+  margin: 0 auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.1rem;
+  width: 100%;
+}
+
+@media only screen and (min-width: 1001px) {
+  .universal-wrapper {
+    width: 1000px;
+  }
+}
+
+small,
+.small {
+  font-size: .75em;
+}
+
+.responsive-wrap iframe {
+  max-width: 100%;
+}
+
+/*************************************************
+ *  Modals.
+ **************************************************/
+
+.modal-content {
+  background: $sta-background;
+}
+
+.modal-title {
+  margin: 0; /* Override default h5 margin. */
+}
+
+.modal-content pre {
+  margin: 0;
+}
+
+.modal-header {
+  border: 0;
+  color: rgba(0,0,0,0.8);
+}
+
+.modal-footer {
+  border: 0;
+}
+
+#modal-error {
+  color: red;
+}
+
+/*************************************************
+ *  Gallery.
+ **************************************************/
+
+.gallery {
+  margin: 0.5em -4px 1.5em -4px;
+  font-size: 0;
+}
+
+a[data-fancybox] {
+  text-decoration: none;
+  cursor: zoom-in;
+}
+
+.gallery a[data-fancybox] img {
+  height: 250px;
+  max-width: inherit;
+  display: inherit;
+  margin: 0;
+  padding: 4px;
+  box-shadow: none;
+  vertical-align: inherit;
+}
+
+.fancybox-caption {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+/*************************************************
+ *  Pager.
+ **************************************************/
+
+.post-nav {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.post-nav-item {
+  hyphens: auto;
+  word-wrap: break-word;
+  padding: 11px 0 12px;
+  width: 100%;
+}
+
+.post-nav-item a {
+  color: #2b2b2b;
+  line-height: 1.7;
+  text-transform: none;
+}
+
+.post-nav-item .meta-nav {
+  color: #767676;
+  font-weight: 900;
+  line-height: 2;
+  text-transform: uppercase;
+}
+
+.dark .post-nav-item a {
+  color: #ddd;
+}
+
+/*************************************************
+ *  Footer
+ **************************************************/
+
+footer {
+  margin: 4rem 0 0;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+footer p {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+site-footer,
+footer a.back-to-top i {
+  color: rgba(0,0,0,0.54);
+}
+
+.dark site-footer,
+.dark footer a#back_to_top i,
+.dark .docs .body-footer {
+  color: rgba(255,255,255,0.54);
+}
+
+/**************************************************
+ *  Tags/Labels
+ **************************************************/
+
+.badge-light {
+  border: none;
+  color: rgba(0,0,0,.68);
+  background: rgba(0,0,0,.05);
+  font-weight: normal;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.article-tags > .badge-light:last-child {
+  margin-right: 0;
+}
+
+.badge-light[href]:focus,
+.badge-light[href]:hover {
+  background: rgba(0,0,0,.1);
+}
+
+a.badge:focus,
+a.badge:hover {
+  color: rgba(0,0,0,.68);
+}
+
+.tag-cloud a {
+  display: inline-block;
+  position: relative;
+  margin: 5px 10px;
+  word-wrap: break-word;
+  transition-duration: .2s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+}
+
+.tag-cloud a:active,
+.tag-cloud a:focus,
+.tag-cloud a:hover {
+  color: $sta-primary-dark;
+  transform: scale(1.2);
+}
+
+.dark .tag-cloud a:active,
+.dark .tag-cloud a:focus,
+.dark .tag-cloud a:hover {
+  color: $sta-primary-light;
+}
+
+/*************************************************
+ *  Button size override
+ *************************************************/
+
+.btn {
+  padding: .5rem;
+  font-size: .8rem;
+  line-height: .5;
+  border-radius: .3rem;
+}
+
+.btn-links .btn {
+  padding: 5px .5rem 5px .5rem;
+  line-height: 1;
+}
+
+.btn.btn-sm {
+  padding: 5px .4rem 5px .4rem;
+  font-size: .6rem;
+  border-radius: .2rem;
+}
+
+/*************************************************
+ *  Toolbar Buttons
+ **************************************************/
+
+.btn-toolbar .btn {
+  font-size: 0.9rem;
+  padding: 10px 14px 9px;
+  border: none;
+}
+
+.btn-toolbar .btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.btn-toolbar .btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.btn-toolbar .btn.btn-primary:hover,
+.btn-toolbar .btn.btn-primary:focus {
+  background-color: $sta-primary-light !important;
+}
+
+.btn-toolbar .btn.btn-primary:active,
+.btn-toolbar .btn.btn-primary.active {
+  background-color: $sta-primary-dark !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 .2rem $sta-primary-light;
+}
+
+/*************************************************
+ *  Tables
+ **************************************************/
+
+/* Based on Bootstrap's `table-responsive` style. */
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+}
+
+table > thead > tr > th,
+table > tbody > tr > th,
+table > tfoot > tr > th,
+table > thead > tr > td,
+table > tbody > tr > td,
+table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.43;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
+table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+
+table > caption + thead > tr:first-child > th,
+table > colgroup + thead > tr:first-child > th,
+table > thead:first-child > tr:first-child > th,
+table > caption + thead > tr:first-child > td,
+table > colgroup + thead > tr:first-child > td,
+table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+
+table > tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+
+table table {
+  background-color: #fff;
+}
+
+/* Table Striped */
+table > tbody > tr:nth-child(odd) > td,
+table > tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+
+/* Table Hover */
+table > tbody > tr:hover > td,
+table > tbody > tr:hover > th {
+  background-color: #e5e5e5;
+}
+
+/*************************************************
+ *  Article Alerts (Shortcode) and Asides (Mmark)
+ **************************************************/
+
+/* Style asides as Bootstrap alerts. */
+.article-style aside {
+  @extend .alert;
+}
+
+/* Asides use <p> block element whereas alerts use <div>. */
+.article-style aside p,
+div.alert > div {
+  position: relative;
+  display: block;
+  font-size: 1rem;
+  margin-left: 2rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+div.alert div > * {
+  margin-bottom: .5rem;  /* Use smaller paragraph spacing than usual. */
+}
+
+div.alert div > :last-child {
+  margin-bottom: 0;
+}
+
+.article-style aside p::before,
+div.alert > div:first-child::before {
+  position: absolute;
+  top: -0.5rem;
+  left: -2rem;
+  font-size: 1.5rem;
+  color: #209cee;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f05a';
+  width: 1.5rem;
+  text-align: center;
+}
+
+div.alert-warning > div:first-child::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ff3860;
+  content: '\f071';
+}
+
+.article-style aside a,
+div.alert a {
+  color: currentColor;
+  text-decoration: none;
+  border-bottom: solid 1px currentColor;
+}
+
+.article-style aside,
+.alert-note {
+  color: #12537e;
+  background-color: #f6fbfe;
+  border-color: #209cee;
+}
+
+.alert-warning {
+  color: #cd0930;
+  background-color: #fff5f7;
+  border-color: #ff3860;
+}

@@ -1,0 +1,10 @@
+{{- $username := .Get 0 -}}
+{{- $username_url := $username | anchorize -}}
+{{- $taxonomy := "authors" -}}
+{{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $username_url) -}}
+{{- $name := $profile_page.Params.name | default ($username|markdownify) -}}
+{{- with $profile_page -}}
+  <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
+{{- else -}}
+  {{- $name -}}
+{{- end -}}

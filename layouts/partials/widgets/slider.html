@@ -23,7 +23,7 @@
     {{ end }}
     ;">
     <div class="container" style="text-align: {{$item.align | default "left"}};">
-        <h1 class="hero-title" itemprop="headline">
+        <h1 class="hero-title">
           {{ with $item.title }}{{ . | markdownify | emojify }}{{ end }}
         </h1>
 

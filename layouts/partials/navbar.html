@@ -1,28 +1,45 @@
 {{ $current_page := . }}
-<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0 compensate-for-scrollbar" id="navbar-main">
+{{ $show_logo := site.Params.main_menu.show_logo | default true }}
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
   <div class="container">
 
-    <!-- Brand and toggle get grouped for better mobile display -->
+    {{if $show_logo}}
+    <div class="d-none d-lg-inline-flex">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
         {{- if site.Params.logo -}}
-        <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
+          <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
         {{- else -}}
-        {{- site.Title -}}
+          {{- site.Title -}}
         {{- end -}}
       </a>
-      {{ if or site.Menus.main .IsTranslated }}
-      <button type="button" class="navbar-toggler" data-toggle="collapse"
-              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="{{ i18n "toggle_navigation" }}">
-        <span><i class="fas fa-bars"></i></span>
-      </button>
-      {{ end }}
+    </div>
+    {{end}}
+
+    {{ if site.Menus.main }}
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="{{ i18n "toggle_navigation" }}">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    {{ end }}
+
+    {{if $show_logo}}
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="{{ "/" | relLangURL }}">
+      {{- if site.Params.logo -}}
+      <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
+      {{- else -}}
+      {{- site.Title -}}
+      {{- end -}}
+      </a>
+    </div>
+    {{end}}
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar">
+    {{ $align_menu := site.Params.main_menu.align | default "l" }}
+    <div class="navbar-collapse main-menu-item collapse {{ if eq $align_menu "c" }}justify-content-center{{ else if eq $align_menu "r" }}justify-content-end{{else}}justify-content-start{{ end }}" id="navbar-content">
 
       <!-- Left Nav Bar -->
-      {{ $align_right := site.Params.menu_align_right | default true }}
-      <ul class="navbar-nav {{ if $align_right }}ml-auto{{ else }}mr-auto{{ end }}">
+      <ul class="navbar-nav d-md-inline-flex">
         {{ range site.Menus.main }}
 
         {{ if .HasChildren }}
@@ -31,15 +48,13 @@
             {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
+          <div class="dropdown-menu">
             {{ range .Children }}
-            <li class="dropdown-item my-0 py-0 mx-0 px-0">
-              <a href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
+              <a class="dropdown-item" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
                 {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
               </a>
-            </li>
             {{ end }}
-          </ul>
+          </div>
         </li>
 
         {{ else }}
@@ -75,9 +90,9 @@
         {{ end }}
         {{ end }}
 
-      {{ if not $align_right | and (.IsTranslated | or site.Menus.main_right | or site.Params.search.engine | or site.Params.day_night) }}
+      {{ if site.Menus.main_right | and (eq $align_menu "l") }}
       </ul>
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-md-auto">
       {{ end }}
 
         {{ range site.Menus.main_right }}
@@ -97,38 +112,41 @@
         </li>
 
         {{ end }}
-
-        {{ if site.Params.search.engine }}
-        <li class="nav-item">
-          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
-        </li>
-        {{ end }}
-
-        {{ if .IsTranslated }}
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
-            <i class="fas fa-globe mr-1" aria-hidden="true"></i><span>{{ index site.Data.i18n.languages .Lang }}</span>
-          </a>
-          <ul class="dropdown-menu">
-            {{ range .Translations }}
-            <li class="dropdown-item my-0 py-0 mx-0 px-0">
-              <a href="{{ .Permalink }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}>
-                <span>{{ index site.Data.i18n.languages .Lang }}</span>
-              </a>
-            </li>
-            {{ end }}
-          </ul>
-        </li>
-        {{ end }}
-
-        {{ if site.Params.day_night }}
-        <li class="nav-item">
-          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
-        </li>
-        {{ end }}
-
       </ul>
-
     </div><!-- /.navbar-collapse -->
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      {{ if site.Params.search.engine }}
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      {{ end }}
+
+      {{ if site.Params.day_night }}
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      {{ end }}
+
+      {{ if .IsTranslated }}
+      <li class="nav-item dropdown i18n-dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-globe mr-1" aria-hidden="true"></i><span class="d-none d-lg-inline">{{ index site.Data.i18n.languages .Lang }}</span>
+        </a>
+        <div class="dropdown-menu">
+          <div class="dropdown-item i18n-active font-weight-bold">
+            <span>{{ index site.Data.i18n.languages .Lang }}</span>
+          </div>
+          {{ range .Translations }}
+          <a class="dropdown-item" href="{{ .RelPermalink }}"{{ if $.IsHome }} data-target="{{ .RelPermalink }}"{{ end }}>
+            <span>{{ index site.Data.i18n.languages .Lang }}</span>
+          </a>
+          {{ end }}
+        </div>
+      </li>
+      {{ end }}
+
+    </ul>
+
   </div><!-- /.container -->
 </nav>

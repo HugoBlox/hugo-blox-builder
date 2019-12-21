@@ -13,9 +13,9 @@ slides:
   highlight_style: dracula
 ---
 
-# Welcome to Slides
+# Create slides in Markdown with Academic
 
-[Academic](https://sourcethemes.com/academic/)
+[Academic](https://sourcethemes.com/academic/) | [Documentation](https://sourcethemes.com/academic/docs/managing-content/#create-slides)
 
 ---
 
@@ -161,6 +161,6 @@ Create `assets/css/reveal_custom.css` with:
 
 # Questions?
 
-[Ask](https://discourse.gohugo.io)
+[Ask](https://spectrum.chat/academic)
 
-[Documentation](https://sourcethemes.com/academic/docs/)
+[Documentation](https://sourcethemes.com/academic/docs/managing-content/#create-slides)

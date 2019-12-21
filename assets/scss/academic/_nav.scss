@@ -1,0 +1,202 @@
+/*************************************************
+ *  Navigation bar
+ **************************************************/
+
+.navbar {
+  height: 70px;
+  background: $sta-menu-primary;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11);
+  font-size: #{$sta-font-size-small}px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+
+  // Remove Bootstrap's navbar v-padding and assign v-padding to logo separately to maximise logo size.
+  // Otherwise, Bootstrap's navbar v-padding causes issue with logo fitting within fixed 50px height bar in md-lg sizes.
+  padding: 0 1rem;
+
+  .nav-item {
+    // For z-index compatibility with logo on mobile layout, otherwise nav-item can't be clicked when logo present.
+    position: relative;
+  }
+  @include media-breakpoint-down(md) {
+    height: 50px;
+
+    .navbar-nav-scroll {
+      width: 100%;
+      overflow: hidden;
+
+      .navbar-nav {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+  }
+
+  .navbar-nav {
+    display: flex;
+
+    .nav-link {
+      color: rgba($sta-menu-text, .85);
+
+      &.active,
+      &:hover,
+      &:focus {
+        color: $sta-menu-text;
+      }
+
+      &.active {
+        font-weight: bold !important;
+        color: $sta-menu-text-active !important;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    font-size: #{$sta-font-size-small}px;
+  }
+
+  // Note: dedicated `i18n-active` class to prevent ScrollSpy removing `active` class from language chooser.
+  .dropdown-item.active,
+  .i18n-active {
+    font-weight: bold;
+    color: $sta-menu-text-active !important;
+  }
+
+}
+
+.dark .navbar {
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 255, 255, .11);
+}
+
+// Remove Bootstrap's border from Toggle button.
+.navbar-toggler {
+  border: 0 !important;
+  position: relative;  // For z-index clickable mobile logo.
+  z-index: 1030;
+}
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@include media-breakpoint-down(md) {  /* Match breakpoint for i18n dropdown in navbar.html. */
+  .i18n-dropdown .nav-link::after {
+    content: none;
+  }
+  .i18n-dropdown .dropdown-menu {
+    /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
+    position: absolute;
+    /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
+    right: 0;
+    left: auto;
+  }
+}
+
+// Allow user to horizontally scroll.
+// Commented out this feature as it causes dropdowns to appear within the menu bar.
+// TODO: re-enable in a way that doesn't break dropdowns.
+/*
+.navbar .collapse {
+  overflow-x: auto;
+}
+*/
+
+.navbar-brand {
+  // Set v-padding to 5px to align with 50/70px responsive max navbar heights.
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  position: relative;
+  z-index: 1030;  // For z-index clickable mobile logo.
+}
+
+// Dynamically fit logo image to space available.
+// No need to explicitly set a size for each breakpoint.
+// See https://caniuse.com/#feat=mdn-css_properties_width_stretch .
+.navbar-brand img {
+  width: auto;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: -webkit-stretch;
+  height: stretch;
+  max-height: 60px;  // For lg+ responsive sizing. 60px height +10px v-padding = 70px
+  max-width: fit-content;  // Must override default responsive image style.
+}
+
+#navbar-main .main-menu-item ul li .nav-link {
+  color: $sta-menu-text;
+}
+
+@include media-breakpoint-down(md) {
+  // Used in conjunction with mobile .navbar-brand to center logo on mobile.
+  .navbar-brand-mobile-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  .navbar-brand {
+    // Center logo in mobile navbar.
+    margin: 0 auto;
+  }
+  .navbar-brand img {
+    max-height: 40px;  // 40px height + 10px v-padding = 50px.
+  }
+  .navbar-toggler {
+    border-color: transparent;  // Remove Bootstrap's border from Toggle button.
+  }
+  #navbar-main .main-menu-item {
+    text-align: left !important;
+    padding-left: 0;
+  }
+  .navbar-collapse {
+    z-index: 1031 !important;  // Appear just over navbar.
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 100%;
+    background-color: $sta-menu-primary;
+    text-align: center !important;
+  }
+  #navbar-main .main-menu-item .nav-item {
+    padding: 10px 15px !important;
+  }
+  #navbar-main .main-menu-item .nav-item .nav-link {
+    padding: 5px 15px !important;
+  }
+}
+
+ul.nav-icons {
+  list-style-type: none;
+  font-size: 18px;
+  padding: 0.5rem 0 0.5rem 0;
+  margin: 0;
+}
+
+ul.nav-icons li {
+  display: inline;
+  padding-right: 1rem;
+}
+
+ul.nav-icons li:last-of-type {
+  padding-right: 0;
+}
+
+ul.nav-icons li.nav-item a.nav-link {
+  padding: 0;
+}
+
+.dropdown-menu {
+  background-color: $sta-menu-primary !important;
+  color: $sta-menu-text !important;
+  z-index: 1032;  // I18n dropdown over mobile expanded menu.
+}
+
+.dropdown-item {
+  background-color: $sta-menu-primary !important;
+  color: $sta-menu-text !important;
+}

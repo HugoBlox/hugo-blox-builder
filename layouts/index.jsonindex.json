@@ -40,7 +40,7 @@
         {{- if gt $authorLen 0 -}}
           {{- $authors = slice -}}
             {{- range $k, $v := .Params.authors -}}
-              {{- $person_page_path := (printf "/authors/%s" (urlize $v)) -}}
+              {{- $person_page_path := (printf "/authors/%s" (anchorize $v)) -}}
               {{- $person_page := site.GetPage $person_page_path -}}
               {{- if and $person_page $person_page.File -}}
                 {{- $person := $person_page.Params -}}

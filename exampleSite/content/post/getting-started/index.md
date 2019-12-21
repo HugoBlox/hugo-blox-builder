@@ -49,7 +49,7 @@ projects: []
   - 👕 [Wear the **T-shirt**](https://academic.threadless.com/)
   - :woman_technologist: [**Contribute**](https://sourcethemes.com/academic/docs/contribute/)
 
-{{< figure src="https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png" lightbox="true" >}}
+{{< figure src="https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png" title="Academic is mobile first with a responsive design to ensure that your site looks stunning on every device." >}}
 
 **Key features:**
 

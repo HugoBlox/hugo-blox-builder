@@ -1,14 +1,14 @@
-<div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+<div class="pub-list-item" style="margin-bottom: 1rem">
   <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
 
   {{/* APA Style */}}
   {{ if eq (site.Params.publications.citation_style | default "apa") "apa" }}
 
-  <span itemprop="author" class="article-metadata li-cite-author">
+  <span class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" . }}
   </span>
   ({{- .Date.Format "2006" -}}).
-  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  <a href="{{ .RelPermalink }}">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
   {{- .Params.publication_short | markdownify -}}.
   {{ else if .Params.publication }}
@@ -19,10 +19,10 @@
   {{/* MLA Style */}}
   {{ else }}
 
-  <span itemprop="author" class="article-metadata li-cite-author">
+  <span class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" . }}
   </span>.
-  <a href="{{ .RelPermalink }}" itemprop="name">{{ .Title }}</a>.
+  <a href="{{ .RelPermalink }}">{{ .Title }}</a>.
   {{ if .Params.publication_short }}
   {{- .Params.publication_short | markdownify -}},
   {{ else if .Params.publication }}

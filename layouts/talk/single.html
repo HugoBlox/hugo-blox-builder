@@ -1,6 +1,6 @@
 {{- define "main" -}}
 
-<div class="pub" itemscope itemtype="http://schema.org/Event">
+<div class="pub">
 
   {{ partial "page_header.html" . }}
 
@@ -8,7 +8,7 @@
 
     {{ if .Params.abstract }}
       <h3>{{ i18n "abstract" }}</h3>
-      <p class="pub-abstract" itemprop="text">{{ .Params.abstract | markdownify | emojify }}</p>
+      <p class="pub-abstract">{{ .Params.abstract | markdownify | emojify }}</p>
     {{ else }}
       <br>
     {{ end }}
@@ -18,7 +18,7 @@
       <div class="col-md-10">
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "date" }}</div>
-          <div class="col-12 col-md-9" itemprop="datePublished">
+          <div class="col-12 col-md-9">
             {{ partial "functions/get_event_dates" . }}
           </div>
         </div>
@@ -27,6 +27,7 @@
     </div>
     <div class="d-md-none space-below"></div>
 
+    {{ if .Params.event }}
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10">
@@ -42,14 +43,19 @@
       <div class="col-md-1"></div>
     </div>
     <div class="d-md-none space-below"></div>
+    {{ end }}
 
-    {{ with .Params.location }}
+    {{ if .Params.location }}
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10">
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "location" }}</div>
-          <div class="col-12 col-md-9">{{ . | markdownify }}</div>
+          <div class="col-12 col-md-9">{{ .Params.location | markdownify }}</div>
+          {{ if .Params.address }}
+            <div class="col-md-3"></div>
+            <div class="col-12 col-md-9">{{partial "functions/get_address" (dict "root" . "address" .Params.address) }}</div>
+          {{end}}
         </div>
       </div>
       <div class="col-md-1"></div>
@@ -63,18 +69,8 @@
       {{ .Content }}
     </div>
 
-    {{ partial "tags.html" . }}
-    {{ partial "page_author.html" . }}
-
-    {{ partial "comments" . }}
+    {{ partial "page_footer" . }}
 
   </div>
 </div>
-
-{{ if site.Params.section_pager }}
-<div class="article-container article-widget">
-  {{ partial "section_pager.html" . }}
-</div>
-{{ end }}
-
 {{- end -}}

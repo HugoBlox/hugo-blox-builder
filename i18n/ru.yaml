@@ -1,27 +1,27 @@
 - id: toggle_navigation
   translation: Переключить навигацию
 - id: table_of_contents
-  translation: Table of Contents
+  translation: Содержание
 - id: on_this_page
-  translation: On this page
+  translation: На этой странице
 - id: back_to_top
-  translation: Back to top
+  translation: На верх
 - id: related
-  translation: Related
+  translation: Похожие
 - id: minute_read
-  translation: min read
+  translation: мин. для прочтения
 - id: previous
-  translation: Previous
+  translation: Предыдущий
 - id: next
-  translation: Next
+  translation: Следующий
 - id: figure
-  translation: 'Figure %d:'
+  translation: 'Схема № %d:'
 - id: btn_preprint
-  translation: Preprint
+  translation: Предварительная печать
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
-  translation: Cite
+  translation: Процитировать
 - id: btn_slides
   translation: Слайды
 - id: btn_video
@@ -33,25 +33,25 @@
 - id: btn_project
   translation: Проект
 - id: btn_poster
-  translation: Poster
+  translation: Постер
 - id: btn_source
-  translation: Source Document
+  translation: Исходный документ
 - id: btn_copy
-  translation: Copy
+  translation: Копия
 - id: btn_download
-  translation: Download
+  translation: Скачать
 - id: interests
   translation: Интересы
 - id: education
   translation: Образование
 - id: user_profile_latest
-  translation: Latest
+  translation: Последние
 - id: see_certificate
-  translation: See certificate
+  translation: Посмотреть сертификат
 - id: present
-  translation: Present
+  translation: Настоящий
 - id: more_pages
-  translation: See all
+  translation: Посмотреть всё
 - id: more_posts
   translation: Больше статей
 - id: more_talks
@@ -59,47 +59,47 @@
 - id: more_publications
   translation: Больше публикаций
 - id: contact_name
-  translation: Name
+  translation: Имя
 - id: contact_email
-  translation: Email
+  translation: адрес электронной почты
 - id: contact_message
-  translation: Message
+  translation: Сообщение
 - id: contact_send
-  translation: Send
+  translation: Отправить
 - id: book_appointment
-  translation: Book an appointment
+  translation: Назначить встречу
 - id: abstract
   translation: Аннотация
 - id: publication
   translation: Публикация
 - id: publication_type
-  translation: Тип
+  translation: Тип публикации
 - id: date
   translation: Дата
 - id: last_updated
-  translation: Last updated on
+  translation: Обновлено
 - id: event
   translation: Событие
 - id: location
   translation: Место
 - id: pub_uncat
-  translation: Uncategorized
+  translation: Без категории
 - id: pub_conf
-  translation: Conference paper
+  translation: Статья для конференции
 - id: pub_journal
-  translation: Journal article
+  translation: Статья для журнала
 - id: pub_preprint
-  translation: Preprint
+  translation: Предварительная печать
 - id: pub_report
-  translation: Report
+  translation: Выступление
 - id: pub_book
-  translation: Book
+  translation: Книга
 - id: pub_book_section
-  translation: Book section
+  translation: Глава книги
 - id: pub_thesis
-  translation: Thesis
+  translation: Тезис
 - id: pub_patent
-  translation: Patent
+  translation: Патент
 - id: open_project_site
   translation: Перейти на сайт проекта
 - id: posts
@@ -109,22 +109,22 @@
 - id: talks
   translation: Выступления
 - id: projects
-  translation: Projects
+  translation: Проекты
 - id: search
-  translation: Search
+  translation: Поиск
 - id: search_placeholder
-  translation: Search...
+  translation: Поиск ...
 - id: search_results
-  translation: results found
+  translation: результат найден
 - id: search_no_results
-  translation: No results found
+  translation: результат не найден
 - id: page_not_found
-  translation: Page not found
+  translation: Страница не найдена
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Вы наверное искали один из тезисов?
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Для комфорной навигации на этом сайте используются куки (cookies).
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Понял!
 - id: cookie_learn
-  translation: Learn more
+  translation: Узнать больше

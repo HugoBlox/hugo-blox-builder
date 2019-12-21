@@ -1,0 +1,225 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Näita menüüd
+
+- id: table_of_contents
+  translation: Sisukord
+
+- id: on_this_page
+  translation: Sellel lehel
+
+- id: back_to_top
+  translation: Lehe algusse
+
+# General
+
+- id: related
+  translation: Vaata ka
+
+- id: minute_read
+  translation: min lugemine
+
+- id: previous
+  translation: Tagasi
+
+- id: next
+  translation: Edasi
+
+- id: figure
+  translation: "Kujutis %d:"
+
+- id: edit_page
+  translation: Muuda seda lehte
+
+# Buttons
+
+- id: btn_preprint
+  translation: Eeltrükk
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Tsiteeri
+
+- id: btn_slides
+  translation: Slaidid
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Lähtekood
+
+- id: btn_dataset
+  translation: Lähteandmed
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Algdokument
+
+- id: btn_copy
+  translation: Koopia
+
+- id: btn_download
+  translation: Laadi alla
+
+# About widget
+
+- id: interests
+  translation: Huvid
+
+- id: education
+  translation: Haridus
+
+- id: user_profile_latest
+  translation: Värske
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Vaata serti
+
+# Experience widget
+
+- id: present
+  translation: Praegu
+
+# Pages widget
+
+- id: more_pages
+  translation: Näita kõiki
+
+- id: more_posts
+  translation: Näita kõiki postitusi
+
+- id: more_talks
+  translation: Näita kõiki esinemisi
+
+- id: more_publications
+  translation: Näita kõiki väljaandeid
+
+# Contact widget
+
+- id: contact_name
+  translation: Nimi
+
+- id: contact_email
+  translation: Meil
+
+- id: contact_message
+  translation: Sõnum
+
+- id: contact_send
+  translation: Saada
+
+- id: book_appointment
+  translation: Lepi kohtumine
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Kokkuvõte
+
+- id: publication
+  translation: Väljaanne
+
+- id: publication_type
+  translation: Tüüp
+
+- id: date
+  translation: Kuupäev
+
+- id: last_updated
+  translation: Viimati uuendatud
+
+- id: event
+  translation: Sündmus
+
+- id: location
+  translation: Asukoht
+
+- id: pub_uncat
+  translation: Määramata
+
+- id: pub_conf
+  translation: Ettekanne
+
+- id: pub_journal
+  translation: Artikkel
+
+- id: pub_preprint
+  translation: Eeltrükk
+
+- id: pub_report
+  translation: Raport
+
+- id: pub_book
+  translation: Raamat
+
+- id: pub_book_section
+  translation: Peatükk
+
+- id: pub_thesis
+  translation: Väitekiri
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Mine projektilehele
+
+# Default titles for archive pages
+
+- id: posts
+  translation: Blogi
+
+- id: publications
+  translation: Publikatsioonid
+
+- id: talks
+  translation: Esinemised
+
+- id: projects
+  translation: Projektid
+
+# Search
+
+- id: search
+  translation: Otsing
+
+- id: search_placeholder
+  translation: Otsimine...
+
+- id: search_results
+  translation: tulemust
+
+- id: search_no_results
+  translation: Tulemusi pole
+
+# Error 404
+
+- id: page_not_found
+  translation: Lehekülge ei leitud
+
+- id: 404_recommendations
+  translation: Äkki mõni neist aitab edasi?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: See veebisait kasutab küpsiseid, et pakkuda sulle isikustatud lehitsemiskogemust.
+
+- id: cookie_dismiss
+  translation: Selge!
+
+- id: cookie_learn
+  translation: Täpsemalt

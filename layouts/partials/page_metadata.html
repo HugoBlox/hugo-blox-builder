@@ -1,5 +1,4 @@
 {{ $is_list := .is_list }}
-{{ $share := .share | default false }}
 {{ $page := .page }}
 
 <div class="article-metadata">
@@ -63,10 +62,6 @@
       <a href="{{ (site.GetPage (printf "/%s/%s" $taxonomy (. | urlize))).RelPermalink }}">{{ . }}</a>
     {{- end -}}
   </span>
-  {{ end }}
-
-  {{ if $share }}
-    {{ partial "share.html" $page }}
   {{ end }}
 
 </div>
