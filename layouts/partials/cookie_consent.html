@@ -1,7 +1,12 @@
 {{ if site.Params.privacy_pack }}
 {{ $scr := .Scratch }}
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+{{ $js := site.Data.assets.js }}
+{{ $css := site.Data.assets.css }}
+{{ if ($scr.Get "use_cdn") }}
+  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"cookieconsent\"></script>" (printf $js.cookieconsent.url $js.cookieconsent.version) $js.cookieconsent.sri | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"cookieconsent\">" (printf $css.cookieconsent.url $css.cookieconsent.version) | safeHTML }}
+{{ end }}
+
 <script>
   window.addEventListener("load", function(){
     window.cookieconsent.initialise({
