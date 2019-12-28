@@ -65,6 +65,10 @@
   sri = "sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A="
   url = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/%s/lazysizes.min.js"
   async = true
+[js.cookieconsent]
+  version = "3.1.1"
+  sri = "sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.js"
 
 # CSS
 
@@ -96,3 +100,7 @@
   version = "9.15.10"
   sri = ""  # No SRI as highlight style is determined at run time.
   url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/styles/%s.min.css"
+[css.cookieconsent]
+  version = "3.1.1"
+  sri = "sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.css"

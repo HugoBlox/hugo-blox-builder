@@ -1,8 +1,12 @@
 {{ if site.Params.privacy_pack }}
-{{ $scr := .Scratch }}
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-<script>
+  {{ $scr := .Scratch }}
+  {{ $js := site.Data.assets.js }}
+  {{ $css := site.Data.assets.css }}
+  {{ if ($scr.Get "use_cdn") }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.cookieconsent.url $js.cookieconsent.version) $js.cookieconsent.sri | safeHTML }}
+    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.cookieconsent.url $css.cookieconsent.version) $css.cookieconsent.sri | safeHTML }}
+  {{ end }}
+  <script>
   window.addEventListener("load", function(){
     window.cookieconsent.initialise({
       "palette": {
@@ -20,8 +24,8 @@
         "message": {{ i18n "cookie_message" | default "This website uses cookies to ensure you get the best experience on our website." }},
         "dismiss": {{ i18n "cookie_dismiss" | default "Got it!" }},
         "link": {{ i18n "cookie_learn" | default "Learn more" }},
-        "href": {{ with site.GetPage "privacy.md" }}{{ printf "%s" .RelPermalink }}{{ else }}"https://cookies.insites.com"{{ end }}
+        "href": {{ with site.GetPage "privacy.md" }}{{ printf "%s" .RelPermalink }}{{ else }}"https://www.cookiesandyou.com"{{ end }}
       }
     })});
-</script>
+  </script>
 {{ end }}
