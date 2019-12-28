@@ -29,8 +29,9 @@
     {{ if ne $count 0 }}
 
       {{ $fontDelta := sub $fontBig $fontSmall }}
-      {{ $min := len (index ($tags).Reverse 0).Pages }}
+      {{/* Warning: Hugo's `Reverse` function appears to operate in-place, hence the order of performing $max/$min matters. */}}
       {{ $max := add (len (index $tags 0).Pages) 1 }}
+      {{ $min := len (index ($tags).Reverse 0).Pages }}
       {{ $delta := sub $max $min }}
       {{ $fontStep := div $fontDelta $delta }}
 
