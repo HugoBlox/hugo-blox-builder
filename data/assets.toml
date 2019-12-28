@@ -66,9 +66,9 @@
   url = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/%s/lazysizes.min.js"
   async = true
 [js.cookieconsent]
-  version = "3.0.3"
-  sri = "sha512-CO0d9N3ml6Ik8P3mGy6j1Wx5KWnWzynQbiRJaZhM32FP99KRnT7O+hNNGGnuVktxjeYFU5xn9Kfb7c132wnbKw=="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"
+  version = "3.1.1"
+  sri = "sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.js"
 
 # CSS
 
@@ -101,6 +101,6 @@
   sri = ""  # No SRI as highlight style is determined at run time.
   url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/styles/%s.min.css"
 [css.cookieconsent]
-  version = "3.0.3"
-  sri = "sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP+DGNKHfuwvY7kxvUdBeoGlODJ6+SfaPg=="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css"
+  version = "3.1.1"
+  sri = "sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.css"
