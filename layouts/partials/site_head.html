@@ -142,8 +142,8 @@
   {{ end }}
 
   <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
-  <link rel="icon" type="image/png" href="{{ "img/icon-32.png" | relURL }}">
-  <link rel="apple-touch-icon" type="image/png" href="{{ "img/icon-192.png" | relURL }}">
+  <link rel="icon" type="image/png" href="{{(partial "functions/get_icon" 32).RelPermalink}}">
+  <link rel="apple-touch-icon" type="image/png" href="{{(partial "functions/get_icon" 192).RelPermalink}}">
 
   <link rel="canonical" href="{{ .Permalink }}">
 
@@ -163,7 +163,7 @@
     {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}
     {{ $twitter_card = "summary" }}
   {{ else }}
-    {{ $og_image = "img/icon-192.png" | absURL }}
+    {{ $og_image = (partial "functions/get_icon" 512).Permalink }}
     {{ $twitter_card = "summary" }}
   {{ end }}
   {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}

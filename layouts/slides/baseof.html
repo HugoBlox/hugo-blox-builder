@@ -10,8 +10,8 @@
   <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
 
   <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
-  <link rel="icon" type="image/png" href="{{ "img/icon-32.png" | relURL }}">
-  <link rel="apple-touch-icon" type="image/png" href="{{ "img/icon-192.png" | relURL }}">
+  <link rel="icon" type="image/png" href="{{(partial "functions/get_icon" 32).RelPermalink}}">
+  <link rel="apple-touch-icon" type="image/png" href="{{(partial "functions/get_icon" 192).RelPermalink}}">
 
   <link rel="canonical" href="{{ .Permalink }}">
 

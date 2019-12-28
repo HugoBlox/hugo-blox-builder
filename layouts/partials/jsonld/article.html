@@ -10,7 +10,7 @@
 
 {{ $author := partial "functions/get_author_name" $page }}
 {{ $publisher := site.Params.org_name | default site.Title }}
-{{ $logo_url := printf "img/%s" (site.Params.logo | default "icon-512.png") | absURL }}
+{{ $logo_url := (printf "img/%s" (site.Params.logo | absURL)) | default (partial "functions/get_icon" 512).Permalink }}
 
 <script type="application/ld+json">
 {

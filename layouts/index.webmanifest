@@ -6,11 +6,11 @@
   "theme_color": "{{ $scr.Get "primary" }}",
   "background_color": "{{ $scr.Get "primary" }}",
   "icons": [{
-    "src": "../img/icon-192.png",
+    "src": "{{ (partial "functions/get_icon" 192).RelPermalink }}",
     "sizes": "192x192",
     "type": "image/png"
     }, {
-    "src": "../img/icon-512.png",
+    "src": "{{ (partial "functions/get_icon" 512).RelPermalink }}",
     "sizes": "512x512",
     "type": "image/png"
      }],
