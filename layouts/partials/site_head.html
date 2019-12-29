@@ -148,6 +148,7 @@
   <link rel="canonical" href="{{ .Permalink }}">
 
   {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $has_logo := fileExists "assets/images/logo.png" }}
   {{ $og_image := "" }}
   {{ $twitter_card := "summary_large_image" }}
   {{ if $featured_image }}
@@ -156,8 +157,8 @@
     {{ $og_image = printf "img/%s" .Params.header.image | absURL }}
   {{ else if site.Params.sharing_image }}
     {{ $og_image = printf "img/%s" site.Params.sharing_image | absURL }}
-  {{ else if site.Params.logo }}
-    {{ $og_image = (printf "img/%s" site.Params.logo) | absURL }}
+  {{ else if $has_logo }}
+    {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
     {{ $twitter_card = "summary" }}
   {{ else if site.Params.avatar }}
     {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}

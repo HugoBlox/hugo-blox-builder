@@ -1,0 +1,16 @@
+{{/* Function to get logo image. */}}
+{{/* Inputs: constraint: max_height/fit (str); size (int) */}}
+{{/* Output: resource (obj) */}}
+
+{{ $logo := resources.Get "images/logo.png" }}
+{{ $logo_proc := $logo }}
+
+{{ if eq .constraint "max_height" }}
+  {{/* Resize logo to fit specified max height. */}}
+  {{ $logo_proc = ($logo.Resize (printf "x%s" (string .size))) }}
+{{ else }}
+  {{/* Constrain logo to fit within specified dimensions. */}}
+  {{ $logo_proc = ($logo.Fit (printf "%sx%s" (string .size) (string .size))) }}
+{{ end }}
+
+{{ return $logo_proc }}

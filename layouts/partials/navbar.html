@@ -4,10 +4,12 @@
   <div class="container">
 
     {{if $show_logo}}
+    {{ $has_logo := fileExists "assets/images/logo.png" }}
     <div class="d-none d-lg-inline-flex">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
-        {{- if site.Params.logo -}}
-          <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
+        {{- if $has_logo -}}
+          {{ $logo := (partial "functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
+          <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}">
         {{- else -}}
           {{- site.Title -}}
         {{- end -}}
