@@ -1,7 +1,9 @@
 # IDE specific
 .idea/
 .vscode/
-resources/
+
+# Hugo
+exampleSite/public/
 
 # Jupyter
 .ipynb_checkpoints/
