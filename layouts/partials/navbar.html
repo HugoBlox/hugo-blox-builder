@@ -140,7 +140,7 @@
             <span>{{ index site.Data.i18n.languages .Lang }}</span>
           </div>
           {{ range .Translations }}
-          <a class="dropdown-item" href="{{ .RelPermalink }}"{{ if $.IsHome }} data-target="{{ .RelPermalink }}"{{ end }}>
+          <a class="dropdown-item" href="{{ .Permalink }}"{{ if $.IsHome }} data-target="{{ .RelPermalink }}"{{ end }}>
             <span>{{ index site.Data.i18n.languages .Lang }}</span>
           </a>
           {{ end }}
