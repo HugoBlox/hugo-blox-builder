@@ -1,14 +1,20 @@
 {{ $current_page := . }}
+
+{{/* Get site logo. */}}
 {{ $show_logo := site.Params.main_menu.show_logo | default true }}
+{{ $has_logo := fileExists "assets/images/logo.png" }}
+{{ $logo := "" }}
+{{ if $has_logo }}
+  {{ $logo = (partial "functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
+{{ end }}
+
 <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
   <div class="container">
 
     {{if $show_logo}}
-    {{ $has_logo := fileExists "assets/images/logo.png" }}
     <div class="d-none d-lg-inline-flex">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
         {{- if $has_logo -}}
-          {{ $logo := (partial "functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
           <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}">
         {{- else -}}
           {{- site.Title -}}
@@ -27,10 +33,10 @@
     {{if $show_logo}}
     <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
-      {{- if site.Params.logo -}}
-      <img src="{{ printf "/img/%s" site.Params.logo | relURL }}" alt="{{ site.Title }}">
+      {{- if $has_logo -}}
+        <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}">
       {{- else -}}
-      {{- site.Title -}}
+        {{- site.Title -}}
       {{- end -}}
       </a>
     </div>
