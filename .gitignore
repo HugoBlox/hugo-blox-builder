@@ -4,6 +4,7 @@
 
 # Hugo
 exampleSite/public/
+resources/_gen/
 
 # Jupyter
 .ipynb_checkpoints/
