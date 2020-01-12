@@ -41,7 +41,7 @@
     {{ if site.Params.avatar.gravatar }}
       {{ $src = printf "https://s.gravatar.com/avatar/%s?s=150" (md5 .Params.email) }}
     {{ else if $avatar }}
-      {{ $avatar_image := $avatar.Fill "150x150 Center" }}
+      {{ $avatar_image := $avatar.Fill "270x270 Center" }}
       {{ $src = $avatar_image.RelPermalink }}
     {{ end }}
     {{ if $src }}
