@@ -27,12 +27,13 @@
     {{ $profile_url = site.BaseURL }}
   {{ end }}
   {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+  {{ $avatar_shape := site.Params.avatar.shape | default "circle" }}
   <div class="media author-card content-widget-hr">
-    {{ if and site.Params.gravatar .Params.email }}
-      <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="Avatar">
+    {{ if and site.Params.avatar.gravatar .Params.email }}
+      <img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="Avatar">
     {{ else if $avatar }}
-      {{ $avatar_image := $avatar.Fill "250x250 Center" }}
-      <img class="portrait mr-3" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
+      {{ $avatar_image := $avatar.Fill "200x200 Center" }}
+      <img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
     {{ end }}
 
     <div class="media-body">

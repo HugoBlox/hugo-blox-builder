@@ -267,12 +267,9 @@ ul.share li:hover i {
  *  Author profile card
  **************************************************/
 
-.author-card .portrait {
+.author-card .avatar {
   width: 60px;
   height: 60px;
-  margin: 0 auto;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 .author-card .card-title {
