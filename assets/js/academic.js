@@ -462,9 +462,11 @@
     // Live update of day/night mode on system preferences update (no refresh required).
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     darkModeMediaQuery.addListener((e) => {
-      const darkModeOn = e.matches;
-      console.log(`Dark mode is ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
-      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
+      if ($('.js-dark-toggle').length) {
+        const darkModeOn = e.matches;
+        console.log(`Dark mode is ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
+        toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
+      }
     });
   });
 
