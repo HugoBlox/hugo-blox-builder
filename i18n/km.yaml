@@ -1,0 +1,225 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: បិទ/បើក នាវាចរណ៍
+  
+- id: table_of_contents
+  translation: តារាងមាតិកា
+
+- id: on_this_page
+  translation: នៅក្នុងទំព័រនេះ
+
+- id: back_to_top
+  translation: ទៅខាងលើទំព័រ
+
+# General
+
+- id: related
+  translation: ភាសាខ្មែរ
+
+- id: minute_read
+  translation: ពេលចំណាយអាន
+
+- id: previous
+  translation: ផ្នែកមុន
+
+- id: next
+  translation: ផ្នែកបន្ទាប់
+
+- id: figure
+  translation: 'រូប %d:'
+
+- id: edit_page
+  translation: កែប្រែទំព័រ
+
+# Buttons
+
+- id: btn_preprint
+  translation: ប៊ូតុងបោះពុម្ព
+
+- id: btn_pdf
+  translation: ប៊ូតុងPDF
+
+- id: btn_cite
+  translation: ប៊ូតុងដកស្រង់
+
+- id: btn_slides
+  translation: ប៊ូតុងស្លាយ
+
+- id: btn_video
+  translation: ប៊ូតុងវីដេអូ
+
+- id: btn_code
+  translation: ប៊ូតុងកូដ
+
+- id: btn_dataset
+  translation: ប៊ូតុងទិន្នន័យ
+
+- id: btn_project
+  translation: ប៊ូតុងគម្រោង
+
+- id: btn_poster
+  translation: ប៊ូតុងប័ណ្ណប្រកាស
+
+- id: btn_source
+  translation: ប៊ូតុងប្រភព
+
+- id: btn_copy
+  translation: ប៊ូតុងចម្លង
+
+- id: btn_download
+  translation: ប៊ូតុងទាញយក
+
+# About widget
+
+- id: interests
+  translation: ចំណាប់អារម្មណ៍
+
+- id: education
+  translation: កម្រិតការសិក្សា
+
+- id: user_profile_latest
+  translation: ប្រវត្តិរូបចុងក្រោយបង្អស់
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: វិញ្ញាបនបត្រ
+
+# Experience widget
+
+- id: present
+  translation: បច្ចុប្បន្ន
+
+# Pages widget
+
+- id: more_pages
+  translation: ទំព័រច្រើនទៀត
+
+- id: more_posts
+  translation: ប៉ុស្ដិ៍ច្រើនទៀត
+
+- id: more_talks
+  translation: សុន្ទរកថាច្រើនទៀត
+
+- id: more_publications
+  translation: ការបោះពុម្ពផ្សាយច្រើនទៀត
+
+# Contact widget
+
+- id: contact_name
+  translation: ឈ្មោះ​
+
+- id: contact_email
+  translation: អាស័យ​ដ្ឋាន​អ៊ី​ម៉េ​ល
+
+- id: contact_message
+  translation: ​សារអ៊ី​ម៉េ​ល
+
+- id: contact_send
+  translation: ផ្ញើអ៊ីមែល
+
+- id: book_appointment
+  translation: កក់ការណាត់ជួប
+
+# Publication/Talk details
+
+- id: abstract
+  translation: របាយការណ៍
+
+- id: publication
+  translation: ការបោះពុម្ពផ្សាយ
+
+- id: publication_type
+  translation: ប្រភេទការបោះពុម្ពផ្សាយ
+
+- id: date
+  translation: កាលបរិច្ឆេទ
+
+- id: last_updated
+  translation: ការធ្វើឱ្យទាន់សម័យចុងក្រោយបង្អស់
+
+- id: event
+  translation: ព្រឹត្តិការណ៍
+
+- id: location
+  translation: ទីតាំង
+
+- id: pub_uncat
+  translation: គ្មានប្រភេទ
+
+- id: pub_conf
+  translation: សន្និសិទ
+
+- id: pub_journal
+  translation: ទិនានុប្បវត្តិ
+
+- id: pub_preprint
+  translation: បោះពុម្ព
+
+- id: pub_report
+  translation: របាយការណ៍
+
+- id: pub_book
+  translation: សៀវភៅបោះពុម្ព
+
+- id: pub_book_section
+  translation: ផ្នែកសៀវភៅ
+
+- id: pub_thesis
+  translation: និក្ខេបបទ
+
+- id: pub_patent
+  translation: ប៉ាតង់
+
+# Project details
+
+- id: open_project_site
+  translation: គម្រោងបើក
+
+# Default titles for archive pages
+
+- id: posts
+  translation: ប៉ុស្ដិ៍
+
+- id: publications
+  translation: ការបោះពុម្ពផ្សាយ
+
+- id: talks
+  translation: សុន្ទរកថា
+
+- id: projects
+  translation: គម្រោង
+
+# Search
+
+- id: search
+  translation: ស្វែងរក
+
+- id: search_placeholder
+  translation: កន្លែងស្វែងរក
+
+- id: search_results
+  translation: លទ្ធផលស្វែងរក
+
+- id: search_no_results
+  translation: ស្វែងរកគ្មានលទ្ធផល
+
+# Error 404
+
+- id: page_not_found
+  translation: ទំព័ររក​មិន​ឃើញ
+
+- id: 404_recommendations
+  translation: 404_អនុសាសន៍
+
+# Cookie consent
+
+- id: cookie_message
+  translation: សារខូឃី
+
+- id: cookie_dismiss
+  translation: ខូឃីបណ្តេញចេញ
+
+- id: cookie_learn
+  translation: ខូឃីរៀន
