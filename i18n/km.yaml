@@ -2,7 +2,6 @@
 
 - id: toggle_navigation
   translation: បិទ/បើក នាវាចរណ៍
-
   
 - id: table_of_contents
   translation: តារាងមាតិកា
@@ -123,7 +122,6 @@
 - id: book_appointment
   translation: កក់ការណាត់ជួប
 
-
 # Publication/Talk details
 
 - id: abstract
@@ -215,7 +213,6 @@
 - id: 404_recommendations
   translation: 404_អនុសាសន៍
 
-
 # Cookie consent
 
 - id: cookie_message
@@ -223,7 +220,6 @@
 
 - id: cookie_dismiss
   translation: ខូឃីបណ្តេញចេញ
-
 
 - id: cookie_learn
   translation: ខូឃីរៀន
