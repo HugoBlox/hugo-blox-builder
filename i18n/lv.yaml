@@ -35,7 +35,7 @@
 # Buttons
 
 - id: btn_preprint
-  translation: Manuskripts
+  translation: Preprints
 
 - id: btn_pdf
   translation: PDF
@@ -84,7 +84,7 @@
 # Accomplishments widget
 
 - id: see_certificate
-  translation: Apskatīt sertifikātu
+  translation: Skatīt sertifikātu
 
 # Experience widget
 
