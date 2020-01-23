@@ -35,7 +35,7 @@
       // Escape special chars from IDs, such as colons found in Markdown footnote links.
       target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
 
-      let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight());  // Round up to highlight right ID!
+      let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight()) + 1;  // Round up to highlight right ID!
       $('body').addClass('scrolling');
       $('html, body').animate({
         scrollTop: elementOffset
@@ -475,29 +475,6 @@
    * --------------------------------------------------------------------------- */
 
   $(window).on('load', function() {
-    // Re-initialize Scrollspy with dynamic navbar height offset.
-    fixScrollspy();
-
-    if (window.location.hash) {
-      // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).
-      if (window.location.hash == "#top") {
-        window.location.hash = ""
-      } else if (!$('.projects-container').length) {
-        // If URL contains a hash and there are no dynamically loaded images on the page,
-        // immediately scroll to target ID taking into account responsive offset.
-        // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
-        // location.
-        scrollToAnchor();
-      }
-    }
-
-    // Call `fixScrollspy` when window is resized.
-    let resizeTimer;
-    $(window).resize(function() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fixScrollspy, 200);
-    });
-
     // Filter projects.
     $('.projects-container').each(function(index, container) {
       let $container = $(container);
@@ -631,6 +608,29 @@
       dropdown[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
       menu[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
     }, 300);
+
+    // Re-initialize Scrollspy with dynamic navbar height offset.
+    fixScrollspy();
+
+    if (window.location.hash) {
+      // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).
+      if (window.location.hash == "#top") {
+        window.location.hash = ""
+      } else if (!$('.projects-container').length) {
+        // If URL contains a hash and there are no dynamically loaded images on the page,
+        // immediately scroll to target ID taking into account responsive offset.
+        // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
+        // location.
+        scrollToAnchor();
+      }
+    }
+
+    // Call `fixScrollspy` when window is resized.
+    let resizeTimer;
+    $(window).resize(function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fixScrollspy, 200);
+    });
   });
 
 })(jQuery);
