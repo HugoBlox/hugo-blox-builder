@@ -35,7 +35,7 @@
       // Escape special chars from IDs, such as colons found in Markdown footnote links.
       target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
 
-      let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight()) + 1;  // Round up to highlight right ID!
+      let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight());  // Round up to highlight right ID!
       $('body').addClass('scrolling');
       $('html, body').animate({
         scrollTop: elementOffset
