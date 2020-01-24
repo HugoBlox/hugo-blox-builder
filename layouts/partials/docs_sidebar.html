@@ -3,8 +3,12 @@
 {{/* Dynamically load menu for this docs page. */}}
 {{/* Attempt to get menu name from `menu_name` param, Hugo's front matter menu config, or the last dir of filepath. */}}
 {{ $menu_name := "" }}
-{{ range $k, $v := .Params.menu }}
-  {{ $menu_name = $k }}
+{{ if .Params.menu | and (not (reflect.IsMap .Params.menu)) | and (not (reflect.IsSlice .Params.menu)) }}
+  {{ $menu_name = .Params.menu }}
+{{ else if .Params.menu | and (or (reflect.IsMap .Params.menu) (reflect.IsSlice .Params.menu)) }}
+  {{ range $k, $v := .Params.menu }}
+    {{ $menu_name = $k }}
+  {{ end }}
 {{ end }}
 {{ $menu_name = .Params.menu_name | default $menu_name | default (path.Base (path.Split .File).Dir) }}
 {{ if not (index site.Menus $menu_name) }}
