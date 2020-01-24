@@ -29,8 +29,10 @@
 {{/* Lazy load only when we know image dimensions in order to preserve anchor linking. */}}
 {{ if $asset }}
   <img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" width="{{ (.Get "width") | default $asset.Width }}" height="{{ (.Get "height") | default $asset.Height }}">
+{{ else if and (.Get "width") (.Get "height") }}
+  <img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}}>
 {{ else }}
-  <img data-src="{{$image_src}}" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}" {{end}}{{ with .Get "height" }}height="{{.}}" class="lazyload"{{end}}>
+  <img src="{{$image_src}}" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}}>
 {{ end }}
 
 {{- if or $lightbox (.Get "link") }}</a>{{ end }}
