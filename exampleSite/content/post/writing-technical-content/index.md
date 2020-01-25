@@ -261,4 +261,22 @@ renders as
 A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
 {{% /alert %}}
 
+### Icons
+
+Academic enables you to use a wide range of [icons from _Font Awesome_ and _Academicons_](https://sourcethemes.com/academic/docs/page-builder/#icons) in addition to [emojis](https://sourcethemes.com/academic/docs/writing-markdown-latex/#emojis).
+
+Here are some examples using the `icon` shortcode to render icons:
+
+```markdown
+{{</* icon name="terminal" pack="fas" */>}} Terminal  
+{{</* icon name="python" pack="fab" */>}} Python  
+{{</* icon name="r-project" pack="fab" */>}} R
+```
+
+renders as
+
+{{< icon name="terminal" pack="fas" >}} Terminal  
+{{< icon name="python" pack="fab" >}} Python  
+{{< icon name="r-project" pack="fab" >}} R
+
 ### Did you find this page helpful? Consider sharing it 🙌

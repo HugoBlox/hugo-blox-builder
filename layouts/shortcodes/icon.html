@@ -1,0 +1,9 @@
+{{- if (.Get "name") -}}
+  {{- $icon := .Get "name" -}}
+  {{- $pack := or (.Get "pack") "fas" -}}
+  {{- $pack_prefix := $pack -}}
+  {{- if in (slice "fab" "fas" "far" "fal") $pack -}}
+    {{- $pack_prefix = "fa" -}}
+  {{- end -}}
+  <i class="{{ $pack }} {{ $pack_prefix }}-{{ $icon }} {{with (.Get "padding_left")}}pl-{{.}}{{end}} {{with (.Get "padding_right")}}pr-{{.}}{{end}}"></i>
+{{- end -}}
