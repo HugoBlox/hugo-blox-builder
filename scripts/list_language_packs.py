@@ -7,6 +7,7 @@
 # Prerequisites: pip3 install PyYAML
 
 import yaml
+from pathlib import Path
 
 LANG_PATH = Path(__file__).resolve().parent.parent.joinpath('data').joinpath('i18n')
 LANG_YAML = LANG_PATH.joinpath('languages.yaml')
@@ -21,5 +22,10 @@ with open(LANG_YAML) as f:
   # print(', '.join(lang_list))
 
   # Print languages as a Markdown list.
+  i = 0
   for master_item in master_map:
     print(f'- **{master_map[master_item]}** ({master_item})')
+    i += 1
+
+print("\n")
+print(f"{i} language packs found!")
