@@ -5,5 +5,6 @@
   {{- if in (slice "fab" "fas" "far" "fal") $pack -}}
     {{- $pack_prefix = "fa" -}}
   {{- end -}}
-  <i class="{{ $pack }} {{ $pack_prefix }}-{{ $icon }} {{with (.Get "padding_left")}}pl-{{.}}{{end}} {{with (.Get "padding_right")}}pr-{{.}}{{end}}"></i>
+  {{- $padding_right := (.Get "padding_right") | default 1 -}}{{/* Defaulting to 1 prevents no spacing when minimizing HTML. */}}
+  <i class="{{ $pack }} {{ $pack_prefix }}-{{ $icon }} {{with (.Get "padding_left")}}pl-{{.}}{{end}} {{with $padding_right}}pr-{{.}}{{end}} {{if ne (.Get "fixed_width") "false"}}fa-fw{{end}}"></i>
 {{- end -}}
