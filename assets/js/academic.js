@@ -423,7 +423,12 @@
       // Default to day (light) theme.
       defaultThemeVariation = 0;
     }
-    let dark_mode = parseInt(localStorage.getItem('dark_mode') || defaultThemeVariation);
+
+    let dark_mode = defaultThemeVariation;
+    // Use localstorage if dark variation is allowed by admin and the key exists.
+    if ($('.js-dark-toggle').length && localStorage.getItem("username") !== null) {
+      dark_mode = parseInt(localStorage.getItem('dark_mode'));
+    }
 
     // Is code highlighting enabled in site config?
     const codeHlEnabled = $('link[title=hl-light]').length > 0;
