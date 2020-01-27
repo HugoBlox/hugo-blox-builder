@@ -1,71 +1,71 @@
 - id: toggle_navigation
   translation: 네비게이션
 - id: table_of_contents
-  translation: Table of Contents
+  translation: 차례
 - id: on_this_page
   translation: On this page
 - id: back_to_top
   translation: Back to top
 - id: related
-  translation: Related
+  translation: 관련문서
 - id: minute_read
   translation: min read
 - id: previous
-  translation: Previous
+  translation: 이전
 - id: next
-  translation: Next
+  translation: 다름
 - id: figure
-  translation: 'Figure %d:'
+  translation: '그림 %d:'
 - id: btn_preprint
-  translation: Preprint
+  translation: 출판 전 논문
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
-  translation: Cite
+  translation: 인용
 - id: btn_slides
   translation: 슬라이드
 - id: btn_video
   translation: 비디오
 - id: btn_code
-  translation: 코드
+  translation: 소스코드
 - id: btn_dataset
-  translation: 데이터세트
+  translation: 데이터셋
 - id: btn_project
   translation: 프로젝트
 - id: btn_poster
-  translation: Poster
+  translation: 포스터
 - id: btn_source
-  translation: Source Document
+  translation: 원본문서
 - id: btn_copy
-  translation: Copy
+  translation: 복사
 - id: btn_download
-  translation: Download
+  translation: 다운로드
 - id: interests
   translation: 관심분야
 - id: education
-  translation: 교육
+  translation: 학위
 - id: user_profile_latest
-  translation: Latest
+  translation: 최신
 - id: see_certificate
-  translation: See certificate
+  translation: 증서 보기
 - id: present
-  translation: Present
+  translation: 현재
 - id: more_pages
-  translation: See all
+  translation: 전체 보기
 - id: more_posts
   translation: 포스트 더 보기
 - id: more_talks
-  translation: More Talks
+  translation: 더 많은 이야기
 - id: more_publications
   translation: 논문 더 보기
 - id: contact_name
-  translation: Name
+  translation: 이름
 - id: contact_email
-  translation: Email
+  translation: 이메일
 - id: contact_message
   translation: Message
 - id: contact_send
-  translation: Send
+  translation: 보내기
 - id: book_appointment
   translation: Book an appointment
 - id: abstract
@@ -77,7 +77,7 @@
 - id: date
   translation: 날짜
 - id: last_updated
-  translation: Last updated on
+  translation: 마지막 업데이트
 - id: event
   translation: 이벤트
 - id: location
@@ -85,21 +85,21 @@
 - id: pub_uncat
   translation: Uncategorized
 - id: pub_conf
-  translation: Conference paper
+  translation: 학술 대회 논문
 - id: pub_journal
-  translation: Journal article
+  translation: 저널 기사
 - id: pub_preprint
-  translation: Preprint
+  translation: 출판 전 논문
 - id: pub_report
-  translation: Report
+  translation: 리포트
 - id: pub_book
-  translation: Book
+  translation: 도서
 - id: pub_book_section
-  translation: Book section
+  translation: 도서 구역
 - id: pub_thesis
-  translation: Thesis
+  translation: 졸업 논문
 - id: pub_patent
-  translation: Patent
+  translation: 특허
 - id: open_project_site
   translation: 프로젝트 사이트로 가기
 - id: posts
@@ -109,17 +109,17 @@
 - id: talks
   translation: 강연
 - id: projects
-  translation: Projects
+  translation: 프로젝트
 - id: search
-  translation: Search
+  translation: 검색
 - id: search_placeholder
-  translation: Search...
+  translation: 검색...
 - id: search_results
   translation: results found
 - id: search_no_results
-  translation: No results found
+  translation: 검색 결과 없음
 - id: page_not_found
-  translation: Page not found
+  translation: 페이지 없음
 - id: 404_recommendations
   translation: Perhaps you were looking for one of these?
 - id: cookie_message
