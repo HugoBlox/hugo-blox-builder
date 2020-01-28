@@ -5,11 +5,11 @@
 - id: on_this_page
   translation: On this page
 - id: back_to_top
-  translation: Back to top
+  translation: 맨 위로
 - id: related
   translation: 관련문서
 - id: minute_read
-  translation: min read
+  translation: 분 읽기
 - id: previous
   translation: 이전
 - id: next
@@ -63,11 +63,11 @@
 - id: contact_email
   translation: 이메일
 - id: contact_message
-  translation: Message
+  translation: 메시지
 - id: contact_send
   translation: 보내기
 - id: book_appointment
-  translation: Book an appointment
+  translation: 약속 일정
 - id: abstract
   translation: 초록
 - id: publication
@@ -83,7 +83,7 @@
 - id: location
   translation: 장소
 - id: pub_uncat
-  translation: Uncategorized
+  translation: 분류되지 않음
 - id: pub_conf
   translation: 학술 대회 논문
 - id: pub_journal
@@ -115,16 +115,16 @@
 - id: search_placeholder
   translation: 검색...
 - id: search_results
-  translation: results found
+  translation: 검색 결과
 - id: search_no_results
   translation: 검색 결과 없음
 - id: page_not_found
   translation: 페이지 없음
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: 이 중에 찾는게 있나요?
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: 이 사이트는 최적화된 사용 경험을 제공하기 위해 쿠키를 사용합니다.
 - id: cookie_dismiss
-  translation: Got it!
+  translation: 알겠어!
 - id: cookie_learn
-  translation: Learn more
+  translation: 더 알아보기
