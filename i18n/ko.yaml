@@ -13,7 +13,7 @@
 - id: previous
   translation: 이전
 - id: next
-  translation: 다름
+  translation: 다음
 - id: figure
   translation: '그림 %d:'
 - id: btn_preprint
