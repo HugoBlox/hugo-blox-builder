@@ -67,7 +67,7 @@
 - id: contact_send
   translation: 보내기
 - id: book_appointment
-  translation: 약속 일정
+  translation: 일정 약속
 - id: abstract
   translation: 초록
 - id: publication
