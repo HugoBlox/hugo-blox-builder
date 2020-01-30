@@ -23,7 +23,7 @@
 - id: btn_cite
   translation: 인용
 - id: btn_slides
-  translation: 슬라이드
+  translation: 발표자료
 - id: btn_video
   translation: 비디오
 - id: btn_code
@@ -73,7 +73,7 @@
 - id: publication
   translation: 발행기관
 - id: publication_type
-  translation: 출판 형태
+  translation: 출판유형
 - id: date
   translation: 날짜
 - id: last_updated
@@ -87,21 +87,21 @@
 - id: pub_conf
   translation: 학술 대회 논문
 - id: pub_journal
-  translation: 저널 기사
+  translation: 저널 논문
 - id: pub_preprint
   translation: 출판 전 논문
 - id: pub_report
-  translation: 리포트
+  translation: 보고서
 - id: pub_book
   translation: 도서
 - id: pub_book_section
-  translation: 도서 구역
+  translation: 책 소개 면
 - id: pub_thesis
   translation: 졸업 논문
 - id: pub_patent
   translation: 특허
 - id: open_project_site
-  translation: 프로젝트 사이트로 가기
+  translation: 프로젝트 사이트 열기
 - id: posts
   translation: 포스트
 - id: publications
