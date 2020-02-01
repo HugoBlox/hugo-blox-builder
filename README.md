@@ -82,7 +82,7 @@ You can choose from one of the following four methods to install:
 Prerequisites:
 
 * [Download and install Git](https://git-scm.com/downloads)
-* [Download and install Hugo Extended v0.60.1+](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo Extended v0.63.1+](https://gohugo.io/getting-started/installing/#quick-install)
 
 Install:
 
@@ -105,7 +105,7 @@ Install:
 
 Prerequisites:
 
-* [Download and install Hugo Extended v0.60.1+](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo Extended v0.63.1+](https://gohugo.io/getting-started/installing/#quick-install)
 
 Install:
 
