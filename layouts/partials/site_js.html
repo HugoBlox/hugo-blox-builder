@@ -35,10 +35,17 @@
     {{ end }}
 
     {{/* Initialise code highlighting. */}}
-    {{ if $.Scratch.Get "highlight_enabled" }}
+    {{ if $scr.Get "highlight_enabled" }}
     <script>const code_highlighting = true;</script>
     {{ else }}
     <script>const code_highlighting = false;</script>
+    {{ end }}
+
+    {{/* Initialise default theme. */}}
+    {{ if eq ($scr.Get "light") true }}
+    <script>const isSiteThemeDark = false;</script>
+    {{ else }}
+    <script>const isSiteThemeDark = true;</script>
     {{ end }}
 
     {{ if ne site.Params.search.engine 0 }}

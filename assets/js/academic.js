@@ -5,7 +5,7 @@
  *  Core JS functions and initialization.
  **************************************************/
 
-(function($){
+(function ($) {
 
   /* ---------------------------------------------------------------------------
    * Responsive scrolling for URL hashes.
@@ -31,7 +31,7 @@
     target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
 
     // If target element exists, scroll to it taking into account fixed navigation bar offset.
-    if($(target).length) {
+    if ($(target).length) {
       // Escape special chars from IDs, such as colons found in Markdown footnote links.
       target = '#' + $.escapeSelector(target.substring(1));  // Previously, `target = target.replace(/:/g, '\\:');`
 
@@ -42,8 +42,8 @@
       }, 600, function () {
         $('body').removeClass('scrolling');
       });
-    }else{
-      console.debug('Cannot scroll to target `#'+target+'`. ID not found!');
+    } else {
+      console.debug('Cannot scroll to target `#' + target + '`. ID not found!');
     }
   }
 
@@ -61,7 +61,7 @@
   function removeQueryParamsFromUrl() {
     if (window.history.replaceState) {
       let urlWithoutSearchParams = window.location.protocol + "//" + window.location.host + window.location.pathname + window.location.hash;
-      window.history.replaceState({path:urlWithoutSearchParams}, '', urlWithoutSearchParams);
+      window.history.replaceState({path: urlWithoutSearchParams}, '', urlWithoutSearchParams);
     }
   }
 
@@ -72,12 +72,12 @@
    * Add smooth scrolling to all links inside the main navbar.
    * --------------------------------------------------------------------------- */
 
-  $('#navbar-main li.nav-item a.nav-link').on('click', function(event) {
+  $('#navbar-main li.nav-item a.nav-link').on('click', function (event) {
     // Store requested URL hash.
     let hash = this.hash;
 
     // If we are on a widget page and the navbar link is to a section on the same page.
-    if ( this.pathname === window.location.pathname && hash && $(hash).length && ($(".js-widget-page").length > 0)) {
+    if (this.pathname === window.location.pathname && hash && $(hash).length && ($(".js-widget-page").length > 0)) {
       // Prevent default click behavior.
       event.preventDefault();
 
@@ -100,7 +100,7 @@
    * Hide mobile collapsable menu on clicking a link.
    * --------------------------------------------------------------------------- */
 
-  $(document).on('click', '.navbar-collapse.show', function(e) {
+  $(document).on('click', '.navbar-collapse.show', function (e) {
     //get the <a> element that was clicked, even if the <span> element that is inside the <a> element is e.target
     let targetElement = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
 
@@ -133,55 +133,57 @@
       // Use Bootstrap compatible grid layout.
       columnWidth: '.grid-sizer'
     },
-    filter: function() {
+    filter: function () {
       let $this = $(this);
-      let searchResults = searchRegex ? $this.text().match( searchRegex ) : true;
-      let filterResults = filterValues ? $this.is( filterValues ) : true;
+      let searchResults = searchRegex ? $this.text().match(searchRegex) : true;
+      let filterResults = filterValues ? $this.is(filterValues) : true;
       return searchResults && filterResults;
     }
   });
 
   // Filter by search term.
-  let $quickSearch = $('.filter-search').keyup( debounce( function() {
-    searchRegex = new RegExp( $quickSearch.val(), 'gi' );
+  let $quickSearch = $('.filter-search').keyup(debounce(function () {
+    searchRegex = new RegExp($quickSearch.val(), 'gi');
     $grid_pubs.isotope();
-  }) );
+  }));
 
   // Debounce input to prevent spamming filter requests.
-  function debounce( fn, threshold ) {
+  function debounce(fn, threshold) {
     let timeout;
     threshold = threshold || 100;
     return function debounced() {
-      clearTimeout( timeout );
+      clearTimeout(timeout);
       let args = arguments;
       let _this = this;
+
       function delayed() {
-        fn.apply( _this, args );
+        fn.apply(_this, args);
       }
-      timeout = setTimeout( delayed, threshold );
+
+      timeout = setTimeout(delayed, threshold);
     };
   }
 
   // Flatten object by concatenating values.
-  function concatValues( obj ) {
+  function concatValues(obj) {
     let value = '';
-    for ( let prop in obj ) {
-      value += obj[ prop ];
+    for (let prop in obj) {
+      value += obj[prop];
     }
     return value;
   }
 
-  $('.pub-filters').on( 'change', function() {
+  $('.pub-filters').on('change', function () {
     let $this = $(this);
 
     // Get group key.
     let filterGroup = $this[0].getAttribute('data-filter-group');
 
     // Set filter for group.
-    pubFilters[ filterGroup ] = this.value;
+    pubFilters[filterGroup] = this.value;
 
     // Combine filters.
-    filterValues = concatValues( pubFilters );
+    filterValues = concatValues(pubFilters);
 
     // Activate filters.
     $grid_pubs.isotope();
@@ -200,7 +202,7 @@
 
   // Filter publications according to hash in URL.
   function filter_publications() {
-    let urlHash = window.location.hash.replace('#','');
+    let urlHash = window.location.hash.replace('#', '');
     let filterValue = '*';
 
     // Check if hash is numeric.
@@ -210,8 +212,8 @@
 
     // Set filter.
     let filterGroup = 'pubtype';
-    pubFilters[ filterGroup ] = filterValue;
-    filterValues = concatValues( pubFilters );
+    pubFilters[filterGroup] = filterValue;
+    filterValues = concatValues(pubFilters);
 
     // Activate filters.
     $grid_pubs.isotope();
@@ -224,7 +226,7 @@
   * Google Maps or OpenStreetMap via Leaflet.
   * --------------------------------------------------------------------------- */
 
-  function initMap () {
+  function initMap() {
     if ($('#map').length) {
       let map_provider = $('#map-provider').val();
       let lat = $('#map-lat').val();
@@ -233,7 +235,7 @@
       let address = $('#map-dir').val();
       let api_key = $('#map-api-key').val();
 
-      if ( map_provider == 1 ) {
+      if (map_provider == 1) {
         let map = new GMaps({
           div: '#map',
           lat: lat,
@@ -256,29 +258,29 @@
           lat: lat,
           lng: lng,
           click: function (e) {
-            let url = 'https://www.google.com/maps/place/' + encodeURIComponent(address) + '/@' + lat + ',' + lng +'/';
+            let url = 'https://www.google.com/maps/place/' + encodeURIComponent(address) + '/@' + lat + ',' + lng + '/';
             window.open(url, '_blank')
           },
           title: address
         })
       } else {
-          let map = new L.map('map').setView([lat, lng], zoom);
-          if ( map_provider == 3 && api_key.length ) {
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-              attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-              maxZoom: 18,
-              id: 'mapbox.streets',
-              accessToken: api_key
-            }).addTo(map);
-          } else {
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);
-          }
-          let marker = L.marker([lat, lng]).addTo(map);
-          let url = lat + ',' + lng +'#map='+ zoom +'/'+ lat +'/'+ lng +'&layers=N';
-          marker.bindPopup(address + '<p><a href="https://www.openstreetmap.org/directions?engine=osrm_car&route='+ url +'">Routing via OpenStreetMap</a></p>');
+        let map = new L.map('map').setView([lat, lng], zoom);
+        if (map_provider == 3 && api_key.length) {
+          L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: api_key
+          }).addTo(map);
+        } else {
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }).addTo(map);
+        }
+        let marker = L.marker([lat, lng]).addTo(map);
+        let url = lat + ',' + lng + '#map=' + zoom + '/' + lat + '/' + lng + '&layers=N';
+        marker.bindPopup(address + '<p><a href="https://www.openstreetmap.org/directions?engine=osrm_car&route=' + url + '">Routing via OpenStreetMap</a></p>');
       }
     }
   }
@@ -290,10 +292,10 @@
   function printLatestRelease(selector, repo) {
     $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
       let release = json[0];
-      $(selector).append(' '+release.name);
-    }).fail(function( jqxhr, textStatus, error ) {
+      $(selector).append(' ' + release.name);
+    }).fail(function (jqxhr, textStatus, error) {
       let err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      console.log("Request Failed: " + err);
     });
   }
 
@@ -314,7 +316,7 @@
       $('#fancybox-style-noscroll').remove();
     } else {
       // Prevent fixed positioned elements (e.g. navbar) moving due to scrollbars.
-      if ( !$('#fancybox-style-noscroll').length && document.body.scrollHeight > window.innerHeight ) {
+      if (!$('#fancybox-style-noscroll').length && document.body.scrollHeight > window.innerHeight) {
         $('head').append(
           '<style id="fancybox-style-noscroll">.compensate-for-scrollbar{margin-right:' +
           (window.innerWidth - document.documentElement.clientWidth) +
@@ -331,37 +333,169 @@
   }
 
   /* ---------------------------------------------------------------------------
-  * Toggle day/night mode.
+  * Change Theme Mode (0: Day, 1: Night, 2: Auto).
   * --------------------------------------------------------------------------- */
 
-  function toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled) {
-    if ($('body').hasClass('dark')) {
-      $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+  function canChangeTheme() {
+    // If the theme changer component is present, then user is allowed to change the theme variation.
+    return $('.js-dark-toggle').length;
+  }
+
+  function getThemeMode() {
+    return parseInt(localStorage.getItem('dark_mode') || 2);
+  }
+
+  function changeThemeModeClick() {
+    if (!canChangeTheme()) {
+      return;
+    }
+    let $themeChanger = $('.js-dark-toggle i');
+    let currentThemeMode = getThemeMode();
+    let isDarkTheme;
+    switch (currentThemeMode) {
+      case 0:
+        localStorage.setItem('dark_mode', '1');
+        isDarkTheme = 1;
+        console.info('User changed theme variation to Dark.');
+        $themeChanger.removeClass('fa-moon fa-sun').addClass('fa-palette');
+        break;
+      case 1:
+        localStorage.setItem('dark_mode', '2');
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
+          isDarkTheme = 1;
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          // The visitor prefers light themes and switching to the dark variation is allowed by admin.
+          isDarkTheme = 0;
+        } else {
+          isDarkTheme = isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
+        }
+        console.info('User changed theme variation to Auto.');
+        $themeChanger.removeClass('fa-moon fa-palette').addClass('fa-sun');
+        break;
+      default:
+        localStorage.setItem('dark_mode', '0');
+        isDarkTheme = 0;
+        console.info('User changed theme variation to Light.');
+        $themeChanger.removeClass('fa-sun fa-palette').addClass('fa-moon');
+        break;
+    }
+    renderThemeVariation(isDarkTheme);
+  }
+
+  function getThemeVariation() {
+    if (!canChangeTheme()) {
+      return isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
+    }
+    let currentThemeMode = getThemeMode();
+    let isDarkTheme;
+    switch (currentThemeMode) {
+      case 0:
+        isDarkTheme = 0;
+        break;
+      case 1:
+        isDarkTheme = 1;
+        break;
+      default:
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
+          isDarkTheme = 1;
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          // The visitor prefers light themes and switching to the dark variation is allowed by admin.
+          isDarkTheme = 0;
+        } else {
+          isDarkTheme = isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
+        }
+        break;
+    }
+    return isDarkTheme;
+  }
+
+  /**
+   * Render theme variation (day or night).
+   *
+   * @param {int} isDarkTheme - TODO: convert to boolean.
+   * @param {boolean} init
+   * @returns {undefined}
+   */
+  function renderThemeVariation(isDarkTheme, init = false) {
+    // Is code highlighting enabled in site config?
+    const codeHlEnabled = $('link[title=hl-light]').length > 0;
+    const codeHlLight = $('link[title=hl-light]')[0];
+    const codeHlDark = $('link[title=hl-dark]')[0];
+    const diagramEnabled = $('script[title=mermaid]').length > 0;
+
+    // Check if re-render required.
+    if (!init) {
+      // If request to render light when light variation already rendered, return.
+      // If request to render dark when dark variation already rendered, return.
+      if ((isDarkTheme === 0 && !$('body').hasClass('dark')) || (isDarkTheme === 1 && $('body').hasClass('dark'))) {
+        return;
+      }
+    }
+
+    if (isDarkTheme === 0) {
+      if (!init) {
+        // Only fade in the page when changing the theme variation.
+        $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+      }
       $('body').removeClass('dark');
       if (codeHlEnabled) {
         codeHlLight.disabled = false;
         codeHlDark.disabled = true;
       }
-      $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
-      localStorage.setItem('dark_mode', '0');
       if (diagramEnabled) {
-        // TODO: Investigate Mermaid.js approach to re-render diagrams with new theme without reloading.
-        location.reload();
+        if (init) {
+          mermaid.initialize({theme: 'default', securityLevel: 'loose'});
+        } else {
+          // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
+          location.reload();
+        }
       }
-    } else {
-      $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+    } else if (isDarkTheme === 1) {
+      if (!init) {
+        // Only fade in the page when changing the theme variation.
+        $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
+      }
       $('body').addClass('dark');
       if (codeHlEnabled) {
         codeHlLight.disabled = true;
         codeHlDark.disabled = false;
       }
-      $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
-      localStorage.setItem('dark_mode', '1');
       if (diagramEnabled) {
-        // TODO: Investigate Mermaid.js approach to re-render diagrams with new theme without reloading.
-        location.reload();
+        if (init) {
+          mermaid.initialize({theme: 'dark', securityLevel: 'loose'});
+        } else {
+          // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
+          location.reload();
+        }
       }
     }
+  }
+
+  function initThemeVariation() {
+    // If theme changer component present, set its icon according to the theme mode (day, night, or auto).
+    if (canChangeTheme) {
+      let themeMode = getThemeMode();
+      let $themeChanger = $('.js-dark-toggle i');
+      switch (themeMode) {
+        case 0:
+          $themeChanger.removeClass('fa-sun fa-palette').addClass('fa-moon');
+          console.info('Initialize theme variation to Light.');
+          break;
+        case 1:
+          $themeChanger.removeClass('fa-moon fa-sun').addClass('fa-palette');
+          console.info('Initialize theme variation to Dark.');
+          break;
+        default:
+          $themeChanger.removeClass('fa-moon fa-palette').addClass('fa-sun');
+          console.info('Initialize theme variation to Auto.');
+          break;
+      }
+    }
+    // Render the day or night theme.
+    let isDarkTheme = getThemeVariation();
+    renderThemeVariation(isDarkTheme, true);
   }
 
   /* ---------------------------------------------------------------------------
@@ -369,22 +503,27 @@
   * --------------------------------------------------------------------------- */
 
   function normalizeCarouselSlideHeights() {
-    $('.carousel').each(function(){
+    $('.carousel').each(function () {
       // Get carousel slides.
       let items = $('.carousel-item', this);
       // Reset all slide heights.
       items.css('min-height', 0);
       // Normalize all slide heights.
-      let maxHeight = Math.max.apply(null, items.map(function(){return $(this).outerHeight()}).get());
+      let maxHeight = Math.max.apply(null, items.map(function () {
+        return $(this).outerHeight()
+      }).get());
       items.css('min-height', maxHeight + 'px');
     })
   }
 
   /* ---------------------------------------------------------------------------
-   * On document ready.
-   * --------------------------------------------------------------------------- */
+ * Fix Hugo's Goldmark output and Mermaid code blocks.
+ * --------------------------------------------------------------------------- */
 
-  $(document).ready(function() {
+  /**
+   * Fix Hugo's Goldmark output.
+   */
+  function fixHugoOutput() {
     // Fix Goldmark table of contents.
     // - Must be performed prior to initializing ScrollSpy.
     $('#TableOfContents').addClass('nav flex-column');
@@ -393,79 +532,71 @@
 
     // Fix Goldmark task lists (remove bullet points).
     $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
+  }
 
-    // Fix Mermaid.js clash with Highlight.js.
-    // Refactor Mermaid code blocks as divs to prevent Highlight parsing them and enable Mermaid to parse them.
+  /**
+   * Fix Mermaid.js clash with Highlight.js.
+   * Refactor Mermaid code blocks as divs to prevent Highlight parsing them and enable Mermaid to parse them.
+   */
+  function fixMermaid() {
     let mermaids = [];
     [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
     for (let i = 0; i < mermaids.length; i++) {
       $(mermaids[i]).unwrap('pre');  // Remove <pre> wrapper.
-      $(mermaids[i]).replaceWith(function(){
+      $(mermaids[i]).replaceWith(function () {
         // Convert <code> block to <div> and add `mermaid` class so that Mermaid will parse it.
         return $("<div />").append($(this).contents()).addClass('mermaid');
       });
     }
+  }
+
+  /* ---------------------------------------------------------------------------
+   * On document ready.
+   * --------------------------------------------------------------------------- */
+
+  $(document).ready(function () {
+    fixHugoOutput();
+    fixMermaid();
+
     // Initialise code highlighting if enabled for this page.
     // Note: this block should be processed after the Mermaid code-->div conversion.
     if (code_highlighting) {
       hljs.initHighlighting();
     }
 
-    // Get theme variation (day/night).
-    let defaultThemeVariation;
-    if ($('body').hasClass('dark')) {
-      // The `color_theme` of the site is dark.
-      defaultThemeVariation = 1;
-    } else if ($('.js-dark-toggle').length && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
-      defaultThemeVariation = 1;
-    } else {
-      // Default to day (light) theme.
-      defaultThemeVariation = 0;
-    }
-    let dark_mode = parseInt(localStorage.getItem('dark_mode') || defaultThemeVariation);
+    // Initialize theme variation.
+    initThemeVariation();
 
-    // Is code highlighting enabled in site config?
-    const codeHlEnabled = $('link[title=hl-light]').length > 0;
-    const codeHlLight = $('link[title=hl-light]')[0];
-    const codeHlDark = $('link[title=hl-dark]')[0];
-    const diagramEnabled = $('script[title=mermaid]').length > 0;
-
-    if (dark_mode) {
-      $('body').addClass('dark');
-      if (codeHlEnabled) {
-        codeHlLight.disabled = true;
-        codeHlDark.disabled = false;
-      }
-      if (diagramEnabled) {
-        mermaid.initialize({ theme: 'dark', securityLevel: 'loose' });
-      }
-      $('.js-dark-toggle i').removeClass('fa-moon').addClass('fa-sun');
-    } else {
-      $('body').removeClass('dark');
-      if (codeHlEnabled) {
-        codeHlLight.disabled = false;
-        codeHlDark.disabled = true;
-      }
-      if (diagramEnabled) {
-        mermaid.initialize({ theme: 'default', securityLevel: 'loose' });
-      }
-      $('.js-dark-toggle i').removeClass('fa-sun').addClass('fa-moon');
-    }
-
-    // Toggle day/night mode.
-    $('.js-dark-toggle').click(function(e) {
+    // Change theme mode.
+    $('.js-dark-toggle').click(function (e) {
       e.preventDefault();
-      toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
+      changeThemeModeClick();
     });
 
     // Live update of day/night mode on system preferences update (no refresh required).
+    // Note: since we listen only for *dark* events, we won't detect other scheme changes such as light to no-preference.
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     darkModeMediaQuery.addListener((e) => {
-      if ($('.js-dark-toggle').length) {
-        const darkModeOn = e.matches;
-        console.log(`Dark mode is ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
-        toggleDarkMode(codeHlEnabled, codeHlLight, codeHlDark, diagramEnabled);
+      if (!canChangeTheme()) {
+        // Changing theme variation is not allowed by admin.
+        return;
+      }
+      const darkModeOn = e.matches;
+      console.log(`OS dark mode preference changed to ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
+      let currentThemeVariation = parseInt(localStorage.getItem('dark_mode') || 2);
+      let isDarkTheme;
+      if (currentThemeVariation === 2) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          // The visitor prefers dark themes.
+          isDarkTheme = 1;
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          // The visitor prefers light themes.
+          isDarkTheme = 0;
+        } else {
+          // The visitor does not have a day or night preference, so use the theme's default setting.
+          isDarkTheme = isSiteThemeDark;
+        }
+        renderThemeVariation(isDarkTheme);
       }
     });
   });
@@ -474,9 +605,9 @@
    * On window loaded.
    * --------------------------------------------------------------------------- */
 
-  $(window).on('load', function() {
+  $(window).on('load', function () {
     // Filter projects.
-    $('.projects-container').each(function(index, container) {
+    $('.projects-container').each(function (index, container) {
       let $container = $(container);
       let $section = $container.closest('section');
       let layout;
@@ -486,7 +617,7 @@
         layout = 'masonry';
       }
 
-      $container.imagesLoaded(function() {
+      $container.imagesLoaded(function () {
         // Initialize Isotope after all images have loaded.
         $container.isotope({
           itemSelector: '.isotope-item',
@@ -498,7 +629,7 @@
         });
 
         // Filter items when filter link is clicked.
-        $section.find('.project-filters a').click(function() {
+        $section.find('.project-filters a').click(function () {
           let selector = $(this).attr('data-filter');
           $container.isotope({filter: selector});
           $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
@@ -524,24 +655,24 @@
     }
 
     // Scroll to top of page.
-    $('.back-to-top').click( function(event) {
+    $('.back-to-top').click(function (event) {
       event.preventDefault();
       $('html, body').animate({
         'scrollTop': 0
-      }, 800, function() {
+      }, 800, function () {
         window.location.hash = "";
       });
     });
 
     // Load citation modal on 'Cite' click.
-    $('.js-cite-modal').click(function(e) {
+    $('.js-cite-modal').click(function (e) {
       e.preventDefault();
       let filename = $(this).attr('data-filename');
       let modal = $('#modal');
-      modal.find('.modal-body code').load( filename , function( response, status, xhr ) {
-        if ( status == 'error' ) {
+      modal.find('.modal-body code').load(filename, function (response, status, xhr) {
+        if (status == 'error') {
           let msg = "Error: ";
-          $('#modal-error').html( msg + xhr.status + " " + xhr.statusText );
+          $('#modal-error').html(msg + xhr.status + " " + xhr.statusText);
         } else {
           $('.js-download-cite').attr('href', filename);
         }
@@ -550,7 +681,7 @@
     });
 
     // Copy citation text on 'Copy' click.
-    $('.js-copy-cite').click(function(e) {
+    $('.js-copy-cite').click(function (e) {
       e.preventDefault();
       // Get selection.
       let range = document.createRange();
@@ -560,7 +691,7 @@
       try {
         // Execute the copy command.
         document.execCommand('copy');
-      } catch(e) {
+      } catch (e) {
         console.log('Error: citation copy failed.');
       }
       // Remove selection.
@@ -576,11 +707,11 @@
       printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
 
     // On search icon click toggle search dialog.
-    $('.js-search').click(function(e) {
+    $('.js-search').click(function (e) {
       e.preventDefault();
       toggleSearchDialog();
     });
-    $(document).on('keydown', function(e){
+    $(document).on('keydown', function (e) {
       if (e.which == 27) {
         // `Esc` key pressed.
         if ($('body').hasClass('searching')) {
@@ -627,7 +758,7 @@
 
     // Call `fixScrollspy` when window is resized.
     let resizeTimer;
-    $(window).resize(function() {
+    $(window).resize(function () {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(fixScrollspy, 200);
     });
