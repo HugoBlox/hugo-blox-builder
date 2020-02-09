@@ -148,7 +148,7 @@
   <link rel="canonical" href="{{ .Permalink }}">
 
   {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
-  {{ $has_logo := fileExists "assets/images/logo.png" }}
+  {{ $has_logo := fileExists "assets/images/logo.png" | or (fileExists "assets/images/logo.svg") }}
   {{ $og_image := "" }}
   {{ $twitter_card := "summary_large_image" }}
   {{ if $featured_image }}

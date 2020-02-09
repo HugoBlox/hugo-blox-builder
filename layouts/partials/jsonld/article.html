@@ -1,4 +1,4 @@
-{{ $page := .page }}
+{{- $page := .page }}
 {{ $summary := .summary }}
 {{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
 
@@ -10,7 +10,7 @@
 
 {{ $author := partial "functions/get_author_name" $page }}
 {{ $publisher := site.Params.org_name | default site.Title }}
-{{ $logo_url := (printf "img/%s" (site.Params.logo | absURL)) | default (partial "functions/get_icon" 512).Permalink }}
+{{ $logo_url := partial "functions/get_logo_url" $page -}}
 
 <script type="application/ld+json">
 {

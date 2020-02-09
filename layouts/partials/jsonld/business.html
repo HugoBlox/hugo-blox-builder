@@ -4,7 +4,7 @@
   "@type": {{site.Params.local_business_type | default site.Params.site_type}},
   "@id": {{site.BaseURL}},
   "name": {{site.Params.org_name | default site.Title}},
-  {{with site.Params.logo}}"logo": {{printf "img/%s" . | absURL}},{{end}}
+  "logo": {{ partial "functions/get_logo_url" . }},
   {{with site.Params.sharing_image}}"image": {{printf "img/%s" . | absURL}},{{end}}
   {{ if (eq site.Params.site_type "LocalBusiness") | and site.Params.coordinates }}
   "geo": {
