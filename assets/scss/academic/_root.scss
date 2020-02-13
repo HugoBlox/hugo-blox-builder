@@ -3,7 +3,7 @@
  **************************************************/
 
 html {
-  font-family: $sta-font-body, sans-serif;
+  font-family: "#{$sta-font-body}", sans-serif;
   font-size: #{$sta-font-size-small}px;
   color: rgba(0,0,0,0.8);
   line-height: 1.65;
@@ -65,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
 
 /* Navigation bar text */
 .navbar-light {
-  font-family: $sta-font-nav, sans-serif;
+  font-family: "#{$sta-font-nav}", sans-serif;
   font-weight: 400;
   line-height: 1.25;
   text-rendering: optimizeLegibility;
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: $sta-font-heading, sans-serif;
+  font-family: "#{$sta-font-heading}", sans-serif;
   font-weight: 400;
   margin-top: 1rem;
   margin-bottom: .5rem;
@@ -166,7 +166,7 @@ figcaption.numbered {
 
 pre,
 code {
-  font-family: $sta-font-mono, monospace;
+  font-family: "#{$sta-font-mono}", monospace;
   color: #c7254e;
   background-color: #f9f2f4;
 }
