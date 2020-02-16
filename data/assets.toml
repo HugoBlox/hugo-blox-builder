@@ -19,6 +19,7 @@
   version = "3"
   sri = ""  # No SRI as dynamically generated.
   url = "https://cdn.jsdelivr.net/npm/mathjax@%s/es5/tex-chtml.js"
+  download_url = "https://github.com/mathjax/MathJax/archive/master.zip"
   async = true
 [js.isotope]
   version = "3.0.6"
@@ -73,13 +74,15 @@
 # CSS
 
 [css.fontAwesome]
-  version = "5.12.0-1"
+  version = "5.12.1"
   sri = "sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU="
   url = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/all.min.css"
+  download_url = "https://github.com/FortAwesome/Font-Awesome/releases/download/%s/fontawesome-free-%s-web.zip"
 [css.academicons]
   version = "1.8.6"
   sri = "sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw="
   url = "https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css"
+  download_url = "https://github.com/jpswalsh/academicons/archive/v%s.zip"
 [css.leaflet]
   version = "1.5.1"
   sri = "sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM="

@@ -3,7 +3,7 @@
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
     {{ $js := site.Data.assets.js }}
     {{ if not ($scr.Get "use_cdn") }}
-      <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
+      <script src="{{ printf "/vendor/js/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
     {{ else }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}

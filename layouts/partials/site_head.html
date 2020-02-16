@@ -56,9 +56,9 @@
   {{/* Attempt to load local vendor CSS, otherwise load from CDN. */}}
   {{ $scr.Set "vendor_css_filename" "main.min.css" }}
   {{ $scr.Set "vendor_js_filename" "main.min.js" }}
-  {{ if and (fileExists (printf "static/css/vendor/%s" ($scr.Get "vendor_css_filename"))) (fileExists (printf "static/js/vendor/%s" ($scr.Get "vendor_js_filename"))) }}
+  {{ if and (fileExists (printf "static/vendor/css/%s" ($scr.Get "vendor_css_filename"))) (fileExists (printf "static/vendor/js/%s" ($scr.Get "vendor_js_filename"))) }}
     {{ $scr.Set "use_cdn" 0 }}
-    <link rel="stylesheet" href="{{ printf "/css/vendor/%s" ($scr.Get "vendor_css_filename") | relURL }}">
+    <link rel="stylesheet" href="{{ printf "/vendor/css/%s" ($scr.Get "vendor_css_filename") | relURL }}">
   {{ else }}
     {{ $scr.Set "use_cdn" 1 }}
     {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.academicons.url $css.academicons.version) $css.academicons.sri | safeHTML }}
