@@ -59,6 +59,11 @@
   {{ if and (fileExists (printf "static/vendor/css/%s" ($scr.Get "vendor_css_filename"))) (fileExists (printf "static/vendor/js/%s" ($scr.Get "vendor_js_filename"))) }}
     {{ $scr.Set "use_cdn" 0 }}
     <link rel="stylesheet" href="{{ printf "/vendor/css/%s" ($scr.Get "vendor_css_filename") | relURL }}">
+
+    {{/* Only load MathJax if required. */}}
+    {{ if (or $.Params.math site.Params.math) }}
+      <script src="/vendor/js/mathJax/tex-chtml.js" async></script>
+    {{end}}
   {{ else }}
     {{ $scr.Set "use_cdn" 1 }}
     {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.academicons.url $css.academicons.version) $css.academicons.sri | safeHTML }}
