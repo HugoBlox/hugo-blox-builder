@@ -15,6 +15,7 @@
   version = "9.15.10"
   sri = "sha256-1zu+3BnLYV9LdiY85uXMzii3bdrkelyp37e0ZyTAQh0="
   url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/highlight.min.js"
+  language_url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/languages/%s.min.js"
 [js.mathJax]
   version = "3"
   sri = ""  # No SRI as dynamically generated.
