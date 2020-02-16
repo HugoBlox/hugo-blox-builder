@@ -1,0 +1,224 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Toggle navigation
+
+- id: table_of_contents
+  translation: Obsah
+
+- id: on_this_page
+  translation: Na stránce
+
+- id: back_to_top
+  translation: Nahoru
+
+# General
+
+- id: related
+  translation: Related
+
+- id: minute_read
+  translation: min read
+
+- id: previous
+  translation: Předchozí
+
+- id: next
+  translation: Další
+
+- id: figure
+  translation: "Obrázek %d:"
+
+- id: edit_page
+  translation: Upravit stránku
+
+# Buttons
+
+- id: btn_preprint
+  translation: Tisk
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citace
+
+- id: btn_slides
+  translation: Slidy
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kód
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Plakát
+
+- id: btn_source
+  translation: Zdrojový dokument
+
+- id: btn_copy
+  translation: Kopírovat
+
+- id: btn_download
+  translation: Stáhnout
+
+# About widget
+
+- id: interests
+  translation: Zájmy
+
+- id: education
+  translation: Vzdělání
+
+- id: user_profile_latest
+  translation: Nejnověší
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Stáhnout
+
+# Experience widget
+
+- id: present
+  translation: Aktuální
+
+# Pages widget
+
+- id: more_pages
+  translation: Zobrazit všechny
+
+- id: more_posts
+  translation: Zobrazit všechny aktualizy
+
+- id: more_talks
+  translation: Zobrazit všechny přednášky
+
+- id: more_publications
+  translation: Zobrazit všechny publikace
+
+# Contact widget
+
+- id: contact_name
+  translation: Jméno
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Zpráva
+
+- id: contact_send
+  translation: Poslat
+
+- id: book_appointment
+  translation: Rezervovat schůzku
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Abstrakt
+
+- id: publication
+  translation: Publikace
+
+- id: publication_type
+  translation: Typ
+
+- id: date
+  translation: Datum
+
+- id: last_updated
+  translation: Naposledy aktualizováno dne
+
+- id: event
+  translation: Událost
+
+- id: location
+  translation: Místo
+
+- id: pub_uncat
+  translation: Nezařazeno
+
+- id: pub_conf
+  translation: Materiál ke konferenci
+
+- id: pub_journal
+  translation: Článek v žurnálu
+
+- id: pub_preprint
+  translation: Tisk předem
+
+- id: pub_report
+  translation: Správa
+
+- id: pub_book
+  translation: Kniha
+
+- id: pub_book_section
+  translation: Sekce knihy
+
+- id: pub_thesis
+  translation: Diplomová práce
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Na stánku projektu
+
+# Default titles for archive pages
+
+- id: posts
+  translation: Aktuality
+
+- id: publications
+  translation: Publikace
+
+- id: talks
+  translation: Přednášky
+
+- id: projects
+  translation: Projekty
+
+# Search
+
+- id: search
+  translation: Hledání
+
+- id: search_placeholder
+  translation: Hledání...
+
+- id: search_results
+  translation: nalezených výsledků
+
+- id: search_no_results
+  translation: Nic nelalezeno
+# Error 404
+
+- id: page_not_found
+  translation: Stránka neexistuje
+
+- id: 404_recommendations
+  translation: Nehledáte náhodou jednu z těchto stránek?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Tyto stránky používá cookies k zajištění co možná nejlepší zkušenosti na našem webu.
+
+- id: cookie_dismiss
+  translation: Rozumím!
+
+- id: cookie_learn
+  translation: Zjistit více
