@@ -11,6 +11,9 @@ weight = 80  # Order that this section will appear.
 title = "Featured Publications"
 subtitle = ""
 
+# To include a "See all" link which links to all publications etc set `link_to_more` to "true" (uncomment the below)
+# link_to_more = true
+
 [content]
   # Page type to display. E.g. post, talk, or publication.
   page_type = "publication"
