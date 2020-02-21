@@ -59,7 +59,7 @@
     <i class="fas fa-folder mr-1"></i>
     {{- range $index, $value := . -}}
       {{- if gt $index 0 }}, {{ end -}}
-      <a href="{{ (site.GetPage (printf "/%s/%s" $taxonomy (. | urlize))).RelPermalink }}">{{ . }}</a>
+      <a href="{{ (site.GetPage (printf "/%s/%s" $taxonomy (. | safeHTML))).RelPermalink }}">{{ . }}</a>
     {{- end -}}
   </span>
   {{ end }}
