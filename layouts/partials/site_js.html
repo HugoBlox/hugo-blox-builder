@@ -68,7 +68,11 @@
 
     {{/* Load hash anchors for documentation pages. */}}
     {{ if eq .Type "docs" }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
+    {{ if fileExists (printf "static/vendor/js/%s" ($scr.Get "vendor_js_filename")) }}
+      {{/* vendored JS is already loaded */}}
+    {{ else }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
+    {{ end }}
     <script>
       anchors.add();
     </script>
