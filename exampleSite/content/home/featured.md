@@ -21,6 +21,9 @@ subtitle = ""
   # Page order. Descending (desc) or ascending (asc) date.
   order = "desc"
 
+  # Show a "See all pages" link underneath the featured content?
+  link_to_archive = false
+
   # Filter posts by a taxonomy term.
   [content.filters]
     tag = ""

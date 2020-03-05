@@ -9,6 +9,7 @@
 
 {{/* Query */}}
 {{ $query := where (where site.RegularPages "Type" $items_type) "Params.featured" true }}
+{{ $archive_page := site.GetPage "Section" $items_type }}
 
 {{/* Filters */}}
 {{ if $st.Params.content.filters.tag }}
@@ -31,6 +32,18 @@
 {{/* Limit */}}
 {{ $query = first $items_count $query }}
 
+{{/* Localisation */}}
+{{ $i18n := "" }}
+{{ if eq $items_type "post" }}
+  {{ $i18n = "more_posts" }}
+{{ else if eq $items_type "talk" }}
+  {{ $i18n = "more_talks" }}
+{{ else if eq $items_type "publication" }}
+  {{ $i18n = "more_publications" }}
+{{ else }}
+  {{ $i18n = "more_pages" }}
+{{ end }}
+
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
     <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
@@ -51,6 +64,15 @@
         {{ partial "li_compact" . }}
       {{ end }}
     {{end}}
+
+  {{ if $st.Params.content.link_to_archive }}
+    <div class="see-all">
+      <a href="{{ $archive_page.RelPermalink }}">
+        {{ i18n $i18n | default "See all" }}
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </div>
+  {{ end }}
 
   </div>
 </div>
