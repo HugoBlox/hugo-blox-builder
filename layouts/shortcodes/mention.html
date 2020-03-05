@@ -1,5 +1,5 @@
 {{- $username := .Get 0 -}}
-{{- $username_url := $username | anchorize -}}
+{{- $username_url := $username | urlize -}}
 {{- $taxonomy := "authors" -}}
 {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $username_url) -}}
 {{- $name := $profile_page.Params.name | default ($username|markdownify) -}}
