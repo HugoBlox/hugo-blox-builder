@@ -65,7 +65,7 @@
       {{ end }}
     {{end}}
 
-  {{ if $st.Params.link_to_more }}
+  {{ if $st.Params.content.link_to_archive }}
     <div class="see-all">
       <a href="{{ $archive_page.RelPermalink }}">
         {{ i18n $i18n | default "See all" }}
