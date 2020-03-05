@@ -1,6 +1,6 @@
 {{/* Display author list. */}}
 
-{{ $taxonomy := "authors" }}
+{{- $taxonomy := "authors" }}
 {{ with .Param $taxonomy }}
   {{ $link_authors := site.Params.link_authors | default true }}
   {{ range $index, $value := . }}
@@ -15,4 +15,4 @@
       {{- end -}}
     </span>
   {{- end -}}
-{{ end }}
+{{- end -}}
