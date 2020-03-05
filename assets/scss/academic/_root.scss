@@ -24,7 +24,7 @@ body {
   padding-top: 0;
   counter-reset: captions;
 }
-@media screen and (max-width: 1200px) { /* Match max-width of .nav-bar query. */
+@include media-breakpoint-down(md) { /* Match max-width of .nav-bar query. */
   body {
     margin-top: 50px; /* Offset body content by navbar height. */
   }
