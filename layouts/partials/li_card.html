@@ -15,10 +15,8 @@
   {{ $summary = $item.Params.summary | markdownify | emojify }}
 {{ else if .Params.abstract }}
   {{ $summary = .Params.abstract | markdownify | emojify }}
-{{ else if $item.Truncated }}
+{{ else if $item.Summary }}
   {{ $summary = $item.Summary }}
-{{ else }}
-  {{ $summary = $item.Content }}
 {{ end }}
 
 <div class="card-simple">

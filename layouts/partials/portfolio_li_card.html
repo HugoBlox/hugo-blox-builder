@@ -9,11 +9,9 @@
 {{ if $item.Params.summary }}
   {{ $summary = $item.Params.summary | markdownify | emojify }}
 {{ else if .Params.abstract }}
-  {{ $summary = .Params.abstract | markdownify | emojify }}
-{{ else if $item.Truncated }}
+  {{ $summary = .Params.abstract | markdownify | emojify | truncate (site.Params.abstract_length | default 135) }}
+{{ else if $item.Summary }}
   {{ $summary = $item.Summary }}
-{{ else }}
-  {{ $summary = $item.Content }}
 {{ end }}
 
 {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
@@ -31,7 +29,7 @@
       <h4><a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{ $item.Title | markdownify | emojify }}</a></h4>
       {{ with $summary }}
       <div class="article-style">
-        <p>{{ . | truncate 135 }}</p>
+        <p>{{ . }}</p>
       </div>
       {{ end }}
     </div>
