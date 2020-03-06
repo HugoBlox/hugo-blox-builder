@@ -9,10 +9,10 @@ $sta-lighten-percentage: 10%;
 $sta-font-size: {{ $scr.Get "font_size" }};
 $sta-font-size-small: {{ $scr.Get "font_size_small" }};
 
-$sta-font-body: {{ $scr.Get "body_font" }};
-$sta-font-heading: {{ $scr.Get "heading_font" }};
-$sta-font-nav: {{ $scr.Get "nav_font" }};
-$sta-font-mono: {{ $scr.Get "mono_font" }};
+$sta-font-body: "{{ $scr.Get "body_font" }}";
+$sta-font-heading: "{{ $scr.Get "heading_font" }}";
+$sta-font-nav: "{{ $scr.Get "nav_font" }}";
+$sta-font-mono: "{{ $scr.Get "mono_font" }}";
 
 $sta-primary: {{ $scr.Get "primary" }};
 $sta-primary-light: lighten($sta-primary, $sta-lighten-percentage);
