@@ -18,7 +18,7 @@
 {{/* Get caption. Support legacy `title` option. */}}
 {{ $caption := .Get "title" | default (.Get "caption") | default "" }}
 
-<figure{{ with .Get "class" }} class="{{.}}"{{ end }}>
+<figure{{ with .Get "class" }} class="{{.}}"{{ end }} {{ with $caption }}id="figure-{{ anchorize . }}"{{ end }}>
 
 {{ if $lightbox }}
   <a data-fancybox="{{$group}}" href="{{$image_src}}" {{ with $caption }}data-caption="{{ .|markdownify|emojify }}"{{ end }}>
