@@ -40,6 +40,11 @@
               {{ i18n "see_certificate" | default "See certificate" }}
             </a>
           {{ end }}
+          {{ with .details_url }}
+            <a class="card-link" href="{{.}}" target="_blank" rel="noopener">
+              {{ i18n "see_details" | default "See more details" }}
+            </a>
+          {{ end }}
         </div>
       </div>
     {{end}}
