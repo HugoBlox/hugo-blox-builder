@@ -23,10 +23,10 @@
     <div id="profile">
 
       {{ if site.Params.avatar.gravatar }}
-      <img class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=270')" alt="Avatar">
+      <img class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=270')" alt="{{$person.name}}">
       {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "270x270 Center" }}
-      <img class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="Avatar">
+      <img class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$person.name}}">
       {{ end }}
 
       <div class="portrait-title">
