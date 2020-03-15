@@ -1,7 +1,7 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Toggle navigation
+  translation: Přepnout navigaci
 
 - id: table_of_contents
   translation: Obsah
@@ -15,10 +15,10 @@
 # General
 
 - id: related
-  translation: Related
+  translation: Související
 
 - id: minute_read
-  translation: min read
+  translation: min čtení
 
 - id: previous
   translation: Předchozí
@@ -97,7 +97,7 @@
   translation: Zobrazit všechny
 
 - id: more_posts
-  translation: Zobrazit všechny aktualizy
+  translation: Zobrazit všechny aktuality
 
 - id: more_talks
   translation: Zobrazit všechny přednášky
@@ -215,7 +215,7 @@
 # Cookie consent
 
 - id: cookie_message
-  translation: Tyto stránky používá cookies k zajištění co možná nejlepší zkušenosti na našem webu.
+  translation: Tyto stránky používají cookies k zajištění co možná nejlepší zkušenosti na našem webu.
 
 - id: cookie_dismiss
   translation: Rozumím!
