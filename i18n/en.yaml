@@ -32,6 +32,17 @@
 - id: edit_page
   translation: Edit this page
 
+# Themes
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
 # Buttons
 
 - id: btn_preprint

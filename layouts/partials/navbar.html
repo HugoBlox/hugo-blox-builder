@@ -131,8 +131,21 @@
       {{ end }}
 
       {{ if site.Params.day_night }}
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>{{ i18n "theme_light" | default "Light" }}</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>{{ i18n "theme_dark" | default "Dark" }}</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>{{ i18n "theme_auto" | default "Automatic" }}</span>
+          </a>
+        </div>
       </li>
       {{ end }}
 
@@ -142,7 +155,7 @@
           <i class="fas fa-globe mr-1" aria-hidden="true"></i><span class="d-none d-lg-inline">{{ index site.Data.i18n.languages .Lang }}</span>
         </a>
         <div class="dropdown-menu">
-          <div class="dropdown-item i18n-active font-weight-bold">
+          <div class="dropdown-item dropdown-item-active">
             <span>{{ index site.Data.i18n.languages .Lang }}</span>
           </div>
           {{ range .Translations }}
