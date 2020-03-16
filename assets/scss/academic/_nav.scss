@@ -86,16 +86,19 @@
 
 @include media-breakpoint-down(md) {  /* Match breakpoint for i18n dropdown in navbar.html. */
   .i18n-dropdown .nav-link::after {
+    // Remove dropdown arrow on small devices (when language name isn't displayed).
     content: none;
   }
-  .i18n-dropdown .dropdown-menu,
-  .theme-dropdown .dropdown-menu {
-    /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
-    position: absolute;
-    /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
-    right: 0;
-    left: auto;
-  }
+}
+
+// Prevent language and theme selectors rendering off page.
+.i18n-dropdown .dropdown-menu,
+.theme-dropdown .dropdown-menu {
+  /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
+  position: absolute;
+  /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
+  right: 0;
+  left: auto;
 }
 
 // Allow user to horizontally scroll.
