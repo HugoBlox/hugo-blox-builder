@@ -14,7 +14,15 @@
 {{ $items_sort := $st.Params.content.order | default "desc" }}
 
 {{/* Query */}}
-{{ $query := where site.RegularPages "Type" $items_type }}
+{{ $pages_set_name := $st.Params.content.pages_set | default "RegularPages" }}
+{{ $pages_set_scratch := newScratch }}
+{{ if eq $pages_set_name "Pages" }}
+  {{ $pages_set_scratch.Set "pages_set" site.Pages }}
+{{ else if eq $pages_set_name "RegularPages" }}
+  {{ $pages_set_scratch.Set "pages_set" site.RegularPages }}
+{{ end }}
+{{ $query := where ($pages_set_scratch.Get "pages_set") "Type" $items_type }}
+
 {{ $archive_page := site.GetPage "Section" $items_type }}
 
 {{/* Filters */}}

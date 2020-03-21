@@ -23,6 +23,12 @@ subtitle = ""
   # Page order. Descending (desc) or ascending (asc) date.
   order = "desc"
 
+  # Set of pages:
+  # * "RegularPages" for content pages, i.e. ones with kind = "page"
+  # * "Pages" for all pages in current language
+  #   (including "page", "home", "section", "taxonomy", "taxonomyTerm")
+  pages_set = "RegularPages"
+
   # Filter posts by a taxonomy term.
   [content.filters]
     tag = ""
