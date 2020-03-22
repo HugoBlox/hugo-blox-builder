@@ -1,0 +1,236 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Rog socodka
+
+- id: table_of_contents
+  translation: Tusmada Guud
+
+- id: on_this_page
+  translation: Boggan ku yaal
+
+- id: back_to_top
+  translation: Kor aad
+
+# General
+
+- id: related
+  translation: La Mida
+
+- id: minute_read
+  translation: Akhrisma
+
+- id: previous
+  translation: Hore
+
+- id: next
+  translation: Xiga
+
+- id: figure
+  translation: "Sawir %d:"
+
+- id: edit_page
+  translation: Tifatir Boggan
+
+# Themes
+
+- id: theme_light
+  translation: Caddee
+
+- id: theme_dark
+  translation: Madoobee
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Daabac hore
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Xigso
+
+- id: btn_slides
+  translation: Slides
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Xog
+
+- id: btn_project
+  translation: Mashruuc
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Source Document
+
+- id: btn_copy
+  translation: Nuqul
+
+- id: btn_download
+  translation: Dajiso
+
+# About widget
+
+- id: interests
+  translation: Hiwaayado
+
+- id: education
+  translation: Waxbarasho
+
+- id: user_profile_latest
+  translation: Ugu cusub
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Arag Shahaadada
+
+# Experience widget
+
+- id: present
+  translation: Hadda
+
+# Pages widget
+
+- id: more_pages
+  translation: Arag dhammaan
+
+- id: more_posts
+  translation: Arag dhammaan qoraalada
+
+- id: more_talks
+  translation: Arag Qudbadaha
+
+- id: more_publications
+  translation: Arag qoraalada oo dhan
+
+# Contact widget
+
+- id: contact_name
+  translation: Magac
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Baaq
+
+- id: contact_send
+  translation: Dir
+
+- id: book_appointment
+  translation: Ballan qabso
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Arar
+
+- id: publication
+  translation: Qormooyin
+
+- id: publication_type
+  translation: Nooc
+
+- id: date
+  translation: Goor
+
+- id: last_updated
+  translation: La tifatiray
+
+- id: event
+  translation: Dhacdo
+
+- id: location
+  translation: Meel
+
+- id: pub_uncat
+  translation: Kale
+
+- id: pub_conf
+  translation: Qoraal Shir
+
+- id: pub_journal
+  translation: Qoraal Majallad
+
+- id: pub_preprint
+  translation: Daabac Hore
+
+- id: pub_report
+  translation: Wargelin
+
+- id: pub_book
+  translation: Buug
+
+- id: pub_book_section
+  translation: Qayb Buug
+
+- id: pub_thesis
+  translation: Buug Qalinjabin
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Tag Bogga Mashruuca
+
+# Default titles for archive pages
+
+- id: posts
+  translation: Qoraal
+
+- id: publications
+  translation: Publications
+
+- id: talks
+  translation: Qudbad
+
+- id: projects
+  translation: Mashruuc
+
+# Search
+
+- id: search
+  translation: Raadi
+
+- id: search_placeholder
+  translation: Raadi...
+
+- id: search_results
+  translation: results found
+
+- id: search_no_results
+  translation: No results found
+
+# Error 404
+
+- id: page_not_found
+  translation: Boggan lama helin
+
+- id: 404_recommendations
+  translation: Malaha waxaad raadinaysay?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Boggani wuxuu isticmaala "cookies" sii aad u hesho adeegga ugu wacan
+
+- id: cookie_dismiss
+  translation: Gartay!
+
+- id: cookie_learn
+  translation: Faahfaahin
