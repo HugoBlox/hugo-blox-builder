@@ -157,7 +157,7 @@
   translation: Lokacija
 
 - id: pub_uncat
-  translation: Nakategorizuota
+  translation: Nekategorizuota
 
 - id: pub_conf
   translation: Konferencijos publikacija
