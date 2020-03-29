@@ -1,27 +1,27 @@
 - id: toggle_navigation
   translation: Navigatiebalk
 - id: table_of_contents
-  translation: Table of Contents
+  translation: Inhoudsopgave
 - id: on_this_page
-  translation: On this page
+  translation: Op deze pagina
 - id: back_to_top
-  translation: Back to top
+  translation: Terug naar boven
 - id: related
-  translation: Related
+  translation: Gerelateerd
 - id: minute_read
-  translation: min read
+  translation: minuten lezen
 - id: previous
-  translation: Previous
+  translation: Vorige
 - id: next
-  translation: Next
+  translation: Volgende
 - id: figure
-  translation: 'Figure %d:'
+  translation: 'Figuur %d:'
 - id: btn_preprint
   translation: Preprint
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
-  translation: Cite
+  translation: Citeer
 - id: btn_slides
   translation: Dia's
 - id: btn_video
@@ -35,9 +35,9 @@
 - id: btn_poster
   translation: Poster
 - id: btn_source
-  translation: Source Document
+  translation: Brondocument
 - id: btn_copy
-  translation: Copy
+  translation: Kopieer
 - id: btn_download
   translation: Download
 - id: interests
@@ -45,13 +45,13 @@
 - id: education
   translation: Educatie
 - id: user_profile_latest
-  translation: Latest
+  translation: Nieuwste
 - id: see_certificate
-  translation: See certificate
+  translation: Bekijk certificate
 - id: present
   translation: Present
 - id: more_pages
-  translation: See all
+  translation: Bekijk alles
 - id: more_posts
   translation: Meer Berichten
 - id: more_talks
@@ -59,17 +59,17 @@
 - id: more_publications
   translation: Meer Publicaties
 - id: contact_name
-  translation: Name
+  translation: Naam
 - id: contact_email
-  translation: Email
+  translation: E-mailadres
 - id: contact_message
-  translation: Message
+  translation: Bericht
 - id: contact_send
-  translation: Send
+  translation: Verzend
 - id: book_appointment
-  translation: Book an appointment
+  translation: Maak een afspraak
 - id: abstract
-  translation: Korte inhoud
+  translation: Samenvatting
 - id: publication
   translation: Publicatie
 - id: publication_type
@@ -77,31 +77,31 @@
 - id: date
   translation: Datum
 - id: last_updated
-  translation: Last updated on
+  translation: Laatst bijgewerkt op
 - id: event
   translation: Evenement
 - id: location
   translation: Locatie
 - id: pub_uncat
-  translation: Uncategorized
+  translation: Ongecategoriseerd
 - id: pub_conf
-  translation: Conference paper
+  translation: Conferentiepaper
 - id: pub_journal
-  translation: Journal article
+  translation: Journalartikel
 - id: pub_preprint
   translation: Preprint
 - id: pub_report
-  translation: Report
+  translation: Rapport
 - id: pub_book
-  translation: Book
+  translation: Boek
 - id: pub_book_section
-  translation: Book section
+  translation: Boek sectie
 - id: pub_thesis
-  translation: Thesis
+  translation: Proefschrift
 - id: pub_patent
   translation: Patent
 - id: open_project_site
-  translation: Ga naar Projecten pagina
+  translation: Ga naar Projectenpagina
 - id: posts
   translation: Berichten
 - id: publications
@@ -113,18 +113,18 @@
 - id: search
   translation: Search
 - id: search_placeholder
-  translation: Search...
+  translation: Zoeken...
 - id: search_results
-  translation: results found
+  translation: resultaten gevonden
 - id: search_no_results
-  translation: No results found
+  translation: Geen resultaten gevonden
 - id: page_not_found
-  translation: Page not found
+  translation: Pagina niet gevonden
 - id: 404_recommendations
-  translation: Perhaps you were looking for one of these?
+  translation: Misschien was je op zoek naar een van deze pagina's?
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Deze website gebruikt cookies om je de best mogelijke ervaring te bieden.
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Accepteer cookies
 - id: cookie_learn
-  translation: Learn more
+  translation: Meer informatie
