@@ -147,11 +147,16 @@
 
   <link rel="canonical" href="{{ .Permalink }}">
 
+  {{/* Get page image for sharing. */}}
   {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
   {{ $has_logo := fileExists "assets/images/logo.png" | or (fileExists "assets/images/logo.svg") }}
   {{ $og_image := "" }}
   {{ $twitter_card := "summary_large_image" }}
-  {{ if $featured_image }}
+  {{ if (and (eq .Kind "taxonomy") $avatar_image) }}
+    {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}{{/* Match image proc in About widget. */}}
+    {{ $twitter_card = "summary" }}
+  {{ else if $featured_image }}
     {{ $og_image = $featured_image.Permalink }}
   {{ else if .Params.header.image }}
     {{ $og_image = printf "img/%s" .Params.header.image | absURL }}
@@ -159,9 +164,6 @@
     {{ $og_image = printf "img/%s" site.Params.sharing_image | absURL }}
   {{ else if $has_logo }}
     {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
-    {{ $twitter_card = "summary" }}
-  {{ else if site.Params.avatar }}
-    {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}
     {{ $twitter_card = "summary" }}
   {{ else }}
     {{ $og_image = (partial "functions/get_icon" 512).Permalink }}
