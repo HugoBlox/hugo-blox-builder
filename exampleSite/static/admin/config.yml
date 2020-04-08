@@ -1,0 +1,166 @@
+backend:
+  name: git-gateway
+  branch: master
+media_folder: 'static/img/'
+public_folder: 'img'
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: 'content/post'
+    path: '{{slug}}/index'
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Publish this page on", name: "date", widget: "datetime"}
+      - {label: "Summary", name: "summary", widget: "markdown"}
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+      - label: "Authors"
+        name: "authors"
+        required: false
+        widget: "list"
+      - label: "Tags"
+        name: "tags"
+        required: false
+        widget: "list"
+      - label: "Categories"
+        name: "categories"
+        required: false
+        widget: "list"
+      - label: "Projects"
+        name: "projects"
+        required: false
+        widget: "list"
+      - label: "Featured Image"
+        name: "image"
+        required: false
+        widget: object
+        fields:
+          - label: "Upload an image named `featured.jpg/png`"
+            name: "filename"
+            widget: "image"
+            default: "featured"
+            media_library:
+              config:
+                multiple: false
+          - {label: Caption, name: caption, widget: string, required: false}
+          - {label: Description for screen readers, name: alt_text, widget: string, required: false}
+          - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+  - name: talks
+    label: Talks
+    label_singular: Talk
+    folder: 'content/talk'
+    path: '{{year}}/{{slug}}/index'  # Store talks in year-based subfolders, e.g. `talk/2020/my-talk`.
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Abstract", name: "abstract", widget: "text"}
+      - {label: "Where", name: "location", widget: "text"}
+      - {label: "From", name: "date", widget: "datetime"}
+      - {label: "To", name: "date_end", widget: "datetime", default: ""}
+      - {label: "All day event?", name: "all_day", widget: "boolean", default: false}
+      - label: Links/Tickets
+        name: links
+        required: false
+        widget: list
+        fields:
+          - {label: Link, name: url, widget: string}
+          - {label: Link text, name: name, widget: string, required: false}
+          - label: Icon pack
+            name: icon_pack
+            widget: select
+            multiple: false
+            required: false
+            options:
+              - {label: "None", value: ""}
+              - {label: "Solid", value: "fas"}
+              - {label: "Regular", value: "far"}
+              - {label: "Brand", value: "fab"}
+              - {label: "Academic", value: "ai"}
+          - {label: Icon, name: icon, widget: string, required: false}
+      - {label: "Event", name: "event", widget: "string"}
+      - {label: "Event link", name: "event_url", widget: "string"}
+      - {label: "Publish this page on", name: "publishDate", widget: "datetime"}
+      - {label: "Markdown slides (reference a deck in 'content/slides/')", name: "slides", widget: "string", required: false}
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+      - label: "Authors"
+        name: "authors"
+        required: false
+        widget: "list"
+      - label: "Tags"
+        name: "tags"
+        required: false
+        widget: "list"
+      - label: "Categories"
+        name: "categories"
+        required: false
+        widget: "list"
+      - label: "Projects (reference projects in 'content/project/')"
+        name: "projects"
+        required: false
+        widget: "list"
+      - label: "Featured Image"
+        name: "image"
+        required: false
+        widget: object
+        fields:
+          - label: "Upload an image named `featured.jpg/png`"
+            name: "filename"
+            widget: "image"
+            default: "featured"
+            media_library:
+              config:
+                multiple: false
+          - {label: Caption, name: caption, widget: string, required: false}
+          - {label: Description for screen readers, name: alt_text, widget: string, required: false}
+          - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+      - {label: "Details", name: "body", widget: "markdown"}
+  - name: pages
+    label: "Pages"
+    files:
+      - file: "content/privacy.md"
+        label: "Privacy Policy"
+        name: "privacy"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Publish Date", name: "date", widget: "datetime"}
+          - {label: "Subtitle", name: "subtitle", widget: "string"}
+          - {label: "Summary", name: "summary", widget: "markdown"}
+          - label: "Draft"
+            name: "draft"
+            required: false
+            widget: "boolean"
+            default: false
+          - {label: "Body", name: "body", widget: "markdown"}
+      - file: "content/terms.md"
+        label: "Terms"
+        name: "terms"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Publish Date", name: "date", widget: "datetime"}
+          - {label: "Subtitle", name: "subtitle", widget: "string"}
+          - {label: "Summary", name: "summary", widget: "markdown"}
+          - label: "Draft"
+            name: "draft"
+            required: false
+            widget: "boolean"
+            default: false
+          - {label: "Body", name: "body", widget: "markdown"}

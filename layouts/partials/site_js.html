@@ -123,6 +123,21 @@
     </script>
     {{ end }}
 
+    {{/* Netlify Identity integration. */}}
+    {{ if .IsHome || and (site.Params.cms.netlify_cms | default true) }}
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+    {{ end }}
+
     {{/* Disqus Comment Count JS. */}}
     {{ if and (eq site.Params.comments.engine 1) (site.Params.comments.disqus.show_count | default true) }}
     <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
