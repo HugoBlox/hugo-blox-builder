@@ -138,7 +138,7 @@
   {{ partial "marketing/google_tag_manager" . }}
 
   {{/* Netlify Identity integration. */}}
-  {{ if .IsHome || and (site.Params.cms.netlify_cms | default true) }}
+  {{ if .IsHome | and (site.Params.cms.netlify_cms | default true) }}
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   {{ end }}
 
