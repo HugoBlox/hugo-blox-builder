@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ site.LanguageCode | default "en-us" }}">
+{{- $language_code := site.LanguageCode | default "en-us" -}}
+<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{end}}>
 
 {{ partial "site_head" . }}
 <body id="top" data-spy="scroll" data-offset="70" data-target="{{ if or .IsHome (eq .Type "widget_page") }}#navbar-main{{else}}#TableOfContents{{end}}" {{ if not (.Scratch.Get "light") }}class="dark"{{end}}>
