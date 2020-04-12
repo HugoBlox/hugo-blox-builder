@@ -4,10 +4,10 @@
   translation: Toggle navigation
 
 - id: table_of_contents
-  translation: Table of Contents
+  translation: فهرس المحتويات
 
 - id: on_this_page
-  translation: Contents
+  translation: المحتويات
 
 - id: back_to_top
   translation:  الرجوع لأعلى الصفحة
@@ -18,7 +18,7 @@
   translation: ذات صلة
 
 - id: minute_read
-  translation: min read
+  translation: دقيقة قراءة
 
 - id: previous
   translation: السابق
@@ -30,15 +30,15 @@
   translation: "Figure %d:"
 
 - id: edit_page
-  translation: Edit this page
+  translation: عدل هذه الصفحة
 
 # Themes
 
 - id: theme_light
-  translation: Light
+  translation: الوضع العادي
 
 - id: theme_dark
-  translation: Dark
+  translation: الوضع الليلي
 
 - id: theme_auto
   translation: تلقائي
@@ -55,28 +55,28 @@
   translation: Cite
 
 - id: btn_slides
-  translation: Slides
+  translation: شرائح
 
 - id: btn_video
-  translation: Video
+  translation: فيديو
 
 - id: btn_code
   translation: Code
 
 - id: btn_dataset
-  translation: Dataset
+  translation: مجموعة بيانات
 
 - id: btn_project
-  translation: Project
+  translation: مشروع
 
 - id: btn_poster
-  translation: Poster
+  translation: ملصق
 
 - id: btn_source
   translation: Source Document
 
 - id: btn_copy
-  translation: Copy
+  translation: نسخ
 
 - id: btn_download
   translation: تحميل
@@ -84,10 +84,10 @@
 # About widget
 
 - id: interests
-  translation: Interests
+  translation: الإهتمامات
 
 - id: education
-  translation: تعليم
+  translation: التعليم
 
 - id: user_profile_latest
   translation: Latest
@@ -100,7 +100,7 @@
 # Experience widget
 
 - id: present
-  translation: Present
+  translation: حتى الأن
 
 # Pages widget
 
