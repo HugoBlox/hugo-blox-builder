@@ -27,7 +27,7 @@
   translation: التالي
 
 - id: figure
-  translation: "Figure %d:"
+  translation: "شكل %d:"
 
 - id: edit_page
   translation: عدل هذه الصفحة
@@ -55,31 +55,31 @@
   translation: Cite
 
 - id: btn_slides
-  translation: شرائح
+  translation: Slides
 
 - id: btn_video
-  translation: فيديو
+  translation: Video
 
 - id: btn_code
   translation: Code
 
 - id: btn_dataset
-  translation: مجموعة بيانات
+  translation: Dataset
 
 - id: btn_project
-  translation: مشروع
+  translation: Project
 
 - id: btn_poster
-  translation: ملصق
+  translation: Poster
 
 - id: btn_source
   translation: Source Document
 
 - id: btn_copy
-  translation: نسخ
+  translation: Copy
 
 - id: btn_download
-  translation: تحميل
+  translation: Download
 
 # About widget
 
@@ -95,7 +95,7 @@
 # Accomplishments widget
 
 - id: see_certificate
-  translation: See certificate
+  translation: شاهد الهادات
 
 # Experience widget
 
@@ -105,13 +105,13 @@
 # Pages widget
 
 - id: more_pages
-  translation: See all
+  translation: شاهد الكل
 
 - id: more_posts
-  translation: See all posts
+  translation: شاهد جميع التعليقات
 
 - id: more_talks
-  translation: See all talks
+  translation: شاهد جميع المحاضرات
 
 - id: more_publications
   translation: See all publications
@@ -136,28 +136,28 @@
 # Publication/Talk details
 
 - id: abstract
-  translation: Abstract
+  translation: مقدمة
 
 - id: publication
-  translation: Publication
+  translation: منشور
 
 - id: publication_type
-  translation: Type
+  translation: نوع
 
 - id: date
-  translation: Date
+  translation: التاريخ
 
 - id: last_updated
-  translation: Last updated on
+  translation: اخر تحيث في
 
 - id: event
-  translation: Event
+  translation: حدث
 
 - id: location
-  translation: Location
+  translation:  موقع
 
 - id: pub_uncat
-  translation: Uncategorized
+  translation: غير مصنف
 
 - id: pub_conf
   translation: Conference paper
@@ -175,13 +175,13 @@
   translation: كتاب
 
 - id: pub_book_section
-  translation: Book section
+  translation: قسم من كتاب
 
 - id: pub_thesis
   translation: أطروحة
 
 - id: pub_patent
-  translation: Patent
+  translation: براءة الإختراع
 
 # Project details
 
@@ -191,16 +191,16 @@
 # Default titles for archive pages
 
 - id: posts
-  translation: Posts
+  translation: التعليقات
 
 - id: publications
-  translation: Publications
+  translation: المنشورات
 
 - id: talks
-  translation: Talks
+  translation: المحاضرات
 
 - id: projects
-  translation: Projects
+  translation: المشروعات
 
 # Search
 
@@ -214,7 +214,7 @@
   translation:  نتائج البحث
 
 - id: search_no_results
-  translation: لايوجد نتيجة
+  translation: لم يتم العثور على نتائج
 
 # Error 404
 
