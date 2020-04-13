@@ -6,10 +6,16 @@
   {{ range $index, $value := . }}
     {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy (. | urlize)) -}}
     {{- $name := $profile_page.Params.name | default ($value|markdownify) -}}
+    {{- $link := $profile_page.RelPermalink -}}
+    {{- $target := "" -}}
+    {{- with $profile_page.Params.external_link -}}
+      {{- $link = . }}
+      {{- $target = "target=\"_blank\" rel=\"noopener\"" -}}
+    {{- end -}}
     {{- if gt $index 0 }}, {{ end -}}
     <span>
       {{- if and $profile_page $link_authors -}}
-        <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
+        <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{$name}}</a>
       {{- else -}}
         {{$name}}
       {{- end -}}
