@@ -26,11 +26,17 @@
       <img class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $person.email }}?s=270')" alt="{{$person.name}}">
       {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "270x270 Center" }}
+      {{with $person.external_link }}<a href="{{.}}" target="_blank" rel="noopener">{{end}}
       <img class="avatar {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$person.name}}">
+      {{ if $person.external_link }}</a>{{end}}
       {{ end }}
 
       <div class="portrait-title">
-        <h2>{{ $person.name }}</h2>
+        <h2>
+          {{with $person.external_link }}<a href="{{.}}" target="_blank" rel="noopener">{{end}}
+          {{ $person.name }}
+          {{ if $person.external_link }}</a>{{end}}
+        </h2>
         {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
 
         {{ range $person.organizations }}
