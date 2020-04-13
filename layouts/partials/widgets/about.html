@@ -43,6 +43,13 @@
       </div>
 
       <ul class="network-icon" aria-hidden="true">
+        {{ with $person.external_link }}
+          <li>
+            <a href="{{ . }}" target="_blank" rel="noopener">
+              <i class="fas fa-external-link-alt big-icon"></i>
+            </a>
+          </li>
+        {{ end }}
         {{ range $person.social }}
         {{ $pack := or .icon_pack "fas" }}
         {{ $pack_prefix := $pack }}
