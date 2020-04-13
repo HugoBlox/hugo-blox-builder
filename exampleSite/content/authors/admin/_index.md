@@ -12,6 +12,9 @@ superuser: true
 # Role/position
 role: Professor of Artificial Intelligence
 
+# Optional external URL for author (replaces author detail page).
+external_link: ""
+
 # Organizations/Affiliations
 organizations:
 - name: Stanford University
