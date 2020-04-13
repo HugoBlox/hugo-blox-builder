@@ -1,7 +1,7 @@
 # Navigation
 
 - id: toggle_navigation
-  translation: Toggle navigation
+  translation: قائمة
 
 - id: table_of_contents
   translation: فهرس المحتويات
@@ -46,40 +46,40 @@
 # Buttons
 
 - id: btn_preprint
-  translation: Preprint
+  translation: المسودة
 
 - id: btn_pdf
-  translation: PDF
+  translation:  بي دي اف
 
 - id: btn_cite
-  translation: Cite
+  translation: استشهاد
 
 - id: btn_slides
-  translation: Slides
+  translation: شرائح
 
 - id: btn_video
-  translation: Video
+  translation: فيديو
 
 - id: btn_code
-  translation: Code
+  translation: تمريز
 
 - id: btn_dataset
-  translation: Dataset
+  translation: البيانات
 
 - id: btn_project
-  translation: Project
+  translation: مشروع
 
 - id: btn_poster
-  translation: Poster
+  translation: ملصق
 
 - id: btn_source
-  translation: Source Document
+  translation: مستند أصلي
 
 - id: btn_copy
-  translation: Copy
+  translation: نسخ
 
 - id: btn_download
-  translation: Download
+  translation: تحميل
 
 # About widget
 
@@ -90,12 +90,12 @@
   translation: التعليم
 
 - id: user_profile_latest
-  translation: Latest
+  translation: اخر
 
 # Accomplishments widget
 
 - id: see_certificate
-  translation: شاهد الهادات
+  translation: الشهادات
 
 # Experience widget
 
@@ -114,7 +114,7 @@
   translation: شاهد جميع المحاضرات
 
 - id: more_publications
-  translation: See all publications
+  translation: شاهد جميع المنشورات
 
 # Contact widget
 
@@ -160,13 +160,13 @@
   translation: غير مصنف
 
 - id: pub_conf
-  translation: Conference paper
+  translation: ورقة مؤتمر
 
 - id: pub_journal
-  translation: Journal article
+  translation: مجلة محكمه
 
 - id: pub_preprint
-  translation: Preprint
+  translation: مسودة
 
 - id: pub_report
   translation: تقرير
@@ -186,7 +186,7 @@
 # Project details
 
 - id: open_project_site
-  translation: Go to Project Site
+  translation: أذهب لموقع المشروع
 
 # Default titles for archive pages
 
