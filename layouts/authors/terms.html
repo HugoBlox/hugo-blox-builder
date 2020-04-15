@@ -13,7 +13,7 @@
     {{ $paginator := .Paginate .Data.Pages }}
     {{ range $k, $v := $paginator.Pages }}
       {{ $name := $v.Title }}
-      {{ $link := $v.RelPermalink }}
+      {{ $link := $v.Permalink }}
       {{ $target := "" }}
       {{ with $v.Params.external_link }}
         {{ $link = . }}
