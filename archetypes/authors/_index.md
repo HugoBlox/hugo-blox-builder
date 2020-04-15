@@ -1,10 +1,10 @@
 ---
 # Display name
-name: "{{ replace .Name "-" " " | title }}"
+title: "{{ replace .Name "-" " " | title }}"
 
 # Username (this should match the folder name and the name on publications)
 authors:
-- Name "{{ replace .Name "-" " " | title }}"
+- "{{ urlize .Name }}"
 
 # Is this the primary user of the site?
 superuser: false
