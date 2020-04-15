@@ -4,26 +4,28 @@
 {{ $taxonomy := "authors" }}
 {{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_urlized) }}
 {{ with $profile_page }}
-  {{/* If it's a personal site and primary page author is superuser, link to the homepage rather than their profile page. */}}
-  {{ $profile_url := .RelPermalink }}
-  {{ if and (eq $site_type "Person") (eq .Params.superuser true) }}
-    {{ $profile_url = site.BaseURL }}
-  {{ end }}
-  {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
-  {{ $avatar_shape := site.Params.avatar.shape | default "circle" }}
-  <div class="media author-card content-widget-hr">
-    {{ if and site.Params.avatar.gravatar .Params.email }}
-      <img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="{{.Params.name}}">
-    {{ else if $avatar }}
-      {{ $avatar_image := $avatar.Fill "270x270 Center" }}
-      <img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{.Params.name}}">
+  {{ if isset .Params "superuser" }}{{/* Check an author profile exists. */}}
+    {{/* If it's a personal site and primary page author is superuser, link to the homepage rather than their profile page. */}}
+    {{ $profile_url := .RelPermalink }}
+    {{ if and (eq $site_type "Person") (eq .Params.superuser true) }}
+      {{ $profile_url = site.BaseURL }}
     {{ end }}
+    {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+    {{ $avatar_shape := site.Params.avatar.shape | default "circle" }}
+    <div class="media author-card content-widget-hr">
+      {{ if and site.Params.avatar.gravatar .Params.email }}
+        <img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 .Params.email }}?s=200')" alt="{{.Title}}">
+      {{ else if $avatar }}
+        {{ $avatar_image := $avatar.Fill "270x270 Center" }}
+        <img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{.Title}}">
+      {{ end }}
 
-    <div class="media-body">
-      <h5 class="card-title"><a href="{{$profile_url}}">{{.Params.name}}</a></h5>
-      {{ with .Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
-      {{ with .Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
-      {{ partial "social_links" . }}
+      <div class="media-body">
+        <h5 class="card-title"><a href="{{$profile_url}}">{{.Title}}</a></h5>
+        {{ with .Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
+        {{ with .Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
+        {{ partial "social_links" . }}
+      </div>
     </div>
-  </div>
+  {{end}}
 {{end}}{{/* Profile page block */}}

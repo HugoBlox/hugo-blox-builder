@@ -12,7 +12,7 @@
   {{ $superuser_username := "" }}
   {{ $superuser_role := "" }}
   {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
-    {{ $superuser_name = .Params.name }}
+    {{ $superuser_name = .Title }}
     {{ $superuser_username = path.Base (path.Split .Path).Dir }}
     {{ $superuser_role = .Params.role }}
   {{ end }}
@@ -182,7 +182,7 @@
   {{ end }}
   <meta property="og:site_name" content="{{ site.Title }}">
   <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:title" content="{{ if not .IsHome }}{{ .Params.name | default .Title }} | {{ end }}{{ site.Title }}">
+  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}">
   <meta property="og:description" content="{{ $desc }}">
   {{- with $og_image -}}
   <meta property="og:image" content="{{.}}">
@@ -206,6 +206,6 @@
 
   {{ partial "custom_head" . }}
 
-  <title>{{ if not .IsHome }}{{ .Params.name | default .Title }} | {{ end }}{{ site.Title }}</title>
+  <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
 
 </head>

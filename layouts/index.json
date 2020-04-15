@@ -4,7 +4,7 @@
 {{- /* Add the index page of docs separately since it's not in RegularPages above. */ -}}
 {{- $pages := $pages | union (where (where site.Pages "Kind" "section") "Type" "docs") -}}
 {{- /* Add author pages to index so their bios can be searched. Hide empty `/authors/` node. */ -}}
-{{- $pages := $pages | union (where (where site.Pages "Section" "authors") "Params.name" "!=" nil) -}}
+{{- $pages := $pages | union (where (where site.Pages "Section" "authors") "Params.superuser" "!=" nil) -}}
 
 {{- range $pages -}}
   {{- /* Do not index drafts or private pages. */ -}}
@@ -27,7 +27,6 @@
 
     {{/* Correct the title and URL for author profile pages. */}}
     {{- if eq .Section "authors" -}}
-      {{- $title = .Params.name -}}
       {{- $username := path.Base (path.Split .Path).Dir -}}
       {{- with site.GetPage (printf "/authors/%s" $username) -}}
         {{- $permalink = .Permalink -}}
@@ -43,8 +42,7 @@
               {{- $person_page_path := (printf "/authors/%s" (urlize $v)) -}}
               {{- $person_page := site.GetPage $person_page_path -}}
               {{- if and $person_page $person_page.File -}}
-                {{- $person := $person_page.Params -}}
-                {{- $authors = $authors | append $person.name -}}
+                {{- $authors = $authors | append $person_page.Title -}}
               {{- else -}}
                 {{- $authors = $authors | append ($v | plainify) -}}
               {{- end -}}
