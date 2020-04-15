@@ -30,7 +30,11 @@
       {{ end }}
 
       <div class="portrait-title">
-        <h2>{{ $person_page.Title }}</h2>
+        <h2>
+          {{with $person.external_link }}<a href="{{.}}" target="_blank" rel="noopener">{{end}}
+          {{ $person_page.Title }}
+          {{ if $person.external_link }}</a>{{end}}
+        </h2>
         {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
 
         {{ range $person.organizations }}
@@ -43,6 +47,13 @@
       </div>
 
       <ul class="network-icon" aria-hidden="true">
+        {{ with $person.external_link }}
+          <li>
+            <a href="{{ . }}" target="_blank" rel="noopener">
+              <i class="fas fa-external-link-alt big-icon"></i>
+            </a>
+          </li>
+        {{ end }}
         {{ range $person.social }}
         {{ $pack := or .icon_pack "fas" }}
         {{ $pack_prefix := $pack }}

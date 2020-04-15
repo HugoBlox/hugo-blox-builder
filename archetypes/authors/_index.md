@@ -12,13 +12,16 @@ superuser: false
 # Role/position (e.g., Professor of Artificial Intelligence)
 role:
 
+# Optional external URL for author (replaces author detail page).
+external_link: ""
+
 # Organizations/Affiliations
 organizations:
-- name: 
+- name:
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: 
+bio:
 
 # List each interest with a dash
 interests:
