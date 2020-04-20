@@ -299,6 +299,18 @@ a[data-fancybox] {
   vertical-align: inherit;
 }
 
+.gallery-automax a[data-fancybox] img {
+  height: auto;
+  width: auto;
+  max-height: 250px;
+  max-width: 320px;
+  display: inherit;
+  margin: 0;
+  padding: 4px;
+  box-shadow: none;
+  vertical-align: inherit;
+}
+
 .fancybox-caption {
   font-size: 1rem;
   line-height: 1.5rem;

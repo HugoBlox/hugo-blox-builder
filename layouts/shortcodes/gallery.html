@@ -2,6 +2,15 @@
 {{ $album := "" }}
 {{ with .Get "album" }}{{ $album = . }}{{else}}{{ $album = "gallery" }}{{end}}
 
+{{/* For page bundles get image resize or default to `x190`. */}}
+{{ $resize := "" }}
+{{ with .Get "resize" }}{{ $resize = . }}{{else}}{{ $resize = "x190" }}{{end}}
+
+{{/* If automax is set to something other than false then limit both max-width and and max-height with CSS for data-fancybox. 
+  Solves a problem with landscape images on mobile phones resulting in a zoomed out page load causing menu to scroll */}}
+{{ $automax := "" }}
+{{ with .Get "automax" }}{{ $automax = "-automax" }}{{end}}
+
 {{/* Set image path and page bundle that images are associated with. */}}
 {{ $album_path := "" }}
 {{ $resource_page := "" }}
@@ -13,13 +22,13 @@
   {{ $resource_page = $.Page }}
 {{ end }}
 
-<div class="gallery">
+<div class="gallery{{$automax}}">
 
   {{/* Attempt to automatically load gallery images from page bundle */}}
   {{ $images := ($resource_page.Resources.ByType "image").Match $album_path }}
   {{ with $images }}
   {{ range $images }}
-    {{ $image := .Resize "x190" }}
+  {{ $image := .Resize $resize }}
     {{/* Check if the user set a caption for this image */}}
     {{ $filename := path.Base .Name }}
     {{ $caption := "" }}
