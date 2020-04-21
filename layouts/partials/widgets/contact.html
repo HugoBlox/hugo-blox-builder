@@ -16,7 +16,11 @@
 
     {{ $post_action := "" }}
     {{ if eq $page.Params.email_form 1 }}
-      {{ $post_action = "netlify" }}
+      {{ if $page.Params.success_message }}
+        {{ $post_action = printf "netlify  action=\"%s\"" $page.Params.success_message }}
+      {{ else }}
+        {{ $post_action = "netlify" }}
+      {{end}}
     {{ else }}
       {{ if not $data.email }}
         {{ errorf "Please set an email address for the contact form using the `email` parameter in `params.toml`. Otherwise, set `email_form = 0` to disable the contact form." }}
