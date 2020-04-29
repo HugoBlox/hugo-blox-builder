@@ -9,9 +9,12 @@
     <div class="article-style">
       {{ .Content }}
     </div>
-
+    
+    {{ if .Params.copyright }}
     <a rel="license" href="http://creativecommons.org/licenses/{{ $.Params.copyright }}/4.0/"><img alt="Creative Commons Lizenzvertrag" src="https://i.creativecommons.org/l/{{ $.Params.copyright }}/4.0/88x31.png"></a>
-
+    {{ else }}
+    {{ end }}
+    
     {{ partial "page_footer" . }}
 
   </div>
