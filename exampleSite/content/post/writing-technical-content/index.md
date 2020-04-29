@@ -6,6 +6,8 @@ diagram: true
 image:
   placement: 3
   caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
+
+copyright: by-sa # by/by-sa/by-nc/by-nc-sa/by-nd/by-nc-nd
 ---
 
 Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.
