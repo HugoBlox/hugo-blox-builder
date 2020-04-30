@@ -1,18 +1,17 @@
 {{/* Display author list. */}}
 
 {{- $taxonomy := "authors" }}
-{{ if .Param $taxonomy }}
+{{ with .Param $taxonomy }}
   {{ $link_authors := site.Params.link_authors | default true }}
-  {{ range $index, $value := (.GetTerms $taxonomy) }}
-    {{- /* Check if a profile was created for this user. */ -}}
-    {{- $profile_page := isset .Page.Params "superuser" -}}
-
+  {{ range $index, $name_raw := . }}
+    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
+    {{- $name := $profile_page.Title | default $name_raw -}}
     {{- if gt $index 0 }}, {{ end -}}
     <span>
       {{- if and $profile_page $link_authors -}}
-        <a href="{{.RelPermalink}}">{{ .LinkTitle }}</a>
+        <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
       {{- else -}}
-        {{ .LinkTitle }}
+        {{$name}}
       {{- end -}}
     </span>
   {{- end -}}
