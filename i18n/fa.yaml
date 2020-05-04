@@ -1,0 +1,236 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: خاموش/روشن کردن مسیر
+
+- id: table_of_contents
+  translation: فهرست مطالب
+
+- id: on_this_page
+  translation: محتوا
+
+- id: back_to_top
+  translation: بازگشت به بالا
+
+# General
+
+- id: related
+  translation: مرتبط
+
+- id: minute_read
+  translation: زمان خواندن
+
+- id: previous
+  translation: قبلی
+
+- id: next
+  translation: بعدی
+
+- id: figure
+  translation: "شکل %d:"
+
+- id: edit_page
+  translation: ویرایش صفحه
+
+# Themes
+
+- id: theme_light
+  translation: روشن
+
+- id: theme_dark
+  translation: تاریک
+
+- id: theme_auto
+  translation: روشنایی خودکار
+
+# Buttons
+
+- id: btn_preprint
+  translation: نسخه پیش از چاپ
+
+- id: btn_pdf
+  translation: فایل PDF
+
+- id: btn_cite
+  translation: رفرنس دادن
+
+- id: btn_slides
+  translation: اسلایدها
+
+- id: btn_video
+  translation: ویدئو
+
+- id: btn_code
+  translation: برنامه
+
+- id: btn_dataset
+  translation: داده‌ها
+
+- id: btn_project
+  translation: پروژه
+
+- id: btn_poster
+  translation: پوستر
+
+- id: btn_source
+  translation: متن اصلی
+
+- id: btn_copy
+  translation: کپی
+
+- id: btn_download
+  translation: دانلود
+
+# About widget
+
+- id: interests
+  translation: موضوعات پژوهشی
+
+- id: education
+  translation: تحصیلات
+
+- id: user_profile_latest
+  translation: آخرین‌ها
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: مشاهده گواهی
+
+# Experience widget
+
+- id: present
+  translation: اکنون
+
+# Pages widget
+
+- id: more_pages
+  translation: بقیه صفحات
+
+- id: more_posts
+  translation: بقیه پست‌ها
+
+- id: more_talks
+  translation: بقیه سخنرانی‌ها
+
+- id: more_publications
+  translation: بقیه آثار
+
+# Contact widget
+
+- id: contact_name
+  translation: نام
+
+- id: contact_email
+  translation: ایمیل
+
+- id: contact_message
+  translation: پیام
+
+- id: contact_send
+  translation: ارسال
+
+- id: book_appointment
+  translation: تعیین قرار ملاقات
+
+# Publication/Talk details
+
+- id: abstract
+  translation: چکیده
+
+- id: publication
+  translation: اثر
+
+- id: publication_type
+  translation: نوع اثر
+
+- id: date
+  translation: تاریخ
+
+- id: last_updated
+  translation: آخرین به روز رسانی
+
+- id: event
+  translation: رویداد
+
+- id: location
+  translation: مکان
+
+- id: pub_uncat
+  translation: بدون دسته‌بندی
+
+- id: pub_conf
+  translation: مقاله کنفرانسی
+
+- id: pub_journal
+  translation: مقاله ژورنالی
+
+- id: pub_preprint
+  translation: پیش‌نویس مقاله
+
+- id: pub_report
+  translation: گزارش
+
+- id: pub_book
+  translation: کتاب
+
+- id: pub_book_section
+  translation: فصل از کتاب
+
+- id: pub_thesis
+  translation: پایان‌نامه
+
+- id: pub_patent
+  translation: ثبت اختراع
+
+# Project details
+
+- id: open_project_site
+  translation: باز کردن وب‌سایت پروژه
+
+# Default titles for archive pages
+
+- id: posts
+  translation: پست‌ها
+
+- id: publications
+  translation: آثار
+
+- id: talks
+  translation: سخنرانی‌ها
+
+- id: projects
+  translation: پروژه‌ها
+
+# Search
+
+- id: search
+  translation: جستجو
+
+- id: search_placeholder
+  translation: جستجو...
+
+- id: search_results
+  translation: نتیجه پیدا شد.
+
+- id: search_no_results
+  translation: هیچ نتیجه‌ای پیدا نشد.
+
+# Error 404
+
+- id: page_not_found
+  translation: صفحه پیدا نشد.
+
+- id: 404_recommendations
+  translation: شاید دنبال یکی از این صفحات بودید؟
+
+# Cookie consent
+
+- id: cookie_message
+  translation: این وب‌سایت برای بهبود تجربه کاربری شما از کوکی‌ها استفاده می‌کند.
+
+- id: cookie_dismiss
+  translation: باشه!
+
+- id: cookie_learn
+  translation: اطلاعات بیشتر...
