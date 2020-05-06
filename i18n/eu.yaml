@@ -47,11 +47,11 @@
 - id: user_profile_latest
   translation: Berriak
 - id: see_certificate
-  translation: Ikusi zertifikatua
+  translation: Ikusi ziurtagiria
 - id: present
   translation: Gaur egun
 - id: more_pages
-  translation: Dena ikusi
+  translation: Ikusi dena
 - id: more_posts
   translation: Post gehiago
 - id: more_talks
@@ -71,7 +71,7 @@
 - id: abstract
   translation: Laburpena
 - id: publication
-  translation: Publikazioa
+  translation: Argitalpena
 - id: publication_type
   translation: Mota
 - id: date
@@ -83,7 +83,7 @@
 - id: location
   translation: Kokalekua
 - id: pub_uncat
-  translation: Kategoria gabe
+  translation: Kategoriarik gabe
 - id: pub_conf
   translation: Konferentzia-artikulua
 - id: pub_journal
@@ -109,7 +109,7 @@
 - id: talks
   translation: Hitzaldiak
 - id: projects
-  translation: Projektuak
+  translation: Proiektuak
 - id: search
   translation: Bilatu
 - id: search_placeholder
