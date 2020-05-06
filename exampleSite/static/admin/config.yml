@@ -13,6 +13,14 @@ collections:
     fields:  # The fields each document in this collection have
       - {label: "Display name (such as your full name)", name: "title", widget: "string"}
       - {label: "Position or tagline (such as Professor of AI)", name: "role", widget: "string", required: false}
+      - label: "Avatar (upload an image named `avatar.jpg/png`)"
+        name: "avatar_filename"
+        widget: "image"
+        default: "avatar"
+        required: false
+        media_library:
+          config:
+            multiple: false
       - {label: "Short biography (shown in author boxes)", name: "bio", widget: "string", required: false}
       - {label: "Full biography (shown in About widget)", name: "body", widget: "markdown", required: false}
       - label: "Interests (shown in About widget)"
@@ -39,11 +47,24 @@ collections:
       - label: "Organizations you belong to or are affiliated with (shown in About widget)"
         name: "organizations"
         required: false
-        widget: object
+        widget: list
         fields:
           - {label: Organization, name: name, widget: string, required: true}
           - {label: Link, name: url, widget: string, required: false}
-      - {label: "Email (to use a Gravatar.com avatar)", name: "email", widget: "string"}
+      - label: "Education"
+        name: "education"
+        required: false
+        widget: object
+        fields:
+          - label: "Courses"
+            name: "courses"
+            required: false
+            widget: list
+            fields:
+              - {label: Course, name: course, widget: string, required: true}
+              - {label: Institution, name: institution, widget: string, required: true}
+              - {label: Year, name: year, widget: number, valueType: int, required: false}
+      - {label: "Email (to use a Gravatar.com avatar)", name: "email", widget: "string", required: false}
       - label: "Super user (is this the primary site user?)"
         name: "superuser"
         widget: "boolean"
