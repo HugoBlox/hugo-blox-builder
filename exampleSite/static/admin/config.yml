@@ -4,6 +4,75 @@ backend:
 media_folder: 'static/img/'
 public_folder: 'img'
 collections:
+  - name: authors
+    label: Authors
+    label_singular: Author
+    folder: 'content/authors'
+    path: '{{slug}}/_index'
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - {label: "Display name (such as your full name)", name: "title", widget: "string"}
+      - {label: "Position or tagline (such as Professor of AI)", name: "role", widget: "string", required: false}
+      - label: "Avatar (upload an image named `avatar.jpg/png`)"
+        name: "avatar_filename"
+        widget: "image"
+        default: "avatar"
+        required: false
+        media_library:
+          config:
+            multiple: false
+      - {label: "Short biography (shown in author boxes)", name: "bio", widget: "string", required: false}
+      - {label: "Full biography (shown in About widget)", name: "body", widget: "markdown", required: false}
+      - label: "Interests (shown in About widget)"
+        name: "interests"
+        required: false
+        widget: "list"
+      - label: Social links
+        name: social
+        required: false
+        widget: list
+        fields:
+          - {label: Link, name: link, widget: string}
+          - label: Icon pack
+            name: icon_pack
+            widget: select
+            multiple: false
+            options:
+              - {label: "None", value: ""}
+              - {label: "Solid", value: "fas"}
+              - {label: "Regular", value: "far"}
+              - {label: "Brand", value: "fab"}
+              - {label: "Academic", value: "ai"}
+          - {label: Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons), name: icon, widget: string}
+      - label: "Organizations you belong to or are affiliated with (shown in About widget)"
+        name: "organizations"
+        required: false
+        widget: list
+        fields:
+          - {label: Organization, name: name, widget: string, required: true}
+          - {label: Link, name: url, widget: string, required: false}
+      - label: "Education"
+        name: "education"
+        required: false
+        widget: object
+        fields:
+          - label: "Courses"
+            name: "courses"
+            required: false
+            widget: list
+            fields:
+              - {label: Course, name: course, widget: string, required: true}
+              - {label: Institution, name: institution, widget: string, required: true}
+              - {label: Year, name: year, widget: number, valueType: int, required: false}
+      - {label: "Email (to use a Gravatar.com avatar)", name: "email", widget: "string", required: false}
+      - label: "Super user (is this the primary site user?)"
+        name: "superuser"
+        widget: "boolean"
+        default: false
+      - label: "User groups (only for organization websites)"
+        name: "user_groups"
+        required: false
+        widget: "list"
   - name: posts
     label: Posts
     label_singular: Post
@@ -60,7 +129,7 @@ collections:
     label: Talks
     label_singular: Talk
     folder: 'content/talk'
-    path: '{{year}}/{{slug}}/index'  # Store talks in year-based subfolders, e.g. `talk/2020/my-talk`.
+    path: '{{slug}}/index'
     create: true  # Allow users to create new documents in this collection
     fields:  # The fields each document in this collection have
       - {label: "Title", name: "title", widget: "string"}
@@ -87,7 +156,7 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: Icon, name: icon, widget: string, required: false}
+          - {label: "Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons)", name: icon, widget: string, required: false}
       - {label: "Event", name: "event", widget: "string"}
       - {label: "Event link", name: "event_url", widget: "string"}
       - {label: "Publish this page on", name: "publishDate", widget: "datetime"}

@@ -3,9 +3,9 @@
 {{- $taxonomy := "authors" }}
 {{ with .Param $taxonomy }}
   {{ $link_authors := site.Params.link_authors | default true }}
-  {{ range $index, $value := . }}
-    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy (. | urlize)) -}}
-    {{- $name := $profile_page.Title | default ($value|markdownify) -}}
+  {{ range $index, $name_raw := . }}
+    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
+    {{- $name := $profile_page.Title | default $name_raw -}}
     {{- $link := $profile_page.RelPermalink -}}
     {{- $target := "" -}}
     {{- with $profile_page.Params.external_link -}}

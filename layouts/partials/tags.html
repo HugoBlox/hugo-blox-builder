@@ -1,8 +1,8 @@
 {{ $taxonomy := "tags" }}
-{{ with .Param $taxonomy }}
+{{ if .Param $taxonomy }}
 <div class="article-tags">
-  {{ range $index, $value := . }}
-  <a class="badge badge-light" href="{{ (site.GetPage (printf "/%s/%s" $taxonomy (. | urlize))).RelPermalink }}">{{ . }}</a>
+  {{ range $index, $value := (.GetTerms $taxonomy) }}
+  <a class="badge badge-light" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
   {{ end }}
 </div>
 {{ end }}
