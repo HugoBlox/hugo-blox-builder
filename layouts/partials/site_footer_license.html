@@ -1,0 +1,43 @@
+{{/* Display copyright license. */}}
+
+{{ $copyright_license := .Params.copyright_license | default site.Params.copyright_license }}
+
+{{ if and $copyright_license $copyright_license.enable }}
+
+  {{ $notice := .Params.copyright_license.notice  | default site.Params.copyright_license.notice  }}
+  {{ $allow_commercial := .Params.allow_commercial | default site.Params.allow_commercial }}
+  {{ $allow_derivatives := .Params.allow_derivatives | default site.Params.allow_derivatives }}
+  {{ $share_alike := .Params.share_alike | default site.Params.share_alike }}
+
+  {{$cc_code := "by"}}
+  {{ if not $allow_commercial }}{{ $cc_code = printf "%s-nc" $cc_code}}{{end}}
+  {{ if not $allow_derivatives }}
+    {{ if $share_alike }}
+      {{ $cc_code = printf "%s-sa" $cc_code}}
+    {{else}}
+      {{ $cc_code = printf "%s-nd" $cc_code}}
+    {{end}}
+  {{end}}
+
+  {{ $license_url := printf "https://creativecommons.org/licenses/%s/4.0" ($cc_code | urlize) }}
+
+  {{ with $notice }}
+  <p class="powered-by copyright-license-text">
+    {{ replace . "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) | markdownify }}
+  </p>
+  {{ end }}
+
+  <p class="powered-by footer-license-icons">
+    <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank">
+      <img src="https://search.creativecommons.org/static/img/cc_icon.svg" alt="CC icon">
+      <img src="https://search.creativecommons.org/static/img/cc-by_icon.svg" alt="CC by icon">
+      {{ if not $allow_commercial }}<img src="https://search.creativecommons.org/static/img/cc-nc_icon.svg" alt="CC NC icon">{{end}}
+      {{ if not $allow_derivatives }}
+        <img src="https://search.creativecommons.org/static/img/cc-nd_icon.svg" alt="CC ND icon">
+        {{ if $share_alike }}
+          <img src="https://search.creativecommons.org/static/img/cc-sa_icon.svg" alt="CC SA icon">
+        {{end}}
+      {{end}}
+    </a>
+  </p>
+{{ end }}

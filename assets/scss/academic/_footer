@@ -1,0 +1,18 @@
+.footer-license-icons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  height: auto;
+  width: auto;
+  font-size: 0;  // Hack to remove space characters between icons without using UL.
+  text-decoration: none;
+}
+
+.footer-license-icons img {
+ display: inline-flex;
+  margin-right: 8px;
+  height: 22px;
+  vertical-align: text-bottom;
+}
