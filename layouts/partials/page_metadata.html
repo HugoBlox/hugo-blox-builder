@@ -8,7 +8,7 @@
   {{ $authorLen := len $page.Params.authors }}
   {{ if gt $authorLen 0 }}
   <div>
-    {{ partial "page_metadata_authors" $page }}
+    {{ partial "page_metadata_authors" $page | markdownify }}
   </div>
   {{ end }}
   {{ end }}
