@@ -5,7 +5,7 @@
   {{ $link_authors := site.Params.link_authors | default true }}
   {{ range $index, $name_raw := . }}
     {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
-    {{- $name := $profile_page.Title | default $name_raw -}}
+    {{- $name := $profile_page.Title | default ($name_raw|markdownify) -}}
     {{- if gt $index 0 }}, {{ end -}}
     <span>
       {{- if and $profile_page $link_authors -}}
