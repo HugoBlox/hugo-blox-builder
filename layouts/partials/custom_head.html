@@ -1,4 +1,12 @@
-{{/* Do not directly modify this file! */}}
-{{/* Instead, create a `layouts/partials/custom_head.html` file in your site and add your code to it. */}}
-
-{{/* This partial is included in `themes/academic/layouts/partials/site_head.html`. */}}
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
