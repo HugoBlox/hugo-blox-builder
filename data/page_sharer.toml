@@ -35,7 +35,7 @@
 
 [[buttons]]
   id = "whatsapp"
-  url = "https://web.whatsapp.com/send?text={title}%20{url}"
+  url = "whatsapp://send?text={title}%20{url}"
   title = "WhatsApp"
   icon_pack = "fab"
   icon = "whatsapp"
