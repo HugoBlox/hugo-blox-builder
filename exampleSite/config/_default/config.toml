@@ -1,5 +1,6 @@
-# Configuration of Academic
-# Documentation: https://sourcethemes.com/academic/
+# Configuration of Hugo
+# Guide: https://sourcethemes.com/academic/docs/get-started/
+# Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 #
 # This file is formatted using TOML syntax - learn more at https://learnxinyminutes.com/docs/toml/
 # Each configuration section is defined by a name in square brackets (e.g. `[outputs]`).
@@ -55,6 +56,7 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   mediaType = "application/manifest+json"
   rel = "manifest"
 
+# Configure the Markdown renderer.
 [markup]
   defaultMarkdownHandler = "goldmark"
   [markup.goldmark]
@@ -77,3 +79,29 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
   category = "categories"
   publication_type = "publication_types"
   author = "authors"
+
+# Related content.
+[related]
+  threshold = 80.0
+  includeNewer = true
+  toLower = true
+
+  [[related.indices]]
+    name = "title"
+    weight = 60.0
+
+  [[related.indices]]
+    name = "summary"
+    weight = 50.0
+
+  [[related.indices]]
+    name = "tags"
+    weight = 80.0
+
+  [[related.indices]]
+    name = "categories"
+    weight = 70.0
+
+  [[related.indices]]
+    name = "authors"
+    weight = 20.0
