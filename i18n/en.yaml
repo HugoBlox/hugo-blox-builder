@@ -188,7 +188,7 @@
 - id: open_project_site
   translation: Go to Project Site
 
-# Default titles for archive pages
+# Content types for default archive page titles and search results
 
 - id: posts
   translation: Posts
@@ -201,6 +201,9 @@
 
 - id: projects
   translation: Projects
+
+- id: slides
+  translation: Slides
 
 # Search
 
