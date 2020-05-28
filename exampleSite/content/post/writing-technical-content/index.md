@@ -261,6 +261,20 @@ renders as
 A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
 {{% /alert %}}
 
+### Spoilers
+
+Add a spoiler to a page to reveal text, such as an answer to a question, after a button is clicked.
+
+```markdown
+{{</* spoiler text="Click to view the spoiler" */>}}
+You found me!
+{{</* /spoiler */>}}
+```
+
+renders as
+
+{{< spoiler text="Click to view the spoiler" >}} You found me! {{< /spoiler >}}
+
 ### Icons
 
 Academic enables you to use a wide range of [icons from _Font Awesome_ and _Academicons_](https://sourcethemes.com/academic/docs/page-builder/#icons) in addition to [emojis](https://sourcethemes.com/academic/docs/writing-markdown-latex/#emojis).
