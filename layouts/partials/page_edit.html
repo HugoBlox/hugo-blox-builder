@@ -1,4 +1,5 @@
-{{ if site.Params.edit_page }}{{/* Make `edit_page` optional in `params.toml` - prevent errors if it's removed. */}}
+{{/* This makes `edit_page` optional in `params.toml` and prevents errors if it's removed. */}}
+{{ if site.Params.edit_page }}
 {{ if site.Params.edit_page.repo_url | and (index site.Params.edit_page.editable .Type) | and (ne .Params.editable false) | or .Params.editable }}
 {{/* Get language subfolder for multilingual sites. */}}
 {{/* Limitations: the subfolder param, `<LANG>.contentDir`, is unexposed in the Hugo `site` API so we attempt to workaround this issue. */}}

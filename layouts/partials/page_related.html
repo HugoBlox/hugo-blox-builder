@@ -1,3 +1,5 @@
+{{/* This makes `show_related` optional in `params.toml` and prevents errors if it's removed. */}}
+{{ if site.Params.show_related }}
 {{ if (index site.Params.show_related .Type) | and (ne .Params.show_related false) | or .Params.show_related }}
   {{ $related := site.RegularPages.Related . | first 5 }}
   {{ with $related }}
@@ -10,4 +12,5 @@
     </ul>
   </div>
   {{ end }}
+{{ end }}
 {{ end }}
