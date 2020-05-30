@@ -1,14 +1,13 @@
-{{- $id := printf "spoiler-%s" (.Get "text" | lower | urlize) -}}
+{{- $id := printf "spoiler-%d" .Ordinal -}}
 <div class="spoiler {{ .Get "class" }}" {{ with .Get "style" }}style="{{ . | safeCSS }}"{{ end }}>
-<p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#{{$id}}" role="button" aria-expanded="false" aria-controls="{{$id}}">
-    {{ .Get "text" }}
-  </a>
-</p>
-<div class="collapse {{ if (eq (.Get "open") "true") }}show{{ end }}" id="{{$id}}">
-  <div class="card">
+  <p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#{{$id}}" role="button" aria-expanded="false" aria-controls="{{$id}}">
+      {{ .Get "text" | emojify }}
+    </a>
+  </p>
+  <div class="collapse card {{ if (eq (.Get "open") "true") }}show{{ end }}" id="{{$id}}">
     <div class="card-body">
-    {{ .Inner | markdownify | emojify }}
+      {{ .Inner | markdownify | emojify }}
     </div>
   </div>
 </div>
