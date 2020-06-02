@@ -4,10 +4,10 @@
 
 {{ if and $copyright_license $copyright_license.enable }}
 
-  {{ $notice := .Params.copyright_license.notice  | default site.Params.copyright_license.notice  }}
-  {{ $allow_commercial := .Params.allow_commercial | default site.Params.allow_commercial }}
-  {{ $allow_derivatives := .Params.allow_derivatives | default site.Params.allow_derivatives }}
-  {{ $share_alike := .Params.share_alike | default site.Params.share_alike }}
+  {{ $notice := .Params.copyright_license.notice | default site.Params.copyright_license.notice }}
+  {{ $allow_commercial := .Params.copyright_license.allow_commercial | default site.Params.copyright_license.allow_commercial }}
+  {{ $allow_derivatives := .Params.copyright_license.allow_derivatives | default site.Params.copyright_license.allow_derivatives }}
+  {{ $share_alike := .Params.copyright_license.share_alike | default site.Params.copyright_license.share_alike }}
 
   {{$cc_code := "by"}}
   {{ if not $allow_commercial }}{{ $cc_code = printf "%s-nc" $cc_code}}{{end}}
@@ -40,4 +40,5 @@
       {{end}}
     </a>
   </p>
+
 {{ end }}
