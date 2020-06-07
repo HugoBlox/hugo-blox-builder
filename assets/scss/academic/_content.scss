@@ -117,6 +117,12 @@ article .article-metadata {
   color: $sta-primary;
 }
 
+.article-metadata .author-notes {
+  cursor: help;
+  vertical-align: super;
+  font-size: 0.7em;
+}
+
 .article-categories {
   white-space: nowrap; /* Keep category icon on same line as category links, otherwise context lost. */
 }

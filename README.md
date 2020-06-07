@@ -6,7 +6,7 @@
 
 **Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 50 _widgets_, _themes_, and _language packs_ included!**
 
-[Check out the latest **demo**](https://academic-demo.netlify.com/) of what you'll get in less than 10 minutes, or [view the **showcase**](https://sourcethemes.com/academic/#expo) of personal, project, and business sites.
+[Check out the latest **demo**](https://academic-demo.netlify.app) of what you'll get in less than 10 minutes, or [view the **showcase**](https://sourcethemes.com/academic/#expo) of personal, project, and business sites.
 
 - 👉 [**Get Started**](https://sourcethemes.com/academic/docs/install/)
 - 📚 [View the **documentation**](https://sourcethemes.com/academic/docs/)
@@ -16,7 +16,7 @@
 - ⬆️ **Updating?** View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
 - :heart: **Support development** of Academic:
   - ☕️ [**Donate a coffee**](https://paypal.me/cushen)
-  - 💵 [Become a backer on **Patreon**](https://www.patreon.com/cushen)
+  - 💵 [Become a backer on **Patreon** and **unlock rewards**](https://www.patreon.com/cushen)
   - 🖼️ [Decorate your laptop or journal with an Academic **sticker**](https://www.redbubble.com/people/neutreno/works/34387919-academic)
   - 👕 [Wear the **T-shirt**](https://academic.threadless.com/)
   - :woman_technologist: [**Contribute**](https://sourcethemes.com/academic/docs/contribute/)
@@ -43,7 +43,7 @@
 
 ## Themes
 
-Academic comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the sun/moon icon in the top right of the [Demo](https://academic-demo.netlify.com/) to set your preferred mode!
+Academic comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the sun/moon icon in the top right of the [Demo](https://academic-demo.netlify.app) to set your preferred mode!
 
 Choose a stunning theme for your site and [customize it](https://sourcethemes.com/academic/docs/customization/#custom-theme) to your liking:
 
@@ -53,7 +53,7 @@ Choose a stunning theme for your site and [customize it](https://sourcethemes.co
 
 ## The Future of Technical Content Writing
 
-[![Writing technical content](https://sourcethemes.com/academic/img/docs/writing-technical-content.gif)](https://academic-demo.netlify.com/post/writing-technical-content/)
+[![Writing technical content](https://sourcethemes.com/academic/img/docs/writing-technical-content.gif)](https://academic-demo.netlify.apppost/writing-technical-content/)
 
 ## Ecosystem
 
@@ -71,18 +71,32 @@ You can choose from one of the following four methods to install:
 
 ### Install with web browser
 
-[Install Academic with Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/sourcethemes/academic-kickstart)
-  * One-click install of Academic creates an `academic-kickstart` repository in your GitHub or GitLab account
-  * Netlify will provide you with a customizable URL to access your new site, [or get your own domain](https://sourcethemes.com/academic/docs/domain/)
-  * Shortly after editing content in your repository, your site will automatically update
-  * Optionally, to edit your site in a [Markdown editor](https://www.typora.io) on your computer, perform the steps in the [*Install with Git*](#install-with-git) section below
+[**Create your site now with Netlify** :rocket:](https://app.netlify.com/start/deploy?repository=https://github.com/sourcethemes/academic-kickstart)
+
+* One-click install of Academic creates an `academic-kickstart` repository in your GitHub or GitLab account
+* Netlify will provide you with a customizable URL to access your new site, [or get your own domain](https://sourcethemes.com/academic/docs/domain/)
+* Around 1-5 minutes after editing content in your repository, your site will automatically update
+  - If your site fails to update, [login to Netlify](https://www.netlify.com/), click your site, go to **Deploys**, and review the latest deploy log for any errors
+* To **easily edit your site in a rich online editor in your browser**,
+  - [Login to Netlify](https://www.netlify.com/) and click the site you deployed with Netlify
+  - Go to **Settings > Identity**, and select **Enable Identity** service
+  - Under **Registration** preferences, select **Invite Only**
+  - Scroll down to **Services > Git Gateway**, and click **Enable Git Gateway**
+  - Head over to **`YOUR_SITE.com/admin/`** to view your content management panel and begin publishing content
+  - For support with _Netlify CMS_ admin panel, refer to the [Netlify CMS docs](https://www.netlifycms.org/docs/add-to-your-site/#authentication) and the very active [Netlify CMS community](https://www.netlifycms.org/community/)
+* To edit your site in a [Markdown editor](https://www.typora.io) on your computer,
+  - Perform the steps in the [*Install with Git*](#install-with-git) section below
+
+Once you have followed the link above to automatically install Academic, head on over to your new `academic-kickstart` repository in your GitHub (or GitLab) account and [personalize your site by editing the files in](https://sourcethemes.com/academic/docs/get-started/) `config/_default/`. Shortly after saving (i.e. *committing* a file), your site will automatically update.
+   
+View the [Homepage Builder](https://sourcethemes.com/academic/docs/page-builder/) and [Content](https://sourcethemes.com/academic/docs/managing-content/) guides to learn how to add widgets and content. For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://academic-demo.netlify.app).
 
 ### Install with Git
 
 Prerequisites:
 
 * [Download and install Git](https://git-scm.com/downloads)
-* [Download and install Hugo Extended v0.63.1+](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo Extended v0.65-v0.72](https://gohugo.io/getting-started/installing/#quick-install)
 
 Install:
 
@@ -105,7 +119,7 @@ Install:
 
 Prerequisites:
 
-* [Download and install Hugo Extended v0.63.1+](https://gohugo.io/getting-started/installing/#quick-install)
+* [Download and install Hugo Extended v0.65-v0.72](https://gohugo.io/getting-started/installing/#quick-install)
 
 Install:
 
@@ -118,7 +132,7 @@ Install:
 
 ## Demo content
 
-For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://academic-demo.netlify.com/).
+For inspiration, refer to the [Markdown content](https://github.com/gcushen/hugo-academic/tree/master/exampleSite) which powers the [Demo](https://academic-demo.netlify.app).
 
 If you wish to initialise your site with the demo content, copy the contents of the `themes/academic/exampleSite/` folder to your website root folder, overwriting existing files if necessary. The `exampleSite` folder contains an example config file and content to help you get started. The following command can be used to accomplish this:
 

@@ -7,12 +7,17 @@
     {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
     {{- $name := $profile_page.Title | default $name_raw -}}
     {{- if gt $index 0 }}, {{ end -}}
-    <span>
+    <span {{ if site.Params.highlight_superuser | and (eq $profile_page.Params.superuser true) }}class="font-weight-bold"{{end}}>
       {{- if and $profile_page $link_authors -}}
         <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
       {{- else -}}
         {{$name}}
       {{- end -}}
     </span>
+    {{- if isset $.Params "author_notes" -}}
+      {{- with (index $.Params.author_notes $index) -}}
+        <span title="{{.}}" class="author-notes">(?)</span>
+      {{- end -}}
+    {{- end -}}
   {{- end -}}
 {{- end -}}
