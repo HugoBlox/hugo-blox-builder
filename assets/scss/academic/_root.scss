@@ -168,7 +168,8 @@ pre,
 code {
   font-family: $sta-font-mono, monospace;
   color: #c7254e;
-  background-color: #f9f2f4;
+  /* Match default highlight theme. */
+  background-color: #f8f8f8;
 }
 
 pre {
