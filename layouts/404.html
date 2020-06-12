@@ -15,7 +15,7 @@
 
   <p>{{ i18n "404_recommendations" }}</p>
 
-  {{ $query := site.RegularPages }}
+  {{ $query := where site.RegularPages ".Params.hidden" "!=" true }}
   {{ $count := len $query }}
   {{ if gt $count 0 }}
   <h2>{{ i18n "user_profile_latest" }}</h2>
