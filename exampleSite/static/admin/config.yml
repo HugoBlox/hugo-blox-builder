@@ -81,10 +81,10 @@ collections:
     create: true  # Allow users to create new documents in this collection
     fields:  # The fields each document in this collection have
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Publish this page on", name: "date", widget: "datetime"}
-      - {label: "Summary", name: "summary", widget: "markdown"}
+      - {label: "Summary", name: "summary", widget: "markdown", required: false}
       - label: "Draft"
         name: "draft"
         widget: "boolean"
@@ -109,6 +109,74 @@ collections:
         name: "projects"
         required: false
         widget: "list"
+      - label: "Featured Image"
+        name: "image"
+        required: false
+        widget: object
+        fields:
+          - label: "Upload an image named `featured.jpg/png`"
+            name: "filename"
+            widget: "image"
+            default: "featured"
+            media_library:
+              config:
+                multiple: false
+          - {label: Caption, name: caption, widget: string, required: false}
+          - {label: Description for screen readers, name: alt_text, widget: string, required: false}
+          - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: 'content/project'
+    path: '{{slug}}/index'
+    create: true  # Allow users to create new documents in this collection
+    fields:  # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
+      - {label: "Publish this page on", name: "date", widget: "datetime"}
+      - {label: "Summary", name: "summary", widget: "markdown", required: false}
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+      - label: "Authors"
+        name: "authors"
+        required: false
+        widget: "list"
+      - label: "Tags"
+        name: "tags"
+        required: false
+        widget: "list"
+      - label: "Categories"
+        name: "categories"
+        required: false
+        widget: "list"
+      - {label: "External link (optional - replaces link to project page)", name: "external_link", widget: "string"}
+      - label: Links
+        name: links
+        required: false
+        widget: list
+        fields:
+          - {label: Link, name: url, widget: string}
+          - {label: Link text, name: name, widget: string, required: false}
+          - label: Icon pack
+            name: icon_pack
+            widget: select
+            multiple: false
+            required: false
+            options:
+              - {label: "None", value: ""}
+              - {label: "Solid", value: "fas"}
+              - {label: "Regular", value: "far"}
+              - {label: "Brand", value: "fab"}
+              - {label: "Academic", value: "ai"}
+          - {label: "Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons)", name: icon, widget: string, required: false}
       - label: "Featured Image"
         name: "image"
         required: false
@@ -201,7 +269,7 @@ collections:
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
           - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
-      - {label: "Details", name: "body", widget: "markdown"}
+      - {label: "Details", name: "body", widget: "markdown", required: false}
   - name: pages
     label: "Pages"
     files:
@@ -211,8 +279,8 @@ collections:
         fields:
           - {label: "Title", name: "title", widget: "string"}
           - {label: "Publish Date", name: "date", widget: "datetime"}
-          - {label: "Subtitle", name: "subtitle", widget: "string"}
-          - {label: "Summary", name: "summary", widget: "markdown"}
+          - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
+          - {label: "Summary", name: "summary", widget: "markdown", required: false}
           - label: "Draft"
             name: "draft"
             required: false
@@ -225,8 +293,8 @@ collections:
         fields:
           - {label: "Title", name: "title", widget: "string"}
           - {label: "Publish Date", name: "date", widget: "datetime"}
-          - {label: "Subtitle", name: "subtitle", widget: "string"}
-          - {label: "Summary", name: "summary", widget: "markdown"}
+          - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
+          - {label: "Summary", name: "summary", widget: "markdown", required: false}
           - label: "Draft"
             name: "draft"
             required: false
