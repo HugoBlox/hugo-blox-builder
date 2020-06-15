@@ -355,7 +355,7 @@
     switch (newMode) {
       case 0:
         localStorage.setItem('dark_mode', '1');
-        isDarkTheme = 1;
+        isDarkTheme = true;
         console.info('User changed theme variation to Dark.');
         showActiveTheme(0);
         break;
@@ -363,10 +363,10 @@
         localStorage.setItem('dark_mode', '2');
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
-          isDarkTheme = 1;
+          isDarkTheme = true;
         } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
           // The visitor prefers light themes and switching to the dark variation is allowed by admin.
-          isDarkTheme = 0;
+          isDarkTheme = false;
         } else {
           isDarkTheme = isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
         }
@@ -375,7 +375,7 @@
         break;
       default:
         localStorage.setItem('dark_mode', '0');
-        isDarkTheme = 0;
+        isDarkTheme = false;
         console.info('User changed theme variation to Light.');
         showActiveTheme(2);
         break;
@@ -414,18 +414,18 @@
     let isDarkTheme;
     switch (currentThemeMode) {
       case 0:
-        isDarkTheme = 0;
+        isDarkTheme = false;
         break;
       case 1:
-        isDarkTheme = 1;
+        isDarkTheme = true;
         break;
       default:
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
-          isDarkTheme = 1;
+          isDarkTheme = true;
         } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
           // The visitor prefers light themes and switching to the dark variation is allowed by admin.
-          isDarkTheme = 0;
+          isDarkTheme = false;
         } else {
           isDarkTheme = isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
         }
@@ -437,7 +437,7 @@
   /**
    * Render theme variation (day or night).
    *
-   * @param {int} isDarkTheme - TODO: convert to boolean.
+   * @param {boolean} isDarkTheme
    * @param {boolean} init
    * @returns {undefined}
    */
@@ -452,12 +452,12 @@
     if (!init) {
       // If request to render light when light variation already rendered, return.
       // If request to render dark when dark variation already rendered, return.
-      if ((isDarkTheme === 0 && !$('body').hasClass('dark')) || (isDarkTheme === 1 && $('body').hasClass('dark'))) {
+      if ((isDarkTheme === false && !$('body').hasClass('dark')) || (isDarkTheme === true && $('body').hasClass('dark'))) {
         return;
       }
     }
 
-    if (isDarkTheme === 0) {
+    if (isDarkTheme === false) {
       if (!init) {
         // Only fade in the page when changing the theme variation.
         $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
@@ -475,7 +475,7 @@
           location.reload();
         }
       }
-    } else if (isDarkTheme === 1) {
+    } else if (isDarkTheme === true) {
       if (!init) {
         // Only fade in the page when changing the theme variation.
         $('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
@@ -618,10 +618,10 @@
       if (currentThemeVariation === 2) {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           // The visitor prefers dark themes.
-          isDarkTheme = 1;
+          isDarkTheme = true;
         } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
           // The visitor prefers light themes.
-          isDarkTheme = 0;
+          isDarkTheme = false;
         } else {
           // The visitor does not have a day or night preference, so use the theme's default setting.
           isDarkTheme = isSiteThemeDark;
