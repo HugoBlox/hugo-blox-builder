@@ -42,8 +42,11 @@
 <body>
 
   {{ block "main" . }}{{ end }}
-
+   
   <script src="{{ $cdn_url_reveal }}/js/reveal.min.js"></script>
+
+  {{- $slide_number := $.Param "slides.slide_number" | default false -}}
+  {{- $vert_center := $.Param "slides.vert_center" | default true -}}
 
   <script>
     window.revealPlugins = { dependencies: [
@@ -62,7 +65,9 @@
       { src: '{{ "js/vendor/reveal.js/plugin/notes/notes.js" | relURL }}', async: true }
     ]};
 
-    let revealDefaults = { center: true, controls: true, history: true, progress: true, transition: 'slide', mouseWheel: true };
+	
+	
+    let revealDefaults = { center: {{ $vert_center }}, controls: true, history: true, progress: true, transition: 'slide', mouseWheel: true, slideNumber:  {{ $slide_number }} };
     let revealOptions = Object.assign({}, revealDefaults, revealPlugins);
     Reveal.initialize(revealOptions);
   </script>

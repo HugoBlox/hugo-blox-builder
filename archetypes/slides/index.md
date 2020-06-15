@@ -13,6 +13,10 @@ slides:
   # Choose a code highlighting style (if highlighting enabled in `params.toml`)
   #   Light style: github. Dark style: dracula (default).
   highlight_style: dracula
+  # Choose to display slide number. true/false (default).
+  slide_number: false
+  # Vertical centering of slides. true (default) / false
+  vert_center: true
 ---
 
 # Title
