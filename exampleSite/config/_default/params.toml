@@ -147,7 +147,7 @@ address_format = "en-us"
 ############################
 
 # Main menu alignment (l = left, c = center, r = right) and logo options.
-main_menu = {align = "l", show_logo = true}
+main_menu = {align = "l", show_logo = true, highlight_active_link = true, show_language = false}
 
 # Show estimated reading time for posts? (true/false)
 reading_time = true
