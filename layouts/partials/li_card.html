@@ -55,7 +55,9 @@
 
   {{ with $summary }}
   <div class="article-style">
-    <p>{{.}}</p>
+    <a href="{{ $item.RelPermalink }}">
+      <p>{{.}}</p>
+    </a>
   </div>
   {{ end }}
 

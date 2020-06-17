@@ -25,6 +25,13 @@
   border: 1px solid rgb(68, 71, 90);
 }
 
+/* In page listings, display the linked summaries as normal text except for the hover cursor. */
+.media.stream-item .article-style a,
+.card-simple .article-style a {
+  color: unset;
+  text-decoration: none;
+}
+
 .card {
   margin-bottom: 1.5rem;
   overflow: hidden;

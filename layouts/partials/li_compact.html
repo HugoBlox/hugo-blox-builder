@@ -38,9 +38,11 @@
     </h3>
 
     {{ with $summary }}
-    <div class="article-style">
-      {{ . }}
-    </div>
+      <div class="article-style">
+        <a href="{{ $item.RelPermalink }}">
+          {{ . }}
+        </a>
+      </div>
     {{ end }}
 
     <div class="stream-meta article-metadata">
