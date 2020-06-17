@@ -26,8 +26,7 @@
 }
 
 /* In page listings, display the linked summaries as normal text except for the hover cursor. */
-.media.stream-item .article-style a,
-.card-simple .article-style a {
+a.summary-link {
   color: unset;
   text-decoration: none;
 }
