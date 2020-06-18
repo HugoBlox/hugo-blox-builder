@@ -3,8 +3,14 @@
 {{- $taxonomy := "authors" -}}
 {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $username_url) -}}
 {{- $name := $profile_page.Title | default ($username|markdownify) -}}
+{{- $link := $profile_page.RelPermalink -}}
+{{- $target := "" -}}
+{{- with $profile_page.Params.external_link -}}
+  {{- $link = . }}
+  {{- $target = "target=\"_blank\" rel=\"noopener\"" -}}
+{{- end -}}
 {{- with $profile_page -}}
-  <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
+  <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{$name}}</a>
 {{- else -}}
   {{- $name -}}
 {{- end -}}
