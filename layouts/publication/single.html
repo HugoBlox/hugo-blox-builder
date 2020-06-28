@@ -38,7 +38,11 @@
       <div class="col-md-10">
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication" }}</div>
-          <div class="col-12 col-md-9">{{ .Params.publication | markdownify }}</div>
+          <div class="col-12 col-md-9">
+            {{ with .Params.publication_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ .Params.publication | markdownify }}
+            {{ if .Params.publication_url }}</a>{{ end }}
+          </div>
         </div>
       </div>
       <div class="col-md-1"></div>
