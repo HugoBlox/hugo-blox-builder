@@ -15,9 +15,10 @@ publishDate: {{ .Date }}
 # 7 = Thesis; 8 = Patent
 publication_types: ["0"]
 
-# Publication name and optional abbreviated publication name.
+# Publication name and optional abbreviated publication name + URL
 publication: ""
 publication_short: ""
+publication_url: ""
 
 abstract: ""
 
