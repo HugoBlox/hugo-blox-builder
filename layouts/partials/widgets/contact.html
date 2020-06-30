@@ -25,7 +25,7 @@
     {{end}}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if eq $page.Params.email_form 1 }}netlify-honeypot="welcome-bot"{{end}} {{ if $page.Params.netlify.captcha }}data-netlify-recaptcha="true"{{end}}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
@@ -38,6 +38,14 @@
           <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
           <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
         </div>
+        {{ if eq $page.Params.email_form 1 }}
+        <div class="d-none">
+          <label>Do not fill this field unless you are a bot: <input name="welcome-bot"></label>
+        </div>
+        {{ end }}
+        {{ if $page.Params.netlify.captcha }}
+        <div class="form-group" data-netlify-recaptcha="true"></div>
+        {{ end }}
         <button type="submit" class="btn btn-outline-primary px-3 py-2">{{ i18n "contact_send" | default "Send" }}</button>
       </form>
     </div>
