@@ -115,9 +115,15 @@
   {{ end }}
 
   {{/* We cannot use SRI with Google Fonts because the CSS is dynamically generated according to the user agent. */}}
-  {{/* Hugo's htmlEscape cannot escape "|" in Google Font URIs so we implement our own escape functionality. */}}
   {{ with ($scr.Get "google_fonts") }}
+  {{ if hasPrefix . "family=" }}
+  {{/* If `google_fonts` starts with "family=", then we use CSS API v2 (https://developers.google.com/fonts/docs/css2) */}}
+  <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css2?%s&display=swap\"" . | safeHTMLAttr }}>
+  {{ else }}
+  {{/* Otherwise, we use "legacy" CSS API (v1) */}}
+  {{/* Hugo's htmlEscape cannot escape "|" in Google Font URIs so we implement our own escape functionality. */}}
   <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css?family=%s&display=swap\"" . | replaceRE "\\|" "%7C" | safeHTMLAttr }}>
+  {{ end }}
   {{ end }}
 
   {{ $css_comment := printf "/*!* Source Themes Academic v%s (https://sourcethemes.com/academic/) */\n" site.Data.academic.version }}
