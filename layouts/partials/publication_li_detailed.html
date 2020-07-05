@@ -38,6 +38,12 @@
     {{ .Date.Format "2006" }}
   </div>
 
+  <div class="pub-awards">
+    {{ if .Parms.awards}}
+    {{- .Parms.awards | markdownify -}},
+    {{ end }}
+  </div>
+
   <div class="btn-links">
     {{ partial "page_links" (dict "content" . "is_list" 1) }}
   </div>

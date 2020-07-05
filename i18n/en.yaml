@@ -73,7 +73,10 @@
   translation: Interests
 
 - id: education
-  translation: Education
+  translation: Education & Experience
+
+- id: awards
+  translation: Awards
 
 # Experience widget
 
