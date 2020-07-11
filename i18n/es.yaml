@@ -1,3 +1,5 @@
+# Navigation
+
 - id: toggle_navigation
   translation: Barra de navegación
 - id: table_of_contents
@@ -6,6 +8,9 @@
   translation: En esta página
 - id: back_to_top
   translation: Regreso al inicio
+
+# General
+
 - id: related
   translation: Relacionado
 - id: minute_read
@@ -16,6 +21,20 @@
   translation: Siguiente
 - id: figure
   translation: 'Figura %d:'
+- id: edit_page
+  translation: Edita esta página
+
+# Themes
+
+- id: theme_light
+  translation: Claro
+- id: theme_dark
+  translation: Oscuro
+- id: theme_auto
+  translation: Automático
+
+# Buttons
+
 - id: btn_preprint
   translation: Prepublicación
 - id: btn_pdf
@@ -40,16 +59,28 @@
   translation: Copiar
 - id: btn_download
   translation: Descargar
+
+# About widget
+
 - id: interests
   translation: Intereses
 - id: education
   translation: Educación
 - id: user_profile_latest
   translation: Recientes
+
+# Accomplishments widget
+
 - id: see_certificate
   translation: Ver certificado
+
+# Experience widget
+
 - id: present
   translation: Actualmente
+
+# Pages widget
+
 - id: more_pages
   translation: Ver todo
 - id: more_posts
@@ -58,6 +89,9 @@
   translation: Más charlas
 - id: more_publications
   translation: Más publicaciones
+
+# Contact widget
+
 - id: contact_name
   translation: Nombre
 - id: contact_email
@@ -68,6 +102,9 @@
   translation: Enviar
 - id: book_appointment
   translation: Solicitar una cita
+
+# Publication/Talk details
+
 - id: abstract
   translation: Resumen
 - id: publication
@@ -100,8 +137,14 @@
   translation: Tesis
 - id: pub_patent
   translation: Patente
+
+# Project details
+
 - id: open_project_site
   translation: Ir al sitio del proyecto
+
+# Default titles for archive pages
+
 - id: posts
   translation: Posts
 - id: publications
@@ -110,6 +153,11 @@
   translation: Charlas
 - id: projects
   translation: Proyectos
+- id: slides
+  translation: Diapositivas
+
+# Search
+
 - id: search
   translation: Buscar
 - id: search_placeholder
@@ -118,10 +166,16 @@
   translation: resultados encontrados
 - id: search_no_results
   translation: No se encontraron resultados
+
+# Error 404
+
 - id: page_not_found
   translation: Página no encontrada
 - id: 404_recommendations
   translation: ¿Buscabas una de éstas?
+
+# Cookie consent
+
 - id: cookie_message
   translation: Este sitio web utiliza cookies para garantizarle una mejor experiencia.
 - id: cookie_dismiss
