@@ -59,6 +59,12 @@
     {{ $style = print $style $style_pad }}
   {{ end }}
 
+  {{/* Support for clip path (design.clip_path) */}}
+  {{ with $st.Params.design.clip_path }}
+    {{ $style_clip_path := printf "clip-path: %s;" . }}
+    {{ $style = print $style $style_clip_path }}
+  {{ end }}
+
   {{ with $st.Params.advanced.css_style }}
     {{ $style = print $style . }}
   {{ end }}
