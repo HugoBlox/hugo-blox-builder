@@ -69,6 +69,10 @@
   version = "3.1.1"
   sri = "sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="
   url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.js"
+[js.instantpage]
+  version = "5.1.0"
+  sri = "sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instant.page/%s/instantpage.min.js"
 
 # CSS
 
