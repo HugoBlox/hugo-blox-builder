@@ -1,0 +1,7 @@
+{{ if gt (len $.Page.Pages) 0}}
+  <ul class="list-unstyled">
+    {{ range $.Page.Pages }}
+      <li><h5><a href="{{.RelPermalink}}">{{.LinkTitle}}</a></h5> {{with .Params.summary}}<p>{{. | plainify | emojify}}</p>{{end}}</li>
+    {{end}}
+  </ul>
+{{end}}

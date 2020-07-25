@@ -1,0 +1,28 @@
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  {{ if eq site.Params.search.engine 1 }}
+  <input name="q" type="search" class="form-control" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
+  {{ end }}
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  {{ $current_node := . }}
+  {{ $menu_name := (path.Base (path.Split .FirstSection).Dir) }}
+  {{ $order_by := cond (eq $menu_name "updates") "title_desc" site.Params.books.order_by }}
+
+  {{ $query := "" }}
+  {{- if eq $order_by "title" -}}
+    {{- $query = where .Site.Home.Sections.ByTitle "Section" $menu_name -}}
+  {{- else if eq $order_by "title_desc" -}}
+    {{- $query = where .Site.Home.Sections.ByTitle.Reverse "Section" $menu_name -}}
+  {{- else -}}
+    {{- $query = where .Site.Home.Sections.ByWeight "Section" $menu_name -}}
+  {{- end}}
+
+  {{- range $query -}}
+    {{ template "book-menu" dict "sect" . "current_node" $current_node "order_by" $order_by }}
+  {{- end -}}
+</nav>
