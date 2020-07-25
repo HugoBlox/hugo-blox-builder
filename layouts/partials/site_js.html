@@ -69,7 +69,7 @@
     {{ end }}
 
     {{/* Load hash anchors for documentation pages. */}}
-    {{ if eq .Type "docs" }}
+    {{ if in (slice "book" "docs") .Type }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
     <script>
       anchors.add();
