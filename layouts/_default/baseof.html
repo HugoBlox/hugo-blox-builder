@@ -16,7 +16,7 @@
   {{ partial "site_js" . }}
 
   {{/* Docs and Updates layouts include the site footer in a different location. */}}
-  {{ if not (in (slice "docs" "updates") .Type) }}
+  {{ if not (in (slice "book" "docs" "updates") .Type) }}
   <div class="container">
     {{ partial "site_footer" . }}
   </div>
