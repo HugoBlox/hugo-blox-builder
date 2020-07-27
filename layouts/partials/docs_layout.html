@@ -28,7 +28,9 @@
           <div class="article-style">
             {{ .Content }}
           </div>
-
+          {{ if site.Params.docs_authors }}
+		     {{ partial "page_author" . }}
+		  {{ end }}
           {{ partial "tags.html" . }}
 
           {{ if site.Params.docs_section_pager }}
