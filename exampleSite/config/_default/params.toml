@@ -296,3 +296,19 @@ plugins_js  = []
 ############################
 [icon.pack]
   ai = false  # Academicons icon pack https://jpswalsh.github.io/academicons/
+
+############################
+## Email newsletter
+############################
+[newsletter]
+  # Newsletter provider:
+  #   0: Disabled
+  #   1: blogmail (https://blogmail.co)
+  engine = 0
+
+  # Which page types show email subscription form?
+  subscribable = {page = true, post = true, docs = true, project = true, publication = true, talk = true}
+
+  # Configuration of blogmail.
+  [newsletter.blogmail]
+    newsletterId = ""  # Paste the newsletter ID from your blogmail dashboard.

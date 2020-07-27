@@ -28,7 +28,7 @@
 - **Create content** in [**Markdown**](https://sourcethemes.com/academic/docs/writing-markdown-latex/), [**Jupyter**](https://sourcethemes.com/academic/docs/jupyter/), or [**RStudio**](https://sourcethemes.com/academic/docs/install/#install-with-rstudio)
 - **Plugin System** - Fully customizable [**color** and **font themes**](https://sourcethemes.com/academic/themes/)
 - **Display Code and Math** - Code highlighting and [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics) supported
-- **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
+- **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), [blogmail](https://blogmail.co/), Maps, Contact Forms, and more!
 - **Beautiful Site** - Simple and refreshing one page design
 - **Industry-Leading SEO** - Help get your website found on search engines and social media
 - **Media Galleries** - Display your images and videos with captions in a customizable gallery

@@ -1,0 +1,7 @@
+{{ if site.Params.newsletter.engine | and (index site.Params.newsletter.subscribable .Type) | and (ne .Params.newsletter.subscribable false) | or .Params.newsletter.subscribable }}
+<section id="newsletter">
+  {{ if eq site.Params.newsletter.engine 1 }}
+    {{ partial "newsletter/blogmail.html" . }}
+  {{ end }}
+</section>
+{{ end }}

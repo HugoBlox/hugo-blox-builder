@@ -1,0 +1,23 @@
+{{ if site.Params.newsletter.blogmail.newsletterId }}
+<div class="blogmail border rounded container-fluid py-3 mt-2">
+  <script type="application/json">
+    {
+      "newsletterId": "{{site.Params.newsletter.blogmail.newsletterId}}",
+      "inputPlaceholder": "your email",
+      "labelText": "Get notified by email when there's a new post",
+      "buttonText": "Subscribe",
+      "subscribedText": "Subscribed! 😀",
+      "classes": {
+        "a": "",
+        "formDiv": "form-group container d-flex flex-wrap",
+        "bottomDiv": "small gray-light container flex-wrap",
+        "subscribedDiv": "",
+        "label": "",
+        "textInput": "rounded flex-grow-1 px-1",
+        "submitInput": "btn btn-default border flex-wrap mx-1"
+      }
+    }
+  </script>
+</div>
+<script async src="https://blogmail.co/v1/bm.js"></script>
+{{end}}
