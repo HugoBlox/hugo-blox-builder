@@ -3,8 +3,9 @@
 
 {{ $path := "" }}
 {{ $root_dir := "" }}
+{{ $media_dir := $.Scratch.Get "media_dir" }}
 {{ if .Get "library" }}
-  {{ $path = "media/" }}
+  {{ $path = printf "%s/" $media_dir }}
   {{ $root_dir = "static/" }}
 {{ end }}
 

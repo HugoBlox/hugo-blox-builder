@@ -1,12 +1,13 @@
-{{/* Enable image to be loaded from local page dir or media library at `static/img/`. */}}
+{{/* Enable image to be loaded from local page dir or media library at `static/media/`. */}}
 
+{{ $media_dir := $.Scratch.Get "media_dir" }}
 {{ $asset := (.Page.Resources.ByType "image").GetMatch (.Get "src") }}
 {{ $image_src := (.Get "src") }}
 {{ if $asset }}
   {{ $asset2 := $asset.Fit "2000x2000" }}
   {{ $image_src = $asset2.RelPermalink }}
 {{ else if .Get "library" }}
-  {{ $image_src = printf "img/%s" $image_src | relURL }}
+  {{ $image_src = printf "%s/%s" $media_dir $image_src | relURL }}
 {{ end }}
 
 {{/* Disallow user from opening image in the lightbox? */}}

@@ -34,7 +34,7 @@
   {{end}}
 
   {{else}}
-  {{/* Load gallery images from the `static/img/` media library or internet */}}
+  {{/* Load gallery images from the `static/media/` media library or internet */}}
 
   {{ if $.Page.Params.gallery_item }}
   {{ range (where $.Page.Params.gallery_item "album" $album) }}
@@ -42,7 +42,8 @@
   {{ $.Scratch.Set "src" .image }}
   {{ if gt (len .image) 4 }}
     {{ if ne "http" (slicestr .image 0 4) }}
-      {{ $.Scratch.Set "src" (printf "img/%s" .image | relURL) }}
+      {{ $media_dir := $.Scratch.Get "media_dir" }}
+      {{ $.Scratch.Set "src" (printf "%s/%s" $media_dir .image | relURL) }}
     {{ end }}
   {{ end }}
   {{/* Don't lazy load image as cannot init image size from non-Hugo asset, resulting in inaccurate anchor scrolling & active link highlighting. */}}

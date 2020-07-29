@@ -5,7 +5,7 @@
   "@id": {{site.BaseURL}},
   "name": {{site.Params.org_name | default site.Title}},
   "logo": {{ partial "functions/get_logo_url" . }},
-  {{with site.Params.sharing_image}}"image": {{printf "img/%s" . | absURL}},{{end}}
+  {{with site.Params.sharing_image}}"image": {{printf "%s/%s" ($.Scratch.Get "media_dir") . | absURL}},{{end}}
   {{ if (eq site.Params.site_type "LocalBusiness") | and site.Params.coordinates }}
   "geo": {
     "@type": "GeoCoordinates",

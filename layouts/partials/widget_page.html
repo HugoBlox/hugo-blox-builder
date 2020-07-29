@@ -43,7 +43,8 @@
       {{ $darken = printf "linear-gradient(rgba(0, 0, 0, %s), rgba(0, 0, 0, %s))," (string $bg.image_darken) (string $bg.image_darken) }}
     {{ end }}
     {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
-    {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "img/%s" $bg.image | absURL) }}
+    {{ $media_dir := $.Scratch.Get "media_dir" }}
+    {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "%s/%s" $media_dir $bg.image | absURL) }}
     {{ with $bg.image_size }}
       {{/* Allow sizes: actual, cover, and contain. */}}
       {{ $style = printf "%sbackground-size: %s;" $style (replace . "actual" "auto") }}

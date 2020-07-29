@@ -7,6 +7,9 @@
 
   {{ $scr := .Scratch }}
 
+  {{ $media_dir := site.Params.media_dir | default "media" }}
+  {{ $scr.Set "media_dir" $media_dir }}
+
   {{/* Attempt to load superuser. */}}
   {{ $superuser_name := "" }}
   {{ $superuser_username := "" }}
@@ -173,9 +176,9 @@
   {{ else if $featured_image }}
     {{ $og_image = $featured_image.Permalink }}
   {{ else if .Params.header.image }}
-    {{ $og_image = printf "img/%s" .Params.header.image | absURL }}
+    {{ $og_image = printf "%s/%s" $media_dir .Params.header.image | absURL }}
   {{ else if site.Params.sharing_image }}
-    {{ $og_image = printf "img/%s" site.Params.sharing_image | absURL }}
+    {{ $og_image = printf "%s/%s" $media_dir site.Params.sharing_image | absURL }}
   {{ else if $has_logo }}
     {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
     {{ $twitter_card = "summary" }}

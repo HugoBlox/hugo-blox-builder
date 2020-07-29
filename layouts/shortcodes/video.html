@@ -1,8 +1,10 @@
-{{/* Enable video to be loaded from local page dir or media library at `static/img/`. */}}
+{{/* Enable video to be loaded from local page dir or media library at `static/media/`. */}}
+
 {{ $path := "" }}
 {{ $root_dir := "" }}
+{{ $media_dir := $.Scratch.Get "media_dir" }}
 {{ if .Get "library" }}
-  {{ $path = "img/" }}
+  {{ $path = printf "%s/" $media_dir }}
   {{ $root_dir = "static/" }}
 {{ end }}
 
