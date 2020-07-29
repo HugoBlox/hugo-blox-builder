@@ -1,0 +1,17 @@
+{{ $page := .Get "page" }}
+
+{{/* Default compact view. */}}
+{{ $view := (.Get "view") | default 2 }}
+{{ $view = int $view }}
+
+{{ with site.GetPage $page }}
+  {{ if eq $view 1 }}
+    {{ partial "li_list" . }}
+  {{ else if eq $view 3 }}
+    {{ partial "li_card" . }}
+  {{ else if eq $view 4 }}
+    {{ partial "li_citation" . }}
+  {{ else }}
+    {{ partial "li_compact" . }}
+  {{ end }}
+{{ end }}
