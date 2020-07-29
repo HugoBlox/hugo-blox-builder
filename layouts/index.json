@@ -1,8 +1,9 @@
 {{- /* Generate the search index. */ -}}
 {{- $index := slice -}}
 {{- $pages := site.RegularPages -}}
-{{- /* Add the index page of docs separately since it's not in RegularPages above. */ -}}
+{{- /* Add the index page of multi-page content separately since it's not in RegularPages above. */ -}}
 {{- $pages := $pages | union (where (where site.Pages "Kind" "section") "Type" "docs") -}}
+{{- $pages := $pages | union (where (where site.Pages "Kind" "section") "Type" "book") -}}
 {{- /* Add author pages to index so their bios can be searched. Hide empty `/authors/` node. */ -}}
 {{- $pages := $pages | union (where (where site.Pages "Section" "authors") "Params.superuser" "!=" nil) -}}
 
