@@ -2,8 +2,14 @@
 
 {{ $media_dir := .Page.Scratch.Get "media_dir" }}
 {{ $asset := (.Page.Resources.ByType "image").GetMatch (.Get "src") }}
-{{ $image_src := (.Get "src") }}
+{{ $is_svg := false }}
 {{ if $asset }}
+  {{ if eq $asset.MediaType.SubType "svg"}}
+    {{ $is_svg = true }}
+  {{ end }}
+{{ end }}
+{{ $image_src := (.Get "src") }}
+{{ if and $asset (not $is_svg) }}
   {{ $asset2 := $asset.Fit "2000x2000" }}
   {{ $image_src = $asset2.RelPermalink }}
 {{ else if .Get "library" }}
@@ -28,7 +34,7 @@
 {{ end -}}
 
 {{/* Lazy load only when we know image dimensions in order to preserve anchor linking. */}}
-{{ if $asset }}
+{{ if and $asset (not $is_svg) }}
   <img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" width="{{ (.Get "width") | default $asset.Width }}" height="{{ (.Get "height") | default $asset.Height }}">
 {{ else if and (.Get "width") (.Get "height") }}
   <img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}}>
