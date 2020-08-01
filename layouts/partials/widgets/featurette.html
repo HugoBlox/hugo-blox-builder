@@ -21,6 +21,7 @@
   {{ if in (slice "fab" "fas" "far" "fal") $pack }}
     {{ $pack_prefix = "fa" }}
   {{ end }}
+  {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
   <div class="col-12 col-sm-4">
     {{ with .icon }}
     <div class="featurette-icon">
@@ -34,6 +35,7 @@
       {{- end -}}
     </div>
     {{ end }}
+    {{ with .url }}</a>{{ end }}
     <h3>{{ .name | markdownify | emojify }}</h3>
     {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>
