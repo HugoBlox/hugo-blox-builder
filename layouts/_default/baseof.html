@@ -4,8 +4,9 @@
 
 {{ partial "site_head" . }}
 
+{{ $show_navbar := site.Params.main_menu.enable | default true }}
 {{- $highlight_active_link := site.Params.main_menu.highlight_active_link | default true -}}
-<body id="top" data-spy="scroll" data-offset="70" data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" {{ if not (.Scratch.Get "light") }}class="dark"{{end}}>
+<body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="{{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}">
 
   {{ partial "search" . }}
 

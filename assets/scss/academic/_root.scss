@@ -29,6 +29,9 @@ body {
     margin-top: 50px; /* Offset body content by navbar height. */
   }
 }
+body.no-navbar {
+  margin-top: 0 !important;
+}
 
 .max-width-640 {
   max-width: 640px;

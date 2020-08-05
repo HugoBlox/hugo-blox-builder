@@ -1,3 +1,6 @@
+{{ $show_navbar := site.Params.main_menu.enable | default true }}
+{{ if $show_navbar }}
+
 {{ $current_page := . }}
 {{ $highlight_active_link := site.Params.main_menu.highlight_active_link | default true }}
 {{ $show_current_language := site.Params.main_menu.show_language | default false }}
@@ -176,3 +179,4 @@
 
   </div><!-- /.container -->
 </nav>
+{{end}}{{/* End show navbar. */}}
