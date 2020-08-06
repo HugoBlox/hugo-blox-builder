@@ -151,7 +151,7 @@
     {{ $js_academic := resources.Get "js/academic.js" }}
     {{ $js_academic_search := resources.Get "js/academic-search.js" }}
     {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
-    {{ $js_bootstrap := resources.Get "js/vendor/bootstrap.min.js" }}
+    {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.min.js" }}
     {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
     {{ if eq site.Params.search.engine 1 }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
