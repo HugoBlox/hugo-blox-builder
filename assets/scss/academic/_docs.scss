@@ -108,6 +108,7 @@
 }
 
 .docs-sidebar .docs-toc-item.active a,
+.docs-sidebar .docs-toc-item a.active, // Book layout sidebar links
 .docs-sidebar .nav>.active:hover>a,
 .docs-sidebar .nav>.active>a {
   font-weight: bold;

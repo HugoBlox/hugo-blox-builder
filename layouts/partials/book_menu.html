@@ -2,12 +2,15 @@
 
 {{- $first := false -}}
 {{- $current_node := .current_node -}}
+{{- $is_root := .is_root -}}
 {{- $order_by := .order_by -}}
 {{ $icon := "" }}
 
 {{ with .sect }}
   {{ if .IsSection}}
-    {{- $first = eq $current_node.FirstSection . -}}
+    {{ if not $is_root }}
+      {{- $first = eq $current_node.FirstSection . -}}
+    {{ end }}
 
     {{- safeHTML $current_node.FirstSection.Params.pre_nav -}}
 
