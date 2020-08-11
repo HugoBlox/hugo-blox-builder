@@ -72,7 +72,7 @@
    * Add smooth scrolling to all links inside the main navbar.
    * --------------------------------------------------------------------------- */
 
-  $('#navbar-main li.nav-item a.nav-link').on('click', function (event) {
+  $('#navbar-main li.nav-item a.nav-link, .js-scroll').on('click', function (event) {
     // Store requested URL hash.
     let hash = this.hash;
 
