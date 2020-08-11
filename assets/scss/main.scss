@@ -21,10 +21,18 @@ $sta-primary-dark: darken($sta-primary, $sta-darken-percentage);
 $sta-link: {{ $scr.Get "link" }};
 $sta-link-hover: {{ $scr.Get "link_hover" }};
 
+$sta-dark-link: {{ $scr.Get "dark_link" }};
+$sta-dark-link-hover: {{ $scr.Get "dark_link_hover" }};
+
 $sta-menu-primary: {{ $scr.Get "menu_primary" }};
 $sta-menu-text: {{ $scr.Get "menu_text" }};
 $sta-menu-text-active: {{ $scr.Get "menu_text_active" }};
 $sta-menu-title: {{ $scr.Get "menu_title" }};
+
+$sta-dark-menu-primary: {{ $scr.Get "dark_menu_primary" }};
+$sta-dark-menu-text: {{ $scr.Get "dark_menu_text" }};
+$sta-dark-menu-text-active: {{ $scr.Get "dark_menu_text_active" }};
+$sta-dark-menu-title: {{ $scr.Get "dark_menu_title" }};
 
 $sta-background: {{ $scr.Get "background" }};
 $sta-dark-background: {{ $scr.Get "dark_background" }};
@@ -38,4 +46,5 @@ $sta-dark-home-section-even: {{ $scr.Get "dark_home_section_even" }};
 @import "bootstrap_variables";
 @import "_vendor/bootstrap/bootstrap";
 @import "academic/academic";
+@import "template";
 @import "custom";

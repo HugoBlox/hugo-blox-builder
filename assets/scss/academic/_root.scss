@@ -124,6 +124,16 @@ a:focus {
   color: $sta-link-hover;
 }
 
+.dark a,
+.dark h3.article-title a:hover {
+  color: $sta-dark-link;
+}
+
+.dark a:hover,
+.dark a:focus {
+  color: $sta-dark-link-hover;
+}
+
 img,
 video {
   height: auto;
