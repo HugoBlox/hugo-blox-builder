@@ -90,7 +90,9 @@
     {{ $use_container = false }}
   {{ end }}
 
-  <section id="{{$hash_id}}" class="home-section {{printf "wg-%s" (replace $widget "_" "-")}} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+  {{ $widget_class := printf "wg-%s" (replace (replace $widget "." "-") "_" "-") }}
+
+  <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
     {{if $use_container}}<div class="container">{{end}}
       {{ partial $widget_path $widget_args }}
     {{if $use_container}}</div>{{end}}
