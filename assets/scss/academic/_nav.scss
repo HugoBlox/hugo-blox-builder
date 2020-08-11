@@ -87,6 +87,10 @@
       }
     }
   }
+  .dropdown-item.active,
+  .dropdown-item-active {
+    color: $sta-dark-menu-text-active !important;
+  }
 }
 
 // Remove Bootstrap's border from Toggle button.
@@ -186,6 +190,9 @@
     width: 100%;
     background-color: $sta-menu-primary;
     text-align: center !important;
+  }
+  .dark .navbar-collapse {
+    background-color: $sta-dark-menu-primary;
   }
   #navbar-main .main-menu-item .nav-item {
     padding: 10px 15px !important;
