@@ -69,11 +69,22 @@
   {{ $i18n = "more_pages" }}
 {{ end }}
 
-<div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
-    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
-  </div>
+{{ $columns := $st.Params.design.columns | default "2" }}
+
+<div class="row {{if not $st.Title | or (eq $columns "1") }}justify-content-center{{end}}">
+  {{ if $st.Title }}
+    {{ if eq $columns "1" }}
+      <div class="col-12 col-lg-8 section-heading text-center">
+        {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
+        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+      </div>
+    {{else}}
+      <div class="col-12 col-lg-4 section-heading">
+        {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
+        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+      </div>
+    {{end}}
+  {{ end }}
   <div class="col-12 col-lg-8">
 
     {{ with $st.Content }}{{ . }}{{ end }}
@@ -90,10 +101,13 @@
       {{ end }}
     {{end}}
 
-    {{ if gt $count $items_count }}
+    {{ $show_archive_link := $st.Params.content.archive.enable | default (gt $count $items_count) }}
+    {{ if $show_archive_link }}
+    {{ $archive_link := ($st.Params.content.archive.link | relLangURL) | default $archive_page.RelPermalink }}
+    {{ $archive_text := $st.Params.content.archive.text | default (i18n $i18n) | default "See all" }}
     <div class="see-all">
-      <a href="{{ $archive_page.RelPermalink }}">
-        {{ i18n $i18n | default "See all" }}
+      <a href="{{ $archive_link }}">
+        {{ $archive_text | emojify }}
         <i class="fas fa-angle-right"></i>
       </a>
     </div>

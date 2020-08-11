@@ -1,21 +1,31 @@
 {{ $ := .root }}
-{{ $page := .page }}
-{{ $autolink := default true $page.Params.autolink }}
+{{ $st := .page }}
+{{ $autolink := default true $st.Params.autolink }}
 {{ $data := site.Params }}
 
-<!-- Contact widget -->
-<div class="row contact-widget">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $page.Title }}{{ . | markdownify }}{{ end }}</h1>
-    {{ with $page.Params.subtitle }}<p>{{ . | markdownify }}</p>{{ end }}
-  </div>
-  <div class="col-12 col-lg-8">
-    {{ with $page.Content }}{{ . }}{{ end }}
+{{ $columns := $st.Params.design.columns | default "2" }}
 
-    {{ if $page.Params.email_form }}
+<div class="row contact-widget {{if not $st.Title | or (eq $columns "1") }}justify-content-center{{end}}">
+  {{ if $st.Title }}
+    {{ if eq $columns "1" }}
+      <div class="col-12 col-lg-8 section-heading text-center">
+        {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
+        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+      </div>
+    {{else}}
+      <div class="col-12 col-lg-4 section-heading">
+        {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
+        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+      </div>
+    {{end}}
+  {{ end }}
+  <div class="col-12 col-lg-8">
+    {{ with $st.Content }}{{ . }}{{ end }}
+
+    {{ if $st.Params.email_form }}
 
     {{ $post_action := "" }}
-    {{ if eq $page.Params.email_form 1 }}
+    {{ if eq $st.Params.email_form 1 }}
       {{ $post_action = "netlify" }}
     {{ else }}
       {{ if not $data.email }}
@@ -25,7 +35,7 @@
     {{end}}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if eq $page.Params.email_form 1 }}netlify-honeypot="welcome-bot"{{end}} {{ if $page.Params.netlify.captcha }}data-netlify-recaptcha="true"{{end}}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if eq $st.Params.email_form 1 }}netlify-honeypot="welcome-bot"{{end}} {{ if $st.Params.netlify.captcha }}data-netlify-recaptcha="true"{{end}}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
@@ -38,12 +48,12 @@
           <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
           <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
         </div>
-        {{ if eq $page.Params.email_form 1 }}
+        {{ if eq $st.Params.email_form 1 }}
         <div class="d-none">
           <label>Do not fill this field unless you are a bot: <input name="welcome-bot"></label>
         </div>
         {{ end }}
-        {{ if $page.Params.netlify.captcha }}
+        {{ if $st.Params.netlify.captcha }}
         <div class="form-group" data-netlify-recaptcha="true"></div>
         {{ end }}
         <button type="submit" class="btn btn-outline-primary px-3 py-2">{{ i18n "contact_send" | default "Send" }}</button>
@@ -53,7 +63,7 @@
 
     <ul class="fa-ul">
 
-      {{ if and $data.email (not $page.Params.email_form) }}
+      {{ if and $data.email (not $st.Params.email_form) }}
       <li>
         <i class="fa-li fas fa-envelope fa-2x" aria-hidden="true"></i>
         <span id="person-email">
