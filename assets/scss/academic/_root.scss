@@ -442,7 +442,7 @@ a.badge:hover {
 .btn {
   padding: .5rem;
   font-size: .8rem;
-  line-height: .5;
+  line-height: .9;  // Anything less and multiline button text may overlap.
   border-radius: .3rem;
 }
 

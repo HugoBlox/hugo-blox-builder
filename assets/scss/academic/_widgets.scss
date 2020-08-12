@@ -12,6 +12,7 @@
 }
 
 .home-section {
+  position: relative;  // Required for component positioning within section.
   background-color: $sta-home-section-odd;
   padding: 110px 0 110px 0;
   animation: intro 0.3s both;
