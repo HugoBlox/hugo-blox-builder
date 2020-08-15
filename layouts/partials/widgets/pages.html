@@ -101,16 +101,25 @@
       {{ end }}
     {{end}}
 
+    {{/* Archive link */}}
     {{ $show_archive_link := $st.Params.content.archive.enable | default (gt $count $items_count) }}
     {{ if $show_archive_link }}
-    {{ $archive_link := ($st.Params.content.archive.link | relLangURL) | default $archive_page.RelPermalink }}
-    {{ $archive_text := $st.Params.content.archive.text | default (i18n $i18n) | default "See all" }}
-    <div class="see-all">
-      <a href="{{ $archive_link }}">
-        {{ $archive_text | emojify }}
-        <i class="fas fa-angle-right"></i>
-      </a>
-    </div>
+
+      {{ $archive_link := "" }}
+      {{ if $st.Params.content.archive.link }}
+        {{ $archive_link = $st.Params.content.archive.link | relLangURL }}
+      {{ else }}
+        {{ $archive_link = $archive_page.RelPermalink }}
+      {{ end }}
+
+      {{ $archive_text := $st.Params.content.archive.text | default (i18n $i18n) | default "See all" }}
+
+      <div class="see-all">
+        <a href="{{ $archive_link }}">
+          {{ $archive_text | emojify }}
+          <i class="fas fa-angle-right"></i>
+        </a>
+      </div>
     {{ end }}
 
   </div>
