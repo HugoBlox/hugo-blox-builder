@@ -58,6 +58,11 @@ ul, ol, dl {
   margin-bottom: 1rem;
 }
 
+li > p {
+  // Override the default paragraph margin for paragraphs within lists.
+  margin-bottom: 0;
+}
+
 ul.task-list {
   list-style: none;
 }
