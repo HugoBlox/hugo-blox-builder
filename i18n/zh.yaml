@@ -2,7 +2,7 @@
 
 - id: toggle_navigation
   translation: 切换导航
-  
+
 - id: table_of_contents
   translation: 目录
 
@@ -31,6 +31,17 @@
 
 - id: edit_page
   translation: 编辑本页
+
+# Themes
+
+- id: theme_light
+  translation: 浅色
+
+- id: theme_dark
+  translation: 深色
+
+- id: theme_auto
+  translation: 自动
 
 # Buttons
 
