@@ -78,7 +78,7 @@
       &.active,
       &:hover,
       &:focus {
-        color: $sta-dark-menu-text;
+        color: $sta-dark-menu-text-active;
       }
 
       &.active {
@@ -99,6 +99,11 @@
   position: relative;  // For z-index clickable mobile logo.
   z-index: 1030;
 }
+
+.dark .navbar-toggler {
+ color: $sta-dark-menu-text;
+}
+
 .navbar-toggler:focus,
 .navbar-toggler:active {
   outline: none !important;
@@ -138,6 +143,10 @@
   font-weight: bold;
   position: relative;
   z-index: 1030;  // For z-index clickable mobile logo.
+}
+
+.dark .navbar-brand {
+  color: $sta-dark-menu-title;
 }
 
 // Dynamically fit logo image to space available.
