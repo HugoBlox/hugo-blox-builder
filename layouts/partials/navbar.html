@@ -81,18 +81,28 @@
         {{ end }}
 
         {{/* Get active page. */}}
-        {{ $is_link_in_current_path := in $current_page.RelPermalink .URL }}
+
+        {{ $is_link_in_current_path := false }}
         {{ $is_widget_page := or $current_page.IsHome (eq $current_page.Type "widget_page") }}
+        {{ $is_same_page := false }}
         {{ $hash := findRE "#(.+)" .URL }}
-        {{ $is_same_page := $is_link_in_current_path }}
-        {{ if gt (len $hash) 0 }}
-          {{ $hash = index $hash 0 }}
-          {{ $hash_removed := replace .URL $hash "" }}
-          {{ if eq (len $hash_removed) 0 }}
-            {{ $hash_removed = "/" }}{{/* Add robustness for `/#SECTION` or `#SECTION` in `menus.toml`. */}}
+
+        {{ if $current_page.IsHome | and (or (eq .URL "/") (eq .URL "")) }}
+          {{ $is_link_in_current_path = true }}
+        {{else}}
+          {{ if gt (len .URL) 1 }}{{/* Ignore root URL */}}
+            {{ $is_link_in_current_path = in $current_page.RelPermalink .URL }}
+            {{ $is_same_page = $is_link_in_current_path }}
+          {{end}}
+          {{ if gt (len $hash) 0 }}
+            {{ $hash = index $hash 0 }}
+            {{ $hash_removed := replace .URL $hash "" }}
+            {{ if eq (len $hash_removed) 0 }}
+              {{ $hash_removed = "/" }}{{/* Add robustness for `/#SECTION` or `#SECTION` in `menus.toml`. */}}
+            {{ end }}
+            {{ $is_same_page = eq (path.Dir $current_page.RelPermalink) (path.Dir ($hash_removed|relLangURL)) }}
           {{ end }}
-          {{ $is_same_page = eq (path.Dir $current_page.RelPermalink) (path.Dir ($hash_removed|relLangURL)) }}
-        {{ end }}
+        {{end}}
 
         <li class="nav-item">
           <a class="nav-link {{if and $highlight_active_link $is_link_in_current_path }} active{{end}}" href="{{.URL | relLangURL}}"{{ if and $is_widget_page $is_same_page }} data-target="{{$hash}}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
