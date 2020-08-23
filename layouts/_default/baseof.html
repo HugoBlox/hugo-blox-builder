@@ -8,6 +8,16 @@
 {{- $highlight_active_link := site.Params.main_menu.highlight_active_link | default true -}}
 <body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="{{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}">
 
+  {{/* Load day/night theme. */}}
+  {{/* Initialise default theme. */}}
+  {{ if eq (.Scratch.Get "light") true }}
+    <script>const isSiteThemeDark = false;</script>
+  {{ else }}
+    <script>const isSiteThemeDark = true;</script>
+  {{ end }}
+  {{ $load_theme := resources.Get "js/load-theme.js" }}
+  <script src="{{ $load_theme.RelPermalink }}"></script>
+
   {{ partial "search" . }}
 
   {{ partial "navbar" . }}
