@@ -139,7 +139,7 @@ date_format = "Jan 2, 2006"
 #   Examples: "3:04 pm" or "15:04"
 time_format = "3:04 PM"
 
-# Address format (choose from the [address_formats] list below or add you own to the list).
+# Address format (en-us, en-gb, de, fr-fr, zh).
 address_format = "en-us"
 
 ############################
@@ -185,14 +185,6 @@ plugins_js  = []
 
   # Choose a shape for avatar images. Options: circle, square.
   shape = "circle"
-
-# Available address formats.
-[address_formats]
-  en-us = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ' ', '']}
-  en-gb = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', ', ', ', ', '']}
-  de = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
-  fr-fr = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
-  zh = {order = ['postcode', 'region', 'city', 'street'], delimiters = [' ', ' ', ' ', '']}
 
 # Configuration of publication pages.
 [publications]

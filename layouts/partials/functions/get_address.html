@@ -1,13 +1,15 @@
 {{/* Function to return a formatted address given a semantic address. */}}
 
 {{/* Check for valid site config. */}}
-{{ if not site.Params.address_format }}{{errorf "Address format missing from `params.toml`!"}}{{end}}
-{{ if not site.Params.address_formats }}{{errorf "Address formats missing from `params.toml`!"}}{{end}}
+{{ if not site.Data.address_formats }}{{errorf "Address formats missing from `data/address_formats.toml`!"}}{{end}}
 
 {{ $page := . }}
 {{ $address := .address }}
 {{ $format_name := $page.Params.address_format | default site.Params.address_format | default "en-us" }}
-{{ $format := index site.Params.address_formats $format_name }}
+
+{{ if not (isset site.Data.address_formats $format_name) }}{{ errorf "Address format `%s` missing from `data/address_formats.toml`!" $format_name }}{{end}}
+
+{{ $format := index site.Data.address_formats $format_name }}
 {{ $address_display := slice }}
 
 {{ range $k, $v := $format.order }}
