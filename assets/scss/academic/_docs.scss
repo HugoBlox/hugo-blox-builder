@@ -92,13 +92,13 @@
   }
 }
 
-/* Docs sidebar li>a. */
-@media print
-{    
-    .docs-sidebar {
-        display: none !important;
-    }
+@media print {    
+  .docs-sidebar {
+    display: none;
+  }
 }
+
+/* Docs sidebar li>a. */
 .docs-sidebar .nav>li>a {
   display: block;
   padding: .25rem 1.5rem;
