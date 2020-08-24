@@ -92,6 +92,14 @@
   }
 }
 
+/* Hide sidebar in printouts. */
+
+@media print {    
+  .docs-sidebar {
+    display: none;
+  }
+}
+
 /* Docs sidebar li>a. */
 
 .docs-sidebar .nav>li>a {
