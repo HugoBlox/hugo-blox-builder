@@ -73,6 +73,10 @@
   version = "5.1.0"
   sri = "sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instant.page/%s/instantpage.min.js"
+[js.plotly]
+  version = "1.54.7"
+  sri = "sha512-eftiPCZn2L4fmOs+IforhSiBbW7f+fLzhqTPTD74kSOt4gcD+Q2btwLJ8V7fklVoKuSegQCKVqP/73T0tbmrmA=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/%s/plotly.min.js"
 
 # CSS
 

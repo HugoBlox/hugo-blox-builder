@@ -34,6 +34,18 @@ data = pd.read_csv("data.csv")
 data.head()
 ```
 
+### Charts
+
+Academic supports the popular [Plotly](https://plot.ly/) chart format.
+
+Save your Plotly JSON in your page folder, for example `chart.json`, and then add the `{{</* chart data="chart" */>}}` shortcode where you would like the chart to appear.
+
+Demo:
+
+{{< chart data="line-chart" >}}
+
+You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.io/) useful.
+
 ### Math
 
 Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file.
@@ -245,9 +257,9 @@ renders as
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 
-### Asides
+### Callouts
 
-Academic supports a [shortcode for asides](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts), also referred to as *notices*, *hints*, or *alerts*. By wrapping a paragraph in `{{%/* alert note */%}} ... {{%/* /alert */%}}`, it will render as an aside.
+Academic supports a [shortcode for callouts](https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts), also referred to as *asides*, *hints*, or *alerts*. By wrapping a paragraph in `{{%/* alert note */%}} ... {{%/* /alert */%}}`, it will render as an aside.
 
 ```markdown
 {{%/* alert note */%}}

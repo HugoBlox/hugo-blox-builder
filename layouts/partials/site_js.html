@@ -133,6 +133,14 @@
     </script>
     {{ end }}
 
+    {{/* Charts */}}
+    {{ if .HasShortcode "chart" }}
+    <script>
+      window.PlotlyConfig = {MathJaxConfig: 'local'};
+    </script>
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
+    {{ end }}
+
     {{/* Disqus Comment Count JS. */}}
     {{ if and (eq site.Params.comments.engine 1) (site.Params.comments.disqus.show_count | default true) }}
     <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
