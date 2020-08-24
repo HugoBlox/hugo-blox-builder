@@ -1,14 +1,21 @@
-+++
-# About widget.
-widget = "about"  # See https://sourcethemes.com/academic/docs/page-builder/
-headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
-weight = 20  # Order that this section will appear in.
+---
+# An instance of the About widget.
+# Documentation: https://sourcethemes.com/academic/docs/page-builder/
+widget: about
 
-title = "Biography"
+# Activate this widget? true/false
+active: true
+
+# This file represents a page section.
+headless: true
+
+# Order that this section appears on the page.
+weight: 20
+
+title: Biography
 
 # Choose the user profile to display
-# This should be the username of a profile in your `content/authors/` folder.
+# This should be the username (folder name) of a profile in your `content/authors/` folder.
 # See https://sourcethemes.com/academic/docs/get-started/#introduce-yourself
-author = "admin"
-+++
+author: admin
+---
