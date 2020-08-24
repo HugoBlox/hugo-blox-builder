@@ -2,7 +2,7 @@
 
 {{ $path := "" }}
 {{ $root_dir := "" }}
-{{ $media_dir := .Page.Scratch.Get "media_dir" }}
+{{ $media_dir := site.Params.media_dir | default "media" }}
 {{ if .Get "library" }}
   {{ $path = printf "%s/" $media_dir }}
   {{ $root_dir = "static/" }}

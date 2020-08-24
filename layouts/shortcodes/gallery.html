@@ -42,7 +42,7 @@
   {{ $.Scratch.Set "src" .image }}
   {{ if gt (len .image) 4 }}
     {{ if ne "http" (slicestr .image 0 4) }}
-      {{ $media_dir := .Page.Scratch.Get "media_dir" }}
+      {{ $media_dir := site.Params.media_dir | default "media" }}
       {{ $.Scratch.Set "src" (printf "%s/%s" $media_dir .image | relURL) }}
     {{ end }}
   {{ end }}

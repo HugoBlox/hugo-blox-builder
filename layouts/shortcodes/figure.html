@@ -1,6 +1,6 @@
 {{/* Enable image to be loaded from local page dir or media library at `static/media/`. */}}
 
-{{ $media_dir := .Page.Scratch.Get "media_dir" }}
+{{ $media_dir := site.Params.media_dir | default "media" }}
 {{ $asset := (.Page.Resources.ByType "image").GetMatch (.Get "src") }}
 {{ $is_svg := false }}
 {{ if $asset }}
