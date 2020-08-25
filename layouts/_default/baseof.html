@@ -10,6 +10,9 @@
 
   {{/* Load day/night theme. */}}
   {{/* Initialise default theme. */}}
+  {{ if site.Params.day_night }}
+    <script>window.staDarkLightChooser = true;</script>
+  {{ end }}
   {{ if eq (.Scratch.Get "light") true }}
     <script>const isSiteThemeDark = false;</script>
   {{ else }}
