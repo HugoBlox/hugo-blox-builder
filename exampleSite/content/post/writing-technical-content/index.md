@@ -54,7 +54,7 @@ To render *inline* or *block* math, wrap your LaTeX math with `$...$` or `$$...$
 
 Example **math block**:
 
-```tex
+```latex
 $$\gamma_{n} = \frac{ 
 \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
 \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
@@ -69,7 +69,7 @@ Example **inline math** `$\nabla F(\mathbf{x}_{n})$` renders as $\nabla F(\mathb
 
 Example **multi-line math** using the `\\\\` math linebreak:
 
-```tex
+```latex
 $$f(k;p_0^*) = \begin{cases} p_0^* & \text{if }k=1, \\\\
 1-p_0^* & \text {if }k=0.\end{cases}$$
 ```

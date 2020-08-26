@@ -9,7 +9,7 @@
   }
 
   function initThemeVariation() {
-    if (!canChangeTheme) {
+    if (!canChangeTheme()) {
       return;
     }
 
