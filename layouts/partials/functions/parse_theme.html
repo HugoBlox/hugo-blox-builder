@@ -28,9 +28,17 @@
 
 {{ $theme := index site.Data.themes $theme_index }}
 
-{{- $scr.Set "light" ($theme.light | default true) -}}
+{{/* Legacy support for `light` as boolean rather than map. */}}
+{{ $light_is_map := reflect.IsMap "light" }}
+{{ $light_theme := dict }}
+{{ if $light_is_map }}
+  {{ $scr.Set "light" ($theme.is_light | default true) }}
+  {{ $light_theme = $theme.light }}
+{{ else }}
+  {{ $scr.Set "light" ($theme.light | default true) }}
+{{ end }}
 
-{{ if $theme.light }}
+{{ if ($scr.Get "light") }}
   {{- $scr.Set "background" ($theme.background | default "rgb(255, 255, 255)") -}}
   {{- $scr.Set "dark_background" ($theme.dark.background | default "hsla(231, 15%, 16%, 1)") -}}
   {{- $scr.Set "home_section_odd" ($theme.home_section_odd | default "rgb(255, 255, 255)") -}}
@@ -38,10 +46,10 @@
   {{- $scr.Set "dark_home_section_odd" ($theme.dark.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
   {{- $scr.Set "dark_home_section_even" ($theme.dark.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
 {{ else }}
-  {{- $scr.Set "background" ($theme.light.background | default "rgb(255, 255, 255)") -}}
+  {{- $scr.Set "background" ($light_theme.background | default "rgb(255, 255, 255)") -}}
   {{- $scr.Set "dark_background" ($theme.background | default "rgb(40, 42, 54)") -}}
-  {{- $scr.Set "home_section_odd" ($theme.light.home_section_odd | default "rgb(255, 255, 255)") -}}
-  {{- $scr.Set "home_section_even" ($theme.light.home_section_even | default "rgb(247, 247, 247)") -}}
+  {{- $scr.Set "home_section_odd" ($light_theme.home_section_odd | default "rgb(255, 255, 255)") -}}
+  {{- $scr.Set "home_section_even" ($light_theme.home_section_even | default "rgb(247, 247, 247)") -}}
   {{- $scr.Set "dark_home_section_odd" ($theme.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
   {{- $scr.Set "dark_home_section_even" ($theme.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
 {{ end }}
