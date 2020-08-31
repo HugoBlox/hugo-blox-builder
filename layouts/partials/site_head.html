@@ -44,6 +44,12 @@
   <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
 
   {{ partial "functions/parse_theme" . }}
+
+  {{/* Pre-connect to Google Fonts if the site's Font Theme uses them. */}}
+  {{ with ($scr.Get "google_fonts") }}
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  {{end}}
+
   {{ $css := site.Data.assets.css }}
   {{ $js := site.Data.assets.js }}
   {{ if ne ($scr.Get "primary") "#fff" }}
