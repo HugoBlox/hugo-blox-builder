@@ -27,6 +27,7 @@ date_format: Jan 2006
 experience:
 - company: GenCoin
   company_url: ""
+  company_logo: "boards.jpg"
   date_end: ""
   date_start: "2017-01-01"
   description: |-

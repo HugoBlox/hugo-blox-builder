@@ -1,5 +1,6 @@
 {{ $ := .root }}
 {{ $page := .page }}
+{{ $media_dir := $.Scratch.Get "media_dir" }}
 
 <!-- Experience widget -->
 <div class="row">
@@ -33,22 +34,34 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title exp-title text-muted mt-0 mb-1">{{.title | markdownify | emojify}}</h4>
-            <h4 class="card-title exp-company text-muted my-0">
-              {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
-            </h4>
-            <div class="text-muted exp-meta">
-              {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –
-              {{ if .date_end}}
-                {{ (time .date_end).Format ($page.Params.date_format | default "January 2006") }}
-              {{else}}
-                {{ i18n "present" | default "Present" }}
-              {{end}}
-              {{with .location}}
-                <span class="middot-divider"></span>
-                <span>{{.}}</span>
-              {{end}}
+            {{- if .company_logo}}
+            <div class="d-flex">
+                <img src="{{ printf "%s/%s" $media_dir .company_logo | relURL }}" width="56px" height="56px" alt="{{.company | markdownify | emojify}}">
+              {{if .company_url}}</a>{{end -}}
+              <div class="ml-2">
+            {{end -}}
+
+                <h4 class="card-title exp-company text-muted my-0">
+                  {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
+                </h4>
+                <div class="text-muted exp-meta">
+                  {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –
+                  {{ if .date_end}}
+                    {{ (time .date_end).Format ($page.Params.date_format | default "January 2006") }}
+                  {{else}}
+                    {{ i18n "present" | default "Present" }}
+                  {{end}}
+                  {{with .location}}
+                    <span class="middot-divider"></span>
+                    <span>{{.}}</span>
+                  {{end}}
+                </div>
+
+            {{- if .company_logo}}
+              </div>
             </div>
-            {{with .description}}<div class="card-text">{{. | markdownify | emojify}}</div>{{end}}
+            {{end -}}
+            {{with .description}}<div class="card-text px-0">{{. | markdownify | emojify}}</div>{{end}}
           </div>
         </div>
       </div>
