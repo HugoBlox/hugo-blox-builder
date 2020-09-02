@@ -29,10 +29,13 @@
   {{ with (index site.Menus $menu_name) }}
 
   {{/* Enable Updates layout to order by descending version name. */}}
-  {{ $menu := (index site.Menus $menu_name).ByWeight }}
+  {{ $menu := (index site.Menus $menu_name) }}
   {{ if eq ($.Scratch.Get "docs_menu_sort" | default "weight") "name_reverse" }}
-    {{ $menu = (index site.Menus $menu_name).ByName.Reverse }}
+    {{ $menu = sort $menu "Title" "desc" }}
+  {{ else }}
+    {{ $menu = $menu.ByWeight }}
   {{end}}
+
   {{ range $menu }}
   <div class="docs-toc-item{{ if $current_page.IsMenuCurrent $menu_name . }} active{{ end }}">
     <a class="docs-toc-link" {{ if .URL }}href="{{ .URL }}"{{else if .HasChildren }}href="{{ (index .Children 0).URL }}"{{end}}>{{ .Name }}</a>
@@ -43,6 +46,7 @@
       <li {{ if $current_page.IsMenuCurrent $menu_name . }}class="active"{{ end }}>
         <a href="{{ .URL }}">{{ .Name }}</a>
       </li>
+
       {{ end }}
     </ul>
     {{ end }}
