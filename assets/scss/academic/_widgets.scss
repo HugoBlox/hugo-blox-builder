@@ -19,6 +19,16 @@
   animation-delay: 0.15s;
 }
 
+// Responsive fullscreen option for widgets
+.home-section.fullscreen {
+  min-height: calc(100vh - 70px);
+}
+@include media-breakpoint-down(md) {
+  .home-section.fullscreen {
+    min-height: calc(100vh - 50px);
+  }
+}
+
 /* Override dark colors that may be inherited from body.dark */
 .home-section.dark,
 .home-section.dark h1,
