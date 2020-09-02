@@ -92,6 +92,12 @@
 
   {{ $widget_class := printf "wg-%s" (replace (replace $widget "." "-") "_" "-") }}
 
+  {{ $widget_config_file := printf "widgets/%s-config.html" $widget }}
+  {{ if templates.Exists $widget_config_file }}
+    {{ $cfg := partial $widget_config_file $widget_args }}
+    {{ $use_container = $cfg.use_container }}
+  {{end}}
+
   <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
     {{if $use_container}}<div class="container">{{end}}
       {{ partial $widget_path $widget_args }}
