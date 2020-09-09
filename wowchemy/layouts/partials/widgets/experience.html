@@ -1,4 +1,5 @@
 {{ $ := .root }}
+{{ $newTab := site.Params.new_tab_for_external }}
 {{ $page := .page }}
 {{ $columns := $page.Params.design.columns | default "2" }}
 
@@ -30,7 +31,7 @@
         <div class="card-body">
           <h4 class="card-title exp-title text-muted mt-0 mb-1">{{.title | markdownify | emojify}}</h4>
           <h4 class="card-title exp-company text-muted my-0">
-            {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
+            {{- with .company_url}}<a href="{{.}}"{{ if $newTab }} target="_blank" rel="noopener"{{end}}>{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
           </h4>
           <div class="text-muted exp-meta">
             {{ (time .date_start).Format ($page.Params.date_format | default "January 2006") }} –

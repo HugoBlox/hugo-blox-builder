@@ -1,3 +1,4 @@
+{{ $newTab := site.Params.new_tab_for_external }}
 <ul class="network-icon" aria-hidden="true">
   {{ range .Params.social }}
     {{ $pack := or .icon_pack "fas" }}
@@ -14,7 +15,7 @@
       {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
     {{ end }}
     <li>
-      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+      <a href="{{ $link | safeURL }}"{{ if $newTab }} {{ $target | safeHTMLAttr }}{{ end }}>
         <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
       </a>
     </li>

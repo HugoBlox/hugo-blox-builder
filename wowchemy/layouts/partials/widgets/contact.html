@@ -2,6 +2,7 @@
 {{ $st := .page }}
 {{ $autolink := default true $st.Params.autolink }}
 {{ $data := site.Params }}
+{{ $newTab := $data.new_tab_for_external }}
 
 {{ $columns := $st.Params.design.columns | default "2" }}
 

@@ -1,6 +1,7 @@
 {{ $ := .root }}
 {{ $page := .page }}
 {{ $columns := $page.Params.design.columns | default "2" }}
+{{ $newTab := site.Params.new_tab_for_external }}
 
 <!-- Accomplishments widget -->
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
@@ -10,12 +11,12 @@
   {{ range $idx, $key := sort $page.Params.item ".date_start" "desc" }}
     <div class="card experience course">
       <div class="card-body">
-        {{- with .url -}}<a href="{{.}}" target="_blank" rel="noopener">{{- end -}}
+        {{- with .url -}}<a href="{{.}}"{{ if $newTab }} target="_blank" rel="noopener"{{end}}>{{- end -}}
         <h4 class="card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</h4>
         {{- with .url -}}</a>{{- end -}}
 
         <div class="card-subtitle my-0 article-metadata">
-          {{- with .organization_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
+          {{- with .organization_url}}<a href="{{.}}"{{ if $newTab }} target="_blank" rel="noopener"{{end}}>{{end -}}
           {{- .organization | markdownify | emojify -}}
           {{- with .organization_url}}</a>{{end -}}
 
@@ -32,7 +33,7 @@
         {{end}}
 
         {{ with .certificate_url }}
-          <a class="card-link" href="{{.}}" target="_blank" rel="noopener">
+          <a class="card-link" href="{{.}}"{{ if $newTab }} target="_blank" rel="noopener"{{end}}>
             {{ i18n "see_certificate" | default "See certificate" }}
           </a>
         {{ end }}

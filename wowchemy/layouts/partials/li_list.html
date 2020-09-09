@@ -1,4 +1,5 @@
 {{ $item := . }}
+{{ $newTab := site.Params.new_tab_for_external }}
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $icon_pack := "far" }}
@@ -27,7 +28,7 @@
 
 <div class="view-list-item">
   <i class="{{$icon_pack}} {{$icon}} pub-icon" aria-hidden="true"></i>
-  <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
+  <a href="{{$link}}"{{ if $newTab }} {{ $target | safeHTMLAttr }}{{ end }}>{{ $item.Title }}</a>
 
   {{ if eq $item.Type "talk" }}
   <div class="article-metadata">

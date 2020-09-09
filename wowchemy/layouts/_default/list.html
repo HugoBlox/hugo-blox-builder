@@ -1,4 +1,5 @@
 {{- define "main" -}}
+{{ $newTab := site.Params.new_tab_for_external }}
 
 {{ partial "page_header.html" . }}
 
@@ -13,7 +14,7 @@
     {{ $target := "" }}
     {{ with .Params.external_link }}
       {{ $link = . }}
-      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ if $newTab }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
     {{ end }}
     <div>
       <h2><a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ .Title }}</a></h2>

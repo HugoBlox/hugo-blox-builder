@@ -4,6 +4,7 @@
 
 {{ if and $copyright_license $copyright_license.enable }}
 
+  {{ $newTab := site.Params.new_tab_for_external }}
   {{ $notice := .Params.copyright_license.notice | default site.Params.copyright_license.notice }}
   {{ $allow_commercial := .Params.copyright_license.allow_commercial | default site.Params.copyright_license.allow_commercial }}
   {{ $allow_derivatives := .Params.copyright_license.allow_derivatives | default site.Params.copyright_license.allow_derivatives }}
@@ -23,12 +24,18 @@
 
   {{ with $notice }}
   <p class="powered-by copyright-license-text">
-    {{ replace . "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) | markdownify }}
+    {{ $target := "" }}
+    {{ if $newTab }}
+      {{ $target := "rel=\"noopener noreferrer\" target=\"_blank\"" }}
+    {{ else }}
+      {{ $target := "rel=\"noreferrer\"" }}
+    {{ end }}
+    {{ replace . "{license}" (printf "<a href=\"%s\" %s>CC %s 4.0</a>" $license_url $target (replace $cc_code "-" " " | upper)) | markdownify }}
   </p>
   {{ end }}
 
   <p class="powered-by footer-license-icons">
-    <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank">
+    <a href="{{$license_url}}"{{ if $newTab }} rel="noopener noreferrer" target="_blank"{{ end }}>
       <img src="https://search.creativecommons.org/static/img/cc_icon.svg" alt="CC icon">
       <img src="https://search.creativecommons.org/static/img/cc-by_icon.svg" alt="CC by icon">
       {{ if not $allow_commercial }}

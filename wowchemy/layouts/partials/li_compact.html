@@ -1,4 +1,5 @@
 {{ $item := . }}
+{{ $newTab := site.Params.new_tab_for_external }}
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
@@ -34,7 +35,7 @@
   <div class="media-body">
 
     <h3 class="article-title mb-0 mt-0">
-      <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
+      <a href="{{$link}}"{{ if $newTab }} {{ $target | safeHTMLAttr }}{{ end }}>{{ $item.Title }}</a>
     </h3>
 
     {{ with $summary }}
