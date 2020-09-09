@@ -19,6 +19,19 @@
     {{ $hl_superuser := false }}
     {{ $name := $name_raw }}
 
+    {{/* If $profile_page does not exist (e.g. $lookup is not on disk), search through author aliases. */}}
+    {{- if not $profile_page -}}
+      {{/* Try searching over known authors for their aliases. */}}
+      {{- range $author, $pages := site.Taxonomies.authors -}}
+        {{ $a := site.GetPage (printf "/%s/%s" $taxonomy $author )}}
+        {{- if and (not $profile_page) (isset $a.Params "aliases") -}}
+          {{- if in $a.Params.aliases $name_raw -}}
+            {{- $profile_page = $a -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
     {{ if $profile_page }}
       {{ $name = $profile_page.Title }}
       {{- $hl_members = site.Params.highlight_members -}}

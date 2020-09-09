@@ -6,6 +6,9 @@ title: "{{ replace .Name "-" " " | title }}"
 authors:
 - "{{ urlize .Name }}"
 
+aliases:
+- "{{ .Name }}"
+
 # Is this the primary user of the site?
 superuser: false
 
