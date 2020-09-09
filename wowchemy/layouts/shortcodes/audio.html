@@ -1,0 +1,26 @@
+{{/* Enable audio to be loaded from local page dir or media library at `static/media/`. */}}
+{{/* Supports primarily MP3 and MP4. */}}
+
+{{ $path := "" }}
+{{ $root_dir := "" }}
+{{ $media_dir := site.Params.media_dir | default "media" }}
+{{ if .Get "library" }}
+  {{ $path = printf "%s/" $media_dir }}
+  {{ $root_dir = "static/" }}
+{{ end }}
+
+{{ $audio := printf "%s%s" $path (.Get "src") }}
+{{ $audio_type := strings.TrimPrefix "." (path.Ext (.Get "src")) | lower }}
+
+{{/* Set MP3 mime type to mpeg. */}}
+{{ $audio_type = replace $audio_type "mp3" "mpeg" }}
+
+{{ if .Get "library" }}
+  {{ $audio = $audio | relURL }}
+{{ end }}
+
+{{ with $audio }}
+  <audio controls>
+    <source src="{{ . }}" type="audio/{{$audio_type}}">
+  </audio>
+{{ end }}

@@ -1,0 +1,169 @@
+    {{ $scr := $.Scratch }}
+
+    {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
+    {{ $js := site.Data.assets.js }}
+    {{ if not ($scr.Get "use_cdn") }}
+      <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
+    {{ else }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.isotope.url $js.isotope.version) $js.isotope.sri | safeHTML }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantpage.url $js.instantpage.version) $js.instantpage.sri | safeHTML }}
+
+      {{ if or .Params.diagram site.Params.diagram }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
+      {{ end }}
+
+      {{ if $.Scratch.Get "highlight_enabled" }}
+        {{ $v := $js.highlight.version }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight.url $v) $js.highlight.sri | safeHTML }}
+        {{ range site.Params.highlight_languages }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{{ $v }}/languages/{{ . }}.min.js"></script>
+        {{ end }}
+      {{ end }}
+
+    {{ end }}
+
+    {{/* Maps JS. */}}
+    {{ if eq site.Params.map.engine 1 }}
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map.api_key }}"></script>
+      {{ if ($scr.Get "use_cdn") }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
+      {{ end }}
+    {{ else if and (or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3)) ($scr.Get "use_cdn") }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
+    {{ end }}
+
+    {{/* Initialise code highlighting. */}}
+    {{ if $scr.Get "highlight_enabled" }}
+    <script>const code_highlighting = true;</script>
+    {{ else }}
+    <script>const code_highlighting = false;</script>
+    {{ end }}
+
+    {{ if ne site.Params.search.engine 0 }}
+    {{/* Configure search engine. */}}
+    {{ $min_length := site.Params.search.academic.min_length | default 1 }}
+    {{ $threshold := site.Params.search.academic.threshold | default 0.3 }}
+    {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
+    {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
+    <script>
+      const search_config = {{ $search_config | jsonify | safeJS }};
+      const i18n = {{ $search_i18n | jsonify | safeJS }};
+      const content_type = {
+        'post': {{ i18n "posts" }},
+        'project': {{ i18n "projects" }},
+        'publication' : {{ i18n "publications" }},
+        'talk' : {{ i18n "talks" }},
+        'slides' : {{ i18n "slides" | default (i18n "btn_slides") }}
+        };
+    </script>
+    {{ end }}
+
+    {{/* Load hash anchors for documentation pages. */}}
+    {{ if in (slice "book" "docs") .Type }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
+    <script>
+      anchors.add();
+    </script>
+    {{ end }}
+
+    {{ if eq site.Params.search.engine 1 }}
+    {{/* Fuse search result template. */}}
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{"{{key}}"}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
+          <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+          <p class="search-hit-description">{{"{{snippet}}"}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    {{ else if eq site.Params.search.engine 2 }}
+    {{/* Algolia search result template. */}}
+    <script id="search-hit-algolia-template" type="text/html">
+      <div class="search-hit">
+        <div class="search-hit-content">
+          <div class="search-hit-name">
+            {{ printf "<a href=\"%s\">{{{_highlightResult.title.value}}}</a>" "{{relpermalink}}" | safeHTML }}
+          </div>
+          <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+          <p class="search-hit-description">{{ safeHTML "{{{_highlightResult.summary.value}}}" }}</p>
+        </div>
+      </div>
+    </script>
+    {{ end }}
+
+    {{/* Fuse search engine. */}}
+    {{ if and (eq site.Params.search.engine 1) ($scr.Get "use_cdn") }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
+    {{ end }}
+
+    {{/* Algolia search engine. */}}
+    {{ if eq site.Params.search.engine 2 }}
+    {{ if ($scr.Get "use_cdn") }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
+    {{ end }}
+    <script>
+      const algoliaConfig = {
+        appId: {{ site.Params.search.algolia.app_id }},
+        apiKey: {{ site.Params.search.algolia.api_key }},
+        indexName: {{ site.Params.search.algolia.index_name }},
+        poweredBy: {{ site.Params.search.algolia.show_logo | default false }}
+      };
+    </script>
+    {{ end }}
+
+    {{/* Netlify Identity integration. */}}
+    {{ if .IsHome | and (site.Params.cms.netlify_cms | default true) }}
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+    {{ end }}
+
+    {{/* Charts */}}
+    {{ if .HasShortcode "chart" }}
+    <script>
+      window.PlotlyConfig = {MathJaxConfig: 'local'};
+    </script>
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
+    {{ end }}
+
+    {{/* Disqus Comment Count JS. */}}
+    {{ if and (eq site.Params.comments.engine 1) (site.Params.comments.disqus.show_count | default true) }}
+    <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
+    {{ end }}
+
+    {{ $js_comment := printf "/* Source Themes Academic v%s | https://sourcethemes.com/academic/ */\n" site.Data.academic.version }}
+    {{ $js_bundle_head := $js_comment | resources.FromString "js/bundle-head.js" }}
+    {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
+    {{ $js_academic := resources.Get "js/academic.js" }}
+    {{ $js_academic_search := resources.Get "js/academic-search.js" }}
+    {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
+    {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.min.js" }}
+    {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
+    {{ if eq site.Params.search.engine 1 }}
+      {{ $js_bundle = $js_bundle | append $js_academic_search }}
+    {{ else if eq site.Params.search.engine 2 }}
+      {{ $js_bundle = $js_bundle | append $js_algolia_search }}
+    {{ end }}
+    {{ range site.Params.plugins_js }}
+      {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
+    {{ end }}
+    {{ $js_bundle := $js_bundle | resources.Concat "js/academic-bundle-pre.js" | minify }}
+    {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/academic.min.js" | fingerprint "md5" }}
+    <script src="{{ $js_bundle.RelPermalink }}"></script>
+
+    {{ partial "custom_js" . }}

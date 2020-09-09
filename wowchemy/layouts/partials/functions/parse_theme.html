@@ -1,0 +1,72 @@
+{{- $scr := .Scratch -}}
+
+{{/* Get name of site's Theme. Precedence: Params.toml > Default (Minimal) */}}
+{{- $theme_index := (site.Params.theme | lower | replaceRE "\\s" "_") | default "minimal" -}}
+
+{{/* Get name of site's Font Set. Precedence: Params.toml > Theme > Default (Minimal) */}}
+{{- $font_index := (site.Params.font | lower | replaceRE "\\s" "_") | default ((index site.Data.themes $theme_index).font | lower | replaceRE "\\s" "_") | default $theme_index -}}
+{{- $font_index := cond (isset site.Data.fonts $font_index) $font_index "minimal" -}}
+
+{{/* Get Font Size. */}}
+
+{{- $font_size := lower site.Params.font_size | default "l" -}}
+{{- $font_sizes := dict "xs" 14 "s" 16 "m" 18 "l" 21 "xl" 23 -}}
+{{- $font_size_numeric := (index $font_sizes $font_size) | default (index $font_sizes "l") -}}
+{{- $scr.Set "font_size" $font_size_numeric -}}
+{{- $scr.Set "font_size_small" (mul 0.77 $font_size_numeric) -}}
+
+{{/* Load Font Set. */}}
+
+{{- $font := index site.Data.fonts $font_index -}}
+{{- $scr.Set "google_fonts" $font.google_fonts -}}
+{{- $scr.Set "body_font" $font.body_font -}}
+{{- $scr.Set "heading_font" $font.heading_font -}}
+{{- $scr.Set "nav_font" $font.nav_font -}}
+{{- $scr.Set "mono_font" $font.mono_font -}}
+
+{{/* Load Theme. */}}
+
+{{ $theme := index site.Data.themes $theme_index }}
+
+{{/* Legacy support for `light` as boolean rather than map. */}}
+{{ $light_is_map := reflect.IsMap "light" }}
+{{ $light_theme := dict }}
+{{ if $light_is_map }}
+  {{ $scr.Set "light" ($theme.is_light | default true) }}
+  {{ $light_theme = $theme.light }}
+{{ else }}
+  {{ $scr.Set "light" ($theme.light | default true) }}
+{{ end }}
+
+{{ if ($scr.Get "light") }}
+  {{- $scr.Set "background" ($theme.background | default "rgb(255, 255, 255)") -}}
+  {{- $scr.Set "dark_background" ($theme.dark.background | default "hsla(231, 15%, 16%, 1)") -}}
+  {{- $scr.Set "home_section_odd" ($theme.home_section_odd | default "rgb(255, 255, 255)") -}}
+  {{- $scr.Set "home_section_even" ($theme.home_section_even | default "rgb(247, 247, 247)") -}}
+  {{- $scr.Set "dark_home_section_odd" ($theme.dark.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
+  {{- $scr.Set "dark_home_section_even" ($theme.dark.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
+{{ else }}
+  {{- $scr.Set "background" ($light_theme.background | default "rgb(255, 255, 255)") -}}
+  {{- $scr.Set "dark_background" ($theme.background | default "rgb(40, 42, 54)") -}}
+  {{- $scr.Set "home_section_odd" ($light_theme.home_section_odd | default "rgb(255, 255, 255)") -}}
+  {{- $scr.Set "home_section_even" ($light_theme.home_section_even | default "rgb(247, 247, 247)") -}}
+  {{- $scr.Set "dark_home_section_odd" ($theme.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
+  {{- $scr.Set "dark_home_section_even" ($theme.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
+{{ end }}
+
+{{- $scr.Set "link" ($theme.link | default $theme.primary) -}}
+{{- $scr.Set "link_hover" ($theme.link_hover | default $theme.primary) -}}
+{{- $scr.Set "dark_link" ($theme.dark.link | default $theme.primary) -}}
+{{- $scr.Set "dark_link_hover" ($theme.dark.link_hover | default $theme.primary) -}}
+
+{{- $scr.Set "primary" $theme.primary -}}
+
+{{- $scr.Set "menu_primary" $theme.menu_primary -}}
+{{- $scr.Set "menu_text" $theme.menu_text -}}
+{{- $scr.Set "menu_text_active" $theme.menu_text_active -}}
+{{- $scr.Set "menu_title" $theme.menu_title -}}
+
+{{- $scr.Set "dark_menu_primary" ($theme.dark.menu_primary | default "rgb(40, 42, 54)") -}}
+{{- $scr.Set "dark_menu_text" ($theme.dark.menu_text | default "white") -}}
+{{- $scr.Set "dark_menu_text_active" ($theme.dark.menu_text_active | default "rgba(255, 255, 255, 0.8)") -}}
+{{- $scr.Set "dark_menu_title" ($theme.dark.menu_title | default "white") -}}

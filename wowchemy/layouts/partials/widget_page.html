@@ -1,0 +1,106 @@
+{{/* Notify JS that this is a widget page */}}
+<span class="js-widget-page d-none"></span>
+
+{{/* Get widget page */}}
+{{ $page := "" }}
+{{ $headless_bundle := "" }}
+{{ if .IsHome }}
+  {{ $page = "/home/index.md" }}
+  {{ $headless_bundle = site.GetPage $page }}
+  {{/* Check homepage exists */}}
+  {{ if not $headless_bundle }}
+    {{ errorf "Homepage not found at %s!" $page }}
+    {{ errorf "Add the `/home/index.md` homepage file to each language's content folder. For example, your site should have a `content/home/` folder containing `index.md` and your homepage sections, or for multi-language sites, `content/en/home/` and `content/zh/home/` etc. Refer to the 'Build Your Homepage' and 'Language' documentation at https://sourcethemes.com/academic/docs/ and the example homepage at https://github.com/gcushen/hugo-academic/tree/master/exampleSite/content/home/index.md ." }}
+  {{ end }}
+{{ else }}
+  {{ $page = .File.Path }}
+  {{ $headless_bundle = site.GetPage $page }}
+  {{/* Check widget page exists. */}}
+  {{ if not $headless_bundle }}
+    {{ errorf "Widget Page not found at %s!" $page }}
+    {{ errorf "View the Widget Page documentation at https://sourcethemes.com/academic/docs/managing-content/#create-a-widget-page ." }}
+    {{ errorf "If the Hugo version is between 0.65 and 0.68, it may be a confirmed Hugo bug that is expected to be fixed in Hugo v0.69: https://github.com/gcushen/hugo-academic/issues/1595#issuecomment-605514973 ." }}
+  {{ end }}
+{{ end }}
+
+{{/* Load page sections */}}
+{{ range $index, $st := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
+  {{/* Begin widget styling */}}
+  {{ $bg := $st.Params.design.background }}
+  {{ $style := "" }}
+
+  {{ if $bg.color }}
+    {{ $style = printf "background-color: %s;" ($bg.color | default "transparent") }}
+  {{ end }}
+
+  {{ if and $bg.gradient_start $bg.gradient_end }}
+    {{ $style = printf "%sbackground-image: linear-gradient(%s, %s);" $style $bg.gradient_start $bg.gradient_end }}
+  {{ end }}
+
+  {{ if $bg.image }}
+    {{ $darken := "" }}
+    {{ if $bg.image_darken }}
+      {{ $darken = printf "linear-gradient(rgba(0, 0, 0, %s), rgba(0, 0, 0, %s))," (string $bg.image_darken) (string $bg.image_darken) }}
+    {{ end }}
+    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
+    {{ $media_dir := $.Scratch.Get "media_dir" }}
+    {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "%s/%s" $media_dir $bg.image | absURL) }}
+    {{ with $bg.image_size }}
+      {{/* Allow sizes: actual, cover, and contain. */}}
+      {{ $style = printf "%sbackground-size: %s;" $style (replace . "actual" "auto") }}
+    {{ end }}
+    {{ with $bg.image_position }}
+      {{/* Allow valid CSS positions including left, center, and right. */}}
+      {{ $style = printf "%sbackground-position: %s;" $style . }}
+    {{ end }}
+  {{ end }}
+
+  {{ with $st.Params.design.spacing.padding }}
+    {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
+    {{ $style = print $style $style_pad }}
+  {{ end }}
+
+  {{/* Support for clip path (design.clip_path) */}}
+  {{ with $st.Params.design.clip_path }}
+    {{ $style_clip_path := printf "clip-path: %s;" . }}
+    {{ $style = print $style $style_clip_path }}
+  {{ end }}
+
+  {{ with $st.Params.advanced.css_style }}
+    {{ $style = print $style . }}
+  {{ end }}
+
+  {{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
+  {{ $hash_id := replace $st.File.ContentBaseName "index" (path.Base (path.Split .Path).Dir) }}
+
+  {{ $widget := or $st.Params.widget "blank" }}
+  {{ if eq $widget "custom" }}{{ $widget = "blank" }}{{ end }}{{/* Support legacy Custom widget */}}
+  {{ if eq $widget "projects" }}{{ $widget = "portfolio" }}{{ end }}{{/* Support legacy Projects widget */}}
+
+  {{ $widget_path := printf "widgets/%s.html" $widget }}
+  {{ $widget_args := dict "root" $ "page" $st "hash_id" $hash_id }}
+  {{ $css_classes := $st.Params.advanced.css_class | default "" }}
+  {{ $extra_attributes := "" }}
+  {{ $use_container := true }}
+
+  {{/* Special case: Slider widget. */}}
+  {{ if in (slice "slider") $widget }}
+    {{ $css_classes = print $css_classes " carousel slide" }}
+    {{ $extra_attributes = printf "data-ride=\"carousel\" data-interval=\"%s\"" (string $st.Params.interval | default "5000") }}
+    {{ $use_container = false }}
+  {{ end }}
+
+  {{ $widget_class := printf "wg-%s" (replace (replace $widget "." "-") "_" "-") }}
+
+  {{ $widget_config_file := printf "widgets/%s-config.html" $widget }}
+  {{ if templates.Exists $widget_config_file }}
+    {{ $cfg := partial $widget_config_file $widget_args }}
+    {{ $use_container = $cfg.use_container }}
+  {{end}}
+
+  <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+    {{if $use_container}}<div class="container">{{end}}
+      {{ partial $widget_path $widget_args }}
+    {{if $use_container}}</div>{{end}}
+  </section>
+{{ end }}

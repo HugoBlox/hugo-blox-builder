@@ -1,0 +1,114 @@
+# Versioning and Subresource Integrity (SRI) for Academic's JavaScript and CSS dependencies
+
+# When updating the version of an asset below, please also update the corresponding SRI.
+# How to update the SRI for an entry:
+#   echo -n "sha512-" && curl --silent "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML" | openssl dgst -sha512 -binary | openssl enc -base64 -A
+# Or, the SRI for the appropriate asset can be copied from https://cdnjs.com/ .
+
+# JavaScript
+
+[js.jQuery]
+  version = "3.5.1"
+  sri = "sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js"
+[js.highlight]
+  version = "10.1.2"
+  sri = "sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/highlight.min.js"
+[js.mathJax]
+  version = "3"
+  sri = ""  # No SRI as dynamically generated.
+  url = "https://cdn.jsdelivr.net/npm/mathjax@%s/es5/tex-chtml.js"
+  async = true
+[js.isotope]
+  version = "3.0.6"
+  sri = "sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/%s/isotope.pkgd.min.js"
+[js.imagesLoaded]
+  version = "4.1.4"
+  sri = "sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/%s/imagesloaded.pkgd.min.js"
+[js.gmaps]
+  version = "0.4.25"
+  sri = "sha256-7vjlAeb8OaTrCXZkCNun9djzuB2owUsaO72kXaFDBJs="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/%s/gmaps.min.js"
+[js.leaflet]
+  version = "1.5.1"
+  sri = "sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.js"
+[js.fancybox]
+  version = "3.5.7"
+  sri = "sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.js"
+[js.fuse]
+  version = "3.2.1"
+  sri = "sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/fuse.js/%s/fuse.min.js"
+[js.mark]
+  version = "8.11.1"
+  sri = "sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/mark.js/%s/jquery.mark.min.js"
+[js.instantsearch]
+  version = "2.10.2"
+  sri = "sha256-gFCtPk/sonctyfwYOgjrPoWApQ0rqB6ezBBZ7p32yGc="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.js"
+[js.anchor]
+  version = "4.1.1"
+  sri = "sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/anchor-js/%s/anchor.min.js"
+[js.mermaid]
+  version = "8.4.8"
+  sri = "sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/%s/mermaid.min.js"
+[js.lazysizes]
+  version = "5.1.2"
+  sri = "sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/%s/lazysizes.min.js"
+  async = true
+[js.cookieconsent]
+  version = "3.1.1"
+  sri = "sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.js"
+[js.instantpage]
+  version = "5.1.0"
+  sri = "sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instant.page/%s/instantpage.min.js"
+[js.plotly]
+  version = "1.54.7"
+  sri = "sha512-eftiPCZn2L4fmOs+IforhSiBbW7f+fLzhqTPTD74kSOt4gcD+Q2btwLJ8V7fklVoKuSegQCKVqP/73T0tbmrmA=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/%s/plotly.min.js"
+
+# CSS
+
+[css.fontAwesome]
+  version = "5.14.0"
+  sri = "sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/all.min.css"
+[css.academicons]
+  version = "1.8.6"
+  sri = "sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css"
+[css.leaflet]
+  version = "1.5.1"
+  sri = "sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.css"
+[css.fancybox]
+  version = "3.5.7"
+  sri = "sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.css"
+[css.instantsearch]
+  version = "2.9.0"
+  sri = "sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.css"
+[css.instantsearchTheme]
+  version = "2.10.2"
+  sri = "sha256-uL8LUd3zkI/lXvc/Hv/oOu8ld6RJcOZiUY/8c+I+3/o="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch-theme-algolia.min.css"
+[css.highlight]
+  version = "10.1.2"
+  sri = ""  # No SRI as highlight style is determined at run time.
+  url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/styles/%s.min.css"
+[css.cookieconsent]
+  version = "3.1.1"
+  sri = "sha256-zQ0LblD/Af8vOppw18+2anxsuaz3pWYyVWi+bTvTH8Q="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.css"

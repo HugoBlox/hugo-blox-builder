@@ -1,0 +1,50 @@
+{{- $scr := .Scratch -}}
+{{- $site := $scr.Get "site" -}}
+{{/* Don't use partialCached as can error when admin changes theme config whilst `hugo server` is running. */}}
+{{- partial "functions/parse_theme" . -}}
+
+$sta-darken-percentage: 10%;
+$sta-lighten-percentage: 10%;
+
+$sta-font-size: {{ $scr.Get "font_size" }};
+$sta-font-size-small: {{ $scr.Get "font_size_small" }};
+
+$sta-font-body: "{{ $scr.Get "body_font" }}";
+$sta-font-heading: "{{ $scr.Get "heading_font" }}";
+$sta-font-nav: "{{ $scr.Get "nav_font" }}";
+$sta-font-mono: "{{ $scr.Get "mono_font" }}";
+
+$sta-primary: {{ $scr.Get "primary" }};
+$sta-primary-light: lighten($sta-primary, $sta-lighten-percentage);
+$sta-primary-dark: darken($sta-primary, $sta-darken-percentage);
+
+$sta-link: {{ $scr.Get "link" }};
+$sta-link-hover: {{ $scr.Get "link_hover" }};
+
+$sta-dark-link: {{ $scr.Get "dark_link" }};
+$sta-dark-link-hover: {{ $scr.Get "dark_link_hover" }};
+
+$sta-menu-primary: {{ $scr.Get "menu_primary" }};
+$sta-menu-text: {{ $scr.Get "menu_text" }};
+$sta-menu-text-active: {{ $scr.Get "menu_text_active" }};
+$sta-menu-title: {{ $scr.Get "menu_title" }};
+
+$sta-dark-menu-primary: {{ $scr.Get "dark_menu_primary" }};
+$sta-dark-menu-text: {{ $scr.Get "dark_menu_text" }};
+$sta-dark-menu-text-active: {{ $scr.Get "dark_menu_text_active" }};
+$sta-dark-menu-title: {{ $scr.Get "dark_menu_title" }};
+
+$sta-background: {{ $scr.Get "background" }};
+$sta-dark-background: {{ $scr.Get "dark_background" }};
+
+$sta-home-section-odd: {{ $scr.Get "home_section_odd" }};
+$sta-home-section-even: {{ $scr.Get "home_section_even" }};
+
+$sta-dark-home-section-odd: {{ $scr.Get "dark_home_section_odd" }};
+$sta-dark-home-section-even: {{ $scr.Get "dark_home_section_even" }};
+
+@import "bootstrap_variables";
+@import "_vendor/bootstrap/bootstrap";
+@import "academic/academic";
+@import "template";
+@import "custom";

@@ -1,0 +1,55 @@
+{{/* Enable image to be loaded from local page dir or media library at `static/media/`. */}}
+
+{{ $media_dir := site.Params.media_dir | default "media" }}
+{{ $asset := (.Page.Resources.ByType "image").GetMatch (.Get "src") }}
+{{ $is_svg := false }}
+{{ if $asset }}
+  {{ if eq $asset.MediaType.SubType "svg"}}
+    {{ $is_svg = true }}
+  {{ end }}
+{{ end }}
+{{ $image_src := (.Get "src") }}
+{{ if and $asset (not $is_svg) }}
+  {{ $asset2 := $asset.Fit "2000x2000" }}
+  {{ $image_src = $asset2.RelPermalink }}
+{{ else if .Get "library" }}
+  {{ $image_src = printf "%s/%s" $media_dir $image_src | relURL }}
+{{ end }}
+
+{{/* Disallow user from opening image in the lightbox? */}}
+{{ $lightbox := eq (.Get "lightbox" | default "true") "true" }}
+
+{{/* Get lightbox group for showing multiple images in a lightbox. */}}
+{{ $group := .Get "lightbox-group" | default "" }}
+
+{{/* Get caption. Support legacy `title` option. */}}
+{{ $caption := .Get "title" | default (.Get "caption") | default "" }}
+
+<figure{{ with .Get "class" }} class="{{.}}"{{ end }} {{ with $caption }}id="figure-{{ anchorize . }}"{{ end }}>
+
+{{ if $lightbox }}
+  <a data-fancybox="{{$group}}" href="{{$image_src}}" {{ with $caption }}data-caption="{{ .|markdownify|emojify|safeHTMLAttr }}"{{ end }}>
+{{ else if .Get "link"}}
+  <a href="{{ .Get "link" }}"{{ with .Get "target" }} target="{{.}}"{{ end }}{{ with .Get "rel" }} rel="{{.}}"{{ end }}>
+{{ end -}}
+
+{{/* Lazy load only when we know image dimensions in order to preserve anchor linking. */}}
+{{ if and $asset (not $is_svg) }}
+  <img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" width="{{ (.Get "width") | default $asset.Width }}" height="{{ (.Get "height") | default $asset.Height }}">
+{{ else if and (.Get "width") (.Get "height") }}
+  <img data-src="{{$image_src}}" class="lazyload" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}}>
+{{ else }}
+  <img src="{{$image_src}}" alt="{{ with .Get "alt" }}{{.}}{{end}}" {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}}>
+{{ end }}
+
+{{- if or $lightbox (.Get "link") }}</a>{{ end }}
+
+{{ if $caption }}
+  {{/* Localize the figure numbering (if enabled). */}}
+  {{ $figure := split (i18n "figure" | default "Figure %d:") "%d" }}
+  <figcaption{{ if eq (.Get "numbered") "true" }} data-pre="{{ index $figure 0 }}" data-post="{{ index $figure 1 }}" class="numbered"{{ end }}>
+    {{ $caption | markdownify | emojify }}
+  </figcaption>
+{{ end }}
+
+</figure>

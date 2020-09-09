@@ -1,0 +1,29 @@
+{{/* Enable video to be loaded from local page dir or media library at `static/media/`. */}}
+
+{{ $path := "" }}
+{{ $root_dir := "" }}
+{{ $media_dir := site.Params.media_dir | default "media" }}
+{{ if .Get "library" }}
+  {{ $path = printf "%s/" $media_dir }}
+  {{ $root_dir = "static/" }}
+{{ end }}
+
+{{ $video := printf "%s%s" $path (.Get "src") }}
+{{ $video_type := strings.TrimPrefix "." (path.Ext (.Get "src")) }}
+{{ if .Get "library" }}
+  {{ $video = $video | relURL }}
+{{ end }}
+
+{{ $poster := printf "%s%s%s" $path (substr (.Get "src") 0 -4) ".jpg" }}
+{{ $has_poster := fileExists (printf "%s%s" $root_dir $poster) }}
+{{ if and $has_poster (.Get "library") }}
+  {{ $poster = $poster | relURL }}
+{{ else if $has_poster }}
+  {{ $poster = $poster }}
+{{ else }}
+  {{ $poster = "" }}
+{{ end }}
+
+<video {{if (.Get "controls")}}controls{{else}}autoplay loop{{end}} {{with $poster}}poster="{{.}}"{{end}}>
+  <source src="{{ $video }}" type="video/{{$video_type}}">
+</video>

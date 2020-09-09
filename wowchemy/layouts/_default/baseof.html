@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{{- $language_code := site.LanguageCode | default "en-us" -}}
+<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{end}}>
+
+{{ partial "site_head" . }}
+
+{{ $show_navbar := site.Params.main_menu.enable | default true }}
+{{- $highlight_active_link := site.Params.main_menu.highlight_active_link | default true -}}
+<body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="{{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}">
+
+  {{/* Load day/night theme. */}}
+  {{/* Initialise default theme. */}}
+  {{ if site.Params.day_night }}
+    <script>window.staDarkLightChooser = true;</script>
+  {{ end }}
+  {{ if eq (.Scratch.Get "light") true }}
+    <script>const isSiteThemeDark = false;</script>
+  {{ else }}
+    <script>const isSiteThemeDark = true;</script>
+  {{ end }}
+  {{ $load_theme := resources.Get "js/load-theme.js" }}
+  <script src="{{ $load_theme.RelPermalink }}"></script>
+
+  {{ partial "search" . }}
+
+  {{ partial "navbar" . }}
+
+  {{ block "main" . }}{{ end }}
+
+  {{ partial "site_js" . }}
+
+  {{/* Docs and Updates layouts include the site footer in a different location. */}}
+  {{ if not (in (slice "book" "docs" "updates") .Type) }}
+  <div class="container">
+    {{ partial "site_footer" . }}
+  </div>
+  {{ end }}
+
+  {{ partial "citation" . }}
+
+</body>
+</html>
