@@ -3,21 +3,41 @@
 {{- $taxonomy := "authors" }}
 {{ with .Param $taxonomy }}
   {{ $link_authors := site.Params.link_authors | default true }}
+
   {{ range $index, $name_raw := . }}
-    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
-    {{- $name := $profile_page.Title | default $name_raw -}}
     {{- if gt $index 0 }}, {{ end -}}
-    <span {{ if site.Params.highlight_superuser | and (eq $profile_page.Params.superuser true) }}class="font-weight-bold"{{end}}>
+
+    {{/* NOTE: Assumes that the "author name" matches their on-disk name. */}}
+    {{/* "slugify" the raw name to make lookups a bit easier. This likely needs "_" support as well.*/}}
+    {{- $lookup := replace $name_raw " " "-" -}}
+    {{- $target := printf "%s/%s" $taxonomy $lookup -}}
+
+    {{/* Check that profile page exists. If not, dont bother linking it. */}}
+    {{ $profile_page := cond (fileExists $target) (site.GetPage (printf "/%s" $target)) false }}
+
+    {{ $hl_members := false }}
+    {{ $hl_superuser := false }}
+    {{ $name := $name_raw }}
+
+    {{ if $profile_page }}
+      {{ $name = $profile_page.Title }}
+      {{- $hl_members = site.Params.highlight_members -}}
+      {{- $hl_superuser = site.Params.highlight_superuser | and (eq $profile_page.Params.superuser true) -}}
+    {{- end -}}
+
+    <span {{ if or $hl_members $hl_superuser }}class="font-weight-bold"{{ end }}>
       {{- if and $profile_page $link_authors -}}
-        <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
+        <a href="{{$profile_page.RelPermalink}}">{{ $name }}</a>
       {{- else -}}
-        {{$name}}
+        {{ $name | title }}
       {{- end -}}
     </span>
+
     {{- if isset $.Params "author_notes" -}}
       {{- with (index $.Params.author_notes $index) -}}
         <span title="{{.}}" class="author-notes">(?)</span>
       {{- end -}}
     {{- end -}}
+
   {{- end -}}
 {{- end -}}
