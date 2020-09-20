@@ -139,7 +139,8 @@
     </div><!-- /.navbar-collapse -->
 
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-      {{ if site.Params.search.engine }}
+      {{ $show_search := site.Params.main_menu.show_search | default true }}
+      {{ if and site.Params.search.engine $show_search }}
       <li class="nav-item">
         <a class="nav-link js-search" href="#" aria-label="{{ i18n "search" }}"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
@@ -148,8 +149,8 @@
       {{ $show_day_night := site.Params.main_menu.show_day_night | default true }}
       {{ if and site.Params.day_night $show_day_night }}
       <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
-          <i class="fas fa-palette" aria-hidden="true"></i>
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-moon" aria-hidden="true"></i>
         </a>
         <div class="dropdown-menu">
           <a href="#" class="dropdown-item js-set-theme-light">

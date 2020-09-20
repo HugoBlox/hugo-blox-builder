@@ -336,9 +336,10 @@
   * Change Theme Mode (0: Day, 1: Night, 2: Auto).
   * --------------------------------------------------------------------------- */
 
+  // TODO: import theme functions from load-theme.js to avoid duplication.
   function canChangeTheme() {
-    // If the theme changer component is present, then user is allowed to change the theme variation.
-    return $('.js-theme-selector').length;
+    // If var is set, then user is allowed to change the theme variation.
+    return Boolean(window.wcDarkLightEnabled);
   }
 
   function getThemeMode() {

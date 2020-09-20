@@ -5,7 +5,7 @@
 
   function canChangeTheme() {
     // If var is set, then user is allowed to change the theme variation.
-    return Boolean(window.staDarkLightChooser);
+    return Boolean(window.wcDarkLightEnabled);
   }
 
   function initThemeVariation() {
