@@ -3,7 +3,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  {{ if not site.Params.i_am_a_sponsor }}
   <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
+  {{ end }}
 
   {{ $scr := .Scratch }}
 
