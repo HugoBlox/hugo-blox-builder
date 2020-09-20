@@ -362,32 +362,6 @@ a[data-fancybox] {
   color: #ddd;
 }
 
-/*************************************************
- *  Footer
- **************************************************/
-
-footer {
-  margin: 4rem 0 0;
-  padding: 2rem 0;
-  width: 100%;
-}
-
-footer p {
-  font-size: 0.75rem;
-  text-align: center;
-}
-
-site-footer,
-footer a.back-to-top i {
-  color: rgba(0,0,0,0.54);
-}
-
-.dark site-footer,
-.dark footer a.back-to-top i,
-.dark .docs .body-footer {
-  color: rgba(255,255,255,0.54);
-}
-
 /**************************************************
  *  Tags/Labels
  **************************************************/

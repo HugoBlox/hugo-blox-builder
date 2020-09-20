@@ -1,3 +1,34 @@
+// Footer styles
+
+footer {
+  margin: 4rem 0 0;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+footer p {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+footer .powered-by {
+  font-size: 0.67rem;
+}
+
+.site-footer,
+footer a.back-to-top i {
+  color: rgba(0,0,0,0.54);
+}
+
+// Dark footer theme
+.dark .site-footer,
+.dark footer a.back-to-top i,
+.dark .docs .body-footer {
+  color: rgba(255,255,255,0.54);
+}
+
+// Footer copyright license
+
 .footer-license-icons {
   display: flex;
   flex-direction: row;
