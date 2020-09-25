@@ -266,10 +266,12 @@
       } else {
         let map = new L.map('map').setView([lat, lng], zoom);
         if (map_provider == 3 && api_key.length) {
-          L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+          L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            tileSize: 512,
             maxZoom: 18,
-            id: 'mapbox.streets',
+            zoomOffset: -1,
+            id: 'mapbox/streets-v11',
             accessToken: api_key
           }).addTo(map);
         } else {
