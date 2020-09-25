@@ -566,6 +566,7 @@ div.alert > div:first-child::before {
   font-size: 1.5rem;
   color: #209cee;
   font-family: 'Font Awesome 5 Free';
+  font-display: swap;
   font-weight: 900;
   content: '\f05a';
   width: 1.5rem;
@@ -574,6 +575,7 @@ div.alert > div:first-child::before {
 
 div.alert-warning > div:first-child::before {
   font-family: 'Font Awesome 5 Free';
+  font-display: swap;
   font-weight: 900;
   color: #ff3860;
   content: '\f071';
