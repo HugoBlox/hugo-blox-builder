@@ -271,7 +271,7 @@
             tileSize: 512,
             maxZoom: 18,
             zoomOffset: -1,
-            id: 'mapbox/outdoors-v11',
+            id: 'mapbox/streets-v11',
             accessToken: api_key
           }).addTo(map);
         } else {
