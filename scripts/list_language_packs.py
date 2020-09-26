@@ -2,7 +2,7 @@
 
 # List Available Language Packs
 # Used for updating the Languages page of the documentation.
-# https://sourcethemes.com/academic/
+# https://wowchemy.com
 #
 # Prerequisites: pip3 install PyYAML
 

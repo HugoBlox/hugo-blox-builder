@@ -1,6 +1,6 @@
 /*************************************************
- *  Academic
- *  https://github.com/gcushen/hugo-academic
+ *  Wowchemy
+ *  https://github.com/wowchemy/wowchemy-hugo-modules
  *
  *  In-built Fuse based search algorithm.
  **************************************************/

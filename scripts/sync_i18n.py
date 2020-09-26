@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # Sync Language Packs
-# Script to synchronize each language pack's items against Academic's master pack (English).
-# https://sourcethemes.com/academic/
+# Script to synchronize each language pack's items against Wowchemy's master pack (English).
+# https://wowchemy.com
 #
 # Prerequisites: pip3 install PyYAML
 #

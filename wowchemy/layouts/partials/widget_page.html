@@ -10,7 +10,7 @@
   {{/* Check homepage exists */}}
   {{ if not $headless_bundle }}
     {{ errorf "Homepage not found at %s!" $page }}
-    {{ errorf "Add the `/home/index.md` homepage file to each language's content folder. For example, your site should have a `content/home/` folder containing `index.md` and your homepage sections, or for multi-language sites, `content/en/home/` and `content/zh/home/` etc. Refer to the 'Build Your Homepage' and 'Language' documentation at https://sourcethemes.com/academic/docs/ and the example homepage at https://github.com/gcushen/hugo-academic/tree/master/exampleSite/content/home/index.md ." }}
+    {{ errorf "Add the `/home/index.md` homepage file to each language's content folder. For example, your site should have a `content/home/` folder containing `index.md` and your homepage sections, or for multi-language sites, `content/en/home/` and `content/zh/home/` etc. Refer to the 'Build Your Homepage' and 'Language' documentation at https://wowchemy.com/docs/ and the example homepage at https://github.com/wowchemy/starter-academic/tree/master/exampleSite/content/home/index.md ." }}
   {{ end }}
 {{ else }}
   {{ $page = .File.Path }}
@@ -18,8 +18,8 @@
   {{/* Check widget page exists. */}}
   {{ if not $headless_bundle }}
     {{ errorf "Widget Page not found at %s!" $page }}
-    {{ errorf "View the Widget Page documentation at https://sourcethemes.com/academic/docs/managing-content/#create-a-widget-page ." }}
-    {{ errorf "If the Hugo version is between 0.65 and 0.68, it may be a confirmed Hugo bug that is expected to be fixed in Hugo v0.69: https://github.com/gcushen/hugo-academic/issues/1595#issuecomment-605514973 ." }}
+    {{ errorf "View the Widget Page documentation at https://wowchemy.com/docs/managing-content/#create-a-widget-page ." }}
+    {{ errorf "If the Hugo version is between 0.65 and 0.68, it may be a confirmed Hugo bug that is expected to be fixed in Hugo v0.69: https://github.com/wowchemy/wowchemy-hugo-modules/issues/1595#issuecomment-605514973 ." }}
   {{ end }}
 {{ end }}
 
