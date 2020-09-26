@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
+  <meta name="generator" content="Wowchemy Hugo {{ site.Data.wowchemy.version }}">
 
   {{ $scr := .Scratch }}
 
@@ -138,15 +138,15 @@
     {{ end }}
   {{ end }}
 
-  {{ $css_comment := printf "/*!* Source Themes Academic v%s (https://sourcethemes.com/academic/) */\n" site.Data.academic.version }}
+  {{ $css_comment := printf "/*!* Wowchemy v%s (https://wowchemy.com/) */\n" site.Data.wowchemy.version }}
   {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
-  {{ $css_options := dict "targetPath" "css/academic.css" }}
+  {{ $css_options := dict "targetPath" "css/wowchemy.css" }}
   {{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") -}}
     {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
   {{- end -}}
   {{ $sass_template := resources.Get "scss/main.scss" }}
   {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options }}
-  {{ $style := slice $css_bundle_head $style | resources.Concat "css/academic.css" }}
+  {{ $style := slice $css_bundle_head $style | resources.Concat "css/wowchemy.css" }}
   {{- if (eq (getenv "HUGO_ENV") "production") -}}
     {{- $style = $style | minify | fingerprint "md5" -}}
   {{- end -}}
