@@ -134,8 +134,8 @@ a:focus {
   color: $sta-dark-link;
 }
 
-.dark a:hover,
-.dark a:focus {
+.dark a:not(.btn):hover,
+.dark a:not(.btn):focus {
   color: $sta-dark-link-hover;
 }
 
