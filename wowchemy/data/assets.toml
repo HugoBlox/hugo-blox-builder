@@ -33,9 +33,9 @@
   sri = "sha256-7vjlAeb8OaTrCXZkCNun9djzuB2owUsaO72kXaFDBJs="
   url = "https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/%s/gmaps.min.js"
 [js.leaflet]
-  version = "1.5.1"
-  sri = "sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.js"
+  version = "1.7.1"
+  sri = "sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.min.js"
 [js.fancybox]
   version = "3.5.7"
   sri = "sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8="
@@ -89,9 +89,9 @@
   sri = "sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css"
 [css.leaflet]
-  version = "1.5.1"
-  sri = "sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.css"
+  version = "1.7.1"
+  sri = "sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.min.css"
 [css.fancybox]
   version = "3.5.7"
   sri = "sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA="
