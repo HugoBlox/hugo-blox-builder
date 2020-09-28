@@ -85,8 +85,8 @@
   sri = "sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc="
   url = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/all.min.css"
 [css.academicons]
-  version = "1.8.6"
-  sri = "sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw="
+  version = "1.9.0"
+  sri = "sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/academicons/%s/css/academicons.min.css"
 [css.leaflet]
   version = "1.5.1"
