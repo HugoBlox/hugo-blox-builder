@@ -61,8 +61,8 @@
   sri = "sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk="
   url = "https://cdnjs.cloudflare.com/ajax/libs/mermaid/%s/mermaid.min.js"
 [js.lazysizes]
-  version = "5.1.2"
-  sri = "sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A="
+  version = "5.2.2"
+  sri = "sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/%s/lazysizes.min.js"
   async = true
 [js.cookieconsent]
