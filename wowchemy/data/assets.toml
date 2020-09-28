@@ -53,8 +53,8 @@
   sri = "sha256-gFCtPk/sonctyfwYOgjrPoWApQ0rqB6ezBBZ7p32yGc="
   url = "https://cdnjs.cloudflare.com/ajax/libs/instantsearch.js/%s/instantsearch.min.js"
 [js.anchor]
-  version = "4.1.1"
-  sri = "sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck="
+  version = "4.2.2"
+  sri = "sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/anchor-js/%s/anchor.min.js"
 [js.mermaid]
   version = "8.4.8"
