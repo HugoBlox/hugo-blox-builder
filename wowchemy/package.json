@@ -1,0 +1,24 @@
+{
+  "name": "wowchemy",
+  "version": "1.0.0",
+  "description": "The Page Builder for Hugo",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "instant.page": "^5.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wowchemy/wowchemy-hugo-modules.git"
+  },
+  "author": "George Cushen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wowchemy/wowchemy-hugo-modules/issues"
+  },
+  "homepage": "https://wowchemy.com"
+}

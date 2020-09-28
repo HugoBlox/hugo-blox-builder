@@ -1,8 +1,8 @@
 {{- define "main" -}}
 
-{{/* Check that user fully installed Academic. */}}
+{{/* Check that user fully installed Wowchemy. */}}
 {{ if not (isset site.Params "theme") }}
-  {{ errorf "Please complete the installation of Academic by following the steps at https://sourcethemes.com/academic/docs/install/" }}
+  {{ errorf "Please complete the installation of Wowchemy by following the steps at https://wowchemy.com/docs/install/" }}
 {{ end }}
 
 {{/* Deprecation warnings */}}
@@ -10,7 +10,7 @@
 {{/* v4.5: Address changed from string to map. */}}
 {{ if isset site.Params "address" }}
 {{ if eq (reflect.IsMap site.Params.address) false }}
-  {{ errorf "Please upgrade the `address` field in `config/_default/params.toml`. Refer to all of the Breaking Changes in v4.5 at https://sourcethemes.com/academic/updates/v4.5.0/" }}
+  {{ errorf "Please upgrade the `address` field in `config/_default/params.toml`. Refer to all of the Breaking Changes in v4.5 at https://wowchemy.com/updates/v4.5.0/" }}
 {{ end }}
 {{ end }}
 

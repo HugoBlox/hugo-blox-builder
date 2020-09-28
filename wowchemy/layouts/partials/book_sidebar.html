@@ -11,7 +11,7 @@
 <nav class="collapse docs-links" id="docs-nav">
   {{ $current_node := . }}
   {{ $menu_name := "" }}
-  {{ $order_by := cond (eq $menu_name "updates") "title_desc" site.Params.books.order_by }}
+  {{ $order_by := site.Params.books.order_by | default "weight" }}
   {{ $query := "" }}
   {{ $root_page := .GetPage "/_index.md" }}
   {{ $is_root := false}}
@@ -28,7 +28,12 @@
       {{- $query = .Site.Home.Sections.ByWeight -}}
     {{- end}}
   {{else}}
+    {{/* Get section name from the path. */}}
     {{ $menu_name = (path.Base (path.Split .FirstSection).Dir) }}
+
+    {{/* For any folder named `updates`, use descending title order (e.g. latest release note first). */}}
+    {{ $order_by = cond (eq $menu_name "updates") "title_desc" $order_by }}
+
     {{- if eq $order_by "title" -}}
       {{- $query = where .Site.Home.Sections.ByTitle "Section" $menu_name -}}
     {{- else if eq $order_by "title_desc" -}}

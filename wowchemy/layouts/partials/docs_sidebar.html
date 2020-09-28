@@ -12,7 +12,7 @@
 {{ end }}
 {{ $menu_name = .Params.menu_name | default $menu_name | default (path.Base (path.Split .File).Dir) }}
 {{ if not (index site.Menus $menu_name) }}
-  {{ errorf "Please define menu items named `menu: %s:` in your %s front matter or define `[[menu.%s]]` in `config/default/menus.toml`. See https://sourcethemes.com/academic/docs/managing-content/#menus" $menu_name .Path $menu_name }}
+  {{ errorf "Please define menu items named `menu: %s:` in your %s front matter or define `[[menu.%s]]` in `config/default/menus.toml`. See https://wowchemy.com/docs/managing-content/#menus" $menu_name .Path $menu_name }}
 {{ end }}
 
 <form class="docs-search d-flex align-items-center">

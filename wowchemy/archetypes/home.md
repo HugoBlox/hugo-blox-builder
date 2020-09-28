@@ -1,6 +1,6 @@
 +++
 # A section created with the Blank widget.
-widget = "blank"  # See https://sourcethemes.com/academic/docs/page-builder/
+widget = "blank"  # See https://wowchemy.com/docs/page-builder/
 headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 1  # Order that this section will appear.
@@ -45,4 +45,4 @@ subtitle = ""
  css_class = ""
 +++
 
-[**Add some elements here**](https://sourcethemes.com/academic/docs/writing-markdown-latex/)
+[**Add some elements here**](https://wowchemy.com/docs/writing-markdown-latex/)

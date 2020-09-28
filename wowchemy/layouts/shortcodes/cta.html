@@ -1,0 +1,14 @@
+<ul class="cta-group">
+  {{ if (.Get "cta_text") }}
+  <li>
+    <a href="{{.Get "cta_link"}}" {{if eq (.Get "cta_new_tab") "true" }}target="_blank"{{end}} class="btn btn-primary px-3 py-3">{{ (.Get "cta_text") | markdownify | emojify }}</a>
+  </li>
+  {{ end }}
+  {{ if (.Get "cta_alt_text") }}
+  <li>
+    <a href="{{.Get "cta_alt_link"}}" {{if eq (.Get "cta_alt_new_tab") "true" }}target="_blank"{{end}}>
+      {{ (.Get "cta_alt_text") | markdownify | emojify }} <i class="fas fa-angle-right"></i>
+    </a>
+  </li>
+  {{end}}
+</ul>
