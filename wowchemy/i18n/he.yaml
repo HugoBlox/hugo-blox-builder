@@ -1,0 +1,239 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: ניווט
+
+- id: table_of_contents
+  translation: Table of Contents
+
+- id: on_this_page
+  translation: תוכן
+
+- id: back_to_top
+  translation: חזרה למעלה
+
+# General
+
+- id: related
+  translation: קשור
+
+- id: minute_read
+  translation: דק׳ קריאה
+
+- id: previous
+  translation: קודם
+
+- id: next
+  translation: הבא
+
+- id: figure
+  translation: "דמות %d:"
+
+- id: edit_page
+  translation: עריכת דף זה
+
+# Themes
+
+- id: theme_light
+  translation: בהיר
+
+- id: theme_dark
+  translation: כהה
+
+- id: theme_auto
+  translation: אוטומטי
+
+# Buttons
+
+- id: btn_preprint
+  translation: הדפסה מוקדמת
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: צטט
+
+- id: btn_slides
+  translation: שקופיות
+
+- id: btn_video
+  translation: וידאו
+
+- id: btn_code
+  translation: קוד
+
+- id: btn_dataset
+  translation: מערך נתונים
+
+- id: btn_project
+  translation: פרויקט
+
+- id: btn_poster
+  translation: פוסטר
+
+- id: btn_source
+  translation: מסמך מקור
+
+- id: btn_copy
+  translation: העתקה
+
+- id: btn_download
+  translation: הורדה
+
+# About widget
+
+- id: interests
+  translation: תחומי עניין
+
+- id: education
+  translation: השכלה
+
+- id: user_profile_latest
+  translation: עדכני
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: תעודה
+
+# Experience widget
+
+- id: present
+  translation: הווה
+
+# Pages widget
+
+- id: more_pages
+  translation: הכל
+
+- id: more_posts
+  translation: כל הפוסטים
+
+- id: more_talks
+  translation: כל ההרצאות
+
+- id: more_publications
+  translation: כל הפרסומים
+
+# Contact widget
+
+- id: contact_name
+  translation: שם
+
+- id: contact_email
+  translation: דוא״ל
+
+- id: contact_message
+  translation: הודעה
+
+- id: contact_send
+  translation: שליחה
+
+- id: book_appointment
+  translation: קביעת פגישה
+
+# Publication/Talk details
+
+- id: abstract
+  translation: תקציר
+
+- id: publication
+  translation: פרסום
+
+- id: publication_type
+  translation: סוג
+
+- id: date
+  translation: תאריך
+
+- id: last_updated
+  translation: עודכן לאחרונה ב
+
+- id: event
+  translation: אירוע
+
+- id: location
+  translation: מיקום
+
+- id: pub_uncat
+  translation: לא מסווג
+
+- id: pub_conf
+  translation: נייר ועידה
+
+- id: pub_journal
+  translation: מאמר בכתב עת
+
+- id: pub_preprint
+  translation: הדפסה מוקדמת
+
+- id: pub_report
+  translation: דו״ח
+
+- id: pub_book
+  translation: ספר
+
+- id: pub_book_section
+  translation: קטע של ספר
+
+- id: pub_thesis
+  translation: תזה
+
+- id: pub_patent
+  translation: פטנט
+
+# Project details
+
+- id: open_project_site
+  translation: אתר הפרויקט
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: פוסטים
+
+- id: publications
+  translation: פרסומים
+
+- id: talks
+  translation: הרצאות
+
+- id: projects
+  translation: פרויקטים
+
+- id: slides
+  translation: שקופיות
+
+# Search
+
+- id: search
+  translation: חיפוש
+
+- id: search_placeholder
+  translation: חיפוש...
+
+- id: search_results
+  translation: תוצאות חיפוש
+
+- id: search_no_results
+  translation: לא נמצאו תוצאות
+
+# Error 404
+
+- id: page_not_found
+  translation: העמוד לא נמצא
+
+- id: 404_recommendations
+  translation: אולי חיפשת אחד מאלה?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: אתר זה משתמש בקובצי Cookie כדי להבטיח שתקבל את החוויה הטובה ביותר באתר.
+
+- id: cookie_dismiss
+  translation: הבנתי!
+
+- id: cookie_learn
+  translation: מידע נוסף
