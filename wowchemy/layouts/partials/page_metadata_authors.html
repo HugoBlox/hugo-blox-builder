@@ -4,7 +4,7 @@
 {{ with .Param $taxonomy }}
   {{ $link_authors := site.Params.link_authors | default true }}
   {{ range $index, $name_raw := . }}
-    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
+    {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy . | urlize) -}}
     {{- $name := $profile_page.Title | default $name_raw -}}
     {{- if gt $index 0 }}, {{ end -}}
     <span {{ if site.Params.highlight_superuser | and (eq $profile_page.Params.superuser true) }}class="font-weight-bold"{{end}}>
