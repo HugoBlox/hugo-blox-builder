@@ -3,7 +3,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Wowchemy Hugo {{ site.Data.wowchemy.version }}">
+  {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
+  {{ $hide_generator := site.Params.power_ups.hide_generator | default false }}
+  {{ if not (and $is_sponsor $hide_generator) }}
+  <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo">
+  {{ end }}
 
   {{ $scr := .Scratch }}
 
