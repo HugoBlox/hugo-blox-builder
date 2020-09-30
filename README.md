@@ -17,7 +17,7 @@
 
 ## Crowd-funded open-source software
 
-To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.
+To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to support its ongoing maintenance and development via sponsorship.
 
 ### [❤️ Click here to unlock rewards with sponsorship](https://wowchemy.com/plans/)
 
@@ -39,7 +39,7 @@ To help us develop this template and software sustainably under the MIT license,
 - **Display Code and Math** - Code highlighting and [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics) supported
 - **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
 - **Beautiful Site** - Simple and refreshing one page design
-- **Industry-Leading SEO** - Help get your website found on search engines and social media
+- **Industry-Leading SEO** - Help get your website found on search engines and social medias
 - **Media Galleries** - Display your images and videos with captions in a customizable gallery
 - **Mobile Friendly** - Look amazing on every screen with a mobile friendly version of your site
 - **Multi-language** - 15+ language packs including English, 中文, and Português
