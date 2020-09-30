@@ -7,16 +7,16 @@
     {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy .) -}}
     {{- $name := $profile_page.Title | default $name_raw -}}
     {{- if gt $index 0 }}, {{ end -}}
-    <span {{ if site.Params.highlight_superuser | and (eq $profile_page.Params.superuser true) }}class="font-weight-bold"{{end}}>
-      {{- if and $profile_page $link_authors -}}
-        <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
+    <span {{ if $highlight_name }}class="author-highlighted"{{end}}>
+      {{- if $link_authors -}}
+        <a href="{{.RelPermalink}}">{{.LinkTitle}}</a>
       {{- else -}}
         {{$name}}
       {{- end -}}
     </span>
     {{- if isset $.Params "author_notes" -}}
       {{- with (index $.Params.author_notes $index) -}}
-        <span title="{{.}}" class="author-notes">(?)</span>
+        <i class="author-notes fas fa-info-circle" data-toggle="tooltip" title="{{.}}"></i>
       {{- end -}}
     {{- end -}}
   {{- end -}}

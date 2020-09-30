@@ -757,6 +757,9 @@
       }
     });
 
+    // Init. author notes (tooltips).
+    $('[data-toggle="tooltip"]').tooltip();
+
   });
 
   // Normalize Bootstrap carousel slide heights.

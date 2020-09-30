@@ -114,8 +114,11 @@ article .article-metadata {
 
 .article-metadata .author-notes {
   cursor: help;
-  vertical-align: super;
-  font-size: 0.7em;
+  padding-left: 3px;
+}
+
+.article-metadata .author-highlighted {
+  font-weight: bold;
 }
 
 .article-categories {
