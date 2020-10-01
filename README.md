@@ -2,7 +2,7 @@
 
 # [Wowchemy](https://wowchemy.com): the website builder for [Hugo](https://gohugo.io)
 
-### The Page Builder to Easily Create Professional Websites ✏️ 📰 🚀
+### The Page Builder to Easily Create Professional Website ✏️ 📰 🚀
 
 **Create _any_ kind of website for free with Wowchemy. Write using Markdown, Jupyter, or RStudio. Choose a beautiful template, color theme, and font. Build anything with the Page Builder - over 50 _widgets_, _themes_, and _language packs_ included!**
 
