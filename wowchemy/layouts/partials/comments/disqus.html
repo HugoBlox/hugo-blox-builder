@@ -1,7 +1,7 @@
 {{ if site.Params.comments.disqus.shortname }}
 <div id="disqus_thread"></div>
 <script>
-  let disqus_config = function () {
+  var disqus_config = function () {
     {{with .Params.disqus_identifier }}this.page.identifier = '{{ . }}';{{end}}
     {{with .Params.disqus_title }}this.page.title = '{{ . }}';{{end}}
     {{with .Params.disqus_url }}this.page.url = '{{ . | html  }}';{{end}}
