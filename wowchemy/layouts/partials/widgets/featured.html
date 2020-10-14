@@ -48,11 +48,22 @@
   {{ $i18n = "more_pages" }}
 {{ end }}
 
-<div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
-    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+<div class="row {{if not $st.Title | or (eq $columns "1") }}justify-content-center{{end}}">
+  
+  {{ if $st.Title }}
+    {{ if eq $columns "1" }}
+      <div class="col-12 col-lg-8 section-heading text-center">
+        <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
+        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+      </div>
+    {{else}}
+      <div class="col-12 col-lg-4 section-heading">
+        <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
+        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>
+    {{end}}
+  {{ end }}
+  
   <div class="col-12 col-lg-8">
 
     {{ with $st.Content }}{{ . }}{{ end }}
