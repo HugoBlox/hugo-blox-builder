@@ -1,0 +1,6 @@
+title: Wowchemy Test
+module:
+  imports:
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
+params:
+  theme: minimal
