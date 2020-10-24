@@ -46,7 +46,9 @@
   {{ end }}
 
   {{/* Show Disqus comment count if enabled. */}}
-  {{ $disqus_enabled := eq site.Params.comments.engine 1 | and (index site.Params.comments.commentable $page.Type) | and (ne $page.Params.commentable false) | or $page.Params.commentable }}
+  {{ $commentable_map := site.Params.comments.commentable | default dict }}
+  {{ $commentable_bool := index $commentable_map $page.Type | default false }}
+  {{ $disqus_enabled := eq site.Params.comments.engine 1 | and $commentable_bool | and (ne $page.Params.commentable false) | or $page.Params.commentable }}
   {{ if and $disqus_enabled (site.Params.comments.disqus.show_count | default true) }}
   <span class="middot-divider"></span>
   <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>

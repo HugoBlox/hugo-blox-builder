@@ -1,4 +1,6 @@
-{{ if site.Params.comments.engine | and (index site.Params.comments.commentable .Type) | and (ne .Params.commentable false) | or .Params.commentable }}
+{{ $commentable_map := site.Params.comments.commentable | default dict }}
+{{ $commentable_bool := index $commentable_map .Type | default false }}
+{{ if site.Params.comments.engine | and $commentable_bool | and (ne .Params.commentable false) | or .Params.commentable }}
 <section id="comments">
   {{ if eq site.Params.comments.engine 1 }}
     {{ partial "comments/disqus.html" . }}
