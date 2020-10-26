@@ -2,7 +2,7 @@
 {
   "name": "{{site.Title}}",
   "short_name": "{{site.Title}}",
-  "lang": "{{site.LanguageCode}}",
+  "lang": "{{ site.LanguageCode | default "en-us" }}",
   "theme_color": "{{ $scr.Get "primary" }}",
   "background_color": "{{ $scr.Get "primary" }}",
   "icons": [{

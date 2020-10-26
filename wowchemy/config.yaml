@@ -1,0 +1,15 @@
+mediaTypes:
+  application/manifest+json:
+    suffixes:
+      - webmanifest
+outputFormats:
+  WebAppManifest:
+    mediaType: application/manifest+json
+    rel: manifest
+module:
+  hugoVersion:
+    min: '0.73.0'
+    extended: true
+params:
+  theme: minimal
+  font: native

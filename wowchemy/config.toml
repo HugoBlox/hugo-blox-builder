@@ -1,5 +1,0 @@
-[module]
-  [module.hugoVersion]
-    # This version of Wowchemy is compatible with the following Hugo versions:
-    min = "0.73.0"
-    extended = true
