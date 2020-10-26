@@ -1,6 +1,6 @@
-# Contributing to Academic
+# Contributing to Wowchemy
 
-For **help**, **support**, and **questions** please use our **[community chat](https://spectrum.chat/academic)**  🚑.
+For **help**, **support**, and **questions** please use our **[community chat](https://discord.gg/z8wNYzb)**  🚑.
 
 ---
 
