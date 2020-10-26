@@ -1,0 +1,239 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Bytte navigering
+
+- id: table_of_contents
+  translation: Innholdsfortegnelse
+
+- id: on_this_page
+  translation: Innhold
+
+- id: back_to_top
+  translation: Tilbake til toppen
+
+# General
+
+- id: related
+  translation: Relatert
+
+- id: minute_read
+  translation: min. lesing
+
+- id: previous
+  translation: Forrige
+
+- id: next
+  translation: Neste
+
+- id: figure
+  translation: "Figur %d:"
+
+- id: edit_page
+  translation: Rediger denne siden
+
+# Themes
+
+- id: theme_light
+  translation: Lys
+
+- id: theme_dark
+  translation: Mørk
+
+- id: theme_auto
+  translation: Automatisk
+
+# Buttons
+
+- id: btn_preprint
+  translation: Opprinnelig manus (preprint)
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Sitere
+
+- id: btn_slides
+  translation: Presentasjoner
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kode
+
+- id: btn_dataset
+  translation: Datasett
+
+- id: btn_project
+  translation: Prosjekt
+
+- id: btn_poster
+  translation: Innlegg
+
+- id: btn_source
+  translation: Kildedokument
+
+- id: btn_copy
+  translation: Kopi
+
+- id: btn_download
+  translation: Last ned
+
+# About widget
+
+- id: interests
+  translation: Interesser
+
+- id: education
+  translation: Utdanning
+
+- id: user_profile_latest
+  translation: Siste
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Se sertifikat
+
+# Experience widget
+
+- id: present
+  translation: Nå
+
+# Pages widget
+
+- id: more_pages
+  translation: Se alle
+
+- id: more_posts
+  translation: Se alle innlegg
+
+- id: more_talks
+  translation: Se alle presentasjoner
+
+- id: more_publications
+  translation: See alle publiseringer
+
+# Contact widget
+
+- id: contact_name
+  translation: Navn
+
+- id: contact_email
+  translation: E-post
+
+- id: contact_message
+  translation: Melding
+
+- id: contact_send
+  translation: Send
+
+- id: book_appointment
+  translation: Be om en avtale
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Sammendrag
+
+- id: publication
+  translation: Publisering
+
+- id: publication_type
+  translation: Type
+
+- id: date
+  translation: Dato
+
+- id: last_updated
+  translation: Sist oppdatert den
+
+- id: event
+  translation: Arrangement
+
+- id: location
+  translation: Sted
+
+- id: pub_uncat
+  translation: Ukategorisert
+
+- id: pub_conf
+  translation: Konferanseartikkel
+
+- id: pub_journal
+  translation: Tidskriftsartikel
+
+- id: pub_preprint
+  translation: Opprinnelig manus (preprint)
+
+- id: pub_report
+  translation: Rapport
+
+- id: pub_book
+  translation: Bok
+
+- id: pub_book_section
+  translation: Bokkapittel
+
+- id: pub_thesis
+  translation: Oppgave
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Go til prosjektside
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Innlegg
+
+- id: publications
+  translation: Publiseringer
+
+- id: talks
+  translation: Foredrag
+
+- id: projects
+  translation: Prosjekter
+
+- id: slides
+  translation: Presentasjoner
+
+# Search
+
+- id: search
+  translation: Søk
+
+- id: search_placeholder
+  translation: Søk...
+
+- id: search_results
+  translation: resultater funnet
+
+- id: search_no_results
+  translation: Ingen resultater funnet
+
+# Error 404
+
+- id: page_not_found
+  translation: Siden ble ikke funnet
+
+- id: 404_recommendations
+  translation: Kanskje du lette etter noe av dette?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Denne siden bruker informasjonskapsler (cookies) for å bidra til den beste opplevelsen av denne nettsiden.
+
+- id: cookie_dismiss
+  translation: Skjønner!
+
+- id: cookie_learn
+  translation: Lær mer
