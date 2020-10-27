@@ -6,6 +6,11 @@ on:
       - master
     paths:
       - 'wowchemy/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'wowchemy/**'
 
 jobs:
   deploy:
@@ -13,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
+          submodules: true  # Fetch any Git submodules (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
