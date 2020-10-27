@@ -36,10 +36,10 @@
   version = "1.7.1"
   sri = "sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.min.js"
-[js.fancybox]
-  version = "3.5.7"
-  sri = "sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.js"
+[js.simplelightbox]
+  version = "2.5.0"
+  sri = "sha512-vey/eO7FdTyO8C5nDwGshcvxwxF+sz1ptgJzZ8I+42lBONr8UfqqbaO3WP55dTQ0j5iLRkAXyL9AOQx0jDyc6A=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/%s/simple-lightbox.min.js"
 [js.fuse]
   version = "3.2.1"
   sri = "sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI="
@@ -92,10 +92,10 @@
   version = "1.7.1"
   sri = "sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/%s/leaflet.min.css"
-[css.fancybox]
-  version = "3.5.7"
-  sri = "sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/fancybox/%s/jquery.fancybox.min.css"
+[css.simplelightbox]
+  version = "2.5.0"
+  sri = "sha512-BhUcc9MBZTZ/RkccKQODdNUyaaJW68pHwOnJRVYqVDjV5IigNdfWSzd//1Es/zZfPd8jwuEOUf31B31vkcqvhw=="
+  url = "https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/%s/simple-lightbox.min.css"
 [css.instantsearch]
   version = "2.9.0"
   sri = "sha256-ZtmLe16p4jS4/2wPwwH6NzJt460SJzgLmhKrYo5yn7g="
