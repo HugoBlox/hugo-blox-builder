@@ -3,7 +3,7 @@ name: build test site
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'wowchemy/**'
 
