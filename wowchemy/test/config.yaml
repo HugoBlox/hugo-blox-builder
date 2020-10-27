@@ -4,3 +4,5 @@ module:
     - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
 outputs:
   home: [HTML, RSS, JSON, WebAppManifest]
+params:
+  require_isotope: false
