@@ -323,10 +323,30 @@ a[data-fancybox] {
   vertical-align: inherit;
 }
 
-.fancybox-caption {
+.sl-wrapper .sl-image .sl-caption {
   font-size: 1rem;
   line-height: 1.5rem;
   text-align: center;
+}
+
+.sl-overlay {
+  background: #000;
+}
+
+.sl-wrapper .sl-close {
+  color: #fff;
+}
+
+.sl-wrapper .sl-counter {
+  color: #fff;
+}
+
+.sl-wrapper .sl-navigation button {
+  color: #fff;
+}
+
+.sl-wrapper .sl-image .sl-download {
+  color: #fff;
 }
 
 /*************************************************
