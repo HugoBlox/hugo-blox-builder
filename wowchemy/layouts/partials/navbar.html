@@ -13,7 +13,7 @@
   {{ $logo = (partial "functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
 {{ end }}
 
-<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar sl-fixed" id="navbar-main">
   <div class="container">
 
     {{if $show_logo}}
@@ -36,7 +36,7 @@
     {{ end }}
 
     {{if $show_logo}}
-    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none sl-fixed">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
       {{- if $has_logo -}}
         <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}">
