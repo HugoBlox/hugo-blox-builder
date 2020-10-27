@@ -611,22 +611,7 @@
     $('.js-set-theme-auto').click(function (e) {
       e.preventDefault();
       changeThemeModeClick(1);
-      
-    // Initialize lightbox
-    let defaultOptions = {fileExt: false, captionsData: 'data-caption', captionSelector: 'self',
-                          rtl: document.documentElement.dir == "rtl"};
-    let lbImgs = Array.from(document.querySelectorAll('a[data-fancybox]'));
-    while (lbImgs.length > 0) {
-      let fbData = lbImgs[0].getAttribute('data-fancybox');
-      if (fbData == "") {
-        new SimpleLightbox(lbImgs[0], defaultOptions);
-        lbImgs.shift();
-      } else {
-        new SimpleLightbox(lbImgs.filter(img => img.getAttribute('data-fancybox') == fbData), defaultOptions);
-        lbImgs = lbImgs.filter(img => img.getAttribute('data-fancybox') != fbData);
-      }
-    }
-  });
+    });
 
     // Live update of day/night mode on system preferences update (no refresh required).
     // Note: since we listen only for *dark* events, we won't detect other scheme changes such as light to no-preference.
@@ -654,6 +639,21 @@
         renderThemeVariation(isDarkTheme);
       }
     });
+    
+    // Initialize lightbox
+    let defaultOptions = {fileExt: false, captionsData: 'data-caption', captionSelector: 'self',
+                          rtl: document.documentElement.dir == "rtl"};
+    let lbImgs = Array.from(document.querySelectorAll('a[data-fancybox]'));
+    while (lbImgs.length > 0) {
+      let fbData = lbImgs[0].getAttribute('data-fancybox');
+      if (fbData == "") {
+        new SimpleLightbox(lbImgs[0], defaultOptions);
+        lbImgs.shift();
+      } else {
+        new SimpleLightbox(lbImgs.filter(img => img.getAttribute('data-fancybox') == fbData), defaultOptions);
+        lbImgs = lbImgs.filter(img => img.getAttribute('data-fancybox') != fbData);
+      }
+    }
   });
 
   /* ---------------------------------------------------------------------------
