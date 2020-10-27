@@ -125,57 +125,27 @@
   // Publication container.
   let $grid_pubs = $('#container-publications');
 
-  // Initialise Isotope publication layout if required.
-  if ($grid_pubs.length)
-  {
-    $grid_pubs.isotope({
-      itemSelector: '.isotope-item',
-      percentPosition: true,
-      masonry: {
-        // Use Bootstrap compatible grid layout.
-        columnWidth: '.grid-sizer'
-      },
-      filter: function () {
-        let $this = $(this);
-        let searchResults = searchRegex ? $this.text().match(searchRegex) : true;
-        let filterResults = filterValues ? $this.is(filterValues) : true;
-        return searchResults && filterResults;
-      }
-    });
-
-    // Filter by search term.
-    let $quickSearch = $('.filter-search').keyup(debounce(function () {
-      searchRegex = new RegExp($quickSearch.val(), 'gi');
-      $grid_pubs.isotope();
-    }));
-
-    $('.pub-filters').on('change', function () {
+  // Initialise Isotope.
+  $grid_pubs.isotope({
+    itemSelector: '.isotope-item',
+    percentPosition: true,
+    masonry: {
+      // Use Bootstrap compatible grid layout.
+      columnWidth: '.grid-sizer'
+    },
+    filter: function () {
       let $this = $(this);
+      let searchResults = searchRegex ? $this.text().match(searchRegex) : true;
+      let filterResults = filterValues ? $this.is(filterValues) : true;
+      return searchResults && filterResults;
+    }
+  });
 
-      // Get group key.
-      let filterGroup = $this[0].getAttribute('data-filter-group');
-
-      // Set filter for group.
-      pubFilters[filterGroup] = this.value;
-
-      // Combine filters.
-      filterValues = concatValues(pubFilters);
-
-      // Activate filters.
-      $grid_pubs.isotope();
-
-      // If filtering by publication type, update the URL hash to enable direct linking to results.
-      if (filterGroup === "pubtype") {
-        // Set hash URL to current filter.
-        let url = $(this).val();
-        if (url.substr(0, 9) === '.pubtype-') {
-          window.location.hash = url.substr(9);
-        } else {
-          window.location.hash = '';
-        }
-      }
-    });
-  }
+  // Filter by search term.
+  let $quickSearch = $('.filter-search').keyup(debounce(function () {
+    searchRegex = new RegExp($quickSearch.val(), 'gi');
+    $grid_pubs.isotope();
+  }));
 
   // Debounce input to prevent spamming filter requests.
   function debounce(fn, threshold) {
@@ -203,12 +173,35 @@
     return value;
   }
 
+  $('.pub-filters').on('change', function () {
+    let $this = $(this);
+
+    // Get group key.
+    let filterGroup = $this[0].getAttribute('data-filter-group');
+
+    // Set filter for group.
+    pubFilters[filterGroup] = this.value;
+
+    // Combine filters.
+    filterValues = concatValues(pubFilters);
+
+    // Activate filters.
+    $grid_pubs.isotope();
+
+    // If filtering by publication type, update the URL hash to enable direct linking to results.
+    if (filterGroup == "pubtype") {
+      // Set hash URL to current filter.
+      let url = $(this).val();
+      if (url.substr(0, 9) == '.pubtype-') {
+        window.location.hash = url.substr(9);
+      } else {
+        window.location.hash = '';
+      }
+    }
+  });
+
   // Filter publications according to hash in URL.
   function filter_publications() {
-    // Check for Isotope publication layout.
-    if (!$grid_pubs.length)
-      return
-
     let urlHash = window.location.hash.replace('#', '');
     let filterValue = '*';
 
@@ -639,6 +632,22 @@
         renderThemeVariation(isDarkTheme);
       }
     });
+    
+    // Initialize lightbox
+    let defaultOptions = {fileExt: false, captionsData: 'data-caption', captionSelector: 'self',
+                          rtl: document.documentElement.dir == "rtl"};
+    let lbImgs = Array.from(document.querySelectorAll('a[data-fancybox]'));
+    while (lbImgs.length > 0) {
+      let fbData = lbImgs[0].getAttribute('data-fancybox');
+      if (fbData == "") {
+        new SimpleLightbox(lbImgs[0], defaultOptions);
+        lbImgs.shift();
+      } else {
+        new SimpleLightbox(lbImgs.filter(img => img.getAttribute('data-fancybox') == fbData), defaultOptions);
+        lbImgs = lbImgs.filter(img => img.getAttribute('data-fancybox') != fbData);
+      }
+    }
+    
   });
 
   /* ---------------------------------------------------------------------------
