@@ -19,7 +19,9 @@
   {{ partial "site_footer_license" . }}
 
   <p class="powered-by">
-    {{ if not site.Params.i_am_a_sponsor }}
+    {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
+    {{ $hide_published_with_footer := site.Params.power_ups.hide_published_with | default true }}
+    {{ if not (and $is_sponsor $hide_published_with_footer) }}
     Published with
     <a href="https://wowchemy.com" target="_blank" rel="noopener">Wowchemy</a>  —
     the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
