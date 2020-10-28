@@ -1,5 +1,5 @@
 /*************************************************
- *  Academic's Core
+ *  Wowchemy's Core Style
  **************************************************/
 
 html {
@@ -32,6 +32,32 @@ body {
 body.no-navbar {
   margin-top: 0 !important;
 }
+
+// PAGE LAYOUT
+// Designed to push footer to bottom of viewport for short pages.
+
+.page-wrapper {
+  // Min height = viewport height - navbar height
+  min-height: calc(100vh - 70px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+@include media-breakpoint-down(md) {
+  .page-wrapper {
+    min-height: calc(100vh - 50px);
+  }
+}
+
+.page-header,
+.page-footer {
+  flex-shrink: 0;
+}
+
+.page-body {
+  flex-grow: 1;
+}
+
+// UTILITIES
 
 .max-width-640 {
   max-width: 640px;
@@ -160,6 +186,21 @@ video {
 .img-responsive {
   /* Extend Bootstrap declaration with centering. */
   margin: 0 auto;
+}
+
+/* Hide overflowing of zoomed child img element */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+/* Smooth transition for image zoom on hover */
+.img-hover-zoom img {
+  transition: transform .3s ease-in-out;
+}
+
+/* Transform the image scale when container gets hovered */
+.img-hover-zoom:hover img {
+  transform: scale(1.1);
 }
 
 // Center all figure images by default.
