@@ -694,16 +694,6 @@
       // window.addEventListener('hashchange', filter_publications, false);
     }
 
-    // Scroll to top of page.
-    $('.back-to-top').click(function (event) {
-      event.preventDefault();
-      $('html, body').animate({
-        'scrollTop': 0
-      }, 800, function () {
-        window.location.hash = "";
-      });
-    });
-
     // Load citation modal on 'Cite' click.
     $('.js-cite-modal').click(function (e) {
       e.preventDefault();
