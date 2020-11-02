@@ -4,7 +4,7 @@
 
 {{ if $page.Params.hero_media }}
 <div class="row">
-  <div class="col-md-6 order-md-1 text-center text-md-left">
+  <div class="col-12 col-md-6 order-md-1 text-center text-md-left">
 {{ end }}
 
     <h1 class="hero-title">
@@ -59,7 +59,7 @@
   {{ if $page.Params.hero_media }}
     {{ $media_dir := $.Scratch.Get "media_dir" }}
   </div>
-  <div class="col-6 mx-auto col-md-6 order-md-2 hero-media">
+  <div class="col-12 mx-auto col-md-6 order-md-2 hero-media">
     <img src="{{ printf "%s/%s" $media_dir $page.Params.hero_media | relURL }}" alt="">
   </div>
 </div>
