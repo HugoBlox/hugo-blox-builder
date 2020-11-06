@@ -1,0 +1,4 @@
+module:
+  mounts:
+    - source: static
+      target: static
