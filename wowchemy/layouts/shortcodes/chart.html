@@ -1,6 +1,6 @@
 {{ $json := printf "./%s.json" (.Get "data") }}
 {{ $id := delimit (shuffle (seq 1 9)) "" }}
-<div id="chart-{{$id}}" class="chart pb-3" style="max-width: 100%; margin: auto;"></div>
+<div id="chart-{{$id}}" class="chart"></div>
 <script>
   (function() {
     let a = setInterval( function() {

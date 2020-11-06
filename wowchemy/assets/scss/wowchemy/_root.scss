@@ -41,6 +41,7 @@ body.no-navbar {
   min-height: calc(100vh - 70px);
   display: grid;
   grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100vw;
 }
 @include media-breakpoint-down(md) {
   .page-wrapper {
@@ -569,73 +570,4 @@ table > tbody > tr:nth-child(odd) > th {
 table > tbody > tr:hover > td,
 table > tbody > tr:hover > th {
   background-color: #e5e5e5;
-}
-
-/*************************************************
- *  Article Alerts (Shortcode) and Asides (Mmark)
- **************************************************/
-
-/* Style asides as Bootstrap alerts. */
-.article-style aside {
-  @extend .alert;
-}
-
-/* Asides use <p> block element whereas alerts use <div>. */
-.article-style aside p,
-div.alert > div {
-  position: relative;
-  display: block;
-  font-size: 1rem;
-  margin-left: 2rem;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-div.alert div > * {
-  margin-bottom: .5rem;  /* Use smaller paragraph spacing than usual. */
-}
-
-div.alert div > :last-child {
-  margin-bottom: 0;
-}
-
-.article-style aside p::before,
-div.alert > div:first-child::before {
-  position: absolute;
-  top: -0.5rem;
-  left: -2rem;
-  font-size: 1.5rem;
-  color: #209cee;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-  content: '\f05a';
-  width: 1.5rem;
-  text-align: center;
-}
-
-div.alert-warning > div:first-child::before {
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-  color: #ff3860;
-  content: '\f071';
-}
-
-.article-style aside a,
-div.alert a {
-  color: currentColor;
-  text-decoration: none;
-  border-bottom: solid 1px currentColor;
-}
-
-.article-style aside,
-.alert-note {
-  color: #12537e;
-  background-color: #f6fbfe;
-  border-color: #209cee;
-}
-
-.alert-warning {
-  color: #cd0930;
-  background-color: #fff5f7;
-  border-color: #ff3860;
 }
