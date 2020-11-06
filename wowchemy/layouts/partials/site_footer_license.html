@@ -29,16 +29,18 @@
 
   <p class="powered-by footer-license-icons">
     <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank">
-      <i class="fab fa-creative-commons"></i>
-      <i class="fab fa-creative-commons-by"></i>
+      <span style="letter-spacing:.75ch;">
+      <i class="fab fa-creative-commons fa-2x"></i>
+      <i class="fab fa-creative-commons-by fa-2x"></i>
       {{ if not $allow_commercial }}
-        <i class="fab fa-creative-commons-nc"></i>
+        <i class="fab fa-creative-commons-nc fa-2x"></i>
       {{end}}
       {{ if and $allow_derivatives $share_alike }}
-        <i class="fab fa-creative-commons-sa"></i>
+        <i class="fab fa-creative-commons-sa fa-2x"></i>
       {{ else if not $allow_derivatives }}
-        <i class="fab fa-creative-commons-nd"></i>
+        <i class="fab fa-creative-commons-nd fa-2x"></i>
       {{end}}
+      </span>
     </a>
   </p>
 
