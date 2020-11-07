@@ -1,0 +1,18 @@
+module:
+  imports:
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
+  mounts:
+    - source: content
+      target: content
+    - source: static
+      target: static
+    - source: layouts
+      target: layouts
+    - source: data
+      target: data
+    - source: assets
+      target: assets
+    - source: i18n
+      target: i18n
+    - source: archetypes
+      target: archetypes
