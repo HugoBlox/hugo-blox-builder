@@ -158,6 +158,7 @@
 
   {{ partial "marketing/google_analytics" . }}
   {{ partial "marketing/google_tag_manager" . }}
+  {{ partial "marketing/microsoft_clarity" . }}
 
   {{/* Netlify Identity integration. */}}
   {{ if .IsHome | and (site.Params.cms.netlify_cms | default false) }}
