@@ -28,13 +28,14 @@
   {{/* Begin widget styling */}}
   {{ $bg := $st.Params.design.background }}
   {{ $style := "" }}
+  {{ $style_bg := "" }}
 
   {{ if $bg.color }}
-    {{ $style = printf "background-color: %s;" ($bg.color | default "transparent") }}
+    {{ $style_bg = printf "background-color: %s;" ($bg.color | default "transparent") }}
   {{ end }}
 
   {{ if and $bg.gradient_start $bg.gradient_end }}
-    {{ $style = printf "%sbackground-image: linear-gradient(%s, %s);" $style $bg.gradient_start $bg.gradient_end }}
+    {{ $style_bg = printf "%sbackground-image: linear-gradient(%s, %s);" $style_bg $bg.gradient_start $bg.gradient_end }}
   {{ end }}
 
   {{ if $bg.image }}
@@ -44,14 +45,14 @@
     {{ end }}
     {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
     {{ $media_dir := $.Scratch.Get "media_dir" }}
-    {{ $style = printf "%sbackground-image: %s url('%s');" $style $darken (printf "%s/%s" $media_dir $bg.image | absURL) }}
+    {{ $style_bg = printf "%sbackground-image: %s url('%s');" $style_bg $darken (printf "%s/%s" $media_dir $bg.image | absURL) }}
     {{ with $bg.image_size }}
       {{/* Allow sizes: actual, cover, and contain. */}}
-      {{ $style = printf "%sbackground-size: %s;" $style (replace . "actual" "auto") }}
+      {{ $style_bg = printf "%sbackground-size: %s;" $style_bg (replace . "actual" "auto") }}
     {{ end }}
     {{ with $bg.image_position }}
       {{/* Allow valid CSS positions including left, center, and right. */}}
-      {{ $style = printf "%sbackground-position: %s;" $style . }}
+      {{ $style_bg = printf "%sbackground-position: %s;" $style_bg . }}
     {{ end }}
   {{ end }}
 
@@ -98,9 +99,37 @@
     {{ $use_container = $cfg.use_container }}
   {{end}}
 
-  <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{end}} {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+  {{ $columns := $st.Params.design.columns | default "2" }}
+  {{ $use_cols := in (slice "pages" "featured" "experience" "accomplishments" "contact" "blank" "tag_cloud") $widget }}
+
+  {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
+  <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+   <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
     {{if $use_container}}<div class="container">{{end}}
+
+    {{if $use_cols}}
+      <div class="row  {{if not $st.Title | or (eq $columns "1") }}justify-content-center{{end}}">
+      {{ if $st.Title }}
+        {{ if eq $columns "1" }}
+          <div class="col-12 section-heading text-center">
+            {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
+            {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+          </div>
+        {{else}}
+          <div class="col-12 col-lg-4 section-heading">
+            {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
+            {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+          </div>
+        {{end}}
+      {{end}}
+    {{end}}
+
       {{ partial $widget_path $widget_args }}
+
+    {{if $use_cols}}
+      </div>
+    {{end}}
+
     {{if $use_container}}</div>{{end}}
   </section>
 {{ end }}

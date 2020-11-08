@@ -48,6 +48,9 @@ body.no-navbar {
     min-height: calc(100vh - 50px);
   }
 }
+.page-wrapper.no-navbar {
+  min-height: 100vh;
+}
 
 .page-header,
 .page-footer {

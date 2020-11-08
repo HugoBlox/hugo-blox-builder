@@ -1,5 +1,3 @@
-{{/* Pages Widget */}}
-
 {{/* Initialise */}}
 {{ $ := .root }}
 {{ $st := .page }}
@@ -18,32 +16,28 @@
 {{ $tags := first $items_count (index site.Taxonomies $taxonomy).ByCount }}
 {{ $count := len $tags }}
 
-<div class="row">
-  <div class="col-12 col-lg-4 section-heading">
-    <h1>{{ with $st.Title }}{{ . | markdownify | emojify }}{{ end }}</h1>
-    {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
-  </div>
-  <div class="col-12 col-lg-8">
-    {{ with $st.Content }}{{ . }}{{ end }}
+{{ $columns := $st.Params.design.columns | default "2" }}
 
-    {{ if ne $count 0 }}
+<div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
+  {{ with $st.Content }}{{ . }}{{ end }}
 
-      {{ $fontDelta := sub $fontBig $fontSmall }}
-      {{/* Warning: Hugo's `Reverse` function appears to operate in-place, hence the order of performing $max/$min matters. */}}
-      {{ $max := add (len (index $tags 0).Pages) 1 }}
-      {{ $min := len (index ($tags).Reverse 0).Pages }}
-      {{ $delta := sub $max $min }}
-      {{ $fontStep := div $fontDelta $delta }}
+  {{ if ne $count 0 }}
 
-      <div class="tag-cloud">
-        {{ range $name, $term := (sort $tags ".Page.Title" "asc") }}
-          {{ $tagCount := len $term.Pages }}
-          {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
-          {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
-          <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ .Page.Title }}</a>
-        {{ end }}
-      </div>
-    {{ end }}
+    {{ $fontDelta := sub $fontBig $fontSmall }}
+    {{/* Warning: Hugo's `Reverse` function appears to operate in-place, hence the order of performing $max/$min matters. */}}
+    {{ $max := add (len (index $tags 0).Pages) 1 }}
+    {{ $min := len (index ($tags).Reverse 0).Pages }}
+    {{ $delta := sub $max $min }}
+    {{ $fontStep := div $fontDelta $delta }}
 
-  </div>
+    <div class="tag-cloud">
+      {{ range $name, $term := (sort $tags ".Page.Title" "asc") }}
+        {{ $tagCount := len $term.Pages }}
+        {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
+        {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
+        <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ .Page.Title }}</a>
+      {{ end }}
+    </div>
+  {{ end }}
+
 </div>

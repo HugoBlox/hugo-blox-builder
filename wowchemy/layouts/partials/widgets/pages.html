@@ -71,56 +71,41 @@
 
 {{ $columns := $st.Params.design.columns | default "2" }}
 
-<div class="row {{if not $st.Title | or (eq $columns "1") }}justify-content-center{{end}}">
-  {{ if $st.Title }}
-    {{ if eq $columns "1" }}
-      <div class="col-12 col-lg-8 section-heading text-center">
-        {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
-        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
-      </div>
-    {{else}}
-      <div class="col-12 col-lg-4 section-heading">
-        {{ with $st.Title }}<h1>{{.}}</h1>{{ end }}
-        {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
-      </div>
-    {{end}}
-  {{ end }}
-  <div class="col-12 col-lg-8">
+<div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
-    {{ with $st.Content }}{{ . }}{{ end }}
+  {{ with $st.Content }}{{ . }}{{ end }}
 
-    {{ range $post := $query }}
-      {{ if eq $st.Params.design.view 1 }}
-        {{ partial "li_list" . }}
-      {{ else if eq $st.Params.design.view 3 }}
-        {{ partial "li_card" . }}
-      {{ else if eq $st.Params.design.view 4 | and (eq $items_type "publication") }}
-        {{ partial "li_citation" . }}
-      {{ else }}
-        {{ partial "li_compact" . }}
-      {{ end }}
-    {{end}}
+  {{ range $post := $query }}
+    {{ if eq $st.Params.design.view 1 }}
+      {{ partial "li_list" . }}
+    {{ else if eq $st.Params.design.view 3 }}
+      {{ partial "li_card" . }}
+    {{ else if eq $st.Params.design.view 4 | and (eq $items_type "publication") }}
+      {{ partial "li_citation" . }}
+    {{ else }}
+      {{ partial "li_compact" . }}
+    {{ end }}
+  {{end}}
 
-    {{/* Archive link */}}
-    {{ $show_archive_link := $st.Params.content.archive.enable | default (gt $count $items_count) }}
-    {{ if $show_archive_link }}
+  {{/* Archive link */}}
+  {{ $show_archive_link := $st.Params.content.archive.enable | default (gt $count $items_count) }}
+  {{ if $show_archive_link }}
 
-      {{ $archive_link := "" }}
-      {{ if $st.Params.content.archive.link }}
-        {{ $archive_link = $st.Params.content.archive.link | relLangURL }}
-      {{ else }}
-        {{ $archive_link = $archive_page.RelPermalink }}
-      {{ end }}
-
-      {{ $archive_text := $st.Params.content.archive.text | default (i18n $i18n) | default "See all" }}
-
-      <div class="see-all">
-        <a href="{{ $archive_link }}">
-          {{ $archive_text | emojify }}
-          <i class="fas fa-angle-right"></i>
-        </a>
-      </div>
+    {{ $archive_link := "" }}
+    {{ if $st.Params.content.archive.link }}
+      {{ $archive_link = $st.Params.content.archive.link | relLangURL }}
+    {{ else }}
+      {{ $archive_link = $archive_page.RelPermalink }}
     {{ end }}
 
-  </div>
+    {{ $archive_text := $st.Params.content.archive.text | default (i18n $i18n) | default "See all" }}
+
+    <div class="see-all">
+      <a href="{{ $archive_link }}">
+        {{ $archive_text | emojify }}
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </div>
+  {{ end }}
+
 </div>

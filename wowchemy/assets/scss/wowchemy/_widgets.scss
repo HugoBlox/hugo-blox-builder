@@ -28,6 +28,9 @@
     min-height: calc(100vh - 50px);
   }
 }
+.no-navbar .home-section.fullscreen {
+  min-height: 100vh;
+}
 
 /* Override dark colors that may be inherited from body.dark */
 .home-section.dark,
@@ -66,8 +69,19 @@
   top: 100%;
 }*/
 
+// Fill padding of `.home-section` parent
+.home-section-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: fill-available;
+  height: -webkit-fill-available;
+  width: fill-available;
+  width: -webkit-fill-available;
+}
+
 /* Default background image properties for home sections. */
-.home-section.bg-image {
+.home-section-bg .bg-image {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -557,24 +571,24 @@ ul.ul-edu li .description p.institution {
  *  Contact
  **************************************************/
 
-.contact-widget .fa-ul {
+.wg-contact .fa-ul {
   margin-left: 3.14285714rem; /* Must be > `fa-2x` icon size. */
 }
 
-.contact-widget .fa-li {
+.wg-contact .fa-li {
   position: absolute;
-  left: -3.14285714rem; /* Negative of `.contact-widget .fa-ul` margin. */
+  left: -3.14285714rem; /* Negative of `.wg-contact .fa-ul` margin. */
   width: 2rem; /* Match `fa-2x` icon size. */
   top: 0.14285714em; /* Default FA value. */
   text-align: center;
 }
 
-.contact-widget li {
+.wg-contact li {
   padding-top: 0.8rem; /* Align text with bottom of `fa-2x` icon. */
   margin-bottom: 0.3rem;
 }
 
-.contact-widget li:last-of-type {
+.wg-contact li:last-of-type {
   margin-bottom: 0;
 }
 
