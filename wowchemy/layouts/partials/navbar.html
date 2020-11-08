@@ -100,7 +100,7 @@
             {{ if eq (len $hash_removed) 0 }}
               {{ $hash_removed = "/" }}{{/* Add robustness for `/#SECTION` or `#SECTION` in `menus.toml`. */}}
             {{ end }}
-            {{ $is_same_page = eq (path.Dir $current_page.RelPermalink) (path.Dir ($hash_removed|relLangURL)) }}
+            {{ $is_same_page = eq (path.Dir $current_page.RelPermalink) ((path.Dir $hash_removed)|relLangURL) }}
           {{ end }}
         {{end}}
 
