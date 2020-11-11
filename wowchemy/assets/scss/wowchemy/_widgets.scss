@@ -76,9 +76,15 @@
   background-size: cover;
 }
 
-/* Create a parallax-like scrolling effect. */
+/* Create a parallax-like scrolling effect on desktop browsers. */
 .parallax {
   background-attachment: fixed;
+}
+// Workaround issue with mobile browser support for fixed parallax background.
+@media (min-width: 768px) {
+  .parallax {
+    background-attachment: scroll;
+  }
 }
 
 .home-section:first-of-type {
