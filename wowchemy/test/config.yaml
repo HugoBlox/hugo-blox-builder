@@ -1,4 +1,5 @@
 title: Wowchemy Test
+baseurl:
 module:
   imports:
     - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
@@ -8,5 +9,3 @@ params:
   require_isotope: false
   main_menu:
     enable: false
-  cms:
-    netlify_cms: false

@@ -124,7 +124,8 @@
     {{ end }}
 
     {{/* Netlify Identity integration. */}}
-    {{ if .IsHome | and (site.Params.cms.netlify_cms | default true) }}
+    {{/* Complements loading of Netlify JS in `site_head`. */}}
+    {{ if .IsHome | and (site.Params.cms.netlify_cms | default false) }}
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
