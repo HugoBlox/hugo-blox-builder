@@ -74,10 +74,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: fill-available;
-  height: -webkit-fill-available;
-  width: fill-available;
-  width: -webkit-fill-available;
+  height: 100%; // Or fill-available when supported.
+  width: 100%; // Or fill-available when supported.
+  z-index: -1; // Place bg div behind content.
 }
 
 /* Default background image properties for home sections. */
@@ -149,14 +148,7 @@
  **************************************************/
 
 .wg-hero {
-  padding: 3em 0;
-  clear: both;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  animation: intro 0.3s both;
-  animation-delay: 0s;
-  animation-delay: 0.25s;
+  padding: 3em 0; // More compact top and bottom padding for Hero.
 }
 
 .hero-title {
