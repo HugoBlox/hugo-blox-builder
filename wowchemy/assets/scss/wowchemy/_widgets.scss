@@ -2,21 +2,11 @@
  *  Page Builder: sections and widgets
  **************************************************/
 
-@keyframes intro {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 .home-section {
-  position: relative;  // Required for component positioning within section.
   background-color: $sta-home-section-odd;
+  position: relative;  // Required for component positioning within section.
   padding: 110px 0 110px 0;
-  animation: intro 0.3s both;
-  animation-delay: 0.15s;
+  z-index: 0;  // Explicit z-order otherwise `.home-section-bg` can be hidden by any `.home-section` background.
 }
 
 // Responsive fullscreen option for widgets
@@ -225,7 +215,7 @@ a.hero-cta-alt:hover {
  *  Slider Widget
  **************************************************/
 
-/* Clear `.home-section` as padding and animation interferes with Slider's layout and animations. */
+/* Clear `.home-section` as any padding or animation interferes with Slider's layout and animations. */
 .home-section.wg-slider {
   padding: 0;
   animation: none;
@@ -233,7 +223,7 @@ a.hero-cta-alt:hover {
 }
 
 /* The Slider widget reuses the Hero widget's `.wg-hero` class.
- * We must remove the `animation` and `clear` in this instance or
+ * We must remove any `animation` and `clear` (although Hero no longer sets `clear: both`) in this instance or
  * multiple slides can be `.active` at once. */
 .carousel-inner .wg-hero {
   animation: none;
