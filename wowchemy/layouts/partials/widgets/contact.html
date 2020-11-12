@@ -3,53 +3,60 @@
 {{ $autolink := default true $st.Params.autolink }}
 {{ $data := site.Params }}
 
+{{ $form_provider := lower $st.Params.contents.form.provider | default "" }}
+{{ $form_provider_legacy := $st.Params.email_form | default 0 }}
+{{ $use_netlify_form := eq $form_provider "netlify" | or (eq $form_provider_legacy 1) }}
+{{ $use_formspree_form := eq $form_provider "formspree" | or (eq $form_provider_legacy 2) }}
+{{ $use_form := or $use_netlify_form $use_formspree_form }}
+
 {{ $columns := $st.Params.design.columns | default "2" }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
   {{ with $st.Content }}{{ . }}{{ end }}
 
-  {{ if $st.Params.email_form }}
+  {{ if $use_form }}
 
-  {{ $post_action := "" }}
-  {{ if eq $st.Params.email_form 1 }}
-    {{ $post_action = "netlify" }}
-  {{ else }}
-    {{ if not $data.email }}
-      {{ errorf "Please set an email address for the contact form using the `email` parameter in `params.toml`. Otherwise, set `email_form = 0` to disable the contact form." }}
-    {{ end }}
-    {{ $post_action = printf "action=\"https://formspree.io/%s\"" $data.email }}
-  {{end}}
+    {{ $post_action := "" }}
+    {{ if $use_netlify_form }}
+      {{ $post_action = "netlify" }}
+    {{ else if $use_formspree_form }}
+      {{ if not $st.Params.contents.form.formspree.id }}
+        {{ errorf "You have chosen to use Formspree as the provider for the contact form. Please set your Formspree Form ID in the Contact widget or disable the form." }}
+        {{ errorf "Documentation: https://wowchemy.com/docs/page-builder/#contact" }}
+      {{ end }}
+      {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $st.Params.contents.form.formspree.id }}
+    {{end}}
 
-  <div class="mb-3">
-    <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if eq $st.Params.email_form 1 }}netlify-honeypot="welcome-bot"{{end}} {{ if $st.Params.netlify.captcha }}data-netlify-recaptcha="true"{{end}}>
-      <div class="form-group form-inline">
-        <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
-        <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
-      </div>
-      <div class="form-group form-inline">
-        <label class="sr-only" for="inputEmail">{{ i18n "contact_email" }}</label>
-        <input type="email" name="email" class="form-control w-100" id="inputEmail" placeholder="{{ i18n "contact_email" | default "Email" }}" required>
-      </div>
-      <div class="form-group">
-        <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
-        <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
-      </div>
-      {{ if eq $st.Params.email_form 1 }}
-      <div class="d-none">
-        <label>Do not fill this field unless you are a bot: <input name="welcome-bot"></label>
-      </div>
-      {{ end }}
-      {{ if $st.Params.netlify.captcha }}
-      <div class="form-group" data-netlify-recaptcha="true"></div>
-      {{ end }}
-      <button type="submit" class="btn btn-outline-primary px-3 py-2">{{ i18n "contact_send" | default "Send" }}</button>
-    </form>
-  </div>
+    <div class="mb-3">
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="welcome-bot"{{end}} {{ if $st.Params.contents.form.netlify.captcha }}data-netlify-recaptcha="true"{{end}}>
+        <div class="form-group form-inline">
+          <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
+          <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
+        </div>
+        <div class="form-group form-inline">
+          <label class="sr-only" for="inputEmail">{{ i18n "contact_email" }}</label>
+          <input type="email" name="email" class="form-control w-100" id="inputEmail" placeholder="{{ i18n "contact_email" | default "Email" }}" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
+          <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
+        </div>
+        {{ if $use_netlify_form }}
+          <div class="d-none">
+            <label>Do not fill this field unless you are a bot: <input name="welcome-bot"></label>
+          </div>
+          {{ if $st.Params.contents.form.netlify.captcha }}
+            <div class="form-group" data-netlify-recaptcha="true"></div>
+          {{ end }}
+        {{ end }}
+        <button type="submit" class="btn btn-outline-primary px-3 py-2">{{ i18n "contact_send" | default "Send" }}</button>
+      </form>
+    </div>
   {{end}}
 
   <ul class="fa-ul">
 
-    {{ if and $data.email (not $st.Params.email_form) }}
+    {{ if and $data.email (not $use_form) }}
     <li>
       <i class="fa-li fas fa-envelope fa-2x" aria-hidden="true"></i>
       <span id="person-email">
