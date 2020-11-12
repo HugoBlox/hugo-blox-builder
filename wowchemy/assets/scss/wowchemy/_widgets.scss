@@ -81,7 +81,7 @@
   background-attachment: fixed;
 }
 // Workaround issue with mobile browser support for fixed parallax background.
-@media (min-width: 768px) {
+@include media-breakpoint-down(md) {
   .parallax {
     background-attachment: scroll;
   }
