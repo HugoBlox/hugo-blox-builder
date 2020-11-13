@@ -28,16 +28,16 @@
   {{ end }}
 
   <p class="powered-by footer-license-icons">
-    <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank">
-      <img src="https://search.creativecommons.org/static/img/cc_icon.svg" alt="CC icon">
-      <img src="https://search.creativecommons.org/static/img/cc-by_icon.svg" alt="CC by icon">
+    <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
       {{ if not $allow_commercial }}
-        <img src="https://search.creativecommons.org/static/img/cc-nc_icon.svg" alt="CC NC icon">
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
       {{end}}
       {{ if and $allow_derivatives $share_alike }}
-        <img src="https://search.creativecommons.org/static/img/cc-sa_icon.svg" alt="CC SA icon">
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
       {{ else if not $allow_derivatives }}
-        <img src="https://search.creativecommons.org/static/img/cc-nd_icon.svg" alt="CC ND icon">
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
       {{end}}
     </a>
   </p>
