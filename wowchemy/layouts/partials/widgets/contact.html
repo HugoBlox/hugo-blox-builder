@@ -1,6 +1,6 @@
 {{ $ := .root }}
 {{ $st := .page }}
-{{ $autolink := default true $st.Params.autolink }}
+{{ $autolink := default true $st.Params.content.autolink }}
 {{ $data := site.Params }}
 
 {{ $form_provider := lower $st.Params.contents.form.provider | default "" }}
