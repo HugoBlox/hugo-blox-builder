@@ -3,14 +3,14 @@
 {{ $autolink := default true $st.Params.content.autolink }}
 {{ $data := site.Params }}
 
-{{ $form_provider := lower $st.Params.contents.form.provider | default "" }}
+{{ $form_provider := lower $st.Params.content.form.provider | default "" }}
 {{ $form_provider_legacy := $st.Params.email_form | default 0 }}
 
 {{ $use_netlify_form := eq $form_provider "netlify" | or (eq $form_provider_legacy 1) }}
 {{ $use_formspree_form := eq $form_provider "formspree" | or (eq $form_provider_legacy 2) }}
 {{ $use_form := or $use_netlify_form $use_formspree_form }}
 
-{{ $use_netlify_captcha := $st.Params.contents.form.netlify.captcha | default true }}
+{{ $use_netlify_captcha := $st.Params.content.form.netlify.captcha | default true }}
 
 {{ $columns := $st.Params.design.columns | default "2" }}
 
@@ -23,11 +23,11 @@
     {{ if $use_netlify_form }}
       {{ $post_action = "netlify" }}
     {{ else if $use_formspree_form }}
-      {{ if not $st.Params.contents.form.formspree.id }}
+      {{ if not $st.Params.content.form.formspree.id }}
         {{ errorf "You have chosen to use Formspree as the provider for the contact form. Please set your Formspree Form ID in the Contact widget or disable the form." }}
         {{ errorf "Documentation: https://wowchemy.com/docs/page-builder/#contact" }}
       {{ end }}
-      {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $st.Params.contents.form.formspree.id }}
+      {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $st.Params.content.form.formspree.id }}
     {{end}}
 
     <div class="mb-3">
