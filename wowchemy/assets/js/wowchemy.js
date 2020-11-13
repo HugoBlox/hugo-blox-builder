@@ -646,6 +646,15 @@
    * --------------------------------------------------------------------------- */
 
   $(window).on('load', function () {
+    // On page load, scroll to hash (if set) in URL
+    // If URL contains a hash and there are no dynamically loaded images on the page,
+    // immediately scroll to target ID taking into account responsive offset.
+    // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
+    // location.
+    if (window.location.hash && !$('.projects-container').length) {
+      scrollToAnchor();
+    }
+
     // Filter projects.
     $('.projects-container').each(function (index, container) {
       let $container = $(container);
@@ -757,6 +766,8 @@
     // Init. author notes (tooltips).
     $('[data-toggle="tooltip"]').tooltip();
 
+    // Re-initialize Scrollspy with dynamic navbar height offset.
+    fixScrollspy();
   });
 
   // Normalize Bootstrap carousel slide heights.
@@ -772,29 +783,13 @@
       dropdown[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
       menu[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
     }, 300);
+  });
 
-    // Re-initialize Scrollspy with dynamic navbar height offset.
-    fixScrollspy();
-
-    if (window.location.hash) {
-      // When accessing homepage from another page and `#top` hash is set, show top of page (no hash).
-      if (window.location.hash == "#top") {
-        window.location.hash = ""
-      } else if (!$('.projects-container').length) {
-        // If URL contains a hash and there are no dynamically loaded images on the page,
-        // immediately scroll to target ID taking into account responsive offset.
-        // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
-        // location.
-        scrollToAnchor();
-      }
-    }
-
-    // Call `fixScrollspy` when window is resized.
-    let resizeTimer;
-    $(window).resize(function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fixScrollspy, 200);
-    });
+  // Call `fixScrollspy` when window is resized.
+  let resizeTimer;
+  $(window).resize(function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fixScrollspy, 200);
   });
 
 })(jQuery);
