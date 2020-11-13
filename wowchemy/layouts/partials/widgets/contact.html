@@ -5,9 +5,12 @@
 
 {{ $form_provider := lower $st.Params.contents.form.provider | default "" }}
 {{ $form_provider_legacy := $st.Params.email_form | default 0 }}
+
 {{ $use_netlify_form := eq $form_provider "netlify" | or (eq $form_provider_legacy 1) }}
 {{ $use_formspree_form := eq $form_provider "formspree" | or (eq $form_provider_legacy 2) }}
 {{ $use_form := or $use_netlify_form $use_formspree_form }}
+
+{{ $use_netlify_captcha := $st.Params.contents.form.netlify.captcha | default true }}
 
 {{ $columns := $st.Params.design.columns | default "2" }}
 
@@ -28,7 +31,7 @@
     {{end}}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="welcome-bot"{{end}} {{ if $st.Params.contents.form.netlify.captcha }}data-netlify-recaptcha="true"{{end}}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="welcome-bot"{{end}} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{end}}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
@@ -45,7 +48,7 @@
           <div class="d-none">
             <label>Do not fill this field unless you are a bot: <input name="welcome-bot"></label>
           </div>
-          {{ if $st.Params.contents.form.netlify.captcha }}
+          {{ if $use_netlify_captcha }}
             <div class="form-group" data-netlify-recaptcha="true"></div>
           {{ end }}
         {{ end }}
