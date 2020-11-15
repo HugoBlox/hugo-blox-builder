@@ -1,0 +1,23 @@
+// CTA Shortcode
+
+.cta-group {
+  --button-group-margin: 0.75em;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  align-items: center;
+  justify-content: left;
+  margin-left: calc(-1 * var(--button-group-margin));
+  margin-right: calc(-1 * var(--button-group-margin));
+  padding: 0;
+}
+
+.cta-group-center {
+  justify-content: center;
+}
+
+.cta-group li {
+  margin-bottom: 1em;
+  margin-left: var(--button-group-margin);
+  margin-right: var(--button-group-margin);
+}
