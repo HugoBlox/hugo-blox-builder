@@ -155,7 +155,7 @@
     {{ $js_comment := printf "/* Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
     {{ $js_bundle_head := $js_comment | resources.FromString "js/bundle-head.js" }}
     {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
-    {{ $js_academic := resources.Get "js/wowchemy.js" }}
+    {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build }}
     {{ $js_academic_search := resources.Get "js/wowchemy-search.js" }}
     {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
     {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}

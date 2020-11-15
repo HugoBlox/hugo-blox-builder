@@ -8,18 +8,12 @@
 {{- $highlight_active_link := site.Params.main_menu.highlight_active_link | default true -}}
 <body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="page-wrapper {{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}">
 
-  {{/* Load day/night theme. */}}
-  {{/* Initialise default theme. */}}
-  {{ if site.Params.day_night }}
-    <script>window.wcDarkLightEnabled = true;</script>
-  {{ end }}
-  {{ if eq (.Scratch.Get "light") true }}
-    <script>const isSiteThemeDark = false;</script>
-  {{ else }}
-    <script>const isSiteThemeDark = true;</script>
-  {{ end }}
-  {{ $load_theme := resources.Get "js/load-theme.js" }}
-  <script src="{{ $load_theme.RelPermalink }}"></script>
+  {{/* Initialise theme variation. */}}
+  {{ $wcDarkLightEnabled := site.Params.day_night | default false }}
+  {{ $wcIsSiteThemeDark := not (.Scratch.Get "light") | default false }}
+  {{ $js_params := dict "wcDarkLightEnabled" $wcDarkLightEnabled "wcIsSiteThemeDark" $wcIsSiteThemeDark }}
+  {{ $js_file := resources.Get "js/wowchemy-init.js" | js.Build (dict "params" $js_params) }}
+  <script src="{{ $js_file.RelPermalink }}"></script>
 
   {{ partial "search" . }}
 

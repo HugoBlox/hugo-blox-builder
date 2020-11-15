@@ -8,7 +8,7 @@ outputFormats:
     rel: manifest
 module:
   hugoVersion:
-    min: '0.73.0'
+    min: '0.78.0'
     extended: true
   mounts:
     - source: content
