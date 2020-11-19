@@ -47,7 +47,7 @@
 {{ if $caption }}
   {{/* Localize the figure numbering (if enabled). */}}
   {{ $figure := split (i18n "figure" | default "Figure %d:") "%d" }}
-  <figcaption{{ if eq (.Get "numbered") "true" }} data-pre="{{ index $figure 0 }}" data-post="{{ index $figure 1 }}" class="numbered"{{ end }}>
+  <figcaption{{ if eq (.Get "numbered") "true" }} data-pre="{{- trim (index $figure 0) " " -}}&nbsp;" data-post="{{ index $figure 1 }}&nbsp;" class="numbered"{{ end }}>
     {{ $caption | markdownify | emojify }}
   </figcaption>
 {{ end }}
