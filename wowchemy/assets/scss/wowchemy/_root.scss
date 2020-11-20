@@ -24,7 +24,7 @@ body {
   padding-top: 0;
   counter-reset: captions;
   // Prevent horizontal scrollbar in case of 100vw grid applied to page with vertical scrollbar.
-  overflow: hidden;
+  overflow-x: hidden;
 }
 @include media-breakpoint-down(md) { /* Match max-width of .nav-bar query. */
   body {
