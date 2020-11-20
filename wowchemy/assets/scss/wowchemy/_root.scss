@@ -23,6 +23,8 @@ body {
   margin-top: 70px; /* Offset body content by navbar height. */
   padding-top: 0;
   counter-reset: captions;
+  // Prevent horizontal scrollbar in case of 100vw grid applied to page with vertical scrollbar.
+  overflow: hidden;
 }
 @include media-breakpoint-down(md) { /* Match max-width of .nav-bar query. */
   body {
