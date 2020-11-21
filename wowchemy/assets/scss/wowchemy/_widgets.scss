@@ -402,7 +402,8 @@ ul.ul-edu li .description p.institution {
   color: rgb(248, 248, 242) !important;
 }
 
-.card .card-text ul {
+// For a UL after P, remove the spacing between (P margin-bottom) without affecting any nested lists.
+.card .card-text p + ul {
   margin-top: -1rem;
   margin-bottom: 0rem;
 }
