@@ -1,6 +1,4 @@
 module:
-  imports:
-    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
   mounts:
     - source: content
       target: content
