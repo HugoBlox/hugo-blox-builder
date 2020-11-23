@@ -28,9 +28,9 @@
         {{ $caption = .caption }}
       {{ end }}
     {{ end }}
-  <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
-  <img data-src="{{ $image.RelPermalink }}" class="lazyload" alt="" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
-  </a>
+    <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
+      <img data-src="{{ $image.RelPermalink }}" class="lazyload" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
+    </a>
   {{end}}
 
   {{else}}
@@ -48,7 +48,7 @@
   {{ end }}
   {{/* Don't lazy load image as cannot init image size from non-Hugo asset, resulting in inaccurate anchor scrolling & active link highlighting. */}}
   <a data-fancybox="gallery{{ with .album }}-{{.}}{{ end }}" {{ with .caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }} href="{{$.Scratch.Get "src"}}">
-    <img src="{{$.Scratch.Get "src"}}" alt="">
+    <img src="{{$.Scratch.Get "src"}}" alt="{{ plainify .caption | default .image }}">
   </a>
   {{end}}
   {{else}}
