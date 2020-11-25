@@ -78,9 +78,11 @@
   <div class="ml-3">
     {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
     {{ with $resource }}
+    {{ $filters := slice (images.GaussianBlur 21) (images.Pixelate 8) }}
     {{ $image := .Resize "150x" }}
+    {{ $image_lq := (.Resize "150x q1").Filter $filters }}
     <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
-      <img src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}">
+      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="lazyload">
     </a>
     {{end}}
   </div>
