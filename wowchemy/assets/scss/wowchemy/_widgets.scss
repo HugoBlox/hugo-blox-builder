@@ -460,11 +460,11 @@ ul.ul-edu li .description p.institution {
 
 .project-card {
   position: relative;
-  width: calc(33.3% - 2*20px); /* Fluid 3 columns (inc. 20px gutter) */
+  width: calc(33.3% - 13.3px); /* Fluid 3 columns ($gutter * ($number_of_cols - 1) / $number_of_cols; following https://stackoverflow.com/a/51290967) */
 }
 @media screen and (max-width: 1199px) {
   .project-card {
-    width: calc(50% - 20px); /* Fluid 2 columns (inc. 20px gutter) */
+    width: calc(50% - 10px); /* Fluid 2 columns ($gutter * ($number_of_cols - 1) / $number_of_cols; following https://stackoverflow.com/a/51290967) */
   }
 }
 @media screen and (max-width: 768px) {
