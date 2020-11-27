@@ -26,6 +26,8 @@
 
 # Themes
 
+- id: theme_selector
+  translation: Mostrar preferencias
 - id: theme_light
   translation: Claro
 - id: theme_dark
@@ -143,7 +145,7 @@
 - id: open_project_site
   translation: Ir al sitio del proyecto
 
-# Default titles for archive pages
+# Content types for default archive page titles and search results
 
 - id: posts
   translation: Posts
