@@ -26,7 +26,7 @@ function getNavBarHeight() {
  * If it exists on current page, scroll to it responsively.
  * If `target` argument omitted (e.g. after event), assume it's the window's hash.
  */
-function scrollToAnchor(target) {
+function scrollToAnchor(target, duration=600) {
   // If `target` is undefined or HashChangeEvent object, set it to window's hash.
   // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
   target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
@@ -40,7 +40,7 @@ function scrollToAnchor(target) {
     $('body').addClass('scrolling');
     $('html, body').animate({
       scrollTop: elementOffset
-    }, 600, function () {
+    }, duration, function () {
       $('body').removeClass('scrolling');
     });
   } else {
@@ -393,6 +393,14 @@ function fixMermaid() {
   }
 }
 
+// Get an element's siblings.
+function getSiblings (elem) {
+  // Filter out itself.
+  return Array.prototype.filter.call(elem.parentNode.children, function (sibling) {
+    return sibling !== elem;
+  });
+}
+
 /* ---------------------------------------------------------------------------
  * On document ready.
  * --------------------------------------------------------------------------- */
@@ -457,55 +465,80 @@ $(document).ready(function () {
  * --------------------------------------------------------------------------- */
 
 $(window).on('load', function () {
-  // On page load, scroll to hash (if set) in URL
-  // If URL contains a hash and there are no dynamically loaded images on the page,
-  // immediately scroll to target ID taking into account responsive offset.
-  // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
-  // location.
-  if (window.location.hash && !$('.projects-container').length) {
-    scrollToAnchor();
-  }
+  // Init Isotope Layout Engine for instances of the Portfolio widget.
+  let isotopeInstances = document.querySelectorAll('.projects-container');
+  let isotopeInstancesCount = isotopeInstances.length;
+  let isotopeCounter = 0;
+  isotopeInstances.forEach(function (isotopeInstance, index) {
+    console.debug(`Loading Isotope instance ${index}`);
 
-  // Filter projects.
-  $('.projects-container').each(function (index, container) {
-    let $container = $(container);
-    let $section = $container.closest('section');
-    let layout;
-    if ($section.find('.isotope').hasClass('js-layout-row')) {
+    // Isotope instance
+    let iso;
+
+    // Get the layout for this Isotope instance
+    let isoSection = isotopeInstance.closest('section');
+    let layout = '';
+    if (isoSection.querySelector('.isotope').classList.contains('js-layout-row')) {
       layout = 'fitRows';
     } else {
       layout = 'masonry';
     }
 
-    $container.imagesLoaded(function () {
-      // Initialize Isotope after all images have loaded.
-      $container.isotope({
+    // Get default filter (if any) for this instance
+    let filterText = isoSection.querySelector('.default-project-filter').textContent || '*';
+    console.debug(`Default Isotope filter: ${filterText}`);
+
+    // Init Isotope instance once its images have loaded.
+    imagesLoaded(isotopeInstance, function () {
+      iso = new Isotope(isotopeInstance, {
         itemSelector: '.isotope-item',
         layoutMode: layout,
         masonry: {
           gutter: 20
         },
-        filter: $section.find('.default-project-filter').text()
+        filter: filterText
       });
 
-      // Filter items when filter link is clicked.
-      $section.find('.project-filters a').click(function () {
-        let selector = $(this).attr('data-filter');
-        $container.isotope({filter: selector});
-        $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
-        return false;
-      });
+      // Filter Isotope items when a toolbar filter button is clicked.
+      let isoFilterButtons = isoSection.querySelectorAll('.project-filters a');
+      isoFilterButtons.forEach(button => button.addEventListener('click', (e) => {
+        e.preventDefault();
+        let selector = button.getAttribute('data-filter');
 
-      // If window hash is set, scroll to hash.
-      // Placing this within `imagesLoaded` prevents scrolling to the wrong location due to dynamic image loading
-      // affecting page layout and position of the target anchor ID.
-      // Note: If there are multiple project widgets on a page, ideally only perform this once after images
-      // from *all* project widgets have finished loading.
-      if (window.location.hash) {
-        scrollToAnchor();
-      }
+        // Apply filter
+        console.debug(`Updating Isotope filter to ${selector}`);
+        iso.arrange({filter: selector});
+
+        // Update active toolbar filter button
+        button.classList.remove('active');
+        button.classList.add('active');
+        let buttonSiblings = getSiblings(button);
+        buttonSiblings.forEach(buttonSibling => {
+          buttonSibling.classList.remove('active');
+          buttonSibling.classList.remove('all');
+        });
+      }));
+
+      // Check if all Isotope instances have loaded.
+      incrementIsotopeCounter();
     });
   });
+
+  // Hook to perform actions once all Isotope instances have loaded.
+  function incrementIsotopeCounter() {
+    isotopeCounter++;
+    if ( isotopeCounter === isotopeInstancesCount ) {
+      console.debug(`All Portfolio Isotope instances loaded.`);
+      // Once all Isotope instances and their images have loaded, scroll to hash (if set).
+      // Prevents scrolling to the wrong location due to the dynamic height of Isotope instances.
+      // Each Isotope instance height is affected by applying filters and loading images.
+      // Without this logic, the scroll location can appear correct, but actually a few pixels out and hence Scrollspy
+      // can highlight the wrong nav link.
+      if (window.location.hash) {
+        scrollToAnchor(decodeURIComponent(window.location.hash), 0);
+      }
+    }
+  }
 
   // Enable publication filter for publication index page.
   if ($('.pub-filters-select')) {

@@ -7,6 +7,14 @@ html {
   font-size: #{$sta-font-size-small}px;
   color: rgba(0,0,0,0.8);
   line-height: 1.65;
+
+  // Offset anchor scrolling by height of desktop fixed header.
+  scroll-padding-top: 70px;
+
+  @include media-breakpoint-down(md) {
+    // Offset anchor scrolling by height of mobile fixed header.
+    scroll-padding-top: 50px;
+  }
 }
 @media screen and (min-width: 58em) {
   html {
@@ -20,19 +28,23 @@ body {
   line-height: inherit;
   color: inherit;
   background-color: $sta-background;
-  margin-top: 70px; /* Offset body content by navbar height. */
   padding-top: 0;
   counter-reset: captions;
+
   // Prevent horizontal scrollbar in case of 100vw grid applied to page with vertical scrollbar.
   overflow-x: hidden;
-}
-@include media-breakpoint-down(md) { /* Match max-width of .nav-bar query. */
-  body {
-    margin-top: 50px; /* Offset body content by navbar height. */
+
+  // Offset body content by fixed navbar height.
+  margin-top: 70px;
+
+  @include media-breakpoint-down(md) {
+    // Offset body content by fixed navbar height.
+    margin-top: 50px;
   }
 }
 body.no-navbar {
   margin-top: 0 !important;
+  scroll-padding-top: 0 !important;
 }
 
 // PAGE LAYOUT
