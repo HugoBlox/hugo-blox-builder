@@ -105,7 +105,7 @@
         {{end}}
 
         <li class="nav-item">
-          <a class="nav-link {{if and $highlight_active_link $is_link_in_current_path }} active{{end}}" href="{{.URL | relLangURL}}"{{ if and $is_widget_page $is_same_page }} data-target="{{$hash}}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+          <a class="nav-link {{if and $highlight_active_link $is_link_in_current_path }} active{{end}}" href="{{.URL | relLangURL}}"{{ if .Tooltip }} data-toggle="tooltip" data-placement="bottom" title="{{ .Tooltip }}"{{ end }}{{ if and $is_widget_page $is_same_page }} data-target="{{$hash}}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
             {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
           </a>
         </li>
@@ -129,7 +129,7 @@
         {{ end }}
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
+          <a class="nav-link" href="{{ .URL | relLangURL }}"{{ if .Tooltip }} data-toggle="tooltip" data-placement="bottom" title="{{ .Tooltip }}"{{ end }}{{ if $.IsHome }} data-target="{{ .URL }}"{{ end }}{{ ($.Scratch.Get "target") | safeHTMLAttr }}>
             {{- .Pre -}}<span>{{ .Name | safeHTML }}</span>{{- .Post -}}
           </a>
         </li>
