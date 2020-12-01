@@ -12,6 +12,9 @@
 - id: back_to_top
   translation: Back to top
 
+- id: home
+  translation: Home
+
 # General
 
 - id: related

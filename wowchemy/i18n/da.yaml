@@ -6,6 +6,8 @@
   translation: På denne side
 - id: back_to_top
   translation: Til toppen
+- id: home
+  translation: Hjem
 - id: related
   translation: Relaterede
 - id: minute_read

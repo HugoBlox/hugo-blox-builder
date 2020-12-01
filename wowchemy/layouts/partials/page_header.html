@@ -29,6 +29,9 @@
 </div>
 {{end}}
 
+{{/* Add breadcrumb to pages */}}
+{{ $breadcrumb := site.Params.breadcrumb | default false }}
+
 {{/* Featured image layout */}}
 {{ if and $featured (not .Params.image.preview_only) }}
 
@@ -54,6 +57,10 @@
 {{end}}
 
 <div class="article-container pt-3">
+  {{ if $breadcrumb }}
+    {{ partial "breadcrumb" $page }}
+  {{ end }}
+
   <h1>{{ $title }}</h1>
 
   {{ with $page.Params.subtitle }}
@@ -80,6 +87,10 @@
     {{ $ctnr = "universal-wrapper" }}
   {{end}}
 <div class="{{$ctnr}} pt-3">
+  {{ if $breadcrumb }}
+    {{ partial "breadcrumb" $page }}
+  {{ end }}
+  
   <h1>{{ $title }}</h1>
 
   {{ with $page.Params.subtitle }}
