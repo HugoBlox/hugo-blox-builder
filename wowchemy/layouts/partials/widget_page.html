@@ -23,6 +23,16 @@
   {{ end }}
 {{ end }}
 
+{{/* Add breadcrumb to pages */}}
+{{ $breadcrumb := site.Params.breadcrumb | default false }}
+{{ $num_widgets := len (where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false) }}
+
+{{ if and $breadcrumb (eq $num_widgets 1) }}
+<div class="container pt-3">
+  {{ partial "breadcrumb" . }}
+</div>
+{{ end }}
+
 {{/* Load page sections */}}
 {{ range $index, $st := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
   {{/* Begin widget styling */}}
