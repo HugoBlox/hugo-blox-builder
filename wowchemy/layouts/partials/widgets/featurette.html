@@ -1,5 +1,6 @@
 {{ $ := .root }}
 {{ $page := .page }}
+{{ $columns := $page.Params.design.columns | default "3" }}
 
 <div class="row featurette">
   {{ with $page.Title }}
@@ -21,7 +22,7 @@
   {{ if in (slice "fab" "fas" "far" "fal") $pack }}
     {{ $pack_prefix = "fa" }}
   {{ end }}
-  <div class="col-12 col-sm-4">
+  <div class="col-12 {{ if eq $columns "2" }}col-sm-6{{ else if eq $columns "3" }}col-sm-4{{ else if eq $columns "4" }}col-sm-3{{ end }}">
     {{ with .icon }}
     <div class="featurette-icon">
       {{- if eq $pack "emoji" -}}
