@@ -15,6 +15,8 @@
   {{ $query := "" }}
   {{ $root_page := .GetPage "/_index.md" }}
   {{ $is_root := false}}
+
+  {{/* Case where homepage is a book */}}
   {{ if $root_page | and (eq $root_page.Type "book") }}
     {{ $is_root = true}}
     <ul class="nav docs-sidenav">
@@ -27,23 +29,48 @@
     {{- else -}}
       {{- $query = .Site.Home.Sections.ByWeight -}}
     {{- end}}
+
   {{else}}
-    {{/* Get section name from the path. */}}
-    {{ $menu_name = (path.Base (path.Split .FirstSection).Dir) }}
+    {{/* Case where homepage is NOT a book */}}
 
-    {{/* For any folder named `updates`, use descending title order (e.g. latest release note first). */}}
-    {{ $order_by = cond (eq $menu_name "updates") "title_desc" $order_by }}
+    {{ if eq .FirstSection.Type "book" }}
+      {{/* Case where first section is a book. */}}
 
-    {{- if eq $order_by "title" -}}
-      {{- $query = where .Site.Home.Sections.ByTitle "Section" $menu_name -}}
-    {{- else if eq $order_by "title_desc" -}}
-      {{- $query = where .Site.Home.Sections.ByTitle.Reverse "Section" $menu_name -}}
-    {{- else -}}
-      {{- $query = where .Site.Home.Sections.ByWeight "Section" $menu_name -}}
-    {{- end}}
+      {{ $menu_name = (path.Base (path.Split .FirstSection).Dir) }}
+      {{/* For any folder named `updates`, use descending title order (e.g. latest release note first). */}}
+      {{ $order_by = cond (eq $menu_name "updates") "title_desc" $order_by }}
+      {{- if eq $order_by "title" -}}
+        {{- $query = where .Site.Home.Sections.ByTitle "Section" $menu_name -}}
+      {{- else if eq $order_by "title_desc" -}}
+        {{- $query = where .Site.Home.Sections.ByTitle.Reverse "Section" $menu_name -}}
+      {{- else -}}
+        {{- $query = where .Site.Home.Sections.ByWeight "Section" $menu_name -}}
+      {{- end -}}
+
+      {{- range $query -}}
+        {{ template "book-menu" dict "sect" . "current_node" $current_node "order_by" $order_by "is_root" $is_root }}
+      {{- end -}}
+
+    {{ else }}
+      {{/* Case where first section is a general page (e.g. book of books). */}}
+
+      {{ $first_node := $current_node }}
+      {{ if ne .Parent .FirstSection }}
+        {{ if ne .Parent.Parent .FirstSection }}
+          {{ $first_node = $current_node.Parent.Parent }}
+        {{else}}
+          {{ $first_node = $current_node.Parent }}
+        {{end}}
+      {{end}}
+
+      {{- if eq $order_by "title" -}}
+        {{- $query = $first_node.Pages.ByTitle -}}
+      {{- else if eq $order_by "title_desc" -}}
+        {{- $query =  $first_node.Pages.ByTitle.Reverse -}}
+      {{- else -}}
+        {{- $query =  $first_node.Pages.ByWeight -}}
+      {{- end -}}
+      {{ template "book-menu" dict "sect" $first_node "current_node" $current_node "order_by" $order_by "is_root" $is_root }}
+    {{end}}
   {{end}}
-
-  {{- range $query -}}
-    {{ template "book-menu" dict "sect" . "current_node" $current_node "order_by" $order_by "is_root" $is_root }}
-  {{- end -}}
 </nav>
