@@ -145,13 +145,13 @@
   {{ $css_comment := printf "/*!* Wowchemy v%s (https://wowchemy.com/) */\n" site.Data.wowchemy.version }}
   {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
   {{ $css_options := dict "targetPath" "css/wowchemy.css" }}
-  {{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") -}}
+  {{- if eq hugo.Environment "production" -}}
     {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
   {{- end -}}
   {{ $sass_template := resources.Get "scss/main.scss" }}
   {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options }}
   {{ $style := slice $css_bundle_head $style | resources.Concat "css/wowchemy.css" }}
-  {{- if (eq (getenv "HUGO_ENV") "production") -}}
+  {{- if eq hugo.Environment "production" -}}
     {{- $style = $style | minify | fingerprint "md5" -}}
   {{- end -}}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
