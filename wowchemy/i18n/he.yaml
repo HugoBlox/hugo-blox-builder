@@ -233,7 +233,7 @@
 # Cookie consent
 
 - id: cookie_message
-  translation: אתר זה משתמש בקובצי Cookie כדי להבטיח את החוויה הטובה ביותר באתר.
+  translation: אתר זה משתמש בקובצי Cookie כדי להבטיח שתקבלו את החוויה הטובה ביותר באתר.
 
 - id: cookie_dismiss
   translation: הבנתי!
