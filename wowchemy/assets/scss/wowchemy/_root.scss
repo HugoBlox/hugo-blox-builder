@@ -31,7 +31,7 @@ body {
   padding-top: 0;
   counter-reset: captions;
 
-  // Prevent horizontal scrollbar in case of 100vw grid applied to page with vertical scrollbar.
+  // Prevent horizontal scrollbar in case a site admin adds fixed width content without applying `max-width: 100%`.
   overflow-x: hidden;
 
   // Offset body content by fixed navbar height.
@@ -55,7 +55,7 @@ body.no-navbar {
   min-height: calc(100vh - 70px);
   display: grid;
   grid-template-rows: auto 1fr auto;
-  grid-template-columns: 100vw;
+  grid-template-columns: auto;
 }
 @include media-breakpoint-down(md) {
   .page-wrapper {
