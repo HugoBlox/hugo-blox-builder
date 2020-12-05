@@ -453,7 +453,7 @@ $(document).ready(function () {
         isDarkTheme = false;
       } else {
         // The visitor does not have a day or night preference, so use the theme's default setting.
-        isDarkTheme = isSiteThemeDark;
+        isDarkTheme = window.wc.isSiteThemeDark;
       }
       renderThemeVariation(isDarkTheme);
     }

@@ -55,7 +55,7 @@ body.no-navbar {
   min-height: calc(100vh - 70px);
   display: grid;
   grid-template-rows: auto 1fr auto;
-  grid-template-columns: auto;
+  grid-template-columns: 100%;
 }
 @include media-breakpoint-down(md) {
   .page-wrapper {
