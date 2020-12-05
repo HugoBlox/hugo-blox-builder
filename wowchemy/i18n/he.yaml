@@ -4,7 +4,7 @@
   translation: ניווט
 
 - id: table_of_contents
-  translation: Table of Contents
+  translation: תוכן עניינים
 
 - id: on_this_page
   translation: תוכן
@@ -21,18 +21,21 @@
   translation: דק׳ קריאה
 
 - id: previous
-  translation: קודם
+  translation: הקודם
 
 - id: next
   translation: הבא
 
 - id: figure
-  translation: "דמות %d:"
+  translation: "איור %d:"
 
 - id: edit_page
   translation: עריכת דף זה
 
 # Themes
+
+- id: theme_selector
+  translation: העדפות תצוגה
 
 - id: theme_light
   translation: בהיר
@@ -46,13 +49,13 @@
 # Buttons
 
 - id: btn_preprint
-  translation: הדפסה מוקדמת
+  translation: קדם-פרסום
 
 - id: btn_pdf
   translation: PDF
 
 - id: btn_cite
-  translation: צטט
+  translation: ציטוט
 
 - id: btn_slides
   translation: שקופיות
@@ -64,7 +67,7 @@
   translation: קוד
 
 - id: btn_dataset
-  translation: מערך נתונים
+  translation: ערכת נתונים
 
 - id: btn_project
   translation: פרויקט
@@ -90,7 +93,7 @@
   translation: השכלה
 
 - id: user_profile_latest
-  translation: עדכני
+  translation: פורסם לאחרונה
 
 # Accomplishments widget
 
@@ -148,7 +151,7 @@
   translation: תאריך
 
 - id: last_updated
-  translation: עודכן לאחרונה ב
+  translation: עודכן לאחרונה ב-
 
 - id: event
   translation: אירוע
@@ -166,7 +169,7 @@
   translation: מאמר בכתב עת
 
 - id: pub_preprint
-  translation: הדפסה מוקדמת
+  translation: קדם-פרסום
 
 - id: pub_report
   translation: דו״ח
@@ -230,7 +233,7 @@
 # Cookie consent
 
 - id: cookie_message
-  translation: אתר זה משתמש בקובצי Cookie כדי להבטיח שתקבל את החוויה הטובה ביותר באתר.
+  translation: אתר זה משתמש בקובצי Cookie כדי להבטיח שתקבלו את החוויה הטובה ביותר באתר.
 
 - id: cookie_dismiss
   translation: הבנתי!
