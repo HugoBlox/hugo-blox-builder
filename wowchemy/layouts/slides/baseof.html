@@ -5,7 +5,8 @@
   {{ .Scratch.Set "media_dir" $media_dir }}
 
   {{ $css := site.Data.assets.css }}
-  {{ $cdn_url_reveal := "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0" }}
+  {{ $cdn_url_reveal := "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0" }}
+  
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,55 +21,135 @@
 
   <title>{{ .Title }} | {{ site.Title }}</title>
 
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/css/reveal.min.css">
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/reveal.min.css">
   {{- $theme := $.Param "slides.theme" | default "black" -}}
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/css/theme/{{ $theme }}.min.css">
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css" id="theme" />
 
   {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
-  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" id=\"highlight-theme\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
 
-  {{ $css := resources.Get "css/reveal.css" }}
   {{ $css_custom := resources.Get "css/reveal_custom.css" }}
-  {{ $style := slice $css $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
+  {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
   <!-- Printing and PDF exports -->
-  <script>
+  <!-- <script>
     var link = document.createElement( 'link' );
     link.rel = 'stylesheet';
     link.type = 'text/css';
     link.href = window.location.search.match( /print-pdf/gi ) ? '{{ $cdn_url_reveal }}/css/print/pdf.css' : '{{ $cdn_url_reveal }}/css/print/paper.css';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
+  </script> -->
 
 </head>
 <body>
 
   {{ block "main" . }}{{ end }}
 
-  <script src="{{ $cdn_url_reveal }}/js/reveal.min.js"></script>
+  <script src="{{ $cdn_url_reveal }}/reveal.min.js"></script>
+
+  <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.js"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/highlight/highlight.js"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.js"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/search/search.js"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/math/math.js"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/zoom/zoom.js"></script>
+
+<!-- 3rd part plugins -->
+
+  <script src="/js/vendor/reveal.js/plugin/menu/menu.js"></script>
+  <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
+
+
+<!-- reveal configuration -->
+
+<!--
+  these seem like the important configurations
+  Please consider including these configurations in front matter of slides
+  including ability to enable/disable chalkboard and menu
+-->
+
+<!-- {{- $controls := $.Param "slides.controls" | default "true" -}}
+{{- $progress := $.Param "slides.progress" | default "true" -}}
+{{- $slideNumber := $.Param "slides.slideNumber" | default "false" -}}
+{{- $center := $.Param "slides.center" | default "true" -}}
+{{- $rtl := $.Param "slides.rtl" | default "false" -}}
+{{- $mouseWheel := $.Param "slides.mouseWheel" | default "true" -}}
+{{- $transition := $.Param "slides.transition" | default "'slide'" -}}
+{{- $transitionSpeed := $.Param "slides.transitionSpeed" | default "'default'" -}}
+{{- $backgroundTransition := $.Param "slides.backgroundTransition" | default "'fade'" -}} -->
+
+<!-- // Display presentation control arrows
+  controls: true,
+
+  // Display a presentation progress bar
+  progress: true,
+
+  // Display the page number of the current slide
+  // - true:    Show slide number
+  // - false:   Hide slide number
+  //
+  // Can optionally be set as a string that specifies the number formatting:
+  // - "h.v":   Horizontal . vertical slide number (default)
+  // - "h/v":   Horizontal / vertical slide number
+  // - "c":   Flattened slide number
+  // - "c/t":   Flattened slide number / total slides
+  //
+  // Alternatively, you can provide a function that returns the slide
+  // number for the current slide. The function should take in a slide
+  // object and return an array with one string [slideNumber] or
+  // three strings [n1,delimiter,n2]. See #formatSlideNumber().
+  slideNumber: false,
+
+  // Vertical centering of slides
+  center: true,
+
+  // Change the presentation direction to be RTL
+  rtl: false,
+
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+
+  // Transition style
+  transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+  // Transition speed
+  transitionSpeed: 'default', // default/fast/slow
+
+  // Transition style for full page slide backgrounds
+  backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom -->
 
   <script>
-    window.revealPlugins = { dependencies: [
-      // Interpret Markdown in <section> elements.
-      { src: '{{ $cdn_url_reveal }}/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '{{ $cdn_url_reveal }}/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      // Enable code highlighting.
-      { src: '{{ $cdn_url_reveal }}/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-      // Enable zooming.
-      { src: '{{ $cdn_url_reveal }}/plugin/zoom-js/zoom.js', async: true },
-      // Enable math.
-      { src: '{{ $cdn_url_reveal }}/plugin/math/math.js', async: true },
-      // Enable exporting deck to PDF.
-      { src: '{{ $cdn_url_reveal }}/plugin/print-pdf/print-pdf.js', async: true },
-      // Enable speaker notes. Notes plugin must be loaded locally as CDN is missing `notes.html`.
-      { src: '{{ "js/vendor/reveal.js/plugin/notes/notes.js" | relURL }}', async: true }
-    ]};
+    Reveal.initialize({
+      //reveal options
+      controls: false,
+      progress: true,
+      history: true,
+      center: true,
+      mouseWheel: true,
+      slideNumber: "c/t",
+      rtl: false, // this one is important and should be configurable from front matter
 
-    let revealDefaults = { center: true, controls: true, history: true, progress: true, transition: 'slide', mouseWheel: true };
-    let revealOptions = Object.assign({}, revealDefaults, revealPlugins);
-    Reveal.initialize(revealOptions);
+      // menu options
+      menu: {
+        numbers: true,
+        themes: true,
+        themesPath: '{{ $cdn_url_reveal }}/theme/',
+        transitions: true
+
+      },
+
+      // Chalkboard options
+      chalkboard: {
+          src: "chalkboard/chalkboard.json",
+					toggleChalkboardButton: { left: "80px" },
+					toggleNotesButton: { left: "130px" },
+      },
+
+      plugins: [ RevealMarkdown, RevealHighlight,  RevealSearch, RevealNotes, RevealMath, RevealZoom, RevealMenu, RevealChalkboard]
+    });
   </script>
+
 
 </body>
 </html>
