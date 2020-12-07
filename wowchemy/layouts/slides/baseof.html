@@ -61,76 +61,46 @@
   <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
 
 
-<!-- reveal configuration -->
+  <!-- reveal configuration -->
+  <!-- Set configuration template variables and their defaults -->
+  {{- $controls := $.Param "slides.controls" | default true -}}
+  {{- $progress := $.Param "slides.progress" | default true -}}
+  {{- $slideNumber := $.Param "slides.slideNumber" | default false -}}
+  {{- $center := $.Param "slides.center" | default true -}}
+  {{- $rtl := $.Param "slides.rtl" | default false -}}
+  {{- $mouseWheel := $.Param "slides.mouseWheel" | default true -}}
+  {{- $transition := $.Param "slides.transition" | default "'slide'" -}}
+  {{- $transitionSpeed := $.Param "slides.transitionSpeed" | default "'default'" -}}
+  {{- $backgroundTransition := $.Param "slides.backgroundTransition" | default "'fade'" -}}
+  {{- $menu := $.Param "slides.menu" | default true -}}
+  {{- $chalkboard := $.Param "slides.chalkboard" | default true -}}
 
-<!--
-  these seem like the important configurations
-  Please consider including these configurations in front matter of slides
-  including ability to enable/disable chalkboard and menu
--->
-
-<!-- {{- $controls := $.Param "slides.controls" | default "true" -}}
-{{- $progress := $.Param "slides.progress" | default "true" -}}
-{{- $slideNumber := $.Param "slides.slideNumber" | default "false" -}}
-{{- $center := $.Param "slides.center" | default "true" -}}
-{{- $rtl := $.Param "slides.rtl" | default "false" -}}
-{{- $mouseWheel := $.Param "slides.mouseWheel" | default "true" -}}
-{{- $transition := $.Param "slides.transition" | default "'slide'" -}}
-{{- $transitionSpeed := $.Param "slides.transitionSpeed" | default "'default'" -}}
-{{- $backgroundTransition := $.Param "slides.backgroundTransition" | default "'fade'" -}} -->
-
-<!-- // Display presentation control arrows
-  controls: true,
-
-  // Display a presentation progress bar
-  progress: true,
-
-  // Display the page number of the current slide
-  // - true:    Show slide number
-  // - false:   Hide slide number
-  //
-  // Can optionally be set as a string that specifies the number formatting:
-  // - "h.v":   Horizontal . vertical slide number (default)
-  // - "h/v":   Horizontal / vertical slide number
-  // - "c":   Flattened slide number
-  // - "c/t":   Flattened slide number / total slides
-  //
-  // Alternatively, you can provide a function that returns the slide
-  // number for the current slide. The function should take in a slide
-  // object and return an array with one string [slideNumber] or
-  // three strings [n1,delimiter,n2]. See #formatSlideNumber().
-  slideNumber: false,
-
-  // Vertical centering of slides
-  center: true,
-
-  // Change the presentation direction to be RTL
-  rtl: false,
-
-  // Enable slide navigation via mouse wheel
-  mouseWheel: false,
-
-  // Transition style
-  transition: 'slide', // none/fade/slide/convex/concave/zoom
-
-  // Transition speed
-  transitionSpeed: 'default', // default/fast/slow
-
-  // Transition style for full page slide backgrounds
-  backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom -->
-
+<!-- The following is just to set the proper configurations based on slides front matter to initialize reveal -->
   <script>
-    Reveal.initialize({
-      //reveal options
-      controls: false,
-      progress: true,
+    enabledPlugins = [ RevealMarkdown, RevealHighlight,  RevealSearch, RevealNotes, RevealMath, RevealZoom]
+
+    {{ if $menu }}
+    enabledPlugins.push(RevealMenu)
+    {{ end }}
+
+    {{ if $chalkboard }}
+    enabledPlugins.push(RevealChalkboard)
+    {{ end }}
+
+    pluginOptions = {
+      controls: {{ $controls }},
+      progress: {{ $progress }},
       history: true,
-      center: true,
-      mouseWheel: true,
-      slideNumber: "c/t",
-      rtl: false, // this one is important and should be configurable from front matter
+      center: {{ $center }},
+      mouseWheel: {{ $mouseWheel }},
+      slideNumber: {{ $slideNumber }},
+      rtl: {{ $rtl }},
+      transition: {{ $transition }},
+      transitionSpeed: {{ $transitionSpeed }},
+      
 
       // menu options
+      {{ if $menu }}
       menu: {
         numbers: true,
         themes: true,
@@ -139,15 +109,23 @@
 
       },
 
-      // Chalkboard options
+      // Chalkboard options to move it slightly if menu is enabled
+      {{ if $chalkboard }}
+      
       chalkboard: {
-          src: "chalkboard/chalkboard.json",
-					toggleChalkboardButton: { left: "80px" },
-					toggleNotesButton: { left: "130px" },
+        toggleChalkboardButton: { left: "80px" },
+        toggleNotesButton: { left: "130px" },
       },
+      {{ end }} //$chalkboard, must be inside $menu
+      
+      {{ end }} //$menu
 
-      plugins: [ RevealMarkdown, RevealHighlight,  RevealSearch, RevealNotes, RevealMath, RevealZoom, RevealMenu, RevealChalkboard]
-    });
+      backgroundTransition: {{ $backgroundTransition }}
+    }
+
+    pluginOptions["plugins"] = enabledPlugins
+
+    Reveal.initialize(pluginOptions);
   </script>
 
 
