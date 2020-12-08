@@ -32,15 +32,6 @@
   {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 
-  <!-- Printing and PDF exports -->
-  <!-- <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '{{ $cdn_url_reveal }}/css/print/pdf.css' : '{{ $cdn_url_reveal }}/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script> -->
-
 </head>
 <body>
 
@@ -74,6 +65,8 @@
   {{- $backgroundTransition := $.Param "slides.backgroundTransition" | default "'fade'" -}}
   {{- $menu := $.Param "slides.menu" | default true -}}
   {{- $chalkboard := $.Param "slides.chalkboard" | default true -}}
+  {{- $touch := $.Param "slides.touch" | default true -}}
+  {{- $loop := $.Param "slides.loop" | default true -}}
 
 <!-- The following is just to set the proper configurations based on slides front matter to initialize reveal -->
   <script>
@@ -97,6 +90,8 @@
       rtl: {{ $rtl }},
       transition: {{ $transition }},
       transitionSpeed: {{ $transitionSpeed }},
+      touch: {{ $touch }},
+      loop: {{ $loop }},
       
 
       // menu options

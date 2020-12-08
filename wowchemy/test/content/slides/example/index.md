@@ -25,23 +25,64 @@ slides:
   backgroundTransition: fade # none/fade/slide/convex/concave/zoom
   menu: true
   chalkboard: true
+  touch: true
+  loop: false
 
 ---
+## iframes (work)
+
+<iframe src="https://phet.colorado.edu/sims/html/masses-and-springs-basics/latest/masses-and-springs-basics_es.html" width="100%" height="500" scrolling="no" allowfullscreen></iframe>
+
+---
+## Youtube shortcode (works)
 
 {{< youtube w7Ft2ymGmfc >}}
 
 ---
 
-## Features
+## other shortcodes
 
 - Efficiently write slides in Markdown
-- 3-in-1: Create, Present, and Publish your slides
-- Supports speaker notes
-- Mobile friendly slides
-- {{< icon name="terminal" pack="fas" >}} Terminal 
+- cta button {{< cta cta_text="Do something" cta_link="/" cta_new_tab="true" >}} (DOES NOT WORK)
 
 ---
 
+## more shortcodes
+
+- figure {{< figure src="icon.png" title="A caption" numbered="true" >}}
+- icons {{< icon name="terminal" pack="fas" >}} Terminal 
+
+---
+
+## callout (does not work)
+
+{{% callout warning %}}
+Here's some important information...
+{{% /callout %}}
+
+
+---
+
+## diagram (does not work)
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
+
+---
+## chart shortcode (does not work)
+
+chart start
+
+{{< chart data="chart" >}}
+
+chart end
+
+---
 ## Controls
 
 - Next: `Right Arrow` or `Space`
@@ -142,8 +183,7 @@ Press the `S` key to view the speaker notes!
 - solarized: Cream-colored background, dark green text, blue links
 
 ---
-
-{{< slide background-image="/media/boards.jpg" >}}
+{{< slide background-image="./boards.jpg" >}}
 
 ## Custom Slide
 

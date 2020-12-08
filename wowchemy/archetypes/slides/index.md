@@ -27,6 +27,8 @@ slides:
   backgroundTransition: fade # none/fade/slide/convex/concave/zoom
   menu: true
   chalkboard: true
+  touch: true
+  loop: false
   
 ---
 

@@ -8,6 +8,3 @@ design:
 
 Hello world 😃
 
-{{< icon name="terminal" pack="fas" >}} Terminal 
-
-hi
