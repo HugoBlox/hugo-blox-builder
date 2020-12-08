@@ -9,7 +9,7 @@
 import {fadeIn} from './wowchemy-animation';
 
 function getThemeMode() {
-  return parseInt(localStorage.getItem('dark_mode') || 2);
+  return parseInt(localStorage.getItem('wcTheme') || 2);
 }
 
 function canChangeTheme() {
@@ -59,13 +59,13 @@ function changeThemeModeClick(newMode) {
   let isDarkTheme;
   switch (newMode) {
     case 0:
-      localStorage.setItem('dark_mode', '1');
+      localStorage.setItem('wcTheme', '1');
       isDarkTheme = true;
       console.info('User changed theme variation to Dark.');
       showActiveTheme(0);
       break;
     case 1:
-      localStorage.setItem('dark_mode', '2');
+      localStorage.setItem('wcTheme', '2');
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
         isDarkTheme = true;
@@ -73,13 +73,14 @@ function changeThemeModeClick(newMode) {
         // The visitor prefers light themes and switching to the dark variation is allowed by admin.
         isDarkTheme = false;
       } else {
-        isDarkTheme = window.wc.isSiteThemeDark;  // Use the site's default theme variation based on `light` in the theme file.
+        // Use the site's default theme variation based on `light` in the theme file.
+        isDarkTheme = window.wc.isSiteThemeDark;
       }
       console.info('User changed theme variation to Auto.');
       showActiveTheme(1);
       break;
     default:
-      localStorage.setItem('dark_mode', '0');
+      localStorage.setItem('wcTheme', '0');
       isDarkTheme = false;
       console.info('User changed theme variation to Light.');
       showActiveTheme(2);
@@ -141,7 +142,6 @@ function renderThemeVariation(isDarkTheme, init = false) {
   if (isDarkTheme === false) {
     if (!init) {
       // Only fade in the page when changing the theme variation.
-      //$('body').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 500);
       Object.assign(document.body.style, {opacity: 0, visibility: 'visible'});
       fadeIn(document.body, 600);
     }
@@ -188,4 +188,5 @@ export {
   initThemeVariation,
   changeThemeModeClick,
   renderThemeVariation,
+  getThemeMode,
 };

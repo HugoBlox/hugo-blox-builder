@@ -5,7 +5,13 @@
  *  Core JS functions and initialization.
  **************************************************/
 
-import {canChangeTheme, changeThemeModeClick, initThemeVariation, renderThemeVariation} from './wowchemy-theming';
+import {
+  canChangeTheme,
+  changeThemeModeClick,
+  getThemeMode,
+  initThemeVariation,
+  renderThemeVariation
+} from './wowchemy-theming';
 
 
 /* ---------------------------------------------------------------------------
@@ -442,7 +448,7 @@ $(document).ready(function () {
     }
     const darkModeOn = e.matches;
     console.log(`OS dark mode preference changed to ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
-    let currentThemeVariation = parseInt(localStorage.getItem('dark_mode') || 2);
+    let currentThemeVariation = getThemeMode();
     let isDarkTheme;
     if (currentThemeVariation === 2) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
