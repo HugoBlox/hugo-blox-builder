@@ -31,6 +31,14 @@ graph TD;
   C-->D;
 ```
 
+{{% diagram %}}
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+{{% /diagram %}}
+
 Chart works here, not in slides
 
 {{< chart data="chart" >}}

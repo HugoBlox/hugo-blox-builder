@@ -29,7 +29,9 @@ slides:
   chalkboard: true
   touch: true
   loop: false
-  
+  diagram: true
+  diagram_theme: "dark" # default/base/dark/neutral/forest
+
 ---
 
 # Title

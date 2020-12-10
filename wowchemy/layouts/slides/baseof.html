@@ -6,7 +6,7 @@
 
   {{ $css := site.Data.assets.css }}
   {{ $cdn_url_reveal := "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0" }}
-  
+  {{ $js := site.Data.assets.js }}
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,7 +50,10 @@
 
   <script src="/js/vendor/reveal.js/plugin/menu/menu.js"></script>
   <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
-
+  {{- $diagram := $.Param "slides.diagram" | default false -}}
+  {{ if $diagram }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
+  {{ end }}
 
   <!-- reveal configuration -->
   <!-- Set configuration template variables and their defaults -->
@@ -123,6 +126,13 @@
     Reveal.initialize(pluginOptions);
   </script>
 
-
+  {{if $diagram }}
+  {{- $diagram_theme := $.Param "slides.diagram_theme" | default false -}}
+  <script>mermaid.initialize({
+    startOnLoad:true,
+    securityLevel: 'loose',
+    theme: {{ $diagram_theme }}
+  });</script>
+  {{ end }}
 </body>
 </html>

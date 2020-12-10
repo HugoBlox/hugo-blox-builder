@@ -27,6 +27,8 @@ slides:
   chalkboard: true
   touch: true
   loop: false
+  diagram: true
+  diagram_theme: "dark" # default/base/dark/neutral/forest
 
 ---
 ## iframes (work)
@@ -57,14 +59,29 @@ slides:
 ## callout (does not work)
 
 {{% callout warning %}}
-Here's some important information...
+Here's some important information...y
 {{% /callout %}}
 
 
 ---
 
-## diagram (does not work)
+## diagram works!
 
+{{% diagram %}}
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+{{% /diagram %}}
+
+---
+## diagram 
+
+```merkdown
+```mermaid doesnt work
+use {{% diagram %}} instead
+```
 ```mermaid
 graph TD;
   A-->B;
