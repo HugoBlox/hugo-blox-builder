@@ -491,7 +491,11 @@ $(window).on('load', function () {
     }
 
     // Get default filter (if any) for this instance
-    let filterText = isoSection.querySelector('.default-project-filter').textContent || '*';
+    let defaultFilter = isoSection.querySelector('.default-project-filter');
+    let filterText = '*';
+    if (defaultFilter !== null) {
+      filterText = defaultFilter.textContent;
+    }
     console.debug(`Default Isotope filter: ${filterText}`);
 
     // Init Isotope instance once its images have loaded.
