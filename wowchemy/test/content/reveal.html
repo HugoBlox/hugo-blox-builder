@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css"
+    integrity="sha512-zu0eodDPCBAZf1vnIgwZ6qchMBt1xqgGkS9vBjVmunoH8pU7cc9OQKBiSQCclpvqySupy9Y1pLZc87VB40G4Sw=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/league.min.css"
+    integrity="sha512-AI3aXE9pwvZel0AhCQeQ4PdSe6IhGo4kXBgUBDlF5i/qhY+UDHh5vLWxegQzDaqusD/LgL23KoFISl4qklKXjw=="
+    crossorigin="anonymous" />
+</head>
+
+<body>
+
+    {{/*  This file replicates the diagram bug in reveal where diagrams are not rendered correctly after slide 3  */}}
+    
+  <div class="reveal">
+    <div class="slides">
+
+      <section>Horizontal Slide 1
+      </section>
+
+      <section>Horizontal Slide 2
+        <div class="mermaid">
+            graph TD
+            B["fa:fa-twitter for peace"]
+            B-->C[fa:fa-ban forbidden]
+            B-->D(fa:fa-spinner);
+            B-->E(A fa:fa-camera-retro perhaps?);
+          </div>
+      </section>
+
+      <section>Horizontal Slide 3
+      </section>
+
+      <section>Horizontal Slide 4
+        <div class="mermaid">
+          graph TD
+          B["fa:fa-twitter for peace"]
+          B-->C[fa:fa-ban forbidden]
+          B-->D(fa:fa-spinner);
+          B-->E(A fa:fa-camera-retro perhaps?);
+        </div>
+      </section>
+
+
+      <section>Horizontal Slide 5
+        <div class="mermaid">
+          graph TD
+          B["fa:fa-twitter for peace"]
+          B-->C[fa:fa-ban forbidden]
+          B-->D(fa:fa-spinner);
+          B-->E(A fa:fa-camera-retro perhaps?);
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"
+    integrity="sha512-LGXpHNR8kKb3liBoiowLefRfx9BahbZ0FWE8vfTOV3vU4jD/9SpoyZQ49rc7gBwSzbFTZAaLCsSkpujb6ic+Og=="
+    crossorigin="anonymous"></script>
+  <script>
+    Reveal().initialize();
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.8.4/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: 'loose',
+    });
+  </script>
+</body>
+
+</html>

@@ -31,6 +31,14 @@ slides:
   diagram_theme: "dark" # default/base/dark/neutral/forest
 
 ---
+## testing slides
+
+Not having iframe or youtube on first slide will render diagrams correctly?
+
+trick is to wait a few seconds before switching slide
+
+---
+
 ## iframes (work)
 
 <iframe src="https://phet.colorado.edu/sims/html/masses-and-springs-basics/latest/masses-and-springs-basics_es.html" width="100%" height="500" scrolling="no" allowfullscreen></iframe>
@@ -62,42 +70,190 @@ slides:
 Here's some important information...y
 {{% /callout %}}
 
+---
+
+chart
+
+{{< chart data="chart" >}}
+
+---
+
+## diagram works!
+
+
+{{% diagram %}}
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+{{% /diagram %}}
 
 ---
 
 ## diagram works!
 
 {{% diagram %}}
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts <br/>prevail!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
 {{% /diagram %}}
 
 ---
-## diagram 
+## gantt
 
-```merkdown
-```mermaid doesnt work
-use {{% diagram %}} instead
-```
-```mermaid
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
-```
+{{% diagram %}}
+gantt
+dateFormat  YYYY-MM-DD
+title Adding GANTT diagram to mermaid
+excludes weekdays 2014-01-10
+section A section
+Completed task            :done,    des1, 2014-01-06,2014-01-08
+Active task               :active,  des2, 2014-01-09, 3d
+Future task               :         des3, after des2, 5d
+Future task2               :         des4, after des3, 5d
+{{% /diagram %}}
 
 ---
-## chart shortcode (does not work)
+## class
 
-chart start
+{{% diagram %}}
+classDiagram
+Class01 <|-- AveryLongClass : Cool
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 --> C2 : Where am i?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label
+{{% /diagram %}}
 
-{{< chart data="chart" >}}
+---
 
-chart end
+## gitGraph
+
+{{% diagram %}}
+gitGraph:
+options
+{
+    "nodeSpacing": 150,
+    "nodeRadius": 10
+}
+end
+commit
+branch newbranch
+checkout newbranch
+commit
+commit
+checkout master
+commit
+commit
+merge newbranch
+{{% /diagram %}}
+
+---
+
+## ERD
+
+{{% diagram %}}
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+{{% /diagram %}}
+
+---
+
+## journey
+
+{{% diagram %}}
+journey
+    title My working day
+    section Go to work
+      Make tea: 5: Me
+      Go upstairs: 3: Me
+      Do work: 1: Me, Cat
+    section Go home
+      Go downstairs: 5: Me
+      Sit down: 5: Me
+{{% /diagram %}}
+
+---
+
+## Test
+
+{{% diagram %}}
+graph TD
+    subgraph Enabling Faculty
+    a[Activate KU e-mail]
+    b[Install MS Teams]
+    a --> b
+    end
+    subgraph Enabling Students
+    c[Activate KU e-mail]
+    d[Install Teams]
+    l[Student Check-in<br />Using Tacking System]
+    c --> d
+    d --> l
+    end
+    subgraph Testing With Colleagues
+    h[Test Online Meeting]
+    end
+    b --> h
+    subgraph Testing With Students
+    m[Track Student Progress<br />Using Tacking System]
+    i[Create Teams for Classes]
+    j[Add Students to Class Teams]
+    k[Test Sharing Content]
+    f[Test Online Lecture]
+    m --> i
+    i --> j
+    j --> k
+    k --> f
+    end
+    l --> m
+    h --> m
+    g[Add/Improve Content]
+    f -- Section is ready for emergency distance learning --> g
+    a -- Notify Students --> c
+    click a "http://kuweb.ku.edu.kw/ku/Staff/ElectronicServices/KUOffice365/Office365FAQ/FacultyandStaff/index.htm" "Activate KU e-mail for Faculty"
+    click b "https://www.microsoft.com/en-ww/microsoft-365/microsoft-teams/download-app" "Install MS Teams"
+    click c "http://kuweb.ku.edu.kw/ku/Staff/ElectronicServices/KUOffice365/Office365FAQ/Students/index.htm" "Activate KU e-mail for students"
+    click d "https://www.microsoft.com/en-ww/microsoft-365/microsoft-teams/download-app" "Install MS Teams"
+    click h "https://youtu.be/Y44n1QHbdZk?t=129" "Test Online Meetings"
+    click i "https://youtu.be/QCXpw0fr_Ko‬" "Setup/Create a Team for Class"
+    click k "‪https://youtu.be/mRAmivNyj90‬" "Test sharing content with class"
+    click f "https://youtu.be/Y_oH9ZpH4RM" "Test online lecture"
+    click l "http://is.cba.edu.kw/checkin/student.aspx" "Student Check-in"
+    click m "http://is.cba.edu.kw/checkin/faculty.aspx" "Faculty Check-in"
+    style a fill:#ECECFF
+    style b fill:#ECECFF
+    style c fill:#ECECFF
+    style d fill:#ECECFF
+    style f fill:#ECECFF
+    style l fill:#ECECFF
+    style m fill:#ECECFF
+    style g fill:#FFE18E
+    style h fill:#FFD9F0
+    style i fill:#FFD9F0
+    style j fill:#FFD9F0
+    style k fill:#FFD9F0
+    style f fill:#FFD9F0
+{{% /diagram %}}
 
 ---
 ## Controls

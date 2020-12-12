@@ -1,0 +1,16 @@
+// Mermaid.js diagram div
+div.mermaid {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+// Plotly chart
+div.chart {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  // Add horizontal scroll on mobile since Plotly
+  overflow-x: auto;
+}

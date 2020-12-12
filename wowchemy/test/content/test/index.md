@@ -9,6 +9,14 @@ math: true
 diagram: true
 ---
 
+<iframe src="https://phet.colorado.edu/sims/html/masses-and-springs-basics/latest/masses-and-springs-basics_es.html" width="100%" height="500" scrolling="no" allowfullscreen></iframe>
+
+
+## Youtube shortcode (works)
+
+{{< youtube w7Ft2ymGmfc >}}
+
+
 callout works here, not in slides
 
 

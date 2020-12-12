@@ -128,11 +128,69 @@
 
   {{if $diagram }}
   {{- $diagram_theme := $.Param "slides.diagram_theme" | default false -}}
-  <script>mermaid.initialize({
-    startOnLoad:true,
+  <script>
+  mermaid.initialize({
+    startOnLoad:false,
     securityLevel: 'loose',
     theme: {{ $diagram_theme }}
-  });</script>
+  });
+
+
+  // Following functions are used to render mermaid diagrams
+  // after reveal slides have been successfully loaded
+  // since content of slides is lazy loaded, if diagrams are 
+  // rendered at start of presentation their sizes will be off
+
+  /* get all slides that are:
+    1- data loaded
+    2- display set to block
+    3- has a mermaid element that is not processed (data-processed dne)
+
+  */
+  function mermaidSlidesReadyToRender(s){
+    diag = s.querySelector(".mermaid")
+    if(diag){
+      background = s.slideBackgroundElement
+      // render if we are 1 slide away horizontally
+      // current visible slide index
+      chidx = Reveal.getState()["indexh"]
+
+      // mermaid slide index
+      shidx = Reveal.getIndices(slide=s)["h"]
+      if(
+        !diag.hasAttribute("data-processed") &&
+        background.hasAttribute("data-loaded") &&
+        background.style.display === "block" &&
+        shidx - chidx <= 1
+      )
+      return s
+    }
+    return null
+  }
+
+  function renderMermaidSlides(){
+    dSlides = Reveal.getSlides().filter(mermaidSlidesReadyToRender)
+    dSlides.forEach(item => mermaid.init(item.querySelector(".mermaid")));
+    
+  }
+
+  // render mermaid slides for slides that are ready
+  Reveal.on( 'slidetransitionend', event => {
+    renderMermaidSlides();
+  })
+  
+  // render mermaid slides for slides that are ready on startup
+  Reveal.on( 'Ready', event => {
+    if(Reveal.isReady()){
+      renderMermaidSlides();
+    }
+  })
+  // end of mermaid diagram functions
+
+</script>
+
+  
   {{ end }}
+  
 </body>
 </html>
