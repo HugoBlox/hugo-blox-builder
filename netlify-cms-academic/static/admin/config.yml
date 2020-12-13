@@ -153,6 +153,7 @@ collections:
             name: "filename"
             widget: "image"
             default: "featured"
+            required: false
             media_library:
               config:
                 multiple: false
@@ -223,6 +224,7 @@ collections:
             name: "filename"
             widget: "image"
             default: "featured"
+            required: false
             media_library:
               config:
                 multiple: false
@@ -301,6 +303,7 @@ collections:
             name: "filename"
             widget: "image"
             default: "featured"
+            required: false
             media_library:
               config:
                 multiple: false
