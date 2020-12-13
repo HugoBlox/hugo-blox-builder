@@ -14,14 +14,14 @@
   {{ $avatar_shape := site.Params.avatar.shape | default "circle" }}
   <div class="media author-card content-widget-hr">
     {{ if and site.Params.avatar.gravatar $author_page.Params.email }}
-      <a href="{{$profile_url}}"><img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $author_page.Params.email }}?s=200')" alt="{{$author_page.Title}}"></a>
+      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $author_page.Params.email }}?s=200" alt="{{$author_page.Title}}">{{if $profile_url}}</a>{{end}}
     {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "270x270 Center" }}
-      <a href="{{$profile_url}}"><img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$author_page.Title}}"></a>
+      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$author_page.Title}}">{{if $profile_url}}</a>{{end}}
     {{ end }}
 
     <div class="media-body">
-      <h5 class="card-title"><a href="{{$profile_url}}">{{$author_page.Title}}</a></h5>
+      <h5 class="card-title">{{if $profile_url}}<a href="{{$profile_url}}">{{end}}{{$author_page.Title}}{{if $profile_url}}</a>{{end}}</h5>
       {{ with $author_page.Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
       {{ with $author_page.Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
       {{ partial "social_links" $author_page }}
