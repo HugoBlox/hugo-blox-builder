@@ -4,6 +4,39 @@ backend:
 media_folder: 'static/media/'
 public_folder: 'media'
 collections:
+  - name: home
+    label: "Homepage"
+    folder: 'content/home'
+    path: '{{slug}}'
+    summary: "{{filename}}: {{title}}"
+    identifier_field: "widget_id"
+    create: true
+    fields:
+      - {label: "Widget Type (https://wowchemy.com/docs/page-builder/)", name: "widget", widget: "string", required: true}
+      - {label: 'Your reference for this widget (e.g. recent-posts)', name: 'widget_id', widget: 'string', default: 'my-widget-123'}
+      - {label: "Headless?", name: "headless", widget: "hidden", default: true}
+      - label: "Widget position"
+        name: "weight"
+        widget: "number"
+        default: 10
+        valueType: "int"
+        min: 0
+        max: 1001
+        step: 10
+      - {label: "Title", name: "title", widget: "string", required: false}
+      - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
+      - label: "Enabled?"
+        name: "active"
+        required: false
+        widget: "boolean"
+        default: true
+      - label: "Widget Style"
+        name: "design"
+        widget: "object"
+        required: false
+        fields:
+          - {label: "Columns (options: `1` or `2`)", name: "columns", widget: "string", default: "2", required: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
   - name: authors
     label: Authors
     label_singular: Author
@@ -89,10 +122,12 @@ collections:
         name: "draft"
         widget: "boolean"
         default: false
+        required: false
       - label: "Featured"
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Authors"
         name: "authors"
         required: false
@@ -124,7 +159,7 @@ collections:
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
-          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
   - name: projects
     label: Projects
     label_singular: Project
@@ -141,10 +176,12 @@ collections:
         name: "draft"
         widget: "boolean"
         default: false
+        required: false
       - label: "Featured"
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Authors"
         name: "authors"
         required: false
@@ -192,7 +229,7 @@ collections:
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
-          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
   - name: talks
     label: Talks
     label_singular: Talk
@@ -233,10 +270,12 @@ collections:
         name: "draft"
         widget: "boolean"
         default: false
+        required: false
       - label: "Featured"
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Authors"
         name: "authors"
         required: false
@@ -268,7 +307,7 @@ collections:
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
-          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
       - {label: "Details", name: "body", widget: "markdown", required: false}
   - name: pages
     label: "Pages"
