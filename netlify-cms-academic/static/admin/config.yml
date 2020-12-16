@@ -1,13 +1,16 @@
 backend:
   name: git-gateway
   branch: master
-media_folder: 'static/media/'
-public_folder: 'media'
+media_folder: 'static/media'
+public_folder: '/media'
 collections:
   - name: home
     label: "Homepage"
     folder: 'content/home'
     path: '{{slug}}'
+    # When specifying a path on a folder collection, media_folder defaults to an empty string, so make it explicit.
+    media_folder: '/static/media'
+    public_folder: ''
     summary: "{{filename}}: {{title}}"
     identifier_field: "widget_id"
     create: true
@@ -36,6 +39,38 @@ collections:
         required: false
         fields:
           - {label: "Columns (options: `1` or `2`)", name: "columns", widget: "string", default: "2", required: false}
+          - label: "Background"
+            name: "background"
+            widget: "object"
+            required: false
+            fields:
+              - {label: 'Solid color', name: 'color', widget: 'color', enableAlpha: true, allowInput: true, required: false}
+              - {label: 'Gradient start', name: 'gradient_start', widget: 'color', enableAlpha: true, allowInput: true, required: false}
+              - {label: 'Gradient end', name: 'gradient_end', widget: 'color', enableAlpha: true, allowInput: true, required: false}
+              - label: "Use a light text color?"
+                name: "text_color_light"
+                required: false
+                widget: "boolean"
+                default: false
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                required: false
+                # When specifying a path on a folder collection, media_folder defaults to an empty string, so make it explicit.
+                media_folder: '/static/media'
+                public_folder: ''
+                media_library:
+                  config:
+                    multiple: false
+              - label: "Darken the image? (0 is transparent & 1 is opaque)"
+                name: "image_darken"
+                widget: "number"
+                default: 0.0
+                valueType: "float"
+                min: 0.0
+                max: 1.0
+                step: 0.1
+                required: false
       - {label: "Body", name: "body", widget: "markdown", required: false}
   - name: authors
     label: Authors
