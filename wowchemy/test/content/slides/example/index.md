@@ -15,18 +15,18 @@ slides:
   highlight_style: monokai
 
   mermaid: true # configure js or not
-  mermaidOptions:
+  mermaidOptions: # see mermaid documentation for other options
     theme: base # default/base/dark/neutral/forest
     securityLevel: loose
 
   menu: true # configure js or not
-  menuOptions:
+  menuOptions: # see menu plugin documentation for other options
     numbers: false  # numbers in menu slides
     themes: true  # theme selection in menu
     transitions: false  # transition selection in menu
   chalkboard: true
 
-  reveal:
+  reveal: # see reveal documentation for other options
     controls: true
     progress: true
     slideNumber: c/t # true | false | h.v | h/v | c | c/t
