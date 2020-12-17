@@ -209,7 +209,7 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
         window.mermaid.initialize({startOnLoad:true, theme: 'dark', securityLevel: 'loose'});
       } else {
         // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
-        // location.reload();
+        location.reload();
       }
     }
   }

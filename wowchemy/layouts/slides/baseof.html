@@ -25,6 +25,7 @@
   {{- $theme := $.Param "slides.theme" | default "black" -}}
   <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css" id="theme" />
 
+  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
   {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
   {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" id=\"highlight-theme\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
 
@@ -50,147 +51,14 @@
 
   <script src="/js/vendor/reveal.js/plugin/menu/menu.js"></script>
   <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
-  {{- $diagram := $.Param "slides.diagram" | default false -}}
-  {{ if $diagram }}
+  {{- $mermaid := $.Param "slides.mermaid" | default false -}}
+  {{ if $mermaid }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
   {{ end }}
 
-  <!-- reveal configuration -->
-  <!-- Set configuration template variables and their defaults -->
-  {{- $controls := $.Param "slides.controls" | default true -}}
-  {{- $progress := $.Param "slides.progress" | default true -}}
-  {{- $slideNumber := $.Param "slides.slideNumber" | default false -}}
-  {{- $center := $.Param "slides.center" | default true -}}
-  {{- $rtl := $.Param "slides.rtl" | default false -}}
-  {{- $mouseWheel := $.Param "slides.mouseWheel" | default true -}}
-  {{- $transition := $.Param "slides.transition" | default "'slide'" -}}
-  {{- $transitionSpeed := $.Param "slides.transitionSpeed" | default "'default'" -}}
-  {{- $backgroundTransition := $.Param "slides.backgroundTransition" | default "'fade'" -}}
-  {{- $menu := $.Param "slides.menu" | default true -}}
-  {{- $chalkboard := $.Param "slides.chalkboard" | default true -}}
-  {{- $touch := $.Param "slides.touch" | default true -}}
-  {{- $loop := $.Param "slides.loop" | default true -}}
+  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides "cdn_url_reveal" $cdn_url_reveal )) }}
 
-<!-- The following is just to set the proper configurations based on slides front matter to initialize reveal -->
-  <script>
-    enabledPlugins = [ RevealMarkdown, RevealHighlight,  RevealSearch, RevealNotes, RevealMath, RevealZoom]
+  <script type="text/javascript" src="{{ $slidejs.RelPermalink }}" defer></script>
 
-    {{ if $menu }}
-    enabledPlugins.push(RevealMenu)
-    {{ end }}
-
-    {{ if $chalkboard }}
-    enabledPlugins.push(RevealChalkboard)
-    {{ end }}
-
-    pluginOptions = {
-      controls: {{ $controls }},
-      progress: {{ $progress }},
-      history: true,
-      center: {{ $center }},
-      mouseWheel: {{ $mouseWheel }},
-      slideNumber: {{ $slideNumber }},
-      rtl: {{ $rtl }},
-      transition: {{ $transition }},
-      transitionSpeed: {{ $transitionSpeed }},
-      touch: {{ $touch }},
-      loop: {{ $loop }},
-      
-
-      // menu options
-      {{ if $menu }}
-      menu: {
-        numbers: true,
-        themes: true,
-        themesPath: '{{ $cdn_url_reveal }}/theme/',
-        transitions: true
-
-      },
-
-      // Chalkboard options to move it slightly if menu is enabled
-      {{ if $chalkboard }}
-      
-      chalkboard: {
-        toggleChalkboardButton: { left: "80px" },
-        toggleNotesButton: { left: "130px" },
-      },
-      {{ end }} //$chalkboard, must be inside $menu
-      
-      {{ end }} //$menu
-
-      backgroundTransition: {{ $backgroundTransition }}
-    }
-
-    pluginOptions["plugins"] = enabledPlugins
-
-    Reveal.initialize(pluginOptions);
-  </script>
-
-  {{if $diagram }}
-  {{- $diagram_theme := $.Param "slides.diagram_theme" | default false -}}
-  <script>
-  mermaid.initialize({
-    startOnLoad:false,
-    securityLevel: 'loose',
-    theme: {{ $diagram_theme }}
-  });
-
-
-  // Following functions are used to render mermaid diagrams
-  // after reveal slides have been successfully loaded
-  // since content of slides is lazy loaded, if diagrams are 
-  // rendered at start of presentation their sizes will be off
-
-  /* get all slides that are:
-    1- data loaded
-    2- display set to block
-    3- has a mermaid element that is not processed (data-processed dne)
-
-  */
-  function mermaidSlidesReadyToRender(s){
-    diag = s.querySelector(".mermaid")
-    if(diag){
-      background = s.slideBackgroundElement
-      // render if we are 1 slide away horizontally
-      // current visible slide index
-      chidx = Reveal.getState()["indexh"]
-
-      // mermaid slide index
-      shidx = Reveal.getIndices(slide=s)["h"]
-      if(
-        !diag.hasAttribute("data-processed") &&
-        background.hasAttribute("data-loaded") &&
-        background.style.display === "block" &&
-        shidx - chidx <= 1
-      )
-      return s
-    }
-    return null
-  }
-
-  function renderMermaidSlides(){
-    dSlides = Reveal.getSlides().filter(mermaidSlidesReadyToRender)
-    dSlides.forEach(item => mermaid.init(item.querySelector(".mermaid")));
-    
-  }
-
-  // render mermaid slides for slides that are ready
-  Reveal.on( 'slidetransitionend', event => {
-    renderMermaidSlides();
-  })
-  
-  // render mermaid slides for slides that are ready on startup
-  Reveal.on( 'Ready', event => {
-    if(Reveal.isReady()){
-      renderMermaidSlides();
-    }
-  })
-  // end of mermaid diagram functions
-
-</script>
-
-  
-  {{ end }}
-  
 </body>
 </html>

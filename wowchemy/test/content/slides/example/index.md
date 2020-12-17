@@ -14,21 +14,30 @@ slides:
   #   Use lower case names and replace space with hyphen '-'
   highlight_style: monokai
 
-  controls: true
-  progress: true
-  slideNumber: c/t # true | false | h.v | h/v | c | c/t
-  center: true
-  rtl: false
-  mouseWheel: true
-  transition: zoom #  none/fade/slide/convex/concave/zoom
-  transitionSpeed: slow  # default/fast/slow
-  backgroundTransition: fade # none/fade/slide/convex/concave/zoom
-  menu: true
+  mermaid: true # configure js or not
+  mermaidOptions:
+    theme: base # default/base/dark/neutral/forest
+    securityLevel: loose
+
+  menu: true # configure js or not
+  menuOptions:
+    numbers: false  # numbers in menu slides
+    themes: true  # theme selection in menu
+    transitions: false  # transition selection in menu
   chalkboard: true
-  touch: true
-  loop: false
-  diagram: true
-  diagram_theme: "dark" # default/base/dark/neutral/forest
+
+  reveal:
+    controls: true
+    progress: true
+    slideNumber: c/t # true | false | h.v | h/v | c | c/t
+    center: true
+    rtl: false
+    mouseWheel: true
+    transition: zoom #  none/fade/slide/convex/concave/zoom
+    transitionSpeed: slow  # default/fast/slow
+    backgroundTransition: fade # none/fade/slide/convex/concave/zoom
+    touch: true
+    loop: false
 
 ---
 ## testing slides
@@ -79,6 +88,19 @@ chart
 ---
 
 ## diagram works!
+
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+---
+
+## diagram works!2
 
 
 {{% diagram %}}
