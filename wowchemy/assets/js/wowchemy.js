@@ -8,11 +8,10 @@
 import {hugoEnvironment} from '@params';
 
 import {
-  canChangeTheme,
   changeThemeModeClick,
-  getThemeMode,
   initThemeVariation,
-  renderThemeVariation
+  renderThemeVariation,
+  onMediaQueryListEvent,
 } from './wowchemy-theming';
 
 console.debug(`Environment: ${hugoEnvironment}`)
@@ -426,49 +425,9 @@ $(document).ready(function () {
     hljs.initHighlighting();
   }
 
-  // Initialize theme variation.
-  initThemeVariation();
-
-  // Change theme mode.
-  $('.js-set-theme-light').click(function (e) {
-    e.preventDefault();
-    changeThemeModeClick(2);
-  });
-  $('.js-set-theme-dark').click(function (e) {
-    e.preventDefault();
-    changeThemeModeClick(0);
-  });
-  $('.js-set-theme-auto').click(function (e) {
-    e.preventDefault();
-    changeThemeModeClick(1);
-  });
-
-  // Live update of day/night mode on system preferences update (no refresh required).
-  // Note: since we listen only for *dark* events, we won't detect other scheme changes such as light to no-preference.
-  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  darkModeMediaQuery.addEventListener("change", (e) => {
-    if (!canChangeTheme()) {
-      // Changing theme variation is not allowed by admin.
-      return;
-    }
-    const darkModeOn = e.matches;
-    console.log(`OS dark mode preference changed to ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
-    let currentThemeVariation = getThemeMode();
-    let isDarkTheme;
-    if (currentThemeVariation === 2) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // The visitor prefers dark themes.
-        isDarkTheme = true;
-      } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        // The visitor prefers light themes.
-        isDarkTheme = false;
-      } else {
-        // The visitor does not have a day or night preference, so use the theme's default setting.
-        isDarkTheme = window.wc.isSiteThemeDark;
-      }
-      renderThemeVariation(isDarkTheme);
-    }
-  });
+  // Render theme variation, including any HLJS and Mermaid themes.
+  let {isDarkTheme, themeMode} = initThemeVariation();
+  renderThemeVariation(isDarkTheme, themeMode, true);
 });
 
 /* ---------------------------------------------------------------------------
@@ -630,8 +589,37 @@ $(window).on('load', function () {
   fixScrollspy();
 });
 
-// Normalize Bootstrap carousel slide heights.
-$(window).on('load resize orientationchange', normalizeCarouselSlideHeights);
+// Theme chooser events.
+let linkLight = document.querySelector('.js-set-theme-light');
+let linkDark = document.querySelector('.js-set-theme-dark');
+let linkAuto = document.querySelector('.js-set-theme-auto');
+if (linkLight && linkDark && linkAuto) {
+  linkLight.addEventListener('click', event => {
+    event.preventDefault();
+    changeThemeModeClick(2);
+  });
+  linkDark.addEventListener('click', event => {
+    event.preventDefault();
+    changeThemeModeClick(0);
+  });
+  linkAuto.addEventListener('click', event => {
+    event.preventDefault();
+    changeThemeModeClick(1);
+  });
+}
+
+// Media Query events.
+// Live update of day/night mode on system preferences update (no refresh required).
+// Note: since we listen only for *dark* events, we won't detect other scheme changes such as light to no-preference.
+const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+darkModeMediaQuery.addEventListener("change", (event) => {
+  onMediaQueryListEvent(event);
+});
+
+// Normalize Bootstrap carousel slide heights for Slider widget instances.
+window.addEventListener('load', normalizeCarouselSlideHeights);
+window.addEventListener('resize', normalizeCarouselSlideHeights);
+window.addEventListener('orientationchange', normalizeCarouselSlideHeights);
 
 // Automatic main menu dropdowns on mouse over.
 $('body').on('mouseenter mouseleave', '.dropdown', function (e) {

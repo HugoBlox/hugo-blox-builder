@@ -8,6 +8,8 @@
 
 import {fadeIn} from './wowchemy-animation';
 
+const body = document.body;
+
 function getThemeMode() {
   return parseInt(localStorage.getItem('wcTheme') || 2);
 }
@@ -17,6 +19,8 @@ function canChangeTheme() {
   return Boolean(window.wc.darkLightEnabled);
 }
 
+// initThemeVariation is first called directly after <body> to prevent
+// flashing between the default theme mode and the user's choice.
 function initThemeVariation() {
   if (!canChangeTheme()) {
     return;
@@ -44,11 +48,14 @@ function initThemeVariation() {
       }
       break;
   }
-  if (isDarkTheme) {
+  if (isDarkTheme && !body.classList.contains('dark')) {
+    console.debug('Applying Wowchemy dark theme');
     document.body.classList.add("dark");
-  } else {
+  } else if (body.classList.contains('dark')) {
+    console.debug('Applying Wowchemy light theme');
     document.body.classList.remove("dark");
   }
+  return {isDarkTheme, currentThemeMode};
 }
 
 function changeThemeModeClick(newMode) {
@@ -62,7 +69,6 @@ function changeThemeModeClick(newMode) {
       localStorage.setItem('wcTheme', '1');
       isDarkTheme = true;
       console.info('User changed theme variation to Dark.');
-      showActiveTheme(0);
       break;
     case 1:
       localStorage.setItem('wcTheme', '2');
@@ -77,16 +83,14 @@ function changeThemeModeClick(newMode) {
         isDarkTheme = window.wc.isSiteThemeDark;
       }
       console.info('User changed theme variation to Auto.');
-      showActiveTheme(1);
       break;
     default:
       localStorage.setItem('wcTheme', '0');
       isDarkTheme = false;
       console.info('User changed theme variation to Light.');
-      showActiveTheme(2);
       break;
   }
-  renderThemeVariation(isDarkTheme);
+  renderThemeVariation(isDarkTheme, newMode);
 }
 
 function showActiveTheme(mode) {
@@ -119,16 +123,19 @@ function showActiveTheme(mode) {
  * Render theme variation (day or night).
  *
  * @param {boolean} isDarkTheme
- * @param {boolean} init
+ * @param {int} themeMode - {0: Dark, 1: Auto, 2: Light}
+ * @param {boolean} init - true only when called on document ready
  * @returns {undefined}
  */
-function renderThemeVariation(isDarkTheme, init = false) {
+function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
   // Is code highlighting enabled in site config?
   const codeHlLight = document.querySelector('link[title=hl-light]');
   const codeHlDark = document.querySelector('link[title=hl-dark]');
-  const codeHlEnabled = codeHlLight || codeHlDark;
-  const diagramEnabled = document.querySelector('script[title=mermaid]');
-  const body = document.body;
+  const codeHlEnabled = (codeHlLight !== null) || (codeHlDark !== null);
+  const diagramEnabled = document.querySelector('script[title=mermaid]') !== null;
+
+  // Update active theme mode in navbar theme selector.
+  showActiveTheme(themeMode);
 
   // Check if re-render required.
   if (!init) {
@@ -147,10 +154,16 @@ function renderThemeVariation(isDarkTheme, init = false) {
     }
     body.classList.remove('dark');
     if (codeHlEnabled) {
-      codeHlLight.disabled = false;
-      codeHlDark.disabled = true;
+      console.debug('Setting HLJS theme to light');
+      if (codeHlLight) {
+        codeHlLight.disabled = false;
+      }
+      if (codeHlDark){
+        codeHlDark.disabled = true;
+      }
     }
     if (diagramEnabled) {
+      console.debug('Initializing Mermaid with light theme');
       if (init) {
         /** @namespace window.mermaid **/
         window.mermaid.initialize({theme: 'default', securityLevel: 'loose'});
@@ -167,10 +180,16 @@ function renderThemeVariation(isDarkTheme, init = false) {
     }
     body.classList.add("dark");
     if (codeHlEnabled) {
-      codeHlLight.disabled = true;
-      codeHlDark.disabled = false;
+      console.debug('Setting HLJS theme to dark');
+      if (codeHlLight) {
+        codeHlLight.disabled = true;
+      }
+      if (codeHlDark){
+        codeHlDark.disabled = false;
+      }
     }
     if (diagramEnabled) {
+      console.debug('Initializing Mermaid with dark theme');
       if (init) {
         /** @namespace window.mermaid **/
         window.mermaid.initialize({theme: 'dark', securityLevel: 'loose'});
@@ -182,6 +201,35 @@ function renderThemeVariation(isDarkTheme, init = false) {
   }
 }
 
+/**
+ * onMediaQueryListEvent.
+ *
+ * @param {MediaQueryListEvent} event
+ * @returns {undefined}
+ */
+function onMediaQueryListEvent(event) {
+  if (!canChangeTheme()) {
+    // Changing theme variation is not allowed by admin.
+    return;
+  }
+  const darkModeOn = event.matches;
+  console.debug(`OS dark mode preference changed to ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
+  let currentThemeVariation = getThemeMode();
+  let isDarkTheme;
+  if (currentThemeVariation === 2) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // The visitor prefers dark themes.
+      isDarkTheme = true;
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      // The visitor prefers light themes.
+      isDarkTheme = false;
+    } else {
+      // The visitor does not have a day or night preference, so use the theme's default setting.
+      isDarkTheme = window.wc.isSiteThemeDark;
+    }
+    renderThemeVariation(isDarkTheme, currentThemeVariation);
+  }
+}
 
 export {
   canChangeTheme,
@@ -189,4 +237,5 @@ export {
   changeThemeModeClick,
   renderThemeVariation,
   getThemeMode,
+  onMediaQueryListEvent,
 };
