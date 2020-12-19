@@ -39,7 +39,6 @@
   {{ block "main" . }}{{ end }}
 
   <script src="{{ $cdn_url_reveal }}/reveal.min.js"></script>
-
   <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.js"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/highlight/highlight.js"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.js"></script>
@@ -49,10 +48,20 @@
 
 <!-- 3rd part plugins -->
 
-  <script src="/js/vendor/reveal.js/plugin/menu/menu.js"></script>
-  <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
-  {{- $mermaid := $.Param "slides.mermaid" | default false -}}
-  {{ if $mermaid }}
+  {{ if $.Param "slides.reveal_options.menu_enabled" | default true}}
+    <script>console.log("menu enabled!!!")</script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/plugin.js" integrity="sha256-M6JwAjnRAWmi+sbXURR/yAhWZKYhAw7YXnnLvIxrdGs=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js" integrity="sha256-l14dklFcW5mWar6w/9KaW0fWVerf3mYr7Wt0+rXzFAA=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.css" integrity="sha256-0fU8HKLaTjgzfaV9CgSqbsN8ilA3zo6zK1M6rlgULd8=" crossorigin="anonymous">
+  {{ end }}
+
+  {{ if $.Param "slides.reveal_options.chalkboard_enabled" | default true}}
+    <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
+  {{ end }}
+
+  {{/*  {{- $mermaid := $.Param "slides.mermaid" | default false -}}  */}}
+  {{ if $.Param "slides.mermaid_enabled" | default false}}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
   {{ end }}
 

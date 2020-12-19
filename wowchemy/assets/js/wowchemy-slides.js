@@ -11,42 +11,101 @@ enabledPlugins = [
   RevealZoom,
 ];
 
+const isObject = function (o) {
+  return o === Object(o) && !isArray(o) && typeof o !== 'function';
+};
+
+const isArray = function (a) {
+  return Array.isArray(a);
+};
+
+const toCamel = (s) => {
+  return s.replace(/([-_][a-z])/ig, ($1) => {
+    return $1.toUpperCase()
+      .replace('-', '')
+      .replace('_', '');
+  });
+};
+
+const keysToCamel = function (o) {
+  if (isObject(o)) {
+    const n = {};
+
+    Object.keys(o)
+      .forEach((k) => {
+        n[toCamel(k)] = keysToCamel(o[k]);
+      });
+
+    return n;
+  } else if (isArray(o)) {
+    return o.map((i) => {
+      return keysToCamel(i);
+    });
+  }
+
+  return o;
+};
+
 // reveal configurations can be included in front matter under slides.reveal
-pluginOptions = params.slides.reveal || {}; // defaults to empty object to use default if reveal not set in front matter
+var pluginOptions = (typeof params.slides.reveal_options === 'undefined') ? {} : params.slides.reveal_options;
 
-// configure menu if enabled
-if (params.slides.menu) {
-  enabledPlugins.push(RevealMenu);
+console.log(pluginOptions)
+pluginOptions = keysToCamel(pluginOptions)
+console.log("converted:")
+console.log(pluginOptions)
 
-  menuOpts = params.slides.menuoptions || {}; //config key is lower cased 
-  menuOpts["themesPath"] = params.cdn_url_reveal; // point to proper url
-
-  pluginOptions["menu"] = menuOpts;
+//enable menu and chalkboard by default if not set
+if(pluginOptions.menu_enabled === undefined){
+  pluginOptions.menu_enabled = true
 }
 
+// configure menu if enabled
+if (pluginOptions.menu_enabled) {
+  enabledPlugins.push(RevealMenu);
+
+  // make sure we have a menu configuration so we can set defaults
+  pluginOptions.menu = (typeof pluginOptions.menu === 'undefined') ? {} : pluginOptions.menu;
+
+  pluginOptions.menu["themesPath"] = params.cdn_url_reveal; // point to proper url
+}
+
+// chalkboard enabled by default
+if(pluginOptions.chalkboard_enabled === undefined){
+  pluginOptions.chalkboard_enabled = true
+}
+
+
 // configure chalkboard if enabled
-if (params.slides.chalkboard) {
+if (pluginOptions.chalkboard_enabled) {
   enabledPlugins.push(RevealChalkboard);
 
   // move chalkboard slightly to right if menu enabled
-  if (params.slides.menu) {
-    pluginOptions["chalkboard"] = {
-      toggleChalkboardButton: { left: "80px" },
-      toggleNotesButton: { left: "130px" },
-    };
+  if (pluginOptions.menu_enabled) {
+    // make sure we have a config object
+    pluginOptions.chalkboard = (typeof pluginOptions.chalkboard === 'undefined') ? {} : pluginOptions.chalkboard;
+    pluginOptions.chalkboard.toggleChalkboardButton = { left: "80px" }
+    pluginOptions.chalkboard.toggleNotesButton = { left: "130px" }
+    
   }
 }
 
 pluginOptions["plugins"] = enabledPlugins;
+console.log("reveal plugin options:")
+console.log(pluginOptions)
 Reveal.initialize(pluginOptions);
 
 
+// mermaid not enabled by default
+if(params.slides.mermaid_enabled === undefined){
+  params.slides.mermaid_enabled = false
+}
+
 // configure mermaid only if enabled
-if (params.slides.mermaid) {
+if (params.slides.mermaid_enabled) {
   //mermaid options
   // mermaid: front matter configuration can be used to set mermaid options
   // You can also use directives (see mermaid documentation)
-  mermaidOptions = params.slides.mermaidoptions || {}; //config key is lower cased 
+  var mermaidOptions = (typeof params.slides.mermaid_options === 'undefined') ? {} : params.slides.mermaid_options;
 
   // startOnLoad must be false since diagrams are lazily rendered
   mermaidOptions["startOnLoad"] = false;
@@ -91,7 +150,7 @@ if (params.slides.mermaid) {
   }
 
   // render mermaid slides for slides that are ready
-  Reveal.on("slidetransitionend", (event) => {
+  Reveal.on("slidechanged", (event) => {
     renderMermaidSlides();
   });
 

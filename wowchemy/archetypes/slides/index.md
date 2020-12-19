@@ -16,30 +16,37 @@ slides:
   #   Use lower case names and replace space with hyphen '-'
   highlight_style: monokai
 
-  mermaid: true # configure js or not
-  mermaidOptions: # see mermaid documentation for other options
+  mermaid_enabled: true # configure js or not
+  mermaid_options: # see mermaid documentation for other options
     theme: base # default/base/dark/neutral/forest
     securityLevel: loose
 
-  menu: true # configure js or not
-  menuOptions: # see menu plugin documentation for other options
-    numbers: false  # numbers in menu slides
-    themes: true  # theme selection in menu
-    transitions: false  # transition selection in menu
-  chalkboard: true
+  # Remember to use snake case for options under reveal_options instead of camel case
+  # all snake case will be converted into came case for reveal 
 
-  reveal: # see reveal documentation for other options
+  reveal_options: # see reveal documentation for other options
     controls: true
     progress: true
-    slideNumber: c/t # true | false | h.v | h/v | c | c/t
+    slide_number: c/t # true | false | h.v | h/v | c | c/t
     center: true
     rtl: false
-    mouseWheel: true
-    transition: zoom #  none/fade/slide/convex/concave/zoom
-    transitionSpeed: slow  # default/fast/slow
-    backgroundTransition: fade # none/fade/slide/convex/concave/zoom
+    mouse_wheel: true
+    transition: fase #  none/fade/slide/convex/concave/zoom
+    # transitionSpeed: slow  # default/fast/slow
+    background_transition: slide # none/fade/slide/convex/concave/zoom
     touch: true
     loop: false
+
+  #   menu_enabled: true # configure js or not
+
+  #   # same item as name used for setting plugin configuration
+  #   menu: # see menu plugin documentation for other options
+  #     numbers: false  # numbers in menu slides
+  #     themes: true  # theme selection in menu
+  #     transitions: false  # transition selection in menu
+
+  #   chalkboard_enabled: true
+
 
 ---
 
