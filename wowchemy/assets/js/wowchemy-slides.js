@@ -1,6 +1,6 @@
 //load options
 import * as params from "@params";
-console.log(params)
+
 // not sure how to make 3rd part addons easily configurable
 enabledPlugins = [
   RevealMarkdown,
@@ -49,10 +49,7 @@ const keysToCamel = function (o) {
 // reveal configurations can be included in front matter under slides.reveal
 var pluginOptions = (typeof params.slides.reveal_options === 'undefined') ? {} : params.slides.reveal_options;
 
-console.log(pluginOptions)
 pluginOptions = keysToCamel(pluginOptions)
-console.log("converted:")
-console.log(pluginOptions)
 
 //enable menu and chalkboard by default if not set
 if(pluginOptions.menu_enabled === undefined){
@@ -90,8 +87,7 @@ if (pluginOptions.chalkboard_enabled) {
 }
 
 pluginOptions["plugins"] = enabledPlugins;
-console.log("reveal plugin options:")
-console.log(pluginOptions)
+
 Reveal.initialize(pluginOptions);
 
 
@@ -110,7 +106,7 @@ if (params.slides.mermaid_enabled) {
   // startOnLoad must be false since diagrams are lazily rendered
   mermaidOptions["startOnLoad"] = false;
 
-  console.log(mermaidOptions)
+
   mermaid.initialize(mermaidOptions);
 
   // Following functions are used to render mermaid diagrams
