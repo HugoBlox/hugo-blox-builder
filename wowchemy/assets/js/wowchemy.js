@@ -5,6 +5,8 @@
  *  Core JS functions and initialization.
  **************************************************/
 
+import {hugoEnvironment} from '@params';
+
 import {
   canChangeTheme,
   changeThemeModeClick,
@@ -13,6 +15,7 @@ import {
   renderThemeVariation
 } from './wowchemy-theming';
 
+console.debug(`Environment: ${hugoEnvironment}`)
 
 /* ---------------------------------------------------------------------------
  * Responsive scrolling for URL hashes.
@@ -32,7 +35,7 @@ function getNavBarHeight() {
  * If it exists on current page, scroll to it responsively.
  * If `target` argument omitted (e.g. after event), assume it's the window's hash.
  */
-function scrollToAnchor(target, duration=600) {
+function scrollToAnchor(target, duration = 600) {
   // If `target` is undefined or HashChangeEvent object, set it to window's hash.
   // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
   target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
@@ -305,13 +308,15 @@ function initMap() {
  * --------------------------------------------------------------------------- */
 
 function printLatestRelease(selector, repo) {
-  $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
-    let release = json[0];
-    $(selector).append(' ' + release.name);
-  }).fail(function (jqxhr, textStatus, error) {
-    let err = textStatus + ", " + error;
-    console.log("Request Failed: " + err);
-  });
+  if (hugoEnvironment === 'production') {
+    $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
+      let release = json[0];
+      $(selector).append(' ' + release.name);
+    }).fail(function (jqxhr, textStatus, error) {
+      let err = textStatus + ", " + error;
+      console.log("Request Failed: " + err);
+    });
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -400,7 +405,7 @@ function fixMermaid() {
 }
 
 // Get an element's siblings.
-function getSiblings (elem) {
+function getSiblings(elem) {
   // Filter out itself.
   return Array.prototype.filter.call(elem.parentNode.children, function (sibling) {
     return sibling !== elem;
@@ -537,7 +542,7 @@ $(window).on('load', function () {
   // Hook to perform actions once all Isotope instances have loaded.
   function incrementIsotopeCounter() {
     isotopeCounter++;
-    if ( isotopeCounter === isotopeInstancesCount ) {
+    if (isotopeCounter === isotopeInstancesCount) {
       console.debug(`All Portfolio Isotope instances loaded.`);
       // Once all Isotope instances and their images have loaded, scroll to hash (if set).
       // Prevents scrolling to the wrong location due to the dynamic height of Isotope instances.
@@ -596,8 +601,9 @@ $(window).on('load', function () {
 
   // Print latest version of GitHub projects.
   let githubReleaseSelector = '.js-github-release';
-  if ($(githubReleaseSelector).length > 0)
+  if ($(githubReleaseSelector).length > 0) {
     printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
+  }
 
   // On search icon click toggle search dialog.
   $('.js-search').click(function (e) {
