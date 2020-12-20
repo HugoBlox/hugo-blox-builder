@@ -3,7 +3,7 @@
  *  https://github.com/wowchemy/wowchemy-hugo-modules
  *
  *  Wowchemy Theming System
- *  Supported Modes: {0: Day, 1: Night, 2: Auto}
+ *  Supported Modes: {0: Light, 1: Dark, 2: Auto}
  **************************************************/
 
 import {fadeIn} from './wowchemy-animation';
@@ -55,7 +55,10 @@ function initThemeVariation() {
     console.debug('Applying Wowchemy light theme');
     document.body.classList.remove("dark");
   }
-  return {isDarkTheme, currentThemeMode};
+  return {
+    isDarkTheme: isDarkTheme,
+    themeMode: currentThemeMode,
+  };
 }
 
 function changeThemeModeClick(newMode) {
@@ -66,11 +69,16 @@ function changeThemeModeClick(newMode) {
   let isDarkTheme;
   switch (newMode) {
     case 0:
+      localStorage.setItem('wcTheme', '0');
+      isDarkTheme = false;
+      console.info('User changed theme variation to Light.');
+      break;
+    case 1:
       localStorage.setItem('wcTheme', '1');
       isDarkTheme = true;
       console.info('User changed theme variation to Dark.');
       break;
-    case 1:
+    default:
       localStorage.setItem('wcTheme', '2');
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
@@ -84,11 +92,6 @@ function changeThemeModeClick(newMode) {
       }
       console.info('User changed theme variation to Auto.');
       break;
-    default:
-      localStorage.setItem('wcTheme', '0');
-      isDarkTheme = false;
-      console.info('User changed theme variation to Light.');
-      break;
   }
   renderThemeVariation(isDarkTheme, newMode);
 }
@@ -99,22 +102,22 @@ function showActiveTheme(mode) {
   let linkAuto = document.querySelector('.js-set-theme-auto');
   switch (mode) {
     case 0:
+      // Light.
+      linkLight.classList.add('dropdown-item-active');
+      linkDark.classList.remove('dropdown-item-active');
+      linkAuto.classList.remove('dropdown-item-active');
+      break;
+    case 1:
       // Dark.
       linkLight.classList.remove('dropdown-item-active');
       linkDark.classList.add('dropdown-item-active');
       linkAuto.classList.remove('dropdown-item-active');
       break;
-    case 1:
+    default:
       // Auto.
       linkLight.classList.remove('dropdown-item-active');
       linkDark.classList.remove('dropdown-item-active');
       linkAuto.classList.add('dropdown-item-active');
-      break;
-    default:
-      // Light.
-      linkLight.classList.add('dropdown-item-active');
-      linkDark.classList.remove('dropdown-item-active');
-      linkAuto.classList.remove('dropdown-item-active');
       break;
   }
 }
@@ -123,7 +126,7 @@ function showActiveTheme(mode) {
  * Render theme variation (day or night).
  *
  * @param {boolean} isDarkTheme
- * @param {int} themeMode - {0: Dark, 1: Auto, 2: Light}
+ * @param {int} themeMode - {0: Light, 1: Dark, 2: Auto}
  * @param {boolean} init - true only when called on document ready
  * @returns {undefined}
  */

@@ -7,6 +7,8 @@
 
 import {hugoEnvironment} from '@params';
 
+import {fixMermaid} from './wowchemy-utils';
+
 import {
   changeThemeModeClick,
   initThemeVariation,
@@ -387,22 +389,6 @@ function fixHugoOutput() {
   $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
 }
 
-/**
- * Fix Mermaid.js clash with Highlight.js.
- * Refactor Mermaid code blocks as divs to prevent Highlight parsing them and enable Mermaid to parse them.
- */
-function fixMermaid() {
-  let mermaids = [];
-  [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
-  for (let i = 0; i < mermaids.length; i++) {
-    $(mermaids[i]).unwrap('pre');  // Remove <pre> wrapper.
-    $(mermaids[i]).replaceWith(function () {
-      // Convert <code> block to <div> and add `mermaid` class so that Mermaid will parse it.
-      return $("<div />").append($(this).contents()).addClass('mermaid');
-    });
-  }
-}
-
 // Get an element's siblings.
 function getSiblings(elem) {
   // Filter out itself.
@@ -596,15 +582,15 @@ let linkAuto = document.querySelector('.js-set-theme-auto');
 if (linkLight && linkDark && linkAuto) {
   linkLight.addEventListener('click', event => {
     event.preventDefault();
-    changeThemeModeClick(2);
+    changeThemeModeClick(0);
   });
   linkDark.addEventListener('click', event => {
     event.preventDefault();
-    changeThemeModeClick(0);
+    changeThemeModeClick(1);
   });
   linkAuto.addEventListener('click', event => {
     event.preventDefault();
-    changeThemeModeClick(1);
+    changeThemeModeClick(2);
   });
 }
 
