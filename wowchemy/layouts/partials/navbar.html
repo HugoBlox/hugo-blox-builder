@@ -139,6 +139,37 @@
     </div><!-- /.navbar-collapse -->
 
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      {{/* Look for social icons that should be displayed in the navbar.
+           For now just look for a superuser. If more than one superuser
+           is defined, run through all of them. */}}
+
+      {{ range where site.Pages "Section" "authors" }}
+        {{ if .Params.superuser }}
+          {{ range .Params.social }}
+            {{ if .display.navbar }}
+              {{ $pack := or .icon_pack "fas" }}
+              {{ $pack_prefix := $pack }}
+              {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+                {{ $pack_prefix = "fa" }}
+              {{ end }}
+              {{ $link := .link }}
+              {{ $scheme := (urls.Parse $link).Scheme }}
+              {{ $target := "" }}
+              {{ if not $scheme }}
+                {{ $link = .link | relLangURL }}
+              {{ else if in (slice "http" "https") $scheme }}
+                {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+              {{ end }}
+              <li  class="nav-item">
+                <a href="{{ $link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
+                  <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"  aria-hidden="true"></i>
+                </a>
+              </li>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
       {{ $show_search := site.Params.main_menu.show_search | default true }}
       {{ if and site.Params.search.engine $show_search }}
       <li class="nav-item">
