@@ -51,7 +51,7 @@ var pluginOptions = (typeof params.slides.reveal_options === 'undefined') ? {} :
 
 pluginOptions = keysToCamel(pluginOptions)
 
-//enable menu and chalkboard by default if not set
+//enable menu by default if not set
 if(pluginOptions.menu_enabled === undefined){
   pluginOptions.menu_enabled = true
 }
@@ -62,27 +62,6 @@ if (pluginOptions.menu_enabled) {
 
   // make sure we have a menu configuration so we can set defaults
   pluginOptions.menu = (typeof pluginOptions.menu === 'undefined') ? {} : pluginOptions.menu;
-}
-
-
-// chalkboard enabled by default
-if(pluginOptions.chalkboard_enabled === undefined){
-  pluginOptions.chalkboard_enabled = true
-}
-
-
-// configure chalkboard if enabled
-if (pluginOptions.chalkboard_enabled) {
-  enabledPlugins.push(RevealChalkboard);
-
-  // move chalkboard slightly to right if menu enabled
-  if (pluginOptions.menu_enabled) {
-    // make sure we have a config object
-    pluginOptions.chalkboard = (typeof pluginOptions.chalkboard === 'undefined') ? {} : pluginOptions.chalkboard;
-    pluginOptions.chalkboard.toggleChalkboardButton = { left: "80px" }
-    pluginOptions.chalkboard.toggleNotesButton = { left: "130px" }
-    
-  }
 }
 
 pluginOptions["plugins"] = enabledPlugins;

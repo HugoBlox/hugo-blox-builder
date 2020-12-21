@@ -42,7 +42,6 @@ slides:
   #     numbers: false  # numbers in menu slides
   #     transitions: false  # transition selection in menu
 
-  #   chalkboard_enabled: true
 
 ---
 ## testing slides
