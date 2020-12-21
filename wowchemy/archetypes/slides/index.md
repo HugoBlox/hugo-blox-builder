@@ -42,7 +42,6 @@ slides:
   #   # same item as name used for setting plugin configuration
   #   menu: # see menu plugin documentation for other options
   #     numbers: false  # numbers in menu slides
-  #     themes: true  # theme selection in menu
   #     transitions: false  # transition selection in menu
 
   #   chalkboard_enabled: true

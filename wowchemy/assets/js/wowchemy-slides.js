@@ -62,9 +62,8 @@ if (pluginOptions.menu_enabled) {
 
   // make sure we have a menu configuration so we can set defaults
   pluginOptions.menu = (typeof pluginOptions.menu === 'undefined') ? {} : pluginOptions.menu;
-
-  pluginOptions.menu["themesPath"] = params.cdn_url_reveal; // point to proper url
 }
+
 
 // chalkboard enabled by default
 if(pluginOptions.chalkboard_enabled === undefined){

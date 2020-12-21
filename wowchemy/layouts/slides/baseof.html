@@ -23,7 +23,7 @@
 
   <link rel="stylesheet" href="{{ $cdn_url_reveal }}/reveal.min.css">
   {{- $theme := $.Param "slides.theme" | default "black" -}}
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css" id="theme" />
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css" />
 
   {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
   {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
