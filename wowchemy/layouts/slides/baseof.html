@@ -59,8 +59,7 @@
     <script src="/js/vendor/reveal.js/plugin/chalkboard/plugin.js"></script>
   {{ end }}
 
-  {{/*  {{- $mermaid := $.Param "slides.mermaid" | default false -}}  */}}
-  {{ if $.Param "slides.mermaid_enabled" | default false}}
+  {{ if $.Param "slides.diagram" | default false}}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
   {{ end }}
 

@@ -92,16 +92,16 @@ Reveal.initialize(pluginOptions);
 
 
 // mermaid not enabled by default
-if(params.slides.mermaid_enabled === undefined){
-  params.slides.mermaid_enabled = false
+if(params.slides.diagram === undefined){
+  params.slides.diagram = false
 }
 
 // configure mermaid only if enabled
-if (params.slides.mermaid_enabled) {
+if (params.slides.diagram) {
   //mermaid options
   // mermaid: front matter configuration can be used to set mermaid options
   // You can also use directives (see mermaid documentation)
-  var mermaidOptions = (typeof params.slides.mermaid_options === 'undefined') ? {} : params.slides.mermaid_options;
+  var mermaidOptions = (typeof params.slides.diagram_options === 'undefined') ? {} : params.slides.diagram_options;
 
   // startOnLoad must be false since diagrams are lazily rendered
   mermaidOptions["startOnLoad"] = false;

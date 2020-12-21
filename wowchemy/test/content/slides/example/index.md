@@ -12,12 +12,12 @@ slides:
   #   Light style: github. Dark style: dracula (default).
   #   Available highlight themes listed in: https://highlightjs.org/static/demo/
   #   Use lower case names and replace space with hyphen '-'
-  highlight_style: monokai
+  highlight_style: dracula
 
-  mermaid_enabled: true # configure js or not
-  mermaid_options: # see mermaid documentation for other options
+  diagram: true # configure js or not
+  diagram_options: # see mermaid documentation for other options
     theme: base # default/base/dark/neutral/forest
-    securityLevel: loose
+    securityLevel: strict
 
   # Remember to use snake case for options under reveal_options instead of camel case
   # all snake case will be converted into came case for reveal 
@@ -29,7 +29,7 @@ slides:
     center: true
     rtl: false
     mouse_wheel: true
-    transition: fase #  none/fade/slide/convex/concave/zoom
+    transition: fade #  none/fade/slide/convex/concave/zoom
     # transitionSpeed: slow  # default/fast/slow
     background_transition: slide # none/fade/slide/convex/concave/zoom
     touch: true
