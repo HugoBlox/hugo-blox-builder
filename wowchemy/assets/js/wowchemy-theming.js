@@ -23,11 +23,15 @@ function canChangeTheme() {
 // flashing between the default theme mode and the user's choice.
 function initThemeVariation() {
   if (!canChangeTheme()) {
-    return;
+    return {
+      isDarkTheme: window.wc.isSiteThemeDark,
+      themeMode: window.wc.isSiteThemeDark ? 1 : 0,
+    };
   }
 
   let currentThemeMode = getThemeMode();
   let isDarkTheme;
+
   switch (currentThemeMode) {
     case 0:
       isDarkTheme = false;
@@ -48,6 +52,7 @@ function initThemeVariation() {
       }
       break;
   }
+
   if (isDarkTheme && !body.classList.contains('dark')) {
     console.debug('Applying Wowchemy dark theme');
     document.body.classList.add("dark");
@@ -55,6 +60,7 @@ function initThemeVariation() {
     console.debug('Applying Wowchemy light theme');
     document.body.classList.remove("dark");
   }
+
   return {
     isDarkTheme: isDarkTheme,
     themeMode: currentThemeMode,
@@ -100,6 +106,11 @@ function showActiveTheme(mode) {
   let linkLight = document.querySelector('.js-set-theme-light');
   let linkDark = document.querySelector('.js-set-theme-dark');
   let linkAuto = document.querySelector('.js-set-theme-auto');
+
+  if (linkLight === null) {
+    return;
+  }
+
   switch (mode) {
     case 0:
       // Light.
