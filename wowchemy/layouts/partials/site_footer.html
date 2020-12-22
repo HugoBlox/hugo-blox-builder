@@ -30,7 +30,7 @@
               {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
             {{ end }}
             <li>
-              <a href="{{ $link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
+              <a href="{{ $link | safeURL }}"{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
                 <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
               </a>
             </li>
