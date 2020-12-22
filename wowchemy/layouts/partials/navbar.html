@@ -143,29 +143,27 @@
            For now just look for a superuser. If more than one superuser
            is defined, run through all of them. */}}
 
-      {{ range where site.Pages "Section" "authors" }}
-        {{ if .Params.superuser }}
-          {{ range .Params.social }}
-            {{ if .display.navbar }}
-              {{ $pack := or .icon_pack "fas" }}
-              {{ $pack_prefix := $pack }}
-              {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-                {{ $pack_prefix = "fa" }}
-              {{ end }}
-              {{ $link := .link }}
-              {{ $scheme := (urls.Parse $link).Scheme }}
-              {{ $target := "" }}
-              {{ if not $scheme }}
-                {{ $link = .link | relLangURL }}
-              {{ else if in (slice "http" "https") $scheme }}
-                {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-              {{ end }}
-              <li  class="nav-item">
-                <a href="{{ $link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
-                  <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"  aria-hidden="true"></i>
-                </a>
-              </li>
+      {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
+        {{ range .Params.social }}
+          {{ if .display.navbar }}
+            {{ $pack := or .icon_pack "fas" }}
+            {{ $pack_prefix := $pack }}
+            {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+              {{ $pack_prefix = "fa" }}
             {{ end }}
+            {{ $link := .link }}
+            {{ $scheme := (urls.Parse $link).Scheme }}
+            {{ $target := "" }}
+            {{ if not $scheme }}
+              {{ $link = .link | relLangURL }}
+            {{ else if in (slice "http" "https") $scheme }}
+              {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+            <li  class="nav-item">
+              <a href="{{ $link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
+                <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"  aria-hidden="true"></i>
+              </a>
+            </li>
           {{ end }}
         {{ end }}
       {{ end }}
