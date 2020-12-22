@@ -3,7 +3,7 @@
        For now just look for a superuser. If more than one superuser
        is defined, run through all of them. */}}
 
-  {{ display-icons := false }}
+  {{ $displayicons := false }}
   {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
     {{ range .Params.social }}
       {{ if .display.footer }}
@@ -12,8 +12,8 @@
     {{ end }}
   {{ end }}
 
-  {{ if display-icons }}
-    <ul class="network-icon" aria-hidden="true">
+  {{ if $displayicons }}
+    <ul class="footer-icon" aria-hidden="true">
     {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
       {{ range .Params.social }}
         {{ if .display.footer }}
