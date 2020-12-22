@@ -160,7 +160,7 @@
               {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
             {{ end }}
             <li  class="nav-item">
-              <a href="{{ $link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
+              <a class="nav-link" href="{{ $link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
                 <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"  aria-hidden="true"></i>
               </a>
             </li>
