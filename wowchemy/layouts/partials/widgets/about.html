@@ -42,28 +42,24 @@
         {{ end }}
       </div>
 
-      <ul class="network-icon" aria-hidden="true">
-        {{ range $person.social }}
-        {{ $pack := or .icon_pack "fas" }}
-        {{ $pack_prefix := $pack }}
-        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-          {{ $pack_prefix = "fa" }}
+      {{ $displayicons := false }}
+      {{ range $person.social }}
+        {{ if .display.about_widget }}
+          {{ if not $displayicons }}
+            <ul class="network-icon" aria-hidden="true">
+          {{ end }}
+          {{ $displayicons = true }}
+          {{ $icondict := partial "functions/parse_social_link" . }}
+            <li>
+              <a href="{{ $icondict.link | safeURL }}" {{ $icondict.arget | safeHTMLAttr }} aria-label="{{ .icon }}">
+                <i class="{{ $icondict.icon_pack }} {{ $icondict.pack_prefix }}-{{ .icon }} big-icon"></i>
+              </a>
+            </li>
         {{ end }}
-        {{ $link := .link }}
-        {{ $scheme := (urls.Parse $link).Scheme }}
-        {{ $target := "" }}
-        {{ if not $scheme }}
-          {{ $link = .link | relLangURL }}
-        {{ else if in (slice "http" "https") $scheme }}
-          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-        {{ end }}
-        <li>
-          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
-            <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} big-icon"></i>
-          </a>
-        </li>
-        {{ end }}
-      </ul>
+      {{ end }}
+      {{ if $displayicons }}
+        </ul>
+      {{ end }}
 
     </div>
   </div>
