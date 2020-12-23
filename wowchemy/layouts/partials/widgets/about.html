@@ -43,8 +43,10 @@
       </div>
 
       {{ $displayicons := false }}
+      {{ $show_icon := false }}
       {{ range $person.social }}
-        {{ if .display.about_widget }}
+        {{ $show_icon = .display.about_widget | default true }}
+        {{ if $show_icon }}
           {{ if not $displayicons }}
             <ul class="network-icon" aria-hidden="true">
           {{ end }}
