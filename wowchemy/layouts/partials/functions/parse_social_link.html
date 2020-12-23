@@ -1,0 +1,23 @@
+{{ $scr := newScratch }}
+
+{{ $pack := or .icon_pack "fas" }}
+{{ $scr.SetInMap "icondict" "icon_pack" $pack }}
+
+{{ $pack_prefix := $pack }}
+{{ if in (slice "fab" "fas" "far" "fal") $pack }}
+  {{ $pack_prefix = "fa" }}
+{{ end }}
+{{ $scr.SetInMap "icondict" "pack_prefix" $pack_prefix }}
+
+{{ $link := .link }}
+{{ $target := "" }}
+{{ $scheme := (urls.Parse $link).Scheme }}
+{{ if not $scheme }}
+  {{ $link = .link | relLangURL }}
+{{ else if in (slice "http" "https") $scheme }}
+  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+{{ end }}
+{{ $scr.SetInMap "icondict" "link" $link }}
+{{ $scr.SetInMap "icondict" "target" $target }}
+
+{{ return $scr.Get "icondict" }}
