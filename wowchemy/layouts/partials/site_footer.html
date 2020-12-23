@@ -3,15 +3,15 @@
        For now just look for a superuser. If more than one superuser
        is defined, run through all of them. */}}
 
-  {{ $displayicons := false }}
+  {{ $display_icons := false }}
   {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
     {{ range .Params.social }}
       {{ if .display.footer }}
-        {{ if not $displayicons }}
+        {{ if not $display_icons }}
           <div class="d-flex justify-content-center">
             <ul class="network-icon" aria-hidden="true">
         {{ end }}
-        {{ $displayicons = true }}
+        {{ $display_icons = true }}
         {{ $icon_def := partial "functions/parse_social_link" . }}
         <li>
           <a href="{{ $icon_def.link | safeURL }}"{{ $icon_def.target | safeHTMLAttr }} aria-label="{{ .icon }}">
@@ -21,7 +21,7 @@
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ if $displayicons }}
+  {{ if $display_icons }}
       </ul>
     </div>
   {{ end }}
