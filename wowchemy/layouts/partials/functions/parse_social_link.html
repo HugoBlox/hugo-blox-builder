@@ -1,13 +1,13 @@
 {{ $scr := newScratch }}
 
 {{ $pack := or .icon_pack "fas" }}
-{{ $scr.SetInMap "icon_def" "icon_pack" $pack }}
+{{ $scr.SetInMap "social_link" "icon_pack" $pack }}
 
 {{ $pack_prefix := $pack }}
 {{ if in (slice "fab" "fas" "far" "fal") $pack }}
   {{ $pack_prefix = "fa" }}
 {{ end }}
-{{ $scr.SetInMap "icon_def" "pack_prefix" $pack_prefix }}
+{{ $scr.SetInMap "social_link" "pack_prefix" $pack_prefix }}
 
 {{ $link := .link }}
 {{ $target := "" }}
@@ -17,7 +17,7 @@
 {{ else if in (slice "http" "https") $scheme }}
   {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
 {{ end }}
-{{ $scr.SetInMap "icon_def" "link" $link }}
-{{ $scr.SetInMap "icon_def" "target" $target }}
+{{ $scr.SetInMap "social_link" "link" $link }}
+{{ $scr.SetInMap "social_link" "target" $target }}
 
-{{ return $scr.Get "icon_def" }}
+{{ return $scr.Get "social_link" }}

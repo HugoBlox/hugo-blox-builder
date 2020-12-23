@@ -12,10 +12,10 @@
             <ul class="network-icon" aria-hidden="true">
         {{ end }}
         {{ $display_icons = true }}
-        {{ $icon_def := partial "functions/parse_social_link" . }}
+        {{ $social_link := partial "functions/parse_social_link" . }}
         <li>
-          <a href="{{ $icon_def.link | safeURL }}"{{ $icon_def.target | safeHTMLAttr }} aria-label="{{ .icon }}">
-            <i class="{{ $icon_def.icon_pack }} {{ $icon_def.pack_prefix }}-{{ .icon }}"></i>
+          <a href="{{ $social_link.link | safeURL }}"{{ $social_link.target | safeHTMLAttr }} aria-label="{{ .icon }}">
+            <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ .icon }}"></i>
           </a>
         </li>
       {{ end }}
