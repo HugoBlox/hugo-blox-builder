@@ -7,38 +7,23 @@
   {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
     {{ range .Params.social }}
       {{ if .display.footer }}
+        {{ if not $displayicons }}
+          <div class="d-flex justify-content-center">
+            <ul class="network-icon" aria-hidden="true">
+        {{ end }}
         {{ $displayicons = true }}
+        {{ $icondict := partial "functions/parse_social_link" . }}
+        <li>
+          <a href="{{ $icondict.link | safeURL }}"{{ $icondict.target | safeHTMLAttr }} aria-label="{{ .icon }}">
+            <i class="{{ $icondict.icon_pack }} {{ $icondict.pack_prefix }}-{{ .icon }}"></i>
+          </a>
+        </li>
       {{ end }}
     {{ end }}
   {{ end }}
-
   {{ if $displayicons }}
-    <ul class="footer-icon" aria-hidden="true">
-    {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
-      {{ range .Params.social }}
-        {{ if .display.footer }}
-          {{ $pack := or .icon_pack "fas" }}
-          {{ $pack_prefix := $pack }}
-          {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-            {{ $pack_prefix = "fa" }}
-          {{ end }}
-          {{ $link := .link }}
-          {{ $scheme := (urls.Parse $link).Scheme }}
-          {{ $target := "" }}
-          {{ if not $scheme }}
-            {{ $link = .link | relLangURL }}
-          {{ else if in (slice "http" "https") $scheme }}
-            {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-          {{ end }}
-          <li>
-            <a href="{{ $link | safeURL }}"{{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
-              <i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }}"></i>
-            </a>
-          </li>
-        {{ end }}
-      {{ end }}
-    {{ end }}
-    </ul>
+      </ul>
+    </div>
   {{ end }}
 
   {{ if or (site.GetPage "terms.md") (site.GetPage "privacy.md") }}

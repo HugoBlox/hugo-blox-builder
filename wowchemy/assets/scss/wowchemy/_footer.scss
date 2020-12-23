@@ -43,27 +43,3 @@ footer .powered-by {
   height: 22px;
   vertical-align: text-bottom;
 }
-
-// Footer network icons //
-
-ul.footer-icon {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-icon li {
-  margin-right: 10px;
-}
-
-.footer-icon li:last-of-type {
-  margin-right: 0;
-}
-
-.footer-icon li:hover {
-  transform: scale(1.2)
-}
