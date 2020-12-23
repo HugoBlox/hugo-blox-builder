@@ -5,8 +5,18 @@
  *  Core JS functions and initialization.
  **************************************************/
 
-import {canChangeTheme, changeThemeModeClick, initThemeVariation, renderThemeVariation} from './wowchemy-theming';
+import {hugoEnvironment} from '@params';
 
+import {fixMermaid} from './wowchemy-utils';
+
+import {
+  changeThemeModeClick,
+  initThemeVariation,
+  renderThemeVariation,
+  onMediaQueryListEvent,
+} from './wowchemy-theming';
+
+console.debug(`Environment: ${hugoEnvironment}`)
 
 /* ---------------------------------------------------------------------------
  * Responsive scrolling for URL hashes.
@@ -26,7 +36,7 @@ function getNavBarHeight() {
  * If it exists on current page, scroll to it responsively.
  * If `target` argument omitted (e.g. after event), assume it's the window's hash.
  */
-function scrollToAnchor(target) {
+function scrollToAnchor(target, duration = 600) {
   // If `target` is undefined or HashChangeEvent object, set it to window's hash.
   // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
   target = (typeof target === 'undefined' || typeof target === 'object') ? decodeURIComponent(window.location.hash) : target;
@@ -40,7 +50,7 @@ function scrollToAnchor(target) {
     $('body').addClass('scrolling');
     $('html, body').animate({
       scrollTop: elementOffset
-    }, 600, function () {
+    }, duration, function () {
       $('body').removeClass('scrolling');
     });
   } else {
@@ -299,13 +309,15 @@ function initMap() {
  * --------------------------------------------------------------------------- */
 
 function printLatestRelease(selector, repo) {
-  $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
-    let release = json[0];
-    $(selector).append(' ' + release.name);
-  }).fail(function (jqxhr, textStatus, error) {
-    let err = textStatus + ", " + error;
-    console.log("Request Failed: " + err);
-  });
+  if (hugoEnvironment === 'production') {
+    $.getJSON('https://api.github.com/repos/' + repo + '/tags').done(function (json) {
+      let release = json[0];
+      $(selector).append(' ' + release.name);
+    }).fail(function (jqxhr, textStatus, error) {
+      let err = textStatus + ", " + error;
+      console.log("Request Failed: " + err);
+    });
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -377,20 +389,12 @@ function fixHugoOutput() {
   $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
 }
 
-/**
- * Fix Mermaid.js clash with Highlight.js.
- * Refactor Mermaid code blocks as divs to prevent Highlight parsing them and enable Mermaid to parse them.
- */
-function fixMermaid() {
-  let mermaids = [];
-  [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
-  for (let i = 0; i < mermaids.length; i++) {
-    $(mermaids[i]).unwrap('pre');  // Remove <pre> wrapper.
-    $(mermaids[i]).replaceWith(function () {
-      // Convert <code> block to <div> and add `mermaid` class so that Mermaid will parse it.
-      return $("<div />").append($(this).contents()).addClass('mermaid');
-    });
-  }
+// Get an element's siblings.
+function getSiblings(elem) {
+  // Filter out itself.
+  return Array.prototype.filter.call(elem.parentNode.children, function (sibling) {
+    return sibling !== elem;
+  });
 }
 
 /* ---------------------------------------------------------------------------
@@ -407,49 +411,9 @@ $(document).ready(function () {
     hljs.initHighlighting();
   }
 
-  // Initialize theme variation.
-  initThemeVariation();
-
-  // Change theme mode.
-  $('.js-set-theme-light').click(function (e) {
-    e.preventDefault();
-    changeThemeModeClick(2);
-  });
-  $('.js-set-theme-dark').click(function (e) {
-    e.preventDefault();
-    changeThemeModeClick(0);
-  });
-  $('.js-set-theme-auto').click(function (e) {
-    e.preventDefault();
-    changeThemeModeClick(1);
-  });
-
-  // Live update of day/night mode on system preferences update (no refresh required).
-  // Note: since we listen only for *dark* events, we won't detect other scheme changes such as light to no-preference.
-  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  darkModeMediaQuery.addEventListener("change", (e) => {
-    if (!canChangeTheme()) {
-      // Changing theme variation is not allowed by admin.
-      return;
-    }
-    const darkModeOn = e.matches;
-    console.log(`OS dark mode preference changed to ${darkModeOn ? '🌒 on' : '☀️ off'}.`);
-    let currentThemeVariation = parseInt(localStorage.getItem('dark_mode') || 2);
-    let isDarkTheme;
-    if (currentThemeVariation === 2) {
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        // The visitor prefers dark themes.
-        isDarkTheme = true;
-      } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        // The visitor prefers light themes.
-        isDarkTheme = false;
-      } else {
-        // The visitor does not have a day or night preference, so use the theme's default setting.
-        isDarkTheme = isSiteThemeDark;
-      }
-      renderThemeVariation(isDarkTheme);
-    }
-  });
+  // Render theme variation, including any HLJS and Mermaid themes.
+  let {isDarkTheme, themeMode} = initThemeVariation();
+  renderThemeVariation(isDarkTheme, themeMode, true);
 });
 
 /* ---------------------------------------------------------------------------
@@ -457,55 +421,84 @@ $(document).ready(function () {
  * --------------------------------------------------------------------------- */
 
 $(window).on('load', function () {
-  // On page load, scroll to hash (if set) in URL
-  // If URL contains a hash and there are no dynamically loaded images on the page,
-  // immediately scroll to target ID taking into account responsive offset.
-  // Otherwise, wait for `imagesLoaded()` to complete before scrolling to hash to prevent scrolling to wrong
-  // location.
-  if (window.location.hash && !$('.projects-container').length) {
-    scrollToAnchor();
-  }
+  // Init Isotope Layout Engine for instances of the Portfolio widget.
+  let isotopeInstances = document.querySelectorAll('.projects-container');
+  let isotopeInstancesCount = isotopeInstances.length;
+  let isotopeCounter = 0;
+  isotopeInstances.forEach(function (isotopeInstance, index) {
+    console.debug(`Loading Isotope instance ${index}`);
 
-  // Filter projects.
-  $('.projects-container').each(function (index, container) {
-    let $container = $(container);
-    let $section = $container.closest('section');
-    let layout;
-    if ($section.find('.isotope').hasClass('js-layout-row')) {
+    // Isotope instance
+    let iso;
+
+    // Get the layout for this Isotope instance
+    let isoSection = isotopeInstance.closest('section');
+    let layout = '';
+    if (isoSection.querySelector('.isotope').classList.contains('js-layout-row')) {
       layout = 'fitRows';
     } else {
       layout = 'masonry';
     }
 
-    $container.imagesLoaded(function () {
-      // Initialize Isotope after all images have loaded.
-      $container.isotope({
+    // Get default filter (if any) for this instance
+    let defaultFilter = isoSection.querySelector('.default-project-filter');
+    let filterText = '*';
+    if (defaultFilter !== null) {
+      filterText = defaultFilter.textContent;
+    }
+    console.debug(`Default Isotope filter: ${filterText}`);
+
+    // Init Isotope instance once its images have loaded.
+    imagesLoaded(isotopeInstance, function () {
+      iso = new Isotope(isotopeInstance, {
         itemSelector: '.isotope-item',
         layoutMode: layout,
         masonry: {
           gutter: 20
         },
-        filter: $section.find('.default-project-filter').text()
+        filter: filterText
       });
 
-      // Filter items when filter link is clicked.
-      $section.find('.project-filters a').click(function () {
-        let selector = $(this).attr('data-filter');
-        $container.isotope({filter: selector});
-        $(this).removeClass('active').addClass('active').siblings().removeClass('active all');
-        return false;
-      });
+      // Filter Isotope items when a toolbar filter button is clicked.
+      let isoFilterButtons = isoSection.querySelectorAll('.project-filters a');
+      isoFilterButtons.forEach(button => button.addEventListener('click', (e) => {
+        e.preventDefault();
+        let selector = button.getAttribute('data-filter');
 
-      // If window hash is set, scroll to hash.
-      // Placing this within `imagesLoaded` prevents scrolling to the wrong location due to dynamic image loading
-      // affecting page layout and position of the target anchor ID.
-      // Note: If there are multiple project widgets on a page, ideally only perform this once after images
-      // from *all* project widgets have finished loading.
-      if (window.location.hash) {
-        scrollToAnchor();
-      }
+        // Apply filter
+        console.debug(`Updating Isotope filter to ${selector}`);
+        iso.arrange({filter: selector});
+
+        // Update active toolbar filter button
+        button.classList.remove('active');
+        button.classList.add('active');
+        let buttonSiblings = getSiblings(button);
+        buttonSiblings.forEach(buttonSibling => {
+          buttonSibling.classList.remove('active');
+          buttonSibling.classList.remove('all');
+        });
+      }));
+
+      // Check if all Isotope instances have loaded.
+      incrementIsotopeCounter();
     });
   });
+
+  // Hook to perform actions once all Isotope instances have loaded.
+  function incrementIsotopeCounter() {
+    isotopeCounter++;
+    if (isotopeCounter === isotopeInstancesCount) {
+      console.debug(`All Portfolio Isotope instances loaded.`);
+      // Once all Isotope instances and their images have loaded, scroll to hash (if set).
+      // Prevents scrolling to the wrong location due to the dynamic height of Isotope instances.
+      // Each Isotope instance height is affected by applying filters and loading images.
+      // Without this logic, the scroll location can appear correct, but actually a few pixels out and hence Scrollspy
+      // can highlight the wrong nav link.
+      if (window.location.hash) {
+        scrollToAnchor(decodeURIComponent(window.location.hash), 0);
+      }
+    }
+  }
 
   // Enable publication filter for publication index page.
   if ($('.pub-filters-select')) {
@@ -553,8 +546,9 @@ $(window).on('load', function () {
 
   // Print latest version of GitHub projects.
   let githubReleaseSelector = '.js-github-release';
-  if ($(githubReleaseSelector).length > 0)
+  if ($(githubReleaseSelector).length > 0) {
     printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
+  }
 
   // On search icon click toggle search dialog.
   $('.js-search').click(function (e) {
@@ -581,8 +575,37 @@ $(window).on('load', function () {
   fixScrollspy();
 });
 
-// Normalize Bootstrap carousel slide heights.
-$(window).on('load resize orientationchange', normalizeCarouselSlideHeights);
+// Theme chooser events.
+let linkLight = document.querySelector('.js-set-theme-light');
+let linkDark = document.querySelector('.js-set-theme-dark');
+let linkAuto = document.querySelector('.js-set-theme-auto');
+if (linkLight && linkDark && linkAuto) {
+  linkLight.addEventListener('click', event => {
+    event.preventDefault();
+    changeThemeModeClick(0);
+  });
+  linkDark.addEventListener('click', event => {
+    event.preventDefault();
+    changeThemeModeClick(1);
+  });
+  linkAuto.addEventListener('click', event => {
+    event.preventDefault();
+    changeThemeModeClick(2);
+  });
+}
+
+// Media Query events.
+// Live update of day/night mode on system preferences update (no refresh required).
+// Note: since we listen only for *dark* events, we won't detect other scheme changes such as light to no-preference.
+const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+darkModeMediaQuery.addEventListener("change", (event) => {
+  onMediaQueryListEvent(event);
+});
+
+// Normalize Bootstrap carousel slide heights for Slider widget instances.
+window.addEventListener('load', normalizeCarouselSlideHeights);
+window.addEventListener('resize', normalizeCarouselSlideHeights);
+window.addEventListener('orientationchange', normalizeCarouselSlideHeights);
 
 // Automatic main menu dropdowns on mouse over.
 $('body').on('mouseenter mouseleave', '.dropdown', function (e) {

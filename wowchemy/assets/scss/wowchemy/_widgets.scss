@@ -3,7 +3,8 @@
  **************************************************/
 
 .home-section {
-  background-color: $sta-home-section-odd;
+  // Use `background` rather than `background-color` so it can support gradients in theme packs.
+  background: $sta-home-section-odd;
   position: relative;  // Required for component positioning within section.
   padding: 110px 0 110px 0;
   z-index: 0;  // Explicit z-order otherwise `.home-section-bg` can be hidden by any `.home-section` background.
@@ -92,15 +93,15 @@
 }
 
 .home-section:nth-of-type(even) {
-  background-color: $sta-home-section-even;
+  background: $sta-home-section-even;
 }
 
 .dark .home-section {
-  background-color: $sta-dark-home-section-odd;
+  background: $sta-dark-home-section-odd;
 }
 
 .dark .home-section:nth-of-type(even) {
-  background-color: $sta-dark-home-section-even;
+  background: $sta-dark-home-section-even;
 }
 
 @media screen and (max-width: 768px) {

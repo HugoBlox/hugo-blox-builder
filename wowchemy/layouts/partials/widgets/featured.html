@@ -29,6 +29,8 @@
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 
+{{ $count := len $query }}
+
 {{/* Sort */}}
 {{ $sort_by := "Date" }}
 {{ $query = sort $query $sort_by $items_sort }}
@@ -66,10 +68,22 @@
     {{ end }}
   {{end}}
 
-  {{ if $st.Params.content.link_to_archive }}
+  {{/* Archive link */}}
+  {{ $show_archive_link := $st.Params.content.archive.enable | default (gt $count $items_count) }}
+  {{ if $show_archive_link }}
+
+    {{ $archive_link := "" }}
+    {{ if $st.Params.content.archive.link }}
+      {{ $archive_link = $st.Params.content.archive.link | relLangURL }}
+    {{ else }}
+      {{ $archive_link = $archive_page.RelPermalink }}
+    {{ end }}
+
+    {{ $archive_text := $st.Params.content.archive.text | default (i18n $i18n) | default "See all" }}
+
     <div class="see-all">
-      <a href="{{ $archive_page.RelPermalink }}">
-        {{ i18n $i18n | default "See all" }}
+      <a href="{{ $archive_link }}">
+        {{ $archive_text | emojify }}
         <i class="fas fa-angle-right"></i>
       </a>
     </div>

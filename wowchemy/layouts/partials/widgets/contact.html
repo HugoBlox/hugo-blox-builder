@@ -59,7 +59,7 @@
 
   <ul class="fa-ul">
 
-    {{ if and $data.email (not $use_form) }}
+    {{ if $data.email }}
     <li>
       <i class="fa-li fas fa-envelope fa-2x" aria-hidden="true"></i>
       <span id="person-email">

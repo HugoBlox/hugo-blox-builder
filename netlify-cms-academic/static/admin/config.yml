@@ -1,9 +1,77 @@
 backend:
   name: git-gateway
   branch: master
-media_folder: 'static/media/'
-public_folder: 'media'
+media_folder: 'static/media'
+public_folder: '/media'
 collections:
+  - name: home
+    label: "Homepage"
+    folder: 'content/home'
+    path: '{{slug}}'
+    # When specifying a path on a folder collection, media_folder defaults to an empty string, so make it explicit.
+    media_folder: '/static/media'
+    public_folder: ''
+    summary: "{{filename}}: {{title}}"
+    identifier_field: "widget_id"
+    create: true
+    fields:
+      - {label: "Widget Type (https://wowchemy.com/docs/page-builder/)", name: "widget", widget: "string", required: true}
+      - {label: 'Your reference for this widget (e.g. recent-posts)', name: 'widget_id', widget: 'string', default: 'my-widget-123'}
+      - {label: "Headless?", name: "headless", widget: "hidden", default: true}
+      - label: "Widget position"
+        name: "weight"
+        widget: "number"
+        default: 10
+        valueType: "int"
+        min: 0
+        max: 1001
+        step: 10
+      - {label: "Title", name: "title", widget: "string", required: false}
+      - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
+      - label: "Enabled?"
+        name: "active"
+        required: false
+        widget: "boolean"
+        default: true
+      - label: "Widget Style"
+        name: "design"
+        widget: "object"
+        required: false
+        fields:
+          - {label: "Columns (options: `1` or `2`)", name: "columns", widget: "string", default: "2", required: false}
+          - label: "Background"
+            name: "background"
+            widget: "object"
+            required: false
+            fields:
+              - {label: 'Solid color', name: 'color', widget: 'color', enableAlpha: true, allowInput: true, required: false}
+              - {label: 'Gradient start', name: 'gradient_start', widget: 'color', enableAlpha: true, allowInput: true, required: false}
+              - {label: 'Gradient end', name: 'gradient_end', widget: 'color', enableAlpha: true, allowInput: true, required: false}
+              - label: "Use a light text color?"
+                name: "text_color_light"
+                required: false
+                widget: "boolean"
+                default: false
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                required: false
+                # When specifying a path on a folder collection, media_folder defaults to an empty string, so make it explicit.
+                media_folder: '/static/media'
+                public_folder: ''
+                media_library:
+                  config:
+                    multiple: false
+              - label: "Darken the image? (0 is transparent & 1 is opaque)"
+                name: "image_darken"
+                widget: "number"
+                default: 0.0
+                valueType: "float"
+                min: 0.0
+                max: 1.0
+                step: 0.1
+                required: false
+      - {label: "Body", name: "body", widget: "markdown", required: false}
   - name: authors
     label: Authors
     label_singular: Author
@@ -89,10 +157,12 @@ collections:
         name: "draft"
         widget: "boolean"
         default: false
+        required: false
       - label: "Featured"
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Authors"
         name: "authors"
         required: false
@@ -118,13 +188,14 @@ collections:
             name: "filename"
             widget: "image"
             default: "featured"
+            required: false
             media_library:
               config:
                 multiple: false
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
-          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
   - name: projects
     label: Projects
     label_singular: Project
@@ -141,10 +212,12 @@ collections:
         name: "draft"
         widget: "boolean"
         default: false
+        required: false
       - label: "Featured"
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Authors"
         name: "authors"
         required: false
@@ -186,13 +259,14 @@ collections:
             name: "filename"
             widget: "image"
             default: "featured"
+            required: false
             media_library:
               config:
                 multiple: false
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
-          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
   - name: talks
     label: Talks
     label_singular: Talk
@@ -233,10 +307,12 @@ collections:
         name: "draft"
         widget: "boolean"
         default: false
+        required: false
       - label: "Featured"
         name: "featured"
         widget: "boolean"
         default: false
+        required: false
       - label: "Authors"
         name: "authors"
         required: false
@@ -262,14 +338,96 @@ collections:
             name: "filename"
             widget: "image"
             default: "featured"
+            required: false
             media_library:
               config:
                 multiple: false
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
-          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false}
+          - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
       - {label: "Details", name: "body", widget: "markdown", required: false}
+  - name: publications
+    label: Publications
+    label_singular: Publication
+    folder: 'content/publication'
+    path: '{{slug}}/index'
+    create: true  # Allow users to create new documents in this collection
+    fields: # The fields each document in this collection have
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - label: "Publication type"
+        name: "publication_types"
+        required: true
+        default: ["0"]
+        widget: "select"
+        # Can only have 1 pub. type assigned, but need `multiple` option to save as a Hugo taxonomy list.
+        multiple: true
+        options:
+          - { label: "Uncategorized", value: "0" }
+          - { label: "Conference paper", value: "1" }
+          - { label: "Journal article", value: "2" }
+          - { label: "Preprint / Working Paper", value: "3" }
+          - { label: "Report", value: "4" }
+          - { label: "Book", value: "5" }
+          - { label: "Book section", value: "6" }
+          - { label: "Thesis", value: "7" }
+          - { label: "Patent", value: "8" }
+      - label: "Authors"
+        name: "authors"
+        required: true
+        widget: "list"
+      - label: "Author Notes (contributions or affiliations for each author)"
+        name: "author_notes"
+        required: false
+        widget: "list"
+      - { label: "DOI", name: "doi", widget: "string", required: false }
+      - { label: "Publication", name: "publication", widget: "string", required: false }
+      - { label: "Publication (abbreviated)", name: "publication_short", widget: "string", required: false }
+      - { label: "Abstract", name: "abstract", widget: "text", required: false }
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+        required: false
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        required: false
+      - label: "Tags"
+        name: "tags"
+        required: false
+        widget: "list"
+      - label: "Categories"
+        name: "categories"
+        required: false
+        widget: "list"
+      - label: "Projects"
+        name: "projects"
+        required: false
+        widget: "list"
+      - {label: "Markdown slides (reference a deck in 'content/slides/')", name: "slides", widget: "string", required: false}
+      - label: "Featured Image"
+        name: "image"
+        required: false
+        widget: object
+        fields:
+          - label: "Upload an image named `featured.jpg/png`"
+            name: "filename"
+            widget: "image"
+            default: "featured"
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - { label: Caption, name: caption, widget: string, required: false }
+          - { label: Description for screen readers, name: alt_text, widget: string, required: false }
+          - { label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart" }
+          - { label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false }
+      - { label: "Summary (shortened abstract)", name: "summary", widget: "text", required: false }
+      - {label: "Details", name: "body", widget: "markdown", required: false}
+      - { label: "Publish this page on", name: "date", widget: "datetime" }
   - name: pages
     label: "Pages"
     files:

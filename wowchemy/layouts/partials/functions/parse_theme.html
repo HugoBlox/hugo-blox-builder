@@ -59,6 +59,8 @@
 {{- $scr.Set "dark_link" ($theme.dark.link | default $theme.primary) -}}
 {{- $scr.Set "dark_link_hover" ($theme.dark.link_hover | default $theme.primary) -}}
 
+{{- $scr.Set "link_decoration" ($theme.link_decoration | default "inherit") -}}
+
 {{- $scr.Set "primary" $theme.primary -}}
 
 {{- $scr.Set "menu_primary" $theme.menu_primary -}}

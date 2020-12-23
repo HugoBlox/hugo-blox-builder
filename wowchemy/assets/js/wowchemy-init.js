@@ -14,5 +14,5 @@ window.wc = {
   isSiteThemeDark: wcIsSiteThemeDark,
 }
 
-// Initialize theme variation.
+// Initialize theme variation and set body theme class.
 initThemeVariation();

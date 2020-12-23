@@ -7,9 +7,9 @@
 {{ $icon := "" }}
 
 {{ with .sect }}
-  {{ if .IsSection}}
+  {{ if .IsSection }}
     {{ if not $is_root }}
-      {{- $first = eq $current_node.FirstSection . -}}
+      {{- $first = (eq $current_node.FirstSection.Type "book") | and (eq $current_node.FirstSection .) -}}
     {{ end }}
 
     {{- safeHTML $current_node.FirstSection.Params.pre_nav -}}

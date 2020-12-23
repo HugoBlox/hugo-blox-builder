@@ -2,14 +2,14 @@
 
 {{- $taxonomy := "authors" }}
 {{ if .Param $taxonomy }}
-  {{ $link_authors := site.Params.link_authors | default true }}
   {{ range $index, $value := (.GetTerms $taxonomy) }}
     {{- /* Highlight the author's name? */ -}}
     {{- $highlight_name := .Page.Params.highlight_name | default false -}}
 
     {{- if gt $index 0 }}, {{ end -}}
     <span {{ if $highlight_name }}class="author-highlighted"{{end}}>
-      {{- if $link_authors -}}
+      {{/* Effectively check the page's `_build` option as `_build` is not exposed in Hugo's Page object. */}}
+      {{- if .RelPermalink -}}
         <a href="{{.RelPermalink}}">{{.LinkTitle}}</a>
       {{- else -}}
         {{ .LinkTitle }}

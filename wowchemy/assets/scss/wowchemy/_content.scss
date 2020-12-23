@@ -158,6 +158,11 @@ article .article-metadata {
   @include word-wrap();
 }
 
+// Underline links if they are a similar color to the body text.
+.article-style a {
+  text-decoration: $sta-link-decoration;
+}
+
 .article-style img,
 .article-style video {
   margin-left: auto;
