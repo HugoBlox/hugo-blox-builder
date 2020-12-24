@@ -1,6 +1,8 @@
 //load options
 import * as params from "@params";
 
+import {fixMermaid} from './wowchemy-utils';
+
 // not sure how to make 3rd part addons easily configurable
 enabledPlugins = [
   RevealMarkdown,
@@ -134,22 +136,6 @@ if (params.slides.diagram) {
       renderMermaidSlides();
     }
   });
-  // end of mermaid diagram functions
-
-  function fixMermaid() {
-    let mermaids = [];
-    [].push.apply(
-      mermaids,
-      document.getElementsByClassName("language-mermaid")
-    );
-    for (let i = 0; i < mermaids.length; i++) {
-      $(mermaids[i]).unwrap("pre"); // Remove <pre> wrapper.
-      $(mermaids[i]).replaceWith(function () {
-        // Convert <code> block to <div> and add `mermaid` class so that Mermaid will parse it.
-        return $("<div />").append($(this).contents()).addClass("mermaid");
-      });
-    }
-  }
 
   // document ready
   document.addEventListener("DOMContentLoaded", function () {
