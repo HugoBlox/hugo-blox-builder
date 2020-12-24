@@ -145,8 +145,8 @@
         {{ range where .Params.social ".display.header" true }}
           {{ $social_link := partial "functions/get_social_link" . }}
           <li class="nav-item d-none d-lg-inline-flex">
-            <a class="nav-link" href="{{ $social_link.link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }} {{ $social_link.target | safeHTMLAttr }} aria-label="{{ .aria_label }}">
-              <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ .icon }}" aria-hidden="true"></i>
+            <a class="nav-link" href="{{ $social_link.link | safeURL }}"{{ with $social_link.tooltip }} data-toggle="tooltip" data-placement="bottom" title="{{.}}"{{ end }} {{ $social_link.target | safeHTMLAttr }} aria-label="{{ $social_link.aria_label }}">
+              <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ $social_link.icon }}" aria-hidden="true"></i>
             </a>
           </li>
         {{ end }}
