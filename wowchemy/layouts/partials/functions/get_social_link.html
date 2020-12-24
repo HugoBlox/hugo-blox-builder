@@ -1,3 +1,5 @@
+{{/* Function to return a linked social icon as a map from an iteration of an author's `social` data. */}}
+
 {{ $scr := newScratch }}
 
 {{ $pack := or .icon_pack "fas" }}
@@ -8,6 +10,8 @@
   {{ $pack_prefix = "fa" }}
 {{ end }}
 {{ $scr.SetInMap "social_link" "pack_prefix" $pack_prefix }}
+
+{{ $scr.SetInMap "social_link" "aria_label" (.label | default .icon) }}
 
 {{ $link := .link }}
 {{ $target := "" }}

@@ -139,20 +139,16 @@
     </div><!-- /.navbar-collapse -->
 
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-      {{/* Look for social icons that should be displayed in the navbar.
-           For now just look for a superuser. If more than one superuser
-           is defined, run through all of them. */}}
 
-      {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
-        {{ range .Params.social }}
-          {{ if .display.navbar }}
-            {{ $social_link := partial "functions/parse_social_link" . }}
-            <li  class="nav-item">
-              <a class="nav-link" href="{{ $social_link.link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }}{{ $social_link.target | safeHTMLAttr }} aria-label="{{ .icon }}">
-                <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ .icon }}"  aria-hidden="true"></i>
-              </a>
-            </li>
-          {{ end }}
+      {{/* Display any social links that the superuser chose to display in the header. */}}
+      {{ range where (where (where site.Pages "Section" "authors") ".Params.superuser" true) ".Params.social" "!=" nil }}
+        {{ range where .Params.social ".display.header" true }}
+          {{ $social_link := partial "functions/get_social_link" . }}
+          <li class="nav-item d-none d-lg-inline-flex">
+            <a class="nav-link" href="{{ $social_link.link | safeURL }}"{{ if .label }} data-toggle="tooltip" data-placement="bottom" title="{{ .label }}"{{ end }} {{ $social_link.target | safeHTMLAttr }} aria-label="{{ .aria_label }}">
+              <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ .icon }}" aria-hidden="true"></i>
+            </a>
+          </li>
         {{ end }}
       {{ end }}
 
