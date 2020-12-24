@@ -111,7 +111,17 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons), name: icon, widget: string}
+          - {label: Icon (see https://wowchemy.com/docs/page-builder/#icons), name: icon, widget: string}
+          - {label: Label (tooltip), name: label, widget: string, required: false}
+          - label: Display in About widget and...
+            name: display
+            widget: object
+            fields:
+            - label: "Header (main menu)"
+              name: "header"
+              widget: "boolean"
+              default: false
+              required: false
       - label: "Organizations you belong to or are affiliated with (shown in About widget)"
         name: "organizations"
         required: false
@@ -249,7 +259,7 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: "Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons)", name: icon, widget: string, required: false}
+          - {label: "Icon (see https://wowchemy.com/docs/page-builder/#icons)", name: icon, widget: string, required: false}
       - label: "Featured Image"
         name: "image"
         required: false
@@ -298,7 +308,7 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: "Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons)", name: icon, widget: string, required: false}
+          - {label: "Icon (see https://wowchemy.com/docs/page-builder/#icons)", name: icon, widget: string, required: false}
       - {label: "Event", name: "event", widget: "string"}
       - {label: "Event link", name: "event_url", widget: "string"}
       - {label: "Publish this page on", name: "publishDate", widget: "datetime"}
