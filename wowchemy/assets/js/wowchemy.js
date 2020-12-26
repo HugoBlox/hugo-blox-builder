@@ -561,10 +561,13 @@ $(window).on('load', function () {
       if ($('body').hasClass('searching')) {
         toggleSearchDialog();
       }
-    } else if (e.which == 191 && e.shiftKey == false && !$('input,textarea').is(':focus')) {
-      // `/` key pressed outside of text input.
-      e.preventDefault();
-      toggleSearchDialog();
+    } else if (e.which == 191 && e.shiftKey == false) {
+      // `/` key pressed.
+      if (!$('input,textarea').is(':focus') && $('.nav-link.js-search').length) {
+        // Outside of text input and a search is enabled.
+        e.preventDefault();
+        toggleSearchDialog();
+      }
     }
   });
 
