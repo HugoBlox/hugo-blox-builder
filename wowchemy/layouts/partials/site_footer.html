@@ -1,24 +1,19 @@
 <footer class="site-footer">
-  {{/* Look for social icons that should be displayed in the footer.
-       For now just look for a superuser. If more than one superuser
-       is defined, run through all of them. */}}
-
+  {{/* Display any social links that the superuser chose to display in the footer. */}}
   {{ $display_icons := false }}
-  {{ range where (where site.Pages "Section" "authors") ".Params.superuser" true }}
-    {{ range .Params.social }}
-      {{ if .display.footer }}
-        {{ if not $display_icons }}
-          <div class="d-flex justify-content-center">
-            <ul class="network-icon" aria-hidden="true">
-        {{ end }}
-        {{ $display_icons = true }}
-        {{ $social_link := partial "functions/parse_social_link" . }}
-        <li>
-          <a href="{{ $social_link.link | safeURL }}"{{ $social_link.target | safeHTMLAttr }} aria-label="{{ .icon }}">
-            <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ .icon }}"></i>
-          </a>
-        </li>
+  {{ range where (where (where site.Pages "Section" "authors") ".Params.superuser" true) ".Params.social" "!=" nil }}
+    {{ range where .Params.social ".display.footer" true }}
+      {{ if not $display_icons }}
+        <div class="d-flex justify-content-center">
+          <ul class="network-icon" aria-hidden="true">
       {{ end }}
+      {{ $display_icons = true }}
+      {{ $social_link := partial "functions/parse_social_link" . }}
+      <li>
+        <a href="{{ $social_link.link | safeURL }}"{{ with $social_link.tooltip }} data-toggle="tooltip" data-placement="top" title="{{.}}"{{ end }} {{ $social_link.target | safeHTMLAttr }} aria-label="{{ $social_link.aria_label }}">
+          <i class="{{ $social_link.icon_pack }} {{ $social_link.pack_prefix }}-{{ $social_link.icon }}" aria-hidden="true"></i>
+        </a>
+      </li>
     {{ end }}
   {{ end }}
   {{ if $display_icons }}
