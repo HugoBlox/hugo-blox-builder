@@ -18,6 +18,14 @@
   translation: 'Abbildung %d:'
 - id: edit_page
   translation: Seite editieren
+- id: theme_selector
+  translation: Einstellungen anzeigen
+- id: theme_light
+  translation: Hell
+- id: theme_dark
+  translation: Dunkel
+- id: theme_auto
+  translation: Automatisch
 - id: btn_preprint
   translation: Vorabdruck
 - id: btn_pdf
