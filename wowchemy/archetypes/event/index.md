@@ -20,13 +20,13 @@ date: {{ .Date }}
 date_end: {{ .Date }}
 all_day: false
 
-# Schedule page publish date (NOT talk date).
+# Schedule page publish date (NOT event date).
 publishDate: {{ .Date }}
 
 authors: []
 tags: []
 
-# Is this a featured talk? (true/false)
+# Is this a featured event? (true/false)
 featured: false
 
 # Featured image
@@ -45,7 +45,7 @@ image:
 #   icon_pack: fab
 #   icon: twitter
 
-# Optional filename of your slides within your talk's folder or a URL.
+# Optional filename of your slides within your event's folder or a URL.
 url_slides:
 
 url_code:
@@ -53,7 +53,7 @@ url_pdf:
 url_video:
 
 # Markdown Slides (optional).
-#   Associate this talk with Markdown slides.
+#   Associate this event with Markdown slides.
 #   Simply enter your slide deck's filename without extension.
 #   E.g. `slides = "example-slides"` references `content/slides/example-slides.md`.
 #   Otherwise, set `slides = ""`.

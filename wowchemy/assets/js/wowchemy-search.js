@@ -90,7 +90,7 @@ function parseResults(query, results) {
     let snippetHighlights = [];
 
     // Show abstract in results for content types where the abstract is often the primary content.
-    if (["publication", "talk"].includes(content_key)) {
+    if (["publication", "event"].includes(content_key)) {
       content = value.item.summary;
     } else {
       content = value.item.content;

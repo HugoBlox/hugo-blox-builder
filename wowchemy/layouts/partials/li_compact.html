@@ -9,7 +9,7 @@
   {{ $link = $item.Params.external_link }}
   {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
 {{ end }}
-{{ if eq $item.Type "talk" }}
+{{ if eq $item.Type "event" }}
   {{ $show_authors_only = true }}
   {{ $show_buttons = true }}
 {{ else if eq $item.Type "publication" }}
@@ -47,7 +47,7 @@
 
     <div class="stream-meta article-metadata">
 
-      {{ if eq $item.Type "talk" }}
+      {{ if eq $item.Type "event" }}
       <div>
         <span>
           {{ partial "functions/get_event_dates" $item }}
