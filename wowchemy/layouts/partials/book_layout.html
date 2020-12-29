@@ -28,9 +28,9 @@
 
         <div class="docs-article-container">
           {{ if $breadcrumb }}
-            {{ partial "breadcrumb" $page }}
+            {{ partial "breadcrumb" $current_page }}
           {{ end }}
-          
+
           <h1>{{ .Title }}</h1>
 
           <div class="article-style">
