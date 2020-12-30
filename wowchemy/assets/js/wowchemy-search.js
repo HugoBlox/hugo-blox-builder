@@ -55,6 +55,7 @@ function initSearch(force, fuse) {
   // If query deleted, clear results.
   if ( query.length < 1) {
     $('#search-hits').empty();
+    $('#search-common-queries').show();
   }
 
   // Check for timer event (enter key not pressed) and query less than minimum length required.
@@ -63,6 +64,7 @@ function initSearch(force, fuse) {
 
   // Do search.
   $('#search-hits').empty();
+  $('#search-common-queries').hide();
   searchAcademic(query, fuse);
   let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?q=' + encodeURIComponent(query) + window.location.hash;
   updateURL(newURL);

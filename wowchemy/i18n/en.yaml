@@ -225,6 +225,9 @@
 - id: search_no_results
   translation: No results found
 
+- id: search_common_queries
+  translation: Common searches
+
 # Error 404
 
 - id: page_not_found

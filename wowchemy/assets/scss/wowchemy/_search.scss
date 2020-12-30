@@ -66,7 +66,8 @@
   text-align: right;
 }
 
-.search-header i {
+// Large icon for closing search dialog.
+.search-header .col-search-close i {
   font-size: 2rem;
   line-height: 1;
 }
@@ -123,6 +124,28 @@
 .form-control:focus {
   border-color: $sta-primary;
   box-shadow: 0 0 0 .2rem $sta-primary-light;
+}
+
+// Common queries
+
+#search-common-queries ul {
+  // Empirically remove indentation due to `fa-ul`'s centered 2em spacing, wider than the search icon.
+  margin-left: 0;
+  padding-left: 1.6em;
+}
+
+#search-common-queries li {
+  // Vertically align FA icons.
+  line-height: 1;
+}
+
+#search-common-queries li a {
+  // Color common search query links as body text.
+  color: inherit;
+}
+
+.dark #search-common-queries li a {
+  color: rgb(248, 248, 242);
 }
 
 /* DARK themed components. */
