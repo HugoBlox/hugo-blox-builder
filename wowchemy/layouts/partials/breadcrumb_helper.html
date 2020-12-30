@@ -2,7 +2,11 @@
   {{ partial "breadcrumb_helper" . }}
   <li class="breadcrumb-item">
     <a href="{{ .RelPermalink }}">
-      {{ if .IsHome }}{{ i18n "home" | default "Home" }}{{ else }}{{ (.LinkTitle | default .Title) | emojify }}{{ end }}
+      {{ if .IsHome }}
+        {{ i18n "home" | default "Home" }}
+      {{ else }}
+        {{ (.LinkTitle | default .Title) | emojify }}
+      {{ end }}
     </a>
   </li>
 {{ end }}
