@@ -4,7 +4,7 @@
 
 {{- if $page.IsHome -}}
 
-  {{ partial "jsonld/website.html" $page }}
+  {{ partialCached "jsonld/website.html" $page }}
 
   {{ if ne $site_type "Person" }}
     {{ partial "jsonld/business.html" $page }}
