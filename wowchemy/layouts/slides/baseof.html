@@ -25,7 +25,6 @@
   {{- $theme := $.Param "slides.theme" | default "black" -}}
   <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css">
 
-  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
   {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
   {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" id=\"highlight-theme\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
 
@@ -60,7 +59,7 @@
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
   {{ end }}
 
-  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides "cdn_url_reveal" $cdn_url_reveal )) }}
+  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
 
   <script type="text/javascript" src="{{ $slidejs.RelPermalink }}" defer></script>
 

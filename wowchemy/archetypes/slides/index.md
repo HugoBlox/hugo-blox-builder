@@ -19,7 +19,6 @@ slides:
   diagram: true # configure js or not
   diagram_options: # see mermaid documentation for other options
     theme: base # default/base/dark/neutral/forest
-    securityLevel: loose
 
   # Remember to use snake case for options under reveal_options instead of camel case
   # all snake case will be converted into came case for reveal 

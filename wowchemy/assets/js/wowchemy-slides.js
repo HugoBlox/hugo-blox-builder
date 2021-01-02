@@ -46,10 +46,11 @@ const keysToCamel = function (o) {
 };
 
 // reveal configurations can be included in front matter under slides.reveal
-var pluginOptions =
-  typeof params.slides.reveal_options === "undefined"
-    ? {}
-    : params.slides.reveal_options;
+var pluginOptions = {}
+if(typeof params.slides.reveal_options === "undefined"){
+  pluginOptions = params.slides.reveal_options;
+}
+
 
 pluginOptions = keysToCamel(pluginOptions);
 
@@ -63,8 +64,10 @@ if (pluginOptions.menu_enabled) {
   enabledPlugins.push(RevealMenu);
 
   // make sure we have a menu configuration so we can set defaults
-  pluginOptions.menu =
-    typeof pluginOptions.menu === "undefined" ? {} : pluginOptions.menu;
+  pluginOptions.menu = {}
+  if(typeof pluginOptions.menu === "undefined"){
+    pluginOptions = pluginOptions.menu;
+  }
 }
 
 pluginOptions["plugins"] = enabledPlugins;
@@ -81,10 +84,10 @@ if (params.slides.diagram) {
   //mermaid options
   // mermaid: front matter configuration can be used to set mermaid options
   // You can also use directives (see mermaid documentation)
-  var mermaidOptions =
-    typeof params.slides.diagram_options === "undefined"
-      ? {}
-      : params.slides.diagram_options;
+  var mermaidOptions = {}
+  if(typeof params.slides.diagram_options === "undefined"){
+    mermaidOptions = params.slides.diagram_options;
+  }
 
   // startOnLoad must be false since diagrams are lazily rendered
   mermaidOptions["startOnLoad"] = false;

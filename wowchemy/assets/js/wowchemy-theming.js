@@ -180,7 +180,7 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
       console.debug('Initializing Mermaid with light theme');
       if (init) {
         /** @namespace window.mermaid **/
-        window.mermaid.initialize({startOnLoad:true, theme: 'default'});
+        window.mermaid.initialize({startOnLoad:true, theme: 'default', securityLevel: 'strict'});
       } else {
         // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
         location.reload();
@@ -206,7 +206,7 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
       console.debug('Initializing Mermaid with dark theme');
       if (init) {
         /** @namespace window.mermaid **/
-        window.mermaid.initialize({startOnLoad:true, theme: 'dark'});
+        window.mermaid.initialize({startOnLoad:true, theme: 'dark', securityLevel: 'strict'});
       } else {
         // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
         location.reload();
