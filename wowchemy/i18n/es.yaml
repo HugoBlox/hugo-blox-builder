@@ -2,12 +2,16 @@
 
 - id: toggle_navigation
   translation: Barra de navegación
+
 - id: table_of_contents
   translation: Índice
+
 - id: on_this_page
   translation: En esta página
+
 - id: back_to_top
   translation: Regreso al inicio
+
 - id: home
   translation: Inicio
 
@@ -15,14 +19,19 @@
 
 - id: related
   translation: Relacionado
+
 - id: minute_read
   translation: min de lectura
+
 - id: previous
   translation: Anterior
+
 - id: next
   translation: Siguiente
+
 - id: figure
   translation: 'Figura %d:'
+
 - id: edit_page
   translation: Edita esta página
 
@@ -30,10 +39,13 @@
 
 - id: theme_selector
   translation: Mostrar preferencias
+
 - id: theme_light
   translation: Claro
+
 - id: theme_dark
   translation: Oscuro
+
 - id: theme_auto
   translation: Automático
 
@@ -41,26 +53,37 @@
 
 - id: btn_preprint
   translation: Prepublicación
+
 - id: btn_pdf
   translation: PDF
+
 - id: btn_cite
   translation: Citar
+
 - id: btn_slides
   translation: Diapositivas
+
 - id: btn_video
   translation: Vídeo
+
 - id: btn_code
   translation: Código fuente
+
 - id: btn_dataset
   translation: Datos
+
 - id: btn_project
   translation: Proyecto
+
 - id: btn_poster
   translation: Poster
+
 - id: btn_source
   translation: Documento fuente
+
 - id: btn_copy
   translation: Copiar
+
 - id: btn_download
   translation: Descargar
 
@@ -68,8 +91,10 @@
 
 - id: interests
   translation: Intereses
+
 - id: education
   translation: Educación
+
 - id: user_profile_latest
   translation: Recientes
 
@@ -87,10 +112,13 @@
 
 - id: more_pages
   translation: Ver todo
+
 - id: more_posts
   translation: Más posts
+
 - id: more_talks
-  translation: Más charlas
+  translation: Más eventos
+
 - id: more_publications
   translation: Más publicaciones
 
@@ -98,47 +126,66 @@
 
 - id: contact_name
   translation: Nombre
+
 - id: contact_email
   translation: Email
+
 - id: contact_message
   translation: Mensaje
+
 - id: contact_send
   translation: Enviar
+
 - id: book_appointment
   translation: Solicitar una cita
 
-# Publication/Talk details
+# Publication/Event details
 
 - id: abstract
   translation: Resumen
+
 - id: publication
   translation: Publicación
+
 - id: publication_type
   translation: Tipo
+
 - id: date
   translation: Fecha
+
 - id: last_updated
   translation: Última actualización el
+
 - id: event
   translation: Evento
+
 - id: location
   translation: Localización
+
 - id: pub_uncat
   translation: Sin categoría
+
 - id: pub_conf
   translation: Artículo de conferencia
+
 - id: pub_journal
   translation: Artículo de revista
+
 - id: pub_preprint
   translation: Prepublicación
+
 - id: pub_report
   translation: Informe
+
 - id: pub_book
   translation: Libro
+
 - id: pub_book_section
   translation: Capítulo de libro
+
 - id: pub_thesis
   translation: Tesis
+
 - id: pub_patent
   translation: Patente
 
@@ -151,12 +198,16 @@
 
 - id: posts
   translation: Posts
+
 - id: publications
   translation: Publicaciones
+
 - id: talks
-  translation: Charlas
+  translation: Eventos
+
 - id: projects
   translation: Proyectos
+
 - id: slides
   translation: Diapositivas
 
@@ -164,17 +215,24 @@
 
 - id: search
   translation: Buscar
+
 - id: search_placeholder
   translation: Buscar...
+
 - id: search_results
   translation: resultados encontrados
+
 - id: search_no_results
   translation: No se encontraron resultados
+
+- id: search_common_queries
+  translation: Búsquedas comunes
 
 # Error 404
 
 - id: page_not_found
   translation: Página no encontrada
+
 - id: 404_recommendations
   translation: ¿Buscabas una de éstas?
 
@@ -182,7 +240,9 @@
 
 - id: cookie_message
   translation: Este sitio web utiliza cookies para garantizarle una mejor experiencia.
+
 - id: cookie_dismiss
   translation: Entendido!
+
 - id: cookie_learn
   translation: Más información
