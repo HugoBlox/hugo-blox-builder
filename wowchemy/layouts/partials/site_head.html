@@ -142,17 +142,22 @@
     {{ end }}
   {{ end }}
 
-  {{ $css_comment := printf "/*!* Wowchemy v%s (https://wowchemy.com/) */\n" site.Data.wowchemy.version }}
-  {{ $css_bundle_head := $css_comment | resources.FromString "css/bundle-head.css" }}
+  {{ $license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
+  {{ $license := $license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
+  {{ $license := $license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
+  {{ $css_bundle_head := $license | resources.FromString "css/bundle-head.css" }}
   {{ $css_options := dict "targetPath" "css/wowchemy.css" }}
   {{- if eq hugo.Environment "production" -}}
     {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
   {{- end -}}
   {{ $sass_template := resources.Get "scss/main.scss" }}
   {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options }}
+  {{- if eq hugo.Environment "production" -}}
+    {{- $style = $style | minify -}}
+  {{- end -}}
   {{ $style := slice $css_bundle_head $style | resources.Concat "css/wowchemy.css" }}
   {{- if eq hugo.Environment "production" -}}
-    {{- $style = $style | minify | fingerprint "md5" -}}
+    {{- $style = $style | fingerprint "md5" -}}
   {{- end -}}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
 

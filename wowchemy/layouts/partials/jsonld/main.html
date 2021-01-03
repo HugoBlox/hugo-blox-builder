@@ -4,7 +4,7 @@
 
 {{- if $page.IsHome -}}
 
-  {{ partial "jsonld/website.html" $page }}
+  {{ partialCached "jsonld/website.html" $page }}
 
   {{ if ne $site_type "Person" }}
     {{ partial "jsonld/business.html" $page }}
@@ -16,7 +16,7 @@
     {{ partial "jsonld/article.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 
-  {{ if eq $page.Type "talk" }}
+  {{ if eq $page.Type "event" }}
     {{ partial "jsonld/event.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 

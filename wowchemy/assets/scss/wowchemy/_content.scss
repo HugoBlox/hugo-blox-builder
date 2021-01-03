@@ -151,8 +151,10 @@ article .article-metadata {
 }
 
 .article-style {
-  // Break unresponsive block content, such as unresponsive embeds, to prevent horizontal scrolling.
-  overflow-x: hidden;
+  // Any unresponsive embeds, e.g. Plotly, should be wrapped to handle on a case-by-case basis.
+  // If any unresponsive embeds still remain in the article, prevent article overflow and DIV scrolling.
+  // Note that lazy-loaded images, e.g. Gallery, may cause scrollable Y-overflow if only X-overflow is hidden pre-load.
+  overflow: hidden;
 
   // Word wrap text content.
   @include word-wrap();

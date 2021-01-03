@@ -55,6 +55,7 @@ function initSearch(force, fuse) {
   // If query deleted, clear results.
   if ( query.length < 1) {
     $('#search-hits').empty();
+    $('#search-common-queries').show();
   }
 
   // Check for timer event (enter key not pressed) and query less than minimum length required.
@@ -63,6 +64,7 @@ function initSearch(force, fuse) {
 
   // Do search.
   $('#search-hits').empty();
+  $('#search-common-queries').hide();
   searchAcademic(query, fuse);
   let newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?q=' + encodeURIComponent(query) + window.location.hash;
   updateURL(newURL);
@@ -90,7 +92,7 @@ function parseResults(query, results) {
     let snippetHighlights = [];
 
     // Show abstract in results for content types where the abstract is often the primary content.
-    if (["publication", "talk"].includes(content_key)) {
+    if (["publication", "event"].includes(content_key)) {
       content = value.item.summary;
     } else {
       content = value.item.content;

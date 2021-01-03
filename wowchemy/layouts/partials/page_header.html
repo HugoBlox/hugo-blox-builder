@@ -7,7 +7,7 @@
 {{ if and (not $title) .IsNode }}
   {{ if eq .Type "post" }}
     {{ $title = i18n "posts" }}
-  {{ else if eq .Type "talk" }}
+  {{ else if eq .Type "event" }}
     {{ $title = i18n "talks" }}
   {{ else if eq .Type "publication" }}
     {{ $title = i18n "publications" }}
