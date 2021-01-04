@@ -265,6 +265,7 @@ function initMap() {
         },
         streetViewControl: false,
         mapTypeControl: false,
+        gestureHandling: "cooperative",
       });
 
       map.addMarker({
