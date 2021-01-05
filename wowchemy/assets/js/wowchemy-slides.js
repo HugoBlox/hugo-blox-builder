@@ -51,7 +51,7 @@ if(typeof params.slides.reveal_options === "undefined"){
 }
 
 
-pluginOptions = keysToCamel(pluginOptions);
+pluginOptions = keysToCamelCase(pluginOptions);
 
 // Enable presentation menu by default.
 if (pluginOptions.menu_enabled === undefined) {
@@ -140,7 +140,7 @@ if (params.slides.diagram) {
   });
 
   // Fix Mermaid conflict with Hightlight JS.
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", () => {
     fixMermaid();
   });
 }
