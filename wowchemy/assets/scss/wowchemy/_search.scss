@@ -2,7 +2,9 @@
  *  Search
  **************************************************/
 
-.search-results {
+// Search modal
+
+.search-modal {
   transform: scale(0);
   -webkit-transform: scale(0);
   background-color: $sta-background;
@@ -16,15 +18,16 @@
   z-index: -99;
 }
 
-.dark .search-results {
+.dark .search-modal {
   background-color: $sta-dark-background;
 }
 
+// Hide body scrollbars whilst searching in modal
 .searching {
   overflow: hidden;
 }
 
-.searching .search-results {
+.searching .search-modal {
   transform: scale(1);
   -webkit-transform: scale(1);
   visibility: visible;
@@ -35,14 +38,16 @@
   width: 100%;
 }
 
-.search-results > .container {
+.search-modal > .container {
   padding-top: 70px;  /* Navbar height. */
 }
 @media screen and (max-width: 1200px) {
-  .search-results > .container {
+  .search-modal > .container {
     padding-top: 50px;  /* Navbar height. */
   }
 }
+
+// Search modal header
 
 .search-header {
   position: -webkit-sticky;
@@ -51,6 +56,11 @@
   background-color: $sta-background;
   padding-top: 2rem;
   padding-bottom: 1rem;
+
+  // Reduce top padding on mobile
+  @include media-breakpoint-down(md) {
+    padding-top: 0;
+  }
 }
 
 .dark .search-header {
@@ -71,6 +81,8 @@
   font-size: 2rem;
   line-height: 1;
 }
+
+// Search box in modal
 
 #search-box {
   position: relative; /* Required for search icon positioning. */
@@ -100,6 +112,17 @@
   font-size: 0.8rem;
 }
 
+.dark #search-query {
+  background-color: $sta-dark-background;;
+}
+
+.form-control:focus {
+  border-color: $sta-primary;
+  box-shadow: 0 0 0 .2rem $sta-primary-light;
+}
+
+// Search result items
+
 .search-hit em {
   font-style: normal;
   background-color: #FFE0B2;
@@ -121,9 +144,41 @@
   display: none;
 }
 
-.form-control:focus {
-  border-color: $sta-primary;
-  box-shadow: 0 0 0 .2rem $sta-primary-light;
+// Search button in Book sidebar
+
+.sidebar-search {
+  place-self: center start;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-search:hover {
+  color: rgba(0,0,0,.8);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+}
+
+.dark .sidebar-search:hover {
+  color: rgba(255,255,255,.8);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.9);
+}
+
+.sidebar-search-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.sidebar-search-shortcut {
+  box-shadow: 0 1px 1px rgba(12,13,14,0.15), inset 0 1px 0 0 #fff;
+  flex-shrink: 0;
+  padding: 1px 8px;
+  margin: 0 0 0 10px;
+  color: rgba(0,0,0,.6);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  background: rgb(228, 230, 232);
+  border-radius: 5px;
+  border: 1px solid rgb(159, 166, 173);
+  line-height: 1.2;
 }
 
 // Common queries
@@ -148,13 +203,8 @@
   color: rgb(248, 248, 242);
 }
 
-/* DARK themed components. */
+// Algolia dark-themed search input
 
-/* Algolia search input */
 .dark .ais-search-box--input {
-  background-color: $sta-dark-background;;
-}
-
-.dark #search-query {
   background-color: $sta-dark-background;;
 }
