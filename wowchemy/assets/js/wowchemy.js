@@ -263,12 +263,9 @@ function initMap() {
           style: 'SMALL',
           position: 'TOP_LEFT'
         },
-        panControl: false,
         streetViewControl: false,
         mapTypeControl: false,
-        overviewMapControl: false,
-        scrollwheel: true,
-        draggable: true
+        gestureHandling: "cooperative",
       });
 
       map.addMarker({
