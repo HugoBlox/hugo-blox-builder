@@ -1,9 +1,8 @@
-//load options
 import * as params from "@params";
 
 import {fixMermaid} from './wowchemy-utils';
 
-// not sure how to make 3rd part addons easily configurable
+// Enable core slide features.
 enabledPlugins = [
   RevealMarkdown,
   RevealHighlight,
@@ -21,24 +20,24 @@ const isArray = function (a) {
   return Array.isArray(a);
 };
 
-const toCamel = (s) => {
+const toCamelCase = (s) => {
   return s.replace(/([-_][a-z])/gi, ($1) => {
     return $1.toUpperCase().replace("-", "").replace("_", "");
   });
 };
 
-const keysToCamel = function (o) {
+const keysToCamelCase = function (o) {
   if (isObject(o)) {
     const n = {};
 
     Object.keys(o).forEach((k) => {
-      n[toCamel(k)] = keysToCamel(o[k]);
+      n[toCamelCase(k)] = keysToCamelCase(o[k]);
     });
 
     return n;
   } else if (isArray(o)) {
     return o.map((i) => {
-      return keysToCamel(i);
+      return keysToCamelCase(i);
     });
   }
 
@@ -54,7 +53,7 @@ if(typeof params.slides.reveal_options === "undefined"){
 
 pluginOptions = keysToCamel(pluginOptions);
 
-//enable menu by default if not set
+// Enable presentation menu by default.
 if (pluginOptions.menu_enabled === undefined) {
   pluginOptions.menu_enabled = true;
 }
@@ -74,12 +73,12 @@ pluginOptions["plugins"] = enabledPlugins;
 
 Reveal.initialize(pluginOptions);
 
-// mermaid not enabled by default
+// Disable Mermaid by default.
 if (params.slides.diagram === undefined) {
   params.slides.diagram = false;
 }
 
-// configure mermaid only if enabled
+// Configure Mermaid only if diagrams are enabled.
 if (params.slides.diagram) {
   //mermaid options
   // mermaid: front matter configuration can be used to set mermaid options
@@ -89,19 +88,19 @@ if (params.slides.diagram) {
     mermaidOptions = params.slides.diagram_options;
   }
 
-  // startOnLoad must be false since diagrams are lazily rendered
+  // `startOnLoad` must be false since diagrams are lazily rendered.
   mermaidOptions["startOnLoad"] = false;
 
   mermaid.initialize(mermaidOptions);
 
-  // Following functions are used to render mermaid diagrams
-  // after reveal slides have been successfully loaded
+  // The following functions are used to render Mermaid diagrams
+  // after Reveal slides have been successfully loaded
   // since content of slides is lazy loaded, if diagrams are
   // rendered at start of presentation their sizes will be off
-  // get all slides that are:
-  // 1- data loaded
-  // 2- display set to block
-  // 3- has a mermaid element that is not processed (data-processed dne)
+  // get all slides that have:
+  // 1. their data loaded
+  // 2. display set to block
+  // 3. a mermaid element that is unprocessed (no `data-processed` attribute)
   function mermaidSlidesReadyToRender(s) {
     diag = s.querySelector(".mermaid");
     if (diag) {
@@ -140,7 +139,7 @@ if (params.slides.diagram) {
     }
   });
 
-  // document ready
+  // Fix Mermaid conflict with Hightlight JS.
   document.addEventListener("DOMContentLoaded", function () {
     fixMermaid();
   });
