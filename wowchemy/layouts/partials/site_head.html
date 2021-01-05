@@ -169,7 +169,7 @@
   <link rel="alternate" href="{{.RelPermalink}}" type="application/rss+xml" title="{{site.Title}}">
   {{ end }}
 
-  {{ if .Site.Home.OutputFormats.Get "WebAppManifest" }}
+  {{ if site.Home.OutputFormats.Get "WebAppManifest" }}
   <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
   {{ end }}
 
