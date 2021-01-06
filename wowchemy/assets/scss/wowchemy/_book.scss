@@ -94,7 +94,7 @@
 
 /* Hide sidebar in printouts. */
 
-@media print {    
+@media print {
   .docs-sidebar {
     display: none;
   }
@@ -240,8 +240,13 @@ ul.toc-top {
 .toc-top li a {
   display: block;
   padding: .125rem 1.5rem;
-  color: #99979c;
+  color: rgba(0,0,0,.65);
   font-size: 0.7rem;
+}
+
+.dark #TableOfContents li a,
+.dark .toc-top li a {
+  color: rgba(255,255,255,.65);
 }
 
 #TableOfContents li a:hover,

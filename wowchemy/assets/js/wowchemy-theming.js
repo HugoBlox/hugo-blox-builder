@@ -23,14 +23,18 @@ function canChangeTheme() {
 // flashing between the default theme mode and the user's choice.
 function initThemeVariation() {
   if (!canChangeTheme()) {
+    console.debug('User theming disabled.');
     return {
       isDarkTheme: window.wc.isSiteThemeDark,
       themeMode: window.wc.isSiteThemeDark ? 1 : 0,
     };
   }
 
-  let currentThemeMode = getThemeMode();
+  console.debug('User theming enabled.');
+
   let isDarkTheme;
+  let currentThemeMode = getThemeMode();
+  console.debug(`User's theme variation: ${currentThemeMode}`)
 
   switch (currentThemeMode) {
     case 0:
@@ -44,7 +48,7 @@ function initThemeVariation() {
         // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
         isDarkTheme = true;
       } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        // The visitor prefers light themes and switching to the dark variation is allowed by admin.
+        // The visitor prefers light themes and switching to the light variation is allowed by admin.
         isDarkTheme = false;
       } else {
         // Use the site's default theme variation based on `light` in the theme file.
@@ -56,7 +60,7 @@ function initThemeVariation() {
   if (isDarkTheme && !body.classList.contains('dark')) {
     console.debug('Applying Wowchemy dark theme');
     document.body.classList.add("dark");
-  } else if (body.classList.contains('dark')) {
+  } else if (!isDarkTheme && body.classList.contains('dark')) {
     console.debug('Applying Wowchemy light theme');
     document.body.classList.remove("dark");
   }
@@ -69,7 +73,7 @@ function initThemeVariation() {
 
 function changeThemeModeClick(newMode) {
   if (!canChangeTheme()) {
-    console.info('Cannot set theme - admin disabled theme selector.');
+    console.debug('Cannot change theme - user theming disabled.');
     return;
   }
   let isDarkTheme;
@@ -77,12 +81,12 @@ function changeThemeModeClick(newMode) {
     case 0:
       localStorage.setItem('wcTheme', '0');
       isDarkTheme = false;
-      console.info('User changed theme variation to Light.');
+      console.debug('User changed theme variation to Light.');
       break;
     case 1:
       localStorage.setItem('wcTheme', '1');
       isDarkTheme = true;
-      console.info('User changed theme variation to Dark.');
+      console.debug('User changed theme variation to Dark.');
       break;
     default:
       localStorage.setItem('wcTheme', '2');
@@ -90,13 +94,13 @@ function changeThemeModeClick(newMode) {
         // The visitor prefers dark themes and switching to the dark variation is allowed by admin.
         isDarkTheme = true;
       } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        // The visitor prefers light themes and switching to the dark variation is allowed by admin.
+        // The visitor prefers light themes and switching to the light variation is allowed by admin.
         isDarkTheme = false;
       } else {
         // Use the site's default theme variation based on `light` in the theme file.
         isDarkTheme = window.wc.isSiteThemeDark;
       }
-      console.info('User changed theme variation to Auto.');
+      console.debug('User changed theme variation to Auto.');
       break;
   }
   renderThemeVariation(isDarkTheme, newMode);
