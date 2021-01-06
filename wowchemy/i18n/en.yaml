@@ -18,6 +18,9 @@
 - id: close
   translation: Close
 
+- id: languages
+  translation: Languages
+
 # General
 
 - id: related
