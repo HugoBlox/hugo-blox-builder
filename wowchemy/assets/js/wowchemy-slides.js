@@ -47,27 +47,20 @@ const keysToCamel = function (o) {
 
 // reveal configurations can be included in front matter under slides.reveal
 var pluginOptions = {}
-if(typeof params.slides.reveal_options === "undefined"){
+if(typeof params.slides.reveal_options !== "undefined"){
   pluginOptions = params.slides.reveal_options;
 }
-
 
 pluginOptions = keysToCamel(pluginOptions);
 
 //enable menu by default if not set
-if (pluginOptions.menu_enabled === undefined) {
+if (pluginOptions.menu_enabled !== undefined) {
   pluginOptions.menu_enabled = true;
 }
 
 // configure menu if enabled
 if (pluginOptions.menu_enabled) {
   enabledPlugins.push(RevealMenu);
-
-  // make sure we have a menu configuration so we can set defaults
-  pluginOptions.menu = {}
-  if(typeof pluginOptions.menu === "undefined"){
-    pluginOptions = pluginOptions.menu;
-  }
 }
 
 pluginOptions["plugins"] = enabledPlugins;
@@ -85,7 +78,7 @@ if (params.slides.diagram) {
   // mermaid: front matter configuration can be used to set mermaid options
   // You can also use directives (see mermaid documentation)
   var mermaidOptions = {}
-  if(typeof params.slides.diagram_options === "undefined"){
+  if(typeof params.slides.diagram_options !== "undefined"){
     mermaidOptions = params.slides.diagram_options;
   }
 
@@ -102,30 +95,40 @@ if (params.slides.diagram) {
   // 1- data loaded
   // 2- display set to block
   // 3- has a mermaid element that is not processed (data-processed dne)
-  function mermaidSlidesReadyToRender(s) {
+  function mermaidSlidesReadyToRender(slide) {
     diag = s.querySelector(".mermaid");
     if (diag) {
       background = s.slideBackgroundElement;
       // render if we are 1 slide away horizontally
       // current visible slide index
-      chidx = Reveal.getState()["indexh"];
+      currentHorizontalIndex = Reveal.getState()["indexh"];
 
       // mermaid slide index
-      shidx = Reveal.getIndices((slide = s))["h"];
+      diagramSlideIndex = Reveal.getIndices((slide = s))["h"];
       if (
+        // find slides with non-rendered mermaid tags
+        // these will not have the attribute data-processed
         !diag.hasAttribute("data-processed") &&
+        // check also that reveal slide is already loaded
+        // reveal slides seem to be lazily loaded
+        // things could be easier if reveal had a slide-loaded event
         background.hasAttribute("data-loaded") &&
+        // loaded slides must also have the display attribute set to block
         background.style.display === "block" &&
-        shidx - chidx <= 1
+        // render diagrams that are 1 slide away
+        diagramSlideIndex - currentHorizontalIndex <= 1
       )
-        return s;
+        return slide;
     }
     return null;
   }
 
   function renderMermaidSlides() {
-    dSlides = Reveal.getSlides().filter(mermaidSlidesReadyToRender);
-    dSlides.forEach((item) => mermaid.init(item.querySelector(".mermaid")));
+    // find all slides with diagrams that are ready to render
+    diagramSlides = Reveal.getSlides().filter(mermaidSlidesReadyToRender);
+    
+    // render the diagram for each slide with ready to render diagrams
+    diagramSlides.forEach((item) => mermaid.init(item.querySelector(".mermaid")));
   }
 
   // render mermaid slides for slides that are ready
