@@ -15,6 +15,9 @@
 - id: home
   translation: Home
 
+- id: close
+  translation: Close
+
 # General
 
 - id: related

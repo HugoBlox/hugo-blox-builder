@@ -23,6 +23,21 @@
   min-height: 100vh;
 }
 
+// Section theming
+
+.home-section.light,
+.home-section.light h1 {
+  color: #000;
+}
+
+.home-section.light a {
+  color: $sta-link;
+}
+
+.home-section.dark a {
+  color: $sta-dark-link;
+}
+
 /* Override dark colors that may be inherited from body.dark */
 .home-section.dark,
 .home-section.dark h1,
@@ -115,6 +130,14 @@
 
 .section-heading h1 {
   margin: 0 0 10px 0;
+}
+
+.section-subheading {
+  font-size: 1.25rem;
+  font-family: $sta-font-heading, sans-serif;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: .5rem;
 }
 
 .section-heading p {
@@ -248,7 +271,7 @@ a.hero-cta-alt:hover {
   text-align: center;
 }
 
-.featurette h3 {
+.featurette .section-subheading {
   margin-top: 0;
   margin-bottom: 5px;
   font-weight: 400;
@@ -256,7 +279,7 @@ a.hero-cta-alt:hover {
 }
 
 .dark .featurette,
-.dark .featurette h3 {
+.dark .featurette .section-subheading {
   color: #fff;
 }
 
@@ -585,4 +608,11 @@ ul.ul-edu li .description p.institution {
 #map {
   height: 350px;
   width: 100%;
+}
+
+// Prevent OpenStreetMap inheriting link color from section of a different theme variation.
+// E.g. Light colored OpenStreetMap UI inheriting dark themed link (`.home-section.dark a`)
+// from a dark widget page section.
+#map a {
+  color: initial;
 }
