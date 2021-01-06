@@ -16,6 +16,8 @@ import {
   onMediaQueryListEvent,
 } from './wowchemy-theming';
 
+const searchEnabled = (typeof search_config !== 'undefined');
+
 console.debug(`Environment: ${hugoEnvironment}`)
 
 /* ---------------------------------------------------------------------------
@@ -565,7 +567,7 @@ $(window).on('load', function () {
         document.activeElement
       ) || null;
       let isInputFocused = focusedElement instanceof HTMLInputElement || focusedElement instanceof HTMLTextAreaElement;
-      if (search_config && !isInputFocused) {
+      if (searchEnabled && !isInputFocused) {
         // Open search dialog.
         event.preventDefault();
         toggleSearchDialog();
@@ -575,7 +577,7 @@ $(window).on('load', function () {
 
   // Search event handler
   // Check that built-in search or Algolia enabled.
-  if (search_config) {
+  if (searchEnabled) {
     // On search icon click toggle search dialog.
     $('.js-search').click(function (e) {
       e.preventDefault();
