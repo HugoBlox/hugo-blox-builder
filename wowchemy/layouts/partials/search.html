@@ -29,7 +29,7 @@
         <ul class="fa-ul">
           {{ range site.Data.search_queries }}
             <li class="pb-3">
-              <a href="{{.link | relURL}}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pl-1">{{.query | markdownify | emojify}}</span></a>
+              <a href="{{.link | relLangURL}}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pl-1">{{.query | markdownify | emojify}}</span></a>
             </li>
           {{ end }}
         </ul>
