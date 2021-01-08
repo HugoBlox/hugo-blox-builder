@@ -8,12 +8,23 @@
 {{- $highlight_active_link := site.Params.main_menu.highlight_active_link | default true -}}
 <body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="page-wrapper {{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}">
 
-  {{/* Initialise theme variation. */}}
+  {{/* Initialise Wowchemy. */}}
+  {{ $js_license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
+  {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
+  {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
+  {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
   {{ $wcDarkLightEnabled := site.Params.day_night | default false }}
   {{ $wcIsSiteThemeDark := not (.Scratch.Get "light") | default false }}
   {{ $js_params := dict "wcDarkLightEnabled" $wcDarkLightEnabled "wcIsSiteThemeDark" $wcIsSiteThemeDark }}
-  {{ $js_file := resources.Get "js/wowchemy-init.js" | js.Build (dict "params" $js_params) }}
-  <script src="{{ $js_file.RelPermalink }}"></script>
+  {{ $js_bundle := resources.Get "js/wowchemy-init.js" | js.Build (dict "params" $js_params) }}
+  {{- if eq hugo.Environment "production" -}}
+    {{ $js_bundle = $js_bundle | minify }}
+  {{- end -}}
+  {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/wowchemy-init.min.js" }}
+  {{- if eq hugo.Environment "production" -}}
+    {{- $js_bundle = $js_bundle | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $js_bundle.RelPermalink }}"></script>
 
   {{ partial "search" . }}
 

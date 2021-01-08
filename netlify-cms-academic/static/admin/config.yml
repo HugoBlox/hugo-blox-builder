@@ -111,7 +111,17 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons), name: icon, widget: string}
+          - {label: Icon (see https://wowchemy.com/docs/page-builder/#icons), name: icon, widget: string}
+          - {label: Label (tooltip), name: label, widget: string, required: false}
+          - label: Display in About widget and...
+            name: display
+            widget: object
+            fields:
+            - label: "Header (main menu)"
+              name: "header"
+              widget: "boolean"
+              default: false
+              required: false
       - label: "Organizations you belong to or are affiliated with (shown in About widget)"
         name: "organizations"
         required: false
@@ -249,7 +259,7 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: "Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons)", name: icon, widget: string, required: false}
+          - {label: "Icon (see https://wowchemy.com/docs/page-builder/#icons)", name: icon, widget: string, required: false}
       - label: "Featured Image"
         name: "image"
         required: false
@@ -267,10 +277,10 @@ collections:
           - {label: Description for screen readers, name: alt_text, widget: string, required: false}
           - {label: "Where's the focal point in the image? Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.", name: focal_point, widget: string, required: false, default: "Smart"}
           - {label: Thumbnail Only?, name: preview_only, widget: boolean, default: false, required: false}
-  - name: talks
-    label: Talks
-    label_singular: Talk
-    folder: 'content/talk'
+  - name: events
+    label: Events
+    label_singular: Event
+    folder: 'content/event'
     path: '{{slug}}/index'
     create: true  # Allow users to create new documents in this collection
     fields:  # The fields each document in this collection have
@@ -298,7 +308,7 @@ collections:
               - {label: "Regular", value: "far"}
               - {label: "Brand", value: "fab"}
               - {label: "Academic", value: "ai"}
-          - {label: "Icon (see https://sourcethemes.com/academic/docs/page-builder/#icons)", name: icon, widget: string, required: false}
+          - {label: "Icon (see https://wowchemy.com/docs/page-builder/#icons)", name: icon, widget: string, required: false}
       - {label: "Event", name: "event", widget: "string"}
       - {label: "Event link", name: "event_url", widget: "string"}
       - {label: "Publish this page on", name: "publishDate", widget: "datetime"}

@@ -31,7 +31,7 @@
         {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
       {{ end }}
     <p class="cta-btns">
-      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="btn {{if $bg.text_color_light}}btn-light{{else}}btn-primary{{end}} btn-lg">{{ if $page.Params.cta.icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ $page.Params.cta.icon }} pr-1" aria-hidden="true"></i>{{end}}{{ $page.Params.cta.label | markdownify | emojify | safeHTML }}</a>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="btn {{if $bg.text_color_light}}btn-light{{else}}btn-primary{{end}} btn-lg mb-3 mb-md-1">{{ if $page.Params.cta.icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ $page.Params.cta.icon }} pr-1" aria-hidden="true"></i>{{end}}{{ $page.Params.cta.label | markdownify | emojify | safeHTML }}</a>
 
       {{/* Alternative Call-to-action link */}}
       {{ if $page.Params.cta_alt.url }}
@@ -43,24 +43,43 @@
         {{ else if in (slice "http" "https") $scheme }}
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
-      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="hero-cta-alt pl-4">{{ $page.Params.cta_alt.label | markdownify | emojify | safeHTML }} <i class="fas fa-angle-right"></i></a>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="hero-cta-alt btn-lg pl-md-4">{{ $page.Params.cta_alt.label | markdownify | emojify | safeHTML }} <i class="fas fa-angle-right"></i></a>
       {{ end }}
     </p>
     {{ end }}
 
     {{/* Call-to-action note */}}
     {{ with $page.Params.cta_note }}
-    <p class="hero-note text-muted mb-0">
+    <p class="hero-note text-muted mb-3 mb-md-1">
       {{ .label | markdownify | emojify | safeHTML }}
     </p>
     {{ end }}
 
   {{/* Hero image */}}
   {{ if $page.Params.hero_media }}
-    {{ $media_dir := $.Scratch.Get "media_dir" }}
   </div>
   <div class="col-12 mx-auto col-md-6 order-md-2 hero-media">
-    <img src="{{ printf "%s/%s" $media_dir $page.Params.hero_media | relURL }}" alt="">
+    {{ $image := $page.Parent.Resources.GetMatch $page.Params.hero_media }}
+    {{ if $image }}
+      {{ $legacy_img := $image.Resize "400x" }}
+      {{ $img_src := "" }}
+      {{ $img_src_set := slice }}
+      {{ $widths := slice 1200 800 400 }}
+
+      {{ range $widths }}
+        {{ $src_link := ($image.Resize (printf "%dx" .)).RelPermalink }}
+        {{ if eq $img_src "" }}
+          {{ $img_src = $src_link }}
+        {{ end }}
+        {{ $img_src_set = $img_src_set | append (printf "%s %dw" $src_link .) }}
+      {{ end }}
+      {{ $img_src_set = delimit $img_src_set "," }}
+
+      <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $page.Title }}">
+    {{ else }}
+      {{ $media_dir := $.Scratch.Get "media_dir" }}
+      <img src="{{ printf "%s/%s" $media_dir $page.Params.hero_media | relURL }}" alt="{{ $page.Title }}">
+    {{ end }}
   </div>
 </div>
 {{ end }}

@@ -16,6 +16,8 @@ import {
   onMediaQueryListEvent,
 } from './wowchemy-theming';
 
+const searchEnabled = (typeof search_config !== 'undefined');
+
 console.debug(`Environment: ${hugoEnvironment}`)
 
 /* ---------------------------------------------------------------------------
@@ -263,12 +265,9 @@ function initMap() {
           style: 'SMALL',
           position: 'TOP_LEFT'
         },
-        panControl: false,
         streetViewControl: false,
         mapTypeControl: false,
-        overviewMapControl: false,
-        scrollwheel: true,
-        draggable: true
+        gestureHandling: "cooperative",
       });
 
       map.addMarker({
@@ -550,23 +549,41 @@ $(window).on('load', function () {
     printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
   }
 
-  // On search icon click toggle search dialog.
-  $('.js-search').click(function (e) {
-    e.preventDefault();
-    toggleSearchDialog();
-  });
-  $(document).on('keydown', function (e) {
-    if (e.which == 27) {
-      // `Esc` key pressed.
-      if ($('body').hasClass('searching')) {
+  // Parse Wowchemy keyboard shortcuts.
+  document.addEventListener('keyup', (event) => {
+    if (event.code === "Escape") {
+      const body = document.body;
+      if (body.classList.contains('searching')) {
+        // Close search dialog.
         toggleSearchDialog();
       }
-    } else if (e.which == 191 && e.shiftKey == false && !$('input,textarea').is(':focus')) {
-      // `/` key pressed outside of text input.
-      e.preventDefault();
-      toggleSearchDialog();
+    }
+    // Use `key` to check for slash. Otherwise, with `code` we need to check for modifiers.
+    if (event.key === "/" ) {
+      let focusedElement = (
+        document.hasFocus() &&
+        document.activeElement !== document.body &&
+        document.activeElement !== document.documentElement &&
+        document.activeElement
+      ) || null;
+      let isInputFocused = focusedElement instanceof HTMLInputElement || focusedElement instanceof HTMLTextAreaElement;
+      if (searchEnabled && !isInputFocused) {
+        // Open search dialog.
+        event.preventDefault();
+        toggleSearchDialog();
+      }
     }
   });
+
+  // Search event handler
+  // Check that built-in search or Algolia enabled.
+  if (searchEnabled) {
+    // On search icon click toggle search dialog.
+    $('.js-search').click(function (e) {
+      e.preventDefault();
+      toggleSearchDialog();
+    });
+  }
 
   // Init. author notes (tooltips).
   $('[data-toggle="tooltip"]').tooltip();

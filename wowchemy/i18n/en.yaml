@@ -12,6 +12,15 @@
 - id: back_to_top
   translation: Back to top
 
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
 # General
 
 - id: related
@@ -114,7 +123,7 @@
   translation: See all posts
 
 - id: more_talks
-  translation: See all talks
+  translation: See all events
 
 - id: more_publications
   translation: See all publications
@@ -136,7 +145,7 @@
 - id: book_appointment
   translation: Book an appointment
 
-# Publication/Talk details
+# Publication/Event details
 
 - id: abstract
   translation: Abstract
@@ -200,7 +209,7 @@
   translation: Publications
 
 - id: talks
-  translation: Talks
+  translation: Events
 
 - id: projects
   translation: Projects
@@ -221,6 +230,9 @@
 
 - id: search_no_results
   translation: No results found
+
+- id: search_common_queries
+  translation: Common searches
 
 # Error 404
 
