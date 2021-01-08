@@ -64,7 +64,7 @@
 
   {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
 
-  <script type="text/javascript" src="{{ $slidejs.RelPermalink }}" defer></script>
+  <script type="text/javascript" src="{{ $slidejs.RelPermalink }}"></script>
 
 </body>
 </html>
