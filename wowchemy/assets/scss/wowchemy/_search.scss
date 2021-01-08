@@ -165,6 +165,9 @@
 .sidebar-search-text {
   flex-grow: 1;
   text-align: left;
+  // Multilingual safe option to prevent long placeholders overflowing search box.
+  overflow: hidden;
+  font-size: .8rem;
 }
 
 .sidebar-search-shortcut {
