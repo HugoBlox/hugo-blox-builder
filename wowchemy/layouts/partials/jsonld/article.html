@@ -20,7 +20,7 @@
     "@type": "WebPage",
     "@id": {{$page.Permalink}}
   },
-  "headline": {{$page.Title}},
+  "headline": {{$page.Title | plainify }},
   {{ if $featured_image }}
   "image": [
     {{$featured_image.Permalink}}

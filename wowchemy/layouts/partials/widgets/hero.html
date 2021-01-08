@@ -75,10 +75,10 @@
       {{ end }}
       {{ $img_src_set = delimit $img_src_set "," }}
 
-      <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $page.Title }}">
+      <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $page.Title | plainify }}">
     {{ else }}
       {{ $media_dir := $.Scratch.Get "media_dir" }}
-      <img src="{{ printf "%s/%s" $media_dir $page.Params.hero_media | relURL }}" alt="{{ $page.Title }}">
+      <img src="{{ printf "%s/%s" $media_dir $page.Params.hero_media | relURL }}" alt="{{ $page.Title | plainify }}">
     {{ end }}
   </div>
 </div>

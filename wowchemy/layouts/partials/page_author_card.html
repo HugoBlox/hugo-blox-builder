@@ -14,10 +14,10 @@
   {{ $avatar_shape := site.Params.avatar.shape | default "circle" }}
   <div class="media author-card content-widget-hr">
     {{ if and site.Params.avatar.gravatar $author_page.Params.email }}
-      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $author_page.Params.email }}?s=200" alt="{{$author_page.Title | markdownify}}">{{if $profile_url}}</a>{{end}}
+      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $author_page.Params.email }}?s=200" alt="{{$author_page.Title | plainify }}">{{if $profile_url}}</a>{{end}}
     {{ else if $avatar }}
       {{ $avatar_image := $avatar.Fill "270x270 Center" }}
-      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$author_page.Title | markdownify}}">{{if $profile_url}}</a>{{end}}
+      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$author_page.Title | plainify }}">{{if $profile_url}}</a>{{end}}
     {{ end }}
 
     <div class="media-body">
