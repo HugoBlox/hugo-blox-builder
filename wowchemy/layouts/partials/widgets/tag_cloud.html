@@ -35,7 +35,7 @@
         {{ $tagCount := len $term.Pages }}
         {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
         {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
-        <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ .Page.Title }}</a>
+        <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ .Page.Title | markdownify }}</a>
       {{ end }}
     </div>
   {{ end }}

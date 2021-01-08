@@ -5,7 +5,7 @@
       {{ if .IsHome }}
         {{ i18n "home" | default "Home" }}
       {{ else }}
-        {{ (.LinkTitle | default .Title) | emojify }}
+        {{ (.LinkTitle | default .Title) | markdownify | emojify }}
       {{ end }}
     </a>
   </li>

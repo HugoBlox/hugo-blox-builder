@@ -27,7 +27,7 @@
 
 <div class="view-list-item">
   <i class="{{$icon_pack}} {{$icon}} pub-icon" aria-hidden="true"></i>
-  <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
+  <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title | markdownify }}</a>
 
   {{ if eq $item.Type "talk" }}
   <div class="article-metadata">

@@ -23,7 +23,7 @@
       <article class="article">
 
         <div class="docs-article-container">
-          <h1>{{ .Title }}</h1>
+          <h1>{{ .Title | markdownify }}</h1>
 
           <div class="article-style">
             {{ .Content }}

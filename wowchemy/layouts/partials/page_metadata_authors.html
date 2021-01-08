@@ -10,14 +10,14 @@
     <span {{ if $highlight_name }}class="author-highlighted"{{end}}>
       {{/* Effectively check the page's `_build` option as `_build` is not exposed in Hugo's Page object. */}}
       {{- if .RelPermalink -}}
-        <a href="{{.RelPermalink}}">{{.LinkTitle}}</a>
+        <a href="{{.RelPermalink}}">{{.LinkTitle | markdownify }}</a>
       {{- else -}}
         {{ .LinkTitle }}
       {{- end -}}
     </span>
     {{- if isset $.Params "author_notes" -}}
       {{- with (index $.Params.author_notes $index) -}}
-        <i class="author-notes fas fa-info-circle" data-toggle="tooltip" title="{{.}}"></i>
+        <i class="author-notes fas fa-info-circle" data-toggle="tooltip" title="{{. | markdownify }}"></i>
       {{- end -}}
     {{- end -}}
   {{- end -}}

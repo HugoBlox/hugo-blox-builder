@@ -13,7 +13,7 @@
     {{ $paginator := .Paginate .Data.Pages }}
     {{ range $k, $v := $paginator.Pages }}
       {{ $name := $v.Title }}
-      <li><a href="{{$v.Permalink}}">{{$name}}</a></li>
+      <li><a href="{{$v.Permalink}}">{{$name | markdownify }}</a></li>
     {{ end }}
   </ul>
 

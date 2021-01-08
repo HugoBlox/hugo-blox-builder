@@ -34,7 +34,7 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
+      <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title | markdownify }}</a>
     </div>
 
     {{ with $summary }}
@@ -82,7 +82,7 @@
     {{ $image := .Resize "150x" }}
     {{ $image_lq := (.Resize "150x q1").Filter $filters }}
     <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
-      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="lazyload">
+      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title | markdownify }}" class="lazyload">
     </a>
     {{end}}
   </div>

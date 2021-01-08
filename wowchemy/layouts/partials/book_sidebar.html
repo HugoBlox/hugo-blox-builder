@@ -24,7 +24,7 @@
   {{ if $root_page | and (eq $root_page.Type "book") }}
     {{ $is_root = true}}
     <ul class="nav docs-sidenav">
-      <li class="{{ if .IsHome }}active{{ end }}"><a href="{{ $root_page.RelPermalink }}">{{$root_page.Title}}</a></li>
+      <li class="{{ if .IsHome }}active{{ end }}"><a href="{{ $root_page.RelPermalink }}">{{$root_page.Title | markdownify }}</a></li>
     </ul>
     {{- if eq $order_by "title" -}}
       {{- $query = .Site.Home.Sections.ByTitle  -}}
