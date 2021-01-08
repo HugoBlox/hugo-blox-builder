@@ -2,7 +2,7 @@
 {{ if .Param $taxonomy }}
 <div class="article-tags">
   {{ range $index, $value := (.GetTerms $taxonomy) }}
-  <a class="badge badge-light" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+  <a class="badge badge-light" href="{{ .RelPermalink }}">{{ .LinkTitle | markdownify }}</a>
   {{ end }}
 </div>
 {{ end }}

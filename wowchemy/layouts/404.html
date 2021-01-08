@@ -21,7 +21,7 @@
   <h2>{{ i18n "user_profile_latest" }}</h2>
   <ul>
     {{ range first 10 $query }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a></li>
     {{ end }}
   </ul>
   {{ end }}

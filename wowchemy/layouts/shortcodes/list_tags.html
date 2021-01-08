@@ -1,5 +1,5 @@
 <ul class="list-unstyled">
   {{ range site.Taxonomies.tags }}
-  <li><a href="{{.Page.RelPermalink}}">{{.Page.Title}}</a></li>
+  <li><a href="{{.Page.RelPermalink}}">{{.Page.Title | markdownify}}</a></li>
   {{ end }}
 </ul>

@@ -32,7 +32,7 @@
             {{ partial "breadcrumb" $current_page }}
           {{ end }}
 
-          <h1>{{ .Title }}</h1>
+          <h1>{{ .Title | markdownify }}</h1>
 
           <div class="article-style">
             {{ .Content }}
