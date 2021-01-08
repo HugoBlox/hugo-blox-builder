@@ -5,9 +5,9 @@
 .home-section {
   // Use `background` rather than `background-color` so it can support gradients in theme packs.
   background: $sta-home-section-odd;
-  position: relative;  // Required for component positioning within section.
+  position: relative; // Required for component positioning within section.
   padding: 110px 0 110px 0;
-  z-index: 0;  // Explicit z-order otherwise `.home-section-bg` can be hidden by any `.home-section` background.
+  z-index: 0; // Explicit z-order otherwise `.home-section-bg` can be hidden by any `.home-section` background.
 }
 
 // Responsive fullscreen option for widgets
@@ -137,13 +137,13 @@
   font-family: $sta-font-heading, sans-serif;
   font-weight: bold;
   margin-top: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .section-heading p {
   font-weight: 400;
   font-size: 1.1rem;
-  color: rgba(0,0,0,0.54);  // Accessible contrast, matching footer text color.
+  color: rgba(0, 0, 0, 0.54); // Accessible contrast, matching footer text color.
 }
 
 .dark .section-heading p {
@@ -207,7 +207,7 @@
 }
 
 .wg-hero .btn {
-  padding: .6em 2.1em;
+  padding: 0.6em 2.1em;
 }
 
 .wg-hero.dark .btn {
@@ -217,7 +217,7 @@
 a.hero-cta-alt {
   display: inline-block;
   position: relative;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   transition-property: transform;
   transition-timing-function: ease-out;
   font-size: 1.1rem;
@@ -338,7 +338,7 @@ a.hero-cta-alt:hover {
 .portrait-title h3 {
   font-size: 1rem;
   font-weight: 300;
-  color: rgba(0,0,0, 0.54);
+  color: rgba(0, 0, 0, 0.54);
   margin: 0px 0 10px 0;
 }
 
@@ -365,7 +365,7 @@ ul.network-icon {
 }
 
 .network-icon li:hover {
-  transform: scale(1.2)
+  transform: scale(1.2);
 }
 
 .big-icon {
@@ -395,7 +395,7 @@ ul.ul-edu li .description p.course {
 
 ul.ul-edu li .description p.institution {
   font-size: 0.75rem;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 /*************************************************
@@ -482,17 +482,21 @@ ul.ul-edu li .description p.institution {
   overflow: hidden;
 }
 
-.project-toolbar{
+.project-toolbar {
   margin-bottom: 2rem;
 }
 
 .project-card {
   position: relative;
-  width: calc(33.3% - 13.3px); /* Fluid 3 columns ($gutter * ($number_of_cols - 1) / $number_of_cols; following https://stackoverflow.com/a/51290967) */
+  width: calc(
+    33.3% - 13.3px
+  ); /* Fluid 3 columns ($gutter * ($number_of_cols - 1) / $number_of_cols; following https://stackoverflow.com/a/51290967) */
 }
 @media screen and (max-width: 1199px) {
   .project-card {
-    width: calc(50% - 10px); /* Fluid 2 columns ($gutter * ($number_of_cols - 1) / $number_of_cols; following https://stackoverflow.com/a/51290967) */
+    width: calc(
+      50% - 10px
+    ); /* Fluid 2 columns ($gutter * ($number_of_cols - 1) / $number_of_cols; following https://stackoverflow.com/a/51290967) */
   }
 }
 @media screen and (max-width: 768px) {
@@ -525,7 +529,7 @@ ul.ul-edu li .description p.institution {
   z-index: 2;
 }
 
-.isotope-item:hover{
+.isotope-item:hover {
   z-index: 3;
 }
 

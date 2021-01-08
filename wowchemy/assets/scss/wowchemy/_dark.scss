@@ -20,7 +20,7 @@ body.dark,
 .dark .form-control:focus {
   background-color: rgb(68, 71, 90);
   border-color: $sta-primary;
-  box-shadow: 0 0 0 .2rem $sta-primary-dark;
+  box-shadow: 0 0 0 0.2rem $sta-primary-dark;
 }
 
 .dark h1,
@@ -91,7 +91,8 @@ body.dark,
   color: rgba(255, 255, 255, 0.54);
 }
 
-.dark .pagination li > a, .pagination li > span {
+.dark .pagination li > a,
+.pagination li > span {
   background-color: rgb(40, 42, 54);
   border: 1px solid #ddd;
 }
@@ -119,18 +120,18 @@ body.dark,
 }
 
 .dark .badge-light {
-  color: rgba(255, 255, 255, .68);
-  background: rgba(255, 255, 255, .2);
+  color: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .dark .badge-light[href]:focus,
 .dark .badge-light[href]:hover {
-  background: rgba(255, 255, 255, .3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .dark a.badge:focus,
 .dark a.badge:hover {
-  color: rgba(255, 255, 255, .68);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .dark .btn-primary,

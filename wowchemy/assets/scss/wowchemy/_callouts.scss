@@ -17,7 +17,7 @@ div.alert > div {
 }
 
 div.alert div > * {
-  margin-bottom: .5rem;  /* Use smaller paragraph spacing than usual. */
+  margin-bottom: 0.5rem; /* Use smaller paragraph spacing than usual. */
 }
 
 div.alert div > :last-child {
