@@ -5,7 +5,7 @@
  *  Core JS functions and initialization.
  **************************************************/
 
-import {hugoEnvironment, codeHighlighting} from '@params';
+import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
 
 import {fixMermaid} from './wowchemy-utils';
 
@@ -15,8 +15,6 @@ import {
   renderThemeVariation,
   onMediaQueryListEvent,
 } from './wowchemy-theming';
-
-const searchEnabled = typeof search_config !== 'undefined';
 
 console.debug(`Environment: ${hugoEnvironment}`);
 

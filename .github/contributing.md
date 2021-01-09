@@ -20,6 +20,17 @@ If you have a straightforward bug fix or improvement, feel free to contribute it
 
 If you have an idea for a new feature, please start by [searching the issues](https://github.com/wowchemy/wowchemy-hugo-modules/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/wowchemy/wowchemy-hugo-modules/issues/new/choose), as adding new features to Wowchemy first requires some analysis around the design and spec.
 
+Code linting and formatting form part of the Continuous Integration process to help catch bugs and code issues in contributions.
+
+Contributors can also run the flow on their fork of the  "Wowchemy Hugo Modules" repo when making contributions (you'll need Node and Yarn to run):
+```sh
+cd wowchemy
+yarn install
+yarn run lint:js
+yarn run lint:style
+yarn run format
+```
+
 ### Contribute a widget
 
 [Create and publish your own widget](https://github.com/wowchemy/wowchemy-widget-starter)

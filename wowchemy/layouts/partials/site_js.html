@@ -136,7 +136,7 @@
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
     {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
-    {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) }}
+    {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (ne site.Params.search.engine 0) }}
     {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "params" $js_params) }}
     {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
     {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
