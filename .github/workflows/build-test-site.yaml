@@ -53,7 +53,7 @@ jobs:
       - name: Prettify code
         uses: creyD/prettier_action@v3.1
         with:
-          prettier_options: '--write "wowchemy/*.{css,js,json,md,scss}" "wowchemy/**/*.{css,js,json,md,scss}"' # Match package.json
+          prettier_options: '--write wowchemy/*.{css,js,json,md,scss} wowchemy/**/*.{css,js,json,md,scss}' # Match package.json
           prettier_version: '2.2.1' # Match package.json
           commit_message: 'refactor: format code'
         env:
