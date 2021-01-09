@@ -36,6 +36,7 @@
   }
 }
 
+
 // Row
 //
 // Rows contain your columns.
@@ -52,7 +53,7 @@
     margin-left: 0;
 
     > .col,
-    > [class*='col-'] {
+    > [class*="col-"] {
       padding-right: 0;
       padding-left: 0;
     }

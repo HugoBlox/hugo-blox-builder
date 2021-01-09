@@ -3,6 +3,7 @@
 // .modal-dialog    - positioning shell for the actual modal
 // .modal-content   - actual modal w/ bg and corners and stuff
 
+
 .modal-open {
   // Kill the scroll on the body
   overflow: hidden;
@@ -82,7 +83,7 @@
   &::before {
     display: block; // IE10
     height: subtract(100vh, $modal-dialog-margin * 2);
-    content: '';
+    content: "";
   }
 
   // Ensure `.modal-body` shows scrollbar (IE10/11)
@@ -130,12 +131,8 @@
   background-color: $modal-backdrop-bg;
 
   // Fade for backdrop
-  &.fade {
-    opacity: 0;
-  }
-  &.show {
-    opacity: $modal-backdrop-opacity;
-  }
+  &.fade { opacity: 0; }
+  &.show { opacity: $modal-backdrop-opacity; }
 }
 
 // Modal header
@@ -227,9 +224,7 @@
     @include box-shadow($modal-content-box-shadow-sm-up);
   }
 
-  .modal-sm {
-    max-width: $modal-sm;
-  }
+  .modal-sm { max-width: $modal-sm; }
 }
 
 @include media-breakpoint-up(lg) {
@@ -240,7 +235,5 @@
 }
 
 @include media-breakpoint-up(xl) {
-  .modal-xl {
-    max-width: $modal-xl;
-  }
+  .modal-xl { max-width: $modal-xl; }
 }

@@ -52,6 +52,7 @@
   transform: translateX(-100%);
 }
 
+
 //
 // Alternate transitions
 //
@@ -77,6 +78,7 @@
     @include transition(opacity 0s $carousel-transition-duration);
   }
 }
+
 
 //
 // Left/right controls for nav
@@ -109,13 +111,13 @@
 .carousel-control-prev {
   left: 0;
   @if $enable-gradients {
-    background-image: linear-gradient(90deg, rgba($black, 0.25), rgba($black, 0.001));
+    background-image: linear-gradient(90deg, rgba($black, .25), rgba($black, .001));
   }
 }
 .carousel-control-next {
   right: 0;
   @if $enable-gradients {
-    background-image: linear-gradient(270deg, rgba($black, 0.25), rgba($black, 0.001));
+    background-image: linear-gradient(270deg, rgba($black, .25), rgba($black, .001));
   }
 }
 
@@ -133,6 +135,7 @@
 .carousel-control-next-icon {
   background-image: escape-svg($carousel-control-next-icon-bg);
 }
+
 
 // Optional indicator pips
 //
@@ -167,7 +170,7 @@
     // Use transparent borders to increase the hit area by 10px on top and bottom.
     border-top: $carousel-indicator-hit-area-height solid transparent;
     border-bottom: $carousel-indicator-hit-area-height solid transparent;
-    opacity: 0.5;
+    opacity: .5;
     @include transition($carousel-indicator-transition);
   }
 
@@ -175,6 +178,7 @@
     opacity: 1;
   }
 }
+
 
 // Optional captions
 //
