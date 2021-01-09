@@ -1,10 +1,21 @@
 <form class="docs-search d-flex align-items-center">
-  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
-    <span><i class="fas fa-bars"></i></span>
+  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <div class="d-flex">
+      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+        {{ if .Parent | and .Parent.IsHome }}
+          {{ .LinkTitle | emojify }}
+        {{ else if .Parent | and (not .Parent.IsHome) }}
+          {{ .Parent.LinkTitle | emojify }}
+        {{ else }}
+          {{ (i18n "home" | default "Home") | emojify }}
+        {{ end }}
+      </span>
+      <span><i class="fas fa-chevron-down"></i></span>
+    </div>
   </button>
 
   {{ if eq site.Params.search.engine 1 }}
-  <button class="form-control sidebar-search js-search">
+  <button class="form-control sidebar-search js-search d-none d-md-flex">
     <i class="fas fa-search pr-2"></i>
     <span class="sidebar-search-text">{{ i18n "search_placeholder" }}</span>
     <span class="sidebar-search-shortcut">/</span>
