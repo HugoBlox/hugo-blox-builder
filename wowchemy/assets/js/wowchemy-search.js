@@ -5,6 +5,8 @@
  *  In-built Fuse based search algorithm.
  **************************************************/
 
+import {search_config, i18n, content_type} from '@params';
+
 /* ---------------------------------------------------------------------------
  * Configuration.
  * --------------------------------------------------------------------------- */
@@ -177,7 +179,8 @@ if (typeof Fuse === 'function') {
     let fuse = new Fuse(search_index, fuseOptions);
 
     // On page load, check for search query in URL.
-    if ((query = getSearchQuery('q'))) {
+    let query = getSearchQuery('q')
+    if (query) {
       $('body').addClass('searching');
       $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
       $('#search-query').val(query);

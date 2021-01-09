@@ -40,32 +40,6 @@
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
     {{ end }}
 
-    {{/* Initialise code highlighting. */}}
-    {{ if $scr.Get "highlight_enabled" }}
-    <script>const code_highlighting = true;</script>
-    {{ else }}
-    <script>const code_highlighting = false;</script>
-    {{ end }}
-
-    {{ if ne site.Params.search.engine 0 }}
-    {{/* Configure search engine. */}}
-    {{ $min_length := site.Params.search.wowchemy.min_length | default 1 }}
-    {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
-    {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
-    {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
-    <script>
-      const search_config = {{ $search_config | jsonify | safeJS }};
-      const i18n = {{ $search_i18n | jsonify | safeJS }};
-      const content_type = {
-        'post': {{ i18n "posts" }},
-        'project': {{ i18n "projects" }},
-        'publication' : {{ i18n "publications" }},
-        'event' : {{ i18n "talks" }},
-        'slides' : {{ i18n "slides" | default (i18n "btn_slides") }}
-        };
-    </script>
-    {{ end }}
-
     {{/* Load hash anchors for documentation pages. */}}
     {{ if in (slice "book" "docs") .Type }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
@@ -78,13 +52,13 @@
     {{/* Fuse search result template. */}}
     <script id="search-hit-fuse-template" type="text/x-template">
       <div class="search-hit" id="summary-{{"{{key}}"}}">
-      <div class="search-hit-content">
-        <div class="search-hit-name">
-          {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
-          <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
-          <p class="search-hit-description">{{"{{snippet}}"}}</p>
+        <div class="search-hit-content">
+          <div class="search-hit-name">
+            {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
+            <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+            <p class="search-hit-description">{{"{{snippet}}"}}</p>
+          </div>
         </div>
-      </div>
       </div>
     </script>
     {{ else if eq site.Params.search.engine 2 }}
@@ -109,18 +83,12 @@
     {{ end }}
 
     {{/* Algolia search engine. */}}
+    {{ $algoliaConfig := dict }}
     {{ if eq site.Params.search.engine 2 }}
-    {{ if ($scr.Get "use_cdn") }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
-    {{ end }}
-    <script>
-      const algoliaConfig = {
-        appId: {{ site.Params.search.algolia.app_id }},
-        apiKey: {{ site.Params.search.algolia.api_key }},
-        indexName: {{ site.Params.search.algolia.index_name }},
-        poweredBy: {{ site.Params.search.algolia.show_logo | default false }}
-      };
-    </script>
+      {{ if ($scr.Get "use_cdn") }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
+      {{ end }}
+      {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "poweredBy" (site.Params.search.algolia.show_logo | default false) }}
     {{ end }}
 
     {{/* Netlify Identity integration. */}}
@@ -152,20 +120,31 @@
     <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
     {{ end }}
 
+    {{ $js_search_params := dict }}
+    {{ if ne site.Params.search.engine 0 }}
+      {{/* Configure search engine. */}}
+      {{ $min_length := site.Params.search.wowchemy.min_length | default 1 }}
+      {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
+      {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
+      {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
+      {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") }}
+      {{ $js_search_params = dict "search_config" $search_config "algoliaConfig" $algoliaConfig "i18n" $search_i18n "content_type" $content_types }}
+    {{ end }}
+
     {{ $js_license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
     {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
-    {{ $js_params := dict "hugoEnvironment" hugo.Environment }}
+    {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) }}
     {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "params" $js_params) }}
     {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
     {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
     {{ if eq site.Params.search.engine 1 }}
-      {{ $js_academic_search := resources.Get "js/wowchemy-search.js" }}
+      {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
     {{ else if eq site.Params.search.engine 2 }}
-      {{ $js_algolia_search := resources.Get "js/algolia-search.js" }}
+      {{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_algolia_search }}
     {{ end }}
     {{ range site.Params.plugins_js }}
