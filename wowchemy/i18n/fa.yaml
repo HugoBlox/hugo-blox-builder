@@ -27,7 +27,7 @@
   translation: بعدی
 
 - id: figure
-  translation: "شکل %d:"
+  translation: 'شکل %d:'
 
 - id: edit_page
   translation: ویرایش صفحه

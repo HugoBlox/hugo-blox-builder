@@ -27,7 +27,7 @@
   translation: Edasi
 
 - id: figure
-  translation: "Kujutis %d:"
+  translation: 'Kujutis %d:'
 
 - id: edit_page
   translation: Muuda seda lehte

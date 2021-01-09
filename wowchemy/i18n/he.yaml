@@ -27,7 +27,7 @@
   translation: הבא
 
 - id: figure
-  translation: "איור %d:"
+  translation: 'איור %d:'
 
 - id: edit_page
   translation: עריכת דף זה
