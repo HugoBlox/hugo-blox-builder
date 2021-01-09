@@ -87,7 +87,7 @@
 - id: pub_conf
   translation: Prezentacja z konferencji
 - id: pub_journal
-  translation: Artykuł w czasopiśmie 
+  translation: Artykuł w czasopiśmie
 - id: pub_preprint
   translation: Preprint
 - id: pub_report

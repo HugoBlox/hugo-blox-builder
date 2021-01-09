@@ -27,7 +27,7 @@
   translation: Neste
 
 - id: figure
-  translation: "Figur %d:"
+  translation: 'Figur %d:'
 
 - id: edit_page
   translation: Rediger denne siden

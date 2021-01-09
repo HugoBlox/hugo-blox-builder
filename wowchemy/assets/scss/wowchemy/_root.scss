@@ -5,7 +5,7 @@
 html {
   font-family: $sta-font-body, sans-serif;
   font-size: #{$sta-font-size-small}px;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
   line-height: 1.65;
 
   // Offset anchor scrolling by height of desktop fixed header.
@@ -97,7 +97,9 @@ p {
 }
 
 /* Lists */
-ul, ol, dl {
+ul,
+ol,
+dl {
   margin-top: 0;
   margin-bottom: 1rem;
 }
@@ -111,7 +113,7 @@ ul.task-list {
   list-style: none;
 }
 
-ul.task-list li input[type="checkbox"] {
+ul.task-list li input[type='checkbox'] {
   margin-right: 0.5rem;
 }
 
@@ -124,11 +126,16 @@ ul.task-list li input[type="checkbox"] {
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $sta-font-heading, sans-serif;
   font-weight: 400;
   margin-top: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   line-height: 1.25;
   color: #313131;
   text-rendering: optimizeLegibility;
@@ -155,7 +162,9 @@ h3 {
   margin-top: 1.5rem;
   font-size: 1.25rem;
 }
-h4, h5, h6 {
+h4,
+h5,
+h6 {
   font-weight: 700;
   margin-top: 1rem;
   font-size: 1rem;
@@ -192,7 +201,7 @@ video {
 
 audio {
   width: 100%;
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 video {
@@ -213,7 +222,7 @@ video {
 
 /* Smooth transition for image zoom on hover */
 .img-hover-zoom img {
-  transition: transform .3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Transform the image scale when container gets hovered */
@@ -276,10 +285,10 @@ hr {
 
 /* Quotes */
 blockquote {
-  padding: .5rem 1rem;
-  margin: .8rem 0;
+  padding: 0.5rem 1rem;
+  margin: 0.8rem 0;
   color: #7a7a7a;
-  border-left: .25rem solid #e5e5e5;
+  border-left: 0.25rem solid #e5e5e5;
 }
 blockquote p:last-child {
   margin-bottom: 0;
@@ -321,7 +330,7 @@ blockquote p:last-child {
 
 small,
 .small {
-  font-size: .75em;
+  font-size: 0.75em;
 }
 
 .responsive-wrap iframe {
@@ -350,7 +359,7 @@ small,
 
 .modal-header {
   border: 0;
-  color: rgba(0,0,0,0.8);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-footer {
@@ -437,8 +446,8 @@ a[data-fancybox] {
 
 .badge-light {
   border: none;
-  color: rgba(0,0,0,.68);
-  background: rgba(0,0,0,.05);
+  color: rgba(0, 0, 0, 0.68);
+  background: rgba(0, 0, 0, 0.05);
   font-weight: normal;
   border-radius: 3px;
   padding: 5px 10px;
@@ -452,12 +461,12 @@ a[data-fancybox] {
 
 .badge-light[href]:focus,
 .badge-light[href]:hover {
-  background: rgba(0,0,0,.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 a.badge:focus,
 a.badge:hover {
-  color: rgba(0,0,0,.68);
+  color: rgba(0, 0, 0, 0.68);
 }
 
 .tag-cloud a {
@@ -465,7 +474,7 @@ a.badge:hover {
   position: relative;
   margin: 8px 10px;
   word-wrap: break-word;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   transition-property: transform;
   transition-timing-function: ease-out;
 }
@@ -488,21 +497,21 @@ a.badge:hover {
  *************************************************/
 
 .btn {
-  padding: .5rem;
-  font-size: .8rem;
-  line-height: .9;  // Anything less and multiline button text may overlap.
-  border-radius: .3rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 0.9; // Anything less and multiline button text may overlap.
+  border-radius: 0.3rem;
 }
 
 .btn-links .btn {
-  padding: 5px .5rem 5px .5rem;
+  padding: 5px 0.5rem 5px 0.5rem;
   line-height: 1;
 }
 
 .btn.btn-sm {
-  padding: 5px .4rem 5px .4rem;
+  padding: 5px 0.4rem 5px 0.4rem;
   font-size: 14px;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 
 .btn-page-header {
@@ -541,7 +550,7 @@ a.badge:hover {
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 .2rem $sta-primary-light;
+  box-shadow: 0 0 0 0.2rem $sta-primary-light;
 }
 
 /*************************************************

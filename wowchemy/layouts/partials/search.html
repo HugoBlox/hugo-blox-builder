@@ -23,13 +23,20 @@
         {{ end }}
       </div>
 
-      {{ if eq site.Params.search.engine 1 | and site.Data.search_queries }}
+      {{ $search_queries := false }}
+      {{ if isset site.Data (printf "search_queries.%s" .Site.Language.Lang) }}
+        {{ $search_queries = index site.Data (printf "search_queries.%s" .Site.Language.Lang) }}
+      {{ else if isset site.Data "search_queries" }}
+        {{ $search_queries = site.Data.search_queries }}
+      {{end}}
+
+      {{ if eq site.Params.search.engine 1 | and $search_queries }}
       <div id="search-common-queries" class="pt-3">
         <div class="font-weight-bold pb-3">{{ i18n "search_common_queries" | default "Common searches" }}</div>
         <ul class="fa-ul">
-          {{ range site.Data.search_queries }}
+          {{ range $search_queries }}
             <li class="pb-3">
-              <a href="{{.link | relLangURL}}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pl-1">{{.query | markdownify | emojify}}</span></a>
+              <a href="{{.link | relURL}}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pl-1">{{.query | markdownify | emojify}}</span></a>
             </li>
           {{ end }}
         </ul>

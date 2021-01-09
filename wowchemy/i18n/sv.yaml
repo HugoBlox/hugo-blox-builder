@@ -27,7 +27,7 @@
   translation: Nästa
 
 - id: figure
-  translation: "Figur %d:"
+  translation: 'Figur %d:'
 
 - id: edit_page
   translation: Redigera den här sidan

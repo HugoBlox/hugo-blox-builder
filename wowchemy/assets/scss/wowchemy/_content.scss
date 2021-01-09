@@ -10,12 +10,12 @@
 
 .page-subtitle {
   font-size: 1.15rem;
-  color: rgba(0,0,0,.54);
+  color: rgba(0, 0, 0, 0.54);
   margin-bottom: 1rem;
 }
 
 .dark .page-subtitle {
-  color: rgba(255,255,255,0.54);
+  color: rgba(255, 255, 255, 0.54);
 }
 
 .article-header {
@@ -48,7 +48,7 @@
   margin: 0 auto;
   padding: 2px 5px;
   color: #fff;
-  font-size: .7em;
+  font-size: 0.7em;
   background: #000;
   text-align: right;
   z-index: 5;
@@ -76,7 +76,7 @@
 }
 
 .dark .text-muted {
-  color: rgba(255,255,255,0.54) !important;
+  color: rgba(255, 255, 255, 0.54) !important;
 }
 
 .article-metadata {
@@ -84,11 +84,11 @@
   overflow: hidden;
   font-size: 14px;
   letter-spacing: 0.03em;
-  color: rgba(0,0,0,0.54);
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .dark .article-metadata {
-  color: rgba(255,255,255,0.54);
+  color: rgba(255, 255, 255, 0.54);
 }
 
 .stream-meta.article-metadata {
@@ -101,11 +101,11 @@ article .article-metadata {
 }
 
 .article-metadata a {
-  color: rgba(0,0,0,.54);
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .dark .article-metadata a {
-  color: rgba(255,255,255,0.54);
+  color: rgba(255, 255, 255, 0.54);
 }
 
 .article-metadata a:hover {
@@ -126,8 +126,8 @@ article .article-metadata {
 }
 
 .middot-divider {
-  padding-right: .45em;
-  padding-left: .45em;
+  padding-right: 0.45em;
+  padding-left: 0.45em;
   font-size: 15px;
 }
 
@@ -231,11 +231,11 @@ article .article-metadata {
 .content-widget-hr {
   margin-top: 1.2rem;
   padding-top: 1.2rem;
-  border-top: 1px solid rgba(0,0,0,.05);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dark .content-widget-hr {
-  border-top: 1px solid rgba(255,255,255,.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /*************************************************
@@ -294,7 +294,7 @@ ul.share li a {
 }
 
 ul.share li:hover i {
-  transform: scale(1.2)
+  transform: scale(1.2);
 }
 
 /*************************************************
@@ -360,7 +360,7 @@ ul.share li:hover i {
  **************************************************/
 
 .article-widget {
-  padding-top: 1.2rem;  /* Match .content-widget-hr */
+  padding-top: 1.2rem; /* Match .content-widget-hr */
 }
 
 .article-widget h3 {
