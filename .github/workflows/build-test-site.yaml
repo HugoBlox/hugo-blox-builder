@@ -1,4 +1,4 @@
-name: build test site
+name: Continuous Integration
 
 on:
   push:
@@ -13,8 +13,54 @@ on:
       - 'wowchemy/**'
 
 jobs:
-  deploy:
-    runs-on: ubuntu-18.04
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [15.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch any Git submodules (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install JS dependencies
+        run: npm ci
+        working-directory: ./wowchemy
+
+      - name: Check for JS linting errors
+        run: npm lint:js
+        working-directory: ./wowchemy
+
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v3.1
+        with:
+          prettier_options: '--write "wowchemy/*.{css,js,json,md,scss}" "wowchemy/**/*.{css,js,json,md,scss}"' # Match package.json
+          prettier_version: '2.2.1' # Match package.json
+          commit_message: 'refactor: format code'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  hugo:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -29,3 +75,4 @@ jobs:
 
       - name: Build
         run: hugo --minify
+        working-directory: ./wowchemy/test
