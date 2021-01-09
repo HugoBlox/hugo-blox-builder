@@ -40,24 +40,24 @@ jobs:
         run: yarn run lint:js
         working-directory: ./wowchemy
 
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-
-      - name: Prettify code
-        uses: creyD/prettier_action@v3.1
-        with:
-          prettier_options: '--write wowchemy/*.{css,js,json,md,scss} wowchemy/**/*.{css,js,json,md,scss}' # Match package.json
-          prettier_version: '2.2.1' # Match package.json
-          commit_message: 'refactor: format code'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  format:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#        with:
+#          # Make sure the actual branch is checked out when running on pull requests
+#          ref: ${{ github.head_ref }}
+#
+#      - name: Prettify code
+#        uses: creyD/prettier_action@v3.1
+#        with:
+#          prettier_options: '--write wowchemy/*.{css,js,json,md,scss} wowchemy/**/*.{css,js,json,md,scss}' # Match package.json
+#          prettier_version: '2.2.1' # Match package.json
+#          commit_message: 'refactor: format code'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   hugo:
     runs-on: ubuntu-latest
