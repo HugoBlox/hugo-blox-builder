@@ -2,7 +2,7 @@
 {{- $username_url := $username | urlize -}}
 {{- $taxonomy := "authors" -}}
 {{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $username_url) -}}
-{{- $name := $profile_page.Title | default $username) -}}
+{{- $name := $profile_page.Title | default $username -}}
 {{- with $profile_page -}}
   <a href="{{$profile_page.RelPermalink}}">{{$name | markdownify}}</a>
 {{- else -}}
