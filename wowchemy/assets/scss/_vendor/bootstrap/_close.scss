@@ -5,7 +5,7 @@
   line-height: 1;
   color: $close-color;
   text-shadow: $close-text-shadow;
-  opacity: .5;
+  opacity: 0.5;
 
   // Override <a>'s hover style
   @include hover() {
@@ -15,7 +15,7 @@
 
   &:not(:disabled):not(.disabled) {
     @include hover-focus() {
-      opacity: .75;
+      opacity: 0.75;
     }
   }
 }

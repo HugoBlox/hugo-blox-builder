@@ -32,7 +32,7 @@
     //}
 
     abbr[title]::after {
-      content: " (" attr(title) ")";
+      content: ' (' attr(title) ')';
     }
 
     // Bootstrap specific; comment the following selector out

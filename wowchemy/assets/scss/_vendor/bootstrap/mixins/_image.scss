@@ -2,7 +2,6 @@
 // - Responsive image
 // - Retina image
 
-
 // Responsive image
 //
 // Keep images from scaling beyond the width of their parents.
@@ -15,7 +14,6 @@
   height: auto;
 }
 
-
 // Retina image
 //
 // Short retina mixin for setting background-image and -size.
@@ -27,10 +25,11 @@
   // but doesn't convert dppx=>dpi.
   // There's no such thing as unprefixed min-device-pixel-ratio since it's nonstandard.
   // Compatibility info: https://caniuse.com/#feat=css-media-resolution
-  @media only screen and (min-resolution: 192dpi), // IE9-11 don't support dppx
-    only screen and (min-resolution: 2dppx) { // Standardized
+  @media only screen and (min-resolution: 192dpi),
+    // IE9-11 don't support dppx only screen and (min-resolution: 2dppx) {
+    // Standardized
     background-image: url($file-2x);
     background-size: $width-1x $height-1x;
   }
-  @include deprecate("`img-retina()`", "v4.3.0", "v5");
+  @include deprecate('`img-retina()`', 'v4.3.0', 'v5');
 }

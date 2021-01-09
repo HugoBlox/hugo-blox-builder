@@ -3,7 +3,9 @@
 //
 
 @keyframes spinner-border {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner-border {
@@ -15,7 +17,7 @@
   border-right-color: transparent;
   // stylelint-disable-next-line property-blacklist
   border-radius: 50%;
-  animation: spinner-border .75s linear infinite;
+  animation: spinner-border 0.75s linear infinite;
 }
 
 .spinner-border-sm {
@@ -46,7 +48,7 @@
   // stylelint-disable-next-line property-blacklist
   border-radius: 50%;
   opacity: 0;
-  animation: spinner-grow .75s linear infinite;
+  animation: spinner-grow 0.75s linear infinite;
 }
 
 .spinner-grow-sm {

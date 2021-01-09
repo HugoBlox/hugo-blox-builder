@@ -4,8 +4,14 @@
   @include media-breakpoint-up($breakpoint) {
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-    .float#{$infix}-left  { float: left !important; }
-    .float#{$infix}-right { float: right !important; }
-    .float#{$infix}-none  { float: none !important; }
+    .float#{$infix}-left {
+      float: left !important;
+    }
+    .float#{$infix}-right {
+      float: right !important;
+    }
+    .float#{$infix}-none {
+      float: none !important;
+    }
   }
 }

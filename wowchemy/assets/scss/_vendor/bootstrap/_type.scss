@@ -4,8 +4,18 @@
 // Headings
 //
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   margin-bottom: $headings-margin-bottom;
   font-family: $headings-font-family;
   font-weight: $headings-font-weight;
@@ -13,12 +23,30 @@ h1, h2, h3, h4, h5, h6,
   color: $headings-color;
 }
 
-h1, .h1 { @include font-size($h1-font-size); }
-h2, .h2 { @include font-size($h2-font-size); }
-h3, .h3 { @include font-size($h3-font-size); }
-h4, .h4 { @include font-size($h4-font-size); }
-h5, .h5 { @include font-size($h5-font-size); }
-h6, .h6 { @include font-size($h6-font-size); }
+h1,
+.h1 {
+  @include font-size($h1-font-size);
+}
+h2,
+.h2 {
+  @include font-size($h2-font-size);
+}
+h3,
+.h3 {
+  @include font-size($h3-font-size);
+}
+h4,
+.h4 {
+  @include font-size($h4-font-size);
+}
+h5,
+.h5 {
+  @include font-size($h5-font-size);
+}
+h6,
+.h6 {
+  @include font-size($h6-font-size);
+}
 
 .lead {
   @include font-size($lead-font-size);
@@ -47,7 +75,6 @@ h6, .h6 { @include font-size($h6-font-size); }
   line-height: $display-line-height;
 }
 
-
 //
 // Horizontal rules
 //
@@ -58,7 +85,6 @@ hr {
   border: 0;
   border-top: $hr-border-width solid $hr-border-color;
 }
-
 
 //
 // Emphasis
@@ -75,7 +101,6 @@ mark,
   padding: $mark-padding;
   background-color: $mark-bg;
 }
-
 
 //
 // Lists
@@ -96,7 +121,6 @@ mark,
     margin-right: $list-inline-padding;
   }
 }
-
 
 //
 // Misc
@@ -120,6 +144,6 @@ mark,
   color: $blockquote-small-color;
 
   &::before {
-    content: "\2014\00A0"; // em dash, nbsp
+    content: '\2014\00A0'; // em dash, nbsp
   }
 }

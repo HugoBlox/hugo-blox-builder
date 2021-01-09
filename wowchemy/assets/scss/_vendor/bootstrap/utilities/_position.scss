@@ -2,7 +2,9 @@
 
 // Common values
 @each $position in $positions {
-  .position-#{$position} { position: $position !important; }
+  .position-#{$position} {
+    position: $position !important;
+  }
 }
 
 // Shorthand
