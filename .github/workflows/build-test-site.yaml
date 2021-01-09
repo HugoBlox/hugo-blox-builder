@@ -33,11 +33,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install JS dependencies
-        run: npm ci
+        run: rm -rf node_modules && yarn install --frozen-lockfile
         working-directory: ./wowchemy
 
       - name: Check for JS linting errors
-        run: npm lint:js
+        run: yarn run lint:js
         working-directory: ./wowchemy
 
   format:
