@@ -23,9 +23,9 @@
 {{/* Get summary. */}}
 {{ $summary := "" }}
 {{ if $item.Params.summary }}
-  {{ $summary = $item.Params.summary | markdownify | emojify }}
+  {{ $summary = $item.Params.summary }}
 {{ else if .Params.abstract }}
-  {{ $summary = .Params.abstract | markdownify | emojify | truncate (site.Params.abstract_length | default 135) }}
+  {{ $summary = .Params.abstract | truncate (site.Params.abstract_length | default 135) }}
 {{ else if $item.Summary }}
   {{ $summary = $item.Summary }}
 {{ end }}
@@ -38,11 +38,9 @@
     </div>
 
     {{ with $summary }}
-    <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="summary-link">
-      <div class="article-style">
-        {{.}}
-      </div>
-    </a>
+    <div class="article-style">
+      {{. | markdownify | emojify }}
+    </div>
     {{ end }}
 
     <div class="stream-meta article-metadata">
