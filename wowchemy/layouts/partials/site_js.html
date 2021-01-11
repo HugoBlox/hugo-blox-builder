@@ -137,24 +137,24 @@
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
     {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
     {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (ne site.Params.search.engine 0) }}
-    {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "params" $js_params) }}
+    {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "targetPath" (printf "%s/js/wow-core.js" .Lang ) "params" $js_params) }}
     {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
     {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
     {{ if eq site.Params.search.engine 1 }}
-      {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "params" $js_search_params) }}
+      {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "targetPath" (printf "%s/js/wow-search-built.js" .Lang) "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
     {{ else if eq site.Params.search.engine 2 }}
-      {{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "params" $js_search_params) }}
+      {{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "targetPath" (printf "%s/js/algolia-search-built.js" .Lang) "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_algolia_search }}
     {{ end }}
     {{ range site.Params.plugins_js }}
       {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
     {{ end }}
-    {{ $js_bundle := $js_bundle | resources.Concat "js/wowchemy-bundle-pre.js" }}
+    {{ $js_bundle := $js_bundle | resources.Concat (printf "%s/js/wowchemy-bundle.js" .Lang) }}
     {{- if eq hugo.Environment "production" -}}
       {{ $js_bundle = $js_bundle | minify }}
     {{- end -}}
-    {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/wowchemy.min.js" }}
+    {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat (printf "%s/js/wowchemy.min.js" .Lang) }}
     {{- if eq hugo.Environment "production" -}}
       {{- $js_bundle = $js_bundle | fingerprint "md5" -}}
     {{- end -}}
