@@ -69,6 +69,10 @@
     {{ else }}
       {{/* Case where first section is a general page (e.g. book of books). */}}
 
+      <ul class="nav docs-sidenav">
+        <li><a href="{{.FirstSection.RelPermalink}}"><i class="fas fa-arrow-left pr-1"></i>{{.FirstSection.LinkTitle | emojify}}</a></li>
+      </ul>
+
       {{ $first_node := $current_node }}
       {{ if ne .Parent .FirstSection }}
         {{ if ne .Parent.Parent .FirstSection }}
