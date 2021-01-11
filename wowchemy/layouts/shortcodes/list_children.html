@@ -1,7 +1,11 @@
+{{ $show_summary := ne (.Get "show_summary") "false" }}
 {{ if gt (len $.Page.Pages) 0}}
   <ul class="list-unstyled">
     {{ range $.Page.Pages }}
-      <li><h5><a href="{{.RelPermalink}}">{{.LinkTitle}}</a></h5> {{with .Params.summary}}<p>{{. | plainify | emojify}}</p>{{end}}</li>
+      <li>
+        <h5><a href="{{.RelPermalink}}">{{.LinkTitle}}</a></h5>
+        {{if $show_summary | and .Summary}}<p>{{.Summary | plainify | emojify}}</p>{{end}}
+      </li>
     {{end}}
   </ul>
 {{end}}
