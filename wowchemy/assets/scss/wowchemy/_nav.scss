@@ -122,6 +122,7 @@
 .theme-dropdown .dropdown-menu {
   /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
   position: absolute;
+
   /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
   right: 0;
   left: auto;
@@ -130,6 +131,7 @@
 // Allow user to horizontally scroll.
 // Commented out this feature as it causes dropdowns to appear within the menu bar.
 // TODO: re-enable in a way that doesn't break dropdowns.
+
 /*
 .navbar .collapse {
   overflow-x: auto;

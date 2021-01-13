@@ -59,7 +59,9 @@
 }
 
 /* Big underline style for links in dark sections */
+
 /* Disabled as it's an experimental style that requires CSS NOT Selector Level 4 (only in Safari) */
+
 /*
 .home-section.dark.big-underline a:not(.btn):not(.hero-cta-alt):not(.alert a) {
   text-decoration: none;
@@ -73,7 +75,7 @@
   right: 0;
   position: absolute;
   top: 100%;
-}*/
+} */
 
 // Fill padding of `.home-section` parent
 .home-section-bg {
@@ -160,6 +162,7 @@
 }
 
 /* Reset code highlighting style in Alerts when Alert is child of a `.dark` widget, but Alert should be light.` */
+
 /* But will this affect page which should have dark Alert? */
 .dark .alert pre,
 .dark .alert code {
@@ -191,7 +194,10 @@
 .wg-hero.dark .hero-cta-alt,
 .wg-hero.dark .hero-note > * {
   color: #fff;
-  /*text-shadow: 1px 1px 4px rgba(0,0,0,0.5);*/ /* Uncomment to standout on complicated backgrounds. */
+
+  /* text-shadow: 1px 1px 4px rgba(0,0,0,0.5); */
+
+ /* Uncomment to standout on complicated backgrounds. */
 }
 
 .wg-hero.dark a:not(.wg-hero .btn) {
@@ -331,7 +337,7 @@ a.hero-cta-alt:hover {
 .portrait-title h2 {
   font-size: 1.75em;
   font-weight: 300;
-  color: #000000;
+  color: #000;
   margin: 20px 0 10px 0;
 }
 
@@ -339,7 +345,7 @@ a.hero-cta-alt:hover {
   font-size: 1rem;
   font-weight: 300;
   color: rgba(0, 0, 0, 0.54);
-  margin: 0px 0 10px 0;
+  margin: 0 0 10px 0;
 }
 
 ul.network-icon {
@@ -382,7 +388,7 @@ ul.ul-edu {
 
 ul.ul-edu li {
   position: relative;
-  padding: 0px 15px 4px 3px;
+  padding: 0 15px 4px 3px;
 }
 
 ul.ul-edu li .description p {
@@ -433,7 +439,7 @@ ul.ul-edu li .description p.institution {
 // For a UL after P, remove the spacing between (P margin-bottom) without affecting any nested lists.
 .card .card-text p + ul {
   margin-top: -1rem;
-  margin-bottom: 0rem;
+  margin-bottom: 0;
 }
 
 .experience .m-2 .border,
@@ -478,7 +484,8 @@ ul.ul-edu li .description p.institution {
 .projects-container {
   display: block;
   position: relative;
-  /*margin-top: 5rem;*/
+
+  /* margin-top: 5rem; */
   overflow: hidden;
 }
 

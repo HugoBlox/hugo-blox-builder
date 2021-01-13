@@ -81,7 +81,7 @@ a.summary-link {
   margin-bottom: 0;
 }
 
-.card .card-image.hover-overlay:before {
+.card .card-image.hover-overlay::before {
   display: block;
   position: absolute;
   left: 0;
@@ -94,7 +94,7 @@ a.summary-link {
   transition: all 0.2s ease-out;
 }
 
-.card .card-image.hover-overlay:after {
+.card .card-image.hover-overlay::after {
   display: block;
   position: absolute;
   left: 0;
@@ -115,10 +115,10 @@ a.summary-link {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.card:hover .card-image.hover-overlay:before {
+.card:hover .card-image.hover-overlay::before {
   opacity: 0.8;
 }
 
-.card:hover .card-image.hover-overlay:after {
+.card:hover .card-image.hover-overlay::after {
   opacity: 0.6;
 }
