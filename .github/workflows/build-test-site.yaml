@@ -36,8 +36,8 @@ jobs:
         run: rm -rf node_modules && yarn install --frozen-lockfile
         working-directory: ./wowchemy
 
-      - name: Check for JS linting errors
-        run: yarn run lint:js
+      - name: Check for linting errors
+        run: yarn run lint
         working-directory: ./wowchemy
 
 #  format:

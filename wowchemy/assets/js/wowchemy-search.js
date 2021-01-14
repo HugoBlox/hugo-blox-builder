@@ -179,7 +179,7 @@ if (typeof Fuse === 'function') {
     let fuse = new Fuse(search_index, fuseOptions);
 
     // On page load, check for search query in URL.
-    let query = getSearchQuery('q')
+    let query = getSearchQuery('q');
     if (query) {
       $('body').addClass('searching');
       $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);

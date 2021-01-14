@@ -2,6 +2,12 @@
  *  Navigation bar
  **************************************************/
 
+.dropdown-menu {
+  background-color: $sta-menu-primary !important;
+  color: $sta-menu-text !important;
+  z-index: 1032; // I18n dropdown over mobile expanded menu.
+}
+
 .navbar {
   height: 70px;
   background: $sta-menu-primary;
@@ -231,12 +237,6 @@ ul.nav-icons li:last-of-type {
 
 ul.nav-icons li.nav-item a.nav-link {
   padding: 0;
-}
-
-.dropdown-menu {
-  background-color: $sta-menu-primary !important;
-  color: $sta-menu-text !important;
-  z-index: 1032; // I18n dropdown over mobile expanded menu.
 }
 
 .dark .dropdown-menu {

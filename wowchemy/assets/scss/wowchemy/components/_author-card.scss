@@ -1,0 +1,49 @@
+/*************************************************
+ *  Author profile card
+ **************************************************/
+
+.author-card .avatar {
+  width: 60px;
+  height: 60px;
+}
+
+.author-card .card-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.author-card .card-title a {
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.dark .author-card .card-title,
+.dark .author-card .card-title a {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.author-card p {
+  margin-bottom: 5px;
+}
+
+.author-card .card-subtitle {
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 7px;
+}
+
+.dark .author-card .card-subtitle {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.author-card .card-text {
+  color: rgba(0, 0, 0, 0.76);
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.dark .author-card .card-text {
+  color: rgba(255, 255, 255, 0.76);
+}

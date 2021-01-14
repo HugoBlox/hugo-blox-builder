@@ -1,0 +1,32 @@
+/*************************************************
+ *  Modals.
+ **************************************************/
+
+.modal-content {
+  background: $sta-background;
+}
+
+.dark .modal-content {
+  background: $sta-dark-background;
+}
+
+.modal-title {
+  margin: 0; /* Override default h5 margin. */
+}
+
+.modal-content pre {
+  margin: 0;
+}
+
+.modal-header {
+  border: 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-footer {
+  border: 0;
+}
+
+#modal-error {
+  color: red;
+}
