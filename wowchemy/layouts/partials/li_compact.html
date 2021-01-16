@@ -2,7 +2,6 @@
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
-{{ $show_buttons := false }}
 {{ $link := $item.RelPermalink }}
 {{ $target := "" }}
 {{ if $item.Params.external_link }}
@@ -11,14 +10,13 @@
 {{ end }}
 {{ if eq $item.Type "event" }}
   {{ $show_authors_only = true }}
-  {{ $show_buttons = true }}
 {{ else if eq $item.Type "publication" }}
   {{ $show_authors_only = true }}
-  {{ $show_buttons = true }}
 {{ else if eq $item.Type "project" }}
   {{ $show_authors_only = true }}
-  {{ $show_buttons = true }}
 {{ end }}
+
+{{ $has_attachments := partial "functions/has_attachments" . }}
 
 {{/* Get summary. */}}
 {{ $summary := "" }}
@@ -68,7 +66,7 @@
       {{ end }}
     </div>
 
-    {{ if $show_buttons }}
+    {{ if $has_attachments }}
     <div class="btn-links">
       {{ partial "page_links" (dict "page" $item "is_list" 1) }}
     </div>
