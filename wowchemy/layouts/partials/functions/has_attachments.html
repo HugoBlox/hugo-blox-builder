@@ -15,8 +15,4 @@
   {{ $cite_link = true }}
 {{ end }}
 
-{{ if $cite_link | or $pdf_link | or .Params.url_preprint | or .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_source | or .Params.url_code | or .Params.url_dataset | or .Params.url_poster | or .Params.url_project | or .Params.doi | or .Params.links | or .Params.projects | or .Params.slides }}
-  {{ return true }}
-{{ else }}
-  {{ return false }}
-{{ end }}
+{{ return ($cite_link | or $pdf_link | or .Params.url_preprint | or .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_source | or .Params.url_code | or .Params.url_dataset | or .Params.url_poster | or .Params.url_project | or .Params.doi | or .Params.links | or .Params.projects | or .Params.slides) }}
