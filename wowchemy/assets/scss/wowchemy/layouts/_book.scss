@@ -42,6 +42,10 @@
   margin-right: -15px;
   margin-left: -15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  @include media-breakpoint-down(sm) {
+    padding: 0.8rem 15px;
+  }
 }
 
 .docs-search .form-control:focus {
@@ -127,7 +131,7 @@
 /* Docs links. */
 
 .docs-toggle {
-  line-height: 1;
+  line-height: 1.5;
   font-size: 1.2rem;
   color: $sta-primary;
   background-color: transparent;

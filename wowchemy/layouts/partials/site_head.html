@@ -158,6 +158,9 @@
     {{- $style = $style | minify -}}
   {{- end -}}
   {{ $style := slice $css_bundle_head $style | resources.Concat "css/wowchemy.css" }}
+  {{- if eq (getenv "WC_POST_CSS") "true" -}}
+    {{- $style = $style | postCSS -}}
+  {{- end -}}
   {{- if eq hugo.Environment "production" -}}
     {{- $style = $style | fingerprint "md5" -}}
   {{- end -}}

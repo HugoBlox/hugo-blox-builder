@@ -5,7 +5,7 @@
  *  Core JS functions and initialization.
  **************************************************/
 
-import {hugoEnvironment} from '@params';
+import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
 
 import {fixMermaid} from './wowchemy-utils';
 
@@ -15,8 +15,6 @@ import {
   renderThemeVariation,
   onMediaQueryListEvent,
 } from './wowchemy-theming';
-
-const searchEnabled = typeof search_config !== 'undefined';
 
 console.debug(`Environment: ${hugoEnvironment}`);
 
@@ -283,7 +281,7 @@ function initMap() {
       map.addMarker({
         lat: lat,
         lng: lng,
-        click: function (e) {
+        click: function () {
           let url = 'https://www.google.com/maps/place/' + encodeURIComponent(address) + '/@' + lat + ',' + lng + '/';
           window.open(url, '_blank');
         },
@@ -429,7 +427,7 @@ $(document).ready(function () {
 
   // Initialise code highlighting if enabled for this page.
   // Note: this block should be processed after the Mermaid code-->div conversion.
-  if (code_highlighting) {
+  if (codeHighlighting) {
     hljs.initHighlighting();
   }
 

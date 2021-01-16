@@ -5,19 +5,11 @@
  *  License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md
  **************************************************/
 
-@import 'root';
-@import 'callouts';
-@import 'shortcodes';
-@import 'icons';
-@import 'footer';
-@import 'nav';
-@import 'card';
-@import 'search';
-@import 'content';
-@import 'listings';
-@import 'widgets';
-@import 'book';
+@import 'helpers/all';
+@import 'base';
+@import 'elements/all';
+@import 'components/all';
+@import 'layouts/all';
+@import 'widgets/all';
 @import 'dark';
 @import 'integrations';
-@import 'rtl';
-@import 'breadcrumb';

@@ -2,6 +2,12 @@
  *  Navigation bar
  **************************************************/
 
+.dropdown-menu {
+  background-color: $sta-menu-primary !important;
+  color: $sta-menu-text !important;
+  z-index: 1032; // I18n dropdown over mobile expanded menu.
+}
+
 .navbar {
   height: 70px;
   background: $sta-menu-primary;
@@ -122,6 +128,7 @@
 .theme-dropdown .dropdown-menu {
   /* Use style from uncollapsable dropdowns to prevent dropdown going off page. */
   position: absolute;
+
   /* Below style from .dropdown-menu-right to prevent dropdown going off page. */
   right: 0;
   left: auto;
@@ -130,6 +137,7 @@
 // Allow user to horizontally scroll.
 // Commented out this feature as it causes dropdowns to appear within the menu bar.
 // TODO: re-enable in a way that doesn't break dropdowns.
+
 /*
 .navbar .collapse {
   overflow-x: auto;
@@ -229,12 +237,6 @@ ul.nav-icons li:last-of-type {
 
 ul.nav-icons li.nav-item a.nav-link {
   padding: 0;
-}
-
-.dropdown-menu {
-  background-color: $sta-menu-primary !important;
-  color: $sta-menu-text !important;
-  z-index: 1032; // I18n dropdown over mobile expanded menu.
 }
 
 .dark .dropdown-menu {

@@ -2,25 +2,37 @@
  *  Dark themed components
  **************************************************/
 
+.dark .article-title a {
+  color: #fff;
+}
+
+.dark .pagination li > a,
+.pagination li > span {
+  background-color: rgb(40, 42, 54);
+  border: 1px solid #ddd;
+}
+
 body.dark,
 .dark .docs-toc-link,
-.dark .docs-sidebar .nav > li:not(.active) > a,
 .dark .modal button.close,
-.dark input,
-.dark .form-control,
-.dark .form-control:focus {
+.dark input {
   color: rgb(248, 248, 242);
   background: $sta-dark-background;
 }
 
 .dark .form-control {
+  color: rgb(248, 248, 242);
   background-color: rgb(68, 71, 90);
-}
 
-.dark .form-control:focus {
-  background-color: rgb(68, 71, 90);
-  border-color: $sta-primary;
-  box-shadow: 0 0 0 0.2rem $sta-primary-dark;
+  &::placeholder {
+    color: #fff;
+    opacity: 1;
+  }
+  &:focus {
+    background-color: rgb(68, 71, 90);
+    border-color: $sta-primary;
+    box-shadow: 0 0 0 0.2rem $sta-primary-dark;
+  }
 }
 
 .dark h1,
@@ -67,10 +79,6 @@ body.dark,
   background-color: rgb(60, 62, 74);
 }
 
-.dark .article-title a {
-  color: #fff;
-}
-
 .dark .portrait-title h2 {
   color: #fff;
 }
@@ -89,12 +97,6 @@ body.dark,
 
 .dark .talk-metadata {
   color: rgba(255, 255, 255, 0.54);
-}
-
-.dark .pagination li > a,
-.pagination li > span {
-  background-color: rgb(40, 42, 54);
-  border: 1px solid #ddd;
 }
 
 .dark .card {
@@ -137,4 +139,9 @@ body.dark,
 .dark .btn-primary,
 .dark .btn.btn-primary.active {
   color: initial;
+}
+
+.dark .docs-sidebar .nav > li:not(.active) > a {
+  color: rgb(248, 248, 242);
+  background: $sta-dark-background;
 }

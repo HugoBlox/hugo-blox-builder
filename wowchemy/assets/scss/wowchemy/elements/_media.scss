@@ -1,0 +1,36 @@
+/*************************************************
+ *  Gallery.
+ **************************************************/
+
+.gallery {
+  margin: 0.5em -4px 1.5em -4px;
+  font-size: 0;
+}
+
+.gallery img {
+  // Satisfy Lighthouse criteria even if a lazy image hasn't loaded yet.
+  min-height: 48px;
+  min-width: 48px;
+}
+
+a[data-fancybox] {
+  text-decoration: none;
+  cursor: zoom-in;
+}
+
+.gallery a[data-fancybox] img {
+  height: 250px;
+  width: auto;
+  max-width: inherit;
+  display: inherit;
+  margin: 0;
+  padding: 4px;
+  box-shadow: none;
+  vertical-align: inherit;
+}
+
+.fancybox-caption {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: center;
+}

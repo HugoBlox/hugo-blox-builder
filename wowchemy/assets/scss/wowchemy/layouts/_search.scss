@@ -22,22 +22,6 @@
   background-color: $sta-dark-background;
 }
 
-// Hide body scrollbars whilst searching in modal
-.searching {
-  overflow: hidden;
-}
-
-.searching .search-modal {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  visibility: visible;
-  z-index: 1031; /* Highest index, higher than navbar. */
-}
-
-.searching #search-box #search-query {
-  width: 100%;
-}
-
 .search-modal > .container {
   padding-top: 70px; /* Navbar height. */
 }
@@ -94,12 +78,16 @@
   font-weight: 900;
   content: '\f002';
   font-size: 1rem;
-  opacity: 0.25;
+  opacity: 0.5;
   line-height: 1rem;
   position: absolute;
   left: 0.7rem;
   top: 0.6rem;
   overflow-x: hidden;
+}
+
+.dark #search-query {
+  background-color: $sta-dark-background;
 }
 
 #search-box #search-query {
@@ -110,10 +98,6 @@
   line-height: 1rem;
   height: 1rem;
   font-size: 0.8rem;
-}
-
-.dark #search-query {
-  background-color: $sta-dark-background;
 }
 
 .form-control:focus {
@@ -211,4 +195,19 @@
 
 .dark .ais-search-box--input {
   background-color: $sta-dark-background;
+}
+// Hide body scrollbars whilst searching in modal
+.searching {
+  overflow: hidden;
+}
+
+.searching .search-modal {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  visibility: visible;
+  z-index: 1031; /* Highest index, higher than navbar. */
+}
+
+.searching #search-box #search-query {
+  width: 100%;
 }
