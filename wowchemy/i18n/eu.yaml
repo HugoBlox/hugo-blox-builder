@@ -15,6 +15,12 @@
 - id: home
   translation: Hasiera
 
+- id: close
+  translation: Itxi
+
+- id: languages
+  translation: Hizkuntzak
+
 # General
 
 - id: related

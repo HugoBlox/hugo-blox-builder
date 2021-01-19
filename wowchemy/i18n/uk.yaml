@@ -27,7 +27,7 @@
   translation: Наступний
 
 - id: figure
-  translation: "Схема %d:"
+  translation: 'Схема %d:'
 
 - id: edit_page
   translation: Редагувати цю сторінку

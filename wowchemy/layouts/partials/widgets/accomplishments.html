@@ -11,7 +11,7 @@
     <div class="card experience course">
       <div class="card-body">
         {{- with .url -}}<a href="{{.}}" target="_blank" rel="noopener">{{- end -}}
-        <h4 class="card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</h4>
+        <div class="section-subheading card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</div>
         {{- with .url -}}</a>{{- end -}}
 
         <div class="card-subtitle my-0 article-metadata">

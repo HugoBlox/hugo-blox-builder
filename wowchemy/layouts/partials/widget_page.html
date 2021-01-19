@@ -39,13 +39,9 @@
   {{ end }}
 
   {{ if $bg.image }}
-    {{ $darken := "" }}
-    {{ if $bg.image_darken }}
-      {{ $darken = printf "linear-gradient(rgba(0, 0, 0, %s), rgba(0, 0, 0, %s))," (string $bg.image_darken) (string $bg.image_darken) }}
-    {{ end }}
     {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
     {{ $media_dir := $.Scratch.Get "media_dir" }}
-    {{ $style_bg = printf "%sbackground-image: %s url('%s');" $style_bg $darken (printf "%s/%s" $media_dir $bg.image | absURL) }}
+    {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg (printf "%s/%s" $media_dir $bg.image | absURL) }}
     {{ with $bg.image_size }}
       {{/* Allow sizes: actual, cover, and contain. */}}
       {{ $style_bg = printf "%sbackground-size: %s;" $style_bg (replace . "actual" "auto") }}
@@ -54,6 +50,10 @@
       {{/* Allow valid CSS positions including left, center, and right. */}}
       {{ $style_bg = printf "%sbackground-position: %s;" $style_bg . }}
     {{ end }}
+  {{ end }}
+
+  {{ if $bg.image_darken }}
+    {{ $style_bg = printf "%sfilter: brightness(%s);" $style_bg (string $bg.image_darken) }}
   {{ end }}
 
   {{ with $st.Params.design.spacing.padding }}
@@ -103,7 +103,7 @@
   {{ $use_cols := in (slice "pages" "featured" "experience" "accomplishments" "contact" "blank" "tag_cloud" "portfolio") $widget }}
 
   {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
-  <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+  <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
     {{if $use_container}}<div class="container">{{end}}
 

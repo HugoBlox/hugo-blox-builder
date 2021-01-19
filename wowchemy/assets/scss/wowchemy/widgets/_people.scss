@@ -1,0 +1,33 @@
+/*************************************************
+ *  People widget
+ **************************************************/
+
+.people-widget {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.people-widget .portrait-title h2 {
+  font-size: 1rem;
+}
+
+.people-widget .portrait-title h3 {
+  font-size: 0.7rem;
+}
+
+.people-widget .avatar {
+  width: 80%;
+  max-width: 150px;
+  height: auto;
+}
+
+@media (min-width: 576px) {
+  .people-widget .col-sm-auto {
+    width: 30%;
+  }
+}
+@media (min-width: 992px) {
+  .people-widget .col-sm-auto {
+    width: 20%;
+  }
+}

@@ -34,7 +34,7 @@ function initThemeVariation() {
 
   let isDarkTheme;
   let currentThemeMode = getThemeMode();
-  console.debug(`User's theme variation: ${currentThemeMode}`)
+  console.debug(`User's theme variation: ${currentThemeMode}`);
 
   switch (currentThemeMode) {
     case 0:
@@ -59,10 +59,10 @@ function initThemeVariation() {
 
   if (isDarkTheme && !body.classList.contains('dark')) {
     console.debug('Applying Wowchemy dark theme');
-    document.body.classList.add("dark");
+    document.body.classList.add('dark');
   } else if (!isDarkTheme && body.classList.contains('dark')) {
     console.debug('Applying Wowchemy light theme');
-    document.body.classList.remove("dark");
+    document.body.classList.remove('dark');
   }
 
   return {
@@ -149,7 +149,7 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
   // Is code highlighting enabled in site config?
   const codeHlLight = document.querySelector('link[title=hl-light]');
   const codeHlDark = document.querySelector('link[title=hl-dark]');
-  const codeHlEnabled = (codeHlLight !== null) || (codeHlDark !== null);
+  const codeHlEnabled = codeHlLight !== null || codeHlDark !== null;
   const diagramEnabled = document.querySelector('script[title=mermaid]') !== null;
 
   // Update active theme mode in navbar theme selector.
@@ -159,7 +159,10 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
   if (!init) {
     // If request to render light when light variation already rendered, return.
     // If request to render dark when dark variation already rendered, return.
-    if ((isDarkTheme === false && !body.classList.contains('dark')) || (isDarkTheme === true && body.classList.contains('dark'))) {
+    if (
+      (isDarkTheme === false && !body.classList.contains('dark')) ||
+      (isDarkTheme === true && body.classList.contains('dark'))
+    ) {
       return;
     }
   }
@@ -176,7 +179,7 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
       if (codeHlLight) {
         codeHlLight.disabled = false;
       }
-      if (codeHlDark){
+      if (codeHlDark) {
         codeHlDark.disabled = true;
       }
     }
@@ -196,13 +199,13 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
       Object.assign(document.body.style, {opacity: 0, visibility: 'visible'});
       fadeIn(document.body, 600);
     }
-    body.classList.add("dark");
+    body.classList.add('dark');
     if (codeHlEnabled) {
       console.debug('Setting HLJS theme to dark');
       if (codeHlLight) {
         codeHlLight.disabled = true;
       }
-      if (codeHlDark){
+      if (codeHlDark) {
         codeHlDark.disabled = false;
       }
     }

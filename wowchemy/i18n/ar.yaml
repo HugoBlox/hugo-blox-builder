@@ -10,7 +10,7 @@
   translation: المحتويات
 
 - id: back_to_top
-  translation:  الرجوع لأعلى الصفحة
+  translation: الرجوع لأعلى الصفحة
 
 # General
 
@@ -27,7 +27,7 @@
   translation: التالي
 
 - id: figure
-  translation: "شكل %d:"
+  translation: 'شكل %d:'
 
 - id: edit_page
   translation: عدل هذه الصفحة
@@ -49,7 +49,7 @@
   translation: المسودة
 
 - id: btn_pdf
-  translation:  بي دي اف
+  translation: بي دي اف
 
 - id: btn_cite
   translation: استشهاد
@@ -154,7 +154,7 @@
   translation: حدث
 
 - id: location
-  translation:  موقع
+  translation: موقع
 
 - id: pub_uncat
   translation: غير مصنف
@@ -211,7 +211,7 @@
   translation: ابحث هنا‫...‬
 
 - id: search_results
-  translation:  نتائج البحث
+  translation: نتائج البحث
 
 - id: search_no_results
   translation: لم يتم العثور على نتائج
@@ -225,7 +225,6 @@
   translation: هل تبحث عن أحد الصفحات التالية؟
 
 # Cookie consent
-
 
 - id: cookie_message
   translation: هذا الموقع يستخدم ملفات تعريف الارتباط "الكوكيز" لنمنحك أفضل تجربة مستخدم ممكنة

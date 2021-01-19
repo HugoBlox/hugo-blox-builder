@@ -1,0 +1,80 @@
+/*************************************************
+ *  Hero Widget
+ **************************************************/
+
+.wg-hero {
+  padding: 3em 0; // More compact top and bottom padding for Hero.
+}
+
+.hero-title {
+  font-size: 2.7rem;
+  margin-top: 0;
+  line-height: 1;
+}
+
+.hero-lead {
+  max-width: 768px;
+  font-size: 1.35rem;
+}
+
+.wg-hero.dark .hero-title,
+.wg-hero.dark .hero-lead,
+.wg-hero.dark .hero-cta-alt,
+.wg-hero.dark .hero-note > * {
+  color: #fff;
+
+  /* text-shadow: 1px 1px 4px rgba(0,0,0,0.5); */
+
+  /* Uncomment to standout on complicated backgrounds. */
+}
+
+.wg-hero.dark a:not(.wg-hero .btn) {
+  color: #fff;
+}
+
+.wg-hero .hero-lead a {
+  text-decoration: underline;
+}
+
+.wg-hero .cta-btns {
+  margin-bottom: 16px;
+}
+
+.wg-hero .btn {
+  padding: 0.6em 2.1em;
+}
+
+.wg-hero.dark .btn {
+  color: $sta-primary-dark;
+}
+
+a.hero-cta-alt {
+  display: inline-block;
+  position: relative;
+  transition-duration: 0.2s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  font-size: 1.1rem;
+}
+
+a.hero-cta-alt:active,
+a.hero-cta-alt:focus,
+a.hero-cta-alt:hover {
+  transform: scale(1.1);
+}
+
+.wg-hero .btn-lg {
+  font-size: 1.1rem;
+}
+
+.wg-hero .hero-note {
+  font-size: 0.8rem;
+}
+
+.hero-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}

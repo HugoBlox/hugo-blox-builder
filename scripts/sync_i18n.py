@@ -45,7 +45,8 @@ for filename in Path(I18N_PATH).glob("*.yaml"):
 
     # Write the synced language pack to file.
     with open(i18n_file, 'w') as f:
-      yaml.dump(tmp_map, f, allow_unicode=True, width=float("inf"))  # PyYAML will break lines unless a large column width is set.
+      # PyYAML will break lines unless a large column `width` is set.
+      yaml.dump(tmp_map, f, allow_unicode=True, width=float("inf"), default_style='\'')
     cnt += 1
 
 # Print results.

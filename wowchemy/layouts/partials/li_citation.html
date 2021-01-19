@@ -1,3 +1,5 @@
+{{ $has_attachments := partial "functions/has_attachments" . }}
+
 <div class="pub-list-item" style="margin-bottom: 1rem">
   <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
 
@@ -29,7 +31,12 @@
   {{- .Params.publication | markdownify -}},
   {{ end }}
   {{- .Date.Format "2006" -}}.
-  <p>{{ partial "page_links" (dict "page" . "is_list" 1) }}</p>
+
+  {{ if $has_attachments }}
+  <div class="btn-links">
+    {{ partial "page_links" (dict "page" . "is_list" 1) }}
+  </div>
+  {{ end }}
 
   {{ end }}
 </div>

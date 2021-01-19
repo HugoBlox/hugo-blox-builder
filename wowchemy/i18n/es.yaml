@@ -15,6 +15,12 @@
 - id: home
   translation: Inicio
 
+- id: close
+  translation: Cerrar
+
+- id: languages
+  translation: Idiomas
+
 # General
 
 - id: related

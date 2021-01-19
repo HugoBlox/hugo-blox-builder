@@ -12,7 +12,7 @@ import {wcDarkLightEnabled, wcIsSiteThemeDark} from '@params';
 window.wc = {
   darkLightEnabled: wcDarkLightEnabled,
   isSiteThemeDark: wcIsSiteThemeDark,
-}
+};
 
 // Initialize theme variation and set body theme class.
 initThemeVariation();
