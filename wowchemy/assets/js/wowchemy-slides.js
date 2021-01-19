@@ -1,6 +1,6 @@
 import * as params from "@params";
 
-import {fixMermaid} from './wowchemy-utils';
+import { fixMermaid } from './wowchemy-utils';
 
 // Enable core slide features.
 enabledPlugins = [
@@ -46,11 +46,11 @@ const keysToCamelCase = function (o) {
 
 // reveal configurations can be included in front matter under slides.reveal
 var pluginOptions = {}
-if(typeof params.slides.reveal_options !== "undefined"){
+if (typeof params.slides.reveal_options !== "undefined") {
   pluginOptions = params.slides.reveal_options;
 }
 
-pluginOptions = keysToCamel(pluginOptions);
+pluginOptions = keysToCamelCase(pluginOptions);
 
 //enable menu by default if not set
 if (typeof pluginOptions.menu_enabled !== "undefined") {
@@ -78,7 +78,7 @@ if (params.slides.diagram) {
   // mermaid: front matter configuration can be used to set mermaid options
   // You can also use directives (see mermaid documentation)
   var mermaidOptions = {}
-  if(typeof params.slides.diagram_options !== "undefined"){
+  if (typeof params.slides.diagram_options !== "undefined") {
     mermaidOptions = params.slides.diagram_options;
   }
 
@@ -95,16 +95,16 @@ if (params.slides.diagram) {
   // 1- data loaded
   // 2- display set to block
   // 3- has a mermaid element that is not processed (data-processed dne)
-  function mermaidSlidesReadyToRender(slide) {
-    diag = s.querySelector(".mermaid");
+  function mermaidSlidesReadyToRender(mslide) {
+    diag = mslide.querySelector(".mermaid");
     if (diag) {
-      background = s.slideBackgroundElement;
+      background = mslide.slideBackgroundElement;
       // render if we are 1 slide away horizontally
       // current visible slide index
       currentHorizontalIndex = Reveal.getState()["indexh"];
 
       // mermaid slide index
-      diagramSlideIndex = Reveal.getIndices((slide = s))["h"];
+      diagramSlideIndex = Reveal.getIndices((slide = mslide))["h"];
       if (
         // find slides with non-rendered mermaid tags
         // these will not have the attribute data-processed
@@ -118,7 +118,7 @@ if (params.slides.diagram) {
         // render diagrams that are 1 slide away
         diagramSlideIndex - currentHorizontalIndex <= 1
       )
-        return slide;
+        return mslide;
     }
     return null;
   }
@@ -126,7 +126,7 @@ if (params.slides.diagram) {
   function renderMermaidSlides() {
     // find all slides with diagrams that are ready to render
     diagramSlides = Reveal.getSlides().filter(mermaidSlidesReadyToRender);
-    
+
     // render the diagram for each slide with ready to render diagrams
     diagramSlides.forEach((item) => mermaid.init(item.querySelector(".mermaid")));
   }
