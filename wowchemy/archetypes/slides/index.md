@@ -16,34 +16,26 @@ slides:
   #   Use lower case names and replace space with hyphen '-'
   highlight_style: dracula
 
-  diagram: true # configure js or not
-  diagram_options: # see mermaid documentation for other options
-    theme: base # default/base/dark/neutral/forest
+  diagram: true
+  diagram_options:
+    # Mermaid diagram themes include: default,base,dark,neutral,forest
+    theme: base
 
-  # Remember to use snake case for options under reveal_options instead of camel case
-  # all snake case will be converted into came case for reveal 
-
-  reveal_options: # see reveal documentation for other options
+  # RevealJS slide options.
+  # Options are named using the snake case equivalent of those in the RevealJS docs.
+  reveal_options:
     controls: true
     progress: true
-    slide_number: c/t # true | false | h.v | h/v | c | c/t
+    slide_number: c/t  # true | false | h.v | h/v | c | c/t
     center: true
     rtl: false
     mouse_wheel: true
-    transition: fade #  none/fade/slide/convex/concave/zoom
-    # transitionSpeed: slow  # default/fast/slow
-    background_transition: slide # none/fade/slide/convex/concave/zoom
+    transition: fade  # none/fade/slide/convex/concave/zoom
+    transitionSpeed: default  # default/fast/slow
+    background_transition: slide  # none/fade/slide/convex/concave/zoom
     touch: true
     loop: false
-
-  #   menu_enabled: true # configure js or not
-
-  #   # same item as name used for setting plugin configuration
-  #   menu: # see menu plugin documentation for other options
-  #     numbers: false  # numbers in menu slides
-  #     transitions: false  # transition selection in menu
-
-
+    menu_enabled: true
 ---
 
 # Title
