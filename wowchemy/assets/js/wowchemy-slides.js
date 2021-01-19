@@ -53,7 +53,7 @@ if(typeof params.slides.reveal_options !== "undefined"){
 pluginOptions = keysToCamel(pluginOptions);
 
 //enable menu by default if not set
-if (pluginOptions.menu_enabled !== undefined) {
+if (typeof pluginOptions.menu_enabled !== "undefined") {
 
   pluginOptions.menu_enabled = true;
 }
@@ -68,7 +68,7 @@ pluginOptions["plugins"] = enabledPlugins;
 Reveal.initialize(pluginOptions);
 
 // Disable Mermaid by default.
-if (params.slides.diagram === undefined) {
+if (typeof params.slides.diagram === "undefined") {
   params.slides.diagram = false;
 }
 
