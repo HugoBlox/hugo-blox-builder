@@ -11,7 +11,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
+  <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo">
 
   {{ if site.Home.OutputFormats.Get "WebAppManifest" }}
   <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
@@ -34,13 +34,11 @@
   {{ $css_custom := resources.Get "css/reveal_custom.css" }}
   {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
-
 </head>
 <body>
 
   {{ block "main" . }}{{ end }}
 
-  
   <script src="{{ $cdn_url_reveal }}/reveal.min.js" integrity="sha512-Xu/cezKABTI81MGnaBm64vdiS7XkttHeYGOgr2Mdga0bTplSBGongLq2lhK2HwL79wefKM0u4uTCLD0ha1sRzQ==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.min.js" integrity="sha512-eZZqO4ECmVvGhCt+6VZ7ian2bCu4S6yrjSFH9fXLY1zTokpAWsxAxQwM4x6+7G+G4ha5tFIe0jY0XjpBUqS49Q==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/highlight/highlight.min.js" integrity="sha512-NA5UCab7xDKQPXGsmIp8iEuId5BAKGPiqHZsZQcBuySfp1n3dZrwBDKpPNL23Db5upay1nULxU14JV1ggFOD2A==" crossorigin="anonymous"></script>
@@ -48,23 +46,20 @@
   <script src="{{ $cdn_url_reveal }}/plugin/search/search.min.js" integrity="sha512-2yh3Y2gEdboEnZb9d0QZP05N3e0jTkcjhbG9xYL97mbnZ53IXzF5R2TCTmSrtuspDyJ5FWBSh+8izjiGjVdLWw==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/math/math.min.js" integrity="sha512-FUzQmRJDLL111zqJg/vN1YzQFQtZNWfBH2VaOiv30dXRXgaTRn3F/Ibda92klSAVjfz3Q9UqS88R4RF4Ip01fQ==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/zoom/zoom.min.js" integrity="sha512-zPYOPjR7Hg9BPUYkfNlvVtrC37QlYwq/7mI42VTuXKTcNBp7QvMfuqUTMesOf74OrZ3AEdxJGndGSrJG9O2j5Q==" crossorigin="anonymous"></script>
-<!-- 3rd part plugins -->
 
+  {{/* Third-party Reveal plugins. */}}
   {{ if $.Param "slides.reveal_options.menu_enabled" | default true}}
     <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/plugin.js" integrity="sha256-M6JwAjnRAWmi+sbXURR/yAhWZKYhAw7YXnnLvIxrdGs=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js" integrity="sha256-l14dklFcW5mWar6w/9KaW0fWVerf3mYr7Wt0+rXzFAA=" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.css" integrity="sha256-0fU8HKLaTjgzfaV9CgSqbsN8ilA3zo6zK1M6rlgULd8=" crossorigin="anonymous">
   {{ end }}
-
 
   {{ if $.Param "slides.diagram" | default false}}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
   {{ end }}
 
   {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
-
-  <script type="text/javascript" src="{{ $slidejs.RelPermalink }}"></script>
+  <script src="{{ $slidejs.RelPermalink }}"></script>
 
 </body>
 </html>
