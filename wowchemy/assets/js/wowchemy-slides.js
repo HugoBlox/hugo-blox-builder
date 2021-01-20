@@ -50,7 +50,7 @@ if (typeof params.slides.reveal_options !== 'undefined') {
 pluginOptions = keysToCamelCase(pluginOptions);
 
 //enable menu by default if not set
-if (typeof pluginOptions.menu_enabled !== 'undefined') {
+if (typeof pluginOptions.menu_enabled === 'undefined') {
   pluginOptions.menu_enabled = true;
 }
 
