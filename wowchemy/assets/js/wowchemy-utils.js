@@ -23,6 +23,4 @@ function fixMermaid() {
   }
 }
 
-export {
-  fixMermaid,
-};
+export {fixMermaid};

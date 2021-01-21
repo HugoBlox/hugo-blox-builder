@@ -27,7 +27,7 @@
   translation: Další
 
 - id: figure
-  translation: "Obrázek %d:"
+  translation: 'Obrázek %d:'
 
 - id: edit_page
   translation: Upravit stránku

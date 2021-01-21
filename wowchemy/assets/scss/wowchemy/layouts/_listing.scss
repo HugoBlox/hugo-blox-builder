@@ -1,0 +1,60 @@
+/*************************************************
+ *  List items
+ **************************************************/
+
+.view-list-item {
+  margin-bottom: 1rem;
+}
+
+.pub-icon {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.81em;
+  padding-right: 6px;
+}
+
+.view-list-item .article-metadata {
+  margin-bottom: 0;
+}
+
+.pub-list-item .pub-abstract {
+  font-size: 1rem;
+}
+
+.pub-list-item .btn-links {
+  padding-top: 10px;
+}
+
+/*************************************************
+ *  Compact (stream) list view
+ **************************************************/
+
+.media.stream-item {
+  margin-bottom: 2rem;
+}
+
+.card-simple .article-title,
+.media.stream-item .article-title {
+  font-size: 1.2rem;
+}
+
+.card-simple .article-style,
+.media.stream-item .article-style {
+  margin-top: 2px;
+  font-size: 0.8rem;
+}
+
+.media.stream-item .stream-meta {
+  margin-top: 12px;
+}
+
+.media.stream-item img {
+  max-width: 150px;
+  height: auto;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .media.stream-item img {
+    max-width: 80px;
+  }
+}

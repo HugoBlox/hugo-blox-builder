@@ -4,7 +4,6 @@
 {{ $icon_pack := "far" }}
 {{ $icon := "fa-file-alt" }}
 {{ $show_authors := false }}
-{{ $show_buttons := false }}
 {{ $link := $item.RelPermalink }}
 {{ $target := "" }}
 {{ if $item.Params.external_link }}
@@ -13,23 +12,23 @@
 {{ end }}
 {{ if eq $item.Type "post" }}
   {{ $icon = "fa-newspaper" }}
-{{ else if eq $item.Type "talk" }}
+{{ else if eq $item.Type "event" }}
   {{ $icon = "fa-calendar-alt" }}
 {{ else if eq $item.Type "publication" }}
   {{ $show_authors = true }}
-  {{ $show_buttons = true }}
 {{ else if eq $item.Type "project" }}
   {{ $icon_pack = "fas" }}
   {{ $icon = "fa-project-diagram" }}
   {{ $show_authors = true }}
-  {{ $show_buttons = true }}
 {{ end }}
+
+{{ $has_attachments := partial "functions/has_attachments" . }}
 
 <div class="view-list-item">
   <i class="{{$icon_pack}} {{$icon}} pub-icon" aria-hidden="true"></i>
   <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
 
-  {{ if eq $item.Type "talk" }}
+  {{ if eq $item.Type "event" }}
   <div class="article-metadata">
     <span>
       {{ partial "functions/get_event_dates" $item }}
@@ -47,7 +46,7 @@
   </div>
   {{ end }}
 
-  {{ if $show_buttons }}
+  {{ if $has_attachments }}
   <div class="btn-links">
     {{ partial "page_links" (dict "page" $item "is_list" 1) }}
   </div>

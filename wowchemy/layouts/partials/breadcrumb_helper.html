@@ -3,9 +3,9 @@
   <li class="breadcrumb-item">
     <a href="{{ .RelPermalink }}">
       {{ if .IsHome }}
-        {{ i18n "home" | default "Home" }}
+        {{ (i18n "home" | default "Home") | emojify }}
       {{ else }}
-        {{ (.LinkTitle | default .Title) | emojify }}
+        {{ .LinkTitle | emojify }}
       {{ end }}
     </a>
   </li>

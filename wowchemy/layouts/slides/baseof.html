@@ -5,12 +5,13 @@
   {{ .Scratch.Set "media_dir" $media_dir }}
 
   {{ $css := site.Data.assets.css }}
-  {{ $cdn_url_reveal := "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0" }}
+  {{ $cdn_url_reveal := "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0" }}
+  {{ $js := site.Data.assets.js }}
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic {{ site.Data.academic.version }}">
+  <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo">
 
   {{ if site.Home.OutputFormats.Get "WebAppManifest" }}
   <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
@@ -23,55 +24,42 @@
 
   <title>{{ .Title }} | {{ site.Title }}</title>
 
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/css/reveal.min.css">
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/reveal.min.css">
   {{- $theme := $.Param "slides.theme" | default "black" -}}
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/css/theme/{{ $theme }}.min.css">
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css">
 
   {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
-  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
+  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" id=\"highlight-theme\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
 
-  {{ $css := resources.Get "css/reveal.css" }}
   {{ $css_custom := resources.Get "css/reveal_custom.css" }}
-  {{ $style := slice $css $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
+  {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}">
-
-  <!-- Printing and PDF exports -->
-  <script>
-    var link = document.createElement( 'link' );
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '{{ $cdn_url_reveal }}/css/print/pdf.css' : '{{ $cdn_url_reveal }}/css/print/paper.css';
-    document.getElementsByTagName( 'head' )[0].appendChild( link );
-  </script>
-
 </head>
 <body>
 
   {{ block "main" . }}{{ end }}
 
-  <script src="{{ $cdn_url_reveal }}/js/reveal.min.js"></script>
+  <script src="{{ $cdn_url_reveal }}/reveal.min.js" integrity="sha512-Xu/cezKABTI81MGnaBm64vdiS7XkttHeYGOgr2Mdga0bTplSBGongLq2lhK2HwL79wefKM0u4uTCLD0ha1sRzQ==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.min.js" integrity="sha512-eZZqO4ECmVvGhCt+6VZ7ian2bCu4S6yrjSFH9fXLY1zTokpAWsxAxQwM4x6+7G+G4ha5tFIe0jY0XjpBUqS49Q==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/highlight/highlight.min.js" integrity="sha512-NA5UCab7xDKQPXGsmIp8iEuId5BAKGPiqHZsZQcBuySfp1n3dZrwBDKpPNL23Db5upay1nULxU14JV1ggFOD2A==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.min.js" integrity="sha512-FYeeQscKqibmYKr0+nE2+fN5prBsFwgjsBVwkrA88O6mN2+ai6EvRkSi6txuhXlWsyK1MUfoV+94+q6HLouJSQ==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/search/search.min.js" integrity="sha512-2yh3Y2gEdboEnZb9d0QZP05N3e0jTkcjhbG9xYL97mbnZ53IXzF5R2TCTmSrtuspDyJ5FWBSh+8izjiGjVdLWw==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/math/math.min.js" integrity="sha512-FUzQmRJDLL111zqJg/vN1YzQFQtZNWfBH2VaOiv30dXRXgaTRn3F/Ibda92klSAVjfz3Q9UqS88R4RF4Ip01fQ==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/zoom/zoom.min.js" integrity="sha512-zPYOPjR7Hg9BPUYkfNlvVtrC37QlYwq/7mI42VTuXKTcNBp7QvMfuqUTMesOf74OrZ3AEdxJGndGSrJG9O2j5Q==" crossorigin="anonymous"></script>
 
-  <script>
-    window.revealPlugins = { dependencies: [
-      // Interpret Markdown in <section> elements.
-      { src: '{{ $cdn_url_reveal }}/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: '{{ $cdn_url_reveal }}/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      // Enable code highlighting.
-      { src: '{{ $cdn_url_reveal }}/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-      // Enable zooming.
-      { src: '{{ $cdn_url_reveal }}/plugin/zoom-js/zoom.js', async: true },
-      // Enable math.
-      { src: '{{ $cdn_url_reveal }}/plugin/math/math.js', async: true },
-      // Enable exporting deck to PDF.
-      { src: '{{ $cdn_url_reveal }}/plugin/print-pdf/print-pdf.js', async: true },
-      // Enable speaker notes. Notes plugin must be loaded locally as CDN is missing `notes.html`.
-      { src: '{{ "js/vendor/reveal.js/plugin/notes/notes.js" | relURL }}', async: true }
-    ]};
+  {{/* Third-party Reveal plugins. */}}
+  {{ if $.Param "slides.reveal_options.menu_enabled" | default true}}
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/plugin.js" integrity="sha256-M6JwAjnRAWmi+sbXURR/yAhWZKYhAw7YXnnLvIxrdGs=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js" integrity="sha256-l14dklFcW5mWar6w/9KaW0fWVerf3mYr7Wt0+rXzFAA=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.css" integrity="sha256-0fU8HKLaTjgzfaV9CgSqbsN8ilA3zo6zK1M6rlgULd8=" crossorigin="anonymous">
+  {{ end }}
 
-    let revealDefaults = { center: true, controls: true, history: true, progress: true, transition: 'slide', mouseWheel: true };
-    let revealOptions = Object.assign({}, revealDefaults, revealPlugins);
-    Reveal.initialize(revealOptions);
-  </script>
+  {{ if $.Param "slides.diagram" | default false}}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
+  {{ end }}
+
+  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
+  <script src="{{ $slidejs.RelPermalink }}"></script>
 
 </body>
 </html>

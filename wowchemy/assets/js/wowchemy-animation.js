@@ -9,7 +9,7 @@ function fadeIn(element, duration = 600) {
   element.style.display = '';
   element.style.opacity = '0';
   let last = +new Date();
-  let tick = function() {
+  let tick = function () {
     element.style.opacity = (+element.style.opacity + (new Date() - last) / duration).toString();
     last = +new Date();
     if (+element.style.opacity < 1) {
@@ -19,6 +19,4 @@ function fadeIn(element, duration = 600) {
   tick();
 }
 
-export {
-  fadeIn,
-};
+export {fadeIn};

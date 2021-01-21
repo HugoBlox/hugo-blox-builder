@@ -1,25 +1,12 @@
 {{/* Div wrapper around page links. */}}
 {{/* The wrapper is hidden when the page has no link buttons. */}}
 
-{{ $page := . }}
-{{ $pdf_link := false }}
-{{ $cite_link := false }}
-{{ $slug := $page.File.ContentBaseName }}
-{{ $resource := $page.Resources.GetMatch (printf "%s.pdf" $slug) }}
-{{ with $resource }}
-  {{ $pdf_link = true }}
-{{ end }}
-
-{{ $resource := $page.Resources.GetMatch "cite.bib" }}
-{{ with $resource }}
-  {{ $cite_link = true }}
-{{ end }}
-
-{{ if $cite_link | or $pdf_link | or .Params.external_link | or .Params.url_preprint | or .Params.url_pdf | or .Params.url_slides | or .Params.url_video | or .Params.url_source | or .Params.url_code | or .Params.url_dataset | or .Params.url_poster | or .Params.url_project | or .Params.doi | or .Params.links | or .Params.projects | or .Params.slides }}
+{{ $has_attachments := partial "functions/has_attachments" . }}
+{{ if $has_attachments | or .Params.external_link }}
 <div class="btn-links mb-3">
   {{ with .Params.external_link }}
   <a class="btn btn-outline-primary my-1" href="{{ . }}" target="_blank" rel="noopener">{{ i18n "open_project_site" }}</a>
   {{ end }}
-  {{ partial "page_links" (dict "page" $page "is_list" 0) }}
+  {{ partial "page_links" (dict "page" . "is_list" 0) }}
 </div>
 {{ end }}

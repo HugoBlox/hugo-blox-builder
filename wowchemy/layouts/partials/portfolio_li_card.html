@@ -1,8 +1,8 @@
 {{ $item := .item }}
 {{ $widget := .widget }}
-
 {{ $link := .link }}
 {{ $target := .target }}
+{{ $has_attachments := partial "functions/has_attachments" $item }}
 
 {{/* Get summary. */}}
 {{ $summary := "" }}
@@ -29,9 +29,16 @@
     {{ end }}
     <div class="card-text">
       <h4><a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{ $item.Title | markdownify | emojify }}</a></h4>
+
       {{ with $summary }}
       <div class="article-style">
         <p>{{ . }}</p>
+      </div>
+      {{ end }}
+
+      {{ if $has_attachments }}
+      <div class="btn-links">
+        {{ partial "page_links" (dict "page" $item "is_list" 1) }}
       </div>
       {{ end }}
     </div>

@@ -1,0 +1,13 @@
+plugins:
+  - stylelint-scss
+extends:
+  - stylelint-config-standard
+  - stylelint-config-prettier
+rules:
+  at-rule-no-unknown: null # Use SCSS "at" rules
+  scss/at-rule-no-unknown: true # Use SCSS "at" rules
+  no-descending-specificity: null # Todo: remove once investigated/resolved
+  font-family-no-missing-generic-family-keyword:
+    - true
+    - ignoreFontFamilies:
+        - Font Awesome 5 Free

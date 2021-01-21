@@ -1,0 +1,60 @@
+/*************************************************
+ *  Button size override
+ *************************************************/
+
+.btn {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 0.9; // Anything less and multiline button text may overlap.
+  border-radius: 0.3rem;
+}
+
+.btn-links .btn {
+  padding: 5px 0.5rem 5px 0.5rem;
+  line-height: 1;
+}
+
+.btn.btn-sm {
+  padding: 5px 0.4rem 5px 0.4rem;
+  font-size: 14px;
+  border-radius: 0.2rem;
+}
+
+.btn-page-header {
+  // Satisfy Lighthouse tap targets criteria.
+  margin: 8px 8px 8px 0;
+}
+
+/*************************************************
+ *  Toolbar Buttons
+ **************************************************/
+
+.btn-toolbar .btn {
+  font-size: 0.9rem;
+  padding: 10px 14px 9px;
+  border: none;
+}
+
+.btn-toolbar .btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.btn-toolbar .btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.btn-toolbar .btn.btn-primary:hover,
+.btn-toolbar .btn.btn-primary:focus {
+  background-color: $sta-primary-light !important;
+}
+
+.btn-toolbar .btn.btn-primary:active,
+.btn-toolbar .btn.btn-primary.active {
+  background-color: $sta-primary-dark !important;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $sta-primary-light;
+}

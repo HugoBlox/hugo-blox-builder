@@ -27,7 +27,7 @@
   translation: Tolimesnis
 
 - id: figure
-  translation: "Pav. %d:"
+  translation: 'Pav. %d:'
 
 - id: edit_page
   translation: Redaguoti šį puslapį

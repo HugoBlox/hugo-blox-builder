@@ -1,0 +1,9 @@
+# Netlify redirects
+# Automatically generated
+# Documentation: http://bit.ly/netlify-deployment
+{{- /* Note: code purposely un-indented to preserve required spacing in output. */ -}}
+{{- range $page := where site.AllPages ".Aliases" "!=" nil -}}
+{{- range $page.Aliases }}
+{{ .|relLangURL }} {{ $page.RelPermalink -}}
+{{- end }}
+{{- end -}}

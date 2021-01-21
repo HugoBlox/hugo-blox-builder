@@ -1,0 +1,13 @@
+_vendor/
+vendor/
+
+public/
+resources/
+
+*.html
+
+assets/css/reveal.css
+assets/scss/main.scss
+
+layouts/index.json
+layouts/index.webmanifest
