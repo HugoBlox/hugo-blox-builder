@@ -127,7 +127,7 @@
       {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
       {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
       {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
-      {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") }}
+      {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") "authors" (i18n "authors") }}
       {{ $js_search_params = dict "search_config" $search_config "algoliaConfig" $algoliaConfig "i18n" $search_i18n "content_type" $content_types }}
     {{ end }}
 
