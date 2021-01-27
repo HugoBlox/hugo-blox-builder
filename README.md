@@ -1,14 +1,20 @@
 <!--<p align="center"><a href="https://wowchemy.com" target="_blank" rel="noopener"><img src="https://wowchemy.com/img/logo_200px.png" alt="Wowchemy Website Builder"></a></p>-->
 
+[中文](https://wowchemy.com/zh/)
+
 # [Wowchemy](https://wowchemy.com): the website builder for [Hugo](https://gohugo.io)
 
-### The Page Builder to Easily Create Professional Websites ✏️ 📰 🚀
+### Join 500,000+ Sites. Easily Create Future-Proof Websites ✏️ 📰 🚀
 
-**Create _any_ kind of website for free with Wowchemy. Write using Markdown, Jupyter, or RStudio. Choose a beautiful template, color theme, and font. Build anything with the Page Builder - over 50 _widgets_, _themes_, and _language packs_ included!**
+🔥 **1. Create _any_ kind of website for free with widgets** - from landing pages, knowledge bases, and courses to academic resumés, conferences, and tech blogs
 
-[Check out the latest **demos**](https://wowchemy.com/templates/) of what you'll get in less than 10 minutes, or [view the **showcase**](https://wowchemy.com/user-stories/) of personal, project, and business sites.
+🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and widgets**
 
-- 👉 [**Get Started**](https://wowchemy.com/docs/install/)
+🛋 **3. Write from your sofa or on the go with the integrated open source Content Management System (CMS)**
+
+[Check out the latest **demos**](https://wowchemy.com/templates/) of what you'll get in less than 10 minutes, or [get **inspired**](https://wowchemy.com/user-stories/) by user stories.
+
+- 👉 [**Get Started**](https://wowchemy.com/templates/)
 - 📚 [View the **documentation**](https://wowchemy.com/docs/)
 - 💬 [Chat with the **Wowchemy community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
 - 🐦 Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=(%23MadeWithWowchemy%20OR%20%23MadeWithAcademic)&src=typed_query)
@@ -19,7 +25,7 @@
 
 To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.
 
-### [❤️ Click here to unlock rewards with sponsorship](https://wowchemy.com/plans/)
+### [❤️ Unlock rewards by supporting this open source software ❤️](https://wowchemy.com/plans/)
 
 ## Ecosystem
 
