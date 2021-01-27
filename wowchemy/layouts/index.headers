@@ -9,8 +9,9 @@
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  {{with $csp_policy}}Content-Security-Policy{{if $csp_report_only}}-Report-Only{{end}}: {{.}}{{end}}
-  {{with $permissions_policy}}Permissions-Policy: {{.}}{{end}}
+  Referrer-Policy: strict-origin-when-cross-origin
+  {{with $csp_policy}}Content-Security-Policy{{if $csp_report_only}}-Report-Only{{end}}: {{replaceRE "(\\s\\s+)" " " (trim . " ")}}{{end}}
+  {{with $permissions_policy}}Permissions-Policy: {{replaceRE "(\\s\\s+)" " " (trim . " ")}}{{end}}
 /index.webmanifest
   Content-Type: application/manifest+json
 /index.xml
