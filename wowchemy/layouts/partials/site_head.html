@@ -1,13 +1,15 @@
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
   {{ $hide_generator := site.Params.power_ups.hide_generator | default false }}
   {{ if not (and $is_sponsor $hide_generator) }}
-  <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo">
+    <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo" />
   {{ end }}
+  {{ with site.Params.marketing.google_site_verification }}
+    <meta name="google-site-verification" content="{{ . }}" />
+  {{- end -}}
 
   {{ $scr := .Scratch }}
 
@@ -25,7 +27,7 @@
   {{ end }}
   {{ $scr.Set "superuser_username" $superuser_username }}{{/* Set superuser globally for page_author.html. */}}
 
-  {{ with $superuser_name }}<meta name="author" content="{{ . }}">{{ end }}
+  {{ with $superuser_name }}<meta name="author" content="{{ . }}" />{{ end }}
 
   {{/* Generate page description. */}}
   {{ $desc := "" }}
@@ -40,30 +42,30 @@
   {{ else }}
     {{ $desc = $superuser_role }}
   {{ end }}
-  <meta name="description" content="{{ $desc }}">
+  <meta name="description" content="{{ $desc }}" />
 
   {{ range .Translations }}
-  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+    <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
   {{ end }}
-  <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}">
+  <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
 
   {{ partial "functions/parse_theme" . }}
 
   {{/* Pre-connect to Google Fonts if the site's Font Theme uses them. */}}
   {{ with ($scr.Get "google_fonts") }}
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  {{end}}
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  {{ end }}
 
   {{ $css := site.Data.assets.css }}
   {{ $js := site.Data.assets.js }}
   {{ if ne ($scr.Get "primary") "#fff" }}
-  <meta name="theme-color" content="{{ $scr.Get "primary" }}">
+    <meta name="theme-color" content="{{ $scr.Get "primary" }}" />
   {{ end }}
 
   {{/* Config LaTeX math rendering. */}}
   {{ if or .Params.math site.Params.math }}
-  {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
-  <script src="{{ $mathjax_config.RelPermalink }}"></script>
+    {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
+    <script src="{{ $mathjax_config.RelPermalink }}"></script>
   {{ end }}
 
   {{/* Attempt to load local vendor CSS, otherwise load from CDN. */}}
@@ -71,7 +73,7 @@
   {{ $scr.Set "vendor_js_filename" "main.min.js" }}
   {{ if and (fileExists (printf "static/css/vendor/%s" ($scr.Get "vendor_css_filename"))) (fileExists (printf "static/js/vendor/%s" ($scr.Get "vendor_js_filename"))) }}
     {{ $scr.Set "use_cdn" 0 }}
-    <link rel="stylesheet" href="{{ printf "/css/vendor/%s" ($scr.Get "vendor_css_filename") | relURL }}">
+    <link rel="stylesheet" href="{{ printf "/css/vendor/%s" ($scr.Get "vendor_css_filename") | relURL }}" />
   {{ else }}
     {{ $scr.Set "use_cdn" 1 }}
     {{ if site.Params.icon.pack.ai }}
@@ -105,7 +107,7 @@
     {{ end }}
 
     {{ if or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3) }}
-    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
+      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
     {{ end }}
 
     {{ if eq site.Params.search.engine 2 }}
@@ -114,19 +116,19 @@
     {{ end }}
 
     {{/* Load async scripts. */}}
-    {{ range $k, $v := site.Data.assets.js }}{{/* TODO: investigate why `where ... "async" true` does not work. */}}
+    {{ range $k, $v := site.Data.assets.js }}
+      {{/* TODO: investigate why `where ... "async" true` does not work. */}}
       {{ $load := $v.async }}
 
       {{/* Only load MathJax if required. */}}
       {{ if (eq $k "mathJax") | and (not (or $.Params.math site.Params.math)) }}
         {{ $load = false }}
-      {{end}}
+      {{ end }}
 
       {{ if $load }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" async></script>" (printf $v.url $v.version) $v.sri | safeHTML }}
-      {{end}}
-    {{end}}
-
+      {{ end }}
+    {{ end }}
   {{ end }}
 
   {{/* Load Google Fonts if the site's Font Theme uses them. */}}
@@ -164,7 +166,7 @@
   {{- if eq hugo.Environment "production" -}}
     {{- $style = $style | fingerprint "md5" -}}
   {{- end -}}
-  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
 
   {{ partial "marketing/google_analytics" . }}
   {{ partial "marketing/google_tag_manager" . }}
@@ -172,21 +174,21 @@
 
   {{/* Netlify Identity integration. */}}
   {{ if .IsHome | and (site.Params.cms.netlify_cms | default false) }}
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   {{ end }}
 
   {{ with .OutputFormats.Get "RSS" }}
-  <link rel="alternate" href="{{.RelPermalink}}" type="application/rss+xml" title="{{site.Title}}">
+    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}" />
   {{ end }}
 
   {{ if site.Home.OutputFormats.Get "WebAppManifest" }}
-  <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
+    <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}" />
   {{ end }}
 
-  <link rel="icon" type="image/png" href="{{(partial "functions/get_icon" 32).RelPermalink}}">
-  <link rel="apple-touch-icon" type="image/png" href="{{(partial "functions/get_icon" 180).RelPermalink}}">
+  <link rel="icon" type="image/png" href="{{ (partial "functions/get_icon" 32).RelPermalink }}" />
+  <link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_icon" 180).RelPermalink }}" />
 
-  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="canonical" href="{{ .Permalink }}" />
 
   {{/* Get page image for sharing. */}}
   {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
@@ -212,37 +214,39 @@
     {{ $twitter_card = "summary" }}
   {{ end }}
   {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
-  <meta property="twitter:card" content="{{ $twitter_card }}">
+  <meta property="twitter:card" content="{{ $twitter_card }}" />
   {{ with site.Params.twitter }}
-  <meta property="twitter:site" content="@{{ . }}">
-  <meta property="twitter:creator" content="@{{ . }}">
+    <meta property="twitter:site" content="@{{ . }}" />
+    <meta property="twitter:creator" content="@{{ . }}" />
   {{ end }}
-  <meta property="og:site_name" content="{{ site.Title }}">
-  <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}">
-  <meta property="og:description" content="{{ $desc }}">
+  <meta property="og:site_name" content="{{ site.Title }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}" />
+  <meta property="og:description" content="{{ $desc }}" />
   {{- with $og_image -}}
-  <meta property="og:image" content="{{.}}">
-  <meta property="twitter:image" content="{{.}}">
+    <meta property="og:image" content="{{ . }}" />
+    <meta property="twitter:image" content="{{ . }}" />
   {{- end -}}
-  <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}">
+  <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}" />
   {{ if .IsPage }}
     {{ if not .PublishDate.IsZero }}
-      <meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+      <meta
+        property="article:published_time"
+        content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"
+      />
     {{ else if not .Date.IsZero }}
-      <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+      <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
     {{ end }}
     {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
   {{ else }}
-    {{ if not .Date.IsZero }}<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+    {{ if not .Date.IsZero }}
+      <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+    {{ end }}
   {{ end }}
 
   {{ partial "jsonld/main" (dict "page" . "summary" $desc) }}
-
   {{ partial "cookie_consent" . }}
-
   {{ partial "custom_head" . }}
 
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
-
 </head>
