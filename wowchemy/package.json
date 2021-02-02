@@ -21,6 +21,7 @@
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "prettier": "2.2.1",
+    "prettier-plugin-go-template": "0.0.11-beta.4",
     "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
