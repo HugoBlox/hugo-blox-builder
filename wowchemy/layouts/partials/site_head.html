@@ -173,7 +173,8 @@
   {{ partial "marketing/microsoft_clarity" . }}
 
   {{/* Netlify Identity integration. */}}
-  {{ if .IsHome | and (site.Params.cms.netlify_cms | default false) }}
+  {{ $use_cms := templates.Exists "wowchemycms/single.wowchemycms_config.yml" | default (site.Params.cms.netlify_cms | default false) }}
+  {{ if .IsHome | and $use_cms }}
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   {{ end }}
 
