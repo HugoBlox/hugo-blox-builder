@@ -10,7 +10,7 @@ var PostPreview = createClass({
     return h('div', {},
       h('h1', {}, entry.getIn(['data', 'title'])),
       h('p', {"className": "page-subtitle"}, entry.getIn(['data', 'subtitle'])),
-      (bg == 'featured.png' || entry.getIn(['data', 'image', 'preview_only']) == true)?'':h('img', {src: bg.toString()}), // Don't show image if doesn't exist or is preview only
+      (bg == 'featured.png' || entry.getIn(['data', 'image', 'preview_only']) == true)?'':h('img', {src: bg.toString(), "className": "featured-image"}), // Don't show image if doesn't exist or is preview only
       h('div', {"className": "article-container"}, this.props.widgetFor('body'))
     );
   }
