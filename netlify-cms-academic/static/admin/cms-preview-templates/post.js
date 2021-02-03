@@ -1,7 +1,7 @@
 let PostPreview = createClass({
   render: function() {
-    var entry = this.props.entry;
-    var bg = this.props.getAsset('featured.jpg')
+    let entry = this.props.entry;
+    let bg = this.props.getAsset('featured.jpg')
     if (bg == 'featured.jpg') { // If the image doesn't exist then bg will equal the filename
       bg = this.props.getAsset('featured.jpeg')
       if (bg == 'featured.jpeg') {
