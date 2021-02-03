@@ -165,7 +165,6 @@ collections:
       - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Publish this page on", name: "date", widget: "datetime"}
-      - {label: "Last modified", name: "lastmod", widget: "datetime", required: false, default: false}
       - {label: "Summary", name: "summary", widget: "markdown", required: false}
       - label: "Draft"
         name: "draft"
@@ -222,7 +221,6 @@ collections:
       - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
       - {label: "Body", name: "body", widget: "markdown", required: false}
       - {label: "Publish this page on", name: "date", widget: "datetime"}
-      - {label: "Last modified", name: "lastmod", widget: "datetime", required: false, default: false}
       - {label: "Summary", name: "summary", widget: "markdown", required: false}
       - label: "Draft"
         name: "draft"
@@ -319,7 +317,6 @@ collections:
       - {label: "Event", name: "event", widget: "string"}
       - {label: "Event link", name: "event_url", widget: "string"}
       - {label: "Publish this page on", name: "publishDate", widget: "datetime"}
-      - {label: "Last modified", name: "lastmod", widget: "datetime", required: false, default: false}
       - {label: "Markdown slides (reference a deck in 'content/slides/')", name: "slides", widget: "string", required: false}
       - label: "Draft"
         name: "draft"
@@ -447,7 +444,6 @@ collections:
       - { label: "Summary (shortened abstract)", name: "summary", widget: "text", required: false }
       - {label: "Details", name: "body", widget: "markdown", required: false}
       - { label: "Publish this page on", name: "date", widget: "datetime" }
-      - {label: "Last modified", name: "lastmod", widget: "datetime", required: false, default: false}
   - name: slides
     label: Slides
     label_singular: Slides
@@ -523,3 +519,4 @@ collections:
             widget: "boolean"
             default: false
           - {label: "Body", name: "body", widget: "markdown"}
+          
