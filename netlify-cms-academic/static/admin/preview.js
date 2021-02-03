@@ -9,5 +9,5 @@ fetch("/")
         CMS.registerPreviewStyle(tag.href);
       }
     });
+    CMS.registerPreviewStyle("custom-preview.css"); // custom preview CSS
   });
-CMS.registerPreviewStyle("custom-preview.css"); // custom preview CSS
