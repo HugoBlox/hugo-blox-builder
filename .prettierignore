@@ -1,0 +1,13 @@
+_vendor/
+vendor/
+
+public/
+resources/
+
+*.html
+
+wowchemy/assets/css/reveal.css
+wowchemy/assets/scss/main.scss
+
+wowchemy/layouts/index.json
+wowchemy/layouts/index.webmanifest

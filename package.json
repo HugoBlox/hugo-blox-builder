@@ -30,8 +30,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "yarn run lint:js && yarn run lint:style",
-    "lint:js": "eslint assets/js/",
-    "lint:style": "stylelint \"assets/scss/**/*.scss\"",
+    "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
+    "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "lint:style": "stylelint '*/**/*.{css,scss}'",
     "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
     "stylelint-conflict-check": "stylelint-config-prettier-check"
   }

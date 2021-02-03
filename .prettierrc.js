@@ -8,12 +8,10 @@ module.exports = {
   printWidth: 120,
   overrides: [
     {
-      files: [
-        "*.html"
-      ],
+      files: ['*.html'],
       options: {
-        parser: "go-template"
-      }
-    }
+        parser: 'go-template',
+      },
+    },
   ],
 };
