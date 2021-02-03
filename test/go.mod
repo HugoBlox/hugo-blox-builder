@@ -2,6 +2,6 @@ module github.com/wowchemy/wowchemy-hugo-modules/test
 
 go 1.15
 
-require github.com/wowchemy/wowchemy-hugo-modules/wowchemy v0.0.0-20210202235530-9bbf6fa2a698
+require github.com/wowchemy/wowchemy-hugo-modules/wowchemy master
 
 replace github.com/wowchemy/wowchemy-hugo-modules/wowchemy => ../wowchemy

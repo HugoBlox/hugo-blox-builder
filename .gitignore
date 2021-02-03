@@ -13,3 +13,6 @@ resources/
 
 # Mac
 .DS_Store
+
+# Test
+test/go.sum
