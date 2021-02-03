@@ -1,0 +1,7 @@
+**/*.min.css
+**/vendor/
+**/_vendor/
+public/
+
+wowchemy/assets/scss/main.scss
+wowchemy/assets/css/reveal_custom.css

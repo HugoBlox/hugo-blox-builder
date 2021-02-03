@@ -1,8 +1,8 @@
 # How to get support for Wowchemy 👨‍💬👩‍💬
 
-🚑 For **help** and **questions**, solve common issues with the [**Troubleshooting Guide**](https://wowchemy.com/docs/faq/).
+🚑 For **help** and **questions**, solve common issues with the [**Troubleshooting Guide**](https://wowchemy.com/docs/guide/troubleshooting/).
 
-For other issues, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)**  and **[forum](https://github.com/wowchemy/wowchemy-hugo-modules/discussions)**, and if not, consider posting a new thread there.
+For other issues, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/wowchemy/wowchemy-hugo-modules/discussions)**, and if not, consider posting a new thread there.
 
 Please **_do not_** raise an issue on GitHub.
 

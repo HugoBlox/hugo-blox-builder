@@ -21,4 +21,4 @@ params:
       policy:
       report_only: false
   cms:
-    netlify_cms: false
+    branch: master
