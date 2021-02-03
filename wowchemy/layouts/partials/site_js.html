@@ -91,22 +91,6 @@
       {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "poweredBy" (site.Params.search.algolia.show_logo | default false) }}
     {{ end }}
 
-    {{/* Netlify Identity integration. */}}
-    {{/* Complements loading of Netlify JS in `site_head`. */}}
-    {{ if .IsHome | and (site.Params.cms.netlify_cms | default false) }}
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-    {{ end }}
-
     {{/* Charts */}}
     {{ if .HasShortcode "chart" }}
     <script>
