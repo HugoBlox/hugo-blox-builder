@@ -155,6 +155,10 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
   // Update active theme mode in navbar theme selector.
   showActiveTheme(themeMode);
 
+  // Dispatch `wcThemeChange` event to support themeable user plugins.
+  const themeChangeEvent = new CustomEvent('wcThemeChange', {detail: {isDarkTheme: () => isDarkTheme}});
+  document.dispatchEvent(themeChangeEvent);
+
   // Check if re-render required.
   if (!init) {
     // If request to render light when light variation already rendered, return.
