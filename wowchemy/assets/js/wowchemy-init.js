@@ -27,3 +27,6 @@ if (window.netlifyIdentity) {
 
 // Initialize theme variation and set body theme class.
 initThemeVariation();
+
+// For Plotly compatibility with MathJax (must appear prior to loading Plotly).
+window.PlotlyConfig = {MathJaxConfig: 'local'};

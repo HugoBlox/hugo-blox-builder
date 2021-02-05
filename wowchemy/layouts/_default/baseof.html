@@ -17,11 +17,11 @@
   {{ $wcIsSiteThemeDark := not (.Scratch.Get "light") | default false }}
   {{ $js_params := dict "wcDarkLightEnabled" $wcDarkLightEnabled "wcIsSiteThemeDark" $wcIsSiteThemeDark }}
   {{ $js_bundle := resources.Get "js/wowchemy-init.js" | js.Build (dict "params" $js_params) }}
-  {{- if eq hugo.Environment "production" -}}
+  {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | minify }}
   {{- end -}}
   {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/wowchemy-init.min.js" }}
-  {{- if eq hugo.Environment "production" -}}
+  {{- if hugo.IsProduction -}}
     {{- $js_bundle = $js_bundle | fingerprint "md5" -}}
   {{- end -}}
   <script src="{{ $js_bundle.RelPermalink }}"></script>
