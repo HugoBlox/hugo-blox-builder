@@ -1,4 +1,4 @@
-{{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and site.Params.marketing.microsoft_clarity }}
+{{ if hugo.IsProduction | and site.Params.marketing.microsoft_clarity }}
 <script>
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

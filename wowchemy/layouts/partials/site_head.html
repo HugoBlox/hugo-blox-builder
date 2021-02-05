@@ -7,6 +7,11 @@
   {{ if not (and $is_sponsor $hide_generator) }}
     <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo" />
   {{ end }}
+
+  {{ with site.Params.marketing.google_optimize }}
+    <script src="https://www.googleoptimize.com/optimize.js?id={{ . }}"></script>
+  {{- end -}}
+
   {{ with site.Params.marketing.google_site_verification }}
     <meta name="google-site-verification" content="{{ . }}" />
   {{- end -}}

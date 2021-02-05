@@ -93,9 +93,6 @@
 
     {{/* Charts */}}
     {{ if .HasShortcode "chart" }}
-    <script>
-      window.PlotlyConfig = {MathJaxConfig: 'local'};
-    </script>
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
     {{ end }}
 
@@ -103,6 +100,12 @@
     {{ if and (eq site.Params.comments.engine 1) (site.Params.comments.disqus.show_count | default true) }}
     <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
     {{ end }}
+
+    {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
+    {{- if hugo.IsProduction -}}
+      {{ $js_bootstrap = $js_bootstrap | minify | fingerprint "md5" }}
+    {{- end -}}
+    <script src="{{ $js_bootstrap.RelPermalink }}"></script>
 
     {{ $js_search_params := dict }}
     {{ if ne site.Params.search.engine 0 }}
@@ -119,11 +122,9 @@
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
-    {{ $js_linebreak := "\n" | resources.FromString "js/linebreak.js" }}{{/* Fix no line break after Bootstrap JS causing error. */}}
     {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (ne site.Params.search.engine 0) }}
     {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "targetPath" (printf "%s/js/wow-core.js" .Lang ) "params" $js_params) }}
-    {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
-    {{ $js_bundle := slice $js_bootstrap $js_linebreak $js_academic }}
+    {{ $js_bundle := slice $js_academic }}
     {{ if eq site.Params.search.engine 1 }}
       {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "targetPath" (printf "%s/js/wow-search-built.js" .Lang) "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
@@ -135,11 +136,11 @@
       {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
     {{ end }}
     {{ $js_bundle := $js_bundle | resources.Concat (printf "%s/js/wowchemy-bundle.js" .Lang) }}
-    {{- if eq hugo.Environment "production" -}}
+    {{- if hugo.IsProduction -}}
       {{ $js_bundle = $js_bundle | minify }}
     {{- end -}}
     {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat (printf "%s/js/wowchemy.min.js" .Lang) }}
-    {{- if eq hugo.Environment "production" -}}
+    {{- if hugo.IsProduction -}}
       {{- $js_bundle = $js_bundle | fingerprint "md5" -}}
     {{- end -}}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
