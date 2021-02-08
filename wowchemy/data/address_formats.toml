@@ -4,3 +4,6 @@ en-gb = {order = ['street', 'city', 'region', 'postcode'], delimiters = [', ', '
 de = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
 fr-fr = {order = ['street', 'postcode', 'city'], delimiters = ['<br>', ' ', '']}
 zh = {order = ['postcode', 'region', 'city', 'street'], delimiters = [' ', ' ', ' ', '']}
+pt-br = {order = ['street', 'city', 'region', 'postcode', 'country'], delimiters = ['<br>', ', ', '<br>', '<br>']}
+il = {order = ['street', 'city', 'postcode', 'country'], delimiters = [', ', '&nbsp;', ' ', '']}
+fi = {order = ['street', 'postcode', 'city', 'country'], delimiters = [', ', ' ', ', ']}

@@ -91,22 +91,6 @@
       {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "poweredBy" (site.Params.search.algolia.show_logo | default false) }}
     {{ end }}
 
-    {{/* Netlify Identity integration. */}}
-    {{/* Complements loading of Netlify JS in `site_head`. */}}
-    {{ if .IsHome | and (site.Params.cms.netlify_cms | default false) }}
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
-    {{ end }}
-
     {{/* Charts */}}
     {{ if .HasShortcode "chart" }}
     <script>
@@ -127,7 +111,7 @@
       {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
       {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
       {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
-      {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") }}
+      {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") "authors" (i18n "authors") }}
       {{ $js_search_params = dict "search_config" $search_config "algoliaConfig" $algoliaConfig "i18n" $search_i18n "content_type" $content_types }}
     {{ end }}
 

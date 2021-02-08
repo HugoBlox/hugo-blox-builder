@@ -216,6 +216,9 @@
 
 - id: slides
   translation: Diapositivas
+  
+- id: authors
+  translation: Autores  
 
 # Search
 

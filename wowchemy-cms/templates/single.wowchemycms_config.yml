@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: main
   squash_merges: true
 media_folder: 'static/media'
 public_folder: '/media'

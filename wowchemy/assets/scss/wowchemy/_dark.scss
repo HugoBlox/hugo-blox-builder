@@ -55,8 +55,9 @@ body.dark,
   border-color: rgb(68, 71, 90);
 }
 
-.dark .markup-quote {
-  background-image: linear-gradient(to bottom, rgba(233, 231, 245, 0.2), rgba(233, 231, 245, 0.2));
+.dark mark,
+.dark .mark {
+  background: rgba(233, 231, 245, 0.2);
 }
 
 .dark #MathJax_Zoom {

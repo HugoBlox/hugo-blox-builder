@@ -22,12 +22,11 @@ If you have an idea for a new feature, please start by [searching the issues](ht
 
 Code linting and formatting form part of the Continuous Integration process to help catch bugs and code issues in contributions.
 
-Contributors can also run the flow on their fork of the  "Wowchemy Hugo Modules" repo when making contributions (you'll need Node and Yarn to run):
+Contributors can also run the flow on their fork of the "Wowchemy Hugo Modules" repo when making contributions (you'll need Node and Yarn to run):
+
 ```sh
-cd wowchemy
 yarn install
-yarn run lint:js
-yarn run lint:style
+yarn run lint
 yarn run format
 ```
 
@@ -39,7 +38,7 @@ yarn run format
 
 [Create and publish your own shortcode](https://github.com/wowchemy/wowchemy-shortcode-starter)
 
-### Contribute a language pack 
+### Contribute a language pack
 
 To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://wowchemy.com/docs/language/#create-or-modify-a-language-pack). Once created, [fork Wowchemy Hugo Modules](https://github.com/wowchemy/wowchemy-hugo-modules), place your language pack in `wowchemy/i18n/`, add the name of the language to `wowchemy/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
 
@@ -59,8 +58,8 @@ To contribute to **Hugo Academic CLI**, the automatic publication importer, refe
 
 To help us develop this free software sustainably under the open source license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship:
 
-  - ☕️ [**Donate a coffee**](https://paypal.me/cushen)
-  - ❤️ [**Become a sponsor and unlock awesome rewards**](https://wowchemy.com/plans/)
+- ☕️ [**Donate a coffee**](https://paypal.me/cushen)
+- ❤️ [**Become a sponsor and unlock awesome rewards**](https://wowchemy.com/plans/)
 
 ## Other ways to help
 

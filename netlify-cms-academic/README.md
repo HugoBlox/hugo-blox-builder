@@ -8,7 +8,7 @@ Install the Hugo Module by adding the following to the bottom of your `config/_d
 
 ```toml
 [module]
-  
+
   # Any existing modules here...
 
   # Install Netlify CMS

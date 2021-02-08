@@ -1560,6 +1560,11 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
+prettier-plugin-go-template@0.0.11-beta.4:
+  version "0.0.11-beta.4"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-go-template/-/prettier-plugin-go-template-0.0.11-beta.4.tgz#abf833f3e959c070518b0eb4975993271de3217e"
+  integrity sha512-QiyZoCUsksSF3pVDcc2iNG3i0bFpwAws+9zUUnK89BK4lkUnwF/DW0d4uSEhEFt06+GLomWgR7pkMI+xvkVuRA==
+
 prettier@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"

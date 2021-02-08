@@ -10,3 +10,9 @@ node_modules/
 
 # Hugo
 resources/
+
+# Mac
+.DS_Store
+
+# Test
+test/go.sum

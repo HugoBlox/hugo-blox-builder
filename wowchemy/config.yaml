@@ -1,11 +1,23 @@
 mediaTypes:
   application/manifest+json:
-    suffixes:
-      - webmanifest
+    suffixes: [webmanifest]
+  text/netlify:
+    delimiter: ''
+    suffixes: ['']
 outputFormats:
   WebAppManifest:
     mediaType: application/manifest+json
     rel: manifest
+  headers:
+    baseName: _headers
+    isPlainText: true
+    mediatype: text/netlify
+    notAlternative: true
+  redirects:
+    baseName: _redirects
+    isPlainText: true
+    mediatype: text/netlify
+    notAlternative: true
 module:
   hugoVersion:
     min: '0.78.2'
@@ -25,7 +37,9 @@ module:
       target: i18n
     - source: archetypes
       target: archetypes
-taxonomies: []
 params:
   theme: minimal
   font: native
+  date_format: 'Jan 2, 2006'
+  time_format: '3:04 PM'
+  address_format: en-us
