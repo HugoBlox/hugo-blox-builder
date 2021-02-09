@@ -19,12 +19,18 @@ Built upon the open source [Netlify CMS](https://www.netlifycms.org/) and [Netli
 
 2. Create a `content/admin/index.md` file containing:
 
-```yaml
----
-type: wowchemycms
-outputs:
-  - wowchemycms_config
-  - HTML
----
+   ```yaml
+   ---
+   type: wowchemycms
+   outputs:
+     - wowchemycms_config
+     - HTML
+   ---
+   ```
 
-```
+3. (Optional) If your Git repository's branch is **not** `main`, define it in `config/_default/params.toml`:
+
+   ```toml
+   [cms]
+     branch = "master"
+   ```
