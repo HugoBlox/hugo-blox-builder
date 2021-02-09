@@ -1,5 +1,6 @@
 ---
 widget: blank
+widget_id: hello
 headless: true
 weight: 1
 design:

@@ -1,0 +1,21 @@
+{{ $return := "" }}
+{{ with site.Data.wowchemy_cms_tpl }}
+  {{ $return = . }}
+{{ end }}
+
+{{ $backend_opts := dict "branch" (site.Params.cms.branch | default "main") }}
+
+{{ with site.Params.cms.publish_mode }}
+  {{ $publish_mode := dict "publish_mode" . }}
+  {{ $backend_opts = merge $backend $publish_mode }}
+{{ end }}
+
+{{ if site.Params.cms.local_backend }}
+  {{ $local_backend := dict "local_backend" true }}
+  {{ $return = merge $return $local_backend }}
+{{ end }}
+
+{{ $backend := dict "backend" $backend_opts }}
+{{ $return := merge $return $backend }}
+
+{{- return $return -}}

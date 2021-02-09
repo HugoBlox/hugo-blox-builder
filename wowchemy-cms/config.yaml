@@ -1,7 +1,9 @@
 module:
   mounts:
-    - source: static
-      target: static
+    - source: data
+      target: data
+    - source: functions
+      target: layouts/partials/mod-wowchemy-cms
     - source: templates
       target: layouts/wowchemycms
 outputFormats:

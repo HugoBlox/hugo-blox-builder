@@ -6,16 +6,16 @@ Built upon the open source [Netlify CMS](https://www.netlifycms.org/) and [Netli
 
 ## Install
 
-1. Install the Hugo Module by adding the following to the bottom of your `config/_default/config.toml`:
+1. Edit `config/_default/config.toml` to install the `wowchemy-cms` Hugo Module so that you have something like:
 
-    ```toml
-    [module]
-      # Any existing modules here...
-      [[module.imports]]
-        path = "github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms"
-      [[module.imports]]
-        path = "github.com/wowchemy/wowchemy-hugo-modules/wowchemy"
-    ```
+   ```toml
+   [module]
+     # Any existing modules here...
+     [[module.imports]]
+       path = "github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms"
+     [[module.imports]]
+       path = "github.com/wowchemy/wowchemy-hugo-modules/wowchemy"
+   ```
 
 2. Create a `content/admin/index.md` file containing:
 
@@ -24,5 +24,7 @@ Built upon the open source [Netlify CMS](https://www.netlifycms.org/) and [Netli
 type: wowchemycms
 outputs:
   - wowchemycms_config
+  - HTML
 ---
+
 ```

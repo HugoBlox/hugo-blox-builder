@@ -1,0 +1,15 @@
+{
+  "name": "wowchemy-test",
+  "version": "0.0.1",
+  "description": "Wowchemy Test Build",
+  "main": "",
+  "repository": "https://github.com/wowchemy/wowchemy-hugo-modules",
+  "author": "George Cushen",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "view": "hugo server --port 8080 --bind 0.0.0.0",
+    "build": "hugo --minify --cleanDestinationDir --gc --templateMetrics --templateMetricsHints",
+    "cms": "(trap 'kill 0' SIGINT; npx netlify-cms-proxy-server & hugo server --port 8080 --bind 0.0.0.0)"
+  }
+}
