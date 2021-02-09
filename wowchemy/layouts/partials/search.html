@@ -1,5 +1,6 @@
 {{/* Partial for built-in search and Algolia search. */}}
-{{ if eq site.Params.search.engine 1 | or (eq site.Params.search.engine 2) }}
+{{ $search_provider := lower site.Params.search.provider }}
+{{ if in (slice "wowchemy" "algolia") $search_provider }}
 <aside class="search-modal" id="search">
   <div class="container">
     <section class="search-header">
@@ -14,7 +15,7 @@
       </div>
 
       <div id="search-box">
-        {{ if eq site.Params.search.engine 1 }}
+        {{ if eq $search_provider "wowchemy" }}
         <input name="q" id="search-query" placeholder="{{i18n "search_placeholder"}}" autocapitalize="off"
         autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
         aria-label="{{i18n "search_placeholder"}}">
@@ -30,7 +31,7 @@
         {{ $search_queries = site.Data.search_queries }}
       {{end}}
 
-      {{ if eq site.Params.search.engine 1 | and $search_queries }}
+      {{ if eq $search_provider "wowchemy" | and $search_queries }}
       <div id="search-common-queries" class="pt-3">
         <div class="font-weight-bold pb-3">{{ i18n "search_common_queries" | default "Common searches" }}</div>
         <ul class="fa-ul">

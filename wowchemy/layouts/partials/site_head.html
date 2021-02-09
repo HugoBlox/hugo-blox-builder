@@ -111,11 +111,13 @@
       {{ end }}
     {{ end }}
 
-    {{ if or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3) }}
+    {{/* Maps CSS. */}}
+    {{ $map_provider := lower site.Params.map.provider }}
+    {{ if in (slice "mapnik" "mapbox") $map_provider }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
     {{ end }}
 
-    {{ if eq site.Params.search.engine 2 }}
+    {{ if eq (lower site.Params.search.provider) "algolia" }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearchTheme.url $css.instantsearchTheme.version) $css.instantsearchTheme.sri | safeHTML }}
     {{ end }}

@@ -262,7 +262,7 @@ function initMap() {
     let address = $('#map-dir').val();
     let api_key = $('#map-api-key').val();
 
-    if (map_provider == 1) {
+    if (map_provider === 'google') {
       let map = new GMaps({
         div: '#map',
         lat: lat,
@@ -289,7 +289,7 @@ function initMap() {
       });
     } else {
       let map = new L.map('map').setView([lat, lng], zoom);
-      if (map_provider == 3 && api_key.length) {
+      if (map_provider === 'mapbox' && api_key.length) {
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
           attribution:
             'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',

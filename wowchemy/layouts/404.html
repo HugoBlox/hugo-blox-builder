@@ -4,8 +4,8 @@
 
   <h1>{{ i18n "page_not_found" }}</h1>
 
-  {{/* Show search box if Academic's search engine is enabled. */}}
-  {{ if eq site.Params.search.engine 1 }}
+  {{/* Show search box if built-in search engine is enabled. */}}
+  {{ if eq (lower site.Params.search.provider) "wowchemy" }}
   <form class="d-flex align-items-center mb-3">
     <input name="q" type="search" class="form-control" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
   </form>

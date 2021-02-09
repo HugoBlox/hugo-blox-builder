@@ -20,7 +20,7 @@
     <span><i class="fas fa-bars"></i></span>
   </button>
 
-  {{ if eq site.Params.search.engine 1 }}
+  {{ if eq (lower site.Params.search.provider) "wowchemy" }}
   <input name="q" type="search" class="form-control" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
   {{ end }}
 </form>

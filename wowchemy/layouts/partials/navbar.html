@@ -153,7 +153,7 @@
       {{ end }}
 
       {{ $show_search := site.Params.main_menu.show_search | default true }}
-      {{ if and site.Params.search.engine $show_search }}
+      {{ if and site.Params.search.provider $show_search }}
       <li class="nav-item">
         <a class="nav-link js-search" href="#" aria-label="{{ i18n "search" }}"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>

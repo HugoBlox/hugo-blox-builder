@@ -46,12 +46,13 @@
   {{ end }}
 
   {{/* Show Disqus comment count if enabled. */}}
-  {{ $commentable_map := site.Params.comments.commentable | default dict }}
-  {{ $commentable_bool := index $commentable_map $page.Type | default false }}
-  {{ $disqus_enabled := eq site.Params.comments.engine 1 | and $commentable_bool | and (ne $page.Params.commentable false) | or $page.Params.commentable }}
-  {{ if and $disqus_enabled (site.Params.comments.disqus.show_count | default true) }}
-  <span class="middot-divider"></span>
-  <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
+  {{ $comments_provider := trim (site.Params.comments.provider | lower) " " }}
+  {{ $commentable_page_types := site.Params.comments.commentable | default dict }}
+  {{ $commentable_page_type := index $commentable_page_types $page.Type | default false }}
+  {{ $commentable_page := (ne $page.Params.commentable false) | and $commentable_page_type }}
+  {{ if (eq $comments_provider "disqus") | and (site.Params.comments.disqus.show_count | default true) | and $commentable_page }}
+    <span class="middot-divider"></span>
+    <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
   {{ $taxonomy := "categories" }}

@@ -31,12 +31,13 @@
     {{ end }}
 
     {{/* Maps JS. */}}
-    {{ if eq site.Params.map.engine 1 }}
+    {{ $map_provider := lower site.Params.map.provider }}
+    {{ if eq $map_provider "google" }}
       <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map.api_key }}"></script>
       {{ if ($scr.Get "use_cdn") }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
       {{ end }}
-    {{ else if and (or (eq site.Params.map.engine 2) (eq site.Params.map.engine 3)) ($scr.Get "use_cdn") }}
+    {{ else if (in (slice "mapnik" "mapbox") $map_provider) | and ($scr.Get "use_cdn") }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
     {{ end }}
 
@@ -48,43 +49,38 @@
     </script>
     {{ end }}
 
-    {{ if eq site.Params.search.engine 1 }}
-    {{/* Fuse search result template. */}}
-    <script id="search-hit-fuse-template" type="text/x-template">
-      <div class="search-hit" id="summary-{{"{{key}}"}}">
-        <div class="search-hit-content">
-          <div class="search-hit-name">
-            {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
-            <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
-            <p class="search-hit-description">{{"{{snippet}}"}}</p>
-          </div>
-        </div>
-      </div>
-    </script>
-    {{ else if eq site.Params.search.engine 2 }}
-    {{/* Algolia search result template. */}}
-    <script id="search-hit-algolia-template" type="text/html">
-      <div class="search-hit">
-        <div class="search-hit-content">
-          <div class="search-hit-name">
-            {{ printf "<a href=\"%s\">{{{_highlightResult.title.value}}}</a>" "{{relpermalink}}" | safeHTML }}
-          </div>
-          <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
-          <p class="search-hit-description">{{ safeHTML "{{{_highlightResult.summary.value}}}" }}</p>
-        </div>
-      </div>
-    </script>
-    {{ end }}
-
-    {{/* Fuse search engine. */}}
-    {{ if and (eq site.Params.search.engine 1) ($scr.Get "use_cdn") }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
-    {{ end }}
-
-    {{/* Algolia search engine. */}}
     {{ $algoliaConfig := dict }}
-    {{ if eq site.Params.search.engine 2 }}
+    {{ $search_provider := lower site.Params.search.provider }}
+    {{ if eq $search_provider "wowchemy" }}
+      {{/* Wowchemy built-in search result template (Fuse). */}}
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{"{{key}}"}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
+              <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+              <p class="search-hit-description">{{"{{snippet}}"}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      {{ if ($scr.Get "use_cdn") }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
+      {{ end }}
+    {{ else if eq $search_provider "algolia" }}
+      {{/* Algolia search result template. */}}
+      <script id="search-hit-algolia-template" type="text/html">
+        <div class="search-hit">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              {{ printf "<a href=\"%s\">{{{_highlightResult.title.value}}}</a>" "{{relpermalink}}" | safeHTML }}
+            </div>
+            <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+            <p class="search-hit-description">{{ safeHTML "{{{_highlightResult.summary.value}}}" }}</p>
+          </div>
+        </div>
+      </script>
       {{ if ($scr.Get "use_cdn") }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
       {{ end }}
@@ -93,12 +89,7 @@
 
     {{/* Charts */}}
     {{ if .HasShortcode "chart" }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
-    {{ end }}
-
-    {{/* Disqus Comment Count JS. */}}
-    {{ if and (eq site.Params.comments.engine 1) (site.Params.comments.disqus.show_count | default true) }}
-    <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
     {{ end }}
 
     {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
@@ -108,7 +99,7 @@
     <script src="{{ $js_bootstrap.RelPermalink }}"></script>
 
     {{ $js_search_params := dict }}
-    {{ if ne site.Params.search.engine 0 }}
+    {{ if in (slice "wowchemy" "algolia") $search_provider }}
       {{/* Configure search engine. */}}
       {{ $min_length := site.Params.search.wowchemy.min_length | default 1 }}
       {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
@@ -122,13 +113,13 @@
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
-    {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (ne site.Params.search.engine 0) }}
+    {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (in (slice "wowchemy" "algolia") $search_provider) }}
     {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "targetPath" (printf "%s/js/wow-core.js" .Lang ) "params" $js_params) }}
     {{ $js_bundle := slice $js_academic }}
-    {{ if eq site.Params.search.engine 1 }}
+    {{ if eq $search_provider "wowchemy" }}
       {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "targetPath" (printf "%s/js/wow-search-built.js" .Lang) "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
-    {{ else if eq site.Params.search.engine 2 }}
+    {{ else if eq $search_provider "algolia" }}
       {{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "targetPath" (printf "%s/js/algolia-search-built.js" .Lang) "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_algolia_search }}
     {{ end }}

@@ -10,6 +10,7 @@ node_modules/
 
 # Hugo
 resources/
+public/
 
 # Mac
 .DS_Store
