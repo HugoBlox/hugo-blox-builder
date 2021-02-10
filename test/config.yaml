@@ -6,6 +6,11 @@ module:
     - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
 outputs:
   home: [HTML, RSS, JSON, WebAppManifest, headers, redirects]
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark: {renderer: {unsafe: true}}
+  highlight: {codeFences: false}
+  tableOfContents: {startLevel: 2, endLevel: 3}
 disableAliases: true
 taxonomies: []
 params:

@@ -117,6 +117,10 @@ ul.task-list li input[type='checkbox'] {
   margin-right: 0.5rem;
 }
 
+.emoji-list ul {
+  list-style-type: none;
+}
+
 /* Navigation bar text */
 .navbar-light {
   font-family: $sta-font-nav, sans-serif;
