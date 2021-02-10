@@ -52,8 +52,6 @@
       {{/* Case where first section is a book. */}}
 
       {{ $menu_name = (path.Base (path.Split .FirstSection).Dir) }}
-      {{/* For any folder named `updates`, use descending title order (e.g. latest release note first). */}}
-      {{ $order_by = cond (eq $menu_name "updates") "title_desc" $order_by }}
       {{- if eq $order_by "title" -}}
         {{- $query = where .Site.Home.Sections.ByTitle "Section" $menu_name -}}
       {{- else if eq $order_by "title_desc" -}}
