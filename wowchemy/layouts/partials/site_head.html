@@ -8,8 +8,8 @@
     <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo" />
   {{ end }}
 
-  {{ with site.Params.marketing.google_optimize }}
-    <script src="https://www.googleoptimize.com/optimize.js?id={{ . }}"></script>
+  {{ if site.Params.marketing.google_optimize | and hugo.IsProduction }}
+    <script src="https://www.googleoptimize.com/optimize.js?id={{ site.Params.marketing.google_optimize }}"></script>
   {{- end -}}
 
   {{ with site.Params.marketing.google_site_verification }}
@@ -158,19 +158,19 @@
   {{ $license := $license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
   {{ $css_bundle_head := $license | resources.FromString "css/bundle-head.css" }}
   {{ $css_options := dict "targetPath" "css/wowchemy.css" }}
-  {{- if eq hugo.Environment "production" -}}
+  {{- if hugo.IsProduction -}}
     {{- $css_options = merge $css_options (dict "outputStyle" "compressed") -}}
   {{- end -}}
   {{ $sass_template := resources.Get "scss/main.scss" }}
   {{ $style := $sass_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $css_options }}
-  {{- if eq hugo.Environment "production" -}}
+  {{- if hugo.IsProduction -}}
     {{- $style = $style | minify -}}
   {{- end -}}
   {{ $style := slice $css_bundle_head $style | resources.Concat "css/wowchemy.css" }}
   {{- if eq (getenv "WC_POST_CSS") "true" -}}
     {{- $style = $style | postCSS -}}
   {{- end -}}
-  {{- if eq hugo.Environment "production" -}}
+  {{- if hugo.IsProduction -}}
     {{- $style = $style | fingerprint "md5" -}}
   {{- end -}}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
