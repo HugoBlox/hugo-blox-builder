@@ -7,7 +7,7 @@
 
 import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
 
-import {fixMermaid} from './wowchemy-utils';
+import {fixMermaid, scrollParentToChild} from './wowchemy-utils';
 
 import {
   changeThemeModeClick,
@@ -33,10 +33,11 @@ function getNavBarHeight() {
 /**
  * Responsive hash scrolling.
  * Check for a URL hash as an anchor.
- * If it exists on current page, scroll to it responsively.
+ * If page anchor matches hash, scroll to it responsively considering dynamic height elements.
  * If `target` argument omitted (e.g. after event), assume it's the window's hash.
+ * Default to 0ms animation duration as don't want animation for fixing scrollspy Book page ToC highlighting.
  */
-function scrollToAnchor(target, duration = 600) {
+function scrollToAnchor(target, duration = 0) {
   // If `target` is undefined or HashChangeEvent object, set it to window's hash.
   // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
   target =
@@ -434,6 +435,13 @@ $(document).ready(function () {
   // Render theme variation, including any HLJS and Mermaid themes.
   let {isDarkTheme, themeMode} = initThemeVariation();
   renderThemeVariation(isDarkTheme, themeMode, true);
+
+  // Scroll Book page's active menu sidebar link into view.
+  let child = document.querySelector('.docs-links .active');
+  let parent = document.querySelector('.docs-links');
+  if (child && parent) {
+    scrollParentToChild(parent, child);
+  }
 });
 
 /* ---------------------------------------------------------------------------
@@ -441,9 +449,28 @@ $(document).ready(function () {
  * --------------------------------------------------------------------------- */
 
 $(window).on('load', function () {
-  // Init Isotope Layout Engine for instances of the Portfolio widget.
+  // Re-initialize Scrollspy with dynamic navbar height offset.
+  fixScrollspy();
+
+  // Detect instances of the Portfolio widget.
   let isotopeInstances = document.querySelectorAll('.projects-container');
   let isotopeInstancesCount = isotopeInstances.length;
+
+  // Fix ScrollSpy highlighting previous Book page ToC link for some anchors.
+  // Check if isotopeInstancesCount>0 as that case performs its own scrollToAnchor.
+  if (window.location.hash && isotopeInstancesCount === 0) {
+    scrollToAnchor(decodeURIComponent(window.location.hash), 0);
+  }
+
+  // Scroll Book page's active ToC sidebar link into view.
+  // Action after calling scrollToAnchor to fix Scrollspy highlighting otherwise wrong link may have active class.
+  let child = document.querySelector('.docs-toc .nav-link.active');
+  let parent = document.querySelector('.docs-toc');
+  if (child && parent) {
+    scrollParentToChild(parent, child);
+  }
+
+  // Init Isotope Layout Engine for instances of the Portfolio widget.
   let isotopeCounter = 0;
   isotopeInstances.forEach(function (isotopeInstance, index) {
     console.debug(`Loading Isotope instance ${index}`);
@@ -610,9 +637,6 @@ $(window).on('load', function () {
 
   // Init. author notes (tooltips).
   $('[data-toggle="tooltip"]').tooltip();
-
-  // Re-initialize Scrollspy with dynamic navbar height offset.
-  fixScrollspy();
 });
 
 // Theme chooser events.
