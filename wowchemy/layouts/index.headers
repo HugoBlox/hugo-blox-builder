@@ -1,6 +1,7 @@
 {{- $csp_policy := site.Params.security.csp.policy | default "" -}}
 {{- $csp_report_only := site.Params.security.csp.report_only | default false -}}
-{{- $permissions_policy := site.Params.security.permissions.policy | default "" -}}
+{{- $default_perms := "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" -}}
+{{- $permissions_policy := site.Params.security.permissions.policy | default $default_perms -}}
 # Netlify headers
 # Automatically generated
 # Documentation: http://bit.ly/netlify-deployment
