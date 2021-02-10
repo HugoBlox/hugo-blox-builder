@@ -34,6 +34,7 @@
 
   gtag('js', new Date());
   gtag('config', '{{$ga}}', {{$gtag_config|safeJS}});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
 
   // Outbound link tracking.
   document.addEventListener('click', onClickCallback, false);
