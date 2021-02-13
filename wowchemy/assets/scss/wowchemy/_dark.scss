@@ -80,6 +80,18 @@ body.dark,
   background-color: rgb(60, 62, 74);
 }
 
+/* Override Table Striped in GitHub Gist */
+.gist-data table > tbody > tr:nth-child(odd) > td,
+.gist-data table > tbody > tr:nth-child(odd) > th {
+    background-color: var(--color-bg-primary) !important;
+}
+
+/* Override Table Hover in GitHub Gist */
+.gist-data table > tbody > tr:hover > td,
+.gist-data table > tbody > tr:hover > th {
+    background-color: transparent;
+}
+
 .dark .portrait-title h2 {
   color: #fff;
 }
