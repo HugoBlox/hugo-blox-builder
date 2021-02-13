@@ -83,13 +83,14 @@ body.dark,
 /* Override Table Striped in GitHub Gist */
 .gist-data table > tbody > tr:nth-child(odd) > td,
 .gist-data table > tbody > tr:nth-child(odd) > th {
-    background-color: var(--color-bg-primary) !important;
+  background-color: var(--color-bg-primary);
+  border-top: none;
 }
 
 /* Override Table Hover in GitHub Gist */
 .gist-data table > tbody > tr:hover > td,
 .gist-data table > tbody > tr:hover > th {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .dark .portrait-title h2 {
