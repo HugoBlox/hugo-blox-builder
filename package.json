@@ -15,7 +15,8 @@
   "main": "index.js",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "instant.page": "^5.1.0"
+    "instant.page": "^5.1.0",
+    "medium-zoom": "^1.0.6"
   },
   "devDependencies": {
     "eslint": "^7.17.0",

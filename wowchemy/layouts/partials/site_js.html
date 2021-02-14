@@ -6,6 +6,7 @@
       <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
     {{ else }}
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
+      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantpage.url $js.instantpage.version) $js.instantpage.sri | safeHTML }}
 
       {{ $require_isotope := site.Params.require_isotope | default true }}
       {{ if $require_isotope }}
@@ -13,8 +14,9 @@
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.isotope.url $js.isotope.version) $js.isotope.sri | safeHTML }}
       {{ end }}
 
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantpage.url $js.instantpage.version) $js.instantpage.sri | safeHTML }}
+      {{ if .HasShortcode "gallery" }}
+        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
+      {{ end }}
 
       {{ if or .Params.diagram site.Params.diagram }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}

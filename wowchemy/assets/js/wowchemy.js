@@ -5,10 +5,9 @@
  *  Core JS functions and initialization.
  **************************************************/
 
+import mediumZoom from './_vendor/medium-zoom.esm';
 import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
-
 import {fixMermaid, scrollParentToChild} from './wowchemy-utils';
-
 import {
   changeThemeModeClick,
   initThemeVariation,
@@ -469,6 +468,15 @@ $(window).on('load', function () {
   if (child && parent) {
     scrollParentToChild(parent, child);
   }
+
+  // Enable images to be zoomed.
+  let zoomOptions = {};
+  if (document.body.classList.contains('dark')) {
+    zoomOptions.background = 'rgba(0,0,0,0.9)';
+  } else {
+    zoomOptions.background = 'rgba(255,255,255,0.9)';
+  }
+  mediumZoom('[data-zoomable]', zoomOptions);
 
   // Init Isotope Layout Engine for instances of the Portfolio widget.
   let isotopeCounter = 0;
