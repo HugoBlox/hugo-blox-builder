@@ -1,7 +1,7 @@
 {{ $provider := trim (site.Params.comments.provider | lower) " " }}
 
 {{ if $provider }}
-  {{ $provider_tpl := printf "partials/comments/%s" $provider }}
+  {{ $provider_tpl := printf "partials/comments/%s.html" $provider }}
   {{ $provider_exists := templates.Exists $provider_tpl }}
   {{ if not $provider_exists }}
     {{ errorf "The '%s' comment provider was not found." $provider }}
