@@ -2,17 +2,16 @@
 {{/* Load image from page dir falling back to media library at `assets/images/` and then to remote URI. */}}
 
 {{ $destination := .Get "src" }}
-{{ $caption := .Get "title" | default (.Get "caption") | default "" }}
-{{ $id := .Get "id" | default $caption }}
+{{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}
+{{ $id := anchorize (.Get "id" | default ($caption | plainify)) }}
 {{ $alt := .Get "alt" | default ($caption | plainify) }}
 
 {{- $img := (.Page.Resources.ByType "image").GetMatch $destination -}}
-{{- if and (not $img) .Page.File -}}
-  {{ $path :=  $destination }}
-  {{- $img = resources.Get (path.Join "images" $path) -}}
+{{- if not $img -}}
+  {{- $img = resources.Get (path.Join "images" $destination) -}}
 {{- end -}}
 
-<figure {{ with .Get "class" }}class="{{.}}"{{ end }} {{ with $id }}id="figure-{{ anchorize . }}"{{ end }}>
+<figure {{ with .Get "class" }}class="{{.}}"{{ end }} {{ with $id }}id="figure-{{ . }}"{{ end }}>
 
   {{- if $img -}}
     {{ $isSVG := eq $img.MediaType.SubType "svg" }}
@@ -22,13 +21,15 @@
       {{- $img_lg := $img.Fit "1200x1200" -}}
       {{- $img_md := $img_lg.Fit "760x760" -}}{{/* Match `.docs-article-container` max-width */}}
       {{- $img_sm := $img_md.Fit "400x400" -}}
+      {{- $width := (.Get "width") | default $img_md.Width -}}
+      {{- $height := (.Get "height") | default $img_md.Height -}}
       <img alt="{{ $alt }}" srcset="
            {{ $img_sm.RelPermalink }} 400w,
            {{ $img_md.RelPermalink }} 760w,
            {{ $img_lg.RelPermalink }} 1200w"
            src="{{ $img_sm.RelPermalink }}"
-           width="{{ (.Get "width") | default $img_md.Width }}"
-           height="{{ (.Get "height") | default $img_md.Height }}"
+           width="{{ $width }}"
+           height="{{ $height }}"
            loading="lazy"
            data-zoomable />
     {{ end }}

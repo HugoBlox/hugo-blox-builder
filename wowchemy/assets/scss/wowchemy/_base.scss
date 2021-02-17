@@ -235,8 +235,17 @@ video {
 }
 
 // Center all figure images by default.
-figure img {
-  @extend .margin-auto;
+figure {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+figure img,
+figure svg {
+  height: auto;
+  max-width: 100%;
+  flex-basis: 100%;
 }
 
 // Center all figure captions by default.
