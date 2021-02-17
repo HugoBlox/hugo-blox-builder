@@ -16,7 +16,11 @@
   {{- if $img -}}
     {{ $isSVG := eq $img.MediaType.SubType "svg" }}
     {{ if $isSVG }}
-      {{ $img.Content | safeHTML }}
+      <img alt="{{ $alt }}"
+       src="{{ $img.RelPermalink }}"
+       loading="lazy"
+       data-zoomable
+       {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}} />
     {{ else }}
       {{- $img_lg := $img.Fit "1200x1200" -}}
       {{- $img_md := $img_lg.Fit "760x760" -}}{{/* Match `.docs-article-container` max-width */}}
