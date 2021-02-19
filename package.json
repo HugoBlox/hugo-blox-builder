@@ -14,19 +14,19 @@
   },
   "main": "index.js",
   "dependencies": {
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.6.0",
     "instant.page": "^5.1.0",
     "medium-zoom": "^1.0.6"
   },
   "devDependencies": {
-    "eslint": "^7.17.0",
+    "eslint": "7.20.0",
     "eslint-config-prettier": "^7.1.0",
     "prettier": "2.2.1",
     "prettier-plugin-go-template": "0.0.11-beta.4",
-    "stylelint": "^13.8.0",
+    "stylelint": "13.10.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-scss": "^3.18.0"
+    "stylelint-scss": "3.19.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

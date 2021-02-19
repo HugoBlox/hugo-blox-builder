@@ -83,6 +83,7 @@
   &::before {
     display: block; // IE10
     height: subtract(100vh, $modal-dialog-margin * 2);
+    height: min-content; // Reset height to 0 except on IE
     content: "";
   }
 
@@ -181,7 +182,6 @@
   // Place margin between footer elements
   // This solution is far from ideal because of the universal selector usage,
   // but is needed to fix https://github.com/twbs/bootstrap/issues/24800
-  // stylelint-disable-next-line selector-max-universal
   > * {
     margin: $modal-footer-margin-between / 2;
   }
@@ -217,6 +217,7 @@
 
     &::before {
       height: subtract(100vh, $modal-dialog-margin-y-sm-up * 2);
+      height: min-content;
     }
   }
 

@@ -16,7 +16,8 @@
   > .custom-select,
   > .custom-file {
     position: relative; // For focus state's z-index
-    flex: 1 1 0%;
+    flex: 1 1 auto;
+    width: 1%;
     min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
     margin-bottom: 0;
 
@@ -41,7 +42,6 @@
 
   > .form-control,
   > .custom-select {
-    &:not(:last-child) { @include border-right-radius(0); }
     &:not(:first-child) { @include border-left-radius(0); }
   }
 
@@ -52,8 +52,23 @@
     align-items: center;
 
     &:not(:last-child) .custom-file-label,
-    &:not(:last-child) .custom-file-label::after { @include border-right-radius(0); }
     &:not(:first-child) .custom-file-label { @include border-left-radius(0); }
+  }
+
+  &:not(.has-validation) {
+    > .form-control:not(:last-child),
+    > .custom-select:not(:last-child),
+    > .custom-file:not(:last-child) .custom-file-label::after {
+      @include border-right-radius(0);
+    }
+  }
+
+  &.has-validation {
+    > .form-control:nth-last-child(n + 3),
+    > .custom-select:nth-last-child(n + 3),
+    > .custom-file:nth-last-child(n + 3) .custom-file-label::after {
+      @include border-right-radius(0);
+    }
   }
 }
 
@@ -174,8 +189,10 @@
 
 .input-group > .input-group-prepend > .btn,
 .input-group > .input-group-prepend > .input-group-text,
-.input-group > .input-group-append:not(:last-child) > .btn,
-.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group:not(.has-validation) > .input-group-append:not(:last-child) > .btn,
+.input-group:not(.has-validation) > .input-group-append:not(:last-child) > .input-group-text,
+.input-group.has-validation > .input-group-append:nth-last-child(n + 3) > .btn,
+.input-group.has-validation > .input-group-append:nth-last-child(n + 3) > .input-group-text,
 .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
   @include border-right-radius(0);

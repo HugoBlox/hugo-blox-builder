@@ -101,9 +101,9 @@
       <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
     {{end}}
 
-    {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
+    {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.min.js" }}
     {{- if hugo.IsProduction -}}
-      {{ $js_bootstrap = $js_bootstrap | minify | fingerprint "md5" }}
+      {{ $js_bootstrap = $js_bootstrap | fingerprint "md5" }}{{/* Note: no `minify` as using pre-minified JS. */}}
     {{- end -}}
     <script src="{{ $js_bootstrap.RelPermalink }}"></script>
 
