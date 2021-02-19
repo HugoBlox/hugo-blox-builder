@@ -245,6 +245,9 @@ figure img {
   height: auto;
   max-width: 100%;
   flex-basis: 100%;
+  // Safari fix for responsive aspect ratio issue when `height: auto` set with flex parent.
+  // See https://stackoverflow.com/a/61196907
+  align-self: flex-start;
 }
 
 // Center all figure captions by default.
