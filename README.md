@@ -34,7 +34,7 @@ To help us develop this template and software sustainably under the MIT license,
 
 ## Features
 
-[![Screenshot](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-modules/master/academic.png)](https://wowchemy.com)
+[![Screenshot](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-modules/main/academic.png)](https://wowchemy.com)
 
 **Key features:**
 
@@ -60,7 +60,7 @@ Wowchemy comes with **automatic day (light) and night (dark) mode** built-in. Al
 
 Choose a stunning theme for your site and [customize it](https://wowchemy.com/docs/customization/#custom-theme) to your liking:
 
-[![Themes](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-modules/master/themes.png)](https://wowchemy.com/templates/)
+[![Themes](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-modules/main/themes.png)](https://wowchemy.com/templates/)
 
 [Browse more templates and themes...](https://wowchemy.com/templates/)
 
@@ -76,6 +76,6 @@ Feel free to _star_ the project on [Github](https://github.com/wowchemy/wowchemy
 
 Copyright 2016-present [George Cushen](https://georgecushen.com).
 
-Released under the [MIT](https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md) license.
+Released under the [MIT](https://github.com/wowchemy/wowchemy-hugo-modules/blob/main/LICENSE.md) license.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-78646709-2/wowchemy-hugo-modules/readme?pixel)](https://github.com/igrigorik/ga-beacon)

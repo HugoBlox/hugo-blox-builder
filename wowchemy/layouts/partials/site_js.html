@@ -120,7 +120,7 @@
 
     {{ $js_license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
-    {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
+    {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/main/LICENSE.md */\n" }}
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
     {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (in (slice "wowchemy" "algolia") $search_provider) }}
     {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "targetPath" (printf "%s/js/wow-core.js" .Lang ) "params" $js_params) }}

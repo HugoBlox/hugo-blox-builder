@@ -158,7 +158,7 @@
 
   {{ $license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
   {{ $license := $license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
-  {{ $license := $license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/master/LICENSE.md */\n" }}
+  {{ $license := $license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-modules/blob/main/LICENSE.md */\n" }}
   {{ $css_bundle_head := $license | resources.FromString "css/bundle-head.css" }}
   {{ $css_options := dict "targetPath" "css/wowchemy.css" }}
   {{- if hugo.IsProduction -}}
