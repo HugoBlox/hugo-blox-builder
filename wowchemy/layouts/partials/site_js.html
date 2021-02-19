@@ -94,6 +94,13 @@
       {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
     {{ end }}
 
+    {{/* Disqus Comment Count JS. */}}
+    {{/* Note: count can appear both in listing previews and on the content page itself. */}}
+    {{ $comments_provider := trim (site.Params.comments.provider | lower) " " }}
+    {{ if eq $comments_provider "disqus" | and (site.Params.comments.disqus.show_count | default true) }}
+      <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
+    {{end}}
+
     {{ $js_bootstrap := resources.Get "js/_vendor/bootstrap.bundle.js" }}
     {{- if hugo.IsProduction -}}
       {{ $js_bootstrap = $js_bootstrap | minify | fingerprint "md5" }}
