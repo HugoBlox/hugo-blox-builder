@@ -1,0 +1,257 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Navigointi
+
+- id: table_of_contents
+  translation: Sisällys
+
+- id: on_this_page
+  translation: Sisältö
+
+- id: back_to_top
+  translation: Takaisin ylös
+
+- id: home
+  translation: Etusivu
+
+- id: close
+  translation: Sulje
+
+- id: languages
+  translation: Kielet
+
+# General
+
+- id: related
+  translation: Aiheeseen liittyvät
+
+- id: minute_read
+  translation: min (lukuaika)
+
+- id: previous
+  translation: Edellinen
+
+- id: next
+  translation: Seuraava
+
+- id: figure
+  translation: "Kuvio %d:"
+
+- id: edit_page
+  translation: Editoi sivua
+
+# Themes
+
+- id: theme_selector
+  translation: Valitse teema
+
+- id: theme_light
+  translation: Vaalea
+
+- id: theme_dark
+  translation: Tumma
+
+- id: theme_auto
+  translation: Automaattinen
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preprint
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Siteeraa
+
+- id: btn_slides
+  translation: Diat
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Koodi
+
+- id: btn_dataset
+  translation: Tietoaineisto
+
+- id: btn_project
+  translation: Projekti
+
+- id: btn_poster
+  translation: Posteri
+
+- id: btn_source
+  translation: Lähdeasiakirja
+
+- id: btn_copy
+  translation: Kopioi
+
+- id: btn_download
+  translation: Lataa
+
+# About widget
+
+- id: interests
+  translation: Kiinnostukset
+
+- id: education
+  translation: Koulutus
+
+- id: user_profile_latest
+  translation: Viimeisin
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Katso todistus
+
+# Experience widget
+
+- id: present
+  translation: Nykyinen
+
+# Pages widget
+
+- id: more_pages
+  translation: Katso kaikki
+
+- id: more_posts
+  translation: Kaikki blogitekstit
+
+- id: more_talks
+  translation: Katso kaikki esitelmät
+
+- id: more_publications
+  translation: Katso kaikki julkaisut
+
+# Contact widget
+
+- id: contact_name
+  translation: Nimi
+
+- id: contact_email
+  translation: Sähköposti
+
+- id: contact_message
+  translation: Viesti
+
+- id: contact_send
+  translation: Lähetä
+
+- id: book_appointment
+  translation: Sovi tapaaminen
+
+# Publication/Talk details
+
+- id: abstract
+  translation: Abstrakti
+
+- id: publication
+  translation: Julkaisu
+
+- id: publication_type
+  translation: Tyyppi
+
+- id: date
+  translation: Päivämäärä
+
+- id: last_updated
+  translation: Viimeksi päivitetty
+
+- id: event
+  translation: Tapahtuma
+
+- id: location
+  translation: Sijainti
+
+- id: pub_uncat
+  translation: Lajittelematon
+
+- id: pub_conf
+  translation: Konferenssijulkaisu
+
+- id: pub_journal
+  translation: Artikkeli
+
+- id: pub_preprint
+  translation: Preprint
+
+- id: pub_report
+  translation: Raportti
+
+- id: pub_book
+  translation: Kirja
+
+- id: pub_book_section
+  translation: Kirjan kohta
+
+- id: pub_thesis
+  translation: Opinnäyte
+
+- id: pub_patent
+  translation: Patentti
+
+# Project details
+
+- id: open_project_site
+  translation: Siirry projektisivulle
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Blogitekstit
+
+- id: publications
+  translation: Julkaisut
+
+- id: talks
+  translation: Esitelmät
+
+- id: projects
+  translation: Projektit
+
+- id: slides
+  translation: Diat
+
+- id: authors
+  translation: Kirjoittajat
+
+# Search
+
+- id: search
+  translation: Etsi
+
+- id: search_placeholder
+  translation: Etsi...
+
+- id: search_results
+  translation: tulosta löydetty
+
+- id: search_no_results
+  translation: Ei tuloksia
+
+- id: search_common_queries
+  translation: Yleiset haut
+
+# Error 404
+
+- id: page_not_found
+  translation: Sivua ei löydetty
+
+- id: 404_recommendations
+  translation: Ehkä etsit jotain näistä?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Tämä verkkosivusto käyttää evästeitä varmistaakseen, että saat parhaan käyttökokemuksen verkkosivustollamme.
+
+- id: cookie_dismiss
+  translation: Hyväksytty
+
+- id: cookie_learn
+  translation: Lisätietoja
