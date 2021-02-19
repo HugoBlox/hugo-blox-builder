@@ -3,6 +3,7 @@
 
 {{ $destination := .Get "src" }}
 {{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}
+{{ $zoom := eq (.Get "lightbox" | default "true") "true" }}
 {{ $id := anchorize (.Get "id" | default ($caption | plainify)) }}
 {{ $alt := .Get "alt" | default ($caption | plainify) }}
 
@@ -19,7 +20,7 @@
       <img alt="{{ $alt }}"
        src="{{ $img.RelPermalink }}"
        loading="lazy"
-       data-zoomable
+       {{ if $zoom }}data-zoomable{{end}}
        {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}} />
     {{ else }}
       {{- $img_lg := $img.Fit "1200x1200" -}}
@@ -35,10 +36,10 @@
            width="{{ $width }}"
            height="{{ $height }}"
            loading="lazy"
-           data-zoomable />
+           {{ if $zoom }}data-zoomable{{end}} />
     {{ end }}
   {{- else -}}
-    <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" data-zoomable
+    <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
          {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}} />
   {{- end -}}
 
