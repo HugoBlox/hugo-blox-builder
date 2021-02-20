@@ -203,9 +203,10 @@
   <link rel="canonical" href="{{ .Permalink }}" />
 
   {{/* Get page image for sharing. */}}
+  {{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
   {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
   {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
-  {{ $has_logo := fileExists "assets/images/logo.png" | or (fileExists "assets/images/logo.svg") }}
+  {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
   {{ $og_image := "" }}
   {{ $twitter_card := "summary_large_image" }}
   {{ if (and (eq .Kind "term") $avatar_image) }}
@@ -216,8 +217,8 @@
     {{ $og_image = $featured_image.Permalink }}
   {{ else if .Params.header.image }}
     {{ $og_image = printf "%s/%s" $media_dir .Params.header.image | absURL }}
-  {{ else if site.Params.sharing_image }}
-    {{ $og_image = printf "%s/%s" $media_dir site.Params.sharing_image | absURL }}
+  {{ else if $sharing_image }}
+    {{ $og_image = $sharing_image.Permalink }}
   {{ else if $has_logo }}
     {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
     {{ $twitter_card = "summary" }}

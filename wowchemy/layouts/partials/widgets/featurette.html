@@ -27,7 +27,7 @@
       {{- if eq $pack "emoji" -}}
         {{- . | emojify -}}
       {{- else if eq $pack "custom" -}}
-        {{- $svg_icon := resources.Get (printf "images/icon-pack/%s.svg" .) -}}
+        {{- $svg_icon := resources.Get (printf "media/icon-pack/%s.svg" .) -}}
         {{- if $svg_icon -}}<img src="{{ $svg_icon.RelPermalink }}" alt="{{.}}" class="svg-icon svg-baseline">{{- end -}}
       {{- else -}}
         <i class="{{ $pack }} {{ $pack_prefix }}-{{ . }}"></i>

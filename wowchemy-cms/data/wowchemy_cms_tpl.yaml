@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
   squash_merges: true
-media_folder: 'static/media'
+media_folder: 'assets/media'
 public_folder: '/media'
 collections:
   - name: home
@@ -10,7 +10,7 @@ collections:
     folder: 'content/home'
     path: '{{slug}}'
     # When specifying a path on a folder collection, media_folder defaults to an empty string, so make it explicit.
-    media_folder: '/static/media'
+    media_folder: '/assets/media'
     public_folder: ''
     summary: "{{filename}}: {{title}}"
     identifier_field: "widget_id"
@@ -58,7 +58,7 @@ collections:
                 widget: "image"
                 required: false
                 # When specifying a path on a folder collection, media_folder defaults to an empty string, so make it explicit.
-                media_folder: '/static/media'
+                media_folder: '/assets/media'
                 public_folder: ''
                 media_library:
                   config:

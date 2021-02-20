@@ -1,5 +1,5 @@
 {{/* Figure Shortcode for Wowchemy. */}}
-{{/* Load image from page dir falling back to media library at `assets/images/` and then to remote URI. */}}
+{{/* Load image from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
 
 {{ $destination := .Get "src" }}
 {{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}
@@ -9,7 +9,7 @@
 
 {{- $img := (.Page.Resources.ByType "image").GetMatch $destination -}}
 {{- if not $img -}}
-  {{- $img = resources.Get (path.Join "images" $destination) -}}
+  {{- $img = resources.Get (path.Join "media" $destination) -}}
 {{- end -}}
 
 <figure {{ with .Get "class" }}class="{{.}}"{{ end }} {{ with $id }}id="figure-{{ . }}"{{ end }}>
