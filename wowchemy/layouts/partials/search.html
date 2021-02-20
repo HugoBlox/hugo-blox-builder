@@ -42,6 +42,21 @@
           {{ end }}
         </ul>
       </div>
+      {{ else if eq $search_provider "wowchemy" }}
+        {{ $query := site.RegularPages }}
+        {{ $count := len $query }}
+        {{ if gt $count 0 }}
+        <div id="search-common-queries" class="pt-3">
+          <div class="font-weight-bold pb-3">{{ i18n "search_common_queries" | default "Common searches" }}</div>
+          <ul class="fa-ul">
+            {{ range first 8 $query }}
+              <li class="pb-3">
+                <a href="{{ .RelPermalink }}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pl-1">{{ .Title }}</span></a>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
       {{ end }}
 
     </section>
