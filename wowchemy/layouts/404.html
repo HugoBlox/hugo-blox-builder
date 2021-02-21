@@ -15,15 +15,31 @@
 
   <p>{{ i18n "404_recommendations" }}</p>
 
-  {{ $query := site.RegularPages }}
-  {{ $count := len $query }}
-  {{ if gt $count 0 }}
-  <h2>{{ i18n "user_profile_latest" }}</h2>
-  <ul>
-    {{ range first 10 $query }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ $search_queries := false }}
+  {{ if isset site.Data (printf "search_queries.%s" .Site.Language.Lang) }}
+    {{ $search_queries = index site.Data (printf "search_queries.%s" .Site.Language.Lang) }}
+  {{ else if isset site.Data "search_queries" }}
+    {{ $search_queries = site.Data.search_queries }}
+  {{end}}
+
+  {{ if $search_queries }}
+    <h2>{{ i18n "user_profile_latest" }}</h2>
+    <ul>
+      {{ range $search_queries }}
+        <li><a href="{{.link | relURL}}">{{.query | markdownify | emojify}}</a></li>
+      {{ end }}
+    </ul>
+  {{ else }}
+    {{ $query := site.RegularPages }}
+    {{ $count := len $query }}
+    {{ if gt $count 0 }}
+    <h2>{{ i18n "user_profile_latest" }}</h2>
+    <ul>
+      {{ range first 10 $query }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
     {{ end }}
-  </ul>
   {{ end }}
 
 </div>
