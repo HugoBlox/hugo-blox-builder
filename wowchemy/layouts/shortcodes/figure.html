@@ -1,5 +1,7 @@
 {{/* Figure Shortcode for Wowchemy. */}}
 {{/* Load image from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
+{{/* Note: Uses `{{-` to unindent HTML so that Figure shortcode can be nested within a `{{%` Markdown shortcode,
+     such as Callout, without the HTML being rendered as a Markdown code block. */}}
 
 {{ $destination := .Get "src" }}
 {{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}
@@ -16,13 +18,13 @@
 
   {{- if $img -}}
     {{ $isSVG := eq $img.MediaType.SubType "svg" }}
-    {{ if $isSVG }}
+    {{ if $isSVG -}}
       <img alt="{{ $alt }}"
        src="{{ $img.RelPermalink }}"
        loading="lazy"
        {{ if $zoom }}data-zoomable{{end}}
        {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}} />
-    {{ else }}
+    {{- else }}
       {{- $img_lg := $img.Fit "1200x1200" -}}
       {{- $img_md := $img_lg.Fit "760x760" -}}{{/* Match `.docs-article-container` max-width */}}
       {{- $img_sm := $img_md.Fit "400x400" -}}
@@ -37,7 +39,7 @@
            height="{{ $height }}"
            loading="lazy"
            {{ if $zoom }}data-zoomable{{end}} />
-    {{ end }}
+    {{- end }}
   {{- else -}}
     <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
          {{ with .Get "width" }}width="{{.}}"{{end}} {{ with .Get "height" }}height="{{.}}"{{end}} />
@@ -45,9 +47,9 @@
 
   {{ if $caption }}
     {{/* Localize the figure numbering (if enabled). */}}
-    {{ $figure := split (i18n "figure" | default "Figure %d:") "%d" }}
+    {{- $figure := split (i18n "figure" | default "Figure %d:") "%d" -}}
     <figcaption{{ if eq (.Get "numbered") "true" }} data-pre="{{- trim (index $figure 0) " " -}}&nbsp;" data-post="{{ index $figure 1 }}&nbsp;" class="numbered"{{ end }}>
       {{ $caption | markdownify | emojify }}
     </figcaption>
-  {{ end }}
+  {{- end -}}
 </figure>
