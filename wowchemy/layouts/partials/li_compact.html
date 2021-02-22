@@ -80,7 +80,7 @@
     {{ $image := .Resize "150x" }}
     {{ $image_lq := (.Resize "150x q1").Filter $filters }}
     <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
-      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="lazyload">
+      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" loading="lazy">
     </a>
     {{end}}
   </div>

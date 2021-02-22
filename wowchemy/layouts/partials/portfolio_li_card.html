@@ -24,7 +24,7 @@
     {{ $image := .Resize "550x" }}
     {{ $image_lq := (.Resize "550x q1").Filter $filters }}
     <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="card-image hover-overlay">
-      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="img-responsive lazyload">
+      <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="img-responsive" loading="lazy">
     </a>
     {{ end }}
     <div class="card-text">

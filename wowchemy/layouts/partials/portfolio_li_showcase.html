@@ -55,7 +55,7 @@
       {{ $image := .Resize "540x" }}
       {{ $image_lq := (.Resize "540x q1").Filter $filters }}
       {{if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{end}}
-        <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="lazyload">
+        <img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" loading="lazy">
       {{if $do_link}}</a>{{end}}
       {{end}}
     </div>
