@@ -15,6 +15,9 @@
   {{ with site.Params.marketing.google_site_verification }}
     <meta name="google-site-verification" content="{{ . }}" />
   {{- end -}}
+  {{ with site.Params.marketing.baidu_site_verification }}
+    <meta name="baidu-site-verification" content="{{ . }}" />
+  {{- end -}}
 
   {{ $scr := .Scratch }}
 
@@ -182,6 +185,7 @@
   {{ partial "marketing/google_analytics" . }}
   {{ partial "marketing/google_tag_manager" . }}
   {{ partial "marketing/microsoft_clarity" . }}
+  {{ partial "marketing/baidu_tongji" . }}
 
   {{/* Netlify Identity integration. */}}
   {{ $use_cms := templates.Exists "wowchemycms/single.wowchemycms_config.yml" | default (site.Params.cms.netlify_cms | default false) }}
