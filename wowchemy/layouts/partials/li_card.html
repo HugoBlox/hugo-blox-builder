@@ -37,11 +37,9 @@
   {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
   {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
   {{ with $resource }}
-  {{ $filters := slice (images.GaussianBlur 21) (images.Pixelate 8) }}
   {{ $image := .Fill (printf "808x455 %s" $anchor) }}
-  {{ $image_lq := (.Fill (printf "808x455 %s q1" $anchor)).Filter $filters }}
   <a href="{{ $item.RelPermalink }}">
-    <div class="img-hover-zoom"><img src="{{ $image_lq.RelPermalink }}" data-src="{{ $image.RelPermalink }}" class="article-banner" alt="{{ $item.Title }}" loading="lazy"></div>
+    <div class="img-hover-zoom"><img src="{{ $image.RelPermalink }}" class="article-banner" alt="{{ $item.Title }}" loading="lazy"></div>
   </a>
   {{end}}
 
