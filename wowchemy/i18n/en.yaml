@@ -216,7 +216,7 @@
 
 - id: slides
   translation: Slides
-  
+
 - id: authors
   translation: Authors
 
@@ -255,3 +255,8 @@
 
 - id: cookie_learn
   translation: Learn more
+
+# Published with
+
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

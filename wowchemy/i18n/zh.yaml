@@ -234,3 +234,8 @@
 
 - id: cookie_learn
   translation: 了解更多
+
+# Published with
+
+- id: published_with
+  translation: 由{wowchemy}支持发布——免费{repo_link}开源{/repo_link}网站，为创作者赋能。
