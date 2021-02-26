@@ -41,9 +41,13 @@
   {{ end }}
 
   {{ if $bg.image }}
-    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
-    {{ $media_dir := $.Scratch.Get "media_dir" }}
-    {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg (printf "%s/%s" $media_dir $bg.image | absURL) }}
+    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}#
+    {{ $bg_img := resources.Get (printf "media/%s" $bg.image) }}
+    {{ if $bg_img }}
+      {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg .Permalink }}
+    {{ else }}
+      {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image }}
+    {{ end }}
     {{ with $bg.image_size }}
       {{/* Allow sizes: actual, cover, and contain. */}}
       {{ $style_bg = printf "%sbackground-size: %s;" $style_bg (replace . "actual" "auto") }}
