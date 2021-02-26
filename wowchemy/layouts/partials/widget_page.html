@@ -41,10 +41,10 @@
   {{ end }}
 
   {{ if $bg.image }}
-    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}#
+    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
     {{ $bg_img := resources.Get (printf "media/%s" $bg.image) }}
     {{ if $bg_img }}
-      {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg .Permalink }}
+      {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
     {{ else }}
       {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image }}
     {{ end }}
