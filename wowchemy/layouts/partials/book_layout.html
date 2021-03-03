@@ -13,13 +13,15 @@
     {{/* Show ToC by default. */}}
     {{ if ne .Params.toc false }}
     <div class="d-none d-xl-block col-xl-2 docs-toc">
+      {{ partial "hooks/page_toc_start" . }}
+
       <ul class="nav toc-top">
         <li><a href="#" id="back_to_top" class="docs-toc-title">{{ i18n "on_this_page" }}</a></li>
       </ul>
 
       {{ .TableOfContents }}
 
-      {{ partial "docs_toc_foot" . }}
+      {{ partial "hooks/page_toc_end" . }}
     </div>
     {{ end }}
 
