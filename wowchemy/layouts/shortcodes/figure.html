@@ -4,6 +4,7 @@
      such as Callout, without the HTML being rendered as a Markdown code block. */}}
 
 {{ $destination := .Get "src" }}
+{{ $is_remote := strings.HasPrefix $destination "http" }}
 {{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}
 {{ $zoom := eq (.Get "lightbox" | default "true") "true" }}
 {{ $id := anchorize (.Get "id" | default ($caption | plainify)) }}
@@ -12,9 +13,13 @@
 {{ if eq (.Get "theme" | lower) "light" }}{{ $img_class = printf "%s img-light" $img_class }}{{end}}
 {{ if eq (.Get "theme" | lower) "dark" }}{{ $img_class = printf "%s img-dark" $img_class }}{{end}}
 
-{{- $img := (.Page.Resources.ByType "image").GetMatch $destination -}}
-{{- if not $img -}}
-  {{- $img = resources.Get (path.Join "media" $destination) -}}
+{{/* Workaround Hugo v0.81 error on Windows when `resources.Get (path.Join "media" <URL>)` */}}
+{{- $img := "" -}}
+{{- if not $is_remote -}}
+  {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+  {{- if not $img -}}
+    {{- $img = resources.Get (path.Join "media" $destination) -}}
+  {{- end -}}
 {{- end -}}
 
 <figure {{ with .Get "class" }}class="{{.}}"{{ end }} {{ with $id }}id="figure-{{ . }}"{{ end }}>
