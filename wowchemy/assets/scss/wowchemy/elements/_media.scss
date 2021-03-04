@@ -45,30 +45,17 @@ video {
  **************************************************/
 
 figure {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-
-  .figure-img-wrap {
-    flex-basis: 100%;
-    // Safari fix for responsive aspect ratio issue when `height: auto` set with flex parent.
-    // See https://stackoverflow.com/a/61196907
-    align-self: flex-start;
-  }
-
   img {
     height: auto;
     max-width: 100%;
   }
 
-  // Center all figure captions by default.
   figcaption {
-    flex-basis: 100%; // Appear on row beneath image.
     margin-top: 0.75em;
     margin-bottom: 1.65rem;
     line-height: 1.4;
     font-size: 0.76rem;
-    text-align: center;
+    text-align: center; // Center figure captions.
   }
 
   figcaption.numbered::before {

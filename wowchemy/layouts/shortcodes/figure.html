@@ -22,40 +22,42 @@
   {{- end -}}
 {{- end -}}
 
-<figure {{ with .Get "class" }}class="{{.}}"{{ end }} {{ with $id }}id="figure-{{ . }}"{{ end }}>
-  <div class="figure-img-wrap" {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
-    {{- if $img -}}
-      {{ $isSVG := eq $img.MediaType.SubType "svg" }}
-      {{ if $isSVG -}}
-        <img alt="{{ $alt }}"
-         src="{{ $img.RelPermalink }}"
-         loading="lazy"
-         {{- if $zoom }} data-zoomable{{end}}
-         {{- with .Get "width" }} width="{{.}}"{{end}}
-         {{- with .Get "height" }} height="{{.}}"{{end}}
-         {{- with $img_class }} class="{{.}}"{{end}} />
-      {{- else }}
-        {{- $img_lg := $img.Fit "1200x1200" -}}
-        {{- $img_md := $img_lg.Fit "760x760" -}}{{/* Match `.docs-article-container` max-width */}}
-        {{- $img_sm := $img_md.Fit "400x400" -}}
-        {{- $width := (.Get "width") | default $img_md.Width -}}
-        {{- $height := (.Get "height") | default $img_md.Height -}}
-        <img alt="{{ $alt }}" srcset="
-             {{ $img_sm.RelPermalink }} 400w,
-             {{ $img_md.RelPermalink }} 760w,
-             {{ $img_lg.RelPermalink }} 1200w"
-             src="{{ $img_sm.RelPermalink }}"
-             width="{{ $width }}"
-             height="{{ $height }}"
-             loading="lazy"
-             {{- if $zoom }} data-zoomable{{end}}
-             {{- with $img_class }} class="{{.}}"{{end}} />
-      {{- end }}
-    {{- else -}}
-      <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
-           {{- with .Get "width" }} width="{{.}}"{{end}} {{- with .Get "height" }} height="{{.}}"{{end}}
+<figure {{ with .Get "class" }}class="{{.}}"{{end}} {{ with $id }}id="figure-{{ . }}"{{ end }}>
+  <div class="d-flex justify-content-center">
+    <div {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
+      {{- if $img -}}
+        {{ $isSVG := eq $img.MediaType.SubType "svg" }}
+        {{ if $isSVG -}}
+          <img alt="{{ $alt }}"
+           src="{{ $img.RelPermalink }}"
+           loading="lazy"
+           {{- if $zoom }} data-zoomable{{end}}
+           {{- with .Get "width" }} width="{{.}}"{{end}}
+           {{- with .Get "height" }} height="{{.}}"{{end}}
            {{- with $img_class }} class="{{.}}"{{end}} />
-    {{- end -}}
+        {{- else }}
+          {{- $img_lg := $img.Fit "1200x1200" -}}
+          {{- $img_md := $img_lg.Fit "760x760" -}}{{/* Match `.docs-article-container` max-width */}}
+          {{- $img_sm := $img_md.Fit "400x400" -}}
+          {{- $width := (.Get "width") | default $img_md.Width -}}
+          {{- $height := (.Get "height") | default $img_md.Height -}}
+          <img alt="{{ $alt }}" srcset="
+               {{ $img_sm.RelPermalink }} 400w,
+               {{ $img_md.RelPermalink }} 760w,
+               {{ $img_lg.RelPermalink }} 1200w"
+               src="{{ $img_sm.RelPermalink }}"
+               width="{{ $width }}"
+               height="{{ $height }}"
+               loading="lazy"
+               {{- if $zoom }} data-zoomable{{end}}
+               {{- with $img_class }} class="{{.}}"{{end}} />
+        {{- end }}
+      {{- else -}}
+        <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
+             {{- with .Get "width" }} width="{{.}}"{{end}} {{- with .Get "height" }} height="{{.}}"{{end}}
+             {{- with $img_class }} class="{{.}}"{{end}} />
+      {{- end -}}
+    </div>
   </div>
 
   {{- if $caption -}}
