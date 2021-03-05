@@ -4,15 +4,15 @@
 
 {{ if $page.Params.hero_media }}
 <div class="row">
-  <div class="col-12 col-md-6 order-md-1 text-center text-md-left">
+  <div class="col-12 col-md-6 text-center text-md-left">
 {{ end }}
 
-    <h1 class="hero-title">
-      {{ with $page.Title }}{{ . | markdownify }}{{ end }}
-    </h1>
+    {{ with $page.Title }}
+      <h1 class="hero-title">{{ . | markdownify }}</h1>
+    {{ end }}
 
     {{ with $page.Content }}
-    <div class="hero-lead">{{ . }}</div>
+      <div class="hero-lead">{{ . }}</div>
     {{ end }}
 
     {{/* Call-to-action link */}}
@@ -58,8 +58,11 @@
   {{/* Hero image */}}
   {{ if $page.Params.hero_media }}
   </div>
-  <div class="col-12 mx-auto col-md-6 order-md-2 hero-media">
-    {{ $image := $page.Parent.Resources.GetMatch $page.Params.hero_media }}
+  <div class="col-12 mx-auto col-md-6 {{if $page.Params.design.flip}}order-md-first{{end}} hero-media">
+    {{- $image := ($page.Parent.Resources.ByType "image").GetMatch $page.Params.hero_media -}}
+    {{- if not $image -}}
+      {{- $image = resources.Get (path.Join "media" $page.Params.hero_media) -}}
+    {{- end -}}
     {{ if $image }}
       {{ $legacy_img := $image.Resize "400x" }}
       {{ $img_src := "" }}
@@ -76,9 +79,6 @@
       {{ $img_src_set = delimit $img_src_set "," }}
 
       <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $page.Title }}">
-    {{ else }}
-      {{ $media_dir := $.Scratch.Get "media_dir" }}
-      <img src="{{ printf "%s/%s" $media_dir $page.Params.hero_media | relURL }}" alt="{{ $page.Title }}">
     {{ end }}
   </div>
 </div>
