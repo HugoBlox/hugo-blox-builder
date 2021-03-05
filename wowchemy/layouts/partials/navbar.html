@@ -179,7 +179,8 @@
       </li>
       {{ end }}
 
-      {{ if .IsTranslated }}
+      {{ $show_translations := site.Params.main_menu.show_translations | default true }}
+      {{ if .IsTranslated | and $show_translations }}
       <li class="nav-item dropdown i18n-dropdown">
         <a href="#" class="nav-link {{ if $show_current_language }}dropdown-toggle{{end}}" data-toggle="dropdown"
            aria-haspopup="true" aria-label="{{ i18n "languages" | default "Languages" }}">

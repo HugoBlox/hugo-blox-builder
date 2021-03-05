@@ -1,4 +1,15 @@
 <footer class="site-footer">
+
+  {{ if .IsTranslated | and site.Params.footer.show_translations }}
+    <div class="powered-by d-flex flex-wrap pb-2 justify-content-center">
+      <div class="p-2 font-weight-bold"><i class="fas fa-globe pr-1" aria-hidden="true"></i>{{ i18n "languages" }}:</div>
+      <div class="p-2">{{ index site.Data.i18n.languages .Lang }}</div>
+      {{ range .Translations }}
+        <div class="p-2"><a href="{{ .Permalink }}">{{ index site.Data.i18n.languages .Lang }}</a></div>
+      {{ end }}
+    </div>
+  {{ end }}
+
   {{ if or (site.GetPage "terms.md") (site.GetPage "privacy.md") }}
   <p class="powered-by">
     {{ with site.GetPage "privacy.md" }}
