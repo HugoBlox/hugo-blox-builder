@@ -6,6 +6,12 @@
   translation: On this page
 - id: back_to_top
   translation: Back to top
+- id: home
+  translation: Home
+- id: close
+  translation: Close
+- id: languages
+  translation: Languages
 - id: related
   translation: Relacionat
 - id: minute_read
@@ -16,6 +22,16 @@
   translation: Següent
 - id: figure
   translation: 'Figura %d:'
+- id: edit_page
+  translation: Edit this page
+- id: theme_selector
+  translation: Display preferences
+- id: theme_light
+  translation: Light
+- id: theme_dark
+  translation: Dark
+- id: theme_auto
+  translation: Automatic
 - id: btn_preprint
   translation: Preimpresió
 - id: btn_pdf
@@ -110,6 +126,10 @@
   translation: Conferència
 - id: projects
   translation: Projectes
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: Search
 - id: search_placeholder
@@ -118,6 +138,8 @@
   translation: results found
 - id: search_no_results
   translation: No results found
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: No s'ha trobat la pàgina
 - id: 404_recommendations
@@ -128,3 +150,5 @@
   translation: D'acord
 - id: cookie_learn
   translation: Més informació
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

@@ -6,6 +6,12 @@
   translation: Op deze pagina
 - id: back_to_top
   translation: Terug naar boven
+- id: home
+  translation: Home
+- id: close
+  translation: Close
+- id: languages
+  translation: Languages
 - id: related
   translation: Gerelateerd
 - id: minute_read
@@ -16,6 +22,16 @@
   translation: Volgende
 - id: figure
   translation: 'Figuur %d:'
+- id: edit_page
+  translation: Edit this page
+- id: theme_selector
+  translation: Display preferences
+- id: theme_light
+  translation: Light
+- id: theme_dark
+  translation: Dark
+- id: theme_auto
+  translation: Automatic
 - id: btn_preprint
   translation: Preprint
 - id: btn_pdf
@@ -110,6 +126,10 @@
   translation: Presentaties
 - id: projects
   translation: Projects
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: Search
 - id: search_placeholder
@@ -118,6 +138,8 @@
   translation: resultaten gevonden
 - id: search_no_results
   translation: Geen resultaten gevonden
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: Pagina niet gevonden
 - id: 404_recommendations
@@ -128,3 +150,5 @@
   translation: Accepteer cookies
 - id: cookie_learn
   translation: Meer informatie
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

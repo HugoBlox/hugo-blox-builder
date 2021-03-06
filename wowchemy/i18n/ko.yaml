@@ -6,6 +6,12 @@
   translation: 이 페이지
 - id: back_to_top
   translation: 맨 위로
+- id: home
+  translation: Home
+- id: close
+  translation: Close
+- id: languages
+  translation: Languages
 - id: related
   translation: 관련문서
 - id: minute_read
@@ -16,6 +22,16 @@
   translation: 다음
 - id: figure
   translation: '그림 %d:'
+- id: edit_page
+  translation: Edit this page
+- id: theme_selector
+  translation: Display preferences
+- id: theme_light
+  translation: Light
+- id: theme_dark
+  translation: Dark
+- id: theme_auto
+  translation: Automatic
 - id: btn_preprint
   translation: 출판 전 논문
 - id: btn_pdf
@@ -110,6 +126,10 @@
   translation: 강연
 - id: projects
   translation: 프로젝트
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: 검색
 - id: search_placeholder
@@ -118,6 +138,8 @@
   translation: 검색 결과
 - id: search_no_results
   translation: 검색 결과 없음
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: 페이지 없음
 - id: 404_recommendations
@@ -128,3 +150,5 @@
   translation: 알겠어!
 - id: cookie_learn
   translation: 더 알아보기
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

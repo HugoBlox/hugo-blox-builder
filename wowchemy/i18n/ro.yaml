@@ -6,6 +6,12 @@
   translation: Pe această pagină
 - id: back_to_top
   translation: Înapoi la început
+- id: home
+  translation: Home
+- id: close
+  translation: Close
+- id: languages
+  translation: Languages
 - id: related
   translation: Înrudit
 - id: minute_read
@@ -16,6 +22,16 @@
   translation: Următor
 - id: figure
   translation: 'Imagine %d:'
+- id: edit_page
+  translation: Edit this page
+- id: theme_selector
+  translation: Display preferences
+- id: theme_light
+  translation: Light
+- id: theme_dark
+  translation: Dark
+- id: theme_auto
+  translation: Automatic
 - id: btn_preprint
   translation: Preimprimare
 - id: btn_pdf
@@ -110,6 +126,10 @@
   translation: Conferințe
 - id: projects
   translation: Proiecte
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: Căutare
 - id: search_placeholder
@@ -118,6 +138,8 @@
   translation: rezultate găsite
 - id: search_no_results
   translation: Nu s-au găsit rezultate
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: Pagina nu a fost găsită
 - id: 404_recommendations
@@ -128,3 +150,5 @@
   translation: Înțeles!
 - id: cookie_learn
   translation: Mai multe informații
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
