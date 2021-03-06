@@ -24,7 +24,7 @@
 
 <figure {{ with .Get "class" }}class="{{.}}"{{end}} {{ with $id }}id="figure-{{ . }}"{{ end }}>
   <div class="d-flex justify-content-center">
-    <div {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
+    <div class="w-100" {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
       {{- if $img -}}
         {{ $isSVG := eq $img.MediaType.SubType "svg" }}
         {{ if $isSVG -}}
