@@ -142,9 +142,9 @@
     {{- end -}}
     {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat (printf "%s/js/wowchemy.min.js" .Lang) }}
     {{- if hugo.IsProduction -}}
-      {{- $js_bundle = $js_bundle | js.Build (dict "format" "esm") | fingerprint "md5" -}}
+      {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife") | fingerprint "md5" -}}
     {{- else -}}
-      {{- $js_bundle = $js_bundle | js.Build (dict "format" "esm" "sourceMap" "inline") -}}
+      {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife" "sourceMap" "inline") -}}
     {{- end -}}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
 
