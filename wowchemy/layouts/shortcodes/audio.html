@@ -1,26 +1,29 @@
-{{/* Enable audio to be loaded from local page dir or media library at `static/media/`. */}}
+{{/* Audio Shortcode for Wowchemy. */}}
+{{/* Load audio from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
 {{/* Supports primarily MP3 and MP4. */}}
 
-{{ $path := "" }}
-{{ $root_dir := "" }}
-{{ $media_dir := site.Params.media_dir | default "media" }}
-{{ if .Get "library" }}
-  {{ $path = printf "%s/" $media_dir }}
-  {{ $root_dir = "static/" }}
+{{ $destination := .Get "src" }}
+{{ $is_remote := strings.HasPrefix $destination "http" }}
+{{- $asset := "" -}}
+{{- if not $is_remote -}}
+  {{- $asset = (.Page.Resources.ByType "image").GetMatch $destination -}}
+  {{- if not $asset -}}
+    {{- $asset = resources.Get (path.Join "media" $destination) -}}
+  {{- end -}}
+{{- end -}}
+
+{{ if $asset }}
+  {{ $destination = $asset.RelPermalink }}
+{{ else }}
+  {{ $destination = $destination | safeURL }}
 {{ end }}
 
-{{ $audio := printf "%s%s" $path (.Get "src") }}
-{{ $audio_type := strings.TrimPrefix "." (path.Ext (.Get "src")) | lower }}
+
+{{ $audio_type := strings.TrimPrefix "." (path.Ext $destination) | lower }}
 
 {{/* Set MP3 mime type to mpeg. */}}
 {{ $audio_type = replace $audio_type "mp3" "mpeg" }}
 
-{{ if .Get "library" }}
-  {{ $audio = $audio | relURL }}
-{{ end }}
-
-{{ if $audio }}
-  <audio controls {{ with (.Get "id") }}id="audio-{{.|urlize}}"{{end}}>
-    <source src="{{$audio}}" type="audio/{{$audio_type}}">
-  </audio>
-{{ end }}
+<audio controls {{ with (.Get "id") }}id="audio-{{.|anchorize}}"{{end}}>
+  <source src="{{$destination}}" type="audio/{{$audio_type}}">
+</audio>
