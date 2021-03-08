@@ -9,7 +9,8 @@ $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1290px, // wider default: 1140 -> 1290
+  // wider default: 1140 -> 1290
+  xl: 1290px,
 );
 
 $navbar-toggler-padding-x: 0;
