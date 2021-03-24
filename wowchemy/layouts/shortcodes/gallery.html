@@ -1,6 +1,8 @@
+{{/* Gallery Shortcode for Wowchemy. */}}
+{{/* Load gallery images from page dir. */}}
+
 {{/* Get album folder or default to `gallery/`. */}}
-{{ $album := "" }}
-{{ with .Get "album" }}{{ $album = . }}{{else}}{{ $album = "gallery" }}{{end}}
+{{ $album := (.Get "album") | default "gallery" }}
 
 {{/* Set image path and page bundle that images are associated with. */}}
 {{ $album_path := "" }}
@@ -17,7 +19,6 @@
 
   {{/* Attempt to automatically load gallery images from page bundle */}}
   {{ $images := ($resource_page.Resources.ByType "image").Match $album_path }}
-  {{ with $images }}
   {{ range $images }}
     {{ $image := .Resize "x190" }}
     {{/* Check if the user set a caption for this image */}}
@@ -31,28 +32,8 @@
     <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
       <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
     </a>
-  {{end}}
-
-  {{else}}
-  {{/* Load gallery images from the `static/media/` media library or internet */}}
-
-  {{ if $.Page.Params.gallery_item }}
-  {{ range (where $.Page.Params.gallery_item "album" $album) }}
-  {{/* Set image path. */}}
-  {{ $.Scratch.Set "src" .image }}
-  {{ if gt (len .image) 4 }}
-    {{ if ne "http" (slicestr .image 0 4) }}
-      {{ $media_dir := site.Params.media_dir | default "media" }}
-      {{ $.Scratch.Set "src" (printf "%s/%s" $media_dir .image | relURL) }}
-    {{ end }}
-  {{ end }}
-  {{/* Don't lazy load image as cannot init image size from non-Hugo asset, resulting in inaccurate anchor scrolling & active link highlighting. */}}
-  <a data-fancybox="gallery{{ with .album }}-{{.}}{{ end }}" {{ with .caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }} href="{{$.Scratch.Get "src"}}">
-    <img src="{{$.Scratch.Get "src"}}" alt="{{ plainify .caption | default .image }}">
-  </a>
-  {{end}}
   {{else}}
     {{ errorf "Unable to load gallery in %s." .Page.File.Filename }}
   {{end}}
-  {{end}}
+
 </div>

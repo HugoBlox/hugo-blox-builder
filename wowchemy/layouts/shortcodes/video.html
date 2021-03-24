@@ -1,29 +1,35 @@
-{{/* Enable video to be loaded from local page dir or media library at `static/media/`. */}}
+{{/* Video Shortcode for Wowchemy. */}}
+{{/* Load video from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
 
-{{ $path := "" }}
-{{ $root_dir := "" }}
-{{ $media_dir := site.Params.media_dir | default "media" }}
-{{ if .Get "library" }}
-  {{ $path = printf "%s/" $media_dir }}
-  {{ $root_dir = "static/" }}
-{{ end }}
+{{ $destination := .Get "src" }}
+{{ $video_ext_with_dot := path.Ext (.Get "src") }}
+{{ $video_ext := strings.TrimPrefix "." $video_ext_with_dot }}
+{{ $video_type := $video_ext }}
+{{ $destination_preview := (.Get "poster") | default (replace $destination $video_ext_with_dot ".jpg") }}
+{{ $is_remote := strings.HasPrefix $destination "http" }}
+{{- $asset := "" -}}
+{{- $asset_preview := "" -}}
+{{- if not $is_remote -}}
+  {{- $asset = (.Page.Resources.ByType "video").GetMatch $destination -}}
+  {{- $asset_preview = (.Page.Resources.ByType "image").GetMatch $destination_preview -}}
+  {{- if not $asset -}}
+    {{- $asset = resources.Get (path.Join "media" $destination) -}}
+    {{- $asset_preview = resources.Get (path.Join "media" $destination_preview) -}}
+  {{- end -}}
+  {{ $video_type = $asset.MediaType.SubType }}
+{{- end -}}
 
-{{ $video := printf "%s%s" $path (.Get "src") }}
-{{ $video_type := strings.TrimPrefix "." (path.Ext (.Get "src")) }}
-{{ if .Get "library" }}
-  {{ $video = $video | relURL }}
-{{ end }}
-
-{{ $poster := printf "%s%s%s" $path (substr (.Get "src") 0 -4) ".jpg" }}
-{{ $has_poster := fileExists (printf "%s%s" $root_dir $poster) }}
-{{ if and $has_poster (.Get "library") }}
-  {{ $poster = $poster | relURL }}
-{{ else if $has_poster }}
-  {{ $poster = $poster }}
+{{ if $asset }}
+  {{ $destination = $asset.RelPermalink }}
 {{ else }}
-  {{ $poster = "" }}
+  {{ $destination = $destination | safeURL }}
 {{ end }}
 
-<video {{if (.Get "controls")}}controls{{else}}autoplay loop{{end}} {{with $poster}}poster="{{.}}"{{end}}>
-  <source src="{{ $video }}" type="video/{{$video_type}}">
+{{ $poster := (.Get "poster") | default "" }}
+{{ if $asset_preview }}
+  {{ $poster = $asset_preview.RelPermalink }}
+{{ end }}
+
+<video {{if (.Get "controls")}}controls{{else}}autoplay loop{{end}} {{with $poster}}poster="{{.}}"{{end}} {{ with (.Get "id") }}id="video-{{.|anchorize}}"{{end}}>
+  <source src="{{$destination}}" type="video/{{$video_type}}">
 </video>
