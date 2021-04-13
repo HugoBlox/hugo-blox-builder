@@ -10,22 +10,38 @@
   {{ range $idx, $key := sort $page.Params.item ".date_start" "desc" }}
     <div class="card experience course">
       <div class="card-body">
-        {{- with .url -}}<a href="{{.}}" target="_blank" rel="noopener">{{- end -}}
-        <div class="section-subheading card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</div>
-        {{- with .url -}}</a>{{- end -}}
+        {{- $svg_icon := resources.Get (printf "media/icons/brands/%s.svg" (replace (lower .organization) " " "_")) -}}
+        {{- if $svg_icon }}
+        <div class="d-flex align-content-start">
+          <div class="mr-2 mb-2">
+            {{- with .organization_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
+            <img src="{{ $svg_icon.RelPermalink }}" width="56px" height="56px" alt="{{.organization | plainify}}">
+            {{- with .organization_url}}</a>{{end -}}
+          </div>
+          <div>
+        {{ end }}
 
-        <div class="card-subtitle my-0 article-metadata">
-          {{- with .organization_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
-          {{- .organization | markdownify | emojify -}}
-          {{- with .organization_url}}</a>{{end -}}
+            {{- with .url -}}<a href="{{.}}" target="_blank" rel="noopener">{{- end -}}
+            <div class="section-subheading card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</div>
+            {{- with .url -}}</a>{{- end -}}
 
-          <span class="middot-divider"></span>
+            <div class="card-subtitle my-0 article-metadata">
+              {{- with .organization_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
+              {{- .organization | markdownify | emojify -}}
+              {{- with .organization_url}}</a>{{end -}}
 
-          {{ (time .date_start).Format ($page.Params.date_format | default "Jan 2006") }}
-          {{ if .date_end}}
-          – {{ (time .date_end).Format ($page.Params.date_format | default "Jan 2006") }}
-          {{end}}
+              <span class="middot-divider"></span>
+
+              {{ (time .date_start).Format ($page.Params.date_format | default "Jan 2006") }}
+              {{ if .date_end}}
+              – {{ (time .date_end).Format ($page.Params.date_format | default "Jan 2006") }}
+              {{end}}
+            </div>
+
+        {{- if $svg_icon}}
+          </div>
         </div>
+        {{end}}
 
         {{with .description}}
           <div class="card-text">{{. | markdownify | emojify}}</div>
