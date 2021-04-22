@@ -22,9 +22,11 @@
   </p>
   {{ end }}
 
+  {{ with site.Copyright }}
   <p class="powered-by">
-    {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}}{{ end }}
+    {{ replace . "{year}" now.Year | markdownify }}
   </p>
+  {{ end }}
 
   {{/* Display copyright license. */}}
   {{ partial "site_footer_license" . }}
