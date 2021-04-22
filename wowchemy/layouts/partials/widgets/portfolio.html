@@ -59,10 +59,20 @@
       {{ $query = $query | intersect $archive_page.Pages }}
     {{ end }}
 
+    {{ if $st.Params.content.filters.exclude_featured }}
+      {{ $query = where $query "Params.featured" "!=" true }}
+    {{ end }}
+    {{ if $st.Params.content.filters.featured_only }}
+      {{ $query = where $query "Params.featured" "=" true }}
+    {{ end }}
+
     {{ range $idx, $item := $query }}
 
       {{ $link := $item.RelPermalink }}
       {{ $target := "" }}
+      {{ if $item.Params.internal_link }}
+        {{ $link = $item.Params.internal_link }}
+      {{ end }}
       {{ if $item.Params.external_link }}
         {{ $link = $item.Params.external_link }}
         {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
