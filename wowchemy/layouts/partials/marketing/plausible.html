@@ -1,6 +1,6 @@
 {{ $plausible_dd := site.Params.marketing.plausible_data_domain  | default "" }}
-{{ $plausible_js := site.Params.marketing.plausible_script | default "" }}
+{{ $plausible_js := site.Params.marketing.plausible_script | default "https://plausible.io/js/plausible.js" }}
 
-{{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and $plausible_dd | and $plausible_js }}
+{{ if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and $plausible_dd }}
 <script async defer data-domain="{{$plausible_dd}}" src="{{$plausible_js}}"></script>
 {{ end }}
