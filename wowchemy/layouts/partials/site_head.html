@@ -183,6 +183,7 @@
   {{ partial "marketing/google_tag_manager" . }}
   {{ partial "marketing/microsoft_clarity" . }}
   {{ partial "marketing/baidu_tongji" . }}
+  {{ partial "marketing/plausible" . }}
 
   {{/* Netlify Identity integration. */}}
   {{ $use_cms := templates.Exists "wowchemycms/single.wowchemycms_config.yml" | default (site.Params.cms.netlify_cms | default false) }}
