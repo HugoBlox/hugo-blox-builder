@@ -15,6 +15,7 @@
   overflow: scroll;
   position: fixed;
   visibility: hidden;
+  display: none;
   z-index: -99;
 }
 
@@ -205,6 +206,7 @@
   transform: scale(1);
   -webkit-transform: scale(1);
   visibility: visible;
+  display: block;
   z-index: 1031; /* Highest index, higher than navbar. */
 }
 
