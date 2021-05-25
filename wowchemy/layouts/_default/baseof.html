@@ -18,13 +18,13 @@
   {{ $js_params := dict "wcDarkLightEnabled" $wcDarkLightEnabled "wcIsSiteThemeDark" $wcIsSiteThemeDark }}
   {{ $js_bundle := resources.Get "js/wowchemy-init.js" | js.Build (dict "params" $js_params) }}
   {{- if hugo.IsProduction -}}
-    {{ $js_bundle = $js_bundle | minify }}
-  {{- end -}}
-  {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/wowchemy-init.min.js" }}
-  {{- if hugo.IsProduction -}}
-    {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife") | fingerprint "md5" -}}
+    {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife") | minify -}}
   {{- else -}}
     {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife" "sourceMap" "inline") -}}
+  {{ end }}
+  {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat "js/wowchemy-init.min.js" }}
+  {{- if hugo.IsProduction -}}
+    {{ $js_bundle = $js_bundle | fingerprint "md5" }}
   {{- end -}}
   <script src="{{ $js_bundle.RelPermalink }}"></script>
 
