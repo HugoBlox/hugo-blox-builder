@@ -1,0 +1,34 @@
+name: 'Close stale issues and PRs'
+on:
+  schedule:
+    - cron: '15 19 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: |
+            This issue is stale because it has not had any recent activity. The resources of the project maintainers are limited, and so we are asking for your help.
+
+            If this is a **bug** and you can still reproduce this error on the <code>main</code> branch, consider contributing a Pull Request with a fix.
+
+            If this is a **feature request**, and you feel that it is still relevant and valuable, consider contributing a Pull Request for review.
+
+            This issue will automatically close soon if no further activity occurs. Thank you for your contributions.
+          stale-pr-message: |
+            This PR is stale because it has not had any recent activity. The resources of the project maintainers are limited, and so we are asking for your help.
+
+            If you feel that the PR is still relevant in the latest release, consider making the PR easier to review and finding developers to help review the PR.
+
+            Please be _mindful_ that although we encourage PRs, we cannot expand the scope of the project in every possible direction. There will be requests that don't make the roadmap.
+
+            This PR will automatically close soon if no further activity occurs. Thank you for your contributions.
+          days-before-stale: 30
+          days-before-close: 0
+          stale-issue-label: stale
+          stale-pr-label: stale
+          exempt-issue-labels: 'keep,enhancement,bug,documentation'
+          exempt-pr-labels: 'keep,enhancement,bug,documentation'

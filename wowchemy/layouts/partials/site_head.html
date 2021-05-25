@@ -18,6 +18,9 @@
   {{ with site.Params.marketing.baidu_site_verification }}
     <meta name="baidu-site-verification" content="{{ . }}" />
   {{- end -}}
+  {{ with site.Params.marketing.bing_site_verification }}
+    <meta name="msvalidate.01" content="{{ . }}" />
+  {{- end -}}
 
   {{ $scr := .Scratch }}
 
