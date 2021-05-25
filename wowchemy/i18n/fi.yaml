@@ -23,7 +23,7 @@
 - id: figure
   translation: 'Kuvio %d:'
 - id: edit_page
-  translation: Editoi sivua
+  translation: Muokkaa sivua
 - id: theme_selector
   translation: Valitse teema
 - id: theme_light
@@ -39,17 +39,17 @@
 - id: btn_cite
   translation: Siteeraa
 - id: btn_slides
-  translation: Diat
+  translation: Diaesitykset
 - id: btn_video
   translation: Video
 - id: btn_code
   translation: Koodi
 - id: btn_dataset
-  translation: Tietoaineisto
+  translation: Tietojoukot
 - id: btn_project
   translation: Projekti
 - id: btn_poster
-  translation: Posteri
+  translation: Juliste
 - id: btn_source
   translation: Lähdeasiakirja
 - id: btn_copy
@@ -127,7 +127,7 @@
 - id: projects
   translation: Projektit
 - id: slides
-  translation: Diat
+  translation: Diaesitykset
 - id: authors
   translation: Kirjoittajat
 - id: search
