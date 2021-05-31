@@ -27,7 +27,8 @@
     <div class="w-100" {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
       {{- if $img -}}
         {{ $isSVG := eq $img.MediaType.SubType "svg" }}
-        {{ if $isSVG -}}
+        {{ $isGIF := eq $img.MediaType.SubType "gif" }}
+        {{ if $isSVG | or $isGIF -}}
           <img alt="{{ $alt }}"
            src="{{ $img.RelPermalink }}"
            loading="lazy"
