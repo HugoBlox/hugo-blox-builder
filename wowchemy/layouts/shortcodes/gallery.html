@@ -1,26 +1,20 @@
 {{/* Gallery Shortcode for Wowchemy. */}}
-{{/* Load gallery images from page dir. */}}
+{{/* Load gallery images from media library. */}}
 
-{{/* Get album folder or default to `gallery/`. */}}
+{{/* Get album folder or default to `media/albums/gallery/`. */}}
 {{ $album := (.Get "album") | default "gallery" }}
+{{ $album_path := path.Join "media" "albums" $album "*" }}
 
-{{/* Set image path and page bundle that images are associated with. */}}
-{{ $album_path := "" }}
-{{ $resource_page := "" }}
-{{ if eq .Page.Parent.Type "widget_page" }}
-  {{ $album_path = printf "%s/%s/*" (path.Base (path.Split .Page.Path).Dir) $album }}
-  {{ $resource_page = $.Page.Parent }}
-{{ else }}
-  {{ $album_path = printf "%s/*" $album }}
-  {{ $resource_page = $.Page }}
-{{ end }}
+{{/* Gallery options */}}
+{{ $sort_order := .Get "order" | default "asc" }}
+{{ $resize_options := .Get "resize_options" | default "x190" }}
 
 <div class="gallery">
 
   {{/* Attempt to automatically load gallery images from page bundle */}}
-  {{ $images := ($resource_page.Resources.ByType "image").Match $album_path }}
-  {{ range $images }}
-    {{ $image := .Resize "x190" }}
+  {{ $images := resources.Match $album_path }}
+  {{ range (sort $images "Name" $sort_order) }}
+    {{ $image := .Resize $resize_options }}
     {{/* Check if the user set a caption for this image */}}
     {{ $filename := path.Base .Name }}
     {{ $caption := "" }}
@@ -33,7 +27,7 @@
       <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
     </a>
   {{else}}
-    {{ errorf "Unable to load gallery in %s." .Page.File.Filename }}
+    {{ errorf "Unable to load gallery `%s` in `%s`." $album_path .Page.File.Filename }}
   {{end}}
 
 </div>
