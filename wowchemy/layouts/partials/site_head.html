@@ -198,6 +198,10 @@
   {{- if hugo.IsProduction -}}
     {{- $style = $style | fingerprint "md5" -}}
   {{- end -}}
+  {{- if eq (getenv "WC_POST_CSS") "true" -}}
+    {{/* PostProcess must be last action in the pipeline */}}
+    {{- $style = $style | resources.PostProcess -}}
+  {{- end -}}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
 
   {{ partial "marketing/google_analytics" . }}
