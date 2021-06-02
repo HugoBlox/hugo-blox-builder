@@ -26,9 +26,9 @@
   <div class="d-flex justify-content-center">
     <div class="w-100" {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
       {{- if $img -}}
-        {{ $isSVG := eq $img.MediaType.SubType "svg" }}
-        {{ $isGIF := eq $img.MediaType.SubType "gif" }}
-        {{ if $isSVG | or $isGIF -}}
+        {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
+        {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
+        {{- if $isSVG | or $isGIF -}}
           <img alt="{{ $alt }}"
            src="{{ $img.RelPermalink }}"
            loading="lazy"
