@@ -3,10 +3,15 @@
 {{ $page := . }}
 
 {{ $pdf_link := false }}
-{{ $slug := $page.File.ContentBaseName }}
-{{ $resource := $page.Resources.GetMatch (printf "%s.pdf" $slug) }}
-{{ with $resource }}
-  {{ $pdf_link = true }}
+{{/* Prevent Hugo warning ".File.ContentBaseName on zero object." for content not backed by a Markdown file, */}}
+{{/* such as auto-generated taxonomy pages, and sections without an explicit index file. */}}
+{{/* The file check is required when called from `_default/list.html`, the fallback list view for the above cases. */}}
+{{ with $page.File }}
+  {{ $slug := $page.File.ContentBaseName }}
+  {{ $resource := $page.Resources.GetMatch (printf "%s.pdf" $slug) }}
+  {{ with $resource }}
+    {{ $pdf_link = true }}
+  {{ end }}
 {{ end }}
 
 {{ $cite_link := false }}

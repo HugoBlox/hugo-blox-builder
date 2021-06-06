@@ -1,5 +1,5 @@
 {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
-<nav>
+<nav class="mt-1">
   <ul class="pagination justify-content-center">
     {{ if .Paginator.HasPrev }}
     <li class="page-item"><a class="page-link" href="{{ .Paginator.Prev.URL }}">&laquo;</a></li>
