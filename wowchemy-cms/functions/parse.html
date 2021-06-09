@@ -7,7 +7,7 @@
 
 {{ with site.Params.cms.publish_mode }}
   {{ $publish_mode := dict "publish_mode" . }}
-  {{ $backend_opts = merge $backend_opts $publish_mode }}
+  {{ $return = merge $return $publish_mode }}
 {{ end }}
 
 {{ if site.Params.cms.local_backend }}

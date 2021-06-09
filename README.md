@@ -66,7 +66,7 @@ Choose a stunning theme for your site and [customize it](https://wowchemy.com/do
 
 ## The Future of Technical Content Writing
 
-[![Writing technical content](https://wowchemy.com/img/docs/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
+[![Writing technical content](https://wowchemy.com/uploads/readmes/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
 
 ## Join the community
 

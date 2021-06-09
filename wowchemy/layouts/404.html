@@ -15,7 +15,7 @@
 
   <p>{{ i18n "404_recommendations" }}</p>
 
-  {{ $query := site.RegularPages }}
+  {{ $query := where (where (where (where site.Pages.ByDate.Reverse "Title" "!=" "") "Kind" "in" (slice "page" "section")) "Params.private" "!=" true) "Permalink" "!=" "" }}
   {{ $count := len $query }}
   {{ if gt $count 0 }}
   <h2>{{ i18n "user_profile_latest" }}</h2>
