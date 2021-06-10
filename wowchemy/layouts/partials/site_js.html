@@ -15,7 +15,7 @@
       {{ end }}
 
       {{/* Workaround `.HasShortcode "gallery"` detection issue on `home/` WidgetPage v1 */}}
-      {{ if .HasShortcode "gallery" | or (and .IsHome (site.Params.require_fancybox | default true)) }}
+      {{ if ($scr.Get "HasNestedGalleryShortcode") | or site.Params.require_fancybox }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
       {{ end }}
 
@@ -137,15 +137,15 @@
     {{ range site.Params.plugins_js }}
       {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
     {{ end }}
-    {{ $js_bundle := $js_bundle | resources.Concat (printf "%s/js/wowchemy-bundle.js" .Lang) }}
+    {{ $js_bundle = $js_bundle | resources.Concat (printf "%s/js/wowchemy-bundle.js" .Lang) }}
     {{- if hugo.IsProduction -}}
-      {{ $js_bundle = $js_bundle | minify }}
-    {{- end -}}
-    {{ $js_bundle := slice $js_bundle_head $js_bundle | resources.Concat (printf "%s/js/wowchemy.min.js" .Lang) }}
-    {{- if hugo.IsProduction -}}
-      {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife") | fingerprint "md5" -}}
+      {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife") | minify -}}
     {{- else -}}
       {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife" "sourceMap" "inline") -}}
+    {{- end -}}
+    {{ $js_bundle = slice $js_bundle_head $js_bundle | resources.Concat (printf "%s/js/wowchemy.min.js" .Lang) }}
+    {{- if hugo.IsProduction -}}
+      {{ $js_bundle = $js_bundle | fingerprint "md5" }}
     {{- end -}}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
 

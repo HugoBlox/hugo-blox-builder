@@ -1,7 +1,7 @@
 name: 'Close stale issues and PRs'
 on:
   schedule:
-    - cron: '15 19 * * *'
+    - cron: '30 1 * * *'
 
 jobs:
   stale:
@@ -27,7 +27,7 @@ jobs:
 
             This PR will automatically close soon if no further activity occurs. Thank you for your contributions.
           days-before-stale: 30
-          days-before-close: 0
+          days-before-close: 5
           stale-issue-label: stale
           stale-pr-label: stale
           exempt-issue-labels: 'keep,enhancement,bug,documentation'
