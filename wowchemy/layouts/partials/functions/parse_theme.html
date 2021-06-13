@@ -1,9 +1,13 @@
 {{- $scr := .Scratch -}}
 
-{{/* Get name of site's Theme. Precedence: Params.toml > Default (Minimal) */}}
+{{/* Get name of site's Color Theme. Precedence: Params.yaml > Default (Minimal) */}}
 {{- $theme_index := (site.Params.theme | lower | replaceRE "\\s" "_") | default "minimal" -}}
+{{- if not (isset site.Data.themes $theme_index) -}}
+  {{- warnf "Theme `%s` not found at `data/themes/%s.toml`" site.Params.theme $theme_index -}}
+  {{- $theme_index = "minimal" -}}
+{{ end }}
 
-{{/* Get name of site's Font Set. Precedence: Params.toml > Theme > Default (Minimal) */}}
+{{/* Get name of site's Font Set. Precedence: Params.yaml > Inherit from Color Theme > Default (Minimal) */}}
 {{- $font_index := (site.Params.font | lower | replaceRE "\\s" "_") | default ((index site.Data.themes $theme_index).font | lower | replaceRE "\\s" "_") | default $theme_index -}}
 {{- $font_index := cond (isset site.Data.fonts $font_index) $font_index "minimal" -}}
 
