@@ -73,6 +73,11 @@
   sri = "sha512-gttPT9uTUiaLBj6XZdcB0ydKXiDaBwstInkN4Qvp1Nz3iwXNc8TTQplIEPIGxyJBDqERjwkKxf2OyO47/0EHbQ=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/%s/plotly.min.js"
 
+[js.highlight_lang]
+  version = "10.2.0"
+  sri = ""  # No SRI as highlight language styles is determined at run time.
+  url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/languages/%s.min.js"
+
 # CSS
 
 [css.fontAwesome]
