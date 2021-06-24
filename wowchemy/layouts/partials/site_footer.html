@@ -1,5 +1,7 @@
 <footer class="site-footer">
 
+  {{ partial "hooks/footer" . }}
+
   {{ if .IsTranslated | and site.Params.footer.show_translations }}
     <div class="powered-by d-flex flex-wrap pb-2 justify-content-center">
       <div class="p-2 font-weight-bold"><i class="fas fa-globe pr-1" aria-hidden="true"></i>{{ i18n "languages" }}:</div>
