@@ -219,8 +219,8 @@
     <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}" />
   {{ end }}
 
-  {{ if site.Home.OutputFormats.Get "WebAppManifest" }}
-    <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}" />
+  {{ with site.Home.OutputFormats.Get "WebAppManifest" }}
+    <link rel="manifest" href="{{ .RelPermalink }}" />
   {{ end }}
 
   <link rel="icon" type="image/png" href="{{ (partial "functions/get_icon" 32).RelPermalink }}" />

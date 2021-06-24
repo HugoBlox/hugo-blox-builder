@@ -1,13 +1,23 @@
+markup:
+  _merge: deep
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+        title: true
+  highlight:
+    codeFences: false
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
 mediaTypes:
-  application/manifest+json:
-    suffixes: [webmanifest]
   text/netlify:
     delimiter: ''
     suffixes: ['']
 outputFormats:
-  WebAppManifest:
-    mediaType: application/manifest+json
-    rel: manifest
   headers:
     baseName: _headers
     isPlainText: true
@@ -20,7 +30,7 @@ outputFormats:
     notAlternative: true
 module:
   hugoVersion:
-    min: '0.81.0'
+    min: '0.84.1'
     extended: true
   mounts:
     - source: content
