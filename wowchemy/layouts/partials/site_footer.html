@@ -1,6 +1,6 @@
 <footer class="site-footer">
 
-  {{ partial "custom_footer" . }}
+  {{ partial "hooks/footer" . }}
 
   {{ if .IsTranslated | and site.Params.footer.show_translations }}
     <div class="powered-by d-flex flex-wrap pb-2 justify-content-center">
