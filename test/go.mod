@@ -2,10 +2,10 @@ module github.com/wowchemy/wowchemy-hugo-modules/test
 
 go 1.15
 
-require (
-	github.com/wowchemy/wowchemy-hugo-modules/wowchemy main
-	github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms main
-)
+replace github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5 => ../wowchemy
+replace github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5 => ../wowchemy-cms
 
-replace github.com/wowchemy/wowchemy-hugo-modules/wowchemy => ../wowchemy
-replace github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms => ../wowchemy-cms
+require (
+	github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5 v5.3.0
+	github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5 v5.3.0
+)
