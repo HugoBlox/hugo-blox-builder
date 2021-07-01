@@ -1,16 +1,11 @@
 title: Wowchemy Test
-baseurl:
+baseurl: https://example.com
 module:
   imports:
-    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms
-    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5
 outputs:
   home: [HTML, RSS, JSON, WebAppManifest, headers, redirects]
-markup:
-  defaultMarkdownHandler: goldmark
-  goldmark: {renderer: {unsafe: true}}
-  highlight: {codeFences: false}
-  tableOfContents: {startLevel: 2, endLevel: 3}
 disableAliases: true
 taxonomies: []
 params:
