@@ -1,10 +1,10 @@
-<!--<p align="center"><a href="https://wowchemy.com" target="_blank" rel="noopener"><img src="https://wowchemy.com/img/logo_200px.png" alt="Wowchemy Website Builder"></a></p>-->
-
 [中文](https://wowchemy.com/zh/)
+
+<p align="center"><a href="https://wowchemy.com/templates/" target="_blank" rel="noopener"><img src="https://wowchemy.com/media/sharing.png" alt="Wowchemy Website Builder"></a></p>
 
 # [Wowchemy](https://wowchemy.com): the website builder for [Hugo](https://gohugo.io)
 
-### Join 500,000+ Sites. Easily Create Future-Proof Websites ✏️ 📰 🚀
+### Join 750,000+ Sites. No Code. Easily Create Future-Proof Websites ✏️ 📰 🚀
 
 🔥 **1. Create _any_ kind of website for free with widgets** - from landing pages, knowledge bases, and courses to academic resumés, conferences, and tech blogs
 
@@ -25,12 +25,12 @@
 
 To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.
 
-### [❤️ Unlock rewards by supporting this open source software ❤️](https://wowchemy.com/plans/)
+### [❤️ Unlock rewards by supporting this open source software ❤️](https://wowchemy.com/sponsor/)
 
 ## Ecosystem
 
 - **[Hugo Academic CLI](https://github.com/wowchemy/hugo-academic-cli/):** Automatically import academic publications from BibTeX
-- **[Hugo Assistant](https://github.com/sourcethemes/hugo-assistant):** Scripts to help migrate content to new versions of Hugo
+- **[Awesome Hugo](https://github.com/wowchemy/awesome-hugo):** Scripts to help migrate content to new versions of Hugo
 
 ## Features
 
@@ -48,7 +48,7 @@ To help us develop this template and software sustainably under the MIT license,
 - **Industry-Leading SEO** - Help get your website found on search engines and social media
 - **Media Galleries** - Display your images and videos with captions in a customizable gallery
 - **Mobile Friendly** - Look amazing on every screen with a mobile friendly version of your site
-- **Multi-language** - 15+ language packs including English, 中文, and Português
+- **Multi-language** - 34+ language packs including English, 中文, and Português
 - **Multi-user** - Each author gets their own profile page
 - **Privacy Pack** - Assists with GDPR
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
