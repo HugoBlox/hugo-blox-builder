@@ -7,11 +7,11 @@
 - id: back_to_top
   translation: חזרה למעלה
 - id: home
-  translation: Home
+  translation: בית
 - id: close
-  translation: Close
+  translation: סגירה
 - id: languages
-  translation: Languages
+  translation: שפות
 - id: related
   translation: קשור
 - id: minute_read
@@ -71,7 +71,7 @@
 - id: more_posts
   translation: כל הפוסטים
 - id: more_talks
-  translation: כל ההרצאות
+  translation: כל האירועים
 - id: more_publications
   translation: כל הפרסומים
 - id: contact_name
@@ -123,13 +123,13 @@
 - id: publications
   translation: פרסומים
 - id: talks
-  translation: הרצאות
+  translation: אירועים
 - id: projects
   translation: פרויקטים
 - id: slides
   translation: שקופיות
 - id: authors
-  translation: Authors
+  translation: מחברים
 - id: search
   translation: חיפוש
 - id: search_placeholder
@@ -139,7 +139,7 @@
 - id: search_no_results
   translation: לא נמצאו תוצאות
 - id: search_common_queries
-  translation: Common searches
+  translation: חיפושים נפוצים
 - id: page_not_found
   translation: העמוד לא נמצא
 - id: 404_recommendations
@@ -151,4 +151,4 @@
 - id: cookie_learn
   translation: מידע נוסף
 - id: published_with
-  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+  translation: פורסם באמצעות {wowchemy} — בונה האתרים החינמי, בעל {repo_link}קוד פתוח{/repo_link}, שמעצים יוצרים.
