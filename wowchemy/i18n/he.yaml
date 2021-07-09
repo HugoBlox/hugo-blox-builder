@@ -71,7 +71,7 @@
 - id: more_posts
   translation: כל הפוסטים
 - id: more_talks
-  translation: כל ההרצאות
+  translation: כל האירועים
 - id: more_publications
   translation: כל הפרסומים
 - id: contact_name
@@ -123,7 +123,7 @@
 - id: publications
   translation: פרסומים
 - id: talks
-  translation: הרצאות
+  translation: אירועים
 - id: projects
   translation: פרויקטים
 - id: slides
