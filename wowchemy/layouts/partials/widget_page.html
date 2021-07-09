@@ -41,6 +41,15 @@
     {{ $style_bg = printf "%sbackground-image: linear-gradient(%sdeg, %s, %s);" $style_bg $angle $bg.gradient_start $bg.gradient_end }}
   {{ end }}
 
+  {{ $bg_video := "" }}
+  {{ if $bg.video.path }}
+    {{ $bg_video = resources.Get (printf "media/%s" $bg.video.path) }}
+  {{ end }}
+  {{ $bg_video_class := "" }}
+  {{ if $bg.video.flip }}
+    {{ $bg_video_class = "flip" }}
+  {{ end }}
+
   {{ if $bg.image }}
     {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
     {{ $bg_img := resources.Get (printf "media/%s" $bg.image) }}
@@ -74,7 +83,7 @@
     {{ $style = print $style $style_clip_path }}
   {{ end }}
 
-  {{ with $st.Params.advanced.css_style }}
+  {{ with ($st.Params.design.css_style | default $st.Params.advanced.css_style) }}
     {{ $style = print $style . }}
   {{ end }}
 
@@ -87,7 +96,7 @@
 
   {{ $widget_path := printf "widgets/%s.html" $widget }}
   {{ $widget_args := dict "root" $ "page" $st "hash_id" $hash_id }}
-  {{ $css_classes := $st.Params.advanced.css_class | default "" }}
+  {{ $css_classes := $st.Params.design.css_class | default $st.Params.advanced.css_class | default "" }}
   {{ $extra_attributes := "" }}
   {{ $use_container := true }}
 
@@ -111,7 +120,9 @@
 
   {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
   <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
-   <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
+   <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image_parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
+     {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
+   </div>
     {{if $use_container}}<div class="container">{{end}}
 
     {{if $use_cols}}

@@ -8,6 +8,8 @@ outputs:
   home: [HTML, RSS, JSON, WebAppManifest, headers, redirects]
 disableAliases: true
 taxonomies: []
+markup:
+  _merge: deep
 params:
   require_isotope: false
   day_night: true
