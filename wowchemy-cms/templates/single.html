@@ -11,5 +11,26 @@
 <body>
 <!-- Include the latest Netlify CMS v2.x.x script that builds the admin panel. -->
 <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2/dist/netlify-cms.min.js"></script>
+{{ $shortcodes := resources.Get "js/shortcodes-cms.js" }}
+<script src="{{ $shortcodes.RelPermalink }}"></script>
+{{ $post_template := resources.Get "js/cms-preview-templates/post.js" }}
+<script src="{{ $post_template.RelPermalink }}"></script>
+{{ $custom_preview_css := resources.Get "css/custom-preview.css" }}
+<script>
+  // Register any CSS file on the home page as a preview style
+  fetch("/")
+  .then(response => response.text())
+  .then(html => {
+    const f = document.createElement("html");
+    f.innerHTML = html;
+    Array.from(f.getElementsByTagName("link")).forEach(tag => {
+      if (tag.rel == "stylesheet") {
+        CMS.registerPreviewStyle(tag.href);
+      }
+    });
+    CMS.registerPreviewStyle("{{ $custom_preview_css.RelPermalink }}"); // custom preview CSS
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.2.3/marked.min.js" integrity="sha512-ZCO24NbTkJ7msQiCAkiufwqkuk9gcObBgDfBFa3F9k5mjGvmsfb/ben7s28Ss10xsbl3Pt+B5QqdH5Tg4V0Vag==" crossorigin="anonymous"></script>
 </body>
 </html>
