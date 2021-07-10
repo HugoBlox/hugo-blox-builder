@@ -327,7 +327,7 @@ var mediumZoomEsm = function mediumZoom(selector) {
 
       var scaleX = Math.min(naturalWidth, viewportWidth) / width;
       var scaleY = Math.min(naturalHeight, viewportHeight) / height;
-      var scale = Math.min(scaleX, scaleY);
+      var scale = Math.max(1, Math.min(scaleX, scaleY));
       var translateX = (-left + (viewportWidth - width) / 2 + zoomOptions.margin + container.left) / scale;
       var translateY = (-top + (viewportHeight - height) / 2 + zoomOptions.margin + container.top) / scale;
       var transform = 'scale(' + scale + ') translate3d(' + translateX + 'px, ' + translateY + 'px, 0)';
