@@ -143,6 +143,6 @@ if (params.slides.diagram) {
 
   // Fix Mermaid conflict with Hightlight JS.
   document.addEventListener('DOMContentLoaded', function () {
-    fixMermaid();
+    fixMermaid(false);
   });
 }

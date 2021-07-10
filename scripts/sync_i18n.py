@@ -13,7 +13,7 @@ import copy
 from pathlib import Path
 import yaml
 
-I18N_PATH = Path(__file__).resolve().parent.parent.joinpath('i18n')
+I18N_PATH = Path(__file__).resolve().parent.parent.joinpath('wowchemy').joinpath('i18n')
 MASTER_PACK = I18N_PATH.joinpath('en.yaml')
 
 
@@ -46,7 +46,9 @@ for filename in Path(I18N_PATH).glob("*.yaml"):
     # Write the synced language pack to file.
     with open(i18n_file, 'w') as f:
       # PyYAML will break lines unless a large column `width` is set.
-      yaml.dump(tmp_map, f, allow_unicode=True, width=float("inf"), default_style='\'')
+      # To standardise with single quotes, add: `, default_style='\''`.
+      # No option to only enforce single quotes when YAML string wrapped in quotes?
+      yaml.dump(tmp_map, f, allow_unicode=True, width=float("inf"))
     cnt += 1
 
 # Print results.

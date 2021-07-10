@@ -1,25 +1,20 @@
-{{/* Get album folder or default to `gallery/`. */}}
-{{ $album := "" }}
-{{ with .Get "album" }}{{ $album = . }}{{else}}{{ $album = "gallery" }}{{end}}
+{{/* Gallery Shortcode for Wowchemy. */}}
+{{/* Load gallery images from media library. */}}
 
-{{/* Set image path and page bundle that images are associated with. */}}
-{{ $album_path := "" }}
-{{ $resource_page := "" }}
-{{ if eq .Page.Parent.Type "widget_page" }}
-  {{ $album_path = printf "%s/%s/*" (path.Base (path.Split .Page.Path).Dir) $album }}
-  {{ $resource_page = $.Page.Parent }}
-{{ else }}
-  {{ $album_path = printf "%s/*" $album }}
-  {{ $resource_page = $.Page }}
-{{ end }}
+{{/* Get album folder or default to `media/albums/gallery/`. */}}
+{{ $album := (.Get "album") | default "gallery" }}
+{{ $album_path := path.Join "media" "albums" $album "*" }}
+
+{{/* Gallery options */}}
+{{ $sort_order := .Get "order" | default "asc" }}
+{{ $resize_options := .Get "resize_options" | default "x190" }}
 
 <div class="gallery">
 
   {{/* Attempt to automatically load gallery images from page bundle */}}
-  {{ $images := ($resource_page.Resources.ByType "image").Match $album_path }}
-  {{ with $images }}
-  {{ range $images }}
-    {{ $image := .Resize "x190" }}
+  {{ $images := resources.Match $album_path }}
+  {{ range (sort $images "Name" $sort_order) }}
+    {{ $image := .Resize $resize_options }}
     {{/* Check if the user set a caption for this image */}}
     {{ $filename := path.Base .Name }}
     {{ $caption := "" }}
@@ -29,30 +24,10 @@
       {{ end }}
     {{ end }}
     <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
-      <img data-src="{{ $image.RelPermalink }}" class="lazyload" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
+      <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
     </a>
+  {{else}}
+    {{ errorf "Unable to load gallery `%s` in `%s`." $album_path .Page.File.Filename }}
   {{end}}
 
-  {{else}}
-  {{/* Load gallery images from the `static/media/` media library or internet */}}
-
-  {{ if $.Page.Params.gallery_item }}
-  {{ range (where $.Page.Params.gallery_item "album" $album) }}
-  {{/* Set image path. */}}
-  {{ $.Scratch.Set "src" .image }}
-  {{ if gt (len .image) 4 }}
-    {{ if ne "http" (slicestr .image 0 4) }}
-      {{ $media_dir := site.Params.media_dir | default "media" }}
-      {{ $.Scratch.Set "src" (printf "%s/%s" $media_dir .image | relURL) }}
-    {{ end }}
-  {{ end }}
-  {{/* Don't lazy load image as cannot init image size from non-Hugo asset, resulting in inaccurate anchor scrolling & active link highlighting. */}}
-  <a data-fancybox="gallery{{ with .album }}-{{.}}{{ end }}" {{ with .caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }} href="{{$.Scratch.Get "src"}}">
-    <img src="{{$.Scratch.Get "src"}}" alt="{{ plainify .caption | default .image }}">
-  </a>
-  {{end}}
-  {{else}}
-    {{ errorf "Unable to load gallery in %s." .Page.File.Filename }}
-  {{end}}
-  {{end}}
 </div>

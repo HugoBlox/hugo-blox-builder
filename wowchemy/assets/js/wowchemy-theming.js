@@ -7,6 +7,7 @@
  **************************************************/
 
 import {fadeIn} from './wowchemy-animation';
+import {fixMermaid} from './wowchemy-utils';
 
 const body = document.body;
 
@@ -155,6 +156,10 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
   // Update active theme mode in navbar theme selector.
   showActiveTheme(themeMode);
 
+  // Dispatch `wcThemeChange` event to support themeable user plugins.
+  const themeChangeEvent = new CustomEvent('wcThemeChange', {detail: {isDarkTheme: () => isDarkTheme}});
+  document.dispatchEvent(themeChangeEvent);
+
   // Check if re-render required.
   if (!init) {
     // If request to render light when light variation already rendered, return.
@@ -187,7 +192,8 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
       console.debug('Initializing Mermaid with light theme');
       if (init) {
         /** @namespace window.mermaid **/
-        window.mermaid.initialize({startOnLoad: true, theme: 'default', securityLevel: 'loose'});
+        window.mermaid.initialize({startOnLoad: false, theme: 'default', securityLevel: 'loose'});
+        fixMermaid(true);
       } else {
         // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
         location.reload();
@@ -213,7 +219,8 @@ function renderThemeVariation(isDarkTheme, themeMode = 2, init = false) {
       console.debug('Initializing Mermaid with dark theme');
       if (init) {
         /** @namespace window.mermaid **/
-        window.mermaid.initialize({startOnLoad: true, theme: 'dark', securityLevel: 'loose'});
+        window.mermaid.initialize({startOnLoad: false, theme: 'dark', securityLevel: 'loose'});
+        fixMermaid(true);
       } else {
         // Have to reload to re-initialise Mermaid with the new theme and re-parse the Mermaid code blocks.
         location.reload();

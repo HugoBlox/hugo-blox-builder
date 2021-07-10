@@ -28,6 +28,11 @@
   /* Uncomment to standout on complicated backgrounds. */
 }
 
+// Prevent `.home-section.light a` setting text to same color as button bg (the primary color)
+.wg-hero.light a.btn {
+  color: #fff;
+}
+
 .wg-hero.dark a:not(.wg-hero .btn) {
   color: #fff;
 }

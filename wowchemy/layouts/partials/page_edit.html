@@ -11,7 +11,7 @@
   {{ $content_dir = cond site.IsMultiLingual (cond (ne .Site.LanguagePrefix "") (printf "%s%s" $content_dir .Site.LanguagePrefix) $content_dir) $content_dir }}
 {{end}}
 <p class="edit-page">
-  <a href="{{site.Params.edit_page.repo_url}}/edit/{{site.Params.edit_page.repo_branch | default "master"}}/{{$content_dir}}/{{.File.Path}}">
+  <a href="{{site.Params.edit_page.repo_url}}/edit/{{site.Params.edit_page.repo_branch | default "main"}}/{{$content_dir}}/{{.File.Path}}">
     <i class="fas fa-pen pr-2"></i>{{ i18n "edit_page" | default "Edit this page" }}
   </a>
 </p>

@@ -5,10 +5,9 @@
  *  Core JS functions and initialization.
  **************************************************/
 
+import mediumZoom from './_vendor/medium-zoom.esm';
 import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
-
-import {fixMermaid} from './wowchemy-utils';
-
+import {scrollParentToChild} from './wowchemy-utils';
 import {
   changeThemeModeClick,
   initThemeVariation,
@@ -24,19 +23,20 @@ console.debug(`Environment: ${hugoEnvironment}`);
 
 // Dynamically get responsive navigation bar height for offsetting Scrollspy.
 function getNavBarHeight() {
-  let $navbar = $('#navbar-main');
-  let navbar_offset = $navbar.outerHeight();
-  console.debug('Navbar height: ' + navbar_offset);
-  return navbar_offset;
+  let navbar = document.getElementById('navbar-main');
+  let navbarHeight = (navbar) ? navbar.getBoundingClientRect().height : 0;
+  console.debug('Navbar height: ' + navbarHeight);
+  return navbarHeight;
 }
 
 /**
  * Responsive hash scrolling.
  * Check for a URL hash as an anchor.
- * If it exists on current page, scroll to it responsively.
+ * If page anchor matches hash, scroll to it responsively considering dynamic height elements.
  * If `target` argument omitted (e.g. after event), assume it's the window's hash.
+ * Default to 0ms animation duration as don't want animation for fixing scrollspy Book page ToC highlighting.
  */
-function scrollToAnchor(target, duration = 600) {
+function scrollToAnchor(target, duration = 0) {
   // If `target` is undefined or HashChangeEvent object, set it to window's hash.
   // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
   target =
@@ -262,7 +262,7 @@ function initMap() {
     let address = $('#map-dir').val();
     let api_key = $('#map-api-key').val();
 
-    if (map_provider == 1) {
+    if (map_provider === 'google') {
       let map = new GMaps({
         div: '#map',
         lat: lat,
@@ -289,7 +289,7 @@ function initMap() {
       });
     } else {
       let map = new L.map('map').setView([lat, lng], zoom);
-      if (map_provider == 3 && api_key.length) {
+      if (map_provider === 'mapbox' && api_key.length) {
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
           attribution:
             'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -423,7 +423,10 @@ function getSiblings(elem) {
 
 $(document).ready(function () {
   fixHugoOutput();
-  fixMermaid();
+
+  // Render theme variation, including any HLJS and Mermaid themes.
+  let {isDarkTheme, themeMode} = initThemeVariation();
+  renderThemeVariation(isDarkTheme, themeMode, true);
 
   // Initialise code highlighting if enabled for this page.
   // Note: this block should be processed after the Mermaid code-->div conversion.
@@ -431,9 +434,12 @@ $(document).ready(function () {
     hljs.initHighlighting();
   }
 
-  // Render theme variation, including any HLJS and Mermaid themes.
-  let {isDarkTheme, themeMode} = initThemeVariation();
-  renderThemeVariation(isDarkTheme, themeMode, true);
+  // Scroll Book page's active menu sidebar link into view.
+  let child = document.querySelector('.docs-links .active');
+  let parent = document.querySelector('.docs-links');
+  if (child && parent) {
+    scrollParentToChild(parent, child);
+  }
 });
 
 /* ---------------------------------------------------------------------------
@@ -441,9 +447,37 @@ $(document).ready(function () {
  * --------------------------------------------------------------------------- */
 
 $(window).on('load', function () {
-  // Init Isotope Layout Engine for instances of the Portfolio widget.
+  // Re-initialize Scrollspy with dynamic navbar height offset.
+  fixScrollspy();
+
+  // Detect instances of the Portfolio widget.
   let isotopeInstances = document.querySelectorAll('.projects-container');
   let isotopeInstancesCount = isotopeInstances.length;
+
+  // Fix ScrollSpy highlighting previous Book page ToC link for some anchors.
+  // Check if isotopeInstancesCount>0 as that case performs its own scrollToAnchor.
+  if (window.location.hash && isotopeInstancesCount === 0) {
+    scrollToAnchor(decodeURIComponent(window.location.hash), 0);
+  }
+
+  // Scroll Book page's active ToC sidebar link into view.
+  // Action after calling scrollToAnchor to fix Scrollspy highlighting otherwise wrong link may have active class.
+  let child = document.querySelector('.docs-toc .nav-link.active');
+  let parent = document.querySelector('.docs-toc');
+  if (child && parent) {
+    scrollParentToChild(parent, child);
+  }
+
+  // Enable images to be zoomed.
+  let zoomOptions = {};
+  if (document.body.classList.contains('dark')) {
+    zoomOptions.background = 'rgba(0,0,0,0.9)';
+  } else {
+    zoomOptions.background = 'rgba(255,255,255,0.9)';
+  }
+  mediumZoom('[data-zoomable]', zoomOptions);
+
+  // Init Isotope Layout Engine for instances of the Portfolio widget.
   let isotopeCounter = 0;
   isotopeInstances.forEach(function (isotopeInstance, index) {
     console.debug(`Loading Isotope instance ${index}`);
@@ -610,9 +644,6 @@ $(window).on('load', function () {
 
   // Init. author notes (tooltips).
   $('[data-toggle="tooltip"]').tooltip();
-
-  // Re-initialize Scrollspy with dynamic navbar height offset.
-  fixScrollspy();
 });
 
 // Theme chooser events.

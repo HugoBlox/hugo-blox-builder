@@ -1,0 +1,18 @@
+module:
+  mounts:
+    - source: data
+      target: data
+    - source: functions
+      target: layouts/partials/mod-wowchemy-cms
+    - source: templates
+      target: layouts/wowchemycms
+outputFormats:
+  wowchemycms_config:
+    baseName: config
+    isPlainText: true
+    mediatype: application/yaml
+    notAlternative: false
+mediaTypes:
+  application/yaml:
+    suffixes:
+      - yml

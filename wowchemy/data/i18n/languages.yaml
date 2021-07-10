@@ -9,6 +9,7 @@
 'et': 'Eesti'
 'eu': 'Euskara'
 'fa': 'فارسی'
+'fi': 'Suomi'
 'fr': 'Français'
 'he': 'עברית'
 'hu': 'Magyar'
@@ -31,4 +32,4 @@
 'uk': 'Українська'
 'vi': 'Tiếng Việt'
 'zh': '中文 (简体)'
-'zh-Hant': '中文 (繁體)'
+'zh-hant': '中文 (繁體)'

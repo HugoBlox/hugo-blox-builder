@@ -25,7 +25,7 @@
   {{ range $page.Params.content.user_groups }}
   {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
 
-  {{if $query}}
+  {{if $query | and (gt (len $page.Params.content.user_groups) 1) }}
   <div class="col-md-12">
     <h2 class="mb-4">{{ . | markdownify }}</h2>
   </div>

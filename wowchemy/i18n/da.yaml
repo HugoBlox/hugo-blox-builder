@@ -8,6 +8,10 @@
   translation: Til toppen
 - id: home
   translation: Hjem
+- id: close
+  translation: Close
+- id: languages
+  translation: Languages
 - id: related
   translation: Relaterede
 - id: minute_read
@@ -18,6 +22,16 @@
   translation: Næste
 - id: figure
   translation: 'Figur %d:'
+- id: edit_page
+  translation: Edit this page
+- id: theme_selector
+  translation: Display preferences
+- id: theme_light
+  translation: Light
+- id: theme_dark
+  translation: Dark
+- id: theme_auto
+  translation: Automatic
 - id: btn_preprint
   translation: Eksempel
 - id: btn_pdf
@@ -112,6 +126,10 @@
   translation: Foredrag
 - id: projects
   translation: Projekter
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: Søg
 - id: search_placeholder
@@ -120,6 +138,8 @@
   translation: resultater fundet
 - id: search_no_results
   translation: Ingen resultater fundet
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: Side blev ikke fundet
 - id: 404_recommendations
@@ -130,3 +150,5 @@
   translation: Accepter
 - id: cookie_learn
   translation: Læs mere
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

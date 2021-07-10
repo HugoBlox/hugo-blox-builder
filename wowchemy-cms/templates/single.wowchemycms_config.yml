@@ -1,0 +1,3 @@
+{{- with partialCached "mod-wowchemy-cms/generate" . "mod-wowchemy-cms/generate" -}}
+  {{- . }}
+{{- end -}}

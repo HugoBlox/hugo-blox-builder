@@ -1,0 +1,8 @@
+{{ $config := dict }}
+{{ with partialCached "mod-wowchemy-cms/parse" . "mod-wowchemy-cms/parse" }}
+  {{ $config = . }}
+{{ end }}
+
+{{ $return := transform.Remarshal "yaml" $config }}
+
+{{ return $return }}

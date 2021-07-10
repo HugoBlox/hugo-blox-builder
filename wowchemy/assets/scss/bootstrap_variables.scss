@@ -4,12 +4,13 @@
 $primary: $sta-primary;
 $text-muted: rgba(0, 0, 0, 0.54);
 
-// Container widths - override XL default of `1140px`.
+// Container widths
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1200px,
+  // wider default: 1140 -> 1290
+  xl: 1290px,
 );
 
 $navbar-toggler-padding-x: 0;

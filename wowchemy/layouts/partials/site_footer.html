@@ -1,19 +1,34 @@
 <footer class="site-footer">
-  {{ if or (site.GetPage "terms.md") (site.GetPage "privacy.md") }}
+
+  {{ partial "hooks/footer" . }}
+
+  {{ if .IsTranslated | and site.Params.footer.show_translations }}
+    <div class="powered-by d-flex flex-wrap pb-2 justify-content-center">
+      <div class="p-2 font-weight-bold"><i class="fas fa-globe pr-1" aria-hidden="true"></i>{{ i18n "languages" }}:</div>
+      <div class="p-2">{{ index site.Data.i18n.languages .Lang }}</div>
+      {{ range .Translations }}
+        <div class="p-2"><a href="{{ .Permalink }}">{{ index site.Data.i18n.languages .Lang }}</a></div>
+      {{ end }}
+    </div>
+  {{ end }}
+
+  {{ if or (site.GetPage "/terms.md") (site.GetPage "/privacy.md") }}
   <p class="powered-by">
-    {{ with site.GetPage "privacy.md" }}
+    {{ with site.GetPage "/privacy.md" }}
       {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
     {{ end }}
-    {{ with site.GetPage "terms.md" }}
-      {{ if site.GetPage "privacy.md" }} &middot; {{ end }}
+    {{ with site.GetPage "/terms.md" }}
+      {{ if site.GetPage "/privacy.md" }} &middot; {{ end }}
       {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
     {{ end }}
   </p>
   {{ end }}
 
+  {{ with site.Copyright }}
   <p class="powered-by">
-    {{ with site.Copyright }}{{ replace . "{year}" now.Year | markdownify}}{{ end }}
+    {{ replace . "{year}" now.Year | markdownify }}
   </p>
+  {{ end }}
 
   {{/* Display copyright license. */}}
   {{ partial "site_footer_license" . }}
@@ -22,10 +37,16 @@
     {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
     {{ $hide_published_with_footer := site.Params.power_ups.hide_published_with | default true }}
     {{ if not (and $is_sponsor $hide_published_with_footer) }}
-    Published with
-    <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a>  —
-    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
-    open source</a> website builder that empowers creators.
+      {{ $default := "Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators." }}
+      {{ $i18n_published_with := i18n "published_with" | default $default }}
+      {{ if not (findRE "{wowchemy}" $i18n_published_with) }}
+        {{ warnf "Please attribute Wowchemy using `{wowchemy}` in the `published_with` text." }}
+        {{ $i18n_published_with = $default }}
+      {{ end }}
+      {{ $i18n_published_with = replace $i18n_published_with "{wowchemy}" "<a href=\"https://wowchemy.com/?utm_campaign=poweredby\" target=\"_blank\" rel=\"noopener\">Wowchemy</a>" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/wowchemy/wowchemy-hugo-modules\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{/repo_link}" "</a>" | safeHTML }}
+      {{ $i18n_published_with | markdownify | emojify }}
     {{ end }}
   </p>
 </footer>

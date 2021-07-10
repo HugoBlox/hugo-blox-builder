@@ -136,9 +136,9 @@
 
   </ul>
 
-  {{ if and site.Params.map.engine $data.coordinates.latitude }}
+  {{ if and site.Params.map.provider $data.coordinates.latitude }}
   <div class="d-none">
-    <input id="map-provider" value="{{ site.Params.map.engine }}">
+    <input id="map-provider" value="{{ lower site.Params.map.provider }}">
     <input id="map-lat" value="{{ $data.coordinates.latitude }}">
     <input id="map-lng" value="{{ $data.coordinates.longitude }}">
     <input id="map-dir" value="{{ $addr_formatted }}">

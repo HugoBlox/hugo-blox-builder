@@ -28,7 +28,7 @@
  *  Compact (stream) list view
  **************************************************/
 
-.media.stream-item {
+.media.stream-item:not(:last-child) {
   margin-bottom: 2rem;
 }
 
@@ -57,4 +57,10 @@
   .media.stream-item img {
     max-width: 80px;
   }
+}
+
+// TODO: refactor HTML to prevent duplicate nested `article-metadata` class from
+//  li_compact.html > {{partial "page_metadata" ... }}
+.stream-meta.article-metadata .article-metadata {
+  margin-bottom: 0;
 }

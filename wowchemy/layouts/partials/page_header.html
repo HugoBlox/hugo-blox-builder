@@ -17,12 +17,20 @@
 {{/* Header image */}}
 {{ if and .Params.header.image (not (and $featured (not .Params.image.preview_only))) }}
 <div class="article-header">
-  {{ $img_src := urls.Parse .Params.header.image }}
-  {{ if $img_src.Scheme }}
-  <img src="{{ .Params.header.image }}" class="article-banner" alt="">
+  {{- $img := "" -}}
+  {{ $alt := (.Params.header.caption | default "") | plainify }}
+  {{ $destination := .Params.header.image }}
+  {{ $is_remote := strings.HasPrefix $destination "http" }}
+  {{- if not $is_remote -}}
+    {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+    {{- if not $img -}}
+      {{- $img = resources.Get (path.Join "media" $destination) -}}
+    {{- end -}}
+  {{- end -}}
+  {{ if $img }}
+    <img src="{{$img.RelPermalink}}" class="article-banner" alt="{{$alt}}">
   {{ else }}
-  {{ $media_dir := $.Scratch.Get "media_dir" }}
-  <img src="{{ (printf "/%s/%s" $media_dir .Params.header.image) | relURL }}" class="article-banner" alt="">
+    <img src="{{ .Params.header.image }}" class="article-banner" alt="{{$alt}}">
   {{ end }}
 
   {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}

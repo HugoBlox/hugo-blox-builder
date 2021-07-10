@@ -117,6 +117,10 @@ ul.task-list li input[type='checkbox'] {
   margin-right: 0.5rem;
 }
 
+.emoji-list ul {
+  list-style-type: none;
+}
+
 /* Navigation bar text */
 .navbar-light {
   font-family: $sta-font-nav, sans-serif;
@@ -192,69 +196,6 @@ a:focus {
   color: $sta-dark-link-hover;
 }
 
-img,
-video {
-  height: auto;
-  max-width: 100%;
-  display: block;
-}
-
-audio {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-video {
-  width: 100%;
-  height: auto;
-  max-height: 400px;
-}
-
-.img-responsive {
-  /* Extend Bootstrap declaration with centering. */
-  margin: 0 auto;
-}
-
-/* Hide overflowing of zoomed child img element */
-.img-hover-zoom {
-  overflow: hidden;
-}
-
-/* Smooth transition for image zoom on hover */
-.img-hover-zoom img {
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Transform the image scale when container gets hovered */
-.img-hover-zoom:hover img {
-  transform: scale(1.1);
-}
-
-// Center all figure images by default.
-figure img {
-  @extend .margin-auto;
-}
-
-// Center all figure captions by default.
-figcaption {
-  display: block;
-  margin-top: 0.75em;
-  margin-bottom: 1.65rem;
-  line-height: 1.4;
-  font-size: 0.76rem;
-  text-align: center;
-}
-
-figcaption.numbered::before {
-  font-weight: 700;
-  text-transform: uppercase;
-  content: attr(data-pre) counter(captions) attr(data-post);
-}
-
-figcaption.numbered {
-  counter-increment: captions;
-}
-
 pre,
 code {
   font-family: $sta-font-mono, monospace;
@@ -302,9 +243,10 @@ blockquote p:last-child {
   }
 }
 
-.markup-quote {
-  background-color: transparent;
-  background-image: linear-gradient(to bottom, rgba(233, 231, 245, 1), rgba(233, 231, 245, 1));
+mark,
+.mark {
+  // Inherit color for dynamic light/dark compatibility.
+  color: inherit;
 }
 
 .space-below {

@@ -1,0 +1,4 @@
+**/*.min.js
+**/_vendor/
+**/vendor/
+public/

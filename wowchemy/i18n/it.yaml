@@ -6,6 +6,12 @@
   translation: In questa pagina
 - id: back_to_top
   translation: Torna su
+- id: home
+  translation: Home
+- id: close
+  translation: Close
+- id: languages
+  translation: Languages
 - id: related
   translation: Correlato
 - id: minute_read
@@ -16,6 +22,16 @@
   translation: Prossimo
 - id: figure
   translation: 'Immagine %d:'
+- id: edit_page
+  translation: Edit this page
+- id: theme_selector
+  translation: Display preferences
+- id: theme_light
+  translation: Light
+- id: theme_dark
+  translation: Dark
+- id: theme_auto
+  translation: Automatic
 - id: btn_preprint
   translation: Preprint
 - id: btn_pdf
@@ -110,6 +126,10 @@
   translation: Conferenze
 - id: projects
   translation: Progetti
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: Cerca
 - id: search_placeholder
@@ -118,6 +138,8 @@
   translation: Risultati della ricerca
 - id: search_no_results
   translation: Nessun risultato
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: Pagina non trovata
 - id: 404_recommendations
@@ -128,3 +150,5 @@
   translation: Ok!
 - id: cookie_learn
   translation: Leggi i dettagli
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

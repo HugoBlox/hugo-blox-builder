@@ -1,0 +1,22 @@
+title: Wowchemy Test
+baseurl: https://example.com
+module:
+  imports:
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5
+    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5
+outputs:
+  home: [HTML, RSS, JSON, WebAppManifest, headers, redirects]
+disableAliases: true
+taxonomies: []
+markup:
+  _merge: deep
+params:
+  require_isotope: false
+  day_night: true
+  theme: minimal
+  font: native
+  main_menu:
+    enable: false
+  cms:
+    local_backend: true
+    publish_mode:

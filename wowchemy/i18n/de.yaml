@@ -6,6 +6,12 @@
   translation: Auf dieser Seite
 - id: back_to_top
   translation: Zurück zum Anfang
+- id: home
+  translation: Home
+- id: close
+  translation: Close
+- id: languages
+  translation: 语言
 - id: related
   translation: Ähnliches
 - id: minute_read
@@ -120,6 +126,10 @@
   translation: Vorträge
 - id: projects
   translation: Projekte
+- id: slides
+  translation: Slides
+- id: authors
+  translation: Authors
 - id: search
   translation: Suche
 - id: search_placeholder
@@ -128,6 +138,8 @@
   translation: Suchergebnisse
 - id: search_no_results
   translation: Nichts gefunden
+- id: search_common_queries
+  translation: Common searches
 - id: page_not_found
   translation: Seite nicht gefunden
 - id: 404_recommendations
@@ -138,3 +150,5 @@
   translation: Verstanden!
 - id: cookie_learn
   translation: Mehr erfahren
+- id: published_with
+  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

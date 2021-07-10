@@ -2,7 +2,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  {{- if site.Params.search.engine }}
+  {{- if site.Params.search.provider }}
   "potentialAction": {
     "@type": "SearchAction",
     "target": {{ printf "%s?q={search_term_string}" site.BaseURL }},

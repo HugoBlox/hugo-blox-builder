@@ -3,14 +3,10 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - master
-    paths:
-      - 'wowchemy/**'
+      - main
   pull_request:
     branches:
-      - master
-    paths:
-      - 'wowchemy/**'
+      - main
 
 jobs:
   build:
@@ -34,11 +30,9 @@ jobs:
 
       - name: Install JS dependencies
         run: rm -rf node_modules && yarn install --frozen-lockfile
-        working-directory: ./wowchemy
 
       - name: Check for linting errors
         run: yarn run lint
-        working-directory: ./wowchemy
 
 #  format:
 #    runs-on: ubuntu-latest
@@ -75,4 +69,4 @@ jobs:
 
       - name: Build
         run: hugo --minify
-        working-directory: ./wowchemy/test
+        working-directory: test

@@ -3,7 +3,7 @@
 {{/* Output: logo URL (URL) */}}
 
 {{ $logo_url := "" }}
-{{ if resources.Get "images/logo.png" | or (resources.Get "images/logo.svg") }}
+{{ if resources.Get "media/logo.png" | or (resources.Get "media/logo.svg") }}
   {{ $logo_url = (partial "functions/get_logo" (dict "constraint" "fit" "size" 192)).Permalink }}
 {{ else }}
   {{ $logo_url = (partial "functions/get_icon" 192).Permalink }}

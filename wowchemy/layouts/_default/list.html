@@ -4,29 +4,20 @@
 
 <div class="universal-wrapper">
   {{ with .Content }}
-  <div class="article-style">{{ . }}</div>
+    <div class="article-style">{{ . }}</div>
   {{ end }}
 
-  {{ $paginator := .Paginate .Data.Pages }}
+  {{ $paginator := .Paginate .Pages }}
   {{ range $paginator.Pages }}
-    {{ $link := .RelPermalink }}
-    {{ $target := "" }}
-    {{ with .Params.external_link }}
-      {{ $link = . }}
-      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ if eq $.Params.view 1 }}
+      {{ partial "li_list" . }}
+    {{ else if eq $.Params.view 3 }}
+      {{ partial "li_card" . }}
+    {{ else if eq $.Params.view 4 }}
+      {{ partial "li_citation" . }}
+    {{ else }}
+      {{ partial "li_compact" . }}
     {{ end }}
-    <div>
-      <h2><a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ .Title }}</a></h2>
-      <div class="article-style">
-        {{ if .Params.summary }}
-          {{ .Params.summary | plainify | emojify }}
-        {{ else if .Params.abstract }}
-          {{ .Params.abstract | plainify | emojify | truncate 250 }}
-        {{ else if .Summary }}
-          {{ .Summary | plainify | emojify }}
-        {{ end }}
-      </div>
-    </div>
   {{ end }}
 
   {{ partial "pagination" . }}

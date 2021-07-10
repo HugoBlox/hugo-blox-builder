@@ -12,17 +12,27 @@
 <!-- Carousel slides wrapper -->
 <div class="carousel-inner">
   {{ range $index, $item := $page.Params.item }}
-  <div class="wg-hero dark carousel-item{{if eq $index 0}} active{{end}}" style="{{with $page.Params.height}}{{printf "height: %s;" . | safeCSS}}{{end}}
+
+    {{ $style_bg := "" }}
+    {{with $page.Params.height}}
+      {{ $style_bg = printf "%s height: %s;" $style_bg . }}
+    {{end}}
     {{ if $item.overlay_color }}
-    background-color: {{ $item.overlay_color | default "transparent" }};
+      {{ $style_bg = printf "%s background-color: %s;" $style_bg ($item.overlay_color | default "transparent") }}
     {{ end }}
     {{ if $item.overlay_img }}
-    {{ $media_dir := $.Scratch.Get "media_dir" }}
-    background-image:
-    {{ if $item.overlay_filter }}linear-gradient(rgba(0, 0, 0, {{ $item.overlay_filter }}), rgba(0, 0, 0, {{ $item.overlay_filter }})), {{ end }}
-    url('{{ printf "%s/%s" $media_dir $item.overlay_img | absURL }}');
-    {{ end }}
-    ;">
+      {{ $bg_img := resources.Get (printf "media/%s" $item.overlay_img) }}
+      {{ if $bg_img }}
+        {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
+      {{ else }}
+        {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $item.overlay_img }}
+      {{ end }}
+      {{ if $item.overlay_filter }}
+        {{ $style_bg = printf "%sfilter: brightness(%s);" $style_bg (string $item.overlay_filter) }}
+      {{ end }}
+   {{ end }}
+
+  <div class="wg-hero dark carousel-item{{if eq $index 0}} active{{end}}" style="{{$style_bg | safeCSS}}">
     <div class="container" style="text-align: {{$item.align | default "left"}};">
         <h1 class="hero-title">
           {{ with $item.title }}{{ . | markdownify | emojify }}{{ end }}

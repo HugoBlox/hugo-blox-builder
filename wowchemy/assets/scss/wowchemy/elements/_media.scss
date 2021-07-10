@@ -1,3 +1,98 @@
+img,
+video {
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+audio {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+.img-responsive {
+  /* Extend Bootstrap declaration with centering. */
+  margin: 0 auto;
+}
+
+/*************************************************
+ *  Image zoom on hover for previews.
+ **************************************************/
+
+/* Hide overflowing of zoomed child img element */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+/* Smooth transition for image zoom on hover */
+.img-hover-zoom img {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Transform the image scale when container gets hovered */
+.img-hover-zoom:hover img {
+  transform: scale(1.1);
+}
+
+/*************************************************
+ *  Figures
+ **************************************************/
+
+figure {
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+
+  figcaption {
+    margin-top: 0.75em;
+    margin-bottom: 1.65rem;
+    line-height: 1.4;
+    font-size: 0.76rem;
+    text-align: center; // Center figure captions.
+  }
+
+  figcaption.numbered::before {
+    font-weight: 700;
+    text-transform: uppercase;
+    content: attr(data-pre) counter(captions) attr(data-post);
+  }
+
+  figcaption.numbered {
+    counter-increment: captions;
+  }
+}
+
+/*************************************************
+ *  Dynamic theming.
+ **************************************************/
+
+// Dynamically theme `img`
+.dark .img-light,
+body:not(.dark) .img-dark {
+  filter: invert(1);
+}
+
+// Dynamically theme inline `svg`
+svg {
+  fill: currentColor;
+}
+
+/*************************************************
+ *  Image zooming.
+ **************************************************/
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 1031; // Nav bar index +1.
+}
+
 /*************************************************
  *  Gallery.
  **************************************************/
