@@ -6,6 +6,8 @@ module:
       target: layouts/partials/mod-wowchemy-cms
     - source: templates
       target: layouts/wowchemycms
+    - source: assets
+      target: assets
 outputFormats:
   wowchemycms_config:
     baseName: config
