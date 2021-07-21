@@ -35,7 +35,7 @@
         {{ errorf "You have chosen to use reCAPTCHA for Formspree. Please set your Formspree CAPTCHA KEY in the Contact widget or disable reCAPTCHA.\nDocumentation: https://help.formspree.io/hc/en-us/articles/360022811154" }}
       {{ end }}
       {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $st.Params.content.form.formspree.id }}
-    {{end}}
+    {{ end }}
 
     <div class="mb-3">
       <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }}>
@@ -63,7 +63,7 @@
         <button type="submit" class="btn btn-outline-primary px-3 py-2">{{ i18n "contact_send" | default "Send" }}</button>
       </form>
     </div>
-  {{end}}
+  {{ end }}
 
   <ul class="fa-ul">
 
