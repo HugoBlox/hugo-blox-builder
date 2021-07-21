@@ -4,7 +4,7 @@
 
 {{ $src := .Get "src" }}
 {{ $delimiter := .Get "delimiter" | default "," }}
-{{ $useHeaderRow := .Get "header" }}
+{{ $useHeaderRow := .Get "header" | default true }}
 {{ $caption := .Get "caption" }}
 
 {{ $is_remote := strings.HasPrefix $src "http" }}
