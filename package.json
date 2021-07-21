@@ -14,8 +14,10 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^4.6.0",
     "instant.page": "^5.1.0",
+    "jquery": "^3.6.0",
     "medium-zoom": "^1.0.6"
   },
   "devDependencies": {

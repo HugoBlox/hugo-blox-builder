@@ -1,13 +1,22 @@
     {{ $scr := $.Scratch }}
 
+    {{/* Rename _vendor dir as GitHub Pages doesn't automatically publish folders with underscores. */}}
+    {{ $libs := slice }}
+    {{- $lib_names := slice "jquery.min" "bootstrap.bundle.min" "instantpage" -}}
+    {{- range $lib_names -}}
+        {{- $libs = $libs | append (resources.Get (printf "js/_vendor/%s.js" .) ) -}}
+    {{- end -}}
+    {{ $libs := $libs | resources.Concat "js/vendor-bundle.js" | minify }}
+    {{- if hugo.IsProduction -}}
+      {{ $libs = $libs | fingerprint "md5" }}
+    {{- end -}}
+    <script src="{{ $libs.RelPermalink }}"></script>
+
     {{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
     {{ $js := site.Data.assets.js }}
     {{ if not ($scr.Get "use_cdn") }}
       <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
     {{ else }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.jQuery.url $js.jQuery.version) $js.jQuery.sri | safeHTML }}
-      {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantpage.url $js.instantpage.version) $js.instantpage.sri | safeHTML }}
-
       {{ $require_isotope := site.Params.require_isotope | default true }}
       {{ if $require_isotope }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}
@@ -102,13 +111,6 @@
     {{ if eq $comments_provider "disqus" | and (site.Params.comments.disqus.show_count | default true) }}
       <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
     {{end}}
-
-    {{/* Rename as GitHub Pages doesn't automatically publish folders with underscores. */}}
-    {{ $js_bootstrap := slice (resources.Get "js/_vendor/bootstrap.bundle.min.js") | resources.Concat "js/bootstrap.bundle.min.js" }}
-    {{- if hugo.IsProduction -}}
-      {{ $js_bootstrap = $js_bootstrap | fingerprint "md5" }}{{/* Note: no `minify` as using pre-minified JS. */}}
-    {{- end -}}
-    <script src="{{ $js_bootstrap.RelPermalink }}"></script>
 
     {{ $js_search_params := dict }}
     {{ if in (slice "wowchemy" "algolia") $search_provider }}

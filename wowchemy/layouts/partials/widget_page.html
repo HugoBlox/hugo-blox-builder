@@ -53,6 +53,7 @@
   {{ if $bg.image }}
     {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
     {{ $bg_img := resources.Get (printf "media/%s" $bg.image) }}
+    {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
     {{ if $bg_img }}
       {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
     {{ else }}

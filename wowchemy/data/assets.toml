@@ -7,14 +7,14 @@
 
 # JavaScript
 
-[js.jQuery]
-  version = "3.5.1"
-  sri = "sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/jquery/%s/jquery.min.js"
 [js.highlight]
   version = "10.2.0"
   sri = "sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/highlight.min.js"
+[js.highlight_lang]
+  version = "10.2.0"
+  sri = ""  # No SRI as highlight language styles is determined at run time.
+  url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/languages/%s.min.js"
 [js.mathJax]
   version = "3"
   sri = ""  # No SRI as dynamically generated.
@@ -64,26 +64,13 @@
   version = "3.1.1"
   sri = "sha256-5VhCqFam2Cn+yjw61zbBNrbHVJ6SRydPeKopYlngbiQ="
   url = "https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/%s/cookieconsent.min.js"
-[js.instantpage]
-  version = "5.1.0"
-  sri = "sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ=="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/instant.page/%s/instantpage.min.js"
 [js.plotly]
   version = "1.55.2"
   sri = "sha512-gttPT9uTUiaLBj6XZdcB0ydKXiDaBwstInkN4Qvp1Nz3iwXNc8TTQplIEPIGxyJBDqERjwkKxf2OyO47/0EHbQ=="
   url = "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/%s/plotly.min.js"
 
-[js.highlight_lang]
-  version = "10.2.0"
-  sri = ""  # No SRI as highlight language styles is determined at run time.
-  url = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/%s/languages/%s.min.js"
-
 # CSS
 
-[css.fontAwesome]
-  version = "5.14.0"
-  sri = "sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc="
-  url = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/%s/css/all.min.css"
 [css.academicons]
   version = "1.9.0"
   sri = "sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg=="

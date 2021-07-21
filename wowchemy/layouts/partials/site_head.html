@@ -77,6 +77,19 @@
   {{ end }}
 
   {{/* Attempt to load local vendor CSS, otherwise load from CDN. */}}
+
+  {{/* Only load non-essential CSS in this media-swapping way */}}
+  {{- $stylesheets := slice -}}
+  {{- $lib_names := slice "fontawesome/all.min" -}}
+  {{- range $lib_names -}}
+    {{- $stylesheets = $stylesheets | append (resources.Get (printf "css/libs/%s.css" . ) ) -}}
+  {{- end -}}
+  {{ $stylesheets = $stylesheets | resources.Concat "css/vendor-bundle.css" | minify }}
+  {{- if hugo.IsProduction -}}
+    {{- $stylesheets = $stylesheets | fingerprint "md5" -}}
+  {{- end -}}
+  <link rel="stylesheet" href="{{$stylesheets.RelPermalink}}" media="print" onload="this.media='all'">
+
   {{ $scr.Set "vendor_css_filename" "main.min.css" }}
   {{ $scr.Set "vendor_js_filename" "main.min.js" }}
   {{ if and (fileExists (printf "static/css/vendor/%s" ($scr.Get "vendor_css_filename"))) (fileExists (printf "static/js/vendor/%s" ($scr.Get "vendor_js_filename"))) }}
@@ -87,7 +100,6 @@
     {{ if site.Params.icon.pack.ai }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.academicons.url $css.academicons.version) $css.academicons.sri | safeHTML }}
     {{ end }}
-    {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.fontAwesome.url $css.fontAwesome.version) $css.fontAwesome.sri | safeHTML }}
 
     {{/* Workaround `.HasShortcode "gallery"` not parsing page resources (widget page sections) */}}
     {{ $has_gallery := false }}
