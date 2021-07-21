@@ -11,8 +11,13 @@
 {{ $use_form := or $use_netlify_form $use_formspree_form }}
 
 {{ $use_netlify_captcha := $st.Params.content.form.netlify.captcha | default true }}
+{{ $use_formspree_captcha := $st.Params.content.form.formspree.captcha | default false }}
 
 {{ $columns := $st.Params.design.columns | default "2" }}
+
+{{ if and $use_formspree_form $use_formspree_captcha }}
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{{ end }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
   {{ with $st.Content }}{{ . }}{{ end }}
@@ -24,14 +29,16 @@
       {{ $post_action = "netlify" }}
     {{ else if $use_formspree_form }}
       {{ if not $st.Params.content.form.formspree.id }}
-        {{ errorf "You have chosen to use Formspree as the provider for the contact form. Please set your Formspree Form ID in the Contact widget or disable the form." }}
-        {{ errorf "Documentation: https://wowchemy.com/docs/page-builder/#contact" }}
+        {{ errorf "You have chosen to use Formspree as the provider for the contact form. Please set your Formspree Form ID in the Contact widget or disable the form.\nDocumentation: https://wowchemy.com/docs/widget/contact/" }}
+      {{ end }}
+      {{ if and $use_formspree_captcha (not $st.Params.content.form.formspree.captcha_key) }}
+        {{ errorf "You have chosen to use reCAPTCHA for Formspree. Please set your Formspree CAPTCHA KEY in the Contact widget or disable reCAPTCHA.\nDocumentation: https://help.formspree.io/hc/en-us/articles/360022811154" }}
       {{ end }}
       {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $st.Params.content.form.formspree.id }}
-    {{end}}
+    {{ end }}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="welcome-bot"{{end}} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{end}}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
@@ -44,18 +51,19 @@
           <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
           <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
         </div>
-        {{ if $use_netlify_form }}
-          <div class="d-none">
-            <label>Do not fill this field unless you are a bot: <input name="welcome-bot"></label>
-          </div>
-          {{ if $use_netlify_captcha }}
-            <div class="form-group" data-netlify-recaptcha="true"></div>
-          {{ end }}
+        <div class="d-none">
+          <label>Do not fill this field unless you are a bot: <input name="_gotcha"></label>
+        </div>
+        {{ if and $use_netlify_form $use_netlify_captcha }} 
+          <div class="form-group" data-netlify-recaptcha="true"></div>
+        {{ else if and $use_formspree_form $use_formspree_captcha }}
+          <div class="g-recaptcha" data-sitekey="{{ $st.Params.content.form.formspree.captcha_key }}"></div>
+          </br>
         {{ end }}
         <button type="submit" class="btn btn-primary px-3 py-2 w-100">{{ i18n "contact_send" | default "Send" }}</button>
       </form>
     </div>
-  {{end}}
+  {{ end }}
 
   <ul class="fa-ul">
 
