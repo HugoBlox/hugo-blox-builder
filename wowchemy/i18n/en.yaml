@@ -138,6 +138,9 @@
 
 - id: contact_message
   translation: Message
+  
+- id: contact_attachment
+  translation: Attachment  
 
 - id: contact_send
   translation: Send
