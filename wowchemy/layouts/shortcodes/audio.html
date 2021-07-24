@@ -6,7 +6,7 @@
 {{ $is_remote := strings.HasPrefix $destination "http" }}
 {{- $asset := "" -}}
 {{- if not $is_remote -}}
-  {{- $asset = (.Page.Resources.ByType "image").GetMatch $destination -}}
+  {{- $asset = (.Page.Resources.ByType "audio").GetMatch $destination -}}
   {{- if not $asset -}}
     {{- $asset = resources.Get (path.Join "media" $destination) -}}
   {{- end -}}
