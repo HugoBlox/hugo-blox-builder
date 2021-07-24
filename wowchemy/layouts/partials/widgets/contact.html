@@ -38,7 +38,7 @@
     {{ end }}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }} {{ with $st.Params.content.form.netlify.success_url }}action="{{ . | relLangURL }}"{{ end }}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
@@ -51,6 +51,12 @@
           <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
           <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
         </div>
+        {{ if $st.Params.content.form.netlify.attachments }}
+          <div class="form-group form-inline">
+            <label class="sr-only" for="fileUpload">{{ i18n "contact_attachment" }}</label>
+            <input type="file" name="file" class="form-control w-100" id="fileUpload" placeholder="{{ i18n "contact_attachment" | default "Attach file" }}">
+          </div>
+        {{ end }}
         <div class="d-none">
           <label>Do not fill this field unless you are a bot: <input name="_gotcha"></label>
         </div>

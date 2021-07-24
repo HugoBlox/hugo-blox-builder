@@ -80,6 +80,8 @@
   translation: Email
 - id: contact_message
   translation: Mensaje
+- id: contact_attachment
+  translation: Adjunto  
 - id: contact_send
   translation: Enviar
 - id: book_appointment
