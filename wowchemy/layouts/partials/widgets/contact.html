@@ -38,7 +38,7 @@
     {{ end }}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }} {{ with $st.Params.content.form.netlify.success_url }}action="{{ . | relLangUrl }}"{{ end }}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }} {{ with $st.Params.content.form.netlify.success_url }}action="{{ . | relLangURL }}"{{ end }}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
