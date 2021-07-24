@@ -55,29 +55,37 @@
     </p>
     {{ end }}
 
-  {{/* Hero image */}}
+  {{/* Hero media */}}
   {{ if $page.Params.hero_media }}
   </div>
   <div class="col-12 mx-auto col-md-6 {{if $page.Params.design.flip}}order-md-first{{end}} hero-media">
-    {{- $image := ($page.Parent.Resources.ByType "image").GetMatch $page.Params.hero_media -}}
-    {{- if not $image -}}
-      {{- $image = resources.Get (path.Join "media" $page.Params.hero_media) -}}
+    {{- $asset := ($page.Parent.Resources).GetMatch $page.Params.hero_media -}}
+    {{- if not $asset -}}
+      {{- $asset = resources.Get (path.Join "media" $page.Params.hero_media) -}}
     {{- end -}}
-    {{ if $image }}
-      {{ $isSVG := eq $image.MediaType.SubType "svg" }}
+    {{ if $asset }}
+      {{ $isSVG := eq $asset.MediaType.SubType "svg" }}
+      {{ $isVIDEO := eq $asset.MediaType.MainType "video" }}
       {{ if $isSVG -}}
 
-        <img src="{{ $image.RelPermalink }}" alt="{{ $page.Title }}">
+        <img src="{{ $asset.RelPermalink }}" alt="{{ $page.Title }}">
+
+      {{- else if $isVIDEO -}}
+
+        <video width="100%" height="auto" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1">
+            <source src="{{ $asset.RelPermalink }}">            
+            Your browser does not support the video tag.
+        </video>
 
       {{- else }}
 
-        {{ $legacy_img := $image.Resize "400x" }}
+        {{ $legacy_img := $asset.Resize "400x" }}
         {{ $img_src := "" }}
         {{ $img_src_set := slice }}
         {{ $widths := slice 1200 800 400 }}
 
         {{ range $widths }}
-          {{ $src_link := ($image.Resize (printf "%dx" .)).RelPermalink }}
+          {{ $src_link := ($asset.Resize (printf "%dx" .)).RelPermalink }}
           {{ if eq $img_src "" }}
             {{ $img_src = $src_link }}
           {{ end }}
@@ -85,7 +93,7 @@
         {{ end }}
         {{ $img_src_set = delimit $img_src_set "," }}
 
-        <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $page.Title }}">
+        <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $asset.Width }}" height="{{ $asset.Height }}" alt="{{ $page.Title }}">
       {{ end }}
     {{ end }}
   </div>
