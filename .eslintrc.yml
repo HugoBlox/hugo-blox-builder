@@ -17,3 +17,7 @@ globals:
   GMaps: true
   Fuse: true
   instantsearch: true
+  CMS: true
+  createClass: true # Global from Netlify CMS
+  h: true
+  marked: true
