@@ -23,9 +23,9 @@
     <tr>
       {{ range . }}
         {{ if (findRE "^\\d+$" .) }}
-          <td class="numeric">{{ . }}</td>
+          <td data-table-dtype="number">{{ . }}</td>
         {{ else }}
-          <td>{{ . | markdownify | emojify }}</td>
+          <td data-table-dtype="text">{{ . | markdownify | emojify }}</td>
         {{ end }}
       {{ end }}
     </tr>
