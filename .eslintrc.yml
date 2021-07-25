@@ -19,5 +19,5 @@ globals:
   instantsearch: true
   CMS: true
   createClass: true # Global from Netlify CMS
-  h: true # Global from Netlify CMS
+  h: true # Global from Netlify CMS, alias for React.createElement
   marked: true # Global from Marked markdown parser, used in CMS module
