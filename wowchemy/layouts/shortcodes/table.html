@@ -1,8 +1,8 @@
 {{/* Table Shortcode for Wowchemy. */}}
-{{/* Load table from page dir falling back back to remote URL */}}
-{{/* Supports delimiter separated files. The default delimiter is ',' */}}
+{{/* Load a CSV table from page dir falling back back to remote URL */}}
+{{/* Defaults to expecting a comma-separated CSV with a header row. */}}
 
-{{ $src := .Get "src" }}
+{{ $src := .Get "path" }}
 {{ $delimiter := .Get "delimiter" | default "," }}
 {{ $useHeaderRow := .Get "header" | default true }}
 {{ $caption := .Get "caption" }}
