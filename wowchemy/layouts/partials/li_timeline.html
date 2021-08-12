@@ -1,0 +1,53 @@
+{{ $item := . }}
+
+{{/* Dynamic view adjusts to content type. */}}
+{{ $has_attachments := partial "functions/has_attachments" . }}
+
+{{ $link := $item.RelPermalink }}
+
+{{ if $item.Params.external_link }}
+  {{ $link = $item.Params.external_link }}
+{{ end }}
+
+{{/* Get summary. */}}
+{{ $summary := partial "functions/get_summary" $item }}
+
+{{/* Get page creation datetime and format into human-readable date */}}
+{{ $datetime := $item.PublishDate }}
+
+<li>
+  <div class="content">
+    <a href="{{ $link }}"><h3>{{ $item.Title }}</h3></a>
+
+    {{ with $summary }}
+    <a href="{{ $link }}" class="summary-link">
+      <div class="article-style">
+        <p>{{.}}</p>
+      </div>
+    </a>
+    {{ end }}
+
+    {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+    {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
+    {{ with $resource }}
+    {{ $image := .Fill (printf "808x455 %s" $anchor) }}
+    <a href="{{ $link }}">
+      <div class="img-hover-zoom">
+        <img src="{{ $image.RelPermalink }}" class="article-banner" alt="{{ $item.Title }}" loading="lazy">
+      </div>
+    </a>
+    {{end}}
+
+    {{ if $has_attachments }}
+    <div class="btn-links">
+      {{ partial "page_links" (dict "page" $item "is_list" 1) }}
+    </div>
+    {{ end }}
+  </div>
+
+  <a href="{{ $link }}">
+    <time class="time btn btn-primary btn-lg" datetime="{{ $datetime.Format "2006-01-02T15:04:05Z0700" }}">
+      {{ $datetime.Format "January 2006" }}
+    </time>
+  </a>
+</li>

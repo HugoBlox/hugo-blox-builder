@@ -1,0 +1,18 @@
+{{/* Return the right view partial based on the index number */}}
+
+{{/* Defaults to compact view. */}}
+{{ $view := "li_compact" }}
+
+{{ $view_number := (int .) }}
+
+{{ if eq $view_number 1 }}
+  {{ $view = "li_list" }}
+{{ else if eq $view_number 3 }}
+  {{ $view = "li_card" }}
+{{ else if eq $view_number 4 }}
+  {{ $view = "li_citation" }}
+{{- else if eq $view_number 5 -}}
+  {{ $view = "li_timeline" }}
+{{ end }}
+
+{{ return $view }}

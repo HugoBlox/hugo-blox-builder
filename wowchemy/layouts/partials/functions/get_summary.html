@@ -1,0 +1,14 @@
+{{/* Return the found summary if any. Defaults to empty string */}}
+
+{{ $item := . }}
+{{ $summary := "" }}
+
+{{ if $item.Params.summary }}
+  {{ $summary = $item.Params.summary | markdownify | emojify }}
+{{ else if .Params.abstract }}
+  {{ $summary = .Params.abstract | markdownify | emojify }}
+{{ else if $item.Summary }}
+  {{ $summary = $item.Summary }}
+{{ end }}
+
+{{ return $summary }}

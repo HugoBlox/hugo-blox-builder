@@ -1,0 +1,161 @@
+// Vertical Timeline
+
+.timeline {
+  position: relative;
+  margin: 50px auto;
+  padding: 40px 0;
+  box-sizing: border-box;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    background: #c5c5c5;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      position: relative;
+      width: 50%;
+      padding: 20px 40px;
+      box-sizing: border-box;
+
+      &:nth-child(odd) {
+        float: left;
+        text-align: right;
+        clear: both;
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          top: 24px;
+          right: -6px;
+          background: #fff;
+          border-radius: 50%;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+        }
+
+        .time {
+          font-size: 14px;
+          position: absolute;
+          top: 12px;
+          right: -150px;
+          margin: 0;
+          padding: 0;
+          padding: 8px 16px;
+          color: #fff;
+          border-radius: 18px;
+        }
+      }
+
+      &:nth-child(even) {
+        float: right;
+        text-align: left;
+        clear: both;
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          top: 24px;
+          left: -4px;
+          background: #fff;
+          border-radius: 50%;
+          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+        }
+
+        .time {
+          font-size: 14px;
+          position: absolute;
+          top: 12px;
+          left: -150px;
+          margin: 0;
+          padding: 0;
+          padding: 8px 16px;
+          color: #fff;
+          border-radius: 18px;
+        }
+      }
+
+      h3 {
+        padding: 0;
+        margin: 0;
+      }
+
+      p {
+        margin: 10px 0 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.content {
+  padding-bottom: 20px;
+}
+
+@media {
+  .timeline {
+    width: 100%;
+    padding-bottom: 0;
+
+    &:before {
+      left: 20px;
+      height: 100%;
+    }
+
+    ul {
+      li {
+        &:nth-child(odd) {
+          width: 100%;
+          text-align: left;
+          padding-left: 50px;
+          padding-bottom: 50px;
+
+          &:before {
+            top: -18px;
+            left: 16px;
+          }
+
+          .time {
+            top: -30px;
+            left: 50px;
+            right: inherit;
+          }
+        }
+
+        &:nth-child(even) {
+          width: 100%;
+          text-align: left;
+          padding-left: 50px;
+          padding-bottom: 50px;
+
+          &:before {
+            top: -18px;
+            left: 16px;
+          }
+
+          .time {
+            top: -30px;
+            left: 50px;
+            right: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  h1 {
+    font-size: 40px;
+    text-align: center;
+  }
+}
