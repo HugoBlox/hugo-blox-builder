@@ -2,7 +2,7 @@
 {{ $page := .page }}
 {{ $bg := $page.Params.design.background }}
 
-{{ if $page.Params.hero_media }}
+{{ if $page.Params.hero_media.src }}
 <div class="row">
   <div class="col-12 col-md-6 text-center text-md-left">
 {{ end }}
@@ -56,26 +56,26 @@
     {{ end }}
 
   {{/* Hero media */}}
-  {{ if $page.Params.hero_media }}
+  {{ if $page.Params.hero_media.src }}
   </div>
   <div class="col-12 mx-auto col-md-6 {{if $page.Params.design.flip}}order-md-first{{end}} hero-media">
-    {{- $asset := ($page.Parent.Resources).GetMatch $page.Params.hero_media -}}
+    {{- $asset := ($page.Parent.Resources).GetMatch $page.Params.hero_media.src -}}
     {{- if not $asset -}}
-      {{- $asset = resources.Get (path.Join "media" $page.Params.hero_media) -}}
+      {{- $asset = resources.Get (path.Join "media" $page.Params.hero_media.src) -}}
     {{- end -}}
     {{ if $asset }}
-      {{ $isSVG := eq $asset.MediaType.SubType "svg" }}
-      {{ $isVIDEO := eq $asset.MediaType.MainType "video" }}
+      {{ $isSVG := eq $asset.MediaType.SubType "svg" }}      
+      {{ $isVIDEO := eq $asset.MediaType.MainType "video" }}      
       {{ if $isSVG -}}
 
         <img src="{{ $asset.RelPermalink }}" alt="{{ $page.Title }}">
 
       {{- else if $isVIDEO -}}
 
-        <video width="100%" height="auto" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1">
-            <source src="{{ $asset.RelPermalink }}">            
-            Your browser does not support the video tag.
-        </video>
+        <video width="100%" height="auto" playsinline="" preload="auto" {{if $page.Params.hero_media.loop}}loop=""{{end}} {{if $page.Params.hero_media.muted}}muted=""{{end}} {{if $page.Params.hero_media.autoplay}}autoplay=""{{end}} tabindex="-1" {{if $page.Params.hero_media.controls}}controls{{end}}>
+          <source src="{{ $asset.RelPermalink }}" type="video/{{$asset.MediaType.SubType}}">            
+          Your browser does not support the video tag.
+        </video>                
 
       {{- else }}
 
@@ -94,6 +94,16 @@
         {{ $img_src_set = delimit $img_src_set "," }}
 
         <img src="{{ $legacy_img.RelPermalink }}" srcset="{{ $img_src_set }}" width="{{ $asset.Width }}" height="{{ $asset.Height }}" alt="{{ $page.Title }}">
+      {{ end }}
+    {{ else }}
+      {{ if eq $page.Params.hero_media.src "youtube" }}
+
+        <iframe src="https://www.youtube-nocookie.com/embed/{{$page.Params.hero_media.youtube.id}}{{if $page.Params.hero_media.autoplay}}?autoplay=1{{end}}{{if $page.Params.hero_media.muted}}&mute=1{{end}}{{if $page.Params.hero_media.loop}}&loop=1{{end}}" width="100%" height="100%" frameborder="0" allowFullScreen></iframe>
+
+      {{ else if eq  $page.Params.hero_media.src "vimeo" }}
+
+        <iframe src="http://player.vimeo.com/video/{{$page.Params.hero_media.vimeo.id}}{{if $page.Params.hero_media.autoplay}}?autoplay=1{{end}}{{if $page.Params.hero_media.muted}}&muted=1{{end}}{{if $page.Params.hero_media.loop}}&loop=1{{end}}" width="100%" height="100%" frameborder="0" allowFullScreen></iframe>
+
       {{ end }}
     {{ end }}
   </div>
