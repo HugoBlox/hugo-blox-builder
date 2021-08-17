@@ -88,6 +88,7 @@
   {{- if hugo.IsProduction -}}
     {{- $stylesheets = $stylesheets | fingerprint "md5" -}}
   {{- end -}}
+  <link rel="preload" as="style" href="{{$stylesheets.RelPermalink}}">
   <link rel="stylesheet" href="{{$stylesheets.RelPermalink}}" media="print" onload="this.media='all'">
 
   {{ $scr.Set "vendor_css_filename" "main.min.css" }}
