@@ -20,7 +20,9 @@
     <div class="d-none d-lg-inline-flex">
       <a class="navbar-brand" href="{{ "/" | relLangURL }}">
         {{- if $has_logo -}}
-          <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}">
+          <img src="{{ $logo.RelPermalink }}" alt="{{ site.Title }}"
+          {{with site.Params.header.image.width}}width="{{.}}"{{end}}
+          {{with site.Params.header.image.height}}height="{{.}}"{{end}}>
         {{- else -}}
           {{- site.Title -}}
         {{- end -}}
