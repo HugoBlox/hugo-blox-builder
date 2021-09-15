@@ -1,1 +1,5 @@
 // Override this file to add your own SCSS styling.
+[aria-expanded="false"] > .expanded,
+[aria-expanded="true"] > .collapsed {
+  display: none;
+}
