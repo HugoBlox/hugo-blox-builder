@@ -128,6 +128,12 @@
 - id: more_publications
   translation: See all publications
 
+- id: more_experience
+  translation: Show more
+
+- id: less_experience
+  translation: Show less
+
 # Contact widget
 
 - id: contact_name
