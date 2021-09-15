@@ -8,10 +8,16 @@
 
   {{ if $page.Params.experience }}
   {{ $exp_len := len $page.Params.experience }}
+  {{ $exp_count:= $page.Params.count }}
+  {{ if eq $exp_count 0 }}
+    {{ $exp_count = 65535 }}
+  {{ else }}
+    {{ $exp_count = $exp_count | default 5 }}
+  {{ end }}
 
   {{/* Default to user's custom order (as requested in #1761) as Hugo doesn't support multiple sorts on params. */}}
   {{ range $idx, $key := $page.Params.experience }}
-  <div class="row experience">
+  <div class="row experience {{if ge $idx $exp_count}}collapse{{end}}" {{if ge $idx $exp_count}}id="expRest"{{end}}>
     <!-- Timeline -->
     <div class="col-auto text-center flex-column d-none d-sm-flex">
       <div class="row h-50">
@@ -68,6 +74,24 @@
           {{with .description}}<div class="card-text">{{. | markdownify | emojify}}</div>{{end}}
         </div>
       </div>
+      {{ if eq $idx ( sub $exp_count 1 ) }}
+        {{ $show_archive_link := gt $exp_len $exp_count }}
+        
+        {{ if $show_archive_link }}
+          <div class="see-all">
+            <a data-toggle="collapse" href="#expRest" aria-expanded="false" aria-controls="expRest">
+              <span class="collapsed">
+                {{ i18n "more_experience" | default "Show more" | emojify }}
+                <i class="fas fa-angle-down"></i>
+              </span>
+              <span class="expanded">
+                {{ i18n "less_experience" | default "Show less" | emojify }}
+                <i class="fas fa-angle-up"></i>
+              </span>
+            </a>
+          </div>
+        {{ end }}
+      {{ end }}
     </div>
   </div>
   {{end}}
