@@ -8,6 +8,10 @@
     <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo" />
   {{ end }}
 
+  {{ if .Params.private }}
+    <meta name="robots" content="noindex" />
+  {{- end -}}
+
   {{ if site.Params.marketing.google_optimize | and hugo.IsProduction }}
     <script src="https://www.googleoptimize.com/optimize.js?id={{ site.Params.marketing.google_optimize }}"></script>
   {{- end -}}
