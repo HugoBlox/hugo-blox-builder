@@ -267,6 +267,14 @@
     {{ $twitter_card = "summary" }}
   {{ end }}
   {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
+
+  {{ $title := "" }}
+  {{ with .Params.seo.title }}
+    {{ $title = replace . "{brand}" site.Title }}
+  {{ else }}
+    {{ $title = .Title | default site.Title }}
+    {{ if ne $title site.Title }}{{ $title = printf "%s | %s" $title site.Title }}{{ end }}
+  {{ end }}
   <meta property="twitter:card" content="{{ $twitter_card }}" />
   {{ with site.Params.twitter }}
     <meta property="twitter:site" content="@{{ . }}" />
@@ -274,7 +282,7 @@
   {{ end }}
   <meta property="og:site_name" content="{{ site.Title }}" />
   <meta property="og:url" content="{{ .Permalink }}" />
-  <meta property="og:title" content="{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}" />
+  <meta property="og:title" content="{{ $title }}" />
   <meta property="og:description" content="{{ $desc }}" />
   {{- with $og_image -}}
     <meta property="og:image" content="{{ . }}" />
@@ -301,5 +309,5 @@
   {{ partial "cookie_consent" . }}
   {{ partial "custom_head" . }}
 
-  <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ site.Title }}</title>
+  <title>{{$title}}</title>
 </head>
