@@ -17,7 +17,7 @@
     {{ if not ($scr.Get "use_cdn") }}
       <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
     {{ else }}
-      {{ $require_isotope := site.Params.require_isotope | default true }}
+      {{ $require_isotope := .Params.require_isotope | default site.Params.require_isotope | default true }}
       {{ if $require_isotope }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.isotope.url $js.isotope.version) $js.isotope.sri | safeHTML }}
