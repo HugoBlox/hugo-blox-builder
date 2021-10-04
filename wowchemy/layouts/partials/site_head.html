@@ -1,3 +1,4 @@
+{{ $scr := .Scratch }}
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,8 +46,6 @@
   {{ with site.Params.marketing.bing_site_verification }}
     <meta name="msvalidate.01" content="{{ . }}" />
   {{- end -}}
-
-  {{ $scr := .Scratch }}
 
   {{/* Attempt to load superuser. */}}
   {{ $superuser_name := "" }}
