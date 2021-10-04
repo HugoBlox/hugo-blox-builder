@@ -27,7 +27,7 @@
   {{ end }}
 
   <div class="portrait-title">
-    <h2>{{ $person_page.Title }}</h2>
+    <h2>{{ $person_page.Title | markdownify | emojify }}</h2>
     {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
 
     {{ range $person.organizations }}
