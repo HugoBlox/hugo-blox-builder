@@ -1,6 +1,6 @@
 /*************************************************
  *  Wowchemy
- *  https://github.com/wowchemy/wowchemy-hugo-modules
+ *  https://github.com/wowchemy/wowchemy-hugo-themes
  *
  *  Wowchemy Theming System
  *  Supported Modes: {0: Light, 1: Dark, 2: Auto}

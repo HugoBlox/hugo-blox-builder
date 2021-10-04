@@ -12,7 +12,7 @@ We use GitHub only for bug reports and feature requests - it's our project manag
 
 🚑 For **help** and **questions**, solve common issues with the [Troubleshooting Guide](https://wowchemy.com/docs/guide/troubleshooting/).
 
-For other issues, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/wowchemy/wowchemy-hugo-modules/discussions)**, and if not, consider posting a new thread there.
+For other issues, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)**, and if not, consider posting a new thread there.
 
 Also, you can search and browse the extensive [Wowchemy](https://wowchemy.com/docs/) and [Hugo](https://gohugo.io/documentation/) **documentation**.
 

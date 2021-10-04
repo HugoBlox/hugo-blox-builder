@@ -1,6 +1,6 @@
 /*************************************************
  *  Wowchemy
- *  https://github.com/wowchemy/wowchemy-hugo-modules
+ *  https://github.com/wowchemy/wowchemy-hugo-themes
  *
  *  Wowchemy Animation
  **************************************************/
