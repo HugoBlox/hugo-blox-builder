@@ -27,7 +27,13 @@
   {{ end }}
 
   <div class="portrait-title">
+    
+    {{if $person.anno }}
+    <h2><ruby><rb>{{ $person_page.Title }}</rb><rt>{{ $person.anno }}</rt></ruby></h2>
+    {{else}}
     <h2>{{ $person_page.Title }}</h2>
+    {{end}}
+
     {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
 
     {{ range $person.organizations }}
