@@ -120,6 +120,7 @@ ul.ul-edu li .description p.institution {
     text-align: center;
     font-size: 20px;
     background-color: #fff;
+    color: #000;  // override parent alpha
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   }
 }
