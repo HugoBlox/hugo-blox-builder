@@ -5,7 +5,7 @@
   {{ .Scratch.Set "media_dir" $media_dir }}
 
   {{ $css := site.Data.assets.css }}
-  {{ $cdn_url_reveal := "https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0" }}
+  {{ $cdn_url_reveal := "https://cdn.jsdelivr.net/npm/reveal.js@4.1.0" }}
   {{ $js := site.Data.assets.js }}
 
   <meta charset="utf-8">
@@ -24,9 +24,9 @@
 
   <title>{{ .Title }} | {{ site.Title }}</title>
 
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/reveal.min.css">
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/reveal.min.css">
   {{- $theme := $.Param "slides.theme" | default "black" -}}
-  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/theme/{{ $theme }}.min.css">
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/theme/{{ $theme }}.min.css">
 
   {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
   {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" id=\"highlight-theme\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
@@ -39,7 +39,7 @@
 
   {{ block "main" . }}{{ end }}
 
-  <script src="{{ $cdn_url_reveal }}/reveal.min.js" integrity="sha512-Xu/cezKABTI81MGnaBm64vdiS7XkttHeYGOgr2Mdga0bTplSBGongLq2lhK2HwL79wefKM0u4uTCLD0ha1sRzQ==" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/dist/reveal.min.js" integrity="sha512-Xu/cezKABTI81MGnaBm64vdiS7XkttHeYGOgr2Mdga0bTplSBGongLq2lhK2HwL79wefKM0u4uTCLD0ha1sRzQ==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.min.js" integrity="sha512-eZZqO4ECmVvGhCt+6VZ7ian2bCu4S6yrjSFH9fXLY1zTokpAWsxAxQwM4x6+7G+G4ha5tFIe0jY0XjpBUqS49Q==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/highlight/highlight.min.js" integrity="sha512-NA5UCab7xDKQPXGsmIp8iEuId5BAKGPiqHZsZQcBuySfp1n3dZrwBDKpPNL23Db5upay1nULxU14JV1ggFOD2A==" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.min.js" integrity="sha512-FYeeQscKqibmYKr0+nE2+fN5prBsFwgjsBVwkrA88O6mN2+ai6EvRkSi6txuhXlWsyK1MUfoV+94+q6HLouJSQ==" crossorigin="anonymous"></script>
