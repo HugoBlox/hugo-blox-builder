@@ -1,7 +1,7 @@
 <form class="docs-search d-flex align-items-center">
-  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+  <button class="btn docs-toggle d-md-none p-0 me-md-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     <div class="d-flex">
-      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+      <span class="d-md-none pe-1 flex-grow-1 text-start overflow-hidden">
         {{ if .Parent | and .Parent.IsHome }}
           {{ .LinkTitle | emojify }}
         {{ else if .Parent | and (not .Parent.IsHome) }}
@@ -16,7 +16,7 @@
 
   {{ if eq (lower site.Params.search.provider) "wowchemy" }}
   <button class="form-control sidebar-search js-search d-none d-md-flex">
-    <i class="fas fa-search pr-2"></i>
+    <i class="fas fa-search pe-2"></i>
     <span class="sidebar-search-text">{{ i18n "search_placeholder" }}</span>
     <span class="sidebar-search-shortcut">/</span>
   </button>
@@ -68,7 +68,7 @@
       {{/* Case where first section is a general page (e.g. book of books). */}}
 
       <ul class="nav docs-sidenav">
-        <li><a href="{{.FirstSection.RelPermalink}}"><i class="fas fa-arrow-left pr-1"></i>{{.FirstSection.LinkTitle | emojify}}</a></li>
+        <li><a href="{{.FirstSection.RelPermalink}}"><i class="fas fa-arrow-left pe-1"></i>{{.FirstSection.LinkTitle | emojify}}</a></li>
       </ul>
 
       {{ $first_node := $current_node }}

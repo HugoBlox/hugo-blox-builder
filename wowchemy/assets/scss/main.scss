@@ -15,8 +15,6 @@ $sta-font-nav: "{{ $scr.Get "nav_font" }}";
 $sta-font-mono: "{{ $scr.Get "mono_font" }}";
 
 $sta-primary: {{ $scr.Get "primary" }};
-$sta-primary-light: lighten($sta-primary, $sta-lighten-percentage);
-$sta-primary-dark: darken($sta-primary, $sta-darken-percentage);
 
 $sta-link: {{ $scr.Get "link" }};
 $sta-link-hover: {{ $scr.Get "link_hover" }};
@@ -44,8 +42,59 @@ $sta-home-section-even: {{ $scr.Get "home_section_even" }};
 $sta-dark-home-section-odd: {{ $scr.Get "dark_home_section_odd" }};
 $sta-dark-home-section-even: {{ $scr.Get "dark_home_section_even" }};
 
+// Bootstrap Configuration
+@import "_vendor/bootstrap/functions";
+
 @import "bootstrap_variables";
-@import "_vendor/bootstrap/bootstrap";
+
+@import "_vendor/bootstrap/variables";
+@import "_vendor/bootstrap/mixins";
+@import "_vendor/bootstrap/utilities";
+
+// Makes use of the improved Bootstrap v5 color system (which are located in mixins)
+$sta-primary-light: tint-color($sta-primary, $sta-lighten-percentage);
+$sta-primary-dark: shade-color($sta-primary, $sta-darken-percentage);
+
+// Bootstrap Layout & components
+@import "_vendor/bootstrap/root";
+@import "_vendor/bootstrap/reboot";
+@import "_vendor/bootstrap/type";
+@import "_vendor/bootstrap/images";
+@import "_vendor/bootstrap/containers";
+@import "_vendor/bootstrap/grid";
+@import "_vendor/bootstrap/tables";
+@import "_vendor/bootstrap/forms";
+@import "_vendor/bootstrap/buttons";
+@import "_vendor/bootstrap/transitions";
+@import "_vendor/bootstrap/dropdown";
+@import "_vendor/bootstrap/button-group";
+@import "_vendor/bootstrap/nav";
+@import "_vendor/bootstrap/navbar";
+@import "_vendor/bootstrap/card";
+@import "_vendor/bootstrap/accordion";
+@import "_vendor/bootstrap/breadcrumb";
+@import "_vendor/bootstrap/pagination";
+@import "_vendor/bootstrap/badge";
+@import "_vendor/bootstrap/alert";
+@import "_vendor/bootstrap/progress";
+@import "_vendor/bootstrap/list-group";
+@import "_vendor/bootstrap/close";
+@import "_vendor/bootstrap/toasts";
+@import "_vendor/bootstrap/modal";
+@import "_vendor/bootstrap/tooltip";
+@import "_vendor/bootstrap/popover";
+@import "_vendor/bootstrap/carousel";
+@import "_vendor/bootstrap/spinners";
+@import "_vendor/bootstrap/offcanvas";
+@import "_vendor/bootstrap/placeholders";
+
+// Bootstrap Helpers
+@import "_vendor/bootstrap/helpers";
+
+// Bootstrap Utilities
+@import "_vendor/bootstrap/utilities/api";
+
+// Wowchemy
 @import "wowchemy/wowchemy";
 @import "template";
 @import "custom";

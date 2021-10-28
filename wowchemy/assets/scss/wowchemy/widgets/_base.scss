@@ -14,7 +14,7 @@
 .home-section.fullscreen {
   min-height: calc(100vh - 70px);
 }
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   .home-section.fullscreen {
     min-height: calc(100vh - 50px);
   }
@@ -109,7 +109,7 @@
   background-attachment: fixed;
 }
 // Workaround issue with mobile browser support for fixed parallax background.
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   .parallax {
     background-attachment: scroll;
   }

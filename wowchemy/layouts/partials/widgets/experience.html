@@ -15,14 +15,14 @@
     <!-- Timeline -->
     <div class="col-auto text-center flex-column d-none d-sm-flex">
       <div class="row h-50">
-        <div class="col {{if gt $idx 0}}border-right{{end}}">&nbsp;</div>
+        <div class="col {{if gt $idx 0}}border-end{{end}}">&nbsp;</div>
         <div class="col">&nbsp;</div>
       </div>
       <div class="m-2">
-        <span class="badge badge-pill border {{if not .date_end}}exp-fill{{end}}">&nbsp;</span>
+        <span class="badge rounded-pill border {{if not .date_end}}exp-fill{{end}}">&nbsp;</span>
       </div>
       <div class="row h-50">
-        <div class="col {{if lt $idx (sub $exp_len 1)}}border-right{{end}}">&nbsp;</div>
+        <div class="col {{if lt $idx (sub $exp_len 1)}}border-end{{end}}">&nbsp;</div>
         <div class="col">&nbsp;</div>
       </div>
     </div>
@@ -35,7 +35,7 @@
           {{- $svg_icon := resources.Get (printf "media/icons/brands/%s.svg" .company_logo) -}}
           {{ if not $svg_icon }}{{ errorf "Brand logo not found at `assets/media/icons/brands/%s.svg`" .company_logo }}{{end}}
           <div class="d-flex align-content-start">
-            <div class="mr-2 mb-2">
+            <div class="me-2 mb-2">
               {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
               <img src="{{ $svg_icon.RelPermalink }}" width="56px" height="56px" alt="{{.company | plainify}}">
               {{- with .company_url}}</a>{{end -}}

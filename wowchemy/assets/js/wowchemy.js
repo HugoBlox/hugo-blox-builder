@@ -5,6 +5,7 @@
  *  Core JS functions and initialization.
  **************************************************/
 
+import { Dropdown, ScrollSpy, Tooltip } from './_vendor/bootstrap.bundle.min';
 import mediumZoom from './_vendor/medium-zoom.esm';
 import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
 import {scrollParentToChild} from './wowchemy-utils';
@@ -64,14 +65,9 @@ function scrollToAnchor(target, duration = 0) {
 }
 
 // Make Scrollspy responsive.
-function fixScrollspy() {
-  let $body = $('body');
-  let data = $body.data('bs.scrollspy');
-  if (data) {
-    data._config.offset = getNavBarHeight();
-    $body.data('bs.scrollspy', data);
-    $body.scrollspy('refresh');
-  }
+function updateScrollspy() {
+  document.body.setAttribute('data-bs-offset', getNavBarHeight());
+  ScrollSpy.getInstance('[data-bs-spy="scroll"]').refresh()
 }
 
 function removeQueryParamsFromUrl() {
@@ -111,7 +107,7 @@ $('#navbar-main li.nav-item a.nav-link, .js-scroll').on('click', function (event
       {
         scrollTop: elementOffset,
       },
-      800,
+      100,
     );
   }
 });
@@ -448,7 +444,7 @@ $(document).ready(function () {
 
 $(window).on('load', function () {
   // Re-initialize Scrollspy with dynamic navbar height offset.
-  fixScrollspy();
+  updateScrollspy();
 
   // Detect instances of the Portfolio widget.
   let isotopeInstances = document.querySelectorAll('.projects-container');
@@ -643,7 +639,7 @@ $(window).on('load', function () {
   }
 
   // Init. author notes (tooltips).
-  $('[data-toggle="tooltip"]').tooltip();
+  new Tooltip('[data-bs-toggle="tooltip"]');
 });
 
 // Theme chooser events.
@@ -694,5 +690,5 @@ $('body').on('mouseenter mouseleave', '.dropdown', function (e) {
 let resizeTimer;
 $(window).resize(function () {
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(fixScrollspy, 200);
+  resizeTimer = setTimeout(updateScrollspy, 200);
 });

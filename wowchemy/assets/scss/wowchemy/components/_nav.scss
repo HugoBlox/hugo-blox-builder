@@ -27,7 +27,7 @@
     // For z-index compatibility with logo on mobile layout, otherwise nav-item can't be clicked when logo present.
     position: relative;
   }
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     height: 50px;
 
     .navbar-nav-scroll {
@@ -115,7 +115,7 @@
   box-shadow: none !important;
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   /* Match breakpoint for i18n dropdown in navbar.html. */
   .i18n-dropdown .nav-link::after {
     // Remove dropdown arrow on small devices (when language name isn't displayed).
@@ -178,7 +178,7 @@
   color: $sta-dark-menu-text;
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   // Used in conjunction with mobile .navbar-brand to center logo on mobile.
   .navbar-brand-mobile-wrapper {
     position: absolute;

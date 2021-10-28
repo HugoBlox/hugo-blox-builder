@@ -42,7 +42,7 @@
   padding-bottom: 1rem;
 
   // Reduce top padding on mobile
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     padding-top: 0;
   }
 }

@@ -28,9 +28,8 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-<div class="media stream-item">
-  <div class="media-body">
-
+<div class="d-flex stream-item">
+  <div class="flex-grow-1">
     <div class="section-subheading article-title mb-0 mt-0">
       <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
     </div>
@@ -62,7 +61,7 @@
         {{ partial "page_metadata_authors" $item }}
       </div>
       {{ else if not $show_authors_only }}
-        {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
+      {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
       {{ end }}
     </div>
 
@@ -71,9 +70,8 @@
       {{ partial "page_links" (dict "page" $item "is_list" 1) }}
     </div>
     {{ end }}
-
   </div>
-  <div class="ml-3">
+  <div class="flex-shrink-0 ms-3">
     {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
     {{ with $resource }}
     {{ $image := .Resize "150x" }}

@@ -5,7 +5,7 @@
 <!-- Indicators -->
 <ol class="carousel-indicators">
   {{ range $index, $item := $page.Params.item }}
-  <li data-target="#{{$hash_id}}" data-slide-to="{{$index}}" {{if eq $index 0}}class="active"{{end}}></li>
+  <li data-bs-target="#{{$hash_id}}" data-bs-slide-to="{{$index}}" {{if eq $index 0}}class="active"{{end}}></li>
   {{ end }}
 </ol>
 
@@ -65,9 +65,9 @@
 <!-- Left and right controls -->
 <a class="carousel-control-prev" href="#{{$hash_id}}" data-slide="prev">
   <span class="carousel-control-prev-icon"></span>
-  <span class="sr-only">Previous</span>
+  <span class="visually-hidden">Previous</span>
 </a>
 <a class="carousel-control-next" href="#{{$hash_id}}" data-slide="next">
   <span class="carousel-control-next-icon"></span>
-  <span class="sr-only">Next</span>
+  <span class="visually-hidden">Next</span>
 </a>

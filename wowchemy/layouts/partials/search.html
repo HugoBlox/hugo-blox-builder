@@ -33,11 +33,11 @@
 
       {{ if eq $search_provider "wowchemy" | and $search_queries }}
       <div id="search-common-queries" class="pt-3">
-        <div class="font-weight-bold pb-3">{{ i18n "search_common_queries" | default "Common searches" }}</div>
+        <div class="fw-bold pb-3">{{ i18n "search_common_queries" | default "Common searches" }}</div>
         <ul class="fa-ul">
           {{ range $search_queries }}
             <li class="pb-3">
-              <a href="{{.link | relURL}}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pl-1">{{.query | markdownify | emojify}}</span></a>
+              <a href="{{.link | relURL}}"><i class="fa-li fas fa-search" aria-hidden="true"></i><span class="pe-1">{{.query | markdownify | emojify}}</span></a>
             </li>
           {{ end }}
         </ul>
