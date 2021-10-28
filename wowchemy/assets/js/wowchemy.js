@@ -674,16 +674,11 @@ window.addEventListener('load', normalizeCarouselSlideHeights);
 window.addEventListener('resize', normalizeCarouselSlideHeights);
 window.addEventListener('orientationchange', normalizeCarouselSlideHeights);
 
-// Automatic main menu dropdowns on mouse over.
-$('body').on('mouseenter mouseleave', '.dropdown', function (e) {
-  var dropdown = $(e.target).closest('.dropdown');
-  var menu = $('.dropdown-menu', dropdown);
-  dropdown.addClass('show');
-  menu.addClass('show');
-  setTimeout(function () {
-    dropdown[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
-    menu[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
-  }, 300);
+// Main menu dropdown toggling (this should not be needed but it does not work without this)
+document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach(element => {
+  element.addEventListener("click", () => {
+    Dropdown.getInstance(element).toggle();
+  });
 });
 
 // Call `fixScrollspy` when window is resized.
