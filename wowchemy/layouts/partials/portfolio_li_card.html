@@ -16,12 +16,15 @@
 
 {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
 {{ $js_tag_classes := delimit (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") " " }}
-
 <div class="project-card project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
   <div class="card">
     {{ with $resource }}
     {{ $image := .Resize "550x" }}
+    {{ if isset $item.Params "external_link" }}
+    <a href="{{ $item.Params.external_link }}" {{ $target | safeHTMLAttr }} class="card-image hover-overlay">
+    {{ else }}
     <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="card-image hover-overlay">
+    {{ end }}
       <img src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" class="img-responsive" loading="lazy">
     </a>
     {{ end }}
