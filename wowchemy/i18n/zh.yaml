@@ -62,7 +62,7 @@
 # 按钮
 
 - id: btn_preprint
-  translation: 预览
+  translation: 预印本
 
 - id: btn_pdf
   translation: PDF
@@ -101,7 +101,7 @@
 # About小部件
 
 - id: interests
-  translation: 兴趣
+  translation: 兴趣爱好
 
 - id: education
   translation: 教育信息
@@ -118,7 +118,7 @@
 # Experience widget
 # Experience小部件
 - id: present
-  translation: '?'
+  translation: 现在
 
 # Pages widget
 # Pages小组件
@@ -212,6 +212,7 @@
 
 # Content types for default archive page titles and search results
 # 默认存档页面标题和搜素结果的内容类型
+
 - id: posts
   translation: 文章
 
@@ -219,7 +220,7 @@
   translation: 出版物
 
 - id: talks
-  translation: 事件
+  translation: 演讲
 
 - id: projects
   translation: 项目
@@ -232,6 +233,7 @@
 
 # Search
 # 搜素
+
 - id: search
   translation: 搜素
 
@@ -239,13 +241,13 @@
   translation: 搜素...
 
 - id: search_results
-  translation: 个结果
+  translation: 个搜索结果
 
 - id: search_no_results
   translation: 无结果
 
 - id: search_common_queries
-  translation: 热门搜索
+  translation: 常用搜索
 
 # Error 404
 # 404错误
@@ -259,10 +261,10 @@
 # Cookie consent
 # Cookie许可
 - id: cookie_message
-  translation: 本网站使用cookie以确保您获得最佳体验。
+  translation: 本网站使用cookie以确保您可以获得最佳体验。
 
 - id: cookie_dismiss
-  translation: 我知道了！
+  translation: 知道了！
 
 - id: cookie_learn
   translation: 了解更多
@@ -270,4 +272,4 @@
 # Published with
 # 使用声明
 - id: published_with
-  translation: 本网站由{wowchemy}驱动 — 免费{repo_link}开源{/repo_link}的网站生成器，为创作者赋能。
+  translation: 本网站由{wowchemy}支持发布 — 免费{repo_link}开源{/repo_link}的网站生成器，为创作者赋能。
