@@ -244,10 +244,10 @@
   translation: 个搜索结果
 
 - id: search_no_results
-  translation: 无结果
+  translation: 没有找到结果
 
 - id: search_common_queries
-  translation: 常用搜索
+  translation: 常见搜索
 
 # Error 404
 # 404错误
