@@ -235,10 +235,10 @@
 # 搜素
 
 - id: search
-  translation: 搜素
+  translation: 搜索
 
 - id: search_placeholder
-  translation: 搜素...
+  translation: 搜索...
 
 - id: search_results
   translation: 个搜索结果
