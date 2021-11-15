@@ -181,7 +181,7 @@
   translation: 未分类
 
 - id: pub_conf
-  translation: 会议文件
+  translation: 会议论文
 
 - id: pub_journal
   translation: 期刊文章
@@ -193,7 +193,7 @@
   translation: 报告
 
 - id: pub_book
-  translation: 书
+  translation: 书籍
 
 - id: pub_book_section
   translation: 章节
@@ -260,6 +260,7 @@
 
 # Cookie consent
 # Cookie许可
+
 - id: cookie_message
   translation: 本网站使用cookie以确保您可以获得最佳体验。
 
@@ -271,5 +272,6 @@
 
 # Published with
 # 使用声明
+
 - id: published_with
   translation: 本网站由{wowchemy}支持发布 — 免费{repo_link}开源{/repo_link}的网站生成器，为创作者赋能。
