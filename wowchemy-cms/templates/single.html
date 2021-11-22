@@ -18,7 +18,7 @@
 {{ $custom_preview_css := resources.Get "css/custom-preview.css" }}
 <script>
   // Register any CSS file on the home page as a preview style
-  fetch("/")
+  fetch({{site.BaseURL}})
   .then(response => response.text())
   .then(html => {
     const f = document.createElement("html");
