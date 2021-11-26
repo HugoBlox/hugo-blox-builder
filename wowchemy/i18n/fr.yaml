@@ -7,11 +7,11 @@
 - id: back_to_top
   translation: Retourner au début
 - id: home
-  translation: Home
+  translation: Accueil
 - id: close
-  translation: Close
+  translation: Fermer
 - id: languages
-  translation: Languages
+  translation: Langues
 - id: related
   translation: Sur le même sujet
 - id: minute_read
@@ -23,17 +23,17 @@
 - id: figure
   translation: 'Figure %d:'
 - id: edit_page
-  translation: Edit this page
+  translation: Modifier cette page
 - id: theme_selector
-  translation: Display preferences
+  translation: Afficher les préférences
 - id: theme_light
-  translation: Light
+  translation: Clair
 - id: theme_dark
-  translation: Dark
+  translation: Sombre
 - id: theme_auto
-  translation: Automatic
+  translation: Automatique
 - id: btn_preprint
-  translation: Preprint
+  translation: Pré-impression
 - id: btn_pdf
   translation: PDF
 - id: btn_cite
@@ -45,13 +45,13 @@
 - id: btn_code
   translation: Code
 - id: btn_dataset
-  translation: Jeu de données
+  translation: Ensemble de données
 - id: btn_project
   translation: Projet
 - id: btn_poster
-  translation: Poster
+  translation: Publier
 - id: btn_source
-  translation: Document source
+  translation: Source
 - id: btn_copy
   translation: Copier
 - id: btn_download
@@ -63,13 +63,13 @@
 - id: user_profile_latest
   translation: Récents
 - id: see_certificate
-  translation: Voir certificat
+  translation: Voir le certificat
 - id: present
   translation: Actuellement
 - id: more_pages
   translation: Voir tout
 - id: more_posts
-  translation: Plus de posts
+  translation: Plus d'articles
 - id: more_talks
   translation: Plus de présentations
 - id: more_publications
@@ -83,7 +83,7 @@
 - id: contact_send
   translation: Envoyer
 - id: book_appointment
-  translation: Demander un rendez-vous
+  translation: Réserver un rendez-vous
 - id: abstract
   translation: Résumé
 - id: publication
@@ -105,7 +105,7 @@
 - id: pub_journal
   translation: Article de revue
 - id: pub_preprint
-  translation: Preprint
+  translation: Pré-impression
 - id: pub_report
   translation: Rapport
 - id: pub_book
@@ -119,7 +119,7 @@
 - id: open_project_site
   translation: Aller sur le site du projet
 - id: posts
-  translation: Posts
+  translation: Articles
 - id: publications
   translation: Publications
 - id: talks
@@ -129,7 +129,7 @@
 - id: slides
   translation: Slides
 - id: authors
-  translation: Authors
+  translation: Auteurs
 - id: search
   translation: Rechercher
 - id: search_placeholder
@@ -139,7 +139,7 @@
 - id: search_no_results
   translation: Aucun résultat n'a été trouvé
 - id: search_common_queries
-  translation: Common searches
+  translation: Recherches courantes
 - id: page_not_found
   translation: Page non disponible
 - id: 404_recommendations
@@ -151,4 +151,4 @@
 - id: cookie_learn
   translation: En savoir plus
 - id: published_with
-  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+  translation: Publié avec {wowchemy} — le générateur de sites Web gratuit, {repo_link}open source{/repo_link}.
