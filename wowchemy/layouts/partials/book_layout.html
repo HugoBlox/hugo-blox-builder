@@ -51,7 +51,7 @@
         </div>
 
         <div class="body-footer">
-          <p>{{ i18n "last_updated" }} {{ $.Lastmod.Format site.Params.date_format }}</p>
+          <p>{{ i18n "last_updated" }} {{ $.Lastmod | time.Format site.Params.date_format }}</p>
 
           {{ partial "page_edit" . }}
 
