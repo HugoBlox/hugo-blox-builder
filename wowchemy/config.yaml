@@ -30,7 +30,7 @@ outputFormats:
     notAlternative: true
 module:
   hugoVersion:
-    min: '0.86.1'
+    min: '0.87.0'
     extended: true
   mounts:
     - source: content
