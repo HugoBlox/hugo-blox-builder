@@ -48,7 +48,7 @@
       </div>
 
       <div id="container-publications">
-        {{ range .Pages.ByDate.Reverse }}
+        {{ range $index, $item := .Pages.ByDate.Reverse }}
 
         {{ if .Params.publication_types }}
           {{ $.Scratch.Set "pubtype" (index .Params.publication_types 0) }}
@@ -57,15 +57,7 @@
         {{ end }}
 
         <div class="grid-sizer col-lg-12 isotope-item pubtype-{{ $.Scratch.Get "pubtype" }} year-{{ .Date.Format "2006" }}">
-          {{ if eq $.Params.view 1 }}
-            {{ partial "li_list" . }}
-          {{ else if eq $.Params.view 3 }}
-            {{ partial "li_card" . }}
-          {{ else if eq $.Params.view 4 }}
-            {{ partial "li_citation" . }}
-          {{ else }}
-            {{ partial "li_compact" . }}
-          {{ end }}
+          {{ partial "functions/render_view" (dict "page" $ "item" . "view" ($.Params.view | default "compact") "index" $index) }}
         </div>
 
         {{ end }}

@@ -8,17 +8,9 @@
   {{ end }}
 
   {{ $paginator := .Paginate .Pages }}
-  {{ range $paginator.Pages }}
-    {{ if eq $.Params.view 1 }}
-      {{ partial "li_list" . }}
-    {{ else if eq $.Params.view 3 }}
-      {{ partial "li_card" . }}
-    {{ else if eq $.Params.view 4 }}
-      {{ partial "li_citation" . }}
-    {{ else }}
-      {{ partial "li_compact" . }}
-    {{ end }}
-  {{ end }}
+  {{ range $index, $post := $paginator.Pages }}
+    {{ partial "functions/render_view" (dict "page" $ "item" . "view" ($.Params.view | default "compact") "index" $index) }}
+  {{end}}
 
   {{ partial "pagination" . }}
 </div>

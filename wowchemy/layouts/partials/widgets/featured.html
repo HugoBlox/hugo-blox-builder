@@ -56,16 +56,8 @@
 
   {{ with $st.Content }}{{ . }}{{ end }}
 
-  {{ range $post := $query }}
-    {{ if eq $st.Params.design.view 1 }}
-      {{ partial "li_list" . }}
-    {{ else if eq $st.Params.design.view 3 }}
-      {{ partial "li_card" . }}
-    {{ else if eq $st.Params.design.view 4 | and (eq $items_type "publication") }}
-      {{ partial "li_citation" . }}
-    {{ else }}
-      {{ partial "li_compact" . }}
-    {{ end }}
+  {{ range $index, $post := $query }}
+    {{ partial "functions/render_view" (dict "page" $st "item" . "view" ($st.Params.design.view | default "compact") "index" $index) }}
   {{end}}
 
   {{/* Archive link */}}

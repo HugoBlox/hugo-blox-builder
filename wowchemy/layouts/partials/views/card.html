@@ -1,4 +1,4 @@
-{{ $item := . }}
+{{ $item := .item }}
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $has_attachments := partial "functions/has_attachments" . }}
@@ -13,7 +13,7 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-<div class="card-simple">
+<div class="card-simple view-card">
 
   {{ if eq $item.Type "event" }}
   <div class="article-metadata">

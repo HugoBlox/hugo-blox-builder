@@ -1,4 +1,4 @@
-{{ $item := . }}
+{{ $item := .item }}
 
 {{/* Dynamic view adjusts to content type. */}}
 {{ $show_authors_only := false }}{{/* Show authors only or full metadata? */}}
@@ -28,7 +28,7 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-<div class="media stream-item">
+<div class="media stream-item view-compact">
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">

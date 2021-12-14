@@ -9,15 +9,9 @@
   {{ end }}
 
   {{ $paginator := .Paginate .Data.Pages }}
-  {{ range $paginator.Pages }}
-    {{ if eq $.Params.view 1 }}
-      {{ partial "li_list" . }}
-    {{ else if eq $.Params.view 3 }}
-      {{ partial "li_card" . }}
-    {{ else }}
-      {{ partial "li_compact" . }}
-    {{ end }}
-  {{ end }}
+  {{ range $index, $item := $paginator.Pages }}
+    {{ partial "functions/render_view" (dict "page" $ "item" . "view" ($.Params.view | default "compact") "index" $index) }}
+  {{end}}
 
   {{ partial "pagination" . }}
 
