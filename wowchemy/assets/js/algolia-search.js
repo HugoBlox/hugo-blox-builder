@@ -22,11 +22,14 @@ if (typeof instantsearch === 'function' && $('#search-box').length) {
     },
     searchFunction: function (helper) {
       let searchResults = document.querySelector('#search-hits');
+      let commonQueries = document.querySelector('#search-common-queries');
       if (helper.state.query === '') {
         searchResults.style.display = 'none';
+        commonQueries.style.display = 'block';
         return;
       }
       helper.search();
+      commonQueries.style.display = 'none';
       searchResults.style.display = 'block';
     },
   };
@@ -37,7 +40,7 @@ if (typeof instantsearch === 'function' && $('#search-box').length) {
   search.addWidget(
     instantsearch.widgets.searchBox({
       container: '#search-box',
-      autofocus: false,
+      autofocus: true,
       reset: true,
       poweredBy: algoliaConfig.poweredBy,
       placeholder: i18n.placeholder,

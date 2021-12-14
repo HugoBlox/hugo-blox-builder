@@ -9,7 +9,7 @@
 
 {{- range $pages -}}
   {{- /* Do not index drafts or private pages. */ -}}
-  {{- if and (not .Draft) (not .Params.private) -}}
+  {{- if and (not .Draft) (not .Params.private) | and (ne .Params.searchable false) -}}
 
     {{- /* Generate page description. */ -}}
     {{- $desc := "" -}}
