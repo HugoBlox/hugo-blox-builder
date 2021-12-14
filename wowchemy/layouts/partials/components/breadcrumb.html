@@ -1,7 +1,7 @@
 {{ if not .IsHome }}
   <nav class="d-none d-md-flex" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      {{ partial "breadcrumb_helper" . }}
+      {{ partial "components/breadcrumb_child" . }}
       <li class="breadcrumb-item active" aria-current="page">
         {{ .LinkTitle | emojify }}
       </li>

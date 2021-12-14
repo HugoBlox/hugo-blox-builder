@@ -1,5 +1,5 @@
 {{ with .Parent }}
-  {{ partial "breadcrumb_helper" . }}
+  {{ partial "components/breadcrumb_child" . }}
   <li class="breadcrumb-item">
     <a href="{{ .RelPermalink }}">
       {{ if .IsHome }}
