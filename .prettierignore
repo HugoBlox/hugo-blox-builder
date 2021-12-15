@@ -1,5 +1,6 @@
 _vendor/
 vendor/
+wowchemy/assets/css/libs/
 
 public/
 resources/

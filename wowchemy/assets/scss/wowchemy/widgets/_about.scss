@@ -104,7 +104,7 @@ ul.ul-edu li .description p.institution {
 // For about.avatar widget
 .avatar-wrapper {
   position: relative;
-  width: 150px;  // Match image size in about.avatar widget
+  width: 150px; // Match image size in about.avatar widget
   height: 150px;
   margin-left: auto;
   margin-right: auto;
@@ -120,7 +120,7 @@ ul.ul-edu li .description p.institution {
     text-align: center;
     font-size: 20px;
     background-color: #fff;
-    color: #000;  // override parent alpha
+    color: #000; // override parent alpha
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   }
 }

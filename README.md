@@ -6,7 +6,7 @@
 [![Discord](https://img.shields.io/discord/722225264733716590?style=for-the-badge)](https://discord.com/channels/722225264733716590/742892432458252370/742895548159492138)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/gcushen?label=%E2%9D%A4%EF%B8%8F%20sponsor&style=for-the-badge)](https://github.com/sponsors/gcushen)
 [![Twitter Follow](https://img.shields.io/twitter/follow/wowchemy?label=Follow%20on%20Twitter&style=for-the-badge)](https://twitter.com/wowchemy)
-[![GitHub followers](https://img.shields.io/github/followers/gcushen?label=Follow%20on%20GH&style=for-the-badge)](https://github.com/gcushen)  
+[![GitHub followers](https://img.shields.io/github/followers/gcushen?label=Follow%20on%20GH&style=for-the-badge)](https://github.com/gcushen)
 
 # [Wowchemy](https://wowchemy.com): the website builder for [Hugo](https://gohugo.io)
 
@@ -83,5 +83,3 @@ Feel free to [_star_ the project on Github](https://github.com/wowchemy/wowchemy
 Copyright 2016-present [George Cushen](https://georgecushen.com).
 
 The [Wowchemy Hugo Themes](https://github.com/wowchemy/wowchemy-hugo-themes/) repository is released under the [MIT](https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md) license.
-
-[![Analytics](https://ga-beacon.appspot.com/UA-78646709-2/wowchemy-hugo-themes/readme?pixel)](https://github.com/igrigorik/ga-beacon)

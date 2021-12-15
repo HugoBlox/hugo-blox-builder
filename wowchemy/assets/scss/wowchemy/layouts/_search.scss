@@ -86,6 +86,31 @@
   overflow-x: hidden;
 }
 
+// Override Algolia results style
+.ais-Hits-item,
+.ais-InfiniteHits-item {
+  background: unset;
+  box-shadow: unset;
+  padding: unset;
+}
+
+// Override Algolia search box icon style
+.ais-SearchBox-form::before {
+  all: unset; // clear Algolia style
+  height: 1rem;
+  left: 1rem;
+  margin-top: -0.5rem;
+  position: absolute;
+  top: 50%;
+  width: 1rem;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  content: '\f002';
+  font-size: 100%;
+  opacity: 0.7;
+  line-height: 1;
+}
+
 .dark #search-query {
   background-color: $sta-dark-background;
 }

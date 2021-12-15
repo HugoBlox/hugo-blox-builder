@@ -87,15 +87,15 @@
         <div class="search-hit">
           <div class="search-hit-content">
             <div class="search-hit-name">
-              {{ printf "<a href=\"%s\">{{{_highlightResult.title.value}}}</a>" "{{relpermalink}}" | safeHTML }}
+              {{ printf "<a href=\"%s\">{{#helpers.highlight}}{ \"attribute\": \"title\" }{{/helpers.highlight}}</a>" "{{relpermalink}}" | safeHTML }}
             </div>
             <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
-            <p class="search-hit-description">{{ safeHTML "{{{_highlightResult.summary.value}}}" }}</p>
+            <p class="search-hit-description">{{ safeHTML "{{#helpers.highlight}}{ \"attribute\": \"summary\" }{{/helpers.highlight}}" }}</p>
           </div>
         </div>
       </script>
       {{ if ($scr.Get "use_cdn") }}
-        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) $js.instantsearch.sri | safeHTML }}
+        {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) | safeHTML }}
       {{ end }}
       {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "poweredBy" (site.Params.search.algolia.show_logo | default false) }}
     {{ end }}
@@ -123,6 +123,14 @@
       {{ $js_search_params = dict "search_config" $search_config "algoliaConfig" $algoliaConfig "i18n" $search_i18n "content_type" $content_types }}
     {{ end }}
 
+    {{ if eq $search_provider "algolia" }}
+    {{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "format" "esm" "targetPath" (printf "%s/js/algolia-search-built.js" .Lang) "params" $js_search_params) }}
+    {{- if hugo.IsProduction -}}
+      {{- $js_algolia_search = $js_algolia_search | minify | fingerprint "md5" -}}
+    {{- end -}}
+    <script src="{{ $js_algolia_search.RelPermalink }}" type="module"></script>
+    {{ end }}
+
     {{ $js_license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */\n" }}
@@ -133,9 +141,6 @@
     {{ if eq $search_provider "wowchemy" }}
       {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "targetPath" (printf "%s/js/wow-search-built.js" .Lang) "params" $js_search_params) }}
       {{ $js_bundle = $js_bundle | append $js_academic_search }}
-    {{ else if eq $search_provider "algolia" }}
-      {{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "targetPath" (printf "%s/js/algolia-search-built.js" .Lang) "params" $js_search_params) }}
-      {{ $js_bundle = $js_bundle | append $js_algolia_search }}
     {{ end }}
     {{ range site.Params.plugins_js }}
       {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}

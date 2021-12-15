@@ -172,7 +172,6 @@
 
     {{ if eq (lower site.Params.search.provider) "algolia" }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
-      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearchTheme.url $css.instantsearchTheme.version) $css.instantsearchTheme.sri | safeHTML }}
     {{ end }}
 
     {{/* Load async scripts. */}}

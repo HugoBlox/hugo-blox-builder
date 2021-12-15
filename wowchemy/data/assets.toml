@@ -49,9 +49,8 @@
   sri = "sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg=="
   url = "https://cdn.jsdelivr.net/gh/julmot/mark.js@%s/dist/jquery.mark.min.js"
 [js.instantsearch]
-  version = "2.10.5"
-  sri = "sha512-fsaJ0SdBVinKOpq2u2o1kMKexDBGkEepm+4RmSEW4E2kKxkMw+3VFpWOIhFaXwxb+x9HJ2nLpKFGajju5esK1w=="
-  url = "https://cdn.jsdelivr.net/npm/instantsearch.js@%s/dist/instantsearch.min.js"
+  version = "4"  # no SRI as we use latest major version
+  url = "https://cdn.jsdelivr.net/npm/instantsearch.js@%s/dist/instantsearch.production.min.js"
 [js.anchor]
   version = "4.2.2"
   sri = "sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg=="
@@ -84,13 +83,9 @@
   sri = "sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw=="
   url = "https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@%s/dist/jquery.fancybox.min.css"
 [css.instantsearch]
-  version = "2.9.0"
-  sri = "sha512-r0ZHmgMRCi4mGWwva52RW2IXabjPr7sFVpcy4QIjDVTcgwadvP33dFG6gmZDe8lS2c96dPly57jDVZ4r6t8QCg=="
-  url = "https://cdn.jsdelivr.net/npm/instantsearch.js@%s/dist/instantsearch.min.css"
-[css.instantsearchTheme]
-  version = "2.10.5"
-  sri = "sha512-AjQHx1UkDult/5TlKWqKapSLLMmNTJk7WINfp0F08inVEjpjeVPGiXOgTT9YCUyQE31xNBsajMRA7T8MQqK3cA=="
-  url = "https://cdn.jsdelivr.net/npm/instantsearch.js@%s/dist/instantsearch-theme-algolia.min.css"
+  version = "7.4.5"
+  sri = "sha256-TehzF/2QvNKhGQrrNpoOb2Ck4iGZ1J/DI4pkd2oUsBc="
+  url = "https://cdn.jsdelivr.net/npm/instantsearch.css@%s/themes/satellite-min.css"
 [css.highlight]
   version = "10.2.1"
   sri = ""  # No SRI as highlight style is determined at run time.

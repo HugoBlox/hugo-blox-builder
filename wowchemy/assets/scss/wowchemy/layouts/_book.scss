@@ -238,16 +238,16 @@ ul.toc-top {
 
 #TableOfContents li {
   display: block;
-  margin-bottom: 8px;  // Lighthouse: tap targets must be at least 8px apart
+  margin-bottom: 8px; // Lighthouse: tap targets must be at least 8px apart
 }
 
 #TableOfContents li a,
 .toc-top li a {
   display: block;
-  padding: 0 1.5rem;  // Override default padding
+  padding: 0 1.5rem; // Override default padding
   color: rgba(0, 0, 0, 0.65);
-  line-height: 1.75;  // Lighthouse: min tap target size
-  font-size: 16px;  // Lighthouse: min tap target size
+  line-height: 1.75; // Lighthouse: min tap target size
+  font-size: 16px; // Lighthouse: min tap target size
 }
 
 .dark #TableOfContents li a,
