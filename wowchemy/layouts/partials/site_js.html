@@ -131,6 +131,20 @@
     <script src="{{ $js_algolia_search.RelPermalink }}" type="module"></script>
     {{ end }}
 
+    {{/* Page Data */}}
+    {{ $default_headroom := not (.IsHome | or (eq .Type "book")) }}
+    {{ $use_headroom := cond (isset $.Params "header.on_scroll") (eq $.Params.header.on_scroll "disappear") (default $default_headroom) }}
+    {{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
+
+    {{/* Headroom */}}
+    {{ if $use_headroom }}
+      {{ $headroom := resources.Get "js/wowchemy-headroom.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $headroom = $headroom | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $headroom.RelPermalink }}" type="module"></script>
+    {{- end -}}
+
     {{ $js_license := printf "/*! Wowchemy v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */\n" }}

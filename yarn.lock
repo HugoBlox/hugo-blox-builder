@@ -962,6 +962,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+headroom.js@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/headroom.js/-/headroom.js-0.12.0.tgz#e09b466b18d22457f2023fb946ff620e47a5c205"
+  integrity sha512-iXnAafUm3FdzfJ91uixLws2hkKI1jC8bAKK/pt7XYr8Ie1jO7xbK48Ycpl9tUPyBgkzuj1p/PhJS0fy4E/5anA==
+
 hosted-git-info@^2.1.4:
   version "2.8.8"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.8.tgz#7539bd4bc1e0e0a895815a2e0262420b12858488"
