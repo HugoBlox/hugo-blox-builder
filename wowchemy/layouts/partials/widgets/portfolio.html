@@ -5,6 +5,7 @@
 {{ $st := .page }}
 {{ $items_type := $st.Params.content.page_type | default "project" }}
 {{ $columns := $st.Params.design.columns | default "2" }}
+{{ $view := $st.Params.design.view | default "masonry" }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
@@ -44,7 +45,7 @@
     {{ end }}
   {{ end }}
 
-  <div class="{{ if or $st.Params.content.filter_button (eq $st.Params.design.view 3) }}isotope projects-container{{end}} {{if eq $st.Params.design.view 3}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $st.Params.design.view 5 }}project-showcase{{end}}">
+  <div class="{{ if or $st.Params.content.filter_button (in (slice "masonry" 3) $view) }}isotope projects-container{{end}} {{if in (slice "masonry" 3) $view}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $view "showcase" }}project-showcase{{end}}">
 
     {{ $query := "" }}
     {{ if $st.Params.content.filters.tags }}
@@ -53,25 +54,16 @@
       {{ $query = where site.RegularPages "Type" $items_type }}
     {{ end }}
 
-    {{ range $idx, $item := $query }}
+    {{ range $index, $item := $query }}
+      {{ $js_tag_classes := delimit (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") " " }}
+        {{ if in (slice "masonry" 3) $view }}
+          <div class="project-card project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
+        {{else}}
+          <div class="col-12 isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
+        {{end}}
+        {{ partial "functions/render_view" (dict "page" $st "item" . "view" $view "index" $index) }}
+      </div>
+    {{end}}
 
-      {{ $link := $item.RelPermalink }}
-      {{ $target := "" }}
-      {{ if $item.Params.external_link }}
-        {{ $link = $item.Params.external_link }}
-        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-      {{ end }}
-
-      {{ if eq $st.Params.design.view 1 }}
-        {{ partial "portfolio_li_list" (dict "item" $item) }}
-      {{ else if eq $st.Params.design.view 2 }}
-        {{ partial "portfolio_li_compact" (dict "item" $item) }}
-      {{ else if eq $st.Params.design.view 3 }}
-        {{ partial "portfolio_li_card" (dict "widget" $st "index" $idx "item" $item "link" $link "target" $target) }}
-      {{ else }}
-        {{ partial "portfolio_li_showcase" (dict "widget" $st "index" $idx "item" $item "link" $link "target" $target) }}
-      {{ end }}
-
-    {{ end }}
   </div>
 </div>

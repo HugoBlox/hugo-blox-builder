@@ -7,14 +7,16 @@
 {{ $view_dtype :=  printf "%T" $view }}
 {{ $index := .index }}
 
-{{if eq $view_dtype "int" }}
+{{if eq $view_dtype "int" | or (eq $view_dtype "int64") }}
   {{/* Support legacy numeric views 1-4 */}}
   {{ if eq $view 1 }}
-    {{ $view_file = "list"  }}
+    {{ $view_file = "list" }}
   {{ else if eq $view 3 }}
-    {{ $view_file = "card"  }}
+    {{ $view_file = "card" }}
   {{ else if eq $view 4 }}
-    {{ $view_file = "citation"  }}
+    {{ $view_file = "citation" }}
+  {{ else if eq $view 5 }}
+    {{ $view_file = "showcase" }}
   {{ else }}
     {{ $view_file = "compact" }}
   {{ end }}
