@@ -10,6 +10,24 @@ import algoliasearch from 'https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/alg
 // import instantsearch from 'https://cdn.jsdelivr.net/npm/instantsearch.js@4/es/index.js'
 // import {searchBox, infiniteHits} from 'https://cdn.jsdelivr.net/npm/instantsearch.js@4/es/widgets/index.js';
 
+if (algoliaConfig.analytics) {
+  let ALGOLIA_INSIGHTS_SRC = 'https://cdn.jsdelivr.net/npm/search-insights@2.0.2/dist/search-insights.iife.min.js';
+
+  !(function (e, a, t, n, s, i, c) {
+    (e.AlgoliaAnalyticsObject = s),
+      (e[s] =
+        e[s] ||
+        function () {
+          (e[s].queue = e[s].queue || []).push(arguments);
+        }),
+      (i = a.createElement(t)),
+      (c = a.getElementsByTagName(t)[0]),
+      (i.async = 1),
+      (i.src = n),
+      c.parentNode.insertBefore(i, c);
+  })(window, document, 'script', ALGOLIA_INSIGHTS_SRC, 'aa');
+}
+
 function getTemplate(templateName) {
   return document.querySelector(`#${templateName}-template`).innerHTML;
 }
@@ -32,7 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof instantsearch === 'function' && $('#search-box').length) {
     const search = instantsearch({
       indexName: algoliaConfig.indexName,
-      searchClient: algoliasearch(algoliaConfig.appId, algoliaConfig.apiKey), //'appId', 'apiKey'),
+      searchClient: algoliasearch(algoliaConfig.appId, algoliaConfig.apiKey),
+      searchParameters: {
+        clickAnalytics: algoliaConfig.analytics,
+        enablePersonalization: algoliaConfig.personalization,
+      },
+      searchFunction(helper) {
+        if (helper.state.query) {
+          helper.search();
+        }
+      },
       routing: {
         router: instantsearch.routers.history({
           parseURL() {
@@ -59,25 +86,29 @@ document.addEventListener('DOMContentLoaded', () => {
       },
     });
 
+    let timerId = undefined;
+    let searchResults = document.querySelector('#search-hits');
+    let commonQueries = document.querySelector('#search-common-queries');
+
     // Initialize search box.
     search.addWidget(
       instantsearch.widgets.searchBox({
         container: '#search-box',
         autofocus: true,
         showReset: true,
-        //poweredBy: algoliaConfig.poweredBy,
         placeholder: i18n.placeholder,
-        queryHook(query, search) {
-          let searchResults = document.querySelector('#search-hits');
-          let commonQueries = document.querySelector('#search-common-queries');
+        queryHook(query, refine) {
           if (query === '') {
             searchResults.style.display = 'none';
             commonQueries.style.display = 'block';
-            return;
+          } else {
+            commonQueries.style.display = 'none';
+            searchResults.style.display = 'block';
           }
-          search(query);
-          commonQueries.style.display = 'none';
-          searchResults.style.display = 'block';
+          if (timerId) {
+            clearTimeout(timerId);
+          }
+          timerId = setTimeout(() => refine(query), 300);
         },
       }),
     );
@@ -106,6 +137,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+
+    if (algoliaConfig.analytics) {
+      const insightsMiddleware = instantsearch.middlewares.createInsightsMiddleware({
+        insightsClient: window.aa,
+        insightsInitParams: {
+          useCookie: true,
+        },
+      });
+
+      search.use(insightsMiddleware);
+    }
 
     // Start search.
     search.start();

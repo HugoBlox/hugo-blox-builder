@@ -97,7 +97,7 @@
       {{ if ($scr.Get "use_cdn") }}
         {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) | safeHTML }}
       {{ end }}
-      {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "poweredBy" (site.Params.search.algolia.show_logo | default false) }}
+      {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "analytics" (site.Params.search.algolia.analytics | default false) "personalization" (site.Params.search.algolia.personalization | default false) }}
     {{ end }}
 
     {{/* Charts */}}
