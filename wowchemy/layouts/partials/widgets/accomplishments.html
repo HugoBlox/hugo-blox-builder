@@ -15,7 +15,7 @@
         <div class="d-flex align-content-start">
           <div class="mr-2 mb-2">
             {{- with .organization_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
-            <img src="{{ $svg_icon.RelPermalink }}" width="56px" height="56px" alt="{{.organization | plainify}}">
+            <img src="{{ $svg_icon.RelPermalink }}" width="56px" height="56px" alt="{{.organization | plainify}}" loading="lazy">
             {{- with .organization_url}}</a>{{end -}}
           </div>
           <div>
