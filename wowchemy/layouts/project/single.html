@@ -20,47 +20,28 @@
       {{ $count := len $items }}
       {{ if ge $count 1 }}
         <h2>{{ (i18n "posts") }}</h2>
-        {{ range $items }}
-          {{ if eq site.Params.projects.post_view 1 }}
-            {{ partial "li_list" . }}
-          {{ else if eq site.Params.projects.post_view 3 }}
-            {{ partial "li_card" . }}
-          {{ else }}
-            {{ partial "li_compact" . }}
-          {{ end }}
-        {{ end }}
+        {{ range $index, $item := $items }}
+          {{ partial "functions/render_view" (dict "page" $ "item" . "view" (site.Params.projects.post_view | default "compact") "index" $index) }}
+          {{ partial "functions/render_view" (dict "page" $ "item" . "view" (site.Params.projects.post_view | default "compact") "index" $index) }}
+        {{end}}
       {{ end }}
 
       {{ $items := where (where site.RegularPages "Type" "publication") ".Params.projects" "intersect" (slice $project) }}
       {{ $pubs_len := len $items }}
       {{ if ge $pubs_len 1 }}
         <h2>{{ (i18n "publications") }}</h2>
-        {{ range $items }}
-          {{ if eq site.Params.projects.publication_view 1 }}
-            {{ partial "li_list" . }}
-          {{ else if eq site.Params.projects.publication_view 3 }}
-            {{ partial "li_card" . }}
-          {{ else if eq site.Params.projects.publication_view 4 }}
-            {{ partial "li_citation" . }}
-          {{ else }}
-            {{ partial "li_compact" . }}
-          {{ end }}
-        {{ end }}
+        {{ range $index, $item := $items }}
+          {{ partial "functions/render_view" (dict "page" $ "item" . "view" (site.Params.projects.publication_view | default "compact") "index" $index) }}
+        {{end}}
       {{ end }}
 
       {{ $items := where (where site.RegularPages "Type" "event") ".Params.projects" "intersect" (slice $project) }}
       {{ $talks_len := len $items }}
       {{ if ge $talks_len 1 }}
         <h2>{{ (i18n "talks") }}</h2>
-        {{ range $items }}
-          {{ if eq site.Params.projects.talk_view 1 }}
-            {{ partial "li_list" . }}
-          {{ else if eq site.Params.projects.talk_view 3 }}
-            {{ partial "li_card" . }}
-          {{ else }}
-            {{ partial "li_compact" . }}
-          {{ end }}
-        {{ end }}
+        {{ range $index, $item := $items }}
+          {{ partial "functions/render_view" (dict "page" $ "item" . "view" (site.Params.projects.talk_view | default "compact") "index" $index) }}
+        {{end}}
       {{ end }}
     </div>
   </div>
