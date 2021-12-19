@@ -44,9 +44,12 @@
   {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
   {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
   {{ with $resource }}
-  {{ $image := .Fill (printf "808x455 %s" $anchor) }}
+  {{ $image := .Fill (printf "808x455 webp %s" $anchor) }}
   <a href="{{ $link }}" {{ $target | safeHTMLAttr }}>
-    <div class="img-hover-zoom"><img src="{{ $image.RelPermalink }}" class="article-banner" alt="{{ $item.Title }}" loading="lazy"></div>
+    <div class="img-hover-zoom">
+      <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
+           class="article-banner" alt="{{ $item.Title }}" loading="lazy">
+    </div>
   </a>
   {{end}}
 

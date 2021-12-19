@@ -7,7 +7,7 @@
 
 {{/* Gallery options */}}
 {{ $sort_order := .Get "order" | default "asc" }}
-{{ $resize_options := .Get "resize_options" | default "x190" }}
+{{ $resize_options := printf "%s webp" (.Get "resize_options" | default "x190") }}
 
 <div class="gallery">
 
