@@ -4,6 +4,34 @@
 {{ end }}
 
 {{ $backend_opts := dict "branch" (site.Params.cms.branch | default "main") }}
+{{ with site.Params.cms.name }}
+{{ $name := dict "name" . }}
+{{ $backend_opts = merge $backend_opts $name }}
+{{ end }}
+{{ with site.Params.cms.repo }}
+{{ $repo := dict "repo" . }}
+{{ $backend_opts = merge $backend_opts $repo }}
+{{ end }}
+{{ with site.Params.cms.auth_type }}
+{{ $auth_type := dict "auth_type" . }}
+{{ $backend_opts = merge $backend_opts $auth_type }}
+{{ end }}
+{{ with site.Params.cms.app_id }}
+{{ $app_id := dict "app_id" . }}
+{{ $backend_opts = merge $backend_opts $app_id }}
+{{ end }}
+{{ with site.Params.cms.api_root }}
+{{ $api_root := dict "api_root" . }}
+{{ $backend_opts = merge $backend_opts $api_root }}
+{{ end }}
+{{ with site.Params.cms.base_url }}
+{{ $base_url := dict "base_url" . }}
+{{ $backend_opts = merge $backend_opts $base_url }}
+{{ end }}
+{{ with site.Params.cms.auth_endpoint }}
+{{ $auth_endpoint := dict "auth_endpoint" . }}
+{{ $backend_opts = merge $backend_opts $auth_endpoint }}
+{{ end }}
 
 {{ with site.Params.cms.publish_mode }}
   {{ $publish_mode := dict "publish_mode" . }}
