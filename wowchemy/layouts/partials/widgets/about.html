@@ -33,11 +33,16 @@
 
       <div class="portrait-title">
         
-        {{if $person.anno }}
-        <h2><ruby><rb>{{ $person_page.Title }}</rb><rt>{{ $person.anno }}</rt></ruby></h2>
-        {{else}}
-        <h2>{{ $person_page.Title }}</h2>
-        {{end}}
+        <h2>
+          {{- with $person.name_transliteration -}}
+            <ruby>
+              <rb>{{ $person_page.Title }}</rb>
+              <rt>{{ $person.name_transliteration }}</rt>
+            </ruby>
+          {{- else -}}
+            {{- $person_page.Title -}}
+          {{- end -}}
+        </h2>
         
         {{ with $person.role }}<h3>{{ . | markdownify | emojify }}</h3>{{ end }}
 
