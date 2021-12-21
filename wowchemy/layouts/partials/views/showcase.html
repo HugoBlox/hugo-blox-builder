@@ -1,5 +1,6 @@
 {{ $item := .item }}
-{{ $widget := .widget }}
+{{ $widget := .page }}
+{{ $index := .index }}
 
 {{ $do_link := true }}
 {{ if $item.Params.external_link | or $item.Content }}
@@ -22,13 +23,12 @@
 {{ end }}
 
 {{ $order := "" }}
-{{ if and ($widget.Params.design.flip_alt_rows | default true) (not (modBool .index 2)) }}
+{{ if and ($widget.Params.design.flip_alt_rows | default true) (not (modBool $index 2)) }}
   {{ $order = "order-md-2" }}
 {{ end }}
 
-{{ $js_tag_classes := delimit (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") " " }}
 
-<div class="col-lg-12 project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
+<div class="col-lg-12 mb-5 view-showcase">
   <div class="row align-items-center">
     <div class="col-12 col-md-6">
       <div class="section-subheading article-title mb-0 mt-0">
@@ -51,9 +51,10 @@
     <div class="col-12 col-md-6 order-first {{$order}}">
       {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
       {{ with $resource }}
-      {{ $image := .Resize "540x" }}
+      {{ $image := .Resize "540x webp" }}
       {{if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{end}}
-        <img src="{{ $image.RelPermalink }}" alt="{{ $item.Title }}" loading="lazy">
+        <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
+             alt="{{ $item.Title }}" loading="lazy">
       {{if $do_link}}</a>{{end}}
       {{end}}
     </div>

@@ -2,6 +2,25 @@
  *  Navigation bar
  **************************************************/
 
+.headroom {
+  will-change: transform;
+  transition: transform 200ms linear;
+}
+.headroom--pinned {
+  transform: translateY(0%);
+}
+.headroom--unpinned {
+  transform: translateY(-100%);
+}
+
+.header--fixed {
+  position: fixed;
+  z-index: 10; // previously, 1030
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
 .dropdown-menu {
   background-color: $sta-menu-primary !important;
   color: $sta-menu-text !important;
@@ -13,11 +32,6 @@
   background: $sta-menu-primary;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(0, 0, 0, 0.11);
   font-size: #{$sta-font-size-small}px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030;
 
   // Remove Bootstrap's navbar v-padding and assign v-padding to logo separately to maximise logo size.
   // Otherwise, Bootstrap's navbar v-padding causes issue with logo fitting within fixed 50px height bar in md-lg sizes.

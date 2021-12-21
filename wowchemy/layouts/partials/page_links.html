@@ -153,6 +153,6 @@
   {{ end }}
   <a class="btn btn-outline-primary btn-page-header{{ if $is_list }} btn-sm{{end}}" href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
     {{ if .icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ .icon }} {{if .name}}mr-1{{end}}"></i>{{end}}
-    {{ with .name }}{{ . | safeHTML }}{{end}}
+    {{- with .name }}{{ . | safeHTML }}{{ end -}}
   </a>
 {{ end }}

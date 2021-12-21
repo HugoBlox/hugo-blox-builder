@@ -12,13 +12,13 @@ Join the **Contributing** channel on the **[community Discord](https://discord.g
 
 Learn [how to contribute code on Github](https://codeburst.io/a-step-by-step-guide-to-making-your-first-github-contribution-5302260a2940).
 
-If you're a developer looking to contribute, but you're not sure where to begin, check out the [good first issue](https://github.com/wowchemy/wowchemy-hugo-modules/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) label on Github, which contains small tasks that have been specifically flagged as being friendly to new contributors.
+If you're a developer looking to contribute, but you're not sure where to begin, check out the [good first issue](https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) label on Github, which contains small tasks that have been specifically flagged as being friendly to new contributors.
 
-After that, if you're looking for something a little more challenging to sink your teeth into, there's a broader [help wanted](https://github.com/wowchemy/wowchemy-hugo-modules/labels/help%20wanted) label encompassing issues which need some love.
+After that, if you're looking for something a little more challenging to sink your teeth into, there's a broader [help wanted](https://github.com/wowchemy/wowchemy-hugo-themes/labels/help%20wanted) label encompassing issues which need some love.
 
-If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/wowchemy/wowchemy-hugo-modules/pulls) for the community to review.
+If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/wowchemy/wowchemy-hugo-themes/pulls) for the community to review.
 
-If you have an idea for a new feature, please start by [searching the issues](https://github.com/wowchemy/wowchemy-hugo-modules/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/wowchemy/wowchemy-hugo-modules/issues/new/choose), as adding new features to Wowchemy first requires some analysis around the design and spec.
+If you have an idea for a new feature, please start by [searching the issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/wowchemy/wowchemy-hugo-themes/issues/new/choose), as adding new features to Wowchemy first requires some analysis around the design and spec.
 
 Code linting and formatting form part of the Continuous Integration process to help catch bugs and code issues in contributions.
 
@@ -40,7 +40,7 @@ yarn run format
 
 ### Contribute a language pack
 
-To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://wowchemy.com/docs/language/#create-or-modify-a-language-pack). Once created, [fork Wowchemy Hugo Modules](https://github.com/wowchemy/wowchemy-hugo-modules), place your language pack in `wowchemy/i18n/`, add the name of the language to `wowchemy/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
+To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://wowchemy.com/docs/language/#create-or-modify-a-language-pack). Once created, [fork Wowchemy Hugo Modules](https://github.com/wowchemy/wowchemy-hugo-themes), place your language pack in `wowchemy/i18n/`, add the name of the language to `wowchemy/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
 
 ### Contribute a theme pack
 
@@ -65,8 +65,8 @@ To help us develop this free software sustainably under the open source license,
 
 If you're not a developer there are still plenty of ways that you can help. We always need help with:
 
-- Helping the Wowchemy community on the [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/wowchemy/wowchemy-hugo-modules/discussions)
-- Investigating and reviewing open [Issues](https://github.com/wowchemy/wowchemy-hugo-modules/issues) and [Pull Requests](https://github.com/wowchemy/wowchemy-hugo-modules/pulls)
+- Helping the Wowchemy community on the [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
+- Investigating and reviewing open [Issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) and [Pull Requests](https://github.com/wowchemy/wowchemy-hugo-themes/pulls)
   - Give a thumbs up 👍 to upvote a feature request you would like to use
 - Improving the [documentation](https://wowchemy.com/docs/) and writing tutorials
   - Just click the _Edit_ button at the bottom of pages or open an issue with your proposed improvement

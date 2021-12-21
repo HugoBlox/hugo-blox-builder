@@ -1,6 +1,6 @@
 /*************************************************
  *  Wowchemy
- *  https://github.com/wowchemy/wowchemy-hugo-modules
+ *  https://github.com/wowchemy/wowchemy-hugo-themes
  *
  *  Core JS functions and initialization.
  **************************************************/
@@ -24,7 +24,7 @@ console.debug(`Environment: ${hugoEnvironment}`);
 // Dynamically get responsive navigation bar height for offsetting Scrollspy.
 function getNavBarHeight() {
   let navbar = document.getElementById('navbar-main');
-  let navbarHeight = (navbar) ? navbar.getBoundingClientRect().height : 0;
+  let navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
   console.debug('Navbar height: ' + navbarHeight);
   return navbarHeight;
 }
@@ -364,7 +364,12 @@ function toggleSearchDialog() {
     // Show search modal.
     $('body').addClass('searching');
     $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
-    $('#search-query').focus();
+    let algoliaSearchBox = document.querySelector('.ais-SearchBox-input');
+    if (algoliaSearchBox) {
+      algoliaSearchBox.focus();
+    } else {
+      $('#search-query').focus();
+    }
   }
 }
 

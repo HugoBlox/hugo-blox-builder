@@ -1,0 +1,24 @@
+name = "Wowchemy Widget Pages"
+license = "MIT"
+licenselink = "https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md"
+description = "Create any kind of website with fully customizable widgets - 50+ light/dark color themes, language packs, and widgets included."
+homepage = "https://github.com/wowchemy/wowchemy-hugo-themes"
+demosite = "https://hugo-academic-pages.netlify.app/"
+tags = ["widgets",
+        "portfolio",
+        "responsive",
+        "company",
+        "blog",
+        "minimal",
+        "dark",
+        "multilingual",
+        "landing page",
+        "one page",
+        "customizable"
+        ]
+features = ["page builder", "widgets", "color themes", "dark mode", "customizable", "filterable portfolio",
+            "blog", "create landing pages", "gallery", "contact form"]
+
+[author]
+  name = "George Cushen"
+  homepage = "https://georgecushen.com"
