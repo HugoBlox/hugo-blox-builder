@@ -34,10 +34,10 @@
       <div class="portrait-title">
         
         <h2>
-          {{- with $person.name_transliteration -}}
+          {{- if $person.name_pronunciation -}}
             <ruby>
               <rb>{{ $person_page.Title }}</rb>
-              <rt>{{ $person.name_transliteration }}</rt>
+              <rt>{{ $person.name_pronunciation }}</rt>
             </ruby>
           {{- else -}}
             {{- $person_page.Title -}}
