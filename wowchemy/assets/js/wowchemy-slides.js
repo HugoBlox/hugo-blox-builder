@@ -7,7 +7,7 @@ import * as params from '@params';
 import {fixMermaid} from './wowchemy-utils';
 
 // Enable core slide features.
-var enabledPlugins = [RevealMarkdown, RevealHighlight, RevealSearch, RevealNotes, RevealMath, RevealZoom];
+var enabledPlugins = [RevealMarkdown, RevealHighlight, RevealSearch, RevealNotes, RevealMath.MathJax3, RevealZoom];
 
 const isObject = function (o) {
   return o === Object(o) && !isArray(o) && typeof o !== 'function';
