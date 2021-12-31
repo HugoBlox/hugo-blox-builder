@@ -1,5 +1,4 @@
 markup:
-  _merge: deep
   defaultMarkdownHandler: goldmark
   goldmark:
     renderer:
@@ -53,3 +52,8 @@ params:
   date_format: 'Jan 2, 2006'
   time_format: '3:04 PM'
   address_format: en-us
+security:
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^WC_
