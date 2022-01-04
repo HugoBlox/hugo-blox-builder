@@ -3,15 +3,15 @@
 - id: table_of_contents
   translation: Daftar isi
 - id: on_this_page
-  translation: On this page
+  translation: Di halaman ini
 - id: back_to_top
-  translation: Back to top
+  translation: Kembali ke atas
 - id: home
-  translation: Home
+  translation: Beranda
 - id: close
-  translation: Close
+  translation: Tutup
 - id: languages
-  translation: Languages
+  translation: Bahasa
 - id: related
   translation: Terkait
 - id: minute_read
@@ -21,17 +21,17 @@
 - id: next
   translation: Selanjutnya
 - id: figure
-  translation: 'Figure %d:'
+  translation: 'Orang %d:'
 - id: edit_page
-  translation: Edit this page
+  translation: Sunting halaman ini
 - id: theme_selector
-  translation: Display preferences
+  translation: Preferensi tampilan
 - id: theme_light
-  translation: Light
+  translation: Terang
 - id: theme_dark
-  translation: Dark
+  translation: Gelap
 - id: theme_auto
-  translation: Automatic
+  translation: Tema Otomatis
 - id: btn_preprint
   translation: Pracetak
 - id: btn_pdf
@@ -43,7 +43,7 @@
 - id: btn_video
   translation: Video
 - id: btn_code
-  translation: Skrip Kode
+  translation: Kode
 - id: btn_dataset
   translation: Dataset
 - id: btn_project
@@ -51,7 +51,7 @@
 - id: btn_poster
   translation: Poster
 - id: btn_source
-  translation: Sumber dokumen
+  translation: Sumber
 - id: btn_copy
   translation: Salin
 - id: btn_download
@@ -61,35 +61,35 @@
 - id: education
   translation: Pendidikan
 - id: user_profile_latest
-  translation: Latest
+  translation: Terbaru
 - id: see_certificate
-  translation: See certificate
+  translation: Lihat sertifikat
 - id: present
-  translation: Present
+  translation: Terkini
 - id: more_pages
-  translation: See all
+  translation: Lihat semua
 - id: more_posts
-  translation: Tulisan lainnya
+  translation: Postingan lainnya
 - id: more_talks
-  translation: Presentasi lainnya
+  translation: Percakapan lainnya
 - id: more_publications
   translation: Publikasi lainnya
 - id: contact_name
-  translation: Name
+  translation: Nama
 - id: contact_email
-  translation: Email
+  translation: Surel
 - id: contact_message
-  translation: Message
+  translation: Pesan
 - id: contact_send
-  translation: Send
+  translation: Kirim
 - id: book_appointment
-  translation: Book an appointment
+  translation: Menjadwalkan pertemuan
 - id: abstract
   translation: Abstrak
 - id: publication
   translation: Publikasi
 - id: publication_type
-  translation: Jenis
+  translation: Jenis publikasi
 - id: date
   translation: Tanggal
 - id: last_updated
@@ -99,56 +99,56 @@
 - id: location
   translation: Lokasi
 - id: pub_uncat
-  translation: Uncategorized
+  translation: Tidak ada Kategori
 - id: pub_conf
-  translation: Conference paper
+  translation: Kertas konferensi
 - id: pub_journal
-  translation: Journal article
+  translation: Artikel Jurnal
 - id: pub_preprint
-  translation: Preprint
+  translation: Pracetak
 - id: pub_report
-  translation: Report
+  translation: Laporan
 - id: pub_book
-  translation: Book
+  translation: Buku
 - id: pub_book_section
-  translation: Book section
+  translation: Bagian buku
 - id: pub_thesis
-  translation: Thesis
+  translation: Tesis
 - id: pub_patent
-  translation: Patent
+  translation: Paten
 - id: open_project_site
   translation: Ke laman proyek
 - id: posts
-  translation: Tulisan
+  translation: Postingan
 - id: publications
   translation: Publikasi
 - id: talks
-  translation: Presentasi
+  translation: Perbincangan
 - id: projects
   translation: Proyek
 - id: slides
   translation: Slides
 - id: authors
-  translation: Authors
+  translation: Penulis
 - id: search
-  translation: Search
+  translation: Cari
 - id: search_placeholder
-  translation: Search...
+  translation: Cari...
 - id: search_results
-  translation: results found
+  translation: hasil pencarian
 - id: search_no_results
-  translation: No results found
+  translation: Hasil pencarian tidak ada
 - id: search_common_queries
-  translation: Common searches
+  translation: Pencarian umum
 - id: page_not_found
   translation: Laman tidak ditemukan
 - id: 404_recommendations
   translation: Apakah ini yang Anda cari?
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Situs web ini menggunakan cookie untuk memastikan Anda mendapatkan pengalaman terbaik di situs web kami.
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Mengerti!
 - id: cookie_learn
-  translation: Learn more
+  translation: Pelajari
 - id: published_with
-  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+  translation: Diterbitkan dengan {wowchemy} — Secara gratis, {repo_link}sumber terbuka{/repo_link} pembuat situs web yang memberdayakan para pembuat konten.
