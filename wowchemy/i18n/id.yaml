@@ -21,7 +21,7 @@
 - id: next
   translation: Selanjutnya
 - id: figure
-  translation: Orang
+  translation: 'Orang %d:'
 - id: edit_page
   translation: Sunting halaman ini
 - id: theme_selector
