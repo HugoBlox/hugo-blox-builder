@@ -15,7 +15,7 @@
 
   {{ if not (in (slice "event" "page") $page.Type) | and (ne $page.Params.show_date false) }}
   <span class="article-date">
-    {{ $date := $page.Lastmod | time.Format site.Params.date_format }}
+    {{ $date := $page.Lastmod | time.Format site.Params.locale.date_format }}
     {{ if eq $page.Type "publication" }}
       {{ $date = $page.Date | time.Format (site.Params.publications.date_format | default "January, 2006") }}
     {{ else }}

@@ -46,14 +46,15 @@ module:
       target: i18n
     - source: archetypes
       target: archetypes
-params:
-  theme: minimal
-  font: native
-  date_format: 'Jan 2, 2006'
-  time_format: '3:04 PM'
-  address_format: en-us
 security:
   funcs:
     getenv:
       - ^HUGO_
       - ^WC_
+params:
+  theme: minimal
+  font: native
+  locale:
+    date_format: 'Jan 2, 2006'
+    time_format: '3:04 PM'
+    address_format: en-us
