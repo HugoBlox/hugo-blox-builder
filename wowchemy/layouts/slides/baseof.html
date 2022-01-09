@@ -11,8 +11,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo">
 
-  {{ if site.Home.OutputFormats.Get "WebAppManifest" }}
-  <link rel="manifest" href="{{ "index.webmanifest" | relLangURL }}">
+  {{ with site.Home.OutputFormats.Get "WebAppManifest" }}
+    <link rel="manifest" href="{{ .RelPermalink }}">
   {{ end }}
 
   <link rel="icon" type="image/png" href="{{(partial "functions/get_icon" 32).RelPermalink}}">
