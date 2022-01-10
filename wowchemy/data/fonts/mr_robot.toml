@@ -2,7 +2,7 @@
 name = "Mr Robot"
 
 # Optional Google font URL
-google_fonts = "B612+Mono:400,700|Orbitron:400,700"
+google_fonts = "family=B612+Mono:wght@400;700&family=Orbitron:wght@400;700"
 
 # Font families
 heading_font = "Orbitron"
