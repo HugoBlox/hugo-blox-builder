@@ -1,18 +1,16 @@
 # Theme metadata
 name = "Ocean"
 
-# Is theme light or dark?
-light = true
+[light]
+  # Primary
+  primary = "#3f51b5"
 
-# Primary
-primary = "#3f51b5"
+  # Menu
+  menu_primary = "#3f51b5" # Material 500
+  menu_text = "#fff"
+  menu_text_active = "#ffeb3b" # Material Complemantary 500
+  menu_title = "#fff"
 
-# Menu
-menu_primary = "#3f51b5" # Material 500
-menu_text = "#fff"
-menu_text_active = "#ffeb3b" # Material Complemantary 500
-menu_title = "#fff"
-
-# Home sections
-home_section_odd = "rgb(255, 255, 255)"
-home_section_even = "rgb(247, 247, 247)"
+  # Home sections
+  home_section_odd = "rgb(255, 255, 255)"
+  home_section_even = "rgb(247, 247, 247)"

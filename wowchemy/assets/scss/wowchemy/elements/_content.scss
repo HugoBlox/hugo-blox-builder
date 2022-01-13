@@ -119,6 +119,13 @@
   }
 }
 
+.dark .article-style {
+  // Underline links if they are a similar color to the body text.
+  a {
+    text-decoration: $sta-dark-link-decoration;
+  }
+}
+
 .article-metadata {
   margin-bottom: 15px;
   overflow: hidden;

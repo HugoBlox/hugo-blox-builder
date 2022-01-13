@@ -1,18 +1,16 @@
 # Theme metadata
 name = "Apogee"
 
-# Is theme light or dark?
-light = false
+[dark]
+  # Primary
+  primary = "#EAF04E"
 
-# Primary
-primary = "#EAF04E"
+  # Menu
+  menu_primary = "#312450"
+  menu_text = "#F2BE4E"
+  menu_text_active = "#FFE1A0"
+  menu_title = "#E0A526"
 
-# Menu
-menu_primary = "#312450"
-menu_text = "#F2BE4E"
-menu_text_active = "#FFE1A0"
-menu_title = "#E0A526"
-
-# Home sections
-home_section_odd = "#5e42a6"
-home_section_even = "#5e42a6"
+  # Home sections
+  home_section_odd = "#5e42a6"
+  home_section_even = "#5e42a6"

@@ -1,19 +1,20 @@
 # Theme metadata
 name = "Cyberpunk"
 
-# Is theme light or dark?
-is_light = false
+[light]
+  # Primary
+  primary = "rgb(255, 0, 60)"
 
-# Primary
-primary = "rgb(255, 0, 60)"
-
-# Menu
-menu_primary = "#fcee0a"
-menu_text = "#000"
-menu_text_active = "rgb(255, 0, 60)"
-menu_title = "#000"
+  # Menu
+  menu_primary = "#fcee0a"
+  menu_text = "#000"
+  menu_text_active = "rgb(255, 0, 60)"
+  menu_title = "#000"
 
 [dark]
+  # Primary
+  primary = "rgb(255, 0, 60)"
+
   # Menu
   menu_primary = "#fcee0a"
   menu_text = "#000"

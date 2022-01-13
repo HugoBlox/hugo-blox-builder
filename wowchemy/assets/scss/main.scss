@@ -24,6 +24,7 @@ $sta-link-decoration: {{ $scr.Get "link_decoration" }};
 
 $sta-dark-link: {{ $scr.Get "dark_link" }};
 $sta-dark-link-hover: {{ $scr.Get "dark_link_hover" }};
+$sta-dark-link-decoration: {{ $scr.Get "dark_link_decoration" }};
 
 $sta-menu-primary: {{ $scr.Get "menu_primary" }};
 $sta-menu-text: {{ $scr.Get "menu_text" }};

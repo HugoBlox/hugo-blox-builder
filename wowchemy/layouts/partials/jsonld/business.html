@@ -2,12 +2,12 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": {{site.Params.local_business_type | default site.Params.site_type}},
+  "@type": {{site.Params.seo.site_type | default site.Params.seo.site_type}},
   "@id": {{site.BaseURL}},
-  "name": {{site.Params.org_name | default site.Title}},
+  "name": {{site.Params.seo.org_name | default site.Title}},
   "logo": {{ partial "functions/get_logo_url" . }},
   {{with $sharing_image}}"image": {{.Permalink}},{{end}}
-  {{ if (eq site.Params.site_type "LocalBusiness") | and site.Params.coordinates }}
+  {{ if (eq site.Params.seo.site_type "LocalBusiness") | and site.Params.coordinates }}
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": {{site.Params.coordinates.latitude}},

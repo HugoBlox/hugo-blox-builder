@@ -1,12 +1,12 @@
-{{ $show_navbar := site.Params.main_menu.enable | default true }}
+{{ $show_navbar := site.Params.header.navbar.enable | default true }}
 {{ if $show_navbar }}
 
 {{ $current_page := . }}
-{{ $highlight_active_link := site.Params.main_menu.highlight_active_link | default true }}
-{{ $show_current_language := site.Params.main_menu.show_language | default false }}
+{{ $highlight_active_link := site.Params.header.navbar.highlight_active_link | default true }}
+{{ $show_current_language := site.Params.header.navbar.show_language | default false }}
 
 {{/* Get site logo. */}}
-{{ $show_logo := site.Params.main_menu.show_logo | default true }}
+{{ $show_logo := site.Params.header.navbar.show_logo | default true }}
 {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
 {{ $logo := "" }}
 {{ if $has_logo }}
@@ -53,7 +53,7 @@
       {{end}}
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      {{ $align_menu := site.Params.main_menu.align | default "l" }}
+      {{ $align_menu := site.Params.header.navbar.align | default "l" }}
       <div class="navbar-collapse main-menu-item collapse {{ if eq $align_menu "c" }}justify-content-center{{ else if eq $align_menu "r" }}justify-content-end{{else}}justify-content-start{{ end }}" id="navbar-content">
 
         <!-- Left Nav Bar -->
@@ -157,15 +157,16 @@
           {{ end }}
         {{ end }}
 
-        {{ $show_search := site.Params.main_menu.show_search | default true }}
+        {{ $show_search := site.Params.header.navbar.show_search | default true }}
         {{ if and site.Params.search.provider $show_search }}
         <li class="nav-item">
           <a class="nav-link js-search" href="#" aria-label="{{ i18n "search" }}"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
         {{ end }}
 
-        {{ $show_day_night := site.Params.main_menu.show_day_night | default true }}
-        {{ if and site.Params.day_night $show_day_night }}
+        {{ $show_day_night := site.Params.header.navbar.show_day_night | default true }}
+        {{ $has_day_night_themes := (and site.Params.appearance.theme_day site.Params.appearance.theme_night) }}
+        {{ if and $has_day_night_themes $show_day_night }}
         <li class="nav-item dropdown theme-dropdown">
           <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="{{ i18n "theme_selector" | default "Display preferences" }}">
             <i class="fas fa-moon" aria-hidden="true"></i>
@@ -184,7 +185,7 @@
         </li>
         {{ end }}
 
-        {{ $show_translations := site.Params.main_menu.show_translations | default true }}
+        {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
         {{ if .IsTranslated | and $show_translations }}
         <li class="nav-item dropdown i18n-dropdown">
           <a href="#" class="nav-link {{ if $show_current_language }}dropdown-toggle{{end}}" data-toggle="dropdown"

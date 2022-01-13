@@ -24,9 +24,9 @@
   </p>
   {{ end }}
 
-  {{ with site.Copyright }}
+  {{ with site.Params.footer.text }}
   <p class="powered-by">
-    {{ replace . "{year}" now.Year | markdownify }}
+    {{ . | markdownify | emojify }}
   </p>
   {{ end }}
 

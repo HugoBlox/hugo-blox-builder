@@ -79,7 +79,7 @@ Make content appear incrementally
 
 Press `Space` to play!
 
-{{% fragment %}} _One_ {{% /fragment %}}
+{{% fragment %}} One {{% /fragment %}}
 {{% fragment %}} **Two** {{% /fragment %}}
 {{% fragment %}} Three {{% /fragment %}}
 
@@ -129,14 +129,14 @@ Press the `S` key to view the speaker notes!
 
 ---
 
-{{< slide background-image="boards.jpg" >}}
+{{< slide background-image="boards.webp" >}}
 
 ## Custom Slide
 
 Customize the slide style and background
 
 ```markdown
-{{</* slide background-image="/media/boards.jpg" */>}}
+{{</* slide background-image="boards.webp" */>}}
 {{</* slide background-color="#0000FF" */>}}
 {{</* slide class="my-style" */>}}
 ```

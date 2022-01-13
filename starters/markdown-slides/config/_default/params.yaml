@@ -5,23 +5,37 @@
 
 # Appearance
 
-theme: minimal
-day_night: true
-font: ''
-font_size: L
+appearance:
+  theme_day:
+  theme_night:
+  font:
+  font_size: L
 
 # SEO
 
-site_type: Person
-local_business_type: ''
-org_name: ''
-description: ''
-twitter: ''
+seo:
+  site_type: Person
+  local_business_type: ''
+  org_name: ''
+  description: ''
+  twitter: ''
 
 # Site header
 
-main_menu:
-  enable: false
+header:
+  navbar:
+    enable: false
+
+# Site footer
+
+footer:
+  copyright:
+    notice: '© {year} Me. This work is licensed under {license}'
+    license:
+      enable: true
+      allow_derivatives: false
+      share_alike: true
+      allow_commercial: false
 
 # Localization
 
@@ -31,13 +45,9 @@ locale:
 
 # Site features
 
-privacy_pack: false
-copyright_license:
-  enable: false
-  allow_derivatives: false
-  share_alike: true
-  allow_commercial: false
-  notice: 'This work is licensed under {license}'
+features:
+  privacy_pack: false
+
 marketing:
   google_analytics: ''
   google_tag_manager: ''
