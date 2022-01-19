@@ -9,7 +9,7 @@
   {{ $do_link = false }}
 {{ end }}
 
-{{ $link := .link }}
+{{ $link := $item.Params.external_link | default $item.RelPermalink }}
 {{ $target := .target }}
 
 {{/* Get summary. */}}
