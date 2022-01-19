@@ -52,8 +52,6 @@ security:
       - ^HUGO_
       - ^WC_
 params:
-  theme: minimal
-  font: native
   locale:
     date_format: 'Jan 2, 2006'
     time_format: '3:04 PM'

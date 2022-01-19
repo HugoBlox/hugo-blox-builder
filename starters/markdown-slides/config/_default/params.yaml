@@ -6,9 +6,9 @@
 # Appearance
 
 appearance:
-  theme_day:
-  theme_night:
-  font:
+  theme_day: minimal
+  theme_night: minimal
+  font: minimal
   font_size: L
 
 # SEO
@@ -47,6 +47,8 @@ locale:
 
 features:
   privacy_pack: false
+
+require_isotope: false
 
 marketing:
   google_analytics: ''
