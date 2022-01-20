@@ -35,6 +35,16 @@
   </div>
 
   <div class="page-body">
+    {{/* Breadcrumb */}}
+    {{/* Don't apply to Book layout as that has different breadcrumb placement. */}}
+    {{ if .Params.show_breadcrumb | and (ne .Type "book") }}
+      <!-- Use page bg color rather than any color applied to article-container. -->
+      {{ $class := cond .IsSection "universal-wrapper" "article-container" }}
+      <div class="{{$class}} py-1" style="background: initial">
+        {{ partial "components/breadcrumb" . }}
+      </div>
+    {{ end }}
+
     {{ block "main" . }}{{ end }}
   </div>
 
