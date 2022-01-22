@@ -47,6 +47,7 @@ slides:
 Inline code: `variable`
 
 Code block:
+
 ```python
 porridge = "blueberry"
 if porridge == "blueberry":
@@ -98,16 +99,20 @@ Add speaker notes to your presentation
 
 ```markdown
 {{%/* speaker_note */%}}
+
 - Only the speaker can read these notes
 - Press `S` key to view
+
 {{%/* /speaker_note */%}}
 ```
 
 Press the `S` key to view the speaker notes!
 
 {{< speaker_note >}}
+
 - Only the speaker can read these notes
 - Press `S` key to view
+
 {{< /speaker_note >}}
 
 ---

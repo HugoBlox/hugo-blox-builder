@@ -44,9 +44,9 @@
     {{ end }}
 
     {{/* Maps JS. */}}
-    {{ $map_provider := lower site.Params.map.provider }}
+    {{ $map_provider := lower site.Params.features.map.provider }}
     {{ if eq $map_provider "google" }}
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map.api_key }}"></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.features.map.api_key }}"></script>
       {{ if ($scr.Get "use_cdn") }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
       {{ end }}
@@ -170,5 +170,36 @@
       {{ $js_bundle = $js_bundle | fingerprint "md5" }}
     {{- end -}}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
+
+    {{/* Maps */}}
+    {{ if site.Params.features.map.provider }}
+      {{ $js := resources.Get "js/wowchemy-map.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $js = $js | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $js.RelPermalink }}" type="module"></script>
+    {{- end -}}
+
+    {{/* Carousel */}}
+    {{ $hasCarousel := where site.Pages "Params.widget" "slider" }}
+    {{ if $hasCarousel }}
+      {{ $js := resources.Get "js/wowchemy-carousel.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $js = $js | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $js.RelPermalink }}" type="module"></script>
+    {{- end -}}
+
+    {{/* Publications */}}
+    {{ $hasPublications := where site.Pages "Type" "publication" }}
+    {{ if $hasPublications }}
+      {{ partial "citation" . }}
+
+      {{ $js := resources.Get "js/wowchemy-publication.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $js = $js | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $js.RelPermalink }}" type="module"></script>
+    {{- end -}}
 
     {{ partial "custom_js" . }}

@@ -1,4 +1,4 @@
-{{ $baidu_tongji := site.Params.marketing.baidu_tongji | default "" }}
+{{ $baidu_tongji := site.Params.marketing.analytics.baidu_tongji | default "" }}
 
 {{ if hugo.IsProduction | and $baidu_tongji }}
   <script>

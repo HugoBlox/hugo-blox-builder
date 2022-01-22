@@ -13,12 +13,19 @@ appearance:
 
 # SEO
 
-seo:
-  site_type: Person
-  local_business_type: ''
-  org_name: ''
-  description: ''
-  twitter: ''
+marketing:
+  seo:
+    site_type: Person
+    local_business_type: ''
+    org_name: ''
+    description: ''
+    twitter: ''
+  analytics:
+    google_analytics: ''
+    baidu_tongji: ''
+  verification:
+    google: ''
+    baidu: ''
 
 # Site header
 
@@ -46,13 +53,5 @@ locale:
 # Site features
 
 features:
-  privacy_pack: false
-
-require_isotope: false
-
-marketing:
-  google_analytics: ''
-  google_tag_manager: ''
-  google_site_verification: ''
-  baidu_site_verification: ''
-  baidu_tongji: ''
+  privacy_pack:
+    enable: false

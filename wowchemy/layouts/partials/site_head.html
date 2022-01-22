@@ -33,17 +33,17 @@
     {{ end }}
   {{ end }}
 
-  {{ if site.Params.marketing.google_optimize | and hugo.IsProduction }}
-    <script src="https://www.googleoptimize.com/optimize.js?id={{ site.Params.marketing.google_optimize }}"></script>
+  {{ if site.Params.marketing.analytics.google_optimize | and hugo.IsProduction }}
+    <script src="https://www.googleoptimize.com/optimize.js?id={{ site.Params.marketing.analytics.google_optimize }}"></script>
   {{- end -}}
 
-  {{ with site.Params.marketing.google_site_verification }}
+  {{ with site.Params.marketing.verification.google }}
     <meta name="google-site-verification" content="{{ . }}" />
   {{- end -}}
-  {{ with site.Params.marketing.baidu_site_verification }}
+  {{ with site.Params.marketing.verification.baidu }}
     <meta name="baidu-site-verification" content="{{ . }}" />
   {{- end -}}
-  {{ with site.Params.marketing.bing_site_verification }}
+  {{ with site.Params.marketing.verification.bing }}
     <meta name="msvalidate.01" content="{{ . }}" />
   {{- end -}}
 
@@ -68,8 +68,8 @@
     {{ $desc = .Params.abstract }}
   {{ else if .IsPage }}
     {{ $desc = .Summary }}
-  {{ else if site.Params.seo.org_name }}
-    {{ $desc = site.Params.seo.org_name }}
+  {{ else if site.Params.marketing.seo.org_name }}
+    {{ $desc = site.Params.marketing.seo.org_name }}
   {{ else }}
     {{ $desc = $superuser_role }}
   {{ end }}
@@ -113,7 +113,7 @@
     <link rel="stylesheet" href="{{ printf "/css/vendor/%s" ($scr.Get "vendor_css_filename") | relURL }}" />
   {{ else }}
     {{ $scr.Set "use_cdn" 1 }}
-    {{ if site.Params.icon.pack.ai }}
+    {{ if site.Params.extensions.academicons.enable }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.academicons.url $css.academicons.version) $css.academicons.sri | safeHTML }}
     {{ end }}
 
@@ -165,7 +165,7 @@
     {{ end }}
 
     {{/* Maps CSS. */}}
-    {{ $map_provider := lower site.Params.map.provider }}
+    {{ $map_provider := lower site.Params.features.map.provider }}
     {{ if in (slice "mapnik" "mapbox") $map_provider }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
     {{ end }}
@@ -272,7 +272,7 @@
     {{ if ne $title site.Title }}{{ $title = printf "%s | %s" $title site.Title }}{{ end }}
   {{ end }}
   <meta property="twitter:card" content="{{ $twitter_card }}" />
-  {{ with site.Params.seo.twitter }}
+  {{ with site.Params.marketing.seo.twitter }}
     <meta property="twitter:site" content="@{{ . }}" />
     <meta property="twitter:creator" content="@{{ . }}" />
   {{ end }}
