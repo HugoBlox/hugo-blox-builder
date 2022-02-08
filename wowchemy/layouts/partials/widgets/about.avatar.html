@@ -28,7 +28,7 @@
   {{ end }}
 
   <div class="portrait-title">
-    
+
     <h2>
       {{- if $person.name_pronunciation -}}
         <ruby>
@@ -73,5 +73,11 @@
     </li>
     {{ end }}
   </ul>
+
+  {{ with $person_page.Content }}
+  <div class="article-style">
+    {{ . }}
+  </div>
+  {{ end }}
 
 </div>
