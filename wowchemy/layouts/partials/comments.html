@@ -1,4 +1,4 @@
-{{ $provider := trim (site.Params.comments.provider | lower) " " }}
+{{ $provider := trim (site.Params.features.comment.provider | lower) " " }}
 
 {{ if $provider }}
   {{ $provider_tpl := printf "partials/comments/%s.html" $provider }}
