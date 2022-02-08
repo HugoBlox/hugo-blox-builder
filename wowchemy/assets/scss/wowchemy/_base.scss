@@ -96,6 +96,10 @@ p {
   margin-bottom: 1rem;
 }
 
+p:last-child {
+  margin-bottom: 0;
+}
+
 /* Lists */
 ul,
 ol,
