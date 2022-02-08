@@ -87,7 +87,7 @@
   {{ end }}
 
   {{/* Config LaTeX math rendering. */}}
-  {{ if or .Params.math site.Params.math }}
+  {{ if or .Params.math site.Params.features.math.enable }}
     {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
     <script src="{{ $mathjax_config.RelPermalink }}"></script>
   {{ end }}
@@ -180,7 +180,7 @@
       {{ $load := $v.async }}
 
       {{/* Only load MathJax if required. */}}
-      {{ if (eq $k "mathJax") | and (not (or $.Params.math site.Params.math)) }}
+      {{ if (eq $k "mathJax") | and (not (or $.Params.math site.Params.features.math.enable)) }}
         {{ $load = false }}
       {{ end }}
 
