@@ -19,6 +19,8 @@ jobs:
         package:
           - local_path: 'markdown-slides'
             split_repository: 'starter-hugo-markdown-slides'
+          - local_path: 'blog'
+            split_repository: 'hugo-blog-theme'
 
     steps:
       -   uses: actions/checkout@v2
