@@ -63,7 +63,7 @@
     {{ end }}
 
     {{ $algoliaConfig := dict }}
-    {{ $search_provider := lower site.Params.search.provider }}
+    {{ $search_provider := lower site.Params.features.search.provider }}
     {{ if eq $search_provider "wowchemy" }}
       {{/* Wowchemy built-in search result template (Fuse). */}}
       <script id="search-hit-fuse-template" type="text/x-template">
@@ -97,7 +97,7 @@
       {{ if ($scr.Get "use_cdn") }}
         {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) | safeHTML }}
       {{ end }}
-      {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "analytics" (site.Params.search.algolia.analytics | default false) "personalization" (site.Params.search.algolia.personalization | default false) }}
+      {{ $algoliaConfig = dict "appId" (site.Params.features.search.algolia.app_id | default "") "apiKey" (site.Params.features.search.algolia.api_key | default "") "indexName" (site.Params.features.search.algolia.index_name | default "") "analytics" (site.Params.features.search.algolia.analytics | default false) "personalization" (site.Params.features.search.algolia.personalization | default false) }}
     {{ end }}
 
     {{/* Charts */}}
@@ -115,8 +115,8 @@
     {{ $js_search_params := dict }}
     {{ if in (slice "wowchemy" "algolia") $search_provider }}
       {{/* Configure search engine. */}}
-      {{ $min_length := site.Params.search.wowchemy.min_length | default 1 }}
-      {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
+      {{ $min_length := site.Params.features.search.wowchemy.min_length | default 1 }}
+      {{ $threshold := site.Params.features.search.wowchemy.threshold | default 0.3 }}
       {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
       {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
       {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") "authors" (i18n "authors") }}

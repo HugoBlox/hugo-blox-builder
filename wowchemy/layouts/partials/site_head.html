@@ -170,7 +170,7 @@
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
     {{ end }}
 
-    {{ if eq (lower site.Params.search.provider) "algolia" }}
+    {{ if eq (lower site.Params.features.search.provider) "algolia" }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
     {{ end }}
 
