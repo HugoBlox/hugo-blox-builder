@@ -145,12 +145,12 @@
     {{ $scr.Set "highlight_enabled" false }}
     {{ if isset .Params "highlight" }}
       {{ $scr.Set "highlight_enabled" .Params.highlight }}
-    {{ else if isset site.Params "highlight" }}
-      {{ $scr.Set "highlight_enabled" site.Params.highlight }}
+    {{ else if isset site.Params.features.syntax_highlighter "enable" }}
+      {{ $scr.Set "highlight_enabled" site.Params.features.syntax_highlighter.enable }}
     {{ end }}
     {{ if ($scr.Get "highlight_enabled") }}
       {{ $v := $css.highlight.version }}
-      {{ with site.Params.highlight_style }}
+      {{ with site.Params.features.syntax_highlighter.theme }}
         {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\" media=\"print\" onload=\"this.media='all'\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
         {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" media=\"print\" onload=\"this.media='all'\" disabled>" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
       {{ else }}
