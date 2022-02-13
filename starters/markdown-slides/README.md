@@ -1,14 +1,14 @@
-# [Hugo Documentation Theme](https://github.com/wowchemy/hugo-documentation-theme)
+# [Hugo Markdown Slides Theme](https://github.com/wowchemy/starter-hugo-markdown-slides)
 
-[![Screenshot](./preview.png)](https://wowchemy.com/hugo-themes/)
+[![Screenshot](./preview.webp)](https://wowchemy.com/hugo-themes/)
 
-The **Documentation** starter template empowers you to easily create **product documentation**, **digital books**, **personal notes**, and **knowledge bases**.
+The **Markdown Slides** starter template empowers you to **easily create, share, and present slide decks using the open, future-proof Markdown standard**. Supports math, syntax highlighting, diagrams, speaker notes, and much more!
 
 [![Get Started](https://img.shields.io/badge/-Get%20started-ff4655?style=for-the-badge)](https://wowchemy.com/hugo-themes/)
 [![Discord](https://img.shields.io/discord/722225264733716590?style=for-the-badge)](https://discord.com/channels/722225264733716590/742892432458252370/742895548159492138)  
 [![Twitter Follow](https://img.shields.io/twitter/follow/wowchemy?label=Follow%20on%20Twitter)](https://twitter.com/wowchemy)
 
-[Check out the latest demo](https://book-starter.netlify.app/) of what you'll get in less than 10 minutes, or [get inspired by how others are using this template](https://wowchemy.com/creators/).
+[Check out the latest demo](https://markdown-slides.netlify.app/) of what you'll get in less than 10 minutes, or [get inspired by how others are using this template](https://wowchemy.com/creators/).
 
 The integrated [**Wowchemy**](https://wowchemy.com) website builder and CMS makes it easy to create a beautiful website for free. Edit your site in the CMS (or your favorite editor), generate it with [Hugo](https://github.com/gohugoio/hugo), and deploy with GitHub or Netlify. Customize anything on your site with widgets, light/dark themes, and language packs.
 
