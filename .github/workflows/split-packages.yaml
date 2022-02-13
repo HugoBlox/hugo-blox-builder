@@ -22,7 +22,7 @@ jobs:
           - local_path: 'blog'
             split_repository: 'hugo-blog-theme'
           - local_path: 'documentation'
-            split_repository: 'hugo-documentation-theme'starter-hugo-portfolio-theme
+            split_repository: 'hugo-documentation-theme'
           - local_path: 'portfolio'
             split_repository: 'starter-hugo-portfolio-theme'
 
