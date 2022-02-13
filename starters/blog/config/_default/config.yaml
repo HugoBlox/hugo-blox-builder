@@ -4,10 +4,10 @@
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 title: Hugo Academic Blog Theme # Website name
-baseurl: 'https://example.com/' # Website URL
+baseURL: 'https://example.com/' # Website URL
 
 ############################
-## Page options
+## PAGE OPTIONS
 ############################
 
 cascade:
