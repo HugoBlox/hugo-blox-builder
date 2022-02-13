@@ -6,16 +6,16 @@ title: Alice Wu (吳恩達)
 superuser: true
 
 # Role/position
-role: 数据科学家
+role: ''
 
 # Status emoji
 status:
   icon: ☕️
 
 # Organizations/Affiliations
-organizations:
-- name: 腾讯
-  url: ""
+#organizations:
+#- name: 腾讯
+#  url: ""
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include distributed robotics, mobile computing and programmable matter.
