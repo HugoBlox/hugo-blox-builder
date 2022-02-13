@@ -1,0 +1,91 @@
+# SITE SETUP
+# Guide: https://wowchemy.com/docs/getting-started/
+# Documentation: https://wowchemy.com/docs/
+# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
+
+# Appearance
+
+theme: minimal
+day_night: true
+font: ''
+font_size: L
+
+# SEO
+
+site_type: Project
+local_business_type: ''
+org_name: ''
+description: 'My project documentation.'
+twitter: ''
+
+# Site header
+
+main_menu:
+  enable: true
+  align: l
+  show_logo: true
+  show_language: false
+  show_day_night: true
+  show_search: true
+  highlight_active_link: true
+
+# Localization
+
+date_format: 'Jan 2, 2006'
+time_format: '3:04 PM'
+
+# Site features
+
+highlight: false
+math: false
+diagram: false
+privacy_pack: false
+edit_page:
+  repo_url: ''
+  content_dir: ''
+  repo_branch: main
+  editable:
+    book: false
+show_related:
+  book: true
+sharing_image: ''
+reading_time: true
+section_pager: false
+docs_section_pager: true
+sharing: true
+copyright_license:
+  enable: false
+  allow_derivatives: false
+  share_alike: true
+  allow_commercial: false
+  notice: 'This work is licensed under {license}'
+plugins_js: []
+breadcrumb:
+  page_types:
+    book: true
+comments:
+  provider: ''
+  commentable:
+    book: true
+  disqus:
+    shortname: ''
+    show_count: true
+  commento:
+    url: ''
+search:
+  provider: wowchemy
+  algolia:
+    app_id: ''
+    api_key: ''
+    index_name: ''
+    show_logo: false
+marketing:
+  google_analytics: ''
+  google_tag_manager: ''
+  google_site_verification: ''
+cms:
+  branch: main
+  local_backend: false
+icon:
+  pack:
+    ai: false
