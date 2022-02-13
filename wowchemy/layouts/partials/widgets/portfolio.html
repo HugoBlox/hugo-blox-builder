@@ -28,7 +28,7 @@
     {{ if gt (len $st.Params.content.filter_button) 1 }}
     <div class="project-toolbar">
       <div class="project-filters">
-        <div class="btn-toolbar">
+        <div class="btn-toolbar {{if eq $columns "1"}}d-flex justify-content-center{{end}}">
           <div class="btn-group flex-wrap">
             {{ range $idx, $item := $st.Params.content.filter_button }}
               {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
