@@ -5,7 +5,7 @@
 
 {{ $page := . }}
 {{ $address := .address }}
-{{ $format_name := $page.Params.address_format | default site.Params.address_format | default "en-us" }}
+{{ $format_name := $page.Params.address_format | default site.Params.locale.address_format | default "en-us" }}
 
 {{ if not (isset site.Data.address_formats $format_name) }}{{ errorf "Address format `%s` missing from `data/address_formats.toml`!" $format_name }}{{end}}
 
