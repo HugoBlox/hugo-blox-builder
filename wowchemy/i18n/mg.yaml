@@ -1,0 +1,268 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Toggle navigation
+
+- id: table_of_contents
+  translation: Lohahevitra
+
+- id: on_this_page
+  translation: Votoaty
+
+- id: back_to_top
+  translation: Miverina eny ambony
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Akatona
+
+- id: languages
+  translation: Fiteny
+
+# General
+
+- id: related
+  translation: Mifandraika
+
+- id: minute_read
+  translation: minitra vakiana
+
+- id: previous
+  translation: Teo aloha
+
+- id: next
+  translation: Manaraka
+
+- id: figure
+  translation: 'Sary %d:'
+
+- id: edit_page
+  translation: Amboary ity pejy ity
+
+# Themes
+
+- id: theme_selector
+  translation: Asehoy ny safidy
+
+- id: theme_light
+  translation: Mazava endrika
+
+- id: theme_dark
+  translation: Matroka
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preprint
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Cite
+
+- id: btn_slides
+  translation: Slides
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Tetik’asa
+
+- id: btn_poster
+  translation: Afisy
+
+- id: btn_source
+  translation: Source Document
+
+- id: btn_copy
+  translation: Kopia
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: Mahaliana
+
+- id: education
+  translation: Fanabeazana
+
+- id: user_profile_latest
+  translation: Farany
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Jereo ny taratasy fanamarinana
+
+# Experience widget
+
+- id: experience
+  translation: Traik’efa
+
+- id: present
+  translation: Ankehitriny
+
+# Pages widget
+
+- id: more_pages
+  translation: Jereo daholo
+
+- id: more_posts
+  translation: Jereo ny lahatsoratra rehetra
+
+- id: more_talks
+  translation: Jereo ny hetsika rehetra
+
+- id: more_publications
+  translation: Jereo ny boky rehetra
+
+# Contact widget
+
+- id: contact_name
+  translation: Anarana
+
+- id: contact_email
+  translation: Mailaka
+
+- id: contact_message
+  translation: Hafatra
+
+- id: contact_attachment
+  translation: Handefa fichier
+
+- id: contact_send
+  translation: Alefaso
+
+- id: book_appointment
+  translation: Famandrihana fotoana
+
+# Publication/Event details
+
+- id: abstract
+  translation: Fehinteny
+
+- id: publication
+  translation: Publication
+
+- id: publication_type
+  translation: Karazana
+
+- id: date
+  translation: Daty
+
+- id: last_updated
+  translation: Nohavaozina farany tamin'ny
+
+- id: event
+  translation: Event
+
+- id: location
+  translation:  Toerana
+
+- id: pub_uncat
+  translation: Tsy voasokajy
+
+- id: pub_conf
+  translation: Taratasy fihaonambe
+
+- id: pub_journal
+  translation: Lahatsoratra amin'ny gazety
+
+- id: pub_preprint
+  translation: Preprint
+
+- id: pub_report
+  translation: Tatitra
+
+- id: pub_book
+  translation: Boky
+
+- id: pub_book_section
+  translation: fizarana boky
+
+- id: pub_thesis
+  translation: Thèse
+
+- id: pub_patent
+  translation: patanty
+
+# Project details
+
+- id: open_project_site
+  translation: Mandehana any amin'ny site tetik’asa
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Lahatsoratra
+
+- id: publications
+  translation: Publications
+
+- id: talks
+  translation: Hetsika
+
+- id: projects
+  translation: Tetik’asa
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Mpanoratra
+
+# Search
+
+- id: search
+  translation: Fikarohana
+
+- id: search_placeholder
+  translation: Fikarohana...
+
+- id: search_results
+  translation: valiny hita
+
+- id: search_no_results
+  translation: Tsy misy valiny hita
+
+- id: search_common_queries
+  translation: Fikarohana mahazatra
+
+# Error 404
+
+- id: page_not_found
+  translation: Pejy tsy hita
+
+- id: 404_recommendations
+  translation: Angamba iray amin'ireo no tadiavinao?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Mampiasa Cookies ity tranokala ity mba hahazoana antoka fa hahazo traikefa tsara indrindra amin'ny tranokalanay ianao.
+
+- id: cookie_dismiss
+  translation: Azoko!
+
+- id: cookie_learn
+  translation: Mianara bebe kokoa
+
+# Published with
+
+- id: published_with
+  translation: Navoaka niaraka tamin'ny {wowchemy} — ilay famoronana tranonkala {repo_link}open source{/repo_link} maimaim-poana izay manankahery ny mpamorona.
