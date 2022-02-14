@@ -1,7 +1,7 @@
 {{ $ := .root }}
 {{ $st := .page }}
 {{ $autolink := default true $st.Params.content.autolink }}
-{{ $data := site.Params }}
+{{ $data := $st.Params.content }}
 
 {{ $form_provider := lower $st.Params.content.form.provider | default "" }}
 {{ $form_provider_legacy := $st.Params.email_form | default 0 }}

@@ -31,6 +31,7 @@ Built upon the open source [Netlify CMS](https://www.netlifycms.org/) and [Netli
 3. (Optional) If your Git repository's branch is **not** `main`, define it in `config/_default/params.yaml`:
 
    ```yaml
-   cms:
-     branch: master
+   extensions:
+     cms:
+       branch: master
    ```
