@@ -32,6 +32,8 @@
     "stylelint-scss": "3.19.0"
   },
   "scripts": {
+    "view": "scripts/view-starter.sh",
+    "view:local": "scripts/view-starter-dev.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "yarn run lint:js && yarn run lint:style",
     "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
