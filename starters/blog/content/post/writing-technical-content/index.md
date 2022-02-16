@@ -1,25 +1,25 @@
 ---
-title: Writing technical content in Academic
+title: Writing technical content in Markdown
 date: 2019-07-12
 math: true
 diagram: true
 highlight: true
 image:
-  placement: 3
+  placement: 2
   caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
 ---
 
-Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.
+Wowchemy is designed to give technical content creators a seamless experience. You can focus on the content and Wowchemy handles the rest.
 
 **Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.**
 
-On this page, you'll find some examples of the types of technical content that can be rendered with Academic.
+On this page, you'll find some examples of the types of technical content that can be rendered with Wowchemy.
 
 ## Examples
 
 ### Code
 
-Academic supports a Markdown extension for highlighting code syntax. You can enable this feature by toggling the `highlight` option in your `config/_default/params.toml` file.
+Wowchemy supports a Markdown extension for highlighting code syntax. You can enable this feature by toggling the `syntax_highlighter` option in your `config/_default/params.toml` file.
 
     ```python
     import pandas as pd
@@ -37,9 +37,9 @@ data.head()
 
 ### Charts
 
-Academic supports the popular [Plotly](https://plot.ly/) chart format.
+Wowchemy supports the popular [Plotly](https://plot.ly/) format for interactive charts.
 
-Save your Plotly JSON in your page folder, for example `chart.json`, and then add the `{{</* chart data="chart" */>}}` shortcode where you would like the chart to appear.
+Save your Plotly JSON in your page folder, for example `line-chart.json`, and then add the `{{</* chart data="line-chart" */>}}` shortcode where you would like the chart to appear.
 
 Demo:
 
@@ -49,40 +49,47 @@ You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.
 
 ### Math
 
-Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.toml` file.
+Wowchemy supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
 
-To render *inline* or *block* math, wrap your LaTeX math with `$...$` or `$$...$$`, respectively.
+To render *inline* or *block* math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively. (We wrap the LaTeX math in the Wowchemy _math_ shortcode to prevent Hugo rendering our math as Markdown. The _math_ shortcode is new in v5.5-dev.)
 
 Example **math block**:
 
 ```latex
-$$\gamma_{n} = \frac{ 
-\left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
-\left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
-{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
+{{</* math */>}}
+$$
+\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}
+$$
+{{</* /math */>}}
 ```
 
 renders as
 
+{{< math >}}
 $$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
+{{< /math >}}
 
-Example **inline math** `$\nabla F(\mathbf{x}_{n})$` renders as $\nabla F(\mathbf{x}_{n})$.
+Example **inline math** `{{</* math */>}}$\nabla F(\mathbf{x}_{n})${{</* /math */>}}` renders as {{< math >}}$\nabla F(\mathbf{x}_{n})${{< /math >}}.
 
-Example **multi-line math** using the `\\\\` math linebreak:
+Example **multi-line math** using the math linebreak (`\\`):
 
 ```latex
-$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\\\
+{{</* math */>}}
+$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
 1-p_{0}^{*} & \text{if }k=0.\end{cases}$$
+{{</* /math */>}}
 ```
 
 renders as
 
-$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\\\
+{{< math >}}
+$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
 1-p_{0}^{*} & \text{if }k=0.\end{cases}$$
+{{< /math >}}
 
 ### Diagrams
 
-Academic supports a Markdown extension for diagrams. You can enable this feature by toggling the `diagram` option in your `config/_default/params.toml` file or by adding `diagram: true` to your page front matter.
+Wowchemy supports a Markdown extension for diagrams. You can enable this feature by toggling the `diagram` option in your `config/_default/params.toml` file or by adding `diagram: true` to your page front matter.
 
 An example **flowchart**:
 
@@ -226,37 +233,31 @@ Crash --> [*]
 
 ### Todo lists
 
-You can even write your todo lists in Academic too:
+You can even write your todo lists in Markdown too:
 
 ```markdown
 - [x] Write math example
-- [x] Write diagram example
+  - [x] Write diagram example
 - [ ] Do something else
 ```
 
 renders as
 
 - [x] Write math example
-- [x] Write diagram example
+  - [x] Write diagram example
 - [ ] Do something else
 
 ### Tables
 
-Represent your data in tables:
+Save your spreadsheet as a CSV file in your page's folder and then render it by adding the _Table_ shortcode to your page:
 
-```markdown
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+```go
+{{</* table path="results.csv" header="true" caption="Table 1: My results" */>}}
 ```
 
 renders as
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+{{< table path="results.csv" header="true" caption="Table 1: My results" >}}
 
 ### Callouts
 
