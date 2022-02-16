@@ -175,6 +175,16 @@ article .article-metadata {
   content: '\00B7';
 }
 
+caption {
+  // Override Bootstrap alignment
+  text-align: center;
+}
+
+// Note default light caption inherited from Bootstrap
+.dark caption {
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /*************************************************
  *  Content widgets
  **************************************************/

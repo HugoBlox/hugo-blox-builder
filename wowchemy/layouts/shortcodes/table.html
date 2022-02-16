@@ -4,7 +4,7 @@
 
 {{ $src := .Get "path" }}
 {{ $delimiter := .Get "delimiter" | default "," }}
-{{ $useHeaderRow := .Get "header" | default true }}
+{{ $useHeaderRow := (eq (lower (.Get "header")) "true") | default true }}
 {{ $caption := .Get "caption" }}
 
 {{ $is_remote := strings.HasPrefix $src "http" }}
@@ -13,7 +13,7 @@
 {{ end }}
 {{ $rows := getCSV $delimiter $src }}
 
-<table>
+<table class="table">
   {{ if $useHeaderRow }}
     {{ $headerRow := index $rows 0 }}
     {{ $rows = after 1 $rows }}

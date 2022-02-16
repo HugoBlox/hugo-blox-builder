@@ -201,6 +201,9 @@ function fixHugoOutput() {
 
   // Fix Goldmark task lists (remove bullet points).
   $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
+
+  // Bootstrap table style is opt-in and Goldmark doesn't add it.
+  $("table").addClass('.table');
 }
 
 // Get an element's siblings.
