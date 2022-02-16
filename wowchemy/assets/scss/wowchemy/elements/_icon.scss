@@ -9,3 +9,23 @@
   line-height: 1;
   position: relative;
 }
+
+// Emoji task lists
+
+.task-list input[type='checkbox']:checked {
+  appearance: initial;
+  width: 1em;
+  height: 1em;
+  border: none;
+  background: initial;
+  position: relative;
+}
+
+.task-list input[type='checkbox']:not(:checked) {
+  width: .9em;
+  height: .9em;
+}
+
+.task-list input[type='checkbox']:checked::after {
+  content:"✅";
+}
