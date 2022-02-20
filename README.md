@@ -30,6 +30,8 @@
 - ⬆️ **Updating?** View the [Update Guide](https://wowchemy.com/docs/hugo-tutorials/update/) and [Release Notes](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
 - 🚀 [Contribute improvements](./.github/contributing.md) or [suggest improvements](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
 
+<p align="center"><a href="https://wowchemy.com/docs/getting-started/hugo-cms/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Wowchemy CMS"></a></p>
+
 ## 💙 We ask you, humbly, to support this open source movement
 
 Today we ask you to defend the open source independence of the Wowchemy website builder and themes 🐧
@@ -44,7 +46,7 @@ Wowchemy is a **no-code** framework for creating _any_ kind of website using **w
 
 Choose from one of the starter templates to easily get started:
 
-[![Writing technical content](./starters/starters.webp)](https://wowchemy.com/hugo-themes/)
+[![Writing technical content](./.github/media/starters.webp)](https://wowchemy.com/hugo-themes/)
 
 ## The Future of Technical Content Writing
 
@@ -54,7 +56,7 @@ Choose from one of the starter templates to easily get started:
 
 ## Features
 
-[![Screenshot](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-themes/main/academic.png)](https://wowchemy.com)
+[![Screenshot](./.github/media/academic.png)](https://wowchemy.com)
 
 **Key features:**
 
@@ -80,7 +82,7 @@ Wowchemy comes with **automatic day (light) and night (dark) mode** built-in. Al
 
 Choose a stunning theme for your site and [customize it](https://wowchemy.com/docs/customization/#custom-theme) to your liking:
 
-[![Themes](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-themes/main/themes.png)](https://wowchemy.com/hugo-themes/)
+[![Themes](./.github/media/themes.png)](https://wowchemy.com/hugo-themes/)
 
 [Browse more templates and themes...](https://wowchemy.com/hugo-themes/)
 
