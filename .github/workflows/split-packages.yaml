@@ -27,6 +27,8 @@ jobs:
             split_repository: 'starter-hugo-portfolio-theme'
           - local_path: 'course'
             split_repository: 'starter-hugo-online-course'
+          - local_path: 'minimal'
+            split_repository: 'hugo-minimal-theme'
 
     steps:
       -   uses: actions/checkout@v2
