@@ -25,6 +25,8 @@ jobs:
             split_repository: 'hugo-documentation-theme'
           - local_path: 'portfolio'
             split_repository: 'starter-hugo-portfolio-theme'
+          - local_path: 'course'
+            split_repository: 'starter-hugo-online-course'
 
     steps:
       -   uses: actions/checkout@v2
