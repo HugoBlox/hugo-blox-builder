@@ -18,25 +18,39 @@
 
 🛋 **3. Write from your sofa or on the go with the integrated open source Content Management System (CMS)**
 
-[Check out the latest **demos**](https://wowchemy.com/hugo-themes/) of what you'll get in less than 10 minutes, or [get **inspired**](https://wowchemy.com/user-stories/) by user stories.
+[Check out the latest **demos**](https://wowchemy.com/hugo-themes/) of what you'll get in less than 60 seconds, or [get **inspired**](https://wowchemy.com/creators/) by other creators.
 
 - 👉 [**Get Started**](https://wowchemy.com/hugo-themes/)
 - 📚 [View the **documentation**](https://wowchemy.com/docs/)
-- 💬 [Chat with the **Wowchemy community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
-- 🐦 Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%28%23MadeWithWowchemy%20OR%20%23MadeWithAcademic%29&src=typed_query)
-- 💡 [Request a **feature** or report a **bug** for _Wowchemy_](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
-- ⬆️ **Updating Wowchemy?** View the [Update Guide](https://wowchemy.com/docs/update/) and [Release Notes](https://wowchemy.com/updates/)
+- 🙋‍♀️ **Have a question?**
+  - **Chat with us now on [Discord](https://discord.gg/z8wNYzb)** or explore the [Troubleshooting Guide]() and [Q&A Forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
+  - _Also, check out [Hugo Forum](https://discourse.gohugo.io) for Hugo Qs and [Netlify Forum](https://answers.netlify.com/) for Netlify Qs_
+- 🐦 Share your Wowchemy site with the community on Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=(%23MadeWithWowchemy%20OR%20%23MadeWithAcademic)&src=typed_query)
+- 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
+- ⬆️ **Updating?** View the [Update Guide](https://wowchemy.com/docs/hugo-tutorials/update/) and [Release Notes](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
+- 🚀 [Contribute improvements](./.github/contributing.md) or [suggest improvements](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
 
-## Crowd-funded open-source software
+## 💙 We ask you, humbly, to support this open source movement
 
-To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.
+Today we ask you to defend the open source independence of the Wowchemy website builder and themes 🐧
 
-### [❤️ Unlock rewards by supporting this open source software ❤️](https://wowchemy.com/sponsor/)
+We're an open source movement that depends on your support to stay online and thriving, but 99.9% of our creators don't give; they simply look the other way.
 
-## Ecosystem
+### [😍️ Click here to become a GitHub Sponsor, unlocking awesome perks such as _exclusive templates, tutorials, and widgets_](https://github.com/sponsors/gcushen)
 
-- **[Hugo Academic CLI](https://github.com/wowchemy/hugo-academic-cli/):** Automatically import academic publications from BibTeX
-- **[Awesome Hugo](https://github.com/wowchemy/awesome-hugo):** Scripts to help migrate content to new versions of Hugo
+## Starter Templates
+
+Wowchemy is a **no-code** framework for creating _any_ kind of website using **widgets**. Each site is 100% customizable to **make it your own**!
+
+Choose from one of the starter templates to easily get started:
+
+[![Writing technical content](./starters/starters.webp)](https://wowchemy.com/hugo-themes/)
+
+## The Future of Technical Content Writing
+
+**Write rich, future-proof content** using standardized Markdown along with bundled extensions for math and diagrams. Edit in the open source CMS or via an editor such as the online GitHub Editor, Jupyter Notebook, or RStudio! [Learn more](https://wowchemy.com/docs/content/writing-markdown-latex/)
+
+[![Writing technical content](https://wowchemy.com/uploads/readmes/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
 
 ## Features
 
@@ -54,7 +68,7 @@ To help us develop this template and software sustainably under the MIT license,
 - **Industry-Leading SEO** - Help get your website found on search engines and social media
 - **Media Galleries** - Display your images and videos with captions in a customizable gallery
 - **Mobile Friendly** - Look amazing on every screen with a mobile friendly version of your site
-- **Multi-language** - 34+ language packs including English, 中文, and Português
+- **Multi-language** - 35+ language packs including English, 中文, and Português
 - **Multi-user** - Each author gets their own profile page
 - **Privacy Pack** - Assists with GDPR
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
@@ -70,9 +84,10 @@ Choose a stunning theme for your site and [customize it](https://wowchemy.com/do
 
 [Browse more templates and themes...](https://wowchemy.com/hugo-themes/)
 
-## The Future of Technical Content Writing
+## Ecosystem
 
-[![Writing technical content](https://wowchemy.com/uploads/readmes/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
+- **[Hugo Academic CLI](https://github.com/wowchemy/hugo-academic-cli/):** Automatically import academic publications from BibTeX
+- **[Awesome Hugo](https://github.com/wowchemy/awesome-hugo):** Scripts to help migrate content to new versions of Hugo
 
 ## Join the community
 
