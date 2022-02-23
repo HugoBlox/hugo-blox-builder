@@ -104,7 +104,7 @@
   {{/* Special case: Slider widget. */}}
   {{ if in (slice "slider") $widget }}
     {{ $css_classes = print $css_classes " carousel slide" }}
-    {{ $extra_attributes = printf "data-ride=\"carousel\" data-interval=\"%s\"" (string $st.Params.interval | default "5000") }}
+    {{ $extra_attributes = printf "data-ride=\"carousel\" data-interval=\"%s\"" (cond ($st.Params.design.loop | default true) (string $st.Params.design.interval | default "3000") "false") }}
     {{ $use_container = false }}
   {{ end }}
 

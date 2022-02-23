@@ -11,15 +11,19 @@
 }
 
 // Responsive fullscreen option for widgets
-.home-section.fullscreen {
+// Allow section or elements (such as Slider slides) within it to be fullscreen
+.home-section.fullscreen,
+.fullscreen {
   min-height: calc(100vh - 70px);
 }
 @include media-breakpoint-down(md) {
-  .home-section.fullscreen {
+  .home-section.fullscreen,
+  .fullscreen {
     min-height: calc(100vh - 50px);
   }
 }
-.no-navbar .home-section.fullscreen {
+.no-navbar .home-section.fullscreen,
+.no-navbar .fullscreen {
   min-height: 100vh;
 }
 
