@@ -5,9 +5,9 @@
 
 {{ if ($copyright_license.enable | default false) }}
 
-  {{ $allow_commercial := .Params.copyright.license.allow_commercial | default site.Params.copyright.license.allow_commercial }}
-  {{ $allow_derivatives := .Params.copyright.license.allow_derivatives | default site.Params.copyright.license.allow_derivatives }}
-  {{ $share_alike := .Params.copyright.license.share_alike | default site.Params.copyright.license.share_alike }}
+  {{ $allow_commercial := $copyright_license.allow_commercial | default false }}
+  {{ $allow_derivatives := $copyright_license.allow_derivatives | default false }}
+  {{ $share_alike := $copyright_license.share_alike | default true }}
 
   {{ $cc_code := "by" }}
   {{ if not $allow_commercial }}
