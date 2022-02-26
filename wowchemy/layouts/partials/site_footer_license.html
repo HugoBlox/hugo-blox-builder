@@ -7,7 +7,7 @@
 
   {{ $allow_commercial := $copyright_license.allow_commercial | default false }}
   {{ $allow_derivatives := $copyright_license.allow_derivatives | default false }}
-  {{ $share_alike := $copyright_license.share_alike | default false }}
+  {{ $share_alike := $copyright_license.share_alike | default true }}
 
   {{ $cc_code := "by" }}
   {{ if not $allow_commercial }}
