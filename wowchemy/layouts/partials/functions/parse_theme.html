@@ -36,7 +36,7 @@
 
 {{/* Get Font Size. */}}
 
-{{- $font_size := lower site.Params.font_size | default "l" -}}
+{{- $font_size := lower site.Params.appearance.font_size | default "l" -}}
 {{- $font_sizes := dict "xs" 14 "s" 16 "m" 18 "l" 21 "xl" 23 -}}
 {{- $font_size_numeric := (index $font_sizes $font_size) | default (index $font_sizes "l") -}}
 {{- $scr.Set "font_size" $font_size_numeric -}}
