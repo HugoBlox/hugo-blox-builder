@@ -101,8 +101,15 @@
     {{- $stylesheets = $stylesheets | append (resources.Get (printf "css/libs/%s.css" . ) ) -}}
   {{- end -}}
   {{ $stylesheets = $stylesheets | resources.Concat "css/vendor-bundle.css" | minify }}
+  {{- if eq (getenv "WC_POST_CSS") "true" -}}
+    {{- $stylesheets = $stylesheets | postCSS -}}
+  {{- end -}}
   {{- if hugo.IsProduction -}}
     {{- $stylesheets = $stylesheets | fingerprint "md5" -}}
+  {{- end -}}
+  {{- if eq (getenv "WC_POST_CSS") "true" -}}
+    {{/* PostProcess must be last action in the pipeline */}}
+    {{- $stylesheets = $stylesheets | resources.PostProcess -}}
   {{- end -}}
   <link rel="stylesheet" href="{{$stylesheets.RelPermalink}}" media="print" onload="this.media='all'">
 
