@@ -7,7 +7,7 @@
 
 {{/* Validate Pub Type if defined */}}
 {{ if gt $pub_type (sub (len $pub_types) 1) }}
-  {{ warnf "Unknown publication type in %s" .Path }}
+  {{ warnf "Unknown publication type in %s" .File.Path }}
   {{ $pub_type = 0 }}
 {{ end }}
 
