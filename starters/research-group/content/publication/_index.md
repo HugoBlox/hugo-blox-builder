@@ -1,8 +1,11 @@
 ---
 title: Publications
-view: 4
 
-header:
-  caption: ""
-  image: ""
+# Listing view
+view: citation
+
+# Optional banner image (relative to `assets/media/` folder).
+banner:
+  caption: ''
+  image: ''
 ---
