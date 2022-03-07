@@ -16,7 +16,7 @@
   {{ $show_authors_only = true }}
 {{ end }}
 
-{{ $has_attachments := partial "functions/has_attachments" . }}
+{{ $has_attachments := partial "functions/has_attachments" $item }}
 
 {{/* Get summary. */}}
 {{ $summary := "" }}

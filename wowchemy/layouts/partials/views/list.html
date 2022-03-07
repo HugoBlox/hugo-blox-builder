@@ -22,7 +22,7 @@
   {{ $show_authors = true }}
 {{ end }}
 
-{{ $has_attachments := partial "functions/has_attachments" . }}
+{{ $has_attachments := partial "functions/has_attachments" $item }}
 
 <div class="view-list view-list-item">
   <i class="{{$icon_pack}} {{$icon}} pub-icon" aria-hidden="true"></i>
