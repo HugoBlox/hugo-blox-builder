@@ -22,8 +22,8 @@
 {{ $summary := "" }}
 {{ if $item.Params.summary }}
   {{ $summary = $item.Params.summary | markdownify | emojify }}
-{{ else if .Params.abstract }}
-  {{ $summary = .Params.abstract | markdownify | emojify | truncate (site.Params.abstract_length | default 135) }}
+{{ else if $item.Params.abstract }}
+  {{ $summary = $item.Params.abstract | markdownify | emojify | truncate (site.Params.abstract_length | default 135) }}
 {{ else if $item.Summary }}
   {{ $summary = $item.Summary }}
 {{ end }}
