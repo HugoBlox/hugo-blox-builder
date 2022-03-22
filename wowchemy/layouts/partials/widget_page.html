@@ -26,7 +26,12 @@
 {{ end }}
 
 {{/* Load page sections */}}
+{{ $has_mermaid := false }}
 {{ range $index, $st := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
+  {{ if .Page.Store.Get "has_mermaid" }}
+    {{ $has_mermaid = true }}
+  {{ end }}
+
   {{/* Begin widget styling */}}
   {{ $bg := $st.Params.design.background }}
   {{ $style := "" }}
@@ -152,3 +157,9 @@
     {{if $use_container}}</div>{{end}}
   </section>
 {{ end }}
+
+{{/* Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}
+{{ if $has_mermaid }}
+  {{ .Page.Store.Set "has_mermaid" true }}
+{{ end }}
+

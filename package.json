@@ -40,6 +40,7 @@
     "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "lint:style": "stylelint '*/**/*.{css,scss}'",
     "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
-    "stylelint-conflict-check": "stylelint-config-prettier-check"
+    "stylelint-conflict-check": "stylelint-config-prettier-check",
+    "update:starters": "hugo mod get -u ./..."
   }
 }

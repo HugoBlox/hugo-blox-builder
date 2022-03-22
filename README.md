@@ -25,7 +25,7 @@
 - 🙋‍♀️ **Have a question?**
   - **Chat with us now on [Discord](https://discord.gg/z8wNYzb)** or explore the [Troubleshooting Guide]() and [Q&A Forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
   - _Also, check out [Hugo Forum](https://discourse.gohugo.io) for Hugo Qs and [Netlify Forum](https://answers.netlify.com/) for Netlify Qs_
-- 🐦 Share your Wowchemy site with the community on Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=(%23MadeWithWowchemy%20OR%20%23MadeWithAcademic)&src=typed_query)
+- 🐦 Share your Wowchemy site with the community on Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%23MadeWithWowchemy&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
 - ⬆️ **Updating?** View the [Update Guide](https://wowchemy.com/docs/hugo-tutorials/update/) and [Release Notes](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
 - 🚀 [Contribute improvements](./.github/contributing.md) or [suggest improvements](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
