@@ -4,8 +4,6 @@
 
 import * as params from '@params';
 
-import {fixMermaid} from './wowchemy-utils';
-
 // Enable core slide features.
 var enabledPlugins = [RevealMarkdown, RevealHighlight, RevealSearch, RevealNotes, RevealMath.MathJax3, RevealZoom];
 
@@ -140,9 +138,4 @@ if (params.slides.diagram) {
   mermaidOptions['startOnLoad'] = false;
 
   mermaid.initialize(mermaidOptions);
-
-  // Fix Mermaid conflict with Hightlight JS.
-  document.addEventListener('DOMContentLoaded', function () {
-    fixMermaid(false);
-  });
 }

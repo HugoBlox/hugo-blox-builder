@@ -22,10 +22,10 @@
 }
 
 .task-list input[type='checkbox']:not(:checked) {
-  width: .9em;
-  height: .9em;
+  width: 0.9em;
+  height: 0.9em;
 }
 
 .task-list input[type='checkbox']:checked::after {
-  content:"✅";
+  content: '✅';
 }

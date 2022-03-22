@@ -8,7 +8,10 @@ markup:
         block: true
         title: true
   highlight:
-    codeFences: false
+    codeFences: true
+    noHl: true
+    lineNumbersInTable: false
+    noClasses: false
   tableOfContents:
     startLevel: 2
     endLevel: 3
@@ -31,7 +34,7 @@ sitemap:
   changefreq: weekly
 module:
   hugoVersion:
-    min: '0.87.0'
+    min: '0.95.0'
     extended: true
   mounts:
     - source: content

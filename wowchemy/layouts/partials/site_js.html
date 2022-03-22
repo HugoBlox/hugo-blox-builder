@@ -28,7 +28,8 @@
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
       {{ end }}
 
-      {{ if or .Params.diagram site.Params.features.diagram.enable }}
+      {{ if .Page.Store.Get "has_mermaid" }}
+        {{/* Title attribute is used by wowchemy-theming.js to detect Mermaid */}}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
       {{ end }}
 

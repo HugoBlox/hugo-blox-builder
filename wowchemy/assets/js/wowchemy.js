@@ -203,7 +203,7 @@ function fixHugoOutput() {
   $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
 
   // Bootstrap table style is opt-in and Goldmark doesn't add it.
-  $("table").addClass('.table');
+  $('table').addClass('.table');
 }
 
 // Get an element's siblings.
