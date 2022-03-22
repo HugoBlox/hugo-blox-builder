@@ -12,7 +12,6 @@
 {{ else }}
   {{ $items_count = $items_count | default 5 }}
 {{ end }}
-{{ $items_sort := $st.Params.content.order | default "desc" }}
 
 {{/* Query */}}
 {{ $query := site.RegularPages }}
@@ -59,8 +58,10 @@
 {{ $count := len $query }}
 
 {{/* Sort */}}
-{{ $sort_by := "Date" }}
-{{ $query = sort $query $sort_by $items_sort }}
+{{ $sort_by := $st.Params.content.sort_by | default "Date" }}
+{{ $sort_ascending := $st.Params.content.sort_ascending | default (eq $st.Params.content.order "asc") | default false }}
+{{ $sort_order := cond $sort_ascending "asc" "desc" }}
+{{ $query = sort $query $sort_by $sort_order }}
 
 {{/* Offset and Limit */}}
 {{ if gt $items_offset 0 }}
