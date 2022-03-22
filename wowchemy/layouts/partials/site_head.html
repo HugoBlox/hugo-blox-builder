@@ -68,8 +68,8 @@
     {{ $desc = .Params.abstract }}
   {{ else if .IsPage }}
     {{ $desc = .Summary }}
-  {{ else if site.Params.marketing.seo.org_name }}
-    {{ $desc = site.Params.marketing.seo.org_name }}
+  {{ else if site.Params.marketing.seo.description }}
+    {{ $desc = site.Params.marketing.seo.description }}
   {{ else }}
     {{ $desc = $superuser_role }}
   {{ end }}
