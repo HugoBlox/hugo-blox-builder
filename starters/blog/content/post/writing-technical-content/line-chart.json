@@ -52,10 +52,7 @@
     "width": 800,
     "xaxis": {
       "type": "date",
-      "range": [
-        946702800000,
-        1451624400000
-      ],
+      "range": [946702800000, 1451624400000],
       "title": "Source: <a href=\"http://www.scribblrs.com/\">Scribblrs</a><br>Source: <a href=\"http://www.internetlivestats.com/total-number-of-websites/\">Internet Live Stats</a>",
       "showgrid": false,
       "autorange": true,
@@ -63,10 +60,7 @@
     },
     "yaxis": {
       "type": "linear",
-      "range": [
-        0,
-        1124750578.9473684
-      ],
+      "range": [0, 1124750578.9473684],
       "title": "",
       "autorange": true
     },

@@ -66,8 +66,6 @@ features:
       - latex
   math:
     enable: false
-  diagram:
-    enable: false
   privacy_pack:
     enable: false
   repository:

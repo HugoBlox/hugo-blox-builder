@@ -27,9 +27,9 @@ Lists
 Tuples
 
 - Tuples are immutable - they can't be changed
-- Tuples are faster than lists 
+- Tuples are faster than lists
 - Syntax: `a_tuple = (1, 2.0, 'Hello world')`
-{{< /spoiler >}}
+  {{< /spoiler >}}
 
 {{< spoiler text="Is Python case-sensitive?" >}}
 Yes

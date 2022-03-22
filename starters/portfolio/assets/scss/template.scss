@@ -32,7 +32,7 @@ body {
 
 // no navbar shadow
 .navbar {
-  box-shadow: none !important;  // 'important' to override dark mode box-shadow too.
+  box-shadow: none !important; // 'important' to override dark mode box-shadow too.
 }
 
 // custom section padding
@@ -82,7 +82,7 @@ ul.network-icon .big-icon {
     max-width: 880px;
   }
 }
-@media (min-width: 992px){
+@media (min-width: 992px) {
   .home-section .container {
     max-width: 880px;
   }
@@ -106,9 +106,9 @@ ul.network-icon .big-icon {
 
 // Smaller Name and Role text on About page than in homepage `about.avatar` widget
 .wg-about .portrait-title h2 {
-  font-size: 1rem
+  font-size: 1rem;
 }
 
 .wg-about .portrait-title h3 {
-  font-size: .8rem
+  font-size: 0.8rem;
 }

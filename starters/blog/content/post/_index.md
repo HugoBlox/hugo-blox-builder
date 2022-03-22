@@ -8,6 +8,6 @@ flip_alt_rows: false
 
 # Optional header image (relative to `assets/media/` folder).
 banner:
-  caption: ""
-  image: ""
+  caption: ''
+  image: ''
 ---

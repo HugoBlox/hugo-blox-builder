@@ -33,7 +33,7 @@ experience:
         * Dissertation on Y
         * Basketball team
         * DJ club
-        
+
   - title: BEng Electronic Engineering
     company: University X
     company_url: ''

@@ -1,6 +1,6 @@
 ---
 title: Docs
-type: book  # Do not modify.
+type: book # Do not modify.
 toc: false
 ---
 

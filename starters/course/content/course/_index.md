@@ -5,8 +5,8 @@ type: page
 view: compact
 
 header:
-  caption: ""
-  image: ""
+  caption: ''
+  image: ''
 ---
 
 Explore our courses below and expand your knowledge!

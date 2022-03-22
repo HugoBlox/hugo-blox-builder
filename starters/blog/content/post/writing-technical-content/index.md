@@ -2,7 +2,6 @@
 title: Writing technical content in Markdown
 date: 2019-07-12
 math: true
-diagram: true
 highlight: true
 image:
   placement: 2
@@ -51,7 +50,7 @@ You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.
 
 Wowchemy supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
 
-To render *inline* or *block* math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively. (We wrap the LaTeX math in the Wowchemy _math_ shortcode to prevent Hugo rendering our math as Markdown. The _math_ shortcode is new in v5.5-dev.)
+To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively. (We wrap the LaTeX math in the Wowchemy _math_ shortcode to prevent Hugo rendering our math as Markdown. The _math_ shortcode is new in v5.5-dev.)
 
 Example **math block**:
 
@@ -83,8 +82,12 @@ $$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
 renders as
 
 {{< math >}}
-$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
-1-p_{0}^{*} & \text{if }k=0.\end{cases}$$
+
+$$
+f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
+1-p_{0}^{*} & \text{if }k=0.\end{cases}
+$$
+
 {{< /math >}}
 
 ### Diagrams
@@ -170,7 +173,9 @@ An example **class diagram**:
     ```mermaid
     classDiagram
     Class01 <|-- AveryLongClass : Cool
-    <<interface>> Class01
+    Class03 *-- Class04
+    Class05 o-- Class06
+    Class07 .. Class08
     Class09 --> C2 : Where am i?
     Class09 --* C3
     Class09 --|> Class07
@@ -179,11 +184,7 @@ An example **class diagram**:
     Class01 : size()
     Class01 : int chimp
     Class01 : int gorilla
-    class Class10 {
-      <<service>>
-      int id
-      size()
-    }
+    Class08 <--> C2: Cool label
     ```
 
 renders as
@@ -191,7 +192,9 @@ renders as
 ```mermaid
 classDiagram
 Class01 <|-- AveryLongClass : Cool
-<<interface>> Class01
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
 Class09 --> C2 : Where am i?
 Class09 --* C3
 Class09 --|> Class07
@@ -200,11 +203,7 @@ Class07 : Object[] elementData
 Class01 : size()
 Class01 : int chimp
 Class01 : int gorilla
-class Class10 {
-  <<service>>
-  int id
-  size()
-}
+Class08 <--> C2: Cool label
 ```
 
 An example **state diagram**:
@@ -261,7 +260,7 @@ renders as
 
 ### Callouts
 
-Academic supports a [shortcode for callouts](https://wowchemy.com/docs/content/writing-markdown-latex/#callouts), also referred to as *asides*, *hints*, or *alerts*. By wrapping a paragraph in `{{%/* callout note */%}} ... {{%/* /callout */%}}`, it will render as an aside.
+Academic supports a [shortcode for callouts](https://wowchemy.com/docs/content/writing-markdown-latex/#callouts), also referred to as _asides_, _hints_, or _alerts_. By wrapping a paragraph in `{{%/* callout note */%}} ... {{%/* /callout */%}}`, it will render as an aside.
 
 ```markdown
 {{%/* callout note */%}}
@@ -291,7 +290,7 @@ renders as
 
 ### Icons
 
-Academic enables you to use a wide range of [icons from _Font Awesome_ and _Academicons_](https://sourcethemes.com/academic/docs/page-builder/#icons) in addition to [emojis](https://sourcethemes.com/academic/docs/writing-markdown-latex/#emojis).
+Academic enables you to use a wide range of [icons from _Font Awesome_ and _Academicons_](https://wowchemy.com/docs/getting-started/page-builder/#icons) in addition to [emojis](https://wowchemy.com/docs/content/writing-markdown-latex/#emojis).
 
 Here are some examples using the `icon` shortcode to render icons:
 
