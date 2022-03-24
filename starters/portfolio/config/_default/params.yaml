@@ -96,8 +96,5 @@ extensions:
   cms:
     branch: main
     local_backend: false
-  isotope:
-    # Enable if you use the Portfolio widget or Publication filter
-    enable: true
   academicons:
     enable: false

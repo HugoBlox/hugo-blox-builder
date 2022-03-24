@@ -6,6 +6,9 @@
 {{ $columns := $st.Params.design.columns | default "2" }}
 {{ $view := $st.Params.design.view | default "masonry" }}
 
+{{/* Require Isotope */}}
+{{ $.Page.Store.Set "has_isotope" true }}
+
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
   {{ with $st.Content }}{{ . }}{{ end }}
