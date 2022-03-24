@@ -1,6 +1,6 @@
 # [Hugo Academic Theme](https://github.com/wowchemy/starter-hugo-academic)
 
-[![Screenshot](https://raw.githubusercontent.com/wowchemy/wowchemy-hugo-themes/main/academic.png)](https://wowchemy.com/hugo-themes/)
+[![Screenshot](./preview.png)](https://wowchemy.com/hugo-themes/)
 
 The Hugo **Academic Resumé Template** empowers you to easily create your job-winning online resumé, showcase your academic publications, and create online courses or knowledge bases to grow your audience.
 
