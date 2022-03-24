@@ -1,4 +1,4 @@
-{{ if and site.Params.sharing (ne .Params.share false) }}
+{{ if ne .Params.share false }}
 <div class="share-box">
   <ul class="share">
     {{ range where site.Data.page_sharer.buttons "enable" true }}
