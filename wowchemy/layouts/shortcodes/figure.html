@@ -9,6 +9,8 @@
 {{ $zoom := eq (.Get "lightbox" | default "true") "true" }}
 {{ $id := anchorize (.Get "id" | default ($caption | plainify)) }}
 {{ $alt := .Get "alt" | default ($caption | plainify) }}
+{{ $link := .Get "link" }}
+{{ $zoom = cond (ne $link "") false $zoom }}
 {{ $img_class := "" }}
 {{ if eq (.Get "theme" | lower) "light" }}{{ $img_class = printf "%s img-light" $img_class }}{{end}}
 {{ if eq (.Get "theme" | lower) "dark" }}{{ $img_class = printf "%s img-dark" $img_class }}{{end}}
@@ -25,6 +27,9 @@
 <figure {{ with .Get "class" }}class="{{.}}"{{end}} {{ with $id }}id="figure-{{ . }}"{{ end }}>
   <div class="d-flex justify-content-center">
     <div class="w-100" {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
+      {{- if $link -}}
+        <a href="{{ $link }}" {{ if strings.HasPrefix $link "http" }} target="_blank" rel="noopener"{{ end }}>
+      {{- end -}}
       {{- if $img -}}
         {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
         {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
@@ -57,6 +62,9 @@
         <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
              {{- with .Get "width" }} width="{{.}}"{{end}} {{- with .Get "height" }} height="{{.}}"{{end}}
              {{- with $img_class }} class="{{.}}"{{end}} />
+      {{- end -}}
+      {{- if $link -}}
+        </a>
       {{- end -}}
     </div>
   </div>
