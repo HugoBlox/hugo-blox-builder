@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('.js-copy-cite').click(function (e) {
     e.preventDefault();
     // Get text to copy.
-    let citation = document.querySelector('#modal .modal-body').innerHTML;
+    let citation = document.querySelector('#modal .modal-body code').innerHTML;
     navigator.clipboard
       .writeText(citation)
       .then(function () {
