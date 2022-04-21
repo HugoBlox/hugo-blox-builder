@@ -1,13 +1,27 @@
 // Minimal template style
 
-// Narrower container for homepage sections (primarily Blank widget content).
-@media (min-width: 1200px) {
-  .home-section .container {
-    max-width: 880px;
-  }
+// Custom avatar size on homepage
+.avatar {
+  width: auto;
+  height: auto;
+  max-width: 225px;
+  max-height: 225px;
 }
-@media (min-width: 992px) {
-  .home-section .container {
-    max-width: 880px;
-  }
+
+#profile .network-icon {
+  margin-top: 0.5rem;
+}
+
+ul.network-icon .big-icon {
+  font-size: 1.5rem;
+}
+
+.dark .portrait-title h3 {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+}
+
+.dark .portrait-title h2 {
+  color: #fff;
+  font-weight: bold;
 }
