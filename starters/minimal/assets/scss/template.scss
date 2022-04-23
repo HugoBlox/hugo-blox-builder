@@ -16,6 +16,13 @@ ul.network-icon .big-icon {
   font-size: 1.5rem;
 }
 
+.network-icon li {
+  @include media-breakpoint-down(sm) {
+    /* Min 48px Lighthouse tap targets on mobile */
+    margin-right: 12px;
+  }
+}
+
 .dark .portrait-title h3 {
   color: rgba(255, 255, 255, 0.9);
   font-weight: bold;

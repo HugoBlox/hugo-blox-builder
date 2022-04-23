@@ -2,7 +2,4 @@ module github.com/wowchemy/starter-minimal
 
 go 1.14
 
-require (
-	github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5 v5.0.0-20220412113704-f6b6d736055b // indirect
-	github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5 v5.0.0-20220412113704-f6b6d736055b // indirect
-)
+require github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5 v5.0.0-20220421125247-378aa6124fa1 // indirect

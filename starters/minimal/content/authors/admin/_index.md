@@ -19,7 +19,7 @@ status:
 #  url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: ''
 
 # Social/Academic Networking
 # For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
@@ -53,8 +53,6 @@ social:
     icon_pack: fas
     label: View Resume
     link: uploads/resume.pdf
-
 # Enter email to display Gravatar (if Gravatar enabled in Config)
 #email: ""
 ---
-
