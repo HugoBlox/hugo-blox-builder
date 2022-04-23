@@ -17,6 +17,8 @@ jobs:
       matrix:
         # define package to repository map
         package:
+          - local_path: 'academic'
+            split_repository: 'starter-hugo-academic'
           - local_path: 'markdown-slides'
             split_repository: 'starter-hugo-markdown-slides'
           - local_path: 'blog'
