@@ -16,7 +16,7 @@
 
 🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and widgets**
 
-🛋 **3. Write from your sofa or on the go with the integrated open source Content Management System (CMS)**
+🛋 **3. Write from your sofa or on the go with the integrated open source Content Management System (CMS) powered by [Netlify](https://www.netlify.com/)**
 
 [Check out the latest **demos**](https://wowchemy.com/hugo-themes/) of what you'll get in less than 60 seconds, or [get **inspired**](https://wowchemy.com/creators/) by other creators.
 
