@@ -1,0 +1,23 @@
+// Remove shadow under navbar
+.navbar {
+  box-shadow: none;
+}
+
+// Full width Portfolio filter toolbar
+.btn-toolbar .btn-group {
+  flex: 1;
+}
+
+// Custom section spacing
+.home-section {
+  padding: 1.5rem 0 1.5rem 0;
+}
+
+.section-heading {
+  margin-bottom: 3rem !important;
+}
+
+// Center CTA button
+.cta-group {
+  justify-content: center;
+}

@@ -1,5 +1,4 @@
 markup:
-  _merge: deep
   defaultMarkdownHandler: goldmark
   goldmark:
     renderer:
@@ -9,7 +8,10 @@ markup:
         block: true
         title: true
   highlight:
-    codeFences: false
+    codeFences: true
+    noHl: true
+    lineNumbersInTable: false
+    noClasses: false
   tableOfContents:
     startLevel: 2
     endLevel: 3
@@ -28,9 +30,11 @@ outputFormats:
     isPlainText: true
     mediatype: text/netlify
     notAlternative: true
+sitemap:
+  changefreq: weekly
 module:
   hugoVersion:
-    min: '0.87.0'
+    min: '0.95.0'
     extended: true
   mounts:
     - source: content
@@ -47,9 +51,13 @@ module:
       target: i18n
     - source: archetypes
       target: archetypes
+security:
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^WC_
 params:
-  theme: minimal
-  font: native
-  date_format: 'Jan 2, 2006'
-  time_format: '3:04 PM'
-  address_format: en-us
+  locale:
+    date_format: 'Jan 2, 2006'
+    time_format: '3:04 PM'
+    address_format: en-us

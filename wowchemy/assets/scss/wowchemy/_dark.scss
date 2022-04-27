@@ -45,7 +45,7 @@ body.dark,
 }
 
 .dark pre,
-.dark code {
+.dark code:not(.hljs) {
   color: rgb(139, 233, 253);
   background-color: rgb(68, 71, 90);
 }

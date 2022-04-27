@@ -1,19 +1,42 @@
 {{- $scr := .Scratch -}}
 
 {{/* Get name of site's Color Theme. Precedence: Params.yaml > Default (Minimal) */}}
-{{- $theme_index := (site.Params.theme | lower | replaceRE "\\s" "_") | default "minimal" -}}
-{{- if not (isset site.Data.themes $theme_index) -}}
-  {{- warnf "Theme `%s` not found at `data/themes/%s.toml`" site.Params.theme $theme_index -}}
-  {{- $theme_index = "minimal" -}}
+{{- $theme_day_index := (site.Params.appearance.theme_day | lower | replaceRE "\\s" "_") | default "minimal" -}}
+{{- $theme_night_index := (site.Params.appearance.theme_night | lower | replaceRE "\\s" "_") | default "minimal" -}}
+
+{{- if not (index (index site.Data.themes $theme_day_index) "light") -}}
+  {{- warnf "Theme `%s` not found at `data/themes/%s.toml`" site.Params.appearance.theme_day $theme_day_index -}}
+  {{- $theme_day_index = "minimal" -}}
+{{ end }}
+
+{{- if not (index (index site.Data.themes $theme_night_index) "dark") -}}
+  {{- warnf "Theme `%s` not found at `data/themes/%s.toml`" site.Params.appearance.theme_night $theme_night_index -}}
+  {{- $theme_night_index = "minimal" -}}
+{{ end }}
+
+{{ $theme_day := index (index site.Data.themes $theme_day_index) "light" }}
+{{ $theme_night := index (index site.Data.themes $theme_night_index) "dark" }}
+
+{{/* Legacy support for `light` as boolean rather than map. */}}
+{{ $light_is_map := reflect.IsMap $theme_day }}
+{{ if not $light_is_map }}
+  {{ errorf "Upgrade your %s theme pack for v5.5. Convert `light = ...` to `[light]`." $theme_day_index }}
+{{ end }}
+
+{{/* Default CSS body class. */}}
+{{ if site.Params.appearance.theme_day }}
+  {{ $scr.Set "light" true }}
+{{ else }}
+  {{ $scr.Set "light" false }}
 {{ end }}
 
 {{/* Get name of site's Font Set. Precedence: Params.yaml > Inherit from Color Theme > Default (Minimal) */}}
-{{- $font_index := (site.Params.font | lower | replaceRE "\\s" "_") | default ((index site.Data.themes $theme_index).font | lower | replaceRE "\\s" "_") | default $theme_index -}}
+{{- $font_index := (site.Params.appearance.font | lower | replaceRE "\\s" "_") | default ((index site.Data.themes $theme_day_index).font | lower | replaceRE "\\s" "_") | default $theme_day_index -}}
 {{- $font_index := cond (isset site.Data.fonts $font_index) $font_index "minimal" -}}
 
 {{/* Get Font Size. */}}
 
-{{- $font_size := lower site.Params.font_size | default "l" -}}
+{{- $font_size := lower site.Params.appearance.font_size | default "l" -}}
 {{- $font_sizes := dict "xs" 14 "s" 16 "m" 18 "l" 21 "xl" 23 -}}
 {{- $font_size_numeric := (index $font_sizes $font_size) | default (index $font_sizes "l") -}}
 {{- $scr.Set "font_size" $font_size_numeric -}}
@@ -30,49 +53,35 @@
 
 {{/* Load Theme. */}}
 
-{{ $theme := index site.Data.themes $theme_index }}
 
-{{/* Legacy support for `light` as boolean rather than map. */}}
-{{ $light_is_map := reflect.IsMap "light" }}
-{{ $light_theme := dict }}
-{{ if $light_is_map }}
-  {{ $scr.Set "light" ($theme.is_light | default true) }}
-  {{ $light_theme = $theme.light }}
+{{ if site.Params.appearance.theme_day }}
+  {{- $scr.Set "primary" ($theme_day.primary | default "#1565c0") -}}
 {{ else }}
-  {{ $scr.Set "light" ($theme.light | default true) }}
+  {{- $scr.Set "primary" ($theme_night.primary | default "#1565c0") -}}
 {{ end }}
 
-{{ if ($scr.Get "light") }}
-  {{- $scr.Set "background" ($theme.background | default "rgb(255, 255, 255)") -}}
-  {{- $scr.Set "dark_background" ($theme.dark.background | default "hsla(231, 15%, 16%, 1)") -}}
-  {{- $scr.Set "home_section_odd" ($theme.home_section_odd | default "rgb(255, 255, 255)") -}}
-  {{- $scr.Set "home_section_even" ($theme.home_section_even | default "rgb(247, 247, 247)") -}}
-  {{- $scr.Set "dark_home_section_odd" ($theme.dark.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
-  {{- $scr.Set "dark_home_section_even" ($theme.dark.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
-{{ else }}
-  {{- $scr.Set "background" ($light_theme.background | default "rgb(255, 255, 255)") -}}
-  {{- $scr.Set "dark_background" ($theme.background | default "rgb(40, 42, 54)") -}}
-  {{- $scr.Set "home_section_odd" ($light_theme.home_section_odd | default "rgb(255, 255, 255)") -}}
-  {{- $scr.Set "home_section_even" ($light_theme.home_section_even | default "rgb(247, 247, 247)") -}}
-  {{- $scr.Set "dark_home_section_odd" ($theme.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
-  {{- $scr.Set "dark_home_section_even" ($theme.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
-{{ end }}
+{{- $scr.Set "background" ($theme_day.background | default "rgb(255, 255, 255)") -}}
+{{- $scr.Set "home_section_odd" ($theme_day.home_section_odd | default "rgb(255, 255, 255)") -}}
+{{- $scr.Set "home_section_even" ($theme_day.home_section_even | default "rgb(247, 247, 247)") -}}
 
-{{- $scr.Set "link" ($theme.link | default $theme.primary) -}}
-{{- $scr.Set "link_hover" ($theme.link_hover | default $theme.primary) -}}
-{{- $scr.Set "dark_link" ($theme.dark.link | default $theme.primary) -}}
-{{- $scr.Set "dark_link_hover" ($theme.dark.link_hover | default $theme.primary) -}}
+{{- $scr.Set "dark_background" ($theme_night.background | default "hsla(231, 15%, 16%, 1)") -}}
+{{- $scr.Set "dark_home_section_odd" ($theme_night.home_section_odd | default "hsla(231, 15%, 18%, 1)") -}}
+{{- $scr.Set "dark_home_section_even" ($theme_night.home_section_even | default "hsla(231, 15%, 16%, 1)") -}}
 
-{{- $scr.Set "link_decoration" ($theme.link_decoration | default "inherit") -}}
+{{- $scr.Set "link" ($theme_day.link | default $theme_day.primary | default ($scr.Get "primary")) -}}
+{{- $scr.Set "link_hover" ($theme_day.link_hover | default $theme_day.primary | default ($scr.Get "primary")) -}}
+{{- $scr.Set "link_decoration" ($theme_day.link_decoration | default "inherit") -}}
 
-{{- $scr.Set "primary" $theme.primary -}}
+{{- $scr.Set "dark_link" ($theme_night.link | default $theme_night.primary | default ($scr.Get "primary")) -}}
+{{- $scr.Set "dark_link_hover" ($theme_night.link_hover | default $theme_night.primary | default ($scr.Get "primary")) -}}
+{{- $scr.Set "dark_link_decoration" ($theme_night.link_decoration | default "inherit") -}}
 
-{{- $scr.Set "menu_primary" $theme.menu_primary -}}
-{{- $scr.Set "menu_text" $theme.menu_text -}}
-{{- $scr.Set "menu_text_active" $theme.menu_text_active -}}
-{{- $scr.Set "menu_title" $theme.menu_title -}}
+{{- $scr.Set "menu_primary" $theme_day.menu_primary -}}
+{{- $scr.Set "menu_text" $theme_day.menu_text -}}
+{{- $scr.Set "menu_text_active" $theme_day.menu_text_active -}}
+{{- $scr.Set "menu_title" $theme_day.menu_title -}}
 
-{{- $scr.Set "dark_menu_primary" ($theme.dark.menu_primary | default "rgb(40, 42, 54)") -}}
-{{- $scr.Set "dark_menu_text" ($theme.dark.menu_text | default "white") -}}
-{{- $scr.Set "dark_menu_text_active" ($theme.dark.menu_text_active | default "rgba(255, 255, 255, 0.8)") -}}
-{{- $scr.Set "dark_menu_title" ($theme.dark.menu_title | default "white") -}}
+{{- $scr.Set "dark_menu_primary" ($theme_night.menu_primary | default "rgb(40, 42, 54)") -}}
+{{- $scr.Set "dark_menu_text" ($theme_night.menu_text | default "white") -}}
+{{- $scr.Set "dark_menu_text_active" ($theme_night.menu_text_active | default "rgba(255, 255, 255, 0.8)") -}}
+{{- $scr.Set "dark_menu_title" ($theme_night.menu_title | default "white") -}}

@@ -9,6 +9,8 @@
 node_modules/
 
 # Hugo
+.hugo_build.lock
+go.sum
 resources/
 public/
 

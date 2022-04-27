@@ -15,7 +15,7 @@
 
   {{ if not (in (slice "event" "page") $page.Type) | and (ne $page.Params.show_date false) }}
   <span class="article-date">
-    {{ $date := $page.Lastmod | time.Format site.Params.date_format }}
+    {{ $date := $page.Lastmod | time.Format site.Params.locale.date_format }}
     {{ if eq $page.Type "publication" }}
       {{ $date = $page.Date | time.Format (site.Params.publications.date_format | default "January, 2006") }}
     {{ else }}
@@ -46,11 +46,9 @@
   {{ end }}
 
   {{/* Show Disqus comment count if enabled. */}}
-  {{ $comments_provider := trim (site.Params.comments.provider | lower) " " }}
-  {{ $commentable_page_types := site.Params.comments.commentable | default dict }}
-  {{ $commentable_page_type := index $commentable_page_types $page.Type | default false }}
-  {{ $commentable_page := (ne $page.Params.commentable false) | and $commentable_page_type }}
-  {{ if (eq $comments_provider "disqus") | and (site.Params.comments.disqus.show_count | default true) | and $commentable_page }}
+  {{ $comments_provider := trim (site.Params.features.comment.provider | lower) " " }}
+  {{ $commentable_page := $page.Params.commentable }}
+  {{ if (eq $comments_provider "disqus") | and (site.Params.features.comment.disqus.show_count | default true) | and $commentable_page }}
     <span class="middot-divider"></span>
     <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}

@@ -8,7 +8,7 @@
 {{ $index := .index }}
 
 {{if eq $view_dtype "int" | or (eq $view_dtype "int64") }}
-  {{/* Support legacy numeric views 1-4 */}}
+  {{/* Support legacy numeric views 1-5 */}}
   {{ if eq $view 1 }}
     {{ $view_file = "list" }}
   {{ else if eq $view 3 }}

@@ -4,8 +4,8 @@
 
 {{ partial "site_head" . }}
 
-{{ $show_navbar := site.Params.main_menu.enable | default true }}
-{{- $highlight_active_link := site.Params.main_menu.highlight_active_link | default true -}}
+{{ $show_navbar := ((site.Params.header.navbar.enable | default true) | and (ne .Params.header.navbar.enable false)) | or .Params.header.navbar.enable }}
+{{- $highlight_active_link := site.Params.header.navbar.highlight_active_link | default true -}}
 <body id="top" data-spy="scroll" {{ if $show_navbar }}data-offset="70"{{end}} data-target="{{ if or .IsHome (eq .Type "widget_page") | and $highlight_active_link }}#navbar-main{{else}}#TableOfContents{{end}}" class="page-wrapper {{with .Params.design.css_class}}{{.}}{{end}} {{ if not (.Scratch.Get "light") }}dark{{end}} {{ if not $show_navbar }}no-navbar{{end}}" {{with .File}}data-wc-page-id="{{.File.UniqueID}}"{{end}} {{with .Params.design.css_style}}style="{{. | safeCSS}}"{{end}}>
 
   {{/* Initialise Wowchemy. */}}
@@ -13,7 +13,7 @@
   {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
   {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */\n" }}
   {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
-  {{ $wcDarkLightEnabled := site.Params.day_night | default false }}
+  {{ $wcDarkLightEnabled := (and site.Params.appearance.theme_day site.Params.appearance.theme_night) }}
   {{ $wcIsSiteThemeDark := not (.Scratch.Get "light") | default false }}
   {{ $js_params := dict "wcDarkLightEnabled" $wcDarkLightEnabled "wcIsSiteThemeDark" $wcIsSiteThemeDark }}
   {{ $js_bundle := resources.Get "js/wowchemy-init.js" | js.Build (dict "params" $js_params) }}
@@ -35,6 +35,16 @@
   </div>
 
   <div class="page-body">
+    {{/* Breadcrumb */}}
+    {{/* Don't apply to Book layout as that has different breadcrumb placement. */}}
+    {{ if .Params.show_breadcrumb | and (ne .Type "book") }}
+      <!-- Use page bg color rather than any color applied to article-container. -->
+      {{ $class := cond .IsSection "universal-wrapper" "article-container" }}
+      <div class="{{$class}} py-1" style="background: initial">
+        {{ partial "components/breadcrumb" . }}
+      </div>
+    {{ end }}
+
     {{ block "main" . }}{{ end }}
   </div>
 
@@ -46,8 +56,6 @@
     </div>
     {{ end }}
   </div>
-
-  {{ partial "citation" . }}
 
   {{ partial "site_js" . }}
 

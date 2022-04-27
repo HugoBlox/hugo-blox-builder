@@ -33,3 +33,14 @@ summary:focus {
   // Override Webkit setting an outline.
   outline: none;
 }
+
+// Make it obvious that toggled text is toggled and not body text.
+details p {
+  margin-left: 0.3rem;
+  padding-left: 0.5rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.dark details p {
+  border-left: 1px solid rgba(255, 255, 255, 0.8);
+}

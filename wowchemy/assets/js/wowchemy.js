@@ -130,194 +130,6 @@ $(document).on('click', '.navbar-collapse.show', function (e) {
 });
 
 /* ---------------------------------------------------------------------------
- * Filter publications.
- * --------------------------------------------------------------------------- */
-
-// Active publication filters.
-let pubFilters = {};
-
-// Search term.
-let searchRegex;
-
-// Filter values (concatenated).
-let filterValues;
-
-// Publication container.
-let $grid_pubs = $('#container-publications');
-
-// Initialise Isotope publication layout if required.
-if ($grid_pubs.length) {
-  $grid_pubs.isotope({
-    itemSelector: '.isotope-item',
-    percentPosition: true,
-    masonry: {
-      // Use Bootstrap compatible grid layout.
-      columnWidth: '.grid-sizer',
-    },
-    filter: function () {
-      let $this = $(this);
-      let searchResults = searchRegex ? $this.text().match(searchRegex) : true;
-      let filterResults = filterValues ? $this.is(filterValues) : true;
-      return searchResults && filterResults;
-    },
-  });
-
-  // Filter by search term.
-  let $quickSearch = $('.filter-search').keyup(
-    debounce(function () {
-      searchRegex = new RegExp($quickSearch.val(), 'gi');
-      $grid_pubs.isotope();
-    }),
-  );
-
-  $('.pub-filters').on('change', function () {
-    let $this = $(this);
-
-    // Get group key.
-    let filterGroup = $this[0].getAttribute('data-filter-group');
-
-    // Set filter for group.
-    pubFilters[filterGroup] = this.value;
-
-    // Combine filters.
-    filterValues = concatValues(pubFilters);
-
-    // Activate filters.
-    $grid_pubs.isotope();
-
-    // If filtering by publication type, update the URL hash to enable direct linking to results.
-    if (filterGroup === 'pubtype') {
-      // Set hash URL to current filter.
-      let url = $(this).val();
-      if (url.substr(0, 9) === '.pubtype-') {
-        window.location.hash = url.substr(9);
-      } else {
-        window.location.hash = '';
-      }
-    }
-  });
-}
-
-// Debounce input to prevent spamming filter requests.
-function debounce(fn, threshold) {
-  let timeout;
-  threshold = threshold || 100;
-  return function debounced() {
-    clearTimeout(timeout);
-    let args = arguments;
-    let _this = this;
-
-    function delayed() {
-      fn.apply(_this, args);
-    }
-
-    timeout = setTimeout(delayed, threshold);
-  };
-}
-
-// Flatten object by concatenating values.
-function concatValues(obj) {
-  let value = '';
-  for (let prop in obj) {
-    value += obj[prop];
-  }
-  return value;
-}
-
-// Filter publications according to hash in URL.
-function filter_publications() {
-  // Check for Isotope publication layout.
-  if (!$grid_pubs.length) return;
-
-  let urlHash = window.location.hash.replace('#', '');
-  let filterValue = '*';
-
-  // Check if hash is numeric.
-  if (urlHash != '' && !isNaN(urlHash)) {
-    filterValue = '.pubtype-' + urlHash;
-  }
-
-  // Set filter.
-  let filterGroup = 'pubtype';
-  pubFilters[filterGroup] = filterValue;
-  filterValues = concatValues(pubFilters);
-
-  // Activate filters.
-  $grid_pubs.isotope();
-
-  // Set selected option.
-  $('.pubtype-select').val(filterValue);
-}
-
-/* ---------------------------------------------------------------------------
- * Google Maps or OpenStreetMap via Leaflet.
- * --------------------------------------------------------------------------- */
-
-function initMap() {
-  if ($('#map').length) {
-    let map_provider = $('#map-provider').val();
-    let lat = $('#map-lat').val();
-    let lng = $('#map-lng').val();
-    let zoom = parseInt($('#map-zoom').val());
-    let address = $('#map-dir').val();
-    let api_key = $('#map-api-key').val();
-
-    if (map_provider === 'google') {
-      let map = new GMaps({
-        div: '#map',
-        lat: lat,
-        lng: lng,
-        zoom: zoom,
-        zoomControl: true,
-        zoomControlOpt: {
-          style: 'SMALL',
-          position: 'TOP_LEFT',
-        },
-        streetViewControl: false,
-        mapTypeControl: false,
-        gestureHandling: 'cooperative',
-      });
-
-      map.addMarker({
-        lat: lat,
-        lng: lng,
-        click: function () {
-          let url = 'https://www.google.com/maps/place/' + encodeURIComponent(address) + '/@' + lat + ',' + lng + '/';
-          window.open(url, '_blank');
-        },
-        title: address,
-      });
-    } else {
-      let map = new L.map('map').setView([lat, lng], zoom);
-      if (map_provider === 'mapbox' && api_key.length) {
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-          attribution:
-            'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-          tileSize: 512,
-          maxZoom: 18,
-          zoomOffset: -1,
-          id: 'mapbox/streets-v11',
-          accessToken: api_key,
-        }).addTo(map);
-      } else {
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }).addTo(map);
-      }
-      let marker = L.marker([lat, lng]).addTo(map);
-      let url = lat + ',' + lng + '#map=' + zoom + '/' + lat + '/' + lng + '&layers=N';
-      marker.bindPopup(
-        address +
-          '<p><a href="https://www.openstreetmap.org/directions?engine=osrm_car&route=' +
-          url +
-          '">Routing via OpenStreetMap</a></p>',
-      );
-    }
-  }
-}
-
-/* ---------------------------------------------------------------------------
  * GitHub API.
  * --------------------------------------------------------------------------- */
 
@@ -374,29 +186,6 @@ function toggleSearchDialog() {
 }
 
 /* ---------------------------------------------------------------------------
- * Normalize Bootstrap Carousel Slide Heights.
- * --------------------------------------------------------------------------- */
-
-function normalizeCarouselSlideHeights() {
-  $('.carousel').each(function () {
-    // Get carousel slides.
-    let items = $('.carousel-item', this);
-    // Reset all slide heights.
-    items.css('min-height', 0);
-    // Normalize all slide heights.
-    let maxHeight = Math.max.apply(
-      null,
-      items
-        .map(function () {
-          return $(this).outerHeight();
-        })
-        .get(),
-    );
-    items.css('min-height', maxHeight + 'px');
-  });
-}
-
-/* ---------------------------------------------------------------------------
  * Fix Hugo's Goldmark output and Mermaid code blocks.
  * --------------------------------------------------------------------------- */
 
@@ -412,6 +201,9 @@ function fixHugoOutput() {
 
   // Fix Goldmark task lists (remove bullet points).
   $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
+
+  // Bootstrap table style is opt-in and Goldmark doesn't add it.
+  $('table').addClass('.table');
 }
 
 // Get an element's siblings.
@@ -561,50 +353,6 @@ $(window).on('load', function () {
     }
   }
 
-  // Enable publication filter for publication index page.
-  if ($('.pub-filters-select')) {
-    filter_publications();
-    // Useful for changing hash manually (e.g. in development):
-    // window.addEventListener('hashchange', filter_publications, false);
-  }
-
-  // Load citation modal on 'Cite' click.
-  $('.js-cite-modal').click(function (e) {
-    e.preventDefault();
-    let filename = $(this).attr('data-filename');
-    let modal = $('#modal');
-    modal.find('.modal-body code').load(filename, function (response, status, xhr) {
-      if (status == 'error') {
-        let msg = 'Error: ';
-        $('#modal-error').html(msg + xhr.status + ' ' + xhr.statusText);
-      } else {
-        $('.js-download-cite').attr('href', filename);
-      }
-    });
-    modal.modal('show');
-  });
-
-  // Copy citation text on 'Copy' click.
-  $('.js-copy-cite').click(function (e) {
-    e.preventDefault();
-    // Get selection.
-    let range = document.createRange();
-    let code_node = document.querySelector('#modal .modal-body');
-    range.selectNode(code_node);
-    window.getSelection().addRange(range);
-    try {
-      // Execute the copy command.
-      document.execCommand('copy');
-    } catch (e) {
-      console.log('Error: citation copy failed.');
-    }
-    // Remove selection.
-    window.getSelection().removeRange(range);
-  });
-
-  // Initialise Google Maps if necessary.
-  initMap();
-
   // Print latest version of GitHub projects.
   let githubReleaseSelector = '.js-github-release';
   if ($(githubReleaseSelector).length > 0) {
@@ -677,11 +425,6 @@ const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 darkModeMediaQuery.addEventListener('change', (event) => {
   onMediaQueryListEvent(event);
 });
-
-// Normalize Bootstrap carousel slide heights for Slider widget instances.
-window.addEventListener('load', normalizeCarouselSlideHeights);
-window.addEventListener('resize', normalizeCarouselSlideHeights);
-window.addEventListener('orientationchange', normalizeCarouselSlideHeights);
 
 // Automatic main menu dropdowns on mouse over.
 $('body').on('mouseenter mouseleave', '.dropdown', function (e) {

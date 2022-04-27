@@ -119,6 +119,13 @@
   }
 }
 
+.dark .article-style {
+  // Underline links if they are a similar color to the body text.
+  a {
+    text-decoration: $sta-dark-link-decoration;
+  }
+}
+
 .article-metadata {
   margin-bottom: 15px;
   overflow: hidden;
@@ -166,6 +173,16 @@ article .article-metadata {
 
 .middot-divider::after {
   content: '\00B7';
+}
+
+caption {
+  // Override Bootstrap alignment
+  text-align: center;
+}
+
+// Note default light caption inherited from Bootstrap
+.dark caption {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /*************************************************

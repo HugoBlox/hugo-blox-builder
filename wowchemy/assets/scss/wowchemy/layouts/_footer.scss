@@ -8,10 +8,18 @@ footer {
 footer p {
   font-size: 0.75rem;
   text-align: center;
+  @include media-breakpoint-down(sm) {
+    /* 12px is min size required by Lighthouse on mobile */
+    font-size: 12px;
+  }
 }
 
 footer .powered-by {
   font-size: 0.67rem;
+  @include media-breakpoint-down(sm) {
+    /* 12px is min size required by Lighthouse on mobile */
+    font-size: 12px;
+  }
 }
 
 .site-footer {

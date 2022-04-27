@@ -6,31 +6,6 @@
  **************************************************/
 
 /**
- * Fix Mermaid.js clash with Highlight.js.
- * Refactor Mermaid code blocks as divs to prevent Highlight parsing them and enable Mermaid to parse them.
- * @param {boolean} render
- */
-function fixMermaid(render = false) {
-  let mermaids = [];
-  // Note that `language-mermaid` class is applied to <code> block within <pre>, so we wish to replace parent node.
-  [].push.apply(mermaids, document.getElementsByClassName('language-mermaid'));
-  for (let i = 0; i < mermaids.length; i++) {
-    // Convert <pre><code></code></pre> block to <div> and add `mermaid` class so that Mermaid will parse it.
-    let mermaidCodeElement = mermaids[i];
-    let newElement = document.createElement('div');
-    newElement.innerHTML = mermaidCodeElement.innerHTML;
-    newElement.classList.add('mermaid');
-    if (render) {
-      window.mermaid.mermaidAPI.render(`mermaid-${i}`, newElement.textContent, function (svgCode) {
-        newElement.innerHTML = svgCode;
-      });
-    }
-    mermaidCodeElement.parentNode.replaceWith(newElement);
-  }
-  console.debug(`Processed ${mermaids.length} Mermaid code blocks`);
-}
-
-/**
  * @param {Element} parent
  * @param {Element} child
  */
@@ -58,4 +33,4 @@ function scrollParentToChild(parent, child) {
   }
 }
 
-export {fixMermaid, scrollParentToChild};
+export {scrollParentToChild};

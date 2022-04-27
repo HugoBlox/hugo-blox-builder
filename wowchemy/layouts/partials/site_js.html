@@ -17,8 +17,7 @@
     {{ if not ($scr.Get "use_cdn") }}
       <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
     {{ else }}
-      {{ $require_isotope := .Params.require_isotope | default site.Params.require_isotope | default true }}
-      {{ if $require_isotope }}
+      {{ if .Page.Store.Get "has_isotope" }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.isotope.url $js.isotope.version) $js.isotope.sri | safeHTML }}
       {{ end }}
@@ -28,7 +27,8 @@
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
       {{ end }}
 
-      {{ if or .Params.diagram site.Params.diagram }}
+      {{ if .Page.Store.Get "has_mermaid" }}
+        {{/* Title attribute is used by wowchemy-theming.js to detect Mermaid */}}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
       {{ end }}
 
@@ -36,7 +36,7 @@
         {{ $v := $js.highlight.version }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight.url $v) $js.highlight.sri | safeHTML }}
         {{ $v := $js.highlight_lang.version }}
-        {{ range site.Params.highlight_languages }}
+        {{ range site.Params.features.syntax_highlighter.extra_languages }}
         {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight_lang.url $v .) | safeHTML }}
         {{ end }}
       {{ end }}
@@ -44,9 +44,9 @@
     {{ end }}
 
     {{/* Maps JS. */}}
-    {{ $map_provider := lower site.Params.map.provider }}
+    {{ $map_provider := lower site.Params.features.map.provider }}
     {{ if eq $map_provider "google" }}
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.map.api_key }}"></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.features.map.api_key }}"></script>
       {{ if ($scr.Get "use_cdn") }}
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
       {{ end }}
@@ -63,7 +63,7 @@
     {{ end }}
 
     {{ $algoliaConfig := dict }}
-    {{ $search_provider := lower site.Params.search.provider }}
+    {{ $search_provider := lower site.Params.features.search.provider }}
     {{ if eq $search_provider "wowchemy" }}
       {{/* Wowchemy built-in search result template (Fuse). */}}
       <script id="search-hit-fuse-template" type="text/x-template">
@@ -97,7 +97,7 @@
       {{ if ($scr.Get "use_cdn") }}
         {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) | safeHTML }}
       {{ end }}
-      {{ $algoliaConfig = dict "appId" (site.Params.search.algolia.app_id | default "") "apiKey" (site.Params.search.algolia.api_key | default "") "indexName" (site.Params.search.algolia.index_name | default "") "analytics" (site.Params.search.algolia.analytics | default false) "personalization" (site.Params.search.algolia.personalization | default false) }}
+      {{ $algoliaConfig = dict "appId" (site.Params.features.search.algolia.app_id | default "") "apiKey" (site.Params.features.search.algolia.api_key | default "") "indexName" (site.Params.features.search.algolia.index_name | default "") "analytics" (site.Params.features.search.algolia.analytics | default false) "personalization" (site.Params.features.search.algolia.personalization | default false) }}
     {{ end }}
 
     {{/* Charts */}}
@@ -107,16 +107,16 @@
 
     {{/* Disqus Comment Count JS. */}}
     {{/* Note: count can appear both in listing previews and on the content page itself. */}}
-    {{ $comments_provider := trim (site.Params.comments.provider | lower) " " }}
-    {{ if eq $comments_provider "disqus" | and (site.Params.comments.disqus.show_count | default true) }}
-      <script id="dsq-count-scr" src="https://{{site.Params.comments.disqus.shortname}}.disqus.com/count.js" async></script>
+    {{ $comments_provider := trim (site.Params.features.comment.provider | lower) " " }}
+    {{ if eq $comments_provider "disqus" | and (site.Params.features.comment.disqus.show_count | default true) }}
+      <script id="dsq-count-scr" src="https://{{site.Params.features.comment.disqus.shortname}}.disqus.com/count.js" async></script>
     {{end}}
 
     {{ $js_search_params := dict }}
     {{ if in (slice "wowchemy" "algolia") $search_provider }}
       {{/* Configure search engine. */}}
-      {{ $min_length := site.Params.search.wowchemy.min_length | default 1 }}
-      {{ $threshold := site.Params.search.wowchemy.threshold | default 0.3 }}
+      {{ $min_length := site.Params.features.search.wowchemy.min_length | default 1 }}
+      {{ $threshold := site.Params.features.search.wowchemy.threshold | default 0.3 }}
       {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
       {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
       {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") "authors" (i18n "authors") }}
@@ -170,5 +170,36 @@
       {{ $js_bundle = $js_bundle | fingerprint "md5" }}
     {{- end -}}
     <script src="{{ $js_bundle.RelPermalink }}"></script>
+
+    {{/* Maps */}}
+    {{ if site.Params.features.map.provider }}
+      {{ $js := resources.Get "js/wowchemy-map.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $js = $js | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $js.RelPermalink }}" type="module"></script>
+    {{- end -}}
+
+    {{/* Carousel */}}
+    {{ $hasCarousel := where site.Pages "Params.widget" "slider" }}
+    {{ if $hasCarousel }}
+      {{ $js := resources.Get "js/wowchemy-carousel.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $js = $js | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $js.RelPermalink }}" type="module"></script>
+    {{- end -}}
+
+    {{/* Publications */}}
+    {{ $hasPublications := where site.Pages "Type" "publication" }}
+    {{ if $hasPublications }}
+      {{ partial "citation" . }}
+
+      {{ $js := resources.Get "js/wowchemy-publication.js" | js.Build (dict "format" "esm" "minify" true) }}
+      {{- if hugo.IsProduction -}}
+        {{- $js = $js | fingerprint "md5" -}}
+      {{- end -}}
+      <script src="{{ $js.RelPermalink }}" type="module"></script>
+    {{- end -}}
 
     {{ partial "custom_js" . }}

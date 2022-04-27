@@ -1,19 +1,17 @@
-{{/* This makes `edit_page` optional in `params.toml` and prevents errors if it's removed. */}}
-{{ if site.Params.edit_page }}
-{{ if site.Params.edit_page.repo_url | and (index site.Params.edit_page.editable .Type) | and (ne .Params.editable false) | or .Params.editable }}
+{{/* Add link to let visitors edit the page on GitHub. */}}
+{{ if .Params.editable | and site.Params.features.repository.url }}
 {{/* Get language subfolder for multilingual sites. */}}
 {{/* Limitations: the subfolder param, `<LANG>.contentDir`, is unexposed in the Hugo `site` API so we attempt to workaround this issue. */}}
 {{ $content_dir := "content" }}
-{{ if site.Params.edit_page.content_dir }}
-  {{ $content_dir = site.Params.edit_page.content_dir }}
+{{ if site.Params.features.repository.content_dir }}
+  {{ $content_dir = site.Params.features.repository.content_dir }}
 {{else}}
   {{/* Attempt to get content dir from the LanguagePrefix URI, but defaultContentLanguageInSubdir can break this assumption. */}}
   {{ $content_dir = cond site.IsMultiLingual (cond (ne .Site.LanguagePrefix "") (printf "%s%s" $content_dir .Site.LanguagePrefix) $content_dir) $content_dir }}
 {{end}}
 <p class="edit-page">
-  <a href="{{site.Params.edit_page.repo_url}}/edit/{{site.Params.edit_page.repo_branch | default "main"}}/{{$content_dir}}/{{.File.Path}}">
+  <a href="{{site.Params.features.repository.url}}/edit/{{site.Params.features.repository.branch | default "main"}}/{{$content_dir}}/{{.File.Path}}">
     <i class="fas fa-pen pr-2"></i>{{ i18n "edit_page" | default "Edit this page" }}
   </a>
 </p>
-{{ end }}
 {{ end }}

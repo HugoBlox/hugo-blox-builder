@@ -1,4 +1,4 @@
-{{ if site.Params.privacy_pack }}
+{{ if site.Params.features.privacy_pack.enable }}
   {{ $scr := .Scratch }}
   {{ $js := site.Data.assets.js }}
   {{ $css := site.Data.assets.css }}

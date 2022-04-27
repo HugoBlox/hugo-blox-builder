@@ -1,12 +1,13 @@
 {{- $csp_policy := site.Params.security.csp.policy | default "" -}}
 {{- $csp_report_only := site.Params.security.csp.report_only | default false -}}
+{{- $allow_frame := site.Params.security.allow_frame | default false -}}
 {{- $default_perms := "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" -}}
 {{- $permissions_policy := site.Params.security.permissions.policy | default $default_perms -}}
 # Netlify headers
 # Automatically generated
-# Documentation: http://bit.ly/netlify-deployment
+# Documentation: https://wowchemy.com/docs/hugo-tutorials/security/
 /*
-  X-Frame-Options: DENY
+  {{if not $allow_frame}}X-Frame-Options: DENY{{end}}
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=31536000; includeSubDomains

@@ -1,17 +1,17 @@
 {{/* Function to get event start and end dates/times. */}}
 {{ $t1 := time .Date }}{{/* Start datetime. */}}
-{{ $str := slice (time.Format site.Params.date_format (time $t1)) }}{{/* Init return string with start date. */}}
+{{ $str := slice (time.Format site.Params.locale.date_format (time $t1)) }}{{/* Init return string with start date. */}}
 {{/* Show start time if not all day event. */}}
-{{ if not .Params.all_day }}{{ $str = $str | append (time.Format site.Params.time_format (time $t1)) }}{{ end }}
+{{ if not .Params.all_day }}{{ $str = $str | append (time.Format site.Params.locale.time_format (time $t1)) }}{{ end }}
 {{/* Show event end date if provided. */}}
 {{ if .Params.date_end }}
   {{ $str = $str | append "&mdash;" }}
   {{ $t2 := time .Params.date_end}}{{/* End datetime. */}}
   {{/* Show end date if it differs to start date. */}}
   {{ if not (eq $t1.Year $t2.Year | and (eq $t1.Month $t2.Month) | and (eq $t1.Day $t2.Day)) }}
-    {{ $str = $str | append (time.Format site.Params.date_format (time $t2)) }}
+    {{ $str = $str | append (time.Format site.Params.locale.date_format (time $t2)) }}
   {{ end }}
   {{/* Show end time if not all day event. */}}
-  {{ if not .Params.all_day }}{{ $str = $str | append (time.Format site.Params.time_format (time $t2)) }}{{ end }}
+  {{ if not .Params.all_day }}{{ $str = $str | append (time.Format site.Params.locale.time_format (time $t2)) }}{{ end }}
 {{ end }}
 {{ return (delimit $str " ") }}

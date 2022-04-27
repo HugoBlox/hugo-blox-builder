@@ -1,13 +1,13 @@
 {{/* Display copyright license. */}}
 
-{{ $copyright_license := .Params.copyright_license | default site.Params.copyright_license }}
+{{ $copyright_license := .Params.copyright.license | default site.Params.footer.copyright.license }}
+{{ $notice := .Params.copyright.notice | default site.Params.footer.copyright.notice }}
 
-{{ if and $copyright_license $copyright_license.enable }}
+{{ if ($copyright_license.enable | default false) }}
 
-  {{ $notice := .Params.copyright_license.notice | default site.Params.copyright_license.notice }}
-  {{ $allow_commercial := .Params.copyright_license.allow_commercial | default site.Params.copyright_license.allow_commercial }}
-  {{ $allow_derivatives := .Params.copyright_license.allow_derivatives | default site.Params.copyright_license.allow_derivatives }}
-  {{ $share_alike := .Params.copyright_license.share_alike | default site.Params.copyright_license.share_alike }}
+  {{ $allow_commercial := $copyright_license.allow_commercial | default false }}
+  {{ $allow_derivatives := $copyright_license.allow_derivatives | default false }}
+  {{ $share_alike := $copyright_license.share_alike | default true }}
 
   {{ $cc_code := "by" }}
   {{ if not $allow_commercial }}
@@ -23,7 +23,7 @@
 
   {{ with $notice }}
   <p class="powered-by copyright-license-text">
-    {{ replace . "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) | markdownify }}
+    {{ replace (replace . "{year}" now.Year) "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) | markdownify }}
   </p>
   {{ end }}
 
@@ -41,5 +41,13 @@
       {{end}}
     </a>
   </p>
+
+{{ else }}
+
+  {{ with $notice }}
+  <p class="powered-by copyright-license-text">
+    {{ replace . "{year}" now.Year | markdownify }}
+  </p>
+  {{ end }}
 
 {{ end }}

@@ -2,19 +2,19 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": {{site.Params.local_business_type | default site.Params.site_type}},
+  "@type": {{site.Params.marketing.seo.site_type | default site.Params.marketing.seo.site_type}},
   "@id": {{site.BaseURL}},
-  "name": {{site.Params.org_name | default site.Title}},
+  "name": {{site.Params.marketing.seo.org_name | default site.Title}},
   "logo": {{ partial "functions/get_logo_url" . }},
   {{with $sharing_image}}"image": {{.Permalink}},{{end}}
-  {{ if (eq site.Params.site_type "LocalBusiness") | and site.Params.coordinates }}
+  {{ if (eq site.Params.marketing.seo.site_type "LocalBusiness") | and site.Params.marketing.seo.coordinates }}
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": {{site.Params.coordinates.latitude}},
-    "longitude": {{site.Params.coordinates.longitude}}
+    "latitude": {{site.Params.marketing.seo.coordinates.latitude}},
+    "longitude": {{site.Params.marketing.seo.coordinates.longitude}}
   },
   {{end}}
-  {{ with site.Params.address }}
+  {{ with site.Params.marketing.seo.address }}
   "address": {
     "@type": "PostalAddress",
     "streetAddress": {{ .street | default "" }},
@@ -24,7 +24,7 @@
     "addressCountry": {{ .country_code | default .country | default "" }}
   },
   {{end}}
-  {{ with site.Params.phone }}"telephone": {{.}},{{end}}
+  {{ with site.Params.marketing.seo.phone }}"telephone": {{.}},{{end}}
   "url": {{site.BaseURL}}
 }
 </script>

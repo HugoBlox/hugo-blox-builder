@@ -1,4 +1,4 @@
-{{ $provider := trim (site.Params.comments.provider | lower) " " }}
+{{ $provider := trim (site.Params.features.comment.provider | lower) " " }}
 
 {{ if $provider }}
   {{ $provider_tpl := printf "partials/comments/%s.html" $provider }}
@@ -7,9 +7,7 @@
     {{ errorf "The '%s' comment provider was not found." $provider }}
   {{ end }}
 
-  {{ $commentable_page_types := site.Params.comments.commentable | default dict }}
-  {{ $commentable_page_type := index $commentable_page_types .Type | default false }}
-  {{ $commentable_page := (ne .Params.commentable false) | and $commentable_page_type }}
+  {{ $commentable_page := .Params.commentable }}
 
   {{ if $commentable_page }}
   <section id="comments">

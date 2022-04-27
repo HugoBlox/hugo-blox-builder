@@ -10,6 +10,8 @@ disableAliases: true
 taxonomies: []
 markup:
   _merge: deep
+security:
+  _merge: deep
 params:
   require_isotope: false
   day_night: true

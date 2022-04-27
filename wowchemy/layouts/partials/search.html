@@ -1,5 +1,5 @@
 {{/* Partial for built-in search and Algolia search. */}}
-{{ $search_provider := lower site.Params.search.provider }}
+{{ $search_provider := lower site.Params.features.search.provider }}
 {{ if in (slice "wowchemy" "algolia") $search_provider }}
 <aside class="search-modal" id="search">
   <div class="container">

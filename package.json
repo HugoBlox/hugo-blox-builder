@@ -14,8 +14,8 @@
   },
   "main": "index.js",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
-    "bootstrap": "^4.6.0",
+    "@fortawesome/fontawesome-free": "^6.0.0",
+    "bootstrap": "^4.6.1",
     "headroom.js": "^0.12.0",
     "instant.page": "^5.1.0",
     "jquery": "^3.6.0",
@@ -32,12 +32,15 @@
     "stylelint-scss": "3.19.0"
   },
   "scripts": {
+    "view": "scripts/view-starter.sh",
+    "view:local": "scripts/view-starter-dev.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "yarn run lint:js && yarn run lint:style",
     "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
     "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "lint:style": "stylelint '*/**/*.{css,scss}'",
     "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
-    "stylelint-conflict-check": "stylelint-config-prettier-check"
+    "stylelint-conflict-check": "stylelint-config-prettier-check",
+    "update:starters": "hugo mod get -u ./..."
   }
 }

@@ -4,60 +4,67 @@
 
 <!-- Indicators -->
 <ol class="carousel-indicators">
-  {{ range $index, $item := $page.Params.item }}
+  {{ range $index, $item := $page.Params.content.slides }}
   <li data-target="#{{$hash_id}}" data-slide-to="{{$index}}" {{if eq $index 0}}class="active"{{end}}></li>
   {{ end }}
 </ol>
 
 <!-- Carousel slides wrapper -->
 <div class="carousel-inner">
-  {{ range $index, $item := $page.Params.item }}
+  {{ range $index, $item := $page.Params.content.slides }}
 
     {{ $style_bg := "" }}
-    {{with $page.Params.height}}
+    {{ $style_filter := "" }}
+
+    {{with $page.Params.design.slide_height}}
       {{ $style_bg = printf "%s height: %s;" $style_bg . }}
     {{end}}
-    {{ if $item.overlay_color }}
-      {{ $style_bg = printf "%s background-color: %s;" $style_bg ($item.overlay_color | default "transparent") }}
+
+    {{ with $item.background.color }}
+      {{ $style_bg = printf "%s background-color: %s;" $style_bg (. | default "transparent") }}
     {{ end }}
-    {{ if $item.overlay_img }}
-      {{ $bg_img := resources.Get (printf "media/%s" $item.overlay_img) }}
+
+    {{ if $item.background.media }}
+      {{ $bg_img := resources.Get (printf "media/%s" $item.background.media) }}
       {{ if $bg_img }}
-        {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
+        {{ $style_bg = printf "%sbackground-image: url('%s'); background-repeat: no-repeat; background-position: %s; background-size: cover; " $style_bg $bg_img.Permalink ($item.background.position | default "center") }}
       {{ else }}
         {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $item.overlay_img }}
       {{ end }}
-      {{ if $item.overlay_filter }}
-        {{ $style_bg = printf "%sfilter: brightness(%s);" $style_bg (string $item.overlay_filter) }}
+      {{ with $item.background.brightness }}
+        {{ $style_filter = printf "%s-webkit-backdrop-filter: brightness(%s); backdrop-filter: brightness(%s);" $style_filter (string .) (string .) }}
       {{ end }}
    {{ end }}
 
-  <div class="wg-hero dark carousel-item{{if eq $index 0}} active{{end}}" style="{{$style_bg | safeCSS}}">
-    <div class="container" style="text-align: {{$item.align | default "left"}};">
-        <h1 class="hero-title">
-          {{ with $item.title }}{{ . | markdownify | emojify }}{{ end }}
-        </h1>
+  <div class="carousel-item{{if eq $index 0}} active{{end}} {{with $page.Params.design.is_fullscreen}}fullscreen{{end}}" style="{{$style_bg | safeCSS}}">
+    <div class="position-absolute d-flex w-100 h-100 justify-content-center align-items-center" style="{{$style_filter | safeCSS}}">
+      {{/* To prevent control overlap, margins are based on $carousel-control-* in bootstrap-variables.scss */}}
+      <div class="wg-hero dark container" style="margin-left: 6rem; margin-right: 6rem; text-align: {{$item.align | default "left"}};">
+          <h1 class="hero-title">
+            {{ with $item.title }}{{ . | markdownify | emojify }}{{ end }}
+          </h1>
 
-        {{ with $item.content }}
-        <p class="hero-lead" style="{{if eq $item.align "center"}}margin: 0 auto 0 auto;{{else if eq $item.align "right"}}margin-left: auto; margin-right: 0{{end}}">
-          {{ . | markdownify | emojify }}
-        </p>
-        {{ end }}
+          {{ with $item.content }}
+          <p class="hero-lead" style="{{if eq $item.align "center"}}margin: 0 auto 0 auto;{{else if eq $item.align "right"}}margin-left: auto; margin-right: 0{{end}}">
+            {{ . | markdownify | emojify }}
+          </p>
+          {{ end }}
 
-        {{ if $item.cta_url }}
-        {{ $pack := or .cta_icon_pack "fas" }}
-        {{ $pack_prefix := $pack }}
-        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-          {{ $pack_prefix = "fa" }}
-        {{ end }}
-        <p>
-          <a href="{{ $item.cta_url }}" class="btn btn-light btn-lg">
-            {{- with $item.cta_icon -}}<i class="{{ $pack }} {{ $pack_prefix }}-{{ . }}" style="padding-right: 10px;"></i>{{- end -}}
-            {{- $item.cta_label | emojify | safeHTML -}}
-          </a>
-        </p>
-        {{ end }}
-      </div>
+          {{ if $item.link.url }}
+            {{ $pack := $item.link.icon_pack | default "fas" }}
+            {{ $pack_prefix := $pack }}
+            {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+              {{ $pack_prefix = "fa" }}
+            {{ end }}
+            <p>
+              <a href="{{ $item.link.url }}" class="btn btn-light btn-lg mt-3">
+                {{- with $item.link.icon -}}<i class="{{ $pack }} {{ $pack_prefix }}-{{ . }}" style="padding-right: 10px;"></i>{{- end -}}
+                {{- $item.link.text | emojify | markdownify | safeHTML -}}
+              </a>
+            </p>
+          {{ end }}
+        </div>
+    </div>
   </div>
   {{ end }}
 </div>

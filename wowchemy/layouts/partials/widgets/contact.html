@@ -1,7 +1,7 @@
 {{ $ := .root }}
 {{ $st := .page }}
 {{ $autolink := default true $st.Params.content.autolink }}
-{{ $data := site.Params }}
+{{ $data := $st.Params.content }}
 
 {{ $form_provider := lower $st.Params.content.form.provider | default "" }}
 {{ $form_provider_legacy := $st.Params.email_form | default 0 }}
@@ -60,7 +60,7 @@
         <div class="d-none">
           <label>Do not fill this field unless you are a bot: <input name="_gotcha"></label>
         </div>
-        {{ if and $use_netlify_form $use_netlify_captcha }} 
+        {{ if and $use_netlify_form $use_netlify_captcha }}
           <div class="form-group" data-netlify-recaptcha="true"></div>
         {{ else if and $use_formspree_form $use_formspree_captcha }}
           <div class="g-recaptcha" data-sitekey="{{ $st.Params.content.form.formspree.captcha_key }}"></div>
@@ -150,14 +150,14 @@
 
   </ul>
 
-  {{ if and site.Params.map.provider $data.coordinates.latitude }}
+  {{ if and site.Params.features.map.provider $data.coordinates.latitude }}
   <div class="d-none">
-    <input id="map-provider" value="{{ lower site.Params.map.provider }}">
+    <input id="map-provider" value="{{ lower site.Params.features.map.provider }}">
     <input id="map-lat" value="{{ $data.coordinates.latitude }}">
     <input id="map-lng" value="{{ $data.coordinates.longitude }}">
     <input id="map-dir" value="{{ $addr_formatted }}">
-    <input id="map-zoom" value="{{ site.Params.map.zoom | default "15" }}">
-    <input id="map-api-key" value="{{ site.Params.map.api_key }}">
+    <input id="map-zoom" value="{{ site.Params.features.map.zoom | default "15" }}">
+    <input id="map-api-key" value="{{ site.Params.features.map.api_key }}">
   </div>
   <div id="map"></div>
   {{ end }}

@@ -1,0 +1,53 @@
+name: 'Package Splitter'
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+jobs:
+  packages_split:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # define package to repository map
+        package:
+          - local_path: 'academic'
+            split_repository: 'starter-hugo-academic'
+          - local_path: 'markdown-slides'
+            split_repository: 'starter-hugo-markdown-slides'
+          - local_path: 'blog'
+            split_repository: 'hugo-blog-theme'
+          - local_path: 'documentation'
+            split_repository: 'hugo-documentation-theme'
+          - local_path: 'portfolio'
+            split_repository: 'starter-hugo-portfolio-theme'
+          - local_path: 'course'
+            split_repository: 'starter-hugo-online-course'
+          - local_path: 'minimal'
+            split_repository: 'hugo-minimal-theme'
+          - local_path: 'research-group'
+            split_repository: 'starter-hugo-research-group'
+
+    steps:
+      -   uses: actions/checkout@v2
+
+      # step if no tag is pushed
+      - if: "!startsWith(github.ref, 'refs/tags/')"
+        uses: "symplify/monorepo-split-github-action@2.1"
+        with:
+          # ↓ split "packages/<package-name><package-name>" directory
+          package_directory: 'starters/${{ matrix.package.local_path }}'
+
+          # ↓ into https://github.com/wowchemy/<package-name> repository
+          repository_organization: 'wowchemy'
+          repository_name: '${{ matrix.package.split_repository }}'
+
+          # ↓ the user signed under the split commit
+          user_name: "Splitter Bot"
+          user_email: "no.reply@wowchemy.com"

@@ -1,0 +1,114 @@
+// Starter Blog Template
+// https://wowchemy.com/hugo-themes/
+
+body {
+  background-color: rgb(247, 250, 252);
+}
+
+.article-container {
+  background-color: #fff;
+  border-radius: 15px;
+}
+.dark .article-container {
+  background-color: rgb(31, 39, 51);
+}
+
+// custom footer color
+.page-footer {
+  background-color: rgb(247, 250, 252);
+}
+.dark .page-footer {
+  background-color: rgb(26, 32, 44);
+}
+
+// more rounded cards and larger gap between cards
+.card-simple {
+  margin-top: 1.8rem;
+  border-radius: 15px;
+}
+.dark .card-simple {
+  background: rgb(31, 39, 51);
+}
+
+// no navbar shadow
+.navbar {
+  box-shadow: none !important; // 'important' to override dark mode box-shadow too.
+}
+
+// custom section padding
+.home-section {
+  padding: 1rem 0 1rem 0;
+}
+
+.home-section.wg-about-avatar {
+  padding: 0 0 0 0;
+}
+
+#profile .network-icon {
+  margin-top: 0.5rem;
+}
+
+ul.network-icon .big-icon {
+  font-size: 1.5rem;
+}
+
+.dark .portrait-title h3 {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+}
+
+.dark .portrait-title h2 {
+  color: #fff;
+  font-weight: bold;
+}
+
+.home-section > .content {
+  width: 45em;
+  max-width: calc(100% - 4em);
+  margin: 0 auto;
+}
+
+.home-section > .content > :last-child {
+  margin-bottom: 0;
+}
+
+.home-section header {
+  margin-bottom: 1em;
+}
+
+// Narrower container for Hello World sections (primarily Blank widget content).
+@media (min-width: 1200px) {
+  .home-section .container {
+    max-width: 880px;
+  }
+}
+@media (min-width: 992px) {
+  .home-section .container {
+    max-width: 880px;
+  }
+}
+
+// Custom avatar size on homepage
+.avatar {
+  width: auto;
+  height: auto;
+  max-width: 225px;
+  max-height: 225px;
+}
+
+// Prevent stretching on About page with narrow container
+.wg-about .avatar {
+  width: auto;
+  height: auto;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+// Smaller Name and Role text on About page than in homepage `about.avatar` widget
+.wg-about .portrait-title h2 {
+  font-size: 1rem;
+}
+
+.wg-about .portrait-title h3 {
+  font-size: 0.8rem;
+}

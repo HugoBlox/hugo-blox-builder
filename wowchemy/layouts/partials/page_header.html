@@ -14,12 +14,12 @@
   {{end}}
 {{end}}
 
-{{/* Header image */}}
-{{ if and .Params.header.image (not (and $featured (not .Params.image.preview_only))) }}
+{{/* Banner image */}}
+{{ if and .Params.banner.image (not (and $featured (not .Params.image.preview_only))) }}
 <div class="article-header">
   {{- $img := "" -}}
-  {{ $alt := (.Params.header.caption | default "") | plainify }}
-  {{ $destination := .Params.header.image }}
+  {{ $alt := (.Params.banner.caption | default "") | plainify }}
+  {{ $destination := .Params.banner.image }}
   {{ $is_remote := strings.HasPrefix $destination "http" }}
   {{- if not $is_remote -}}
     {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
@@ -30,10 +30,10 @@
   {{ if $img }}
     <img src="{{$img.RelPermalink}}" width="{{$img.Width}}" height="{{$img.Height}}" class="article-banner" alt="{{$alt}}">
   {{ else }}
-    <img src="{{ .Params.header.image }}" class="article-banner" alt="{{$alt}}">
+    <img src="{{ .Params.banner.image }}" class="article-banner" alt="{{$alt}}">
   {{ end }}
 
-  {{ with .Params.header.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+  {{ with .Params.banner.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
 </div>
 {{end}}
 

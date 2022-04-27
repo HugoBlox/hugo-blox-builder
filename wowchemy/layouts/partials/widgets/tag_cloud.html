@@ -18,7 +18,7 @@
 
 {{ $columns := $st.Params.design.columns | default "2" }}
 
-<div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
+<div class="col-12 {{if eq $columns "2"}}col-lg-8{{else}}text-center{{end}}">
   {{ with $st.Content }}{{ . }}{{ end }}
 
   {{ if ne $count 0 }}

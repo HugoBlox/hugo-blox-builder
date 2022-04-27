@@ -22,7 +22,6 @@
         <h2>{{ (i18n "posts") }}</h2>
         {{ range $index, $item := $items }}
           {{ partial "functions/render_view" (dict "page" $ "item" . "view" (site.Params.projects.post_view | default "compact") "index" $index) }}
-          {{ partial "functions/render_view" (dict "page" $ "item" . "view" (site.Params.projects.post_view | default "compact") "index" $index) }}
         {{end}}
       {{ end }}
 

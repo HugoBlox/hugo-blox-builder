@@ -3,7 +3,7 @@
 {{ $page := . }}
 
 {{/* Get publisher as fall back. */}}
-{{ $publisher := site.Params.org_name | default site.Title }}
+{{ $publisher := site.Params.marketing.seo.org_name | default site.Title }}
 
 {{ $author := "" }}
 {{ $author_username := "" }}
