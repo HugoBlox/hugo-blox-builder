@@ -50,7 +50,7 @@
   <div class="{{ if or $st.Params.content.filter_button (in (slice "masonry" 3) $view) }}isotope projects-container{{end}} {{if in (slice "masonry" 3) $view}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $view "showcase" }}project-showcase{{end}}">
 
     {{/* Query */}}
-    {{ $query := site.RegularPages }}
+    {{ $query := site.Pages }}
 
     {{/* Filters */}}
     {{ with $st.Params.content.page_type }}
@@ -62,6 +62,12 @@
     {{ end }}
     {{ with $st.Params.content.filters.tags }}
       {{ $query = where $query "Params.tags" "intersect" . }}
+    {{ end }}
+    {{ with $st.Params.content.filters.exclude_tags }}
+      {{ $query = $query | symdiff (where site.Pages "Params.tags" "intersect" .) }}
+    {{ end }}
+    {{ with ($st.Params.content.filters.kinds | default (slice "page")) }}
+      {{ $query = where $query "Kind" "in" . }}
     {{ end }}
 
     {{/* Sort */}}
