@@ -1,10 +1,12 @@
 ---
 title: 📚 Courses
 type: page
+tags:
+  - preface
 
 view: compact
 
-header:
+banner:
   caption: ''
   image: ''
 ---

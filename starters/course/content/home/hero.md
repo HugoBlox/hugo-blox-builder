@@ -11,7 +11,7 @@ design:
     gradient_end: 'rgb(153,238,255)'
     text_color_light: false
 cta:
-  url: course/
+  url: '#courses'
   label: Explore our courses
   icon_pack: fas
   icon: user-graduate
