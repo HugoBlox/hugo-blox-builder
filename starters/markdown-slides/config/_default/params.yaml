@@ -55,3 +55,9 @@ locale:
 features:
   privacy_pack:
     enable: false
+
+# Security
+
+security:
+  # Allow frame for embedding speaker notes in slides
+  allow_frame: true
