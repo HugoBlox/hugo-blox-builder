@@ -38,7 +38,7 @@ slides:
 - Speaker notes: `S`
 - Fullscreen: `F`
 - Zoom: `Alt + Click`
-- [PDF Export](https://github.com/hakimel/reveal.js#pdf-export): `E`
+- [PDF Export](https://revealjs.com/pdf-export/)
 
 ---
 
