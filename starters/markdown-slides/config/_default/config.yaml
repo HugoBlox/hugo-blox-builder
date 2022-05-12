@@ -51,7 +51,10 @@ taxonomies:
   tag: tags
   category: categories
 markup:
-  _merge: deep
+  merge: _deep
+  highlight:
+    # See https://github.com/wowchemy/wowchemy-hugo-themes/issues/2708
+    codeFences: false
 related:
   threshold: 80
   includeNewer: true
