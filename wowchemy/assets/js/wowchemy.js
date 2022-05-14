@@ -316,10 +316,26 @@ document.querySelectorAll('pre > code').forEach((codeblock) => {
   }
 
   copyBtn.addEventListener('click', () => {
+    console.debug('Code block copy click. Is secure context for Clipboard API? ' + window.isSecureContext);
     if ('clipboard' in navigator) {
+      // Note: Clipboard API requires HTTPS or localhost
       navigator.clipboard.writeText(codeblock.textContent);
       copiedNotification();
       return;
+    } else {
+      console.debug('Falling back to legacy clipboard copy');
+      const range = document.createRange();
+      range.selectNodeContents(codeblock);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      try {
+        document.execCommand('copy');
+        copiedNotification();
+      } catch (e) {
+        console.error(e);
+      }
+      selection.removeRange(range);
     }
   });
 
