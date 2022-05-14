@@ -3,10 +3,17 @@ plugins:
 extends:
   - stylelint-config-standard
   - stylelint-config-prettier
+  - stylelint-config-standard-scss
+  - stylelint-config-prettier-scss
 rules:
   at-rule-no-unknown: null # Use SCSS "at" rules
   scss/at-rule-no-unknown: true # Use SCSS "at" rules
   no-descending-specificity: null # Todo: remove once investigated/resolved
+  color-function-notation: null # Todo: refactor code
+  alpha-value-notation: null # Todo: refactor code
+  number-max-precision: null # Todo: refactor code
+  property-no-vendor-prefix: null # Necessary unless postcss prefix
+  value-no-vendor-prefix: null # Necessary unless postcss prefix
   font-family-no-missing-generic-family-keyword:
     - true
     - ignoreFontFamilies:

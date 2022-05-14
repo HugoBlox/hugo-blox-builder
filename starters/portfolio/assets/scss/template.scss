@@ -9,6 +9,7 @@ body {
   background-color: #fff;
   border-radius: 15px;
 }
+
 .dark .article-container {
   background-color: rgb(31, 39, 51);
 }
@@ -17,6 +18,7 @@ body {
 .page-footer {
   background-color: rgb(247, 250, 252);
 }
+
 .dark .page-footer {
   background-color: rgb(26, 32, 44);
 }
@@ -26,6 +28,7 @@ body {
   margin-top: 1.8rem;
   border-radius: 15px;
 }
+
 .dark .card-simple {
   background: rgb(31, 39, 51);
 }
@@ -37,11 +40,11 @@ body {
 
 // custom section padding
 .home-section {
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0;
 }
 
 .home-section.wg-about-avatar {
-  padding: 0 0 0 0;
+  padding: 0;
 }
 
 #profile .network-icon {

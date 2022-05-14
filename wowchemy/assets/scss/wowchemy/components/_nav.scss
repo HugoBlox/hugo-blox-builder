@@ -6,9 +6,11 @@
   will-change: transform;
   transition: transform 200ms linear;
 }
+
 .headroom--pinned {
   transform: translateY(0%);
 }
+
 .headroom--unpinned {
   transform: translateY(-100%);
 }
@@ -90,6 +92,7 @@
 .dark .navbar {
   background: $sta-dark-menu-primary;
   box-shadow: 0 0.125rem 0.25rem 0 rgba(255, 255, 255, 0.11);
+
   .navbar-nav {
     .nav-link {
       color: rgba($sta-dark-menu-text, 0.85);
@@ -106,6 +109,7 @@
       }
     }
   }
+
   .dropdown-item.active,
   .dropdown-item-active {
     color: $sta-dark-menu-text-active !important;
@@ -199,20 +203,25 @@
     left: 0;
     right: 0;
   }
+
   .navbar-brand {
     // Center logo in mobile navbar.
     margin: 0 auto;
   }
+
   .navbar-brand img {
     max-height: 40px; // 40px height + 10px v-padding = 50px.
   }
+
   .navbar-toggler {
     border-color: transparent; // Remove Bootstrap's border from Toggle button.
   }
+
   #navbar-main .main-menu-item {
     text-align: left !important;
     padding-left: 0;
   }
+
   .navbar-collapse {
     z-index: 1031 !important; // Appear just over navbar.
     position: absolute;
@@ -222,12 +231,15 @@
     background-color: $sta-menu-primary;
     text-align: center !important;
   }
+
   .dark .navbar-collapse {
     background-color: $sta-dark-menu-primary;
   }
+
   #navbar-main .main-menu-item .nav-item {
     padding: 10px 15px !important;
   }
+
   #navbar-main .main-menu-item .nav-item .nav-link {
     padding: 5px 15px !important;
   }
@@ -236,7 +248,7 @@
 ul.nav-icons {
   list-style-type: none;
   font-size: 18px;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem 0;
   margin: 0;
 }
 

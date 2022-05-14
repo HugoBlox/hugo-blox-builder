@@ -6,7 +6,7 @@
   // Use `background` rather than `background-color` so it can support gradients in theme packs.
   background: $sta-home-section-odd;
   position: relative; // Required for component positioning within section.
-  padding: 110px 0 110px 0;
+  padding: 110px 0;
   z-index: 0; // Explicit z-order otherwise `.home-section-bg` can be hidden by any `.home-section` background.
 }
 
@@ -22,6 +22,7 @@
     min-height: calc(100vh - 50px);
   }
 }
+
 .no-navbar .home-section.fullscreen,
 .no-navbar .fullscreen {
   min-height: 100vh;
@@ -112,6 +113,7 @@
 .parallax {
   background-attachment: fixed;
 }
+
 // Workaround issue with mobile browser support for fixed parallax background.
 @include media-breakpoint-down(md) {
   .parallax {
@@ -137,15 +139,16 @@
 
 @media screen and (max-width: 768px) {
   .home-section {
-    padding: 60px 0 60px 0;
+    padding: 60px 0;
   }
+
   .home-section:first-of-type {
     padding-top: 40px;
   }
 }
 
 .section-heading h1 {
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
 }
 
 .section-subheading {

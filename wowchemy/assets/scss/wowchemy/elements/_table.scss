@@ -9,6 +9,7 @@ table {
   overflow-x: scroll;
   margin-bottom: 1rem;
   font-size: 0.8rem;
+
   // Override `article-style`'s `break-word` wrapping to make wide tables scrollable.
   overflow-wrap: normal;
   word-wrap: normal;

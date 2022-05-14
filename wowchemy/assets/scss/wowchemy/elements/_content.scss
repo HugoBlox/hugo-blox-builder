@@ -4,8 +4,8 @@
 
 .article-container {
   max-width: 760px;
-  padding: 0 20px 0 20px;
-  margin: 0 auto 0 auto;
+  padding: 0 20px;
+  margin: 0 auto;
 }
 
 .page-subtitle {
@@ -53,7 +53,7 @@
   text-align: right;
   z-index: 5;
   opacity: 0.65;
-  border-radius: 5px 0 0 0;
+  border-radius: 5px 0 0;
 }
 @media (min-width: 64em) {
   .article-header-caption {
@@ -86,7 +86,7 @@
   overflow: hidden;
 
   // Word wrap text content.
-  @include word-wrap();
+  @include word-wrap;
 
   // Underline links if they are a similar color to the body text.
   a {
@@ -136,13 +136,16 @@
   a {
     color: rgba(0, 0, 0, 0.54);
   }
+
   a:hover {
     color: $sta-primary;
   }
+
   .author-notes {
     cursor: help;
     padding-left: 3px;
   }
+
   .author-highlighted {
     font-weight: bold;
   }

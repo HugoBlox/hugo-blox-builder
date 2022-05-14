@@ -5,7 +5,7 @@ summary: An example of using Wowchemy's Book layout for publishing online course
 date: '2021-01-24'
 type: book
 tags:
-- current
+  - current
 ---
 
 {{< figure src="featured.jpg" >}}

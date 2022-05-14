@@ -35,14 +35,14 @@
   font-size: 1.75em;
   font-weight: 300;
   color: #000;
-  margin: 20px 0 10px 0;
+  margin: 20px 0 10px;
 }
 
 .portrait-title h3 {
   font-size: 1rem;
   font-weight: 300;
   color: rgba(0, 0, 0, 0.54);
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
 }
 
 ul.network-icon {
@@ -124,6 +124,7 @@ ul.ul-edu li .description p.institution {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
   }
 }
+
 .dark .avatar-emoji {
   background-color: #000;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(255, 255, 255, 0.96);
