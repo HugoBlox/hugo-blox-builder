@@ -9,9 +9,10 @@ markup:
         title: true
   highlight:
     codeFences: true
-    noHl: true
+    noHl: false
     lineNumbersInTable: false
     noClasses: false
+    guessSyntax: true
   tableOfContents:
     startLevel: 2
     endLevel: 3

@@ -90,6 +90,9 @@
 - id: btn_copy
   translation: Copy
 
+- id: btn_copied
+  translation: Copied
+
 - id: btn_download
   translation: Download
 
@@ -138,7 +141,7 @@
 
 - id: contact_message
   translation: Message
-  
+
 - id: contact_attachment
   translation: Attach file
 

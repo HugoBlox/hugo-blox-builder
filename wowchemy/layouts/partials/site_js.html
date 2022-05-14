@@ -32,15 +32,6 @@
         {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
       {{ end }}
 
-      {{ if $.Scratch.Get "highlight_enabled" }}
-        {{ $v := $js.highlight.version }}
-        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight.url $v) $js.highlight.sri | safeHTML }}
-        {{ $v := $js.highlight_lang.version }}
-        {{ range site.Params.features.syntax_highlighter.extra_languages }}
-        {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.highlight_lang.url $v .) | safeHTML }}
-        {{ end }}
-      {{ end }}
-
     {{ end }}
 
     {{/* Maps JS. */}}
@@ -149,7 +140,8 @@
     {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
     {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */\n" }}
     {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
-    {{ $js_params := dict "hugoEnvironment" hugo.Environment "codeHighlighting" ($scr.Get "highlight_enabled" | default false) "searchEnabled" (in (slice "wowchemy" "algolia") $search_provider) }}
+    {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
+    {{ $js_params := dict "hugoEnvironment" hugo.Environment "searchEnabled" (in (slice "wowchemy" "algolia") $search_provider) "i18n" $i18n }}
     {{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "targetPath" (printf "%s/js/wow-core.js" .Lang ) "params" $js_params) }}
     {{ $js_bundle := slice $js_academic }}
     {{ if eq $search_provider "wowchemy" }}

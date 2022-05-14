@@ -155,21 +155,12 @@
     {{ else if isset site.Params.features.syntax_highlighter "enable" }}
       {{ $scr.Set "highlight_enabled" site.Params.features.syntax_highlighter.enable }}
     {{ end }}
-    {{ if ($scr.Get "highlight_enabled") }}
-      {{ $v := $css.highlight.version }}
-      {{ with site.Params.features.syntax_highlighter.theme }}
-        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\" media=\"print\" onload=\"this.media='all'\">" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
-        {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" media=\"print\" onload=\"this.media='all'\" disabled>" (printf $css.highlight.url $css.highlight.version .) | safeHTML }}
-      {{ else }}
-        {{ if eq ($scr.Get "light") true }}
-          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\" media=\"print\" onload=\"this.media='all'\">" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
-          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" media=\"print\" onload=\"this.media='all'\" disabled>" (printf $css.highlight.url $css.highlight.version "dracula") | safeHTML }}
-        {{ else }}
-          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-light\" media=\"print\" onload=\"this.media='all'\" disabled>" (printf $css.highlight.url $css.highlight.version "github") | safeHTML }}
-          {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" title=\"hl-dark\" media=\"print\" onload=\"this.media='all'\">" (printf $css.highlight.url $css.highlight.version "dracula") | safeHTML }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
+    {{ $hl_theme_light := site.Params.features.syntax_highlighter.light_theme | default "github-light" }}
+    {{ $hl_theme_dark := site.Params.features.syntax_highlighter.dark_theme | default "dracula" }}
+    {{ $hl_theme_light_css := resources.Get (printf "css/libs/chroma/%s.css" $hl_theme_light) | minify }}
+    {{ $hl_theme_dark_css := resources.Get (printf "css/libs/chroma/%s.css" $hl_theme_dark) | minify }}
+    <link rel="stylesheet" href="{{ $hl_theme_light_css.RelPermalink }}" title="hl-light" media="print" onload="this.media='all'" {{ if ne ($scr.Get "light") true }}disabled{{end}}>
+    <link rel="stylesheet" href="{{ $hl_theme_dark_css.RelPermalink }}" title="hl-dark" media="print" onload="this.media='all'" {{ if eq ($scr.Get "light") true }}disabled{{end}}>
 
     {{/* Maps CSS. */}}
     {{ $map_provider := lower site.Params.features.map.provider }}

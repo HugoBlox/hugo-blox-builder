@@ -7,14 +7,6 @@
 
 # JavaScript
 
-[js.highlight]
-  version = "10.2.1"
-  sri = "sha512-Ypjm0o7jOxAd4hpdoppSEN0TQOC19UtPAqD+4s5AlXmUvbmmS/YMxYqAqarQYyxTnB6/rqip9qcxlNB/3U9Wdg=="
-  url = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@%s/build/highlight.min.js"
-[js.highlight_lang]
-  version = "10.2.1"
-  sri = ""  # No SRI as highlight language styles is determined at run time.
-  url = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@%s/build/languages/%s.min.js"
 [js.mathJax]
   version = "3"
   sri = ""  # No SRI as dynamically generated.
@@ -86,10 +78,6 @@
   version = "7.4.5"
   sri = "sha256-TehzF/2QvNKhGQrrNpoOb2Ck4iGZ1J/DI4pkd2oUsBc="
   url = "https://cdn.jsdelivr.net/npm/instantsearch.css@%s/themes/satellite-min.css"
-[css.highlight]
-  version = "10.2.1"
-  sri = ""  # No SRI as highlight style is determined at run time.
-  url = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@%s/build/styles/%s.min.css"
 [css.cookieconsent]
   version = "3.1.1"
   sri = "sha512-LQ97camar/lOliT/MqjcQs5kWgy6Qz/cCRzzRzUCfv0fotsCTC9ZHXaPQmJV8Xu/PVALfJZ7BDezl5lW3/qBxg=="

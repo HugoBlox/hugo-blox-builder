@@ -45,14 +45,8 @@ body.dark,
   color: #fff;
 }
 
-.dark pre,
-.dark code:not(.hljs) {
-  color: rgb(139, 233, 253);
-  background-color: rgb(68, 71, 90);
-}
-
 .dark pre {
-  /* Match `pre` bg color above. */
+  /* Match `pre` bg color. */
   border-color: rgb(68, 71, 90);
 }
 

@@ -6,8 +6,10 @@
  **************************************************/
 
 import mediumZoom from './_vendor/medium-zoom.esm';
-import {hugoEnvironment, codeHighlighting, searchEnabled} from '@params';
+import {hugoEnvironment, searchEnabled, i18n} from '@params';
 import {scrollParentToChild} from './wowchemy-utils';
+import {fixScrollspy, scrollToAnchor} from './wowchemy-navigation';
+import {printLatestRelease} from './wowchemy-github';
 import {
   changeThemeModeClick,
   initThemeVariation,
@@ -17,133 +19,11 @@ import {
 
 console.debug(`Environment: ${hugoEnvironment}`);
 
-/* ---------------------------------------------------------------------------
- * Responsive scrolling for URL hashes.
- * --------------------------------------------------------------------------- */
-
-// Dynamically get responsive navigation bar height for offsetting Scrollspy.
-function getNavBarHeight() {
-  let navbar = document.getElementById('navbar-main');
-  let navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
-  console.debug('Navbar height: ' + navbarHeight);
-  return navbarHeight;
-}
-
-/**
- * Responsive hash scrolling.
- * Check for a URL hash as an anchor.
- * If page anchor matches hash, scroll to it responsively considering dynamic height elements.
- * If `target` argument omitted (e.g. after event), assume it's the window's hash.
- * Default to 0ms animation duration as don't want animation for fixing scrollspy Book page ToC highlighting.
- */
-function scrollToAnchor(target, duration = 0) {
-  // If `target` is undefined or HashChangeEvent object, set it to window's hash.
-  // Decode the hash as browsers can encode non-ASCII characters (e.g. Chinese symbols).
-  target =
-    typeof target === 'undefined' || typeof target === 'object' ? decodeURIComponent(window.location.hash) : target;
-
-  // If target element exists, scroll to it taking into account fixed navigation bar offset.
-  if ($(target).length) {
-    // Escape special chars from IDs, such as colons found in Markdown footnote links.
-    target = '#' + $.escapeSelector(target.substring(1)); // Previously, `target = target.replace(/:/g, '\\:');`
-
-    let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight()); // Round up to highlight right ID!
-    $('body').addClass('scrolling');
-    $('html, body').animate(
-      {
-        scrollTop: elementOffset,
-      },
-      duration,
-      function () {
-        $('body').removeClass('scrolling');
-      },
-    );
-  } else {
-    console.debug('Cannot scroll to target `#' + target + '`. ID not found!');
-  }
-}
-
-// Make Scrollspy responsive.
-function fixScrollspy() {
-  let $body = $('body');
-  let data = $body.data('bs.scrollspy');
-  if (data) {
-    data._config.offset = getNavBarHeight();
-    $body.data('bs.scrollspy', data);
-    $body.scrollspy('refresh');
-  }
-}
-
 function removeQueryParamsFromUrl() {
   if (window.history.replaceState) {
     let urlWithoutSearchParams =
       window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.hash;
     window.history.replaceState({path: urlWithoutSearchParams}, '', urlWithoutSearchParams);
-  }
-}
-
-// Check for hash change event and fix responsive offset for hash links (e.g. Markdown footnotes).
-window.addEventListener('hashchange', scrollToAnchor);
-
-/* ---------------------------------------------------------------------------
- * Add smooth scrolling to all links inside the main navbar.
- * --------------------------------------------------------------------------- */
-
-$('#navbar-main li.nav-item a.nav-link, .js-scroll').on('click', function (event) {
-  // Store requested URL hash.
-  let hash = this.hash;
-
-  // If we are on a widget page and the navbar link is to a section on the same page.
-  if (this.pathname === window.location.pathname && hash && $(hash).length && $('.js-widget-page').length > 0) {
-    // Prevent default click behavior.
-    event.preventDefault();
-
-    // Use jQuery's animate() method for smooth page scrolling.
-    // The numerical parameter specifies the time (ms) taken to scroll to the specified hash.
-    let elementOffset = Math.ceil($(hash).offset().top - getNavBarHeight()); // Round up to highlight right ID!
-
-    // Uncomment to debug.
-    // let scrollTop = $(window).scrollTop();
-    // let scrollDelta = (elementOffset - scrollTop);
-    // console.debug('Scroll Delta: ' + scrollDelta);
-
-    $('html, body').animate(
-      {
-        scrollTop: elementOffset,
-      },
-      800,
-    );
-  }
-});
-
-/* ---------------------------------------------------------------------------
- * Hide mobile collapsable menu on clicking a link.
- * --------------------------------------------------------------------------- */
-
-$(document).on('click', '.navbar-collapse.show', function (e) {
-  //get the <a> element that was clicked, even if the <span> element that is inside the <a> element is e.target
-  let targetElement = $(e.target).is('a') ? $(e.target) : $(e.target).parent();
-
-  if (targetElement.is('a') && targetElement.attr('class') != 'dropdown-toggle') {
-    $(this).collapse('hide');
-  }
-});
-
-/* ---------------------------------------------------------------------------
- * GitHub API.
- * --------------------------------------------------------------------------- */
-
-function printLatestRelease(selector, repo) {
-  if (hugoEnvironment === 'production') {
-    $.getJSON('https://api.github.com/repos/' + repo + '/tags')
-      .done(function (json) {
-        let release = json[0];
-        $(selector).append(' ' + release.name);
-      })
-      .fail(function (jqxhr, textStatus, error) {
-        let err = textStatus + ', ' + error;
-        console.log('Request Failed: ' + err);
-      });
   }
 }
 
@@ -218,24 +98,24 @@ function getSiblings(elem) {
  * On document ready.
  * --------------------------------------------------------------------------- */
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
   fixHugoOutput();
 
   // Render theme variation, including any HLJS and Mermaid themes.
   let {isDarkTheme, themeMode} = initThemeVariation();
   renderThemeVariation(isDarkTheme, themeMode, true);
 
-  // Initialise code highlighting if enabled for this page.
-  // Note: this block should be processed after the Mermaid code-->div conversion.
-  if (codeHighlighting) {
-    hljs.initHighlighting();
-  }
-
   // Scroll Book page's active menu sidebar link into view.
   let child = document.querySelector('.docs-links .active');
   let parent = document.querySelector('.docs-links');
   if (child && parent) {
     scrollParentToChild(parent, child);
+  }
+
+  // Print latest version of GitHub projects.
+  let githubReleaseSelector = '.js-github-release';
+  if ($(githubReleaseSelector).length > 0) {
+    printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
   }
 });
 
@@ -353,12 +233,6 @@ $(window).on('load', function () {
     }
   }
 
-  // Print latest version of GitHub projects.
-  let githubReleaseSelector = '.js-github-release';
-  if ($(githubReleaseSelector).length > 0) {
-    printLatestRelease(githubReleaseSelector, $(githubReleaseSelector).data('repo'));
-  }
-
   // Parse Wowchemy keyboard shortcuts.
   document.addEventListener('keyup', (event) => {
     if (event.code === 'Escape') {
@@ -426,21 +300,37 @@ darkModeMediaQuery.addEventListener('change', (event) => {
   onMediaQueryListEvent(event);
 });
 
-// Automatic main menu dropdowns on mouse over.
-$('body').on('mouseenter mouseleave', '.dropdown', function (e) {
-  var dropdown = $(e.target).closest('.dropdown');
-  var menu = $('.dropdown-menu', dropdown);
-  dropdown.addClass('show');
-  menu.addClass('show');
-  setTimeout(function () {
-    dropdown[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
-    menu[dropdown.is(':hover') ? 'addClass' : 'removeClass']('show');
-  }, 300);
-});
+// Code block copy button
+document.querySelectorAll('pre > code').forEach((codeblock) => {
+  const container = codeblock.parentNode.parentNode;
+  const copyBtn = document.createElement('button');
+  let classesToAdd = ['btn', 'btn-primary', 'btn-copy-code'];
+  copyBtn.classList.add(...classesToAdd);
+  copyBtn.innerHTML = i18n['copy'];
 
-// Call `fixScrollspy` when window is resized.
-let resizeTimer;
-$(window).resize(function () {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(fixScrollspy, 200);
+  function copiedNotification() {
+    copyBtn.innerHTML = i18n['copied'];
+    setTimeout(() => {
+      copyBtn.innerHTML = i18n['copy'];
+    }, 2000);
+  }
+
+  copyBtn.addEventListener('click', () => {
+    if ('clipboard' in navigator) {
+      navigator.clipboard.writeText(codeblock.textContent);
+      copiedNotification();
+      return;
+    }
+  });
+
+  if (container.classList.contains('highlight')) {
+    // Parent when Hugo line numbers disabled
+    container.appendChild(copyBtn);
+  } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == 'TABLE') {
+    // Parent when Hugo line numbers enabled
+    codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copyBtn);
+  } else {
+    // Parent when Hugo `highlight` class not applied to code block
+    codeblock.parentNode.appendChild(copyBtn);
+  }
 });

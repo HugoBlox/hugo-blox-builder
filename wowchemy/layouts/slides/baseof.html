@@ -26,8 +26,9 @@
   {{- $theme := $.Param "slides.theme" | default "black" -}}
   <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/theme/{{ $theme }}.min.css">
 
-  {{- $highlight_style := $.Param "slides.highlight_style" | default "dracula" -}}
-  {{ printf "<link rel=\"stylesheet\" href=\"%s\" crossorigin=\"anonymous\" id=\"highlight-theme\">" (printf $css.highlight.url $css.highlight.version $highlight_style) | safeHTML }}
+  {{ $hl_theme := $.Param "slides.highlight_style" | default "dracula" }}
+  {{ $hl_theme_css := resources.Get (printf "css/libs/chroma/%s.css" $hl_theme) | minify }}
+  <link rel="stylesheet" href="{{ $hl_theme_css.RelPermalink }}">
 
   {{ $css_custom := resources.Get "css/reveal_custom.css" }}
   {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
@@ -39,7 +40,6 @@
 
   <script src="{{ $cdn_url_reveal }}/dist/reveal.min.js" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.min.js" crossorigin="anonymous"></script>
-  <script src="{{ $cdn_url_reveal }}/plugin/highlight/highlight.min.js" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.min.js" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/search/search.min.js" crossorigin="anonymous"></script>
   <script src="{{ $cdn_url_reveal }}/plugin/math/math.min.js" crossorigin="anonymous"></script>

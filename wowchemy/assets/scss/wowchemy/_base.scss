@@ -211,14 +211,6 @@ code {
   font-family: $sta-font-mono, monospace;
 }
 
-//pre,
-//code:not(.hljs) {
-//  color: #c7254e;
-//
-//  /* Match bg of default highlight theme. */
-//  background-color: rgb(248, 248, 248);
-//}
-
 pre {
   margin: 0 0 1rem;
 
@@ -232,6 +224,25 @@ pre {
 pre code {
   white-space: pre; /* Override Bootstrap to preserve line breaks in code. */
   overflow-x: auto;
+}
+
+div.highlight,
+pre {
+  // Required to position Copy button
+  position: relative;
+}
+
+.btn-copy-code {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  user-select: none;
+}
+
+div.highlight:hover .btn-copy-code,
+pre:hover .btn-copy-code {
+  display: block;
 }
 
 hr {
