@@ -44,6 +44,7 @@
     "lint:style:fix": "stylelint '*/**/*.{css,scss}' --fix",
     "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
     "stylelint-conflict-check": "stylelint-config-prettier-check",
+    "update:starter": "scripts/update-starter.sh",
     "update:starters": "hugo mod get -u ./..."
   }
 }
