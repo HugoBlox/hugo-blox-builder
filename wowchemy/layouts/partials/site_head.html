@@ -155,8 +155,8 @@
     {{ else if isset site.Params.features.syntax_highlighter "enable" }}
       {{ $scr.Set "highlight_enabled" site.Params.features.syntax_highlighter.enable }}
     {{ end }}
-    {{ $hl_theme_light := site.Params.features.syntax_highlighter.light_theme | default "github-light" }}
-    {{ $hl_theme_dark := site.Params.features.syntax_highlighter.dark_theme | default "dracula" }}
+    {{ $hl_theme_light := site.Params.features.syntax_highlighter.theme_day | default "github-light" }}
+    {{ $hl_theme_dark := site.Params.features.syntax_highlighter.theme_night | default "dracula" }}
     {{ $hl_theme_light_css := resources.Get (printf "css/libs/chroma/%s.css" $hl_theme_light) | minify }}
     {{ $hl_theme_dark_css := resources.Get (printf "css/libs/chroma/%s.css" $hl_theme_dark) | minify }}
     <link rel="stylesheet" href="{{ $hl_theme_light_css.RelPermalink }}" title="hl-light" media="print" onload="this.media='all'" {{ if ne ($scr.Get "light") true }}disabled{{end}}>
