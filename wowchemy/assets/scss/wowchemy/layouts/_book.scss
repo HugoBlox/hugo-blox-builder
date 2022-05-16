@@ -90,6 +90,11 @@
   }
 }
 
+.no-navbar .docs-sidebar {
+  top: 0;
+  height: 100vh;
+}
+
 @media (min-width: 1200px) {
   .docs-sidebar {
     flex: 0 1 320px;

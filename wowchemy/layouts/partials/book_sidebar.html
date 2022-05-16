@@ -2,9 +2,10 @@
   <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     <div class="d-flex">
       <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
-        {{ if .Parent | and .Parent.IsHome }}
+        {{/* Don't use piped conditions here in order to utilise short-circuiting */}}
+        {{ if and .Parent .Parent.IsHome }}
           {{ .LinkTitle | emojify }}
-        {{ else if .Parent | and (not .Parent.IsHome) }}
+        {{ else if and .Parent (not .Parent.IsHome) }}
           {{ .Parent.LinkTitle | emojify }}
         {{ else }}
           {{ (i18n "home" | default "Home") | emojify }}
@@ -44,6 +45,10 @@
     {{- else -}}
       {{- $query = .Site.Home.Sections.ByWeight -}}
     {{- end}}
+
+    {{- range $query -}}
+      {{ template "book-menu" dict "sect" . "current_node" $current_node "order_by" $order_by "is_root" $is_root }}
+    {{- end -}}
 
   {{else}}
     {{/* Case where homepage is NOT a book */}}
