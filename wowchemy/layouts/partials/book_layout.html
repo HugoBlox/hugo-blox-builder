@@ -32,7 +32,33 @@
           {{ if $show_breadcrumb }}
             {{ partial "components/breadcrumb" $current_page }}
           {{ end }}
+        </div>
 
+        {{/* Cover image */}}
+        {{ if and .Params.cover.image }}
+        <div class="article-header">
+          {{- $img := "" -}}
+          {{ $alt := (.Params.cover.caption | default "") | plainify }}
+          {{ $destination := .Params.cover.image }}
+          {{ $is_remote := strings.HasPrefix $destination "http" }}
+          {{- if not $is_remote -}}
+            {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+            {{- if not $img -}}
+              {{- $img = resources.Get (path.Join "media" $destination) -}}
+            {{- end -}}
+          {{- end -}}
+          {{ if $img }}
+            {{ $img = $img.Fit "1800x310 webp" }}
+            <img src="{{$img.RelPermalink}}" width="{{$img.Width}}" height="{{$img.Height}}" class="article-banner" alt="{{$alt}}">
+          {{ else }}
+            <img src="{{ .Params.cover.image }}" class="article-banner" alt="{{$alt}}">
+          {{ end }}
+
+          {{ with .Params.cover.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+        </div>
+        {{end}}
+
+        <div class="docs-article-container">
           <h1>{{ .Title }}</h1>
 
           <div class="article-style">
