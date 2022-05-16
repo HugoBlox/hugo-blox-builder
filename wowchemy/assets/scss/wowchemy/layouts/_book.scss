@@ -72,6 +72,10 @@
       z-index: 10;
       height: calc(100vh - 50px);
     }
+    .no-navbar .docs-sidebar {
+      top: 0;
+      height: 100vh;
+    }
   }
 }
 
@@ -87,12 +91,11 @@
       z-index: 10;
       height: calc(100vh - 70px);
     }
+    .no-navbar .docs-sidebar {
+      top: 0;
+      height: 100vh;
+    }
   }
-}
-
-.no-navbar .docs-sidebar {
-  top: 0;
-  height: 100vh;
 }
 
 @media (min-width: 1200px) {
