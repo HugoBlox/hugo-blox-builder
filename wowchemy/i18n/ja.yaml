@@ -7,7 +7,7 @@
 - id: back_to_top
   translation: トップへ戻る
 - id: home
-  translation: Home
+  translation: ホーム
 - id: close
   translation: 閉じる
 - id: languages
@@ -25,13 +25,13 @@
 - id: edit_page
   translation: このページを編集する
 - id: theme_selector
-  translation: Display preferences
+  translation: 表示設定
 - id: theme_light
-  translation: Light
+  translation: ライト
 - id: theme_dark
-  translation: Dark
+  translation: ダーク
 - id: theme_auto
-  translation: Automatic
+  translation: 自動
 - id: btn_preprint
   translation: プレプリント
 - id: btn_pdf
@@ -63,7 +63,7 @@
 - id: user_profile_latest
   translation: 最新
 - id: see_certificate
-  translation: See certificate
+  translation: 証明書を見る
 - id: present
   translation: 現在
 - id: more_pages
@@ -135,7 +135,7 @@
 - id: search_placeholder
   translation: 検索...
 - id: search_results
-  translation: results found
+  translation: 件の検索結果
 - id: search_no_results
   translation: 結果が見つかりませんでした
 - id: search_common_queries
