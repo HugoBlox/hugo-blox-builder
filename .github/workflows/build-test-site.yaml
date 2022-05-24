@@ -32,26 +32,10 @@ jobs:
         run: rm -rf node_modules && yarn install --frozen-lockfile
 
       - name: Check for linting errors
-        run: yarn run lint:js  # TODO: also lint styles again once new rule errors resolved
+        run: yarn run lint
 
-#  format:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          # Make sure the actual branch is checked out when running on pull requests
-#          ref: ${{ github.head_ref }}
-#
-#      - name: Prettify code
-#        uses: creyD/prettier_action@v3.1
-#        with:
-#          prettier_options: '--write wowchemy/*.{css,js,json,md,scss} wowchemy/**/*.{css,js,json,md,scss}' # Match package.json
-#          prettier_version: '2.2.1' # Match package.json
-#          commit_message: 'refactor: format code'
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check for formatting errors
+        run: yarn run format:check
 
   hugo:
     runs-on: ubuntu-latest
