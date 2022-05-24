@@ -72,6 +72,7 @@
       z-index: 10;
       height: calc(100vh - 50px);
     }
+
     .no-navbar .docs-sidebar {
       top: 0;
       height: 100vh;
@@ -91,6 +92,7 @@
       z-index: 10;
       height: calc(100vh - 70px);
     }
+
     .no-navbar .docs-sidebar {
       top: 0;
       height: 100vh;
@@ -229,26 +231,31 @@
   padding-left: calc(1.5rem + 1px);
 }
 
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents {
   padding-left: 0;
   border-left: 1px solid #eee;
 }
 
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents ul,
 ul.toc-top {
   padding-left: 0;
 }
 
 // TOC indentation for each level.
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents ul ul {
   padding-left: 0.8rem;
 }
 
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents li {
   display: block;
   margin-bottom: 8px; // Lighthouse: tap targets must be at least 8px apart
 }
 
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents li a,
 .toc-top li a {
   display: block;
@@ -258,11 +265,13 @@ ul.toc-top {
   font-size: 16px; // Lighthouse: min tap target size
 }
 
+// stylelint-disable-next-line selector-id-pattern
 .dark #TableOfContents li a,
 .dark .toc-top li a {
   color: rgba(255, 255, 255, 0.65);
 }
 
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents li a:hover,
 .toc-top li a:hover {
   color: $sta-primary;
@@ -270,6 +279,7 @@ ul.toc-top {
 }
 
 /* ScrollSpy active link style. */
+// stylelint-disable-next-line selector-id-pattern
 #TableOfContents li a.active {
   color: $sta-primary;
   font-weight: 700;

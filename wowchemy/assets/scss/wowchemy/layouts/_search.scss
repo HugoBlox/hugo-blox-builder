@@ -87,14 +87,17 @@
 }
 
 // Override Algolia results style
+// stylelint-disable selector-class-pattern
 .ais-Hits-item,
 .ais-InfiniteHits-item {
   background: unset;
   box-shadow: unset;
   padding: unset;
 }
+// stylelint-enable selector-class-pattern
 
 // Override Algolia search box icon style
+// stylelint-disable-next-line selector-class-pattern
 .ais-SearchBox-form::before {
   all: unset; // clear Algolia style
   height: 1rem;
@@ -218,7 +221,7 @@
 }
 
 // Algolia dark-themed search input
-
+// stylelint-disable-next-line selector-class-pattern
 .dark .ais-search-box--input {
   background-color: $sta-dark-background;
 }

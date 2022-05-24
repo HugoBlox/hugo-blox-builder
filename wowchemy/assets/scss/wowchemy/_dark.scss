@@ -55,6 +55,7 @@ body.dark,
   background: rgba(233, 231, 245, 0.2);
 }
 
+// stylelint-disable-next-line selector-id-pattern
 .dark #MathJax_Zoom {
   background-color: rgb(68, 71, 90) !important;
 }

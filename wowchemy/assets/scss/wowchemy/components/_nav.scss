@@ -7,14 +7,17 @@
   transition: transform 200ms linear;
 }
 
+// stylelint-disable-next-line selector-class-pattern
 .headroom--pinned {
   transform: translateY(0%);
 }
 
+// stylelint-disable-next-line selector-class-pattern
 .headroom--unpinned {
   transform: translateY(-100%);
 }
 
+// stylelint-disable-next-line selector-class-pattern
 .header--fixed {
   position: fixed;
   z-index: 10; // previously, 1030

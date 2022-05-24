@@ -10,8 +10,7 @@ ul.share {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   list-style: none;
   margin: 0;
   padding: 0;

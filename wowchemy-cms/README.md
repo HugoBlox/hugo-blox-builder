@@ -25,7 +25,6 @@ Built upon the open source [Netlify CMS](https://www.netlifycms.org/) and [Netli
      - wowchemycms_config
      - HTML
    ---
-
    ```
 
 3. (Optional) If your Git repository's branch is **not** `main`, define it in `config/_default/params.yaml`:

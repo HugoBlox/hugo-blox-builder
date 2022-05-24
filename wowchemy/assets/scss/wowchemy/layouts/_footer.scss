@@ -36,8 +36,7 @@ footer .powered-by {
 
 .footer-license-icons {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: center;
   list-style: none;
   height: auto;

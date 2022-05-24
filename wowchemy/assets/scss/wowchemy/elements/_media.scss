@@ -81,24 +81,26 @@ body:not(.dark) .img-dark {
 
 // Dynamically theme inline `svg`
 svg {
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 /*************************************************
  *  Image zooming.
  **************************************************/
 
+// stylelint-disable selector-class-pattern
 .medium-zoom-overlay,
 .medium-zoom-image--opened {
   z-index: 1031; // Nav bar index +1.
 }
+// stylelint-enable selector-class-pattern
 
 /*************************************************
  *  Gallery.
  **************************************************/
 
 .gallery {
-  margin: 0.5em -4px 1.5em -4px;
+  margin: 0.5em -4px 1.5em;
   font-size: 0;
 }
 

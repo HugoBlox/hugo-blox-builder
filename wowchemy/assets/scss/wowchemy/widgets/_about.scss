@@ -47,8 +47,7 @@
 
 ul.network-icon {
   display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   justify-content: center;
   list-style: none;
   padding: 0;

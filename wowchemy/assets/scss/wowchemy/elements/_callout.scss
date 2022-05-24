@@ -2,6 +2,7 @@
 
 /* Style asides as Bootstrap alerts. */
 .article-style aside {
+  // stylelint-disable-next-line scss/at-extend-no-missing-placeholder
   @extend .alert;
 }
 
