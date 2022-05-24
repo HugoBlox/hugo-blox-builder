@@ -5,11 +5,11 @@
 - id: on_this_page
   translation: On this page
 - id: back_to_top
-  translation: Back to top
+  translation: トップへ戻る
 - id: home
-  translation: Home
+  translation: ホーム
 - id: close
-  translation: Close
+  translation: 閉じる
 - id: languages
   translation: Languages
 - id: related
@@ -23,15 +23,15 @@
 - id: figure
   translation: '図 %d:'
 - id: edit_page
-  translation: Edit this page
+  translation: このページを編集する
 - id: theme_selector
-  translation: Display preferences
+  translation: 表示設定
 - id: theme_light
-  translation: Light
+  translation: ライト
 - id: theme_dark
-  translation: Dark
+  translation: ダーク
 - id: theme_auto
-  translation: Automatic
+  translation: 自動
 - id: btn_preprint
   translation: プレプリント
 - id: btn_pdf
@@ -43,7 +43,7 @@
 - id: btn_video
   translation: 動画
 - id: btn_code
-  translation: コード
+  translation: ソースコード
 - id: btn_dataset
   translation: データセット
 - id: btn_project
@@ -61,13 +61,13 @@
 - id: education
   translation: 学歴
 - id: user_profile_latest
-  translation: Latest
+  translation: 最新
 - id: see_certificate
-  translation: See certificate
+  translation: 証明書を見る
 - id: present
-  translation: Present
+  translation: 現在
 - id: more_pages
-  translation: See all
+  translation: すべて表示
 - id: more_posts
   translation: 投稿一覧
 - id: more_talks
@@ -75,15 +75,15 @@
 - id: more_publications
   translation: 発表文献一覧
 - id: contact_name
-  translation: Name
+  translation: 名前
 - id: contact_email
-  translation: Email
+  translation: メールアドレス
 - id: contact_message
-  translation: Message
+  translation: メッセージ本文
 - id: contact_send
-  translation: Send
+  translation: 送信
 - id: book_appointment
-  translation: Book an appointment
+  translation: 予約を取る
 - id: abstract
   translation: 概要
 - id: publication
@@ -99,7 +99,7 @@
 - id: location
   translation: 場所
 - id: pub_uncat
-  translation: Uncategorized
+  translation: 未分類
 - id: pub_conf
   translation: Conference paper
 - id: pub_journal
@@ -109,13 +109,13 @@
 - id: pub_report
   translation: Report
 - id: pub_book
-  translation: Book
+  translation: 書籍
 - id: pub_book_section
   translation: Book section
 - id: pub_thesis
   translation: Thesis
 - id: pub_patent
-  translation: Patent
+  translation: 特許
 - id: open_project_site
   translation: プロジェクトのサイトへ
 - id: posts
@@ -127,15 +127,15 @@
 - id: projects
   translation: プロジェクト
 - id: slides
-  translation: Slides
+  translation: スライド
 - id: authors
-  translation: Authors
+  translation: 著者
 - id: search
-  translation: Search
+  translation: 検索
 - id: search_placeholder
   translation: 検索...
 - id: search_results
-  translation: results found
+  translation: 件の検索結果
 - id: search_no_results
   translation: 結果が見つかりませんでした
 - id: search_common_queries
