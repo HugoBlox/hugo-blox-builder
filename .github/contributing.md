@@ -30,6 +30,12 @@ yarn run lint
 yarn run format
 ```
 
+You can run a demo site using:
+
+```sh
+yarn run demo
+```
+
 ### Contribute a widget
 
 [Create and publish your own widget](https://github.com/wowchemy/wowchemy-widget-starter)

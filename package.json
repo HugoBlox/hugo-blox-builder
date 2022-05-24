@@ -37,6 +37,7 @@
     "view": "scripts/view-starter.sh",
     "view:local": "scripts/view-starter-dev.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "scripts/view_demo.sh",
     "lint": "yarn run lint:js && yarn run lint:style",
     "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
     "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
