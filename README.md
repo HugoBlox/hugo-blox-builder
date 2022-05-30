@@ -76,6 +76,17 @@ Choose from one of the starter templates to easily get started:
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
 - **One-Click Deployment** - No servers. No databases. Only files.
 
+## [Add hugo contact form](https://fabform.io/a/hugo-contact-form)
+
+```
+<form action="https://fabform.io/f/{form-id}" method="post">
+ <label for="email">Your Email</label>
+ <input name="email" type="email">
+ <button type="submit">Submit</button> 
+</form>
+```
+
+
 ## Themes
 
 Wowchemy comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the moon icon in the top right of one of the [Demos](https://wowchemy.com/hugo-themes/) to set your preferred mode!
