@@ -12,7 +12,7 @@
     {{/* Show ToC by default. */}}
     {{ if ne .Params.toc false }}
     <div class="d-none d-xl-block col-xl-2 docs-toc">
-      {{ partial "hooks/page_toc_start" . }}
+      {{ partial "functions/get_hook" (dict "hook" "toc-start" "context" .) }}
 
       <ul class="nav toc-top">
         <li><a href="#" id="back_to_top" class="docs-toc-title">{{ i18n "on_this_page" }}</a></li>
@@ -20,7 +20,7 @@
 
       {{ .TableOfContents }}
 
-      {{ partial "hooks/page_toc_end" . }}
+      {{ partial "functions/get_hook" (dict "hook" "toc-end" "context" .) }}
     </div>
     {{ end }}
 

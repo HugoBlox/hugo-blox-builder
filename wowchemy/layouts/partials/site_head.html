@@ -9,6 +9,9 @@
     <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo" />
   {{ end }}
 
+  {{/* EXTENSIBILITY HOOK: HEAD-START */}}
+  {{ partial "functions/get_hook" (dict "hook" "head-start" "context" .) }}
+
   {{ if .Params.private }}
     <meta name="robots" content="noindex" />
   {{- end -}}
@@ -305,7 +308,13 @@
 
   {{ partial "jsonld/main" (dict "page" . "summary" $desc) }}
   {{ partial "cookie_consent" . }}
-  {{ partial "custom_head" . }}
 
   <title>{{$title}}</title>
+
+  {{/* EXTENSIBILITY HOOK: HEAD-END */}}
+  {{/* Deprecated custom_head hook */}}
+  {{ if templates.Exists "partials/custom_head" }}
+    {{ partial "custom_head" . }}
+  {{ end }}
+  {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
 </head>
