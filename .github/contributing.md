@@ -10,15 +10,63 @@ Join the **Contributing** channel on the **[community Discord](https://discord.g
 
 ### For technical contributions
 
-Learn [how to contribute code on Github](https://codeburst.io/a-step-by-step-guide-to-making-your-first-github-contribution-5302260a2940).
+Repository structure:
+
+- scripts
+  - A collection of scripts for helping maintain the repository
+- starters
+  - The collection of starter templates (aka Hugo themes)
+  - To contribute an improvement to a starter template, make your changes to the relevant template within this folder. **Do not submit PRs to the dedicated template repositories as they are read-only.**
+- wowchemy
+  - The components and layouts which form the Wowchemy page building framework that the templates depend on
+- wowchemy-cms
+  - The admin panel that enables users to edit their content on the go
+
+#### What are some good issues to contribute to?
 
 If you're a developer looking to contribute, but you're not sure where to begin, check out the [good first issue](https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) label on Github, which contains small tasks that have been specifically flagged as being friendly to new contributors.
 
 After that, if you're looking for something a little more challenging to sink your teeth into, there's a broader [help wanted](https://github.com/wowchemy/wowchemy-hugo-themes/labels/help%20wanted) label encompassing issues which need some love.
 
+#### How can I propose an improvement?
+
 If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/wowchemy/wowchemy-hugo-themes/pulls) for the community to review.
 
 If you have an idea for a new feature, please start by [searching the issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/wowchemy/wowchemy-hugo-themes/issues/new/choose), as adding new features to Wowchemy first requires some analysis around the design and spec.
+
+Please be mindful of the project [scope](#scope).
+
+#### How can I contribute an improvement?
+
+Learn [how to contribute code on Github](https://codeburst.io/a-step-by-step-guide-to-making-your-first-github-contribution-5302260a2940).
+
+**⚡️ To make quick and easy contributions, you can browse the repository on GitHub and edit your changes in GitHub's online editor. GitHub will then open a Pull Request (PR) for your changes to be reviewed by the community. ⚡️**
+
+Otherwise, for larger changes, you can edit locally on your computer in your favorite editor, such as VSCode:
+
+**Download the repo**
+
+Fork (copy) the repo on GitHub and then clone (download) your fork to your computer:
+
+```sh
+git clone https://github.com/<YOUR_USERNAME>/wowchemy-hugo-themes.git
+```
+
+**View a template**
+
+[Install Yarn](https://yarnpkg.com/), the project's build system if necessary.
+
+Then choose the starter template you wish to view, such as _minimal_:
+
+```sh
+yarn view:local minimal
+```
+
+Note that Hugo Server can occasionally stop working after changes are made (sometimes showing unrelated errors). If this happens, stop Hugo (Control-C) and restart it with the `yarn view:local ...` command above.
+
+**Implement your improvements**
+
+Implement you changes and then check for any linting or formatting issues.
 
 Code linting and formatting form part of the Continuous Integration process to help catch bugs and code issues in contributions.
 
@@ -29,6 +77,12 @@ yarn install
 yarn run lint
 yarn run format
 ```
+
+**Open a Pull Request with your changes**
+
+Use git to push (upload) your changes to GitHub and then open a Pull Request (PR) at https://github.com/wowchemy/wowchemy-hugo-themes/pulls
+
+Please be mindful of the project [scope](#scope).
 
 ### Contribute a widget
 
@@ -48,7 +102,7 @@ To contribute a **new language pack** or an improvement to a language pack, refe
 
 ### Contribute a template
 
-Consider forking a bare-bones template such as [Hello Starter](https://github.com/wowchemy/starter-hello-world) on GitHub and building up your own template using the Wowchemy Hugo Module. Reach out on the **Contributing** channel in Discord to submit your template.
+Consider duplicating a bare-bones template, such as the [Minimal](https://github.com/wowchemy/wowchemy-hugo-themes/tree/main/starters/minimal) folder, and building up your own template using the Wowchemy Hugo Module. Reach out on the **Contributing** channel in Discord to submit your template.
 
 ### Contribute to the Publication importer
 
@@ -58,8 +112,8 @@ To contribute to **Hugo Academic CLI**, the automatic publication importer, refe
 
 To help us develop this free software sustainably under the open source license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship:
 
-- ☕️ [**Donate a coffee**](https://paypal.me/cushen)
-- ❤️ [**Become a sponsor and unlock awesome rewards**](https://wowchemy.com/plans/)
+- ☕️ [**Donate a coffee**](https://github.com/sponsors/gcushen?frequency=one-time)
+- ❤️ [**Become a sponsor and unlock awesome rewards**](https://wowchemy.com/sponsor/)
 
 ## Other ways to help
 
