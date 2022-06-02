@@ -14,6 +14,7 @@ cascade:
   # Blog post options
   - _target:
       path: /post/**
+    pager: true
     editable: true
     reading_time: true
     commentable: true

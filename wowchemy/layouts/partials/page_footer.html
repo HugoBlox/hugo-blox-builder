@@ -4,9 +4,9 @@
 {{ partial "page_author" . }}
 {{ partial "comments" . }}
 
-{{ if site.Params.section_pager }}
+{{ if .Params.pager }}
 <div class="article-widget">
-  {{ partial "section_pager" . }}
+  {{ partial "components/pager" . }}
 </div>
 {{ end }}
 
