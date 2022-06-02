@@ -3,7 +3,8 @@
   <ul class="list-unstyled">
     {{ range $.Page.Pages }}
       <li>
-        <h5><a href="{{.RelPermalink}}">{{.LinkTitle}}</a></h5>
+        {{/* Fallback to filename as title (useful for default Obsidian note structure) */}}
+        <h5><a href="{{.RelPermalink}}">{{ .LinkTitle | default (title .File.TranslationBaseName) }}</a></h5>
         {{if $show_summary | and .Summary}}<p>{{.Summary | plainify | emojify}}</p>{{end}}
       </li>
     {{end}}

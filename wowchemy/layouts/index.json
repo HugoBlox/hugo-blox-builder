@@ -52,8 +52,10 @@
     {{- end -}}
 
     {{- /* Add page to index. */ -}}
-    {{- $index = $index | append (dict "objectID" .File.UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" $permalink "relpermalink" $rel_permalink "title" $title "summary" (plainify $desc | htmlUnescape) "content" (.Plain | htmlUnescape | truncate 5000) "authors" $authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories) -}}
-
+    {{/* Exclude virtual pages which aren't backed by a file */}}
+    {{ if .File }}
+      {{- $index = $index | append (dict "objectID" .File.UniqueID "date" .Date.UTC.Unix "publishdate" .PublishDate "lastmod" .Lastmod.UTC.Unix "expirydate" .ExpiryDate.UTC.Unix "lang" .Lang "permalink" $permalink "relpermalink" $rel_permalink "title" $title "summary" (plainify $desc | htmlUnescape) "content" (.Plain | htmlUnescape | truncate 5000) "authors" $authors "kind" .Kind "type" .Type "section" .Section "tags" .Params.Tags "categories" .Params.Categories) -}}
+    {{ end }}
   {{- end -}}
 {{- end -}}
 
