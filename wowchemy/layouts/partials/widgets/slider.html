@@ -27,9 +27,9 @@
     {{ if $item.background.media }}
       {{ $bg_img := resources.Get (printf "media/%s" $item.background.media) }}
       {{ if $bg_img }}
-        {{ $style_bg = printf "%sbackground-image: url('%s'); background-repeat: no-repeat; background-position: %s; background-size: cover; " $style_bg $bg_img.Permalink ($item.background.position | default "center") }}
+        {{ $style_bg = printf "%sbackground-image: url('%s'); background-repeat: no-repeat; background-position: %s; background-size: %s; " $style_bg $bg_img.Permalink ($item.background.position | default "center") ($item.background.fit | default "cover") }}
       {{ else }}
-        {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $item.overlay_img }}
+        {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $item.background.media }}
       {{ end }}
       {{ with $item.background.brightness }}
         {{ $style_filter = printf "%s-webkit-backdrop-filter: brightness(%s); backdrop-filter: brightness(%s);" $style_filter (string .) (string .) }}
