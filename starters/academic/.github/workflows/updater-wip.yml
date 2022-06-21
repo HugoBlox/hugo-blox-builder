@@ -13,3 +13,4 @@ jobs:
         with:
           feed-url: https://wowchemy.com/blog/index.xml
           readme-section: news
+          branch: main
