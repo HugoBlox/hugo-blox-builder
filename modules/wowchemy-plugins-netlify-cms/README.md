@@ -6,13 +6,13 @@ Built upon the open source [Netlify CMS](https://www.netlifycms.org/) and [Netli
 
 ## Install
 
-1. Edit `config/_default/config.yaml` to install the `wowchemy-cms` Hugo Module so that you have something like:
+1. Edit `config/_default/config.yaml` to install the `wowchemy-plugins-netlify-cms` Hugo Module so that you have something like:
 
    ```yaml
    module:
      imports:
-       - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5
-       - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5
+       - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-plugins-netlify-cms/v5
+       - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy/v5
    ```
 
 2. Create a `content/admin/index.md` file containing:
