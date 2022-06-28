@@ -16,21 +16,6 @@ markup:
   tableOfContents:
     startLevel: 2
     endLevel: 3
-mediaTypes:
-  text/netlify:
-    delimiter: ''
-    suffixes: ['']
-outputFormats:
-  headers:
-    baseName: _headers
-    isPlainText: true
-    mediatype: text/netlify
-    notAlternative: true
-  redirects:
-    baseName: _redirects
-    isPlainText: true
-    mediatype: text/netlify
-    notAlternative: true
 sitemap:
   changefreq: weekly
 module:

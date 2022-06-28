@@ -1,0 +1,19 @@
+module:
+  mounts:
+    - source: src/layouts
+      target: layouts
+mediaTypes:
+  text/netlify:
+    delimiter: ''
+    suffixes: ['']
+outputFormats:
+  headers:
+    baseName: _headers
+    isPlainText: true
+    mediatype: text/netlify
+    notAlternative: true
+  redirects:
+    baseName: _redirects
+    isPlainText: true
+    mediatype: text/netlify
+    notAlternative: true
