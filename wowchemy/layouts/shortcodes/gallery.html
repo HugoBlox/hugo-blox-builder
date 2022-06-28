@@ -1,5 +1,6 @@
 {{/* Gallery Shortcode for Wowchemy. */}}
 {{/* Load gallery images from media library. */}}
+{{/* https://github.com/wowchemy/wowchemy-hugo-themes */}}
 
 {{/* Get album folder or default to `media/albums/gallery/`. */}}
 {{ $album := (.Get "album") | default "gallery" }}
@@ -7,14 +8,14 @@
 
 {{/* Gallery options */}}
 {{ $sort_order := .Get "order" | default "asc" }}
-{{ $resize_options := printf "%s webp" (.Get "resize_options" | default "x190") }}
+{{ $resize_options := printf "%s webp" (.Get "resize_options" | default "750x750") }}
 
-<div class="gallery">
+<div class="gallery-grid">
 
   {{/* Attempt to automatically load gallery images from page bundle */}}
   {{ $images := resources.Match $album_path }}
   {{ range (sort $images "Name" $sort_order) }}
-    {{ $image := .Resize $resize_options }}
+    {{ $image := .Fit $resize_options }}
     {{/* Check if the user set a caption for this image */}}
     {{ $filename := path.Base .Name }}
     {{ $caption := "" }}
@@ -23,9 +24,19 @@
         {{ $caption = .caption }}
       {{ end }}
     {{ end }}
+  {{ $image_size := "gallery-item--medium" }}
+  {{if in .Name "-f." }}
+    {{ $image_size = "gallery-item--full" }}
+  {{else if in .Name "-s." }}
+    {{ $image_size = "" }}
+  {{else if in .Name "-l." }}
+    {{ $image_size = "gallery-item--large" }}
+  {{end}}
+  <div class="gallery-item {{$image_size}}">
     <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
-      <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">{{/* Width & height (or low res src) required for lazy loading. */}}
+      <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
     </a>
+  </div>
   {{else}}
     {{ errorf "Unable to load gallery `%s` in `%s`." $album_path .Page.File.Filename }}
   {{end}}
