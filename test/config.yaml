@@ -1,9 +1,10 @@
 title: Wowchemy Test
-baseurl: https://example.com
+baseURL: https://example.com
 module:
   imports:
-    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms/v5
-    - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy/v5
+    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-plugin-netlify-cms
+    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-plugin-netlify
+    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy/v5
 outputs:
   home: [HTML, RSS, JSON, WebAppManifest, headers, redirects]
 disableAliases: true
@@ -13,12 +14,10 @@ markup:
 security:
   _merge: deep
 params:
-  require_isotope: false
-  day_night: true
-  theme: minimal
-  font: native
-  main_menu:
-    enable: false
-  cms:
-    local_backend: true
-    publish_mode:
+  header:
+    navbar:
+      enable: false
+  extensions:
+    cms:
+      local_backend: true
+      publish_mode:
