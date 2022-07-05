@@ -48,9 +48,9 @@
   sri = "sha512-I7w3ZdSFzw5j3jU3ZkNikBNeIrl3i+hEuEdwNmqUJvwNcaBUNcijnP2gd9DtGlgVYDplfjGoD8vTNsID+lCjqg=="
   url = "https://cdn.jsdelivr.net/gh/bryanbraun/anchorjs@%s/anchor.min.js"
 [js.mermaid]
-  version = "8.8.4"
-  sri = "sha512-+TNmhaRJf3jyYHTpzEq/5I6b+aGyhzWb21mGdHAjxSGSYwxN9Grug3Y3B9qVxWfKKY8MscE/6mr9walWvFLFvQ=="
-  url = "https://cdn.jsdelivr.net/gh/mermaid-js/mermaid@v%s/dist/mermaid.min.js"
+  version = "9.1.3"
+  sri = "sha256-TIYL00Rhw/8WaoUhYTLX9SKIEFdXxg+yMWSLVUbhiLg="
+  url = "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js"
 [js.cookieconsent]
   version = "3.1.1"
   sri = "sha512-yXXqOFjdjHNH1GND+1EO0jbvvebABpzGKD66djnUfiKlYME5HGMUJHoCaeE4D5PTG2YsSJf6dwqyUUvQvS0vaA=="
