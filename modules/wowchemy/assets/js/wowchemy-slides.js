@@ -83,7 +83,7 @@ if (params.slides.diagram) {
 
   // improved fix for mermaid diagrams
   // will prevent improper sizing and alignment beyond 3rd slide
-  let renderMermaidDiagrams = function doMermaidStuff(event) {
+  let renderMermaidDiagrams = function renderMermaidDiagrams(event) {
 
     let mermaidDivs = event.currentSlide.querySelectorAll('.mermaid:not(.done)');
     let indices = Reveal.getIndices();
@@ -91,7 +91,7 @@ if (params.slides.diagram) {
 
     mermaidDivs.forEach(function (mermaidDiv, i) {
 
-      let insertSvg = function (svgCode, bindFunctions) {
+      let insertSvg = function (svgCode) {
         mermaidDiv.innerHTML = svgCode;
         mermaidDiv.classList.add('done');
       };
