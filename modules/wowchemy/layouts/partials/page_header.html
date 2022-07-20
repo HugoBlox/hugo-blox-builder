@@ -2,6 +2,11 @@
 {{ $featured := (.Resources.ByType "image").GetMatch "*featured*" }}
 {{ $anchor := $page.Params.image.focal_point | default "Smart" }}
 
+{{/* Use the CMS image */}}
+{{ if and .Params.image.filename (not $featured) }}
+  {{ $featured = (.Resources.ByType "image").GetMatch (print "*" (strings.TrimSuffix (path.Ext .Params.image.filename) .Params.image.filename) "*") }}
+{{ end }}
+
 {{/* Set default titles for node pages */}}
 {{ $title := .Title }}
 {{ if and (not $title) .IsNode }}
