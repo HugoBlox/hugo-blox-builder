@@ -164,6 +164,6 @@ Create `assets/css/reveal_custom.css` with:
 
 # Questions?
 
-[Ask](https://github.com/wowchemy/wowchemy-hugo-modules/discussions)
+[Ask](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
 
 [Documentation](https://wowchemy.com/docs/managing-content/#create-slides)
