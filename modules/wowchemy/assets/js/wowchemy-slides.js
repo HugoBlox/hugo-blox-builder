@@ -61,64 +61,6 @@ pluginOptions['plugins'] = enabledPlugins;
 
 Reveal.initialize(pluginOptions);
 
-// The following functions are used to render Mermaid diagrams
-// after Reveal slides have been successfully loaded
-// since content of slides is lazy loaded, if diagrams are
-// rendered at start of presentation their sizes will be off
-// get all slides that are:
-// 1- data loaded
-// 2- display set to block
-// 3- has a mermaid element that is not processed (data-processed dne)
-function mermaidSlidesReadyToRender(mslide) {
-  var diag = mslide.querySelector('.mermaid');
-  if (diag) {
-    var background = mslide.slideBackgroundElement;
-    // render if we are 1 slide away horizontally
-    // current visible slide index
-    var currentHorizontalIndex = Reveal.getState()['indexh'];
-
-    // mermaid slide index
-    var diagramSlideIndex = Reveal.getIndices(mslide)['h'];
-    if (
-      // find slides with non-rendered mermaid tags
-      // these will not have the attribute data-processed
-      !diag.hasAttribute('data-processed') &&
-      // check also that reveal slide is already loaded
-      // reveal slides seem to be lazily loaded
-      // things could be easier if reveal had a slide-loaded event
-      background.hasAttribute('data-loaded') &&
-      // loaded slides must also have the display attribute set to block
-      background.style.display === 'block' &&
-      // render diagrams that are 1 slide away
-      diagramSlideIndex - currentHorizontalIndex <= 1
-    )
-      return mslide;
-  }
-  return null;
-}
-
-function renderMermaidSlides() {
-  // find all slides with diagrams that are ready to render
-  var diagramSlides = Reveal.getSlides().filter(mermaidSlidesReadyToRender);
-
-  // render the diagram for each slide with ready to render diagrams
-  diagramSlides.forEach(function (item) {
-    mermaid.init(item.querySelector('.mermaid'));
-  });
-}
-
-// render mermaid slides for slides that are ready
-Reveal.on('slidechanged', function () {
-  renderMermaidSlides();
-});
-
-// render mermaid slides for slides that are ready on startup
-Reveal.on('Ready', function () {
-  if (Reveal.isReady()) {
-    renderMermaidSlides();
-  }
-});
-
 // Disable Mermaid by default.
 if (typeof params.slides.diagram === 'undefined') {
   params.slides.diagram = false;
@@ -138,4 +80,27 @@ if (params.slides.diagram) {
   mermaidOptions['startOnLoad'] = false;
 
   mermaid.initialize(mermaidOptions);
+
+  // Lazily render Mermaid diagrams within Reveal.JS slides
+  // See: https://github.com/hakimel/reveal.js/issues/2863#issuecomment-1107444425
+  let renderMermaidDiagrams = function renderMermaidDiagrams(event) {
+
+    let mermaidDivs = event.currentSlide.querySelectorAll('.mermaid:not(.done)');
+    let indices = Reveal.getIndices();
+    let pageno = `${indices.h}-${indices.v}`
+
+    mermaidDivs.forEach(function (mermaidDiv, i) {
+
+      let insertSvg = function (svgCode) {
+        mermaidDiv.innerHTML = svgCode;
+        mermaidDiv.classList.add('done');
+      };
+      let graphDefinition = mermaidDiv.textContent;
+      mermaid.mermaidAPI.render(`mermaid${pageno}-${i}`, graphDefinition, insertSvg);
+    });
+    Reveal.layout();
+  };
+
+  Reveal.on('ready', event => renderMermaidDiagrams(event));
+  Reveal.on('slidechanged', event => renderMermaidDiagrams(event));
 }
