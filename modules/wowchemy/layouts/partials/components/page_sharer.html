@@ -7,8 +7,14 @@
       {{ if in (slice "fab" "fas" "far" "fal") $pack }}
         {{ $pack_prefix = "fa" }}
       {{ end }}
-      {{ $link := replace .url "{url}" ($.Permalink | htmlEscape) }}
-      {{ $link = replace $link "{title}" ($.Title | htmlEscape) }}
+      {{/* Utilise `urlquery` over `htmlEscape` to encode sharing URL */}}
+      {{/* See https://github.com/wowchemy/wowchemy-hugo-themes/pull/2726 */}}
+      {{ $link := replace .url "{url}" ($.Permalink | urlquery) }}
+      {{ $link = replace $link "{title}" ($.Title | urlquery) }}
+      {{/* Workaround `urlquery` encoding for mailto as `urlquery` encodes `+` as `%2B` and ` ` (space) as `+` */}}
+      {{ if eq (urls.Parse $link).Scheme "mailto" }}
+        {{ $link = replace $link "+" "%20" }}
+      {{ end }}
       <li>
         <a href="{{$link|safeURL}}" target="_blank" rel="noopener" class="share-btn-{{.id}}" aria-label="{{.icon}}">
           <i class="{{$pack}} {{$pack_prefix}}-{{.icon}}"></i>
