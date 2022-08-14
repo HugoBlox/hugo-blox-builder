@@ -81,8 +81,8 @@ if (params.slides.diagram) {
 
   mermaid.initialize(mermaidOptions);
 
-  // improved fix for mermaid diagrams
-  // will prevent improper sizing and alignment beyond 3rd slide
+  // Lazily render Mermaid diagrams within Reveal.JS slides
+  // See: https://github.com/hakimel/reveal.js/issues/2863#issuecomment-1107444425
   let renderMermaidDiagrams = function renderMermaidDiagrams(event) {
 
     let mermaidDivs = event.currentSlide.querySelectorAll('.mermaid:not(.done)');
