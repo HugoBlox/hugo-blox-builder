@@ -4,7 +4,6 @@
 
   {{ $cdn_url_reveal := "https://cdn.jsdelivr.net/npm/reveal.js@4.3.1" }}
   {{ $js := site.Data.assets.js }}
-  {{ $css := site.Data.assets.css }}
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,9 +37,12 @@
   {{ end }}
 
   {{/* Load any Reveal CSS customizations */}}
-  {{ $css_custom := resources.Get "css/reveal_custom.css" }}
-  {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
-  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+  {{ $custom_reveal_css := printf "css/reveal_custom.css" }}
+  {{ if (fileExists (printf "assets/%s" $custom_reveal_css)) }}
+    {{ $css_custom := resources.Get "css/reveal_custom.css" }}
+    {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+  {{ end }}
 </head>
 <body>
 
