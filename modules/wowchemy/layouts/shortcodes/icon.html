@@ -1,3 +1,18 @@
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#inline-image
+
+    Parameters
+    ----------
+    name :
+        Icon name.
+    pack : default "fas"
+        Icon pack.
+    padding_left : default "0"
+        Left padding.
+    padding_right : default "1"
+        Right padding.
+*/}}
+
 {{- if (.Get "name") -}}
   {{- $icon := .Get "name" -}}
   {{- $pack := or (.Get "pack") "fas" -}}
