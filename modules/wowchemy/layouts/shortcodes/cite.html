@@ -3,17 +3,10 @@
 
     Parameters
     ----------
-    page : optional
-        Path to folder or page to be referenced.
-        It defaults to current page.
-    view : default "2"
-        Must be one of ["1", "2", "3", "4"].
-        Defines one of the available listing views in Wowchemy:
-        1. Stream
-        2. Compact
-        3. Card
-        4. Traditional
-        It defaults to compact view.
+    page : required
+        Path to Markdown page to be referenced.
+    view : optional, default "compact"
+        A built-in Wowchemy view or an installed community view.
 */}}
 
 {{ $page := .Page }}
