@@ -1,0 +1,6 @@
+module:
+  mounts:
+    - source: media/docs
+      target: assets/media/docs
+    - source: en
+      target: content/en/docs
