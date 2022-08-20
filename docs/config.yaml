@@ -3,4 +3,5 @@ module:
     - source: media/docs
       target: assets/media/docs
     - source: en
-      target: content/en/docs
+      target: content/docs
+      lang: en
