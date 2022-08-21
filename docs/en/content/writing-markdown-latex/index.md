@@ -2,7 +2,7 @@
 title: "📸 Page Elements: Writing content with Markdown, LaTeX, and Shortcodes"
 linktitle: 📸 Page Elements
 date: 2016-04-17
-type: book
+lastmod: 2022-08-21
 weight: 30
 math: true
 summary: Learn how to format content with Markdown, write math with LaTeX, add citations, and embed rich media such as image galleries, videos, podcasts, and Twitter feeds.
@@ -365,15 +365,21 @@ The following kinds of video may be added to a page.
 
 **Local video file**
 
-Videos may be added to a page by either placing them in your `static/media/` media library or in your [page's folder](https://gohugo.io/content-management/page-bundles/), and then referencing them using one of the following notations.
+Videos may be added to a page by either placing them in your `assets/media/` media library or in your [page's folder](https://gohugo.io/content-management/page-bundles/), and then referencing them using one of the following notations.
 
-A video from your `static/media/` media library:
-
-    {{</* video library="true" src="my_video.mp4" controls="yes" */>}}
-    
-A video within a [page's folder](https://gohugo.io/content-management/page-bundles/) (e.g. `content/post/hello/`):
+A video from your page folder or your `assets/media/` media library:
 
     {{</* video src="my_video.mp4" controls="yes" */>}}
+
+Wowchemy will search for the video in your page folder and your media library at `assets/media/`.
+    
+**External video file**
+
+    {{</* video src="https://example.com/my_video.mp4" controls="yes" */>}}
+
+If you don't want video controls, remove the `controls` parameter and the video will autoplay with looping (great for memes!).
+
+Note that browsers will block autoplay if the video contains sound.
 
 **Youtube**:
 
@@ -394,6 +400,88 @@ Demo:
 {{< chart data="line-chart" >}}
 
 You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.io/) useful.
+
+### Mindmaps
+
+Wowchemy supports a Markdown extension for mindmaps.
+
+Simply insert a Markdown `markmap` code block and optionally set the height of the mindmap as shown in the first example below.
+
+A simple mindmap defined as a Markdown list:
+
+<div class="highlight">
+<pre class="chroma">
+<code>
+```markmap {height="200px"}
+- Hugo Modules
+  - wowchemy
+  - wowchemy-plugins-netlify
+  - wowchemy-plugins-netlify-cms
+  - wowchemy-plugins-reveal
+```
+</code>
+</pre>
+</div>
+
+renders as
+
+```markmap {height="200px"}
+- Hugo Modules
+  - wowchemy
+  - wowchemy-plugins-netlify
+  - wowchemy-plugins-netlify-cms
+  - wowchemy-plugins-reveal
+```
+
+A more advanced mindmap with formatting, code blocks, and math:
+
+<div class="highlight">
+<pre class="chroma">
+<code>
+```markmap
+- Mindmaps
+  - Links
+    - [Wowchemy Docs](https://wowchemy.com/docs/)
+    - [Discord Community](https://discord.gg/z8wNYzb)
+    - [GitHub](https://github.com/wowchemy/wowchemy-hugo-themes)
+  - Features
+    - Markdown formatting
+    - **inline** ~~text~~ *styles*
+    - multiline
+      text
+    - `inline code`
+    -
+      ```js
+      console.log('hello');
+      console.log('code block');
+      ```
+    - Math: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
+```
+</code>
+</pre>
+</div>
+
+renders as
+
+```markmap
+- Mindmaps
+  - Links
+    - [Wowchemy Docs](https://wowchemy.com/docs/)
+    - [Discord Community](https://discord.gg/z8wNYzb)
+    - [GitHub](https://github.com/wowchemy/wowchemy-hugo-themes)
+  - Features
+    - Markdown formatting
+    - **inline** ~~text~~ *styles*
+    - multiline
+      text
+    - `inline code`
+    -
+      ```js
+      console.log('hello');
+      console.log('code block');
+      ```
+    - Math: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
+```
 
 ## Embed Documents
 

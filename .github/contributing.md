@@ -128,6 +128,30 @@ If you're not a developer there are still plenty of ways that you can help. We a
 - Hosting local Wowchemy themed events or meetups
 - Promoting Wowchemy to others by blogging, vlogging, code streaming, talking etc.
 
+## Best practices
+
+To create a consistent experience for all contributors and help prevent bugs, we have some best practices.
+
+### Conventional Commits Specification
+
+Please follow the [Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/).
+
+For example:
+
+- new feature: `feat: add the X parameter`
+- bug fix: `fix: typo in implementation of X parameter`
+- docs: `docs: document the X parameter`
+- style: `style: change font color from black to blue`
+- build-related: `chore: rebuild JS assets`
+
+### Linting and formatting
+
+```sh
+yarn install
+yarn run lint
+yarn run format
+```
+
 ## Scope
 
 Please be _mindful_ that although we encourage feature requests, we cannot expand the scope of the project in every possible direction. There will be feature requests that don't make the roadmap.
