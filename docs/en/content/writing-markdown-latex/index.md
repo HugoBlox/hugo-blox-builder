@@ -401,7 +401,7 @@ Demo:
 
 You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.io/) useful.
 
-### Mindmaps
+## Mindmaps
 
 Wowchemy supports a Markdown extension for mindmaps.
 
