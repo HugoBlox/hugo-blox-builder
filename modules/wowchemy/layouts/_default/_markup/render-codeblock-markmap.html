@@ -1,4 +1,6 @@
 <div class="markmap" style="height: {{.Attributes.height | default "500px"}};">
-{{- .Inner | safeHTML }}
+  <pre>
+    {{- .Inner | safeHTML -}}
+  </pre>
 </div>
 {{ .Page.Store.Set "has_markmap" true }}
