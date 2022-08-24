@@ -1,6 +1,16 @@
+<!--unformattedContent-->
 {{ $page := .page }}
 {{ $summary := .summary }}
-{{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
+{{/* Search for an image "*featured*" in post folder */}}
+{{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+{{/* Otherwise fall back the image file specified in front matter */}}
+{{ $filename := .Params.image.filename }}
+{{ if eq $featured_image nil }}
+  {{/* First search in post folder */}}
+  {{ $featured_image = (.Resources.ByType "image").GetMatch $filename }}
+  {{/* Otherwise in media/ folder */}}
+  {{ if eq $featured_image nil}} {{ $featured_image = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
+{{end}}
 {{ $author := partial "functions/get_author_name" $page }}
 
 <script type="application/ld+json">
@@ -45,3 +55,4 @@
   "description": {{$summary}}
 }
 </script>
+<!--unformattedContent-->
