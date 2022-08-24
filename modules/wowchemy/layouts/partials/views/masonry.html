@@ -18,7 +18,16 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
+{{/* Search for an image "*featured*" in post folder */}}
 {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+{{/* Otherwise fall back the image file specified in front matter */}}
+{{ $filename := $item.Params.image.filename }}
+{{ if eq $resource nil }}
+  {{/* First search in post folder */}}
+  {{ $resource = ($item.Resources.ByType "image").GetMatch $filename }}
+  {{/* Otherwise in media/ folder */}}
+  {{ if eq $resource nil}} {{ $resource = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
+{{ end }}
 
 <div class="card">
   {{ with $resource }}
