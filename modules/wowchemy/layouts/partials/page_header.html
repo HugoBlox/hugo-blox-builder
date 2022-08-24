@@ -1,5 +1,15 @@
+<!--unformattedContent-->
 {{ $page := . }}
+{{/* Search for an image "*featured*" in post folder */}}
 {{ $featured := (.Resources.ByType "image").GetMatch "*featured*" }}
+{{/* Otherwise fall back the image file specified in front matter */}}
+{{ if eq $featured nil }}
+    {{/* First search in post folder */}}
+    {{ $featured = (.Resources.ByType "image").GetMatch .Params.image.filename }}
+    {{/* Otherwise in media/ folder */}}
+    {{ if eq $featured nil}} {{ $featured = resources.GetMatch (path.Join "media" .Params.image.filename) }} {{ end }}
+{{end}}
+
 {{ $anchor := $page.Params.image.focal_point | default "Smart" }}
 
 {{/* Set default titles for node pages */}}
@@ -97,3 +107,4 @@
   {{end}}
 </div>
 {{end}}
+<!--unformattedContent-->
