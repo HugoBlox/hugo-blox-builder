@@ -76,7 +76,6 @@ body:
     attributes:
       label: What Hugo Module versions does your site use?
       description: Paste your `go.mod` here.
-      placeholder: ''
     validations:
       required: true
   - type: dropdown
