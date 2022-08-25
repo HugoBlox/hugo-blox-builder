@@ -6,23 +6,24 @@ assignees: []
 body:
 - type: checkboxes
   attributes:
-  label: Prerequisites
-  description: Take a minute to help our open source contributors.
-  options:
-  - label: I have [searched](https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aissue) for duplicate or closed feature requests
-  - label: I am mindful of the project [scope](https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/.github/contributing.md#scope)
-  required: true
+    label: Prerequisites
+    description: Take a minute to help our open source contributors.
+    options:
+    - label: I have [searched](https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aissue) for duplicate or closed feature requests
+      required: true
+    - label: I am mindful of the project [scope](https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/.github/contributing.md#scope)
+      required: true
 - type: textarea
   id: proposal
   attributes:
-  label: Proposal
-  description: Provide detailed information for what we should add, including relevant links to screenshots, code, or live demos whenever possible.
+    label: Proposal
+    description: Provide detailed information for what we should add, including relevant links to screenshots, code, or live demos whenever possible.
   validations:
-  required: true
+    required: true
 - type: textarea
   id: motivation
   attributes:
-  label: Motivation and context
-  description: Tell us why this change is needed or helpful, and what problems it may help solve.
+    label: Motivation and context
+    description: Tell us why this change is needed or helpful, and what problems it may help solve.
   validations:
-  required: true
+    required: true
