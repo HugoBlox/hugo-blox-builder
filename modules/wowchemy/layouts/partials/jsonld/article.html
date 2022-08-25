@@ -1,16 +1,6 @@
-<!--unformattedContent-->
 {{- $page := .page }}
 {{ $summary := .summary }}
-{{/* Search for an image "*featured*" in post folder */}}
-{{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
-{{ $filename := $page.Params.image.filename }}
-{{/* Otherwise fall back the image file specified in front matter */}}
-{{ if eq $featured_image nil }}
-  {{/* First search in post folder */}}
-  {{ $featured_image = ($page.Resources.ByType "image").GetMatch $filename }}
-  {{/* Otherwise in media/ folder */}}
-  {{ if eq $featured_image nil}} {{ $featured_image = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
-{{end}}
+{{ $featured_image := partial "functions/get_featured_image.html" $page }}
 
 {{/* Get schema type. */}}
 {{ $schema := "Article" }}
@@ -55,4 +45,3 @@
   "description": {{$summary}}
 }
 </script>
-<!--unformattedContent-->

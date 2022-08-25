@@ -1,4 +1,3 @@
-<!--unformattedContent-->
 {{ $item := .item }}
 
 {{/* Dynamic view adjusts to content type. */}}
@@ -75,16 +74,7 @@
 
   </div>
   <div class="ml-3">
-    {{/* Search for an image "*featured*" in post folder */}}
-    {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
-    {{/* Otherwise fall back the image file specified in front matter */}}
-    {{ $filename := $item.Params.image.filename }}
-    {{ if eq $resource nil }}
-      {{/* First search in post folder */}}
-      {{ $resource = ($item.Resources.ByType "image").GetMatch $filename }}
-      {{/* Otherwise in media/ folder */}}
-      {{ if eq $resource nil}} {{ $resource = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
-    {{ end }}
+    {{ $resource := partial "functions/get_featured_image.html" $item }}
     {{ with $resource }}
       {{ $image := .Resize "150x webp" }}
       <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
@@ -94,4 +84,3 @@
     {{end}}
   </div>
 </div>
-<!--unformattedContent-->

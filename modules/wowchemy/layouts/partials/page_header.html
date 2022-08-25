@@ -1,15 +1,5 @@
-<!--unformattedContent-->
 {{ $page := . }}
-{{/* Search for an image "*featured*" in post folder */}}
-{{ $featured := (.Resources.ByType "image").GetMatch "*featured*" }}
-{{/* Otherwise fall back the image file specified in front matter */}}
-{{ $filename := .Params.image.filename }}
-{{ if eq $featured nil }}
-  {{/* First search in post folder */}}
-  {{ $featured = (.Resources.ByType "image").GetMatch $filename }}
-  {{/* Otherwise in media/ folder */}}
-  {{ if eq $featured nil}} {{ $featured = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
-{{end}}
+{{ $featured := partial "functions/get_featured_image.html" $page }}
 
 {{ $anchor := $page.Params.image.focal_point | default "Smart" }}
 
@@ -108,4 +98,3 @@
   {{end}}
 </div>
 {{end}}
-<!--unformattedContent-->
