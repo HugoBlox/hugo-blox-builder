@@ -27,7 +27,7 @@
   translation: সংশ্লিষ্ট
 
 - id: minute_read # min read
-  translation: মিনিটে পড়া # Note: This is confusing, even in English. Is this something that can be read in a minute, or is it meeting minutes? The current translation assumes that it can be read in a minute. If it is referring to meeting minutes, then just মিনিট will do.
+  translation: মিনিটের পড়া
 
 - id: previous # Previous
   translation: পূর্ববর্তী
