@@ -166,7 +166,7 @@
   translation: তারিখ
 
 - id: last_updated # Last updated on
-  translation: সর্বশেষ আপডেট: 
+  translation: 'সর্বশেষ আপডেট:'
 
 - id: event # Event
   translation: ঘটনা
