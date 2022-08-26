@@ -264,5 +264,5 @@
 
 # Published with
 
-- id: published_with # Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
-  translation: {wowchemy}-এর সাথে প্রকাশিত – বিনামূল্যে, {repo_link}ওপেন সোর্স{/repo_link} ওয়েবসাইট নির্মাতা যা সৃজনকারীদের ক্ষমতায়ন করে।
+- id: published_with
+  translation: '{wowchemy}-এর সাথে প্রকাশিত – বিনামূল্যে, {repo_link}ওপেন সোর্স{/repo_link} ওয়েবসাইট নির্মাতা যা সৃজনকারীদের ক্ষমতায়ন করে।'
