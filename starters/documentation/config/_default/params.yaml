@@ -58,10 +58,8 @@ locale:
 
 features:
   syntax_highlighter:
-    enable: false
-    extra_languages:
-      - r
-      - latex
+    theme_light: github-light
+    theme_dark: dracula
   math:
     enable: false
   privacy_pack:
@@ -70,6 +68,10 @@ features:
     url: 'https://github.com/wowchemy/hugo-documentation-theme'
     content_dir: content
     branch: main
+  feedback:
+    responses:
+      positive: 'Glad to hear it! [Any ideas for improvements?](https://github.com/<USERNAME>/<REPO>/issues/new).'
+      negative: 'Sorry to hear that. [Please tell us how we can improve](https://github.com/<USERNAME>/<REPO>/issues/new).'
   comment:
     provider: ''
     disqus:

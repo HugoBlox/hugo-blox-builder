@@ -266,3 +266,17 @@
 
 - id: published_with
   translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Feedback
+
+- id: feedback_widget_question
+  translation: Was this page helpful?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Yes
+
+- id: feedback_widget_answer_negative
+  translation: 😡 No

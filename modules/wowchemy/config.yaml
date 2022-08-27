@@ -16,6 +16,10 @@ markup:
   tableOfContents:
     startLevel: 2
     endLevel: 3
+minify:
+  tdewolff:
+    html:
+      keepComments: true
 sitemap:
   changefreq: weekly
 module:
