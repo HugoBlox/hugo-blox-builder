@@ -14,17 +14,16 @@
     caption : optional
         Caption to add to the figure.
     title : optional
-        Legacy alias for 'caption'.
+        DEPRECATED. Legacy alias for 'caption'.
     lightbox : default "true"
-        If 'lightbox' is "true" and no 'link' is sepcified, the figure is made zoomable.
+        If 'lightbox' is "true" and no 'link' is specified, the figure is made zoomable.
     link : optional
-        Link to open on click.
-        If 'lightbox' is "true" and no 'link' is sepcified, the figure is made zoomable.
+        Link to open on click instead of zooming on click.
     id : optional
         Custom id "figure-{id}" to associate to the <figure> tag.
-        It deafults to 'caption'.
+        The id defaults to the caption if unset.
     alt : optional
-        Alternate text for the image. It defaults to 'caption'.
+        Screen reader text. Defaults to the caption if unset.
     theme : optional
         One of ["light", "dark"]. Respectively adds the class ["img-light", "img-dark"] to <figure>.
         If "light", image is inverted when browsing in dark mode; the opposite otherwise.
