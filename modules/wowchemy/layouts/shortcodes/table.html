@@ -2,6 +2,21 @@
 {{/* Load a CSV table from page dir falling back back to remote URL */}}
 {{/* Defaults to expecting a comma-separated CSV with a header row. */}}
 
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#csv-table
+
+    Parameters
+    ----------
+    src :
+        Path or url to the csv table. Path is relative to the folder where the shortcode is called.
+    delimiter : default ","
+        Field delimiter.
+    header : default "true"
+        If "true", the first row is rendered as the header.
+    caption : optional
+        Caption for the table.
+*/}}
+
 {{ $src := .Get "path" }}
 {{ $delimiter := .Get "delimiter" | default "," }}
 {{ $useHeaderRow := (eq (lower (.Get "header")) "true") | default true }}

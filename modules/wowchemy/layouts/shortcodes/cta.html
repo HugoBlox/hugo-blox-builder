@@ -1,3 +1,22 @@
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#call-to-action-buttons
+
+    Parameters
+    ----------
+    cta_text :
+        Text to display in the CTA button.
+    cta_link :
+        Link to action when CTA button is clicked.
+    cta_new_tab : default "false"
+        If "true", open the link in a new tab.
+    cta_alt_text : optional
+        Alternate text to display in the CTA button.
+    cta_alt_link : optional
+       Link to alternative action when CTA button is clicked.
+    cta_alt_new_tab : optional, default "false"
+        If "true", open the alternative link in a new tab.
+*/}}
+
 <ul class="cta-group">
   {{ if (.Get "cta_text") }}
   <li>

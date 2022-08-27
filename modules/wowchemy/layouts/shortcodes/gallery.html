@@ -2,6 +2,19 @@
 {{/* Load gallery images from media library. */}}
 {{/* https://github.com/wowchemy/wowchemy-hugo-themes */}}
 
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#image-gallery
+
+    Parameters
+    ----------
+    album : default "gallery"
+        Album folder in `assets/media/albums/` to load images from.
+    order : default "asc"
+        Sort images by title ascending (asc) or descending (desc).
+    resize_options : default "750x750"
+        Resize options passed to Hugo `.Fit` function (https://gohugo.io/content-management/image-processing/).
+*/}}
+
 {{/* Get album folder or default to `media/albums/gallery/`. */}}
 {{ $album := (.Get "album") | default "gallery" }}
 {{ $album_path := path.Join "media" "albums" $album "*" }}

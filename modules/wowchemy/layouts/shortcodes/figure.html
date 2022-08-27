@@ -3,6 +3,43 @@
 {{/* Note: Uses `{{-` to unindent HTML so that Figure shortcode can be nested within a `{{%` Markdown shortcode,
      such as Callout, without the HTML being rendered as a Markdown code block. */}}
 
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#single-image
+
+    Parameters
+    ----------
+    src :
+        Path to file or url for the image.
+        If a local file, first it is searched in the page directory, and then in `assets/media/` .
+    caption : optional
+        Caption to add to the figure.
+    title : optional
+        DEPRECATED. Legacy alias for 'caption'.
+    lightbox : default "true"
+        If 'lightbox' is "true" and no 'link' is specified, the figure is made zoomable.
+    link : optional
+        Link to open on click instead of zooming on click.
+    id : optional
+        Custom id "figure-{id}" to associate to the <figure> tag.
+        The id defaults to the caption if unset.
+    alt : optional
+        Screen reader text. Defaults to the caption if unset.
+    theme : optional
+        One of ["light", "dark"]. Respectively adds the class ["img-light", "img-dark"] to <figure>.
+        If "light", image is inverted when browsing in dark mode; the opposite otherwise.
+    class : optional
+        Optional additional class for <figure>.
+    max_width : optional
+        `max-width` style attribute for the <div class="w-100"> tage inside <figure>.
+        For example, "fit-content" makes the <div> of the same width of the contained image.
+    width : optional
+        `width` attribute of <img>. It defaults to image width.
+    height : optional
+        `height` attribute of <img>. It defaults to image height.
+    numbered : default "false"
+        If "true", the caption is numbered.
+*/}}
+
 {{ $destination := .Get "src" }}
 {{ $is_remote := strings.HasPrefix $destination "http" }}
 {{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}

@@ -2,6 +2,18 @@
 {{/* Load audio from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
 {{/* Supports primarily MP3 and MP4. */}}
 
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#audio
+
+    Parameters
+    ----------
+    src :
+        Path to file or url for the audio file.
+        If a local file, first it is searched in the page directory, and then in `assets/media/` .
+    id : optional
+        Custom id "audio-{id}" to associate to the <audio> tag.
+*/}}
+
 {{ $destination := .Get "src" }}
 {{ $is_remote := strings.HasPrefix $destination "http" }}
 {{- $asset := "" -}}
