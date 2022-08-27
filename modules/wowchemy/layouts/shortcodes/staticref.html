@@ -5,9 +5,7 @@
     #0 : positional
         URL for the link (if local path, it is relative to the page folder).
     #1 : optional, positional
-        Pass for instace "newtab" as second argument to open the link in a new tab.
-        The content of the second parameter does not matter;
-        if there are 2 parametrs, the link is opened in a new tab.
+        Pass "newtab" as the second argument to open the link in a new tab.
 */}}
 
 <a href="{{ .Get 0 | relURL }}"{{ if len .Params | eq 2 }} target="_blank"{{ end }}>{{ .Inner }}</a>
