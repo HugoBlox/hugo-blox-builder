@@ -5,7 +5,7 @@
     ----------
     data :
         Plotly JSON file name (without ".json" extension, since it is appended automatically to the name).
-        File is searchedd in the page folder.
+        Expects the JSON file to be placed in the page folder.
 */}}
 
 {{ $json := printf "./%s.json" (.Get "data") }}
