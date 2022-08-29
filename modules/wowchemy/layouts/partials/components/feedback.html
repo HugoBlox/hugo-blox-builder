@@ -34,35 +34,35 @@
   </button>
 </div>
 <script>
-  const yesButton = document.querySelector('.btn-feedback-positive');
-  const noButton = document.querySelector('.btn-feedback-negative');
-  const yesResponse = document.querySelector('.feedback--response-positive');
-  const noResponse = document.querySelector('.feedback--response-negative');
+  const btnYes = document.querySelector('.btn-feedback-positive');
+  const btnNo = document.querySelector('.btn-feedback-negative');
+  const responseYes = document.querySelector('.feedback--response-positive');
+  const responseNo = document.querySelector('.feedback--response-negative');
   const disableButtons = () => {
-    yesButton.disabled = true;
-    noButton.disabled = true;
+    btnYes.disabled = true;
+    btnNo.disabled = true;
   };
   const sendFeedback = (value) => {
-    if (typeof ga !== 'function') return;
-    const args = {
-      command: 'send',
-      hitType: 'event',
-      category: 'Page Rating',
-      action: 'click',
-      label: window.location.pathname,
-      value: value
-    };
-    ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'click', {
+      'event_category': 'page_rating',
+      'event_label': window.location.pathname,
+      'value': value,
+      'transport_type': 'beacon',
+      'event_callback': function () {
+        console.debug(`✅ Feedback sent ${value}`);
+      }
+    });
   };
-  yesButton.addEventListener('click', () => {
+  btnYes.addEventListener('click', () => {
     console.debug('Feedback response: 😍');
-    yesResponse.classList.add('feedback--response__visible');
+    responseYes.classList.add('feedback--response__visible');
     disableButtons();
     sendFeedback(1);
   });
-  noButton.addEventListener('click', () => {
+  btnNo.addEventListener('click', () => {
     console.debug('Feedback response: 😡');
-    noResponse.classList.add('feedback--response__visible');
+    responseNo.classList.add('feedback--response__visible');
     disableButtons();
     sendFeedback(0);
   });
