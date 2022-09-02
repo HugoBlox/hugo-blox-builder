@@ -18,7 +18,7 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-{{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+{{ $resource := partial "functions/get_featured_image.html" $item }}
 
 <div class="card">
   {{ with $resource }}

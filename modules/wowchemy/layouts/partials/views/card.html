@@ -41,16 +41,16 @@
     {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
   {{ end }}
 
-  {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $resource := partial "functions/get_featured_image.html" $item }}
   {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
   {{ with $resource }}
-  {{ $image := .Fill (printf "808x455 webp %s" $anchor) }}
-  <a href="{{ $link }}" {{ $target | safeHTMLAttr }}>
-    <div class="img-hover-zoom">
-      <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
-           class="article-banner" alt="{{ $item.Title }}" loading="lazy">
-    </div>
-  </a>
+    {{ $image := .Fill (printf "808x455 webp %s" $anchor) }}
+    <a href="{{ $link }}" {{ $target | safeHTMLAttr }}>
+      <div class="img-hover-zoom">
+        <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
+            class="article-banner" alt="{{ $item.Title }}" loading="lazy">
+      </div>
+    </a>
   {{end}}
 
   <div class="section-subheading article-title mb-1 mt-3">

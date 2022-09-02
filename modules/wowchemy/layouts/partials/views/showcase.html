@@ -49,13 +49,14 @@
 
     </div>
     <div class="col-12 col-md-6 order-first {{$order}}">
-      {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+      {{ $resource := partial "functions/get_featured_image.html" $item }}
+
       {{ with $resource }}
-      {{ $image := .Resize "540x webp" }}
-      {{if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{end}}
-        <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
-             alt="{{ $item.Title }}" loading="lazy">
-      {{if $do_link}}</a>{{end}}
+        {{ $image := .Resize "540x webp" }}
+        {{if $do_link}}<a href="{{ $link }}" {{ $target | safeHTMLAttr }}>{{end}}
+          <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
+              alt="{{ $item.Title }}" loading="lazy">
+        {{if $do_link}}</a>{{end}}
       {{end}}
     </div>
   </div>
