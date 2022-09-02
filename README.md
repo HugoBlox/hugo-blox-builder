@@ -28,7 +28,7 @@
 - 🐦 Share your Wowchemy site with the community on Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%23MadeWithWowchemy&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
 - ⬆️ **Updating?** View the [Update Guide](https://wowchemy.com/docs/hugo-tutorials/update/) and [Release Notes](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
-- 🚀 [Contribute improvements](./.github/contributing.md) or [suggest improvements](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
+- 🚀 [Contribute improvements](CONTRIBUTING.md) or [suggest improvements](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
 
 <p align="center"><a href="https://wowchemy.com/docs/getting-started/hugo-cms/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Wowchemy CMS"></a></p>
 

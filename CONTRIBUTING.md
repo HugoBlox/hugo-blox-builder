@@ -8,25 +8,37 @@ We want contributing to Wowchemy to be fun, enjoyable, and educational for anyon
 
 Join the **Contributing** channel on the **[community Discord](https://discord.gg/z8wNYzb)**.
 
+## General ways to help
+
+Whether or not you're a developer, there are plenty of non-technical ways that you can help. We always need help with:
+
+- Helping the Wowchemy community via the live [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
+- Investigating and reviewing open [Issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) and [Pull Requests](https://github.com/wowchemy/wowchemy-hugo-themes/pulls)
+  - Influence the roadmap! Give a thumbs up 👍 to upvote a feature request you would like to use
+- Improving the [documentation](https://wowchemy.com/docs/) and writing tutorials
+  - Just click the _Edit_ button at the bottom of pages or open an issue with your proposed improvement
+- Testing and quality assurance, such as checking the latest version of the templates work as you expect and fixing any dead-links etc.
+- Translating the Wowchemy templates or the Wowchemy documentation
+- Hosting local Wowchemy themed events or meetups
+- Promoting Wowchemy to others by blogging, vlogging, code streaming, talking etc.
+
 ### For technical contributions
 
 Repository structure:
 
+- modules
+  - The components and layouts which form the Wowchemy page building framework that the templates depend on
 - scripts
   - A collection of scripts for helping maintain the repository
 - starters
   - The collection of starter templates (aka Hugo themes)
   - To contribute an improvement to a starter template, make your changes to the relevant template within this folder. **Do not submit PRs to the dedicated template repositories as they are read-only.**
-- wowchemy
-  - The components and layouts which form the Wowchemy page building framework that the templates depend on
-- wowchemy-cms
-  - The admin panel that enables users to edit their content on the go
+- test
+  - a minimal site that is built by the CI on every commit to help test PRs
 
 #### What are some good issues to contribute to?
 
-If you're a developer looking to contribute, but you're not sure where to begin, check out the [good first issue](https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) label on Github, which contains small tasks that have been specifically flagged as being friendly to new contributors.
-
-After that, if you're looking for something a little more challenging to sink your teeth into, there's a broader [help wanted](https://github.com/wowchemy/wowchemy-hugo-themes/labels/help%20wanted) label encompassing issues which need some love.
+If you're a developer looking to contribute, but you're not sure where to begin, check out the [help wanted](https://github.com/wowchemy/wowchemy-hugo-themes/labels/help%20wanted) label on Github, which contains issues which need some love.
 
 #### How can I propose an improvement?
 
@@ -114,19 +126,6 @@ To help us develop this free software sustainably under the open source license,
 
 - ☕️ [**Donate a coffee**](https://github.com/sponsors/gcushen?frequency=one-time)
 - ❤️ [**Become a sponsor and unlock awesome rewards**](https://wowchemy.com/sponsor/)
-
-## Other ways to help
-
-If you're not a developer there are still plenty of ways that you can help. We always need help with:
-
-- Helping the Wowchemy community on the [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
-- Investigating and reviewing open [Issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) and [Pull Requests](https://github.com/wowchemy/wowchemy-hugo-themes/pulls)
-  - Give a thumbs up 👍 to upvote a feature request you would like to use
-- Improving the [documentation](https://wowchemy.com/docs/) and writing tutorials
-  - Just click the _Edit_ button at the bottom of pages or open an issue with your proposed improvement
-- Testing and quality assurance
-- Hosting local Wowchemy themed events or meetups
-- Promoting Wowchemy to others by blogging, vlogging, code streaming, talking etc.
 
 ## Best practices
 
