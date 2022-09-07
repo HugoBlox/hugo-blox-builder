@@ -34,7 +34,7 @@ window.PlotlyConfig = {MathJaxConfig: 'local'};
 // Check for any dismissed announcements that should be hidden on load
 Object.keys(localStorage).forEach(function(key) {
   if (/^wc-announcement-/.test(key)) {
-    document.documentElement.setAttribute('data-announcement-status', 'dismissed');
+    document.documentElement.setAttribute('data-wc-announcement-status', 'dismissed');
     console.debug('Hiding announcement...');
   }
 });
