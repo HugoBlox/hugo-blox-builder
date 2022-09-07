@@ -1,0 +1,9 @@
+{{ with site.Params.marketing.verification.google }}
+  <meta name="google-site-verification" content="{{ . }}" />
+{{- end -}}
+{{ with site.Params.marketing.verification.baidu }}
+  <meta name="baidu-site-verification" content="{{ . }}" />
+{{- end -}}
+{{ with site.Params.marketing.verification.bing }}
+  <meta name="msvalidate.01" content="{{ . }}" />
+{{- end -}}

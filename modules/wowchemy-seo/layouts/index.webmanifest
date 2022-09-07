@@ -1,10 +1,11 @@
 {{- $scr := .Scratch -}}
+{{- $theme_color := ($scr.Get "primary") | default site.Params.appearance.primary_color | default "#fff" -}}
 {
   "name": "{{site.Title}}",
   "short_name": "{{site.Title}}",
   "lang": "{{ site.LanguageCode | default "en-us" }}",
-  "theme_color": "{{ $scr.Get "primary" }}",
-  "background_color": "{{ $scr.Get "primary" }}",
+  "theme_color": "{{ $theme_color }}",
+  "background_color": "{{ $theme_color }}",
   "icons": [{
     "src": "{{ (partial "functions/get_icon" 192).RelPermalink }}",
     "sizes": "192x192",

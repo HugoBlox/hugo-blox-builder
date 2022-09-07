@@ -16,6 +16,13 @@ By default, the plugin will help secure your site with some common security head
        - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-plugin-netlify
    ```
 
+2. Tell Hugo to generate the Netlify `headers` and `redirects` files by adding them to Hugo's `outputs` config. For example,
+
+   ```yaml
+   outputs:
+     home: [..., headers, redirects]
+   ```
+
 ## Configure
 
 - 📚 [View the **documentation**](https://wowchemy.com/docs/hugo-tutorials/security/)

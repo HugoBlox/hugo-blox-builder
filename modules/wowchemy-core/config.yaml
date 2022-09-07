@@ -1,0 +1,4 @@
+module:
+  mounts:
+    - source: layouts
+      target: layouts
