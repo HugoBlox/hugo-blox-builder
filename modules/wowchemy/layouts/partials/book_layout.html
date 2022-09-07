@@ -35,26 +35,15 @@
         </div>
 
         {{/* Cover image */}}
-        {{ if and .Params.cover.image }}
+        {{ $cover_image := partial "functions/get_featured_image.html" . }}
+        {{ if $cover_image }}
         <div class="article-header">
-          {{- $img := "" -}}
-          {{ $alt := (.Params.cover.caption | default "") | plainify }}
-          {{ $destination := .Params.cover.image }}
-          {{ $is_remote := strings.HasPrefix $destination "http" }}
-          {{- if not $is_remote -}}
-            {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
-            {{- if not $img -}}
-              {{- $img = resources.Get (path.Join "media" $destination) -}}
-            {{- end -}}
-          {{- end -}}
-          {{ if $img }}
-            {{ $img = $img.Fit "1800x310 webp" }}
-            <img src="{{$img.RelPermalink}}" width="{{$img.Width}}" height="{{$img.Height}}" class="article-banner" alt="{{$alt}}">
-          {{ else }}
-            <img src="{{ .Params.cover.image }}" class="article-banner" alt="{{$alt}}">
+          {{ $alt := (.Params.image.caption | default "") | plainify }}
+          {{ $cover_image = $cover_image.Fit "1800x310 webp" }}
+          <img src="{{$cover_image.RelPermalink}}" width="{{$cover_image.Width}}" height="{{$cover_image.Height}}" class="article-banner" alt="{{$alt}}">
+          {{ with (.Params.image.alt_text | default .Params.image.caption) }}
+            <span class="article-header-caption">{{ . | markdownify | emojify }}</span>
           {{ end }}
-
-          {{ with .Params.cover.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
         </div>
         {{end}}
 
