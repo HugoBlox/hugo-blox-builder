@@ -221,6 +221,16 @@
   <script src="{{ $js.RelPermalink }}" type="module"></script>
 {{- end -}}
 
+{{/* Announcement Bar */}}
+{{ $hasAnnouncement := .Params.announcement.text }}
+{{ if $hasAnnouncement }}
+  {{ $js := resources.Get "js/wowchemy-announcement.js" | js.Build (dict "format" "esm" "minify" true) }}
+  {{- if hugo.IsProduction -}}
+    {{- $js = $js | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $js.RelPermalink }}" type="module"></script>
+{{- end -}}
+
 {{/* EXTENSIBILITY HOOK: BODY-END */}}
 {{/* Deprecated custom_js hook */}}
 {{ if templates.Exists "partials/custom_js" }}

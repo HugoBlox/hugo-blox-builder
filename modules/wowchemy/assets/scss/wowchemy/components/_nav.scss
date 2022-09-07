@@ -16,7 +16,7 @@
 }
 
 .header--fixed {
-  position: fixed;
+  position: sticky;
   z-index: 10; // previously, 1030
   right: 0;
   left: 0;

@@ -32,7 +32,11 @@
 
   {{ partial "search" . }}
 
-  <div class="page-header">
+  {{ if .Params.announcement.text -}}
+    {{ partial "components/announcement_bar" . }}
+  {{ end -}}
+
+  <div class="page-header header--fixed">
     {{ partial "navbar" . }}
   </div>
 

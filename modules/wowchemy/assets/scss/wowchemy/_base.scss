@@ -9,11 +9,11 @@ html {
   line-height: 1.65;
 
   // Offset anchor scrolling by height of desktop fixed header.
-  scroll-padding-top: 70px;
+  // scroll-padding-top: 70px;
 
   @include media-breakpoint-down(md) {
     // Offset anchor scrolling by height of mobile fixed header.
-    scroll-padding-top: 50px;
+    // scroll-padding-top: 50px;
   }
 }
 @media screen and (min-width: 58em) {
@@ -35,11 +35,11 @@ body {
   overflow-x: hidden;
 
   // Offset body content by fixed navbar height.
-  margin-top: 70px;
+  // margin-top: 70px;
 
   @include media-breakpoint-down(md) {
     // Offset body content by fixed navbar height.
-    margin-top: 50px;
+    // margin-top: 50px;
   }
 }
 
