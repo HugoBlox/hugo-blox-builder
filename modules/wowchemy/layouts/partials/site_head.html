@@ -108,6 +108,8 @@
 
     {{ if eq (lower site.Params.features.search.provider) "algolia" }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
+    {{ else if eq (lower site.Params.features.search.provider) "docsearch" }}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
     {{ end }}
 
     {{/* Load async scripts. */}}

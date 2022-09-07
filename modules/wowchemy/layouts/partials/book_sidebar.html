@@ -21,6 +21,8 @@
     <span class="sidebar-search-text">{{ i18n "search_placeholder" }}</span>
     <span class="sidebar-search-shortcut">/</span>
   </button>
+  {{ else if eq (lower site.Params.features.search.provider) "docsearch" }}
+  <div id="docsearch"></div>
   {{ end }}
 </form>
 
