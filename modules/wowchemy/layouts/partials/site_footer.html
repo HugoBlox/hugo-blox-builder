@@ -2,36 +2,13 @@
 
   {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
 
-  {{ if .IsTranslated | and site.Params.footer.show_translations }}
-    <div class="powered-by d-flex flex-wrap pb-2 justify-content-center">
-      <div class="p-2 font-weight-bold"><i class="fas fa-globe pr-1" aria-hidden="true"></i>{{ i18n "languages" }}:</div>
-      <div class="p-2">{{ index site.Data.i18n.languages .Lang }}</div>
-      {{ range .Translations }}
-        <div class="p-2"><a href="{{ .Permalink }}">{{ index site.Data.i18n.languages .Lang }}</a></div>
-      {{ end }}
-    </div>
+  {{/* Load footer widget */}}
+  {{ $footer_section_name := site.Params.footer.widget | default "minimal" }}
+  {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
+  {{ if not (templates.Exists (printf "partials/%s" $footer_section_path)) }}
+    {{ errorf "Check your `params.yaml`. Cannot find footer widget at `layouts/partials/%s`" $footer_section_path }}
   {{ end }}
-
-  {{ if or (site.GetPage "/terms.md") (site.GetPage "/privacy.md") }}
-  <p class="powered-by">
-    {{ with site.GetPage "/privacy.md" }}
-      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
-    {{ end }}
-    {{ with site.GetPage "/terms.md" }}
-      {{ if site.GetPage "/privacy.md" }} &middot; {{ end }}
-      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
-    {{ end }}
-  </p>
-  {{ end }}
-
-  {{ with site.Params.footer.text }}
-  <p class="powered-by">
-    {{ . | markdownify | emojify }}
-  </p>
-  {{ end }}
-
-  {{/* Display copyright license. */}}
-  {{ partial "site_footer_license" . }}
+  {{ partial $footer_section_path . }}
 
   <p class="powered-by">
     {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
@@ -46,7 +23,7 @@
       {{ $i18n_published_with = replace $i18n_published_with "{wowchemy}" "<a href=\"https://wowchemy.com/?utm_campaign=poweredby\" target=\"_blank\" rel=\"noopener\">Wowchemy</a>" | safeHTML }}
       {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/wowchemy/wowchemy-hugo-themes\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
       {{ $i18n_published_with = replace $i18n_published_with "{/repo_link}" "</a>" | safeHTML }}
-      {{ $i18n_published_with | markdownify | emojify }}
+      {{ $i18n_published_with | replaceRE "{year}" now.Year | markdownify | emojify | safeHTML }}
     {{ end }}
   </p>
 </footer>
