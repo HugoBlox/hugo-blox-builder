@@ -80,6 +80,14 @@ features:
       show_count: true
     commento:
       url: ''
+    giscus:
+      repo: ''
+      repo_id: ''
+      category: ''
+      category_id: ''
+      mapping: ''
+      theme: ''
+      reactions_enabled: ''
   search:
     provider: ''
     algolia:

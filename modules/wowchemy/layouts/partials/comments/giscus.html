@@ -1,0 +1,14 @@
+{{ if site.Params.features.comment.giscus }}
+<script src="https://giscus.app/client.js"
+        data-repo="{{site.Params.features.comment.giscus.repo}}"
+        data-repo-id="{{site.Params.features.comment.giscus.repo_id}}"
+        data-category="{{site.Params.features.comment.giscus.category}}"
+        data-category-id="{{site.Params.features.comment.giscus.category_id}}"
+        data-mapping="{{site.Params.features.comment.giscus.mapping}}"
+        data-reactions-enabled="{{site.Params.features.comment.giscus.reactions_enabled}}"
+        data-theme="{{site.Params.features.comment.giscus.theme}}"
+        crossorigin="anonymous"
+        async>
+</script>
+<noscript>Please enable JavaScript to view the comments powered by giscus.</noscript>
+{{ end }}
