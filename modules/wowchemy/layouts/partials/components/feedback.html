@@ -1,0 +1,70 @@
+{{ $ga := site.Params.marketing.analytics.google_analytics | default site.GoogleAnalytics | default "" }}
+{{ $show_feedback := .Params.feedback | default true }}
+
+{{ if hugo.IsProduction | and $ga | and $show_feedback }}
+<style>
+  .btn-feedback {
+    display: inline-block;
+  }
+  .btn-feedback-negative {
+    margin-left: 1em;
+  }
+  .feedback--response {
+    display: none;
+    margin-top: 1em;
+  }
+  .feedback--response__visible {
+    display: block;
+  }
+</style>
+<div class="d-print-none widget--feedback">
+  <h2 class="feedback--title">{{ i18n "feedback_widget_title" | default "Feedback" }}</h2>
+  <p class="feedback--question">{{ i18n "feedback_widget_question" | default "Was this page helpful?" }}</p>
+  <p class="feedback--response feedback--response-positive">
+    {{ (site.Params.features.feedback.responses.positive | default "🙏")  | markdownify | safeHTML }}
+  </p>
+  <p class="feedback--response feedback--response-negative">
+    {{ (site.Params.features.feedback.responses.negative | default "🙏") | markdownify | safeHTML }}
+  </p>
+  <button class="btn btn-primary mb-4 btn-feedback btn-feedback-positive">
+    {{ i18n "feedback_widget_answer_positive" | default "😍 Yes" }}
+  </button>
+  <button class="btn btn-primary mb-4 btn-feedback btn-feedback-negative">
+    {{ i18n "feedback_widget_answer_negative" | default "😡 No" }}
+  </button>
+</div>
+<script>
+  const btnYes = document.querySelector('.btn-feedback-positive');
+  const btnNo = document.querySelector('.btn-feedback-negative');
+  const responseYes = document.querySelector('.feedback--response-positive');
+  const responseNo = document.querySelector('.feedback--response-negative');
+  const disableButtons = () => {
+    btnYes.disabled = true;
+    btnNo.disabled = true;
+  };
+  const sendFeedback = (value) => {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'click', {
+      'event_category': 'page_rating',
+      'event_label': window.location.pathname,
+      'value': value,
+      'transport_type': 'beacon',
+      'event_callback': function () {
+        console.debug(`✅ Feedback sent ${value}`);
+      }
+    });
+  };
+  btnYes.addEventListener('click', () => {
+    console.debug('Feedback response: 😍');
+    responseYes.classList.add('feedback--response__visible');
+    disableButtons();
+    sendFeedback(1);
+  });
+  btnNo.addEventListener('click', () => {
+    console.debug('Feedback response: 😡');
+    responseNo.classList.add('feedback--response__visible');
+    disableButtons();
+    sendFeedback(0);
+  });
+</script>
+{{ end }}

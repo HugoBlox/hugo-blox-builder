@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
   console.debug(`Use headroom on this page? ${pageData['use_headroom']}`);
 
   // Grab header element
-  let $header = document.querySelector('header');
+  let $header = document.querySelector('.page-header');
 
   // Use Headroom on this page?
   if ($header && pageData['use_headroom'] === true) {

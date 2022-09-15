@@ -1,11 +1,14 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Troubleshooting Guide
-    url: https://wowchemy.com/docs/faq/
-    about: Solve common issues fast.
-  - name: Questions and Discussions
-    url: https://github.com/wowchemy/wowchemy-hugo-themes/discussions
-    about: Please ask and answer questions here.
-  - name: Chat with the Community
+  - name: Questions
     url: https://discord.gg/z8wNYzb
-    about: Join the Wowchemy Community on Discord.
+    about: Chat live with the Wowchemy community on Discord.
+  - name: Discussions
+    url: https://github.com/wowchemy/wowchemy-hugo-themes/discussions
+    about: Discuss Wowchemy on the GitHub Discussions forum
+  - name: Troubleshooting Guide
+    url: https://wowchemy.com/docs/hugo-tutorials/troubleshooting/
+    about: Solve common issues fast.
+  - name: Documentation
+    url: https://wowchemy.com/docs/
+    about: Review the documentation

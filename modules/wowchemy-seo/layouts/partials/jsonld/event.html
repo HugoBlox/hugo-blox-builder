@@ -1,6 +1,6 @@
 {{ $page := .page }}
 {{ $summary := .summary }}
-{{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
+{{ $featured_image := partial "functions/get_featured_image.html" $page }}
 {{ $author := partial "functions/get_author_name" $page }}
 
 <script type="application/ld+json">

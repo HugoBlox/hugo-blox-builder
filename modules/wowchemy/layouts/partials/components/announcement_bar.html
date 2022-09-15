@@ -1,0 +1,12 @@
+{{ if (.Params.announcement.dismissable | default true) -}}
+  <div id="announcement" data-id="wc-announcement-{{ .Params.announcement.id | default (md5 .Params.announcement.text) }}" class="alert alert-secondary alert-dismissible fade show text-lg-center mb-0" role="alert">
+    {{ .Params.announcement.text | emojify | markdownify | safeHTML }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{{ else -}}
+  <div class="alert alert-primary text-lg-center" role="alert">
+    {{ .Params.announcement.text | emojify | markdownify | safeHTML }}
+  </div>
+{{ end -}}

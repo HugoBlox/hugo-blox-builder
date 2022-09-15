@@ -1,0 +1,282 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: بوک ڤڠمودين
+
+- id: table_of_contents
+  translation: دفتر کندوڠن
+
+- id: on_this_page
+  translation: کندوڠن
+
+- id: back_to_top
+  translation: کمبالي کأتس
+
+- id: home
+  translation: اوتام
+
+- id: close
+  translation: توتوڤ
+
+- id: languages
+  translation: بهاس
+
+# General
+
+- id: related
+  translation: ترکاءيت
+
+- id: minute_read
+  translation: مينيت اونتوق دباچ
+
+- id: previous
+  translation: سبلومڽ
+
+- id: next
+  translation: ستروسڽ
+
+- id: figure
+  translation: 'اورڠ %d:'
+
+- id: edit_page
+  translation: سونتيڠ هالمن اين
+
+# Themes
+
+- id: theme_selector
+  translation: ڤميليه تيما
+
+- id: theme_light
+  translation: چره
+
+- id: theme_dark
+  translation: ݢلڤ
+
+- id: theme_auto
+  translation: اءوتوماتيک
+
+# Buttons
+
+- id: btn_preprint
+  translation: ڤراچيتق
+
+- id: btn_pdf
+  translation: ڤي.دي.ايف.
+
+- id: btn_cite
+  translation: ڤتيق
+
+- id: btn_slides
+  translation: ڤرسمبهن
+
+- id: btn_video
+  translation: ۏيديو
+
+- id: btn_code
+  translation: کود
+
+- id: btn_dataset
+  translation: سيت داتا
+
+- id: btn_project
+  translation: ڤروجيک
+
+- id: btn_poster
+  translation: ڤوستر
+
+- id: btn_source
+  translation: سومبر
+
+- id: btn_copy
+  translation: سالين
+
+- id: btn_copied
+  translation: دسالين
+
+- id: btn_download
+  translation: موات تورون
+
+# About widget
+
+- id: interests
+  translation: مينت
+
+- id: education
+  translation: ڤنديديقن
+
+- id: user_profile_latest
+  translation: ترکيني
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: ليهت سيجيل
+
+# Experience widget
+
+- id: present
+  translation: ترکيني
+
+# Pages widget
+
+- id: more_pages
+  translation: ليهت سموا
+
+- id: more_posts
+  translation: کيريمن لاءينڽ
+
+- id: more_talks
+  translation: ڤربينچڠن لاءينڽ
+
+- id: more_publications
+  translation: تربيتن لاءينڽ
+
+# Contact widget
+
+- id: contact_name
+  translation: نام
+
+- id: contact_email
+  translation: إي-ميل
+
+- id: contact_message
+  translation: ميسيج
+
+- id: contact_attachment
+  translation: سيسيڤ فاءيل
+
+- id: contact_send
+  translation: هنتر
+
+- id: book_appointment
+  translation: جدوالکنن ڤرتموان
+
+# Publication/Event details
+
+- id: abstract
+  translation: ابستراک
+
+- id: publication
+  translation: تربيتن
+
+- id: publication_type
+  translation: جنيس
+
+- id: date
+  translation: تاريخ
+
+- id: last_updated
+  translation: تراخير دکمس کيني
+
+- id: event
+  translation: اچارا
+
+- id: location
+  translation: کدودوقن
+
+- id: pub_uncat
+  translation: تياد کاتݢوري
+
+- id: pub_conf
+  translation: کرتس سيدڠ
+
+- id: pub_journal
+  translation: ارتيکل جورنل
+
+- id: pub_preprint
+  translation: ڤراچيتق
+
+- id: pub_report
+  translation: لاڤورنن
+
+- id: pub_book
+  translation: بوکو
+
+- id: pub_book_section
+  translation: بهاݢين بوکو
+
+- id: pub_thesis
+  translation: تيسيس
+
+- id: pub_patent
+  translation: ڤاتين
+
+# Project details
+
+- id: open_project_site
+  translation: کلامان ڤروجيک
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: کيريمن
+
+- id: publications
+  translation: تربيتن
+
+- id: talks
+  translation: ڤربينچڠن
+
+- id: projects
+  translation: ڤروجيک
+
+- id: slides
+  translation: ڤرسمبهن
+
+- id: authors
+  translation: ڤنوليس
+
+# Search
+
+- id: search
+  translation: چاري
+
+- id: search_placeholder
+  translation: چاري...
+
+- id: search_results
+  translation: هاسيل دجومڤاءي
+
+- id: search_no_results
+  translation: تياد هاسيل دجومڤاءي
+
+- id: search_common_queries
+  translation: ڤنچارين عموم
+
+# Error 404
+
+- id: page_not_found
+  translation: لامن تيدق دتموکن
+
+- id: 404_recommendations
+  translation: اداکه اين يڠ اندا چاري؟
+
+# Cookie consent
+
+- id: cookie_message
+  translation: لامن اين مڠݢوناکن کوکي اونتوق ممستيکن اندا منداڤتکن ڤڠالمن ترباءيق دري لامن کامي.
+
+- id: cookie_dismiss
+  translation: باءيقله!
+
+- id: cookie_learn
+  translation: لبيه لنجوت
+
+# Published with
+
+- id: published_with
+  translation: دتربيتکنن دڠن {wowchemy} — ڤمبوات لامن ويب ڤرچوما {repo_link}برسومبر تربوک{/repolink} دان برکواس 
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: معلوم بالس
+
+- id: feedback_widget_question
+  translation: اداکه لامن اين ممبنتو؟
+
+- id: feedback_widget_answer_positive
+  translation: 😍 ي
+
+- id: feedback_widget_answer_negative
+  translation: 😡 تيدق

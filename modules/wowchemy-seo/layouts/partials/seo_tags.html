@@ -1,0 +1,123 @@
+{{ $scr := .Scratch }}
+
+{{/* Request search engines not to index private pages. */}}
+{{ if .Params.private }}
+  <meta name="robots" content="noindex" />
+{{- end -}}
+
+{{/* Attempt to load superuser (the main site author). */}}
+{{ $superuser_name := "" }}
+{{ $superuser_username := "" }}
+{{ $superuser_role := "" }}
+{{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
+  {{ $superuser_name = .Title }}
+  {{ $superuser_username = path.Base .File.Dir }}
+  {{ $superuser_role = .Params.role }}
+{{ end }}
+
+{{/* Set superuser globally for `wowchemy` module's `page_author.html`. */}}
+{{ $scr.Set "superuser_username" $superuser_username }}
+
+{{ with $superuser_name }}
+  <meta name="author" content="{{ . }}" />
+{{ end }}
+
+{{/* Generate page description. */}}
+{{ $desc := "" }}
+{{ if .Params.summary }}
+  {{ $desc = .Params.summary }}
+{{ else if .Params.abstract }}
+  {{ $desc = .Params.abstract }}
+{{ else if .IsPage }}
+  {{ $desc = .Summary }}
+{{ else if site.Params.marketing.seo.description }}
+  {{ $desc = site.Params.marketing.seo.description }}
+{{ else }}
+  {{ $desc = $superuser_role }}
+{{ end }}
+<meta name="description" content="{{ $desc }}" />
+
+{{/* Get all URL variations for the page. */}}
+{{ range .Translations }}
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
+{{ end }}
+<link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
+<link rel="canonical" href="{{ .Permalink }}" />
+
+{{/* Progressive Web App (PWA) Manifest */}}
+{{ with site.Home.OutputFormats.Get "WebAppManifest" }}
+  <link rel="manifest" href="{{ .RelPermalink }}" />
+{{ end }}
+
+{{/* Progressive Web App (PWA) Icon */}}
+<link rel="icon" type="image/png" href="{{ (partial "functions/get_icon" 32).RelPermalink }}" />
+<link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_icon" 180).RelPermalink }}" />
+{{ $theme_color := ($scr.Get "primary") | default site.Params.appearance.primary_color | default "#fff" }}
+<meta name="theme-color" content="{{ $theme_color }}" />
+
+{{/* Get page image for social sharing. */}}
+{{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
+{{/* Search for an image "*featured*" in post folder */}}
+{{ $featured_image := partial "functions/get_featured_image.html" . }}
+{{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
+{{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
+{{ $og_image := "" }}
+{{ $twitter_card := "summary_large_image" }}
+{{ if (and (eq .Kind "term") $avatar_image) }}
+  {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
+  {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}
+  {{ $twitter_card = "summary" }}
+{{ else if $featured_image }}
+  {{ $og_image = $featured_image.Permalink }}
+{{ else if $sharing_image }}
+  {{ $og_image = $sharing_image.Permalink }}
+{{ else if $has_logo }}
+  {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
+  {{ $twitter_card = "summary" }}
+{{ else }}
+  {{ $og_image = (partial "functions/get_icon" 512).Permalink }}
+  {{ $twitter_card = "summary" }}
+{{ end }}
+{{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
+
+{{ $title := partial "functions/get_page_title" . }}
+
+{{/* Twitter metadata. */}}
+<meta property="twitter:card" content="{{ $twitter_card }}" />
+{{ with site.Params.marketing.seo.twitter }}
+  <meta property="twitter:site" content="@{{ . }}" />
+  <meta property="twitter:creator" content="@{{ . }}" />
+{{ end }}
+{{- with $og_image -}}
+  <meta property="twitter:image" content="{{ . }}" />
+{{- end -}}
+
+{{/* Open Graph metadata. */}}
+<meta property="og:site_name" content="{{ site.Title }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $desc }}" />
+{{- with $og_image -}}
+  <meta property="og:image" content="{{ . }}" />
+{{- end -}}
+<meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}" />
+{{ if .IsPage }}
+  {{ if not .PublishDate.IsZero }}
+    <meta
+      property="article:published_time"
+      content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"
+    />
+  {{ else if not .Date.IsZero }}
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+  {{ end }}
+  {{ if not .Lastmod.IsZero }}
+    <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">
+  {{ end }}
+{{ else }}
+  {{ if not .Date.IsZero }}
+    <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+  {{ end }}
+{{ end }}
+
+{{/* JSONLD page metadata. */}}
+{{ partial "jsonld/main" (dict "page" . "summary" $desc) }}

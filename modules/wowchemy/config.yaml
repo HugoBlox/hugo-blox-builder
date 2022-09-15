@@ -16,12 +16,19 @@ markup:
   tableOfContents:
     startLevel: 2
     endLevel: 3
+minify:
+  tdewolff:
+    html:
+      keepComments: true
 sitemap:
   changefreq: weekly
 module:
   hugoVersion:
-    min: '0.95.0'
+    min: '0.101.0'
     extended: true
+  imports:
+    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-core
+    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-seo
   mounts:
     - source: content
       target: content

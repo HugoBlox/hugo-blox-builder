@@ -1,0 +1,120 @@
+name: 🐛 Bug Report
+description: Something isn't working as expected? Report your bugs here.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Welcome 👋
+
+        Thanks for taking the time to fill out this bug report.
+
+        We use GitHub Issues for project management, **NOT for support**.
+
+        🚑 For **help** and **questions**, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)**, and if not, ask your question there instead.
+
+        Bug reports also shouldn't be used for support requests about a specific problem in your site, only if the issue can be reproduced on a fresh Wowchemy template.
+
+        Also, you can search and browse the extensive [Wowchemy](https://wowchemy.com/docs/) and [Hugo](https://gohugo.io/documentation/) **documentation**.
+
+        For questions on _Blogdown_, please reach out to the [Blogdown community](https://github.com/rstudio/blogdown).
+
+        Please fill out each section below. This info allows Wowchemy contributors to diagnose (and fix!) your issue as quickly as possible. Otherwise we might need to close the issue (e.g. when it's missing clear steps to reproduce).
+
+        Also, please verify that your issue is present in the very latest `main` version.
+  - type: checkboxes
+    attributes:
+      label: Preliminary Checks
+      description: Please make sure that you verify each checkbox and follow the instructions for them.
+      options:
+        - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aissue"
+          required: true
+        - label: "This issue is not a question, feature request, or anything other than a bug report directly related to Wowchemy. Please post those things on Discord: https://discord.gg/z8wNYzb"
+          required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: Describe the issue that you're seeing.
+      placeholder: Be as precise as you can. Feel free to share screenshots, videos, or data from the devtools of your browser.
+    validations:
+      required: true
+  - type: input
+    id: reproduction-link
+    attributes:
+      label: Reproduction Link
+      placeholder: "https://github.com/username/repository-name/"
+      description: |
+        Link to a minimal reproduction of the issue (GitHub repository).
+
+        **Ideally, create a minimal reproduction of the issue on a fresh template rather than linking to your site's repository: https://wowchemy.com/hugo-themes/
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: Clear steps describing how to reproduce the issue.
+      value: |
+        1.
+        2.
+        3.
+        ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Result
+      description: Describe what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual Result
+      description: Describe what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What Hugo Module versions does your site use?
+      description: Paste your `go.mod` here.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: What operating system(s) are you seeing the problem on?
+      multiple: true
+      options:
+        - Windows
+        - macOS
+        - Android
+        - iOS
+        - Linux
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: What browser(s) are you seeing the problem on?
+      multiple: true
+      options:
+        - Chrome
+        - Safari
+        - Firefox
+        - Microsoft Edge
+        - Other
+  - type: input
+    id: wowchemy-tpl
+    attributes:
+      label: Which Wowchemy template are you using?
+      description: 'For example, a template from https://wowchemy.com/hugo-themes/'
+      placeholder: 'e.g., Academic Resume'
+    validations:
+      required: true
+  - type: input
+    id: version-hugo
+    attributes:
+      label: What version of Hugo are you using?
+      description: 'Run `hugo version` or check your `netlify.toml`'
+      placeholder: 'Hugo Extended 0.101.0'
+    validations:
+      required: true

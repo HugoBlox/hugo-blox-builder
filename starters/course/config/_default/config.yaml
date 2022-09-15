@@ -83,3 +83,5 @@ security:
   _merge: deep
 sitemap:
   _merge: deep
+minify:
+  _merge: deep

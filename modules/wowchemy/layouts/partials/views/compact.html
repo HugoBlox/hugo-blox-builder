@@ -74,13 +74,13 @@
 
   </div>
   <div class="ml-3">
-    {{ $resource := ($item.Resources.ByType "image").GetMatch "*featured*" }}
+    {{ $resource := partial "functions/get_featured_image.html" $item }}
     {{ with $resource }}
-    {{ $image := .Resize "150x webp" }}
-    <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
-      <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
-           alt="{{ $item.Title }}" loading="lazy">
-    </a>
+      {{ $image := .Resize "150x webp" }}
+      <a href="{{$link}}" {{ $target | safeHTMLAttr }}>
+        <img src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}"
+            alt="{{ $item.Title }}" loading="lazy">
+      </a>
     {{end}}
   </div>
 </div>

@@ -13,7 +13,7 @@
   {{ $logo = (partial "functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
 {{ end }}
 
-<header class="header--fixed">
+<header>
   <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
     <div class="container-xl">
 
@@ -157,8 +157,9 @@
           {{ end }}
         {{ end }}
 
+        {{/* Override: hide search icon if provider is Docsearch so we only show Docsearch once in the docs sidebar. */}}
         {{ $show_search := site.Params.header.navbar.show_search | default true }}
-        {{ if and site.Params.features.search.provider $show_search }}
+        {{ if and site.Params.features.search.provider $show_search | and (ne (lower site.Params.features.search.provider) "docsearch") }}
         <li class="nav-item">
           <a class="nav-link js-search" href="#" aria-label="{{ i18n "search" }}"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>

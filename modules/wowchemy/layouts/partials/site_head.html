@@ -12,10 +12,6 @@
   {{/* EXTENSIBILITY HOOK: HEAD-START */}}
   {{ partial "functions/get_hook" (dict "hook" "head-start" "context" .) }}
 
-  {{ if .Params.private }}
-    <meta name="robots" content="noindex" />
-  {{- end -}}
-
   {{/* Parse theme and font */}}
   {{ partial "functions/parse_theme" . }}
 
@@ -40,44 +36,8 @@
     <script src="https://www.googleoptimize.com/optimize.js?id={{ site.Params.marketing.analytics.google_optimize }}"></script>
   {{- end -}}
 
-  {{/* Attempt to load superuser. */}}
-  {{ $superuser_name := "" }}
-  {{ $superuser_username := "" }}
-  {{ $superuser_role := "" }}
-  {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
-    {{ $superuser_name = .Title }}
-    {{ $superuser_username = path.Base .File.Dir }}
-    {{ $superuser_role = .Params.role }}
-  {{ end }}
-  {{ $scr.Set "superuser_username" $superuser_username }}{{/* Set superuser globally for page_author.html. */}}
-
-  {{ with $superuser_name }}<meta name="author" content="{{ . }}" />{{ end }}
-
-  {{/* Generate page description. */}}
-  {{ $desc := "" }}
-  {{ if .Params.summary }}
-    {{ $desc = .Params.summary }}
-  {{ else if .Params.abstract }}
-    {{ $desc = .Params.abstract }}
-  {{ else if .IsPage }}
-    {{ $desc = .Summary }}
-  {{ else if site.Params.marketing.seo.description }}
-    {{ $desc = site.Params.marketing.seo.description }}
-  {{ else }}
-    {{ $desc = $superuser_role }}
-  {{ end }}
-  <meta name="description" content="{{ $desc }}" />
-
-  {{ range .Translations }}
-    <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
-  {{ end }}
-  <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
-
   {{ $css := site.Data.assets.css }}
   {{ $js := site.Data.assets.js }}
-  {{ if ne ($scr.Get "primary") "#fff" }}
-    <meta name="theme-color" content="{{ $scr.Get "primary" }}" />
-  {{ end }}
 
   {{/* Config LaTeX math rendering. */}}
   {{ if or .Params.math site.Params.features.math.enable }}
@@ -148,6 +108,8 @@
 
     {{ if eq (lower site.Params.features.search.provider) "algolia" }}
       {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
+    {{ else if eq (lower site.Params.features.search.provider) "docsearch" }}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
     {{ end }}
 
     {{/* Load async scripts. */}}
@@ -208,20 +170,8 @@
     <link rel="stylesheet" href="{{ $hl_theme_dark_css.RelPermalink }}" title="hl-dark" media="print" onload="this.media='all'" {{ if eq ($scr.Get "light") true }}disabled{{end}}>
   {{ end }}
 
-  {{/* Marketing */}}
-  {{ with site.Params.marketing.verification.google }}
-    <meta name="google-site-verification" content="{{ . }}" />
-  {{- end -}}
-  {{ with site.Params.marketing.verification.baidu }}
-    <meta name="baidu-site-verification" content="{{ . }}" />
-  {{- end -}}
-  {{ with site.Params.marketing.verification.bing }}
-    <meta name="msvalidate.01" content="{{ . }}" />
-  {{- end -}}
-  {{ partial "marketing/google_analytics" . }}
-  {{ partial "marketing/google_tag_manager" . }}
-  {{ partial "marketing/microsoft_clarity" . }}
-  {{ partial "marketing/baidu_tongji" . }}
+  {{/* Load SEO module */}}
+  {{ partial "wowchemy_seo" . }}
 
   {{/* Netlify Identity integration. */}}
   {{ $use_cms := templates.Exists "wowchemycms/single.wowchemycms_config.yml" | default (site.Params.extensions.cms.enable | default false) }}
@@ -234,81 +184,9 @@
     <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}" />
   {{ end }}
 
-  {{/* Progressive Web App (PWA) Manifest */}}
-  {{ with site.Home.OutputFormats.Get "WebAppManifest" }}
-    <link rel="manifest" href="{{ .RelPermalink }}" />
-  {{ end }}
-
-  {{/* Progressive Web App (PWA) Icon */}}
-  <link rel="icon" type="image/png" href="{{ (partial "functions/get_icon" 32).RelPermalink }}" />
-  <link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_icon" 180).RelPermalink }}" />
-
-  <link rel="canonical" href="{{ .Permalink }}" />
-
-  {{/* Get page image for sharing. */}}
-  {{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
-  {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
-  {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
-  {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
-  {{ $og_image := "" }}
-  {{ $twitter_card := "summary_large_image" }}
-  {{ if (and (eq .Kind "term") $avatar_image) }}
-    {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
-    {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}
-    {{ $twitter_card = "summary" }}
-  {{ else if $featured_image }}
-    {{ $og_image = $featured_image.Permalink }}
-  {{ else if $sharing_image }}
-    {{ $og_image = $sharing_image.Permalink }}
-  {{ else if $has_logo }}
-    {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
-    {{ $twitter_card = "summary" }}
-  {{ else }}
-    {{ $og_image = (partial "functions/get_icon" 512).Permalink }}
-    {{ $twitter_card = "summary" }}
-  {{ end }}
-  {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
-
-  {{ $title := "" }}
-  {{ with .Params.seo.title }}
-    {{ $title = replace . "{brand}" site.Title }}
-  {{ else }}
-    {{ $title = .Title | default site.Title }}
-    {{ if ne $title site.Title }}{{ $title = printf "%s | %s" $title site.Title }}{{ end }}
-  {{ end }}
-  <meta property="twitter:card" content="{{ $twitter_card }}" />
-  {{ with site.Params.marketing.seo.twitter }}
-    <meta property="twitter:site" content="@{{ . }}" />
-    <meta property="twitter:creator" content="@{{ . }}" />
-  {{ end }}
-  <meta property="og:site_name" content="{{ site.Title }}" />
-  <meta property="og:url" content="{{ .Permalink }}" />
-  <meta property="og:title" content="{{ $title }}" />
-  <meta property="og:description" content="{{ $desc }}" />
-  {{- with $og_image -}}
-    <meta property="og:image" content="{{ . }}" />
-    <meta property="twitter:image" content="{{ . }}" />
-  {{- end -}}
-  <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}" />
-  {{ if .IsPage }}
-    {{ if not .PublishDate.IsZero }}
-      <meta
-        property="article:published_time"
-        content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"
-      />
-    {{ else if not .Date.IsZero }}
-      <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
-    {{ end }}
-    {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
-  {{ else }}
-    {{ if not .Date.IsZero }}
-      <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
-    {{ end }}
-  {{ end }}
-
-  {{ partial "jsonld/main" (dict "page" . "summary" $desc) }}
   {{ partial "cookie_consent" . }}
 
+  {{ $title := partial "functions/get_page_title" . }}
   <title>{{$title}}</title>
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}

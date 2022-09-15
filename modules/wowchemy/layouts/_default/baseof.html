@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{{ "<!-- This site was created with Wowchemy. https://www.wowchemy.com -->" | safeHTML }}
+{{ printf "<!-- Last Published: %s -->" (now | time.Format ":date_long") | safeHTML }}
 {{- $language_code := site.LanguageCode | default "en-us" -}}
 <html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{end}}>
 
@@ -30,7 +32,11 @@
 
   {{ partial "search" . }}
 
-  <div class="page-header">
+  {{ if .Params.announcement.text -}}
+    {{ partial "components/announcement_bar" . }}
+  {{ end -}}
+
+  <div class="page-header header--fixed">
     {{ partial "navbar" . }}
   </div>
 
