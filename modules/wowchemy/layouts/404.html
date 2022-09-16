@@ -9,6 +9,8 @@
   <form class="d-flex align-items-center mb-3">
     <input name="q" type="search" class="form-control" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off">
   </form>
+  {{ else if eq (lower site.Params.features.search.provider) "docsearch" }}
+  <div id="docsearch" style="margin-left: -16px" class="mb-2"></div>
   {{ end }}
 
   {{/* Suggest recently published pages to the user. */}}
