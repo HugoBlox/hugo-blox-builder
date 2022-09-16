@@ -82,9 +82,6 @@ features:
       repo_id: ''
       category: ''
       category_id: ''
-      mapping: ''
-      theme: ''
-      reactions_enabled: ''
   search:
     provider: wowchemy
     algolia:
