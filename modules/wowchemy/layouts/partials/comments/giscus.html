@@ -1,14 +1,19 @@
 {{ if site.Params.features.comment.giscus }}
-<script src="https://giscus.app/client.js"
-        data-repo="{{site.Params.features.comment.giscus.repo}}"
-        data-repo-id="{{site.Params.features.comment.giscus.repo_id}}"
-        data-category="{{site.Params.features.comment.giscus.category}}"
-        data-category-id="{{site.Params.features.comment.giscus.category_id}}"
-        data-mapping="{{site.Params.features.comment.giscus.mapping}}"
-        data-reactions-enabled="{{site.Params.features.comment.giscus.reactions_enabled}}"
-        data-theme="{{site.Params.features.comment.giscus.theme}}"
-        crossorigin="anonymous"
-        async>
-</script>
-<noscript>Please enable JavaScript to view the comments powered by giscus.</noscript>
+  {{ $config := site.Params.features.comment.giscus }}
+  <script src="https://giscus.app/client.js"
+          data-repo="{{$config.repo}}"
+          data-repo-id="{{$config.repo_id}}"
+          data-category="{{$config.category}}"
+          data-category-id="{{$config.category_id}}"
+          data-mapping="{{ $config.mapping | default "pathname" }}"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="{{ $config.theme | default "preferred_color_scheme" }}"
+          data-lang="{{ $config.language_code | default "en" }}"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
 {{ end }}
