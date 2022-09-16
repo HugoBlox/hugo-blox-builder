@@ -63,8 +63,8 @@
 # CSS
 
 [css.academicons]
-  version = "1.9.1"
-  sri = "sha512-W0xM4mr6dEP9nREo7Z9z+9X70wytKvMGeDsj7ps2+xg5QPrEBXC8tAW1IFnzjR6eoJ90JmCnFzerQJTLzIEHjA=="
+  version = "1.9.2"
+  sri = "sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg=="
   url = "https://cdn.jsdelivr.net/npm/academicons@%s/css/academicons.min.css"
 [css.leaflet]
   version = "1.7.1"
