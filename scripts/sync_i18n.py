@@ -5,10 +5,7 @@
 # https://wowchemy.com
 #
 # Prerequisites: pip3 install ruamel.yaml
-#
-# CHANGES:
-# - Switch from PyYAML to Ruamel in order to load/dump comments -
-#   see https://stackoverflow.com/questions/47382227/python-yaml-update-preserving-order-and-comments
+# Note: we use Ruamel rather than PyYAML in order to preserve comments in language packs.
 
 import copy
 from pathlib import Path
