@@ -90,6 +90,9 @@
 - id: btn_copy
   translation: Kopia
 
+- id: btn_copied
+  translation: Copied
+
 - id: btn_download
   translation: Download
 
@@ -110,9 +113,6 @@
   translation: Jereo ny taratasy fanamarinana
 
 # Experience widget
-
-- id: experience
-  translation: Traik’efa
 
 - id: present
   translation: Ankehitriny
@@ -172,7 +172,7 @@
   translation: Event
 
 - id: location
-  translation:  Toerana
+  translation: Toerana
 
 - id: pub_uncat
   translation: Tsy voasokajy

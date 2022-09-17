@@ -4,52 +4,45 @@
 # Script to synchronize each language pack's items against Wowchemy's master pack (English).
 # https://wowchemy.com
 #
-# Prerequisites: pip3 install PyYAML
-#
-# TODO: Switch from PyYAML to Ruamel in order to load/dump comments -
-#  see https://stackoverflow.com/questions/47382227/python-yaml-update-preserving-order-and-comments
+# Prerequisites: pip3 install ruamel.yaml
+# Note: we use Ruamel rather than PyYAML in order to preserve comments in language packs.
 
 import copy
 from pathlib import Path
-import yaml
+from ruamel.yaml import YAML
 
-I18N_PATH = Path(__file__).resolve().parent.parent.joinpath('wowchemy').joinpath('i18n')
+I18N_PATH = Path(__file__).resolve().parents[1].joinpath(
+    'modules', 'wowchemy', 'i18n')
 MASTER_PACK = I18N_PATH.joinpath('en.yaml')
 
+yaml = YAML()
+yaml.width = 5000  # large column width to avoid line breaks
 
 # Load master language pack (English).
-with open(MASTER_PACK) as f:
-  master_map = yaml.safe_load(f)
-  # if (DEBUG)
-  #   print(master_map)
+master_map = yaml.load(MASTER_PACK)
 
-# Iterate over each child language pack.
-cnt = 0
-for filename in Path(I18N_PATH).glob("*.yaml"):
-  if filename.stem != 'en':
+# Iterate over each child language pack (excluding 'en.yaml').
+files = set(I18N_PATH.glob("*.yaml")) - set([MASTER_PACK])
+tot = len(files)
+
+for cnt, filename in enumerate(files):
     i18n_file = I18N_PATH.joinpath(filename)
-    print(f"Processing {i18n_file} ...")
+    print(f"[{cnt+1:02d}/{tot:02d}] Processing {i18n_file} ...")
 
     # Load a child language pack.
-    with open(i18n_file) as f:
-      child_map = yaml.safe_load(f)
+    child_map = yaml.load(i18n_file)
 
     # Synchronize the language pack's structure against the master language pack.
-    tmp_map = copy.deepcopy(master_map)  # Make a temporary deep copy of the master map (list of objects).
-    master_index = 0
-    for master_item in master_map:
-      translation = next((item['translation'] for item in child_map if item['id'] == master_item['id']),
-                         master_item['translation'])
-      tmp_map[master_index]['translation'] = translation
-      master_index += 1
+    # Make a temporary deep copy of the master map (list of objects).
+    tmp_map = copy.deepcopy(master_map)
+
+    for master_index, master_item in enumerate(master_map):
+        translation = next((item['translation'] for item in child_map if item['id'] == master_item['id']),
+                            master_item['translation'])
+        tmp_map[master_index]['translation'] = translation
 
     # Write the synced language pack to file.
-    with open(i18n_file, 'w') as f:
-      # PyYAML will break lines unless a large column `width` is set.
-      # To standardise with single quotes, add: `, default_style='\''`.
-      # No option to only enforce single quotes when YAML string wrapped in quotes?
-      yaml.dump(tmp_map, f, allow_unicode=True, width=float("inf"))
-    cnt += 1
+    yaml.dump(tmp_map, i18n_file)
 
 # Print results.
-print(f"{cnt} child language packs successfully synchronized!")
+print(f"{tot} child language packs successfully synchronized!")
