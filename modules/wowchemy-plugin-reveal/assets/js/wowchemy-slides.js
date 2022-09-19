@@ -82,6 +82,7 @@ if (params.slides.diagram) {
   if (typeof params.slides.diagram_options !== 'undefined') {
     mermaidOptions = params.slides.diagram_options;
   }
+  mermaidOptions = keysToCamelCase(mermaidOptions);
 
   // `startOnLoad` must be false since diagrams are lazily rendered.
   mermaidOptions['startOnLoad'] = false;
