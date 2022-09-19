@@ -82,6 +82,11 @@ features:
       repo_id: ''
       category: ''
       category_id: ''
+    utterances:
+      repo: ''
+      mapping: ''
+      label: ''
+      theme: ''
   search:
     provider: wowchemy
     algolia:

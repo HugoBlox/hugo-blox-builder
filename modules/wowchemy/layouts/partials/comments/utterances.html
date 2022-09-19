@@ -1,0 +1,11 @@
+{{ if site.Params.features.comment.utterances }}
+{{ $config := site.Params.features.comment.utterances }}
+<script src="https://utteranc.es/client.js"
+        repo="{{$config.repo}}"
+        issue-term="{{$config.mapping | default "pathname" }}"
+        label="{{$config.label}}"
+        theme="{{$config.theme | default "github-light" }}"
+        crossorigin="anonymous"
+        async>
+</script>
+{{ end }}
