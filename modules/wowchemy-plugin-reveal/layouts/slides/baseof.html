@@ -2,13 +2,15 @@
 <html lang="{{ site.LanguageCode | default "en-us" }}">
 <head>
 
+  {{/* Asset versions */}}
   {{ $cdn_url_reveal := "https://cdn.jsdelivr.net/npm/reveal.js@4.3.1" }}
-  {{ $js := site.Data.assets.js }}
+  {{ $mermaid_version := "9.1.3" }}
+  {{ $mermaid_sri := "sha256-TIYL00Rhw/8WaoUhYTLX9SKIEFdXxg+yMWSLVUbhiLg=" }}
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo">
+  <meta name="generator" content="Wowchemy {{with site.Data.wowchemy.version}}{{.}}{{end}} for Hugo">
 
   {{ with site.Home.OutputFormats.Get "WebAppManifest" }}
     <link rel="manifest" href="{{ .RelPermalink }}">
@@ -65,7 +67,7 @@
 
   {{/* Load Mermaid. */}}
   {{ if $.Param "slides.diagram" | default false}}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js" $mermaid_version) $mermaid_sri | safeHTML }}
   {{ end }}
 
   {{/* Initialize slides. */}}
