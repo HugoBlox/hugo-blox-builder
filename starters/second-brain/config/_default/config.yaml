@@ -14,6 +14,7 @@ cascade:
   # Docs folder options
   - _target:
       path: /**
+    type: book
     editable: true
     show_breadcrumb: true
 

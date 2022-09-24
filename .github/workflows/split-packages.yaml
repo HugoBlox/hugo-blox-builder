@@ -33,8 +33,8 @@ jobs:
             split_repository: 'hugo-minimal-theme'
           - local_path: 'research-group'
             split_repository: 'starter-hugo-research-group'
-          - local_path: 'notes'
-            split_repository: 'hugo-notes-theme'
+          - local_path: 'second-brain'
+            split_repository: 'hugo-second-brain-theme'
 
     steps:
       -   uses: actions/checkout@v2

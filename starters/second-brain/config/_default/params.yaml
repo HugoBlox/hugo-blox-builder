@@ -65,7 +65,7 @@ features:
   privacy_pack:
     enable: false
   repository:
-    url: 'https://github.com/wowchemy/hugo-notes-theme'
+    url: 'https://github.com/wowchemy/hugo-second-brain-theme'
     content_dir: content
     branch: main
   comment:
