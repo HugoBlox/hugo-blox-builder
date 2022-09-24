@@ -12,7 +12,7 @@
 import * as params from '@params';
 
 // Enable core slide features.
-var enabledPlugins = [RevealMarkdown, RevealSearch, RevealNotes, RevealMath.MathJax3, RevealZoom];
+var enabledPlugins = [RevealMarkdown, RevealSearch, RevealNotes, RevealMath.KaTeX, RevealZoom];
 
 const isObject = function (o) {
   return o === Object(o) && !isArray(o) && typeof o !== 'function';

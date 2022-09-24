@@ -8,12 +8,11 @@ Supports math, syntax highlighting, diagrams, speaker notes, and much more!
 
 ## Install
 
-1. Add the module to your `config/_default/config.yaml` alongside the core Wowchemy module:
+1. Add the module to your `config/_default/config.yaml`:
 
    ```yaml
    module:
      imports:
-       - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy
        - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-plugin-reveal
    ```
 
