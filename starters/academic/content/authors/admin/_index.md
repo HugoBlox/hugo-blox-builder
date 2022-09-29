@@ -2,6 +2,10 @@
 # Display name
 title: Nelson Bighetti
 
+# Full name (for SEO)
+first_name: Nelson
+last_name: Bighetti
+
 # Is this the primary user of the site?
 superuser: true
 
