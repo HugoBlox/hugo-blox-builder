@@ -244,6 +244,10 @@ To **dynamically theme images** according to the user's light or dark theme
 
 Alternatively, paste a **themeable inline SVG image** in the form `<svg fill="currentColor">...</svg>` directly into your Markdown.
 
+**Toggle lightbox feature when clicking a figure** You can disable the lightbox feature which opens up the figure image in a focused lightbox view when clicking it. By default the lightbox feature on a figure is set to `true`. 
+
+`{{</* figure src="image.jpg" lightbox="false" */>}}` turns lightbox feature off.
+
 ### Image gallery
 
 **To add an image gallery to a page:**
