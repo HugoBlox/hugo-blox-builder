@@ -1,26 +1,31 @@
-{{ $ := .root }}
-{{ $st := .page }}
-{{ $autolink := default true $st.Params.content.autolink }}
-{{ $data := $st.Params.content }}
+{{/* Wowchemy Blocks: Contact */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
 
-{{ $form_provider := lower $st.Params.content.form.provider | default "" }}
-{{ $form_provider_legacy := $st.Params.email_form | default 0 }}
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $autolink := default true $block.Params.content.autolink }}
+{{ $data := $block.Params.content }}
+
+{{ $form_provider := lower $block.Params.content.form.provider | default "" }}
+{{ $form_provider_legacy := $block.Params.email_form | default 0 }}
 
 {{ $use_netlify_form := eq $form_provider "netlify" | or (eq $form_provider_legacy 1) }}
 {{ $use_formspree_form := eq $form_provider "formspree" | or (eq $form_provider_legacy 2) }}
 {{ $use_form := or $use_netlify_form $use_formspree_form }}
 
-{{ $use_netlify_captcha := $st.Params.content.form.netlify.captcha | default true }}
-{{ $use_formspree_captcha := $st.Params.content.form.formspree.captcha | default false }}
+{{ $use_netlify_captcha := $block.Params.content.form.netlify.captcha | default true }}
+{{ $use_formspree_captcha := $block.Params.content.form.formspree.captcha | default false }}
 
-{{ $columns := $st.Params.design.columns | default "2" }}
+{{ $columns := $block.Params.design.columns | default "2" }}
 
 {{ if and $use_formspree_form $use_formspree_captcha }}
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {{ end }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
-  {{ with $st.Content }}{{ . }}{{ end }}
+  {{ with $block.Content }}{{ . }}{{ end }}
 
   {{ if $use_form }}
 
@@ -28,17 +33,17 @@
     {{ if $use_netlify_form }}
       {{ $post_action = "netlify" }}
     {{ else if $use_formspree_form }}
-      {{ if not $st.Params.content.form.formspree.id }}
+      {{ if not $block.Params.content.form.formspree.id }}
         {{ errorf "You have chosen to use Formspree as the provider for the contact form. Please set your Formspree Form ID in the Contact widget or disable the form.\nDocumentation: https://wowchemy.com/docs/widget/contact/" }}
       {{ end }}
-      {{ if and $use_formspree_captcha (not $st.Params.content.form.formspree.captcha_key) }}
+      {{ if and $use_formspree_captcha (not $block.Params.content.form.formspree.captcha_key) }}
         {{ errorf "You have chosen to use reCAPTCHA for Formspree. Please set your Formspree CAPTCHA KEY in the Contact widget or disable reCAPTCHA.\nDocumentation: https://help.formspree.io/hc/en-us/articles/360022811154" }}
       {{ end }}
-      {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $st.Params.content.form.formspree.id }}
+      {{ $post_action = printf "action=\"https://formspree.io/f/%s\"" $block.Params.content.form.formspree.id }}
     {{ end }}
 
     <div class="mb-3">
-      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }} {{ with $st.Params.content.form.netlify.success_url }}action="{{ . | relLangURL }}"{{ end }}>
+      <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }} {{ with $block.Params.content.form.netlify.success_url }}action="{{ . | relLangURL }}"{{ end }}>
         <div class="form-group form-inline">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
@@ -51,7 +56,7 @@
           <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
           <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
         </div>
-        {{ if $st.Params.content.form.netlify.attachments }}
+        {{ if $block.Params.content.form.netlify.attachments }}
           <div class="form-group form-inline">
             <label class="sr-only" for="fileUpload">{{ i18n "contact_attachment" }}</label>
             <input type="file" name="file" class="form-control w-100" id="fileUpload" placeholder="{{ i18n "contact_attachment" | default "Attach file" }}">
@@ -63,7 +68,7 @@
         {{ if and $use_netlify_form $use_netlify_captcha }}
           <div class="form-group" data-netlify-recaptcha="true"></div>
         {{ else if and $use_formspree_form $use_formspree_captcha }}
-          <div class="g-recaptcha" data-sitekey="{{ $st.Params.content.form.formspree.captcha_key }}"></div>
+          <div class="g-recaptcha" data-sitekey="{{ $block.Params.content.form.formspree.captcha_key }}"></div>
           </br>
         {{ end }}
         <button type="submit" class="btn btn-primary px-3 py-2 w-100">{{ i18n "contact_send" | default "Send" }}</button>

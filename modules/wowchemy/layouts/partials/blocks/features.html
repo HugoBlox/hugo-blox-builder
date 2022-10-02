@@ -1,21 +1,26 @@
-{{ $ := .root }}
-{{ $page := .page }}
+{{/* Wowchemy Blocks: Features */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
 
 <div class="row featurette">
-  {{ with $page.Title }}
+  {{ with $block.Title }}
   <div class="col-md-12 section-heading">
     <h1>{{ . | markdownify | emojify }}</h1>
-    {{ if $page.Params.subtitle }}<p>{{ $page.Params.subtitle | markdownify | emojify }}</p>{{ end }}
+    {{ if $block.Params.subtitle }}<p>{{ $block.Params.subtitle | markdownify | emojify }}</p>{{ end }}
   </div>
   {{ end }}
 
-  {{ with $page.Content }}
+  {{ with $block.Content }}
   <div class="col-md-12">
     {{ . }}
   </div>
   {{ end }}
 
-  {{ range $page.Params.feature }}
+  {{ range $block.Params.feature }}
   {{ $pack := or .icon_pack "fas" }}
   {{ $pack_prefix := $pack }}
   {{ if in (slice "fab" "fas" "far" "fal") $pack }}

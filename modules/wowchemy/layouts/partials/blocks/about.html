@@ -1,11 +1,16 @@
-{{ $ := .root }}
-{{ $page := .page }}
+{{/* Wowchemy Blocks: About */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
 
 {{ $author := "" }}
 {{ if .author }}
   {{ $author = .author }}
 {{ else }}
-  {{ $author = $page.Params.author }}
+  {{ $author = $block.Params.author }}
 {{end}}
 
 {{ $person_page_path := (printf "/authors/%s" $author) }}
@@ -83,7 +88,7 @@
   <div class="col-12 col-lg-8">
 
     {{/* Only display widget title in explicit instances of about widget, not in author pages. */}}
-    {{ if and $page.Params.widget $page.Title }}<h1>{{ $page.Title | markdownify | emojify }}</h1>{{ end }}
+    {{ if and $block.Params.widget $block.Title }}<h1>{{ $block.Title | markdownify | emojify }}</h1>{{ end }}
 
     <div class="article-style">
       {{ $person_page.Content }}

@@ -1,22 +1,27 @@
-{{ $ := .root }}
-{{ $page := .page }}
-{{ $hash_id := .hash_id }}
+{{/* Wowchemy Blocks: Slider */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $hash_id := .wcIdentifier }}
 
 <!-- Indicators -->
 <ol class="carousel-indicators">
-  {{ range $index, $item := $page.Params.content.slides }}
+  {{ range $index, $item := $block.Params.content.slides }}
   <li data-target="#{{$hash_id}}" data-slide-to="{{$index}}" {{if eq $index 0}}class="active"{{end}}></li>
   {{ end }}
 </ol>
 
 <!-- Carousel slides wrapper -->
 <div class="carousel-inner">
-  {{ range $index, $item := $page.Params.content.slides }}
+  {{ range $index, $item := $block.Params.content.slides }}
 
     {{ $style_bg := "" }}
     {{ $style_filter := "" }}
 
-    {{with $page.Params.design.slide_height}}
+    {{with $block.Params.design.slide_height}}
       {{ $style_bg = printf "%s height: %s;" $style_bg . }}
     {{end}}
 
@@ -36,7 +41,7 @@
       {{ end }}
    {{ end }}
 
-  <div class="carousel-item{{if eq $index 0}} active{{end}} {{with $page.Params.design.is_fullscreen}}fullscreen{{end}}" style="{{$style_bg | safeCSS}}">
+  <div class="carousel-item{{if eq $index 0}} active{{end}} {{with $block.Params.design.is_fullscreen}}fullscreen{{end}}" style="{{$style_bg | safeCSS}}">
     <div class="position-absolute d-flex w-100 h-100 justify-content-center align-items-center" style="{{$style_filter | safeCSS}}">
       {{/* To prevent control overlap, margins are based on $carousel-control-* in bootstrap-variables.scss */}}
       <div class="wg-hero dark container" style="margin-left: 6rem; margin-right: 6rem; text-align: {{$item.align | default "left"}};">

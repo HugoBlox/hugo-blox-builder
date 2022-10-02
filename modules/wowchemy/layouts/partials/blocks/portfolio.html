@@ -1,24 +1,26 @@
-{{/* Portfolio Widget */}}
+{{/* Wowchemy Blocks: Portfolio */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
 
 {{/* Initialise */}}
-{{ $ := .root }}
-{{ $st := .page }}
-{{ $columns := $st.Params.design.columns | default "2" }}
-{{ $view := $st.Params.design.view | default "masonry" }}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.Params.design.columns | default "2" }}
+{{ $view := $block.Params.design.view | default "masonry" }}
 
 {{/* Require Isotope */}}
-{{ $.Page.Store.Set "has_isotope" true }}
+{{ $page.Page.Store.Set "has_isotope" true }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
-  {{ with $st.Content }}{{ . }}{{ end }}
+  {{ with $block.Content }}{{ . }}{{ end }}
 
-  {{ if $st.Params.content.filter_button }}
+  {{ if $block.Params.content.filter_button }}
 
-    {{ $filter_default := default (int $st.Params.content.filter_default) 0 }}
+    {{ $filter_default := default (int $block.Params.content.filter_default) 0 }}
 
     {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
-    {{ $default_filter_item := (index $st.Params.content.filter_button ($filter_default)) }}
+    {{ $default_filter_item := (index $block.Params.content.filter_button ($filter_default)) }}
     {{ $default_data_filter := "" }}
     {{ with $default_filter_item.filter }}
       {{ $default_data_filter = . }}
@@ -34,12 +36,12 @@
     <span class="d-none default-project-filter">{{ $default_data_filter }}</span>
 
     {{/* Only show filter buttons if there are multiple filters. */}}
-    {{ if gt (len $st.Params.content.filter_button) 1 }}
+    {{ if gt (len $block.Params.content.filter_button) 1 }}
     <div class="project-toolbar">
       <div class="project-filters">
         <div class="btn-toolbar {{if eq $columns "1"}}d-flex justify-content-center{{end}}">
           <div class="btn-group flex-wrap">
-            {{ range $idx, $item := $st.Params.content.filter_button }}
+            {{ range $idx, $item := $block.Params.content.filter_button }}
               {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
               {{ $data_filter := "" }}
               {{ with .filter }}
@@ -60,32 +62,32 @@
     {{ end }}
   {{ end }}
 
-  <div class="{{ if or $st.Params.content.filter_button (in (slice "masonry" 3) $view) }}isotope projects-container{{end}} {{if in (slice "masonry" 3) $view}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $view "showcase" }}project-showcase{{end}}">
+  <div class="{{ if or $block.Params.content.filter_button (in (slice "masonry" 3) $view) }}isotope projects-container{{end}} {{if in (slice "masonry" 3) $view}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $view "showcase" }}project-showcase{{end}}">
 
     {{/* Query */}}
     {{ $query := site.Pages }}
 
     {{/* Filters */}}
-    {{ with $st.Params.content.page_type }}
+    {{ with $block.Params.content.page_type }}
       {{/* Legacy filter, superseded by `filters.folders` */}}
       {{ $query = where $query "Type" . }}
     {{ end }}
-    {{ with $st.Params.content.filters.folders }}
+    {{ with $block.Params.content.filters.folders }}
       {{ $query = where $query "Section" "in" . }}
     {{ end }}
-    {{ with $st.Params.content.filters.tags }}
+    {{ with $block.Params.content.filters.tags }}
       {{ $query = where $query "Params.tags" "intersect" . }}
     {{ end }}
-    {{ with $st.Params.content.filters.exclude_tags }}
+    {{ with $block.Params.content.filters.exclude_tags }}
       {{ $query = $query | symdiff (where site.Pages "Params.tags" "intersect" .) }}
     {{ end }}
-    {{ with ($st.Params.content.filters.kinds | default (slice "page")) }}
+    {{ with ($block.Params.content.filters.kinds | default (slice "page")) }}
       {{ $query = where $query "Kind" "in" . }}
     {{ end }}
 
     {{/* Sort */}}
-    {{ $sort_by := $st.Params.content.sort_by | default "Date" }}
-    {{ $sort_ascending := $st.Params.content.sort_ascending | default (eq $st.Params.content.order "asc") | default false }}
+    {{ $sort_by := $block.Params.content.sort_by | default "Date" }}
+    {{ $sort_ascending := $block.Params.content.sort_ascending | default (eq $block.Params.content.order "asc") | default false }}
     {{ $sort_order := cond $sort_ascending "asc" "desc" }}
     {{ $query = sort $query $sort_by $sort_order }}
 
@@ -96,7 +98,7 @@
         {{else}}
           <div class="col-12 isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
         {{end}}
-        {{ partial "functions/render_view" (dict "page" $st "item" . "view" $view "index" $index) }}
+        {{ partial "functions/render_view" (dict "page" $block "item" . "view" $view "index" $index) }}
       </div>
     {{end}}
 

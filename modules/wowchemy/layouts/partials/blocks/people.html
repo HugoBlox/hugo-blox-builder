@@ -1,31 +1,33 @@
-{{/* People Widget */}}
+{{/* Wowchemy Blocks: People */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
 
 {{/* Initialise */}}
-{{ $ := .root }}
-{{ $page := .page }}
-{{ $show_social := $page.Params.design.show_social | default false }}
-{{ $show_interests := $page.Params.design.show_interests | default true }}
-{{ $show_organizations := $page.Params.design.show_organizations | default false }}
-{{ $show_role := $page.Params.design.show_role | default true }}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $show_social := $block.Params.design.show_social | default false }}
+{{ $show_interests := $block.Params.design.show_interests | default true }}
+{{ $show_organizations := $block.Params.design.show_organizations | default false }}
+{{ $show_role := $block.Params.design.show_role | default true }}
 
 <div class="row justify-content-center people-widget">
-  {{ with $page.Title }}
+  {{ with $block.Title }}
   <div class="col-md-12 section-heading">
     <h1>{{ . | markdownify | emojify }}</h1>
-    {{ if $page.Params.subtitle }}<p>{{ $page.Params.subtitle | markdownify | emojify }}</p>{{ end }}
+    {{ if $block.Params.subtitle }}<p>{{ $block.Params.subtitle | markdownify | emojify }}</p>{{ end }}
   </div>
   {{ end }}
 
-  {{ with $page.Content }}
+  {{ with $block.Content }}
   <div class="col-md-12">
     {{ . }}
   </div>
   {{ end }}
 
-  {{ range $page.Params.content.user_groups }}
+  {{ range $block.Params.content.user_groups }}
   {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
 
-  {{if $query | and (gt (len $page.Params.content.user_groups) 1) }}
+  {{if $query | and (gt (len $block.Params.content.user_groups) 1) }}
   <div class="col-md-12">
     <h2 class="mb-4">{{ . | markdownify }}</h2>
   </div>

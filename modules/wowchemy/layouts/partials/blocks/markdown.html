@@ -1,0 +1,18 @@
+{{/* Wowchemy Blocks: Markdown */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.Params.design.columns | default "2" }}
+
+{{ if ne $columns "1" }}
+  <div class="col-12 col-lg-8">
+    {{ $block.Content }}
+  </div>
+{{ else }}
+  <div class="col-12">
+    {{ $block.Content }}
+  </div>
+{{ end }}

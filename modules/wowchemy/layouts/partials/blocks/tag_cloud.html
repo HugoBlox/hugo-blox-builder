@@ -1,11 +1,15 @@
-{{/* Initialise */}}
-{{ $ := .root }}
-{{ $st := .page }}
-{{ $taxonomy := $st.Params.content.taxonomy | default "tags" }}
-{{ $fontSmall := $st.Params.design.font_size_min | default 0.8 }}
-{{ $fontBig := $st.Params.design.font_size_max | default 2.5 }}
+{{/* Wowchemy Blocks: Tag Cloud */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
 
-{{ $items_count := $st.Params.content.count }}
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $taxonomy := $block.Params.content.taxonomy | default "tags" }}
+{{ $fontSmall := $block.Params.design.font_size_min | default 0.8 }}
+{{ $fontBig := $block.Params.design.font_size_max | default 2.5 }}
+
+{{ $items_count := $block.Params.content.count }}
 {{ if eq $items_count 0 }}
   {{ $items_count = 65535 }}
 {{ else }}
@@ -16,10 +20,10 @@
 {{ $tags := first $items_count (index site.Taxonomies $taxonomy).ByCount }}
 {{ $count := len $tags }}
 
-{{ $columns := $st.Params.design.columns | default "2" }}
+{{ $columns := $block.Params.design.columns | default "2" }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{else}}text-center{{end}}">
-  {{ with $st.Content }}{{ . }}{{ end }}
+  {{ with $block.Content }}{{ . }}{{ end }}
 
   {{ if ne $count 0 }}
 
