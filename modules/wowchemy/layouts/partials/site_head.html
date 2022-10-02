@@ -155,6 +155,23 @@
   {{- end -}}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
 
+  {{/* Load WC community block styles */}}
+  {{ $wc_block_styles := resources.Match "scss/blocks/**.scss" }}
+  {{ with $wc_block_styles }}
+    {{ $wc_block_styles = $wc_block_styles | resources.Concat "css/wowchemy-blocks.css" }}
+    {{- if eq (getenv "WC_POST_CSS") "true" -}}
+      {{- $wc_block_styles = $wc_block_styles | postCSS -}}
+    {{- end -}}
+    {{- if hugo.IsProduction -}}
+      {{- $wc_block_styles = $wc_block_styles | minify | fingerprint "md5" -}}
+    {{- end -}}
+    {{- if eq (getenv "WC_POST_CSS") "true" -}}
+      {{/* PostProcess must be last action in the pipeline */}}
+      {{- $wc_block_styles = $wc_block_styles | resources.PostProcess -}}
+    {{- end -}}
+    <link rel="stylesheet" href="{{ $wc_block_styles.RelPermalink }}" />
+  {{ end }}
+
   {{/* Hugo Chroma Syntax Highlighter Initialization */}}
   {{/* TODO: optimize to only include the Chroma CSS themes when the page has code blocks. */}}
   {{ $hl_theme_light := site.Params.features.syntax_highlighter.theme_light | default "github-light" }}
