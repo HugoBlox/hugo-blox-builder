@@ -5,12 +5,12 @@
 {{- $theme_night_index := (site.Params.appearance.theme_night | lower | replaceRE "\\s" "_") | default "minimal" -}}
 
 {{- if not (index (index site.Data.themes $theme_day_index) "light") -}}
-  {{- warnf "Theme `%s` not found at `data/themes/%s.toml`" site.Params.appearance.theme_day $theme_day_index -}}
+  {{- warnf "In `params.yaml`, you requested `theme_day: %s` but there is not a `light` style in `data/themes/%s.toml`. Falling back to default light style." site.Params.appearance.theme_day $theme_day_index -}}
   {{- $theme_day_index = "minimal" -}}
 {{ end }}
 
 {{- if not (index (index site.Data.themes $theme_night_index) "dark") -}}
-  {{- warnf "Theme `%s` not found at `data/themes/%s.toml`" site.Params.appearance.theme_night $theme_night_index -}}
+  {{- warnf "In `params.yaml`, you requested `theme_night: %s` but there is not a `dark` style in `data/themes/%s.toml`. Falling back to default dark style." site.Params.appearance.theme_night $theme_night_index -}}
   {{- $theme_night_index = "minimal" -}}
 {{ end }}
 
