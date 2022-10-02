@@ -1,7 +1,7 @@
 ---
 # An instance of the Featured widget.
 # Documentation: https://wowchemy.com/docs/page-builder/
-widget: featured
+widget: collection
 
 # This file represents a page section.
 headless: true
@@ -19,6 +19,7 @@ content:
   count: 0
   # Filter on criteria
   filters:
+    featured_only: true
     author: ''
     category: ''
     publication_type: ''
