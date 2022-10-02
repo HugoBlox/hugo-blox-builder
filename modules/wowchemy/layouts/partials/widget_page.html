@@ -59,7 +59,10 @@
     {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
     {{ $bg_img := resources.Get (printf "media/%s" $bg.image) }}
     {{ if $bg_img }}
-      {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
+      {{/* Exception for SVG as Hugo doesn't yet support image processing on SVG. */}}
+      {{ if ne $bg_img.MediaType.SubType "svg" }}
+        {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
+      {{ end }}
       {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
     {{ else }}
       {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image }}
