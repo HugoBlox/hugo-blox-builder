@@ -13,9 +13,9 @@
   <div class="container">
     {{/* Show the About widget if an account exists for this user. */}}
     {{ if .File }}
-      {{ $widget := "widgets/about.html" }}
+      {{ $widget := "blocks/about.html" }}
       {{ $username := (path.Base .File.Dir) }}{{/* Alternatively, use `index .Params.authors 0` */}}
-      {{ $params := dict "root" $ "page" . "author" $username }}
+      {{ $params := dict "wcPage" $ "wcBlock" . "author" $username }}
       {{ partial $widget $params }}
     {{end}}
 
