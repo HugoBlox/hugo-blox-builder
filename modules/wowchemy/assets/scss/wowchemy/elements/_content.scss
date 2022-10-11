@@ -39,11 +39,28 @@
   padding-right: 0; /* Override container padding. */
 }
 
+.featured-image-wrapper div {
+  position: relative;
+}
+
 .featured-image {
   position: relative;
   width: 100%;
   display: block;
   margin: 0 auto;
+}
+
+.featured-image-container-md {
+  max-width: 720px; /* Width of an article-container minus padding */
+  margin: 0 auto;
+}
+
+.featured-image-container {
+  margin: 0 auto;
+
+  @include media-breakpoint-up(xl) {
+    max-width: 1200px;
+  }
 }
 
 .article-header-caption {
