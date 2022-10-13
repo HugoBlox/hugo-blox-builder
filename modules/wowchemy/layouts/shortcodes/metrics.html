@@ -1,0 +1,53 @@
+{{/* Publication Metrics Shortcode for Wowchemy. */}}
+{{/* Displays badges from the three main academic metrics providers: Altmetric, dimensions.ai and PlumX */}}
+{{/* `doi` is automatically pulled from the relevant page metadata and therefore must be defined to use this shortcode. */}}
+
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#publication-metrics
+*/}}
+
+{{ if $.Page.Params.doi }}
+<html>
+    <style>
+        section {
+            background: white;
+            color: black;
+            border-radius: 1em;
+            padding: 1em;
+            left: 50% }
+        #inner {
+            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center }
+    </style>
+    <section>
+        <div id="inner">
+        <script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+            <span style="float:left"; 
+            class="__dimensions_badge_embed__" 
+            data-doi="{{ $.Page.Params.doi }}" 
+            data-hide-zero-citations="true" 
+            data-legend="always">
+            </span>
+        <script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+            <div  style="float:right"; 
+            data-link-target="_blank" 
+            data-badge-details="right" 
+            data-badge-type="medium-donut"
+            data-doi="{{ $.Page.Params.doi }}"   
+            data-condensed="true" 
+            data-hide-no-mentions="true" 
+            class="altmetric-embed">
+            </div>
+        </div>
+        <div id="inner">
+        <script type="text/javascript" src="//cdn.plu.mx/widget-details.js"></script>
+            <a href="{{ print "https://plu.mx/plum/a/?doi=" $.Page.Params.doi }}" 
+            class="plumx-details" 
+            data-site="plum" 
+            data-hide-when-empty="true">
+        </a>
+        </div>
+    </section>
+{{ end }}

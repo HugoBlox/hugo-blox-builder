@@ -680,3 +680,13 @@ For larger tables, save your spreadsheet as a CSV file in your page's folder and
 ### Google Sheets
 
 See the [Embed Documents](#embed-documents) section.
+
+### Publication metrics
+
+To add the three main publication metrics ([Altmetric](https://www.altmetric.com/), [Dimensions.ai](https://www.dimensions.ai/) and [PlumX](https://plumanalytics.com/learn/about-metrics/)) to your publication page you can use the following shortcut:
+
+```go
+{{< metrics >}}
+```
+
+`doi` is automatically pulled from the relevant page metadata and therefore must be defined to use this shortcode.
