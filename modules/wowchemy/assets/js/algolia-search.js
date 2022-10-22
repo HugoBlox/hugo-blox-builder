@@ -10,6 +10,7 @@ import algoliasearch from 'https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/alg
 // import instantsearch from 'https://cdn.jsdelivr.net/npm/instantsearch.js@4/es/index.js'
 // import {searchBox, infiniteHits} from 'https://cdn.jsdelivr.net/npm/instantsearch.js@4/es/widgets/index.js';
 
+// Optional integration of Algolia Search Analytics (configured in site params)
 if (algoliaConfig.analytics) {
   let ALGOLIA_INSIGHTS_SRC = 'https://cdn.jsdelivr.net/npm/search-insights@2.0.2/dist/search-insights.iife.min.js';
 
@@ -44,7 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $('body').addClass('searching');
     $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
     let commonQueries = document.querySelector('#search-common-queries');
-    commonQueries.style.display = 'none';
+
+    // Displaying common search queries in the search modal is an optional feature, so check if the element exists.
+    if (commonQueries !== null) {
+      commonQueries.style.display = 'none';
+    }
   }
 
   if (typeof instantsearch === 'function' && $('#search-box').length) {
@@ -100,9 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
         queryHook(query, refine) {
           if (query === '') {
             searchResults.style.display = 'none';
-            commonQueries.style.display = 'block';
+            if (commonQueries !== null) {
+              commonQueries.style.display = 'block';
+            }
           } else {
-            commonQueries.style.display = 'none';
+            if (commonQueries !== null) {
+              commonQueries.style.display = 'none';
+            }
             searchResults.style.display = 'block';
           }
           if (timerId) {
