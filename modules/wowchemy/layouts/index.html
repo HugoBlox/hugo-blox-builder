@@ -18,8 +18,10 @@
 {{/* Generate homepage. */}}
 {{ if eq .Type "book" }}
   {{ partial "book_layout.html" . }}
-{{ else }}
+{{ else if eq .Type "widget_page" }}
   {{ partial "widget_page.html" . }}
+{{ else }}
+  {{ partial "landing_page.html" . }}
 {{ end }}
 
 {{- end -}}

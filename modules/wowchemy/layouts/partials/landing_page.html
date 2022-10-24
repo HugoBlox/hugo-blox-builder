@@ -1,0 +1,8 @@
+{{/* Notify JS that this is a widget page */}}
+<!-- TODO: use data attribute on <body> instead if this is still required -->
+<span class="js-widget-page d-none"></span>
+
+{{/* Load Wowchemy blocks */}}
+{{ range $index, $block := .Params.sections }}
+  {{ partial "functions/parse_block_v2" (dict "page" $ "block" $block) }}
+{{ end }}
