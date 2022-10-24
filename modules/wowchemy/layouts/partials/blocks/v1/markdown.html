@@ -5,15 +5,14 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $columns := $block.design.columns | default "2" }}
-{{ $text := $block.content.text | emojify | markdownify }}
+{{ $columns := $block.Params.design.columns | default "2" }}
 
 {{ if ne $columns "1" }}
   <div class="col-12 col-lg-8">
-    {{ $text }}
+    {{ $block.Content }}
   </div>
 {{ else }}
   <div class="col-12">
-    {{ $text }}
+    {{ $block.Content }}
   </div>
 {{ end }}

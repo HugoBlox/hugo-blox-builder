@@ -10,7 +10,7 @@
 {{ if .author }}
   {{ $author = .author }}
 {{ else }}
-  {{ $author = $block.content.username }}
+  {{ $author = $block.Params.author }}
 {{end}}
 
 {{ $person_page_path := (printf "/authors/%s" $author) }}
@@ -82,7 +82,7 @@
     {{ end }}
   </ul>
 
-  {{ with $block.Content | default ($block.content.text | emojify | markdownify) }}
+  {{ with $block.Content }}
   <div class="article-style pt-1">
     {{ . }}
   </div>

@@ -28,5 +28,5 @@
 
 {{/* Load Wowchemy blocks */}}
 {{ range $index, $block := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
-  {{ partial "functions/parse_block" (dict "page" $ "block" $block) }}
+  {{ partial "functions/parse_block_v1" (dict "page" $ "block" $block) }}
 {{ end }}
