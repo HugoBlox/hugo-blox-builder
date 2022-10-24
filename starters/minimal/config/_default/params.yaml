@@ -86,7 +86,7 @@ features:
       category: ''
       category_id: ''
   search:
-    provider: wowchemy
+    provider: ''
     algolia:
       app_id: ''
       api_key: ''
