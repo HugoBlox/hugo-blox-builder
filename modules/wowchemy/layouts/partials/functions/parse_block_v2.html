@@ -49,7 +49,7 @@
     {{ end }}
     {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
   {{ else }}
-    {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image }}
+    {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image.filename }}
   {{ end }}
   {{ with $bg.image.size }}
     {{/* Allow sizes: actual, cover, and contain. */}}
@@ -81,7 +81,7 @@
 {{ end }}
 
 {{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
-{{ $hash_id := replace $block.File.ContentBaseName "index" (path.Base .File.Dir) }}
+{{ $hash_id := $block.id | default (printf "section-%s" $block.block) }}
 
 {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
 {{ $css_classes := $block.design.css_class | default $block.Params.advanced.css_class | default "" }}
@@ -114,17 +114,17 @@
   {{if $use_container}}<div class="container">{{end}}
 
   {{if $use_cols}}
-    <div class="row  {{if not $block.Title | or (eq $columns "1") }}justify-content-center{{end}}">
-    {{ if $block.Title }}
+    <div class="row  {{if not $block.content.title | or (eq $columns "1") }}justify-content-center{{end}}">
+    {{ if $block.content.title }}
       {{ if eq $columns "1" }}
         <div class="section-heading col-12 mb-3 text-center">
-          {{ with $block.Title }}<h1 class="mb-0">{{ . | markdownify | emojify }}</h1>{{ end }}
-          {{ with $block.Params.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
+          {{ with $block.content.title }}<h1 class="mb-0">{{ . | markdownify | emojify }}</h1>{{ end }}
+          {{ with $block.content.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
         </div>
       {{else}}
         <div class="section-heading col-12 col-lg-4 mb-3 mb-lg-0 d-flex flex-column align-items-center align-items-lg-start">
-          {{ with $block.Title }}<h1 class="mb-0">{{ . | markdownify | emojify }}</h1>{{ end }}
-          {{ with $block.Params.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
+          {{ with $block.content.title }}<h1 class="mb-0">{{ . | markdownify | emojify }}</h1>{{ end }}
+          {{ with $block.content.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
         </div>
       {{end}}
     {{end}}
