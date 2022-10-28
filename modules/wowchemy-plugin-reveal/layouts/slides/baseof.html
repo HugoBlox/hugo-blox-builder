@@ -71,8 +71,12 @@
   {{ end }}
 
   {{/* Initialize slides. */}}
-  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
-  <script src="{{ $slidejs.RelPermalink }}"></script>
+  {{ $slidejs := resources.Get "js/wowchemy-slides.js" }} 
+  <script type="module">
+    import { wowchemySlides } from {{ $slidejs.RelPermalink }}
+    wowchemySlides.init({{ $.Params.slides }})
+  </script>
+
 
 </body>
 </html>
