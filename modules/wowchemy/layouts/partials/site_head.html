@@ -208,7 +208,7 @@
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
   {{/* Deprecated custom_head hook */}}
-  {{ if templates.Exists "partials/custom_head" }}
+  {{ if templates.Exists "partials/custom_head.html" }}
     {{ partial "custom_head" . }}
   {{ end }}
   {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
