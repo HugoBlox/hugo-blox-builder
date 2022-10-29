@@ -11,8 +11,8 @@
 
 export const wowchemySlides = {
   init: (slideParams) => {
-    // Enable core slide features.
 
+    // Enable core slide features.
     const RevealMathPlugin = {
       katex: RevealMath.KaTeX, 
       mathjax2: RevealMath.MathJax2,
