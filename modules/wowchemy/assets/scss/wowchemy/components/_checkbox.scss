@@ -1,0 +1,49 @@
+/*************************************************
+*  Checkbox component
+**************************************************/
+$checkbox_size: 1.2em;
+
+@mixin checkbox($color) {
+    $checkmark_color: str-replace("#{$color}", "#", "");
+    $svg_checked_box: '<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path style="fill:%23#{$checkmark_color};fill-rule:evenodd;stroke-width:1.80314;image-rendering:auto" d="M8 0a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8Zm4.245 4.046a.5.5 0 0 1 .349.138l.698.678a.465.465 0 0 1 0 .674l-6.425 6.28a.51.51 0 0 1-.7 0l-3.46-3.38a.467.467 0 0 1 0-.676l.7-.676a.507.507 0 0 1 .698 0L6.518 9.45l5.377-5.266a.5.5 0 0 1 .35-.138z"/></svg>';
+
+    ul.task-list {
+        padding-inline-start: ($checkbox_size + 1.0em);
+        padding-bottom      : 0.5em;
+
+        >li {
+            text-indent: 0;
+
+            >input[type=checkbox] {
+                -webkit-appearance: none;
+                appearance        : none;
+
+                width : $checkbox_size;
+                height: $checkbox_size;
+
+                position: relative;
+                top     : 0.3em;
+
+                margin-left: -($checkbox_size + 0.8em);
+
+                border-radius: 50%;
+                border       : 2px solid $color;
+
+                &:checked {
+                    background-position: center;
+                    background-size: $checkbox_size;
+                    background-repeat  : no-repeat;
+                    background-image   : url('data:image/svg+xml;utf8,#{$svg_checked_box}');
+                }
+            }
+        }
+    }
+}
+
+body {
+    @include checkbox($sta-primary);
+}
+
+body.dark {
+    @include checkbox($sta-primary-dark);
+}
