@@ -1,4 +1,4 @@
-{{/* Wowchemy Block Parser */}}
+{{/* Wowchemy Block Parser v1 */}}
 {{/* Documentation: https://wowchemy.com/blocks/ */}}
 {{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
 
@@ -101,8 +101,8 @@
 
 {{ $widget_class := printf "wg-%s" (replace (replace $block_type "." "-") "_" "-") }}
 
-{{ $widget_config_file := printf "blocks/%s-config.html" $block_type }}
-{{ if templates.Exists $widget_config_file }}
+{{ $widget_config_file := printf "blocks/v1/%s-config.html" $block_type }}
+{{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
   {{ $cfg := partial $widget_config_file $widget_args }}
   {{ $use_container = $cfg.use_container }}
 {{end}}

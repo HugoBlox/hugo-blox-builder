@@ -11,9 +11,10 @@
 
 <section id="profile-page" class="pt-5">
   <div class="container">
-    {{/* Show the About widget if an account exists for this user. */}}
+    {{/* Show the About block if an account exists for this user. */}}
+    {{/* TODO: remove dependency on v1 blocks. Either migrate to v2 blocks(?) or directly implement layout here. */}}
     {{ if .File }}
-      {{ $widget := "blocks/about.html" }}
+      {{ $widget := "blocks/v1/about.html" }}
       {{ $username := (path.Base .File.Dir) }}{{/* Alternatively, use `index .Params.authors 0` */}}
       {{ $params := dict "wcPage" $ "wcBlock" . "author" $username }}
       {{ partial $widget $params }}

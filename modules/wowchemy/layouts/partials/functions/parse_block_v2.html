@@ -1,4 +1,4 @@
-{{/* Wowchemy Block Parser */}}
+{{/* Wowchemy Block Parser v2 */}}
 {{/* Documentation: https://wowchemy.com/blocks/ */}}
 {{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
 
@@ -87,6 +87,8 @@
 {{ $css_classes := $block.design.css_class | default $block.Params.advanced.css_class | default "" }}
 {{ $extra_attributes := "" }}
 {{ $use_container := true }}
+{{ $columns := $block.design.columns | default "1" }}
+{{ $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio") $block_type }}
 
 {{/* Special case: Slider widget. */}}
 {{ if in (slice "slider") $block_type }}
@@ -98,13 +100,11 @@
 {{ $widget_class := printf "wg-%s" (replace (replace $block_type "." "-") "_" "-") }}
 
 {{ $widget_config_file := printf "blocks/%s-config.html" $block_type }}
-{{ if templates.Exists $widget_config_file }}
+{{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
   {{ $cfg := partial $widget_config_file $widget_args }}
-  {{ $use_container = $cfg.use_container }}
+  {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}
+  {{ with $cfg.inject_section_heading }}{{ $use_cols = . }}{{ end }}
 {{end}}
-
-{{ $columns := $block.design.columns | default "2" }}
-{{ $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio") $block_type }}
 
 {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
 <section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
