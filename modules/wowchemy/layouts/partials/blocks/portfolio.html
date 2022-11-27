@@ -1,0 +1,106 @@
+{{/* Wowchemy Blocks: Portfolio */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.design.columns | default "1" }}
+{{ $view := $block.design.view | default "masonry" }}
+
+{{/* Require Isotope */}}
+{{ $page.Page.Store.Set "has_isotope" true }}
+
+<div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
+
+  {{ with $block.content.text }}{{ . | markdownify }}{{ end }}
+
+  {{ if $block.content.buttons }}
+
+    {{ $filter_default := default (int $block.content.default_button_index) 0 }}
+
+    {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
+    {{ $default_filter_item := (index $block.content.buttons ($filter_default)) }}
+    {{ $default_data_filter := "" }}
+    {{ with $default_filter_item.filter }}
+      {{ $default_data_filter = . }}
+    {{ else }}
+      {{ $default_filter_tag := $default_filter_item.tag }}
+      {{ if or (eq (substr $default_filter_tag 0 1) "*") (eq (substr $default_filter_tag 0 1) ".") }}
+        {{ $default_data_filter = $default_filter_tag }}
+      {{ else }}
+        {{ $default_data_filter = printf ".js-id-%s" (lower (replace $default_filter_tag " " "-")) }}
+      {{ end }}
+    {{end}}
+
+    <span class="d-none default-project-filter">{{ $default_data_filter }}</span>
+
+    {{/* Only show filter buttons if there are multiple filters. */}}
+    {{ if gt (len $block.content.buttons) 1 }}
+    <div class="project-toolbar">
+      <div class="project-filters">
+        <div class="btn-toolbar {{if eq $columns "1"}}d-flex justify-content-center{{end}}">
+          <div class="btn-group flex-wrap">
+            {{ range $idx, $item := $block.content.buttons }}
+              {{/* Parse filter tag from front matter in the form of either tag name or CSS class name. */}}
+              {{ $data_filter := "" }}
+              {{ with .filter }}
+                {{ $data_filter = . }}
+              {{ else }}
+                {{ if or (eq (substr .tag 0 1) "*") (eq (substr .tag 0 1) ".") }}
+                  {{ $data_filter = .tag }}
+                {{ else }}
+                  {{ $data_filter = printf ".js-id-%s" (lower (replace .tag " " "-")) }}
+                {{ end }}
+              {{ end }}
+              <a href="#" data-filter="{{ $data_filter | safeHTMLAttr }}" class="btn btn-primary btn-lg{{ if eq $idx $filter_default }} active{{ end }}">{{ .name }}</a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  {{ end }}
+
+  <div class="{{ if or $block.content.buttons (in (slice "masonry" 3) $view) }}isotope projects-container{{end}} {{if in (slice "masonry" 3) $view}}js-layout-masonry{{else}}row js-layout-row{{end}} {{ if eq $view "showcase" }}project-showcase{{end}}">
+
+    {{/* Query */}}
+    {{ $query := site.Pages }}
+
+    {{/* Filters */}}
+    {{ with $block.content.page_type }}
+      {{/* Legacy filter, superseded by `filters.folders` */}}
+      {{ $query = where $query "Type" . }}
+    {{ end }}
+    {{ with $block.content.filters.folders }}
+      {{ $query = where $query "Section" "in" . }}
+    {{ end }}
+    {{ with $block.content.filters.tags }}
+      {{ $query = where $query "Params.tags" "intersect" . }}
+    {{ end }}
+    {{ with $block.content.filters.exclude_tags }}
+      {{ $query = $query | symdiff (where site.Pages "Params.tags" "intersect" .) }}
+    {{ end }}
+    {{ with ($block.content.filters.kinds | default (slice "page")) }}
+      {{ $query = where $query "Kind" "in" . }}
+    {{ end }}
+
+    {{/* Sort */}}
+    {{ $sort_by := $block.content.sort_by | default "Date" }}
+    {{ $sort_ascending := $block.content.sort_ascending | default (eq $block.content.order "asc") | default false }}
+    {{ $sort_order := cond $sort_ascending "asc" "desc" }}
+    {{ $query = sort $query $sort_by $sort_order }}
+
+    {{ range $index, $item := $query }}
+      {{ $js_tag_classes := delimit (apply (apply (apply $item.Params.tags "replace" "." " " "-") "printf" "js-id-%s" ".") "lower" ".") " " }}
+        {{ if in (slice "masonry" 3) $view }}
+          <div class="project-card project-item isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
+        {{else}}
+          <div class="col-12 isotope-item {{ $js_tag_classes | safeHTMLAttr }}">
+        {{end}}
+        {{ partial "functions/render_view" (dict "page" $block "item" . "view" $view "index" $index) }}
+      </div>
+    {{end}}
+
+  </div>
+</div>
