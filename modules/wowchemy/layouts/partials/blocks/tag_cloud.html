@@ -20,7 +20,7 @@
 {{ $tags := first $items_count (index site.Taxonomies $taxonomy).ByCount }}
 {{ $count := len $tags }}
 
-{{ $columns := $block.design.columns | default "2" }}
+{{ $columns := $block.design.columns | default "1" }}
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{else}}text-center{{end}}">
   {{ with $block.content.text }}{{ . | markdownify }}{{ end }}

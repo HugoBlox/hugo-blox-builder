@@ -81,7 +81,7 @@
 {{ end }}
 
 {{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
-{{ $hash_id := $block.id | default (printf "section-%s" $block.block) }}
+{{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
 
 {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
 {{ $css_classes := $block.design.css_class | default $block.Params.advanced.css_class | default "" }}

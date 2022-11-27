@@ -5,7 +5,7 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $columns := $block.design.columns | default "2" }}
+{{ $columns := $block.design.columns | default "1" }}
 {{ $text := $block.content.text | emojify | markdownify }}
 
 {{ if ne $columns "1" }}

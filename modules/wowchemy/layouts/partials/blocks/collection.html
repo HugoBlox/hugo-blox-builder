@@ -78,7 +78,7 @@
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
 
-  {{ with $block.content.text }}{{ . }}{{ end }}
+  {{ with $block.content.text }}{{ . | emojify | markdownify }}{{ end }}
 
   {{ range $index, $item := $query }}
     {{ partial "functions/render_view" (dict "page" $block "item" . "view" ($block.design.view | default "compact") "index" $index) }}
