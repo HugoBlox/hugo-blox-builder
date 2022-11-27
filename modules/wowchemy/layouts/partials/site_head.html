@@ -91,7 +91,7 @@
       {{ end }}
     {{ else }}
       {{/* Single page */}}
-      {{ if .HasShortcode "gallery" }}
+      {{ if .HasShortcode "gallery" | or ($.Page.Store.Get "has_gallery") }}
         {{ $has_gallery = true }}
       {{ end }}
     {{ end }}

@@ -15,6 +15,9 @@
         Resize options passed to Hugo `.Fit` function (https://gohugo.io/content-management/image-processing/).
 */}}
 
+{{/* For gallery nested in landing page sections */}}
+{{ $.Page.Store.Set "has_gallery" true }}
+
 {{/* Get album folder or default to `media/albums/gallery/`. */}}
 {{ $album := (.Get "album") | default "gallery" }}
 {{ $album_path := path.Join "media" "albums" $album "*" }}
