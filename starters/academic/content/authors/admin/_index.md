@@ -66,6 +66,13 @@ social:
   - icon: linkedin
     icon_pack: fab
     link: https://www.linkedin.com/
+  # Link to your mastodon profile. By specifying rel="me" you can verify this site in your mastodon metadata.
+  # Use custom_rel to set the rel attribute to a custom value, e.g. 'noopener me'
+  # See also https://docs.joinmastodon.org/user/profile/#verification
+  - icon: mastodon
+    icon_pack: fab
+    link: https://mastodon.example.com/@username
+    custom_rel: 'noopener me'
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.

@@ -269,6 +269,13 @@ sections:
           icon_pack: fas
           name: Zoom Me
           link: 'https://zoom.com'
+        # Link to your mastodon profile. By specifying rel="me" you can verify this site in your mastodon metadata.
+        # Use custom_rel to set the rel attribute to a custom value, e.g. 'noopener me'
+        # See also https://docs.joinmastodon.org/user/profile/#verification
+        - icon: mastodon
+          icon_pack: fab
+          link: https://mastodon.example.com/@username
+          custom_rel: 'noopener me'
       # Automatically link email and phone or display as text?
       autolink: true
       # Email form provider

@@ -51,6 +51,13 @@ social:
   - icon: instagram
     icon_pack: fab
     link: https://instagram.com/geocushen
+  # Link to your mastodon profile. By specifying rel="me" you can verify this site in your mastodon metadata.
+  # Use custom_rel to set the rel attribute to a custom value, e.g. 'noopener me'
+  # See also https://docs.joinmastodon.org/user/profile/#verification
+  - icon: mastodon
+    icon_pack: fab
+    link: https://mastodon.example.com/@username
+    custom_rel: 'noopener me'
 # Uncomment below for Github link
 #- icon: github
 #  icon_pack: fab

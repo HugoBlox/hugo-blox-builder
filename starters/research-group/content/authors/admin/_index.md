@@ -50,6 +50,13 @@ social:
   - icon: github
     icon_pack: fab
     link: https://github.com/gcushen
+  # Link to your mastodon profile. By specifying rel="me" you can verify this site in your mastodon metadata.
+  # Use custom_rel to set the rel attribute to a custom value, e.g. 'noopener me'
+  # See also https://docs.joinmastodon.org/user/profile/#verification
+  - icon: mastodon
+    icon_pack: fab
+    link: https://mastodon.example.com/@username
+    custom_rel: 'noopener me'
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 # - icon: cv

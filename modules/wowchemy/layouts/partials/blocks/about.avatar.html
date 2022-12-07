@@ -71,7 +71,8 @@
       {{ $link = .link | relLangURL }}
       {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
     {{ else if in (slice "http" "https") $scheme }}
-      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ $rel := .custom_rel | default "noopener" }}
+      {{ $target = (printf "target=\"_blank\" rel=\"%s\"" $rel) }}
     {{ end }}
     <li>
       <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}"
