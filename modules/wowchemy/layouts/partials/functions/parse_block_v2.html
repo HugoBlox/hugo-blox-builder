@@ -31,12 +31,12 @@
 {{ end }}
 
 {{ $bg_video := "" }}
-{{ if $bg.video.path }}
-  {{ $bg_video = resources.Get (printf "media/%s" $bg.video.path) }}
-{{ end }}
 {{ $bg_video_class := "" }}
-{{ if $bg.video.flip }}
-  {{ $bg_video_class = "flip" }}
+{{ if $bg.video.filename }}
+  {{ $bg_video = resources.Get (printf "media/%s" $bg.video.filename) }}
+  {{ if $bg.video.flip }}
+    {{ $bg_video_class = "flip" }}
+  {{ end }}
 {{ end }}
 
 {{ if $bg.image.filename }}
@@ -76,7 +76,7 @@
   {{ $style = print $style $style_clip_path }}
 {{ end }}
 
-{{ with ($block.design.css_style | default $block.Params.advanced.css_style) }}
+{{ with $block.design.css_style }}
   {{ $style = print $style . }}
 {{ end }}
 
@@ -84,7 +84,7 @@
 {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
 
 {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
-{{ $css_classes := $block.design.css_class | default $block.Params.advanced.css_class | default "" }}
+{{ $css_classes := $block.design.css_class | default "" }}
 {{ $extra_attributes := "" }}
 {{ $use_container := true }}
 {{ $columns := $block.design.columns | default "1" }}
