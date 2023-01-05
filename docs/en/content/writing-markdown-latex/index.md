@@ -317,7 +317,7 @@ I :heart: Wowchemy :smile:
 
 To include a single tweet, pass the tweet’s user (case-insensitive) and ID from the URL as parameters to the shortcode:
 
-    {{< tweet user="SanDiegoZoo" id="1453110110599868418" >}}
+    {{</* tweet user="SanDiegoZoo" id="1453110110599868418" */>}}
 
 ## Callouts
 
