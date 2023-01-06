@@ -315,9 +315,9 @@ I :heart: Wowchemy :smile:
 
 ### Embed a single tweet
 
-To include a single tweet, pass the tweet’s ID from the tweet's URL as parameter to the shortcode:
+To include a single tweet, pass the tweet’s user (case-insensitive) and ID from the URL as parameters to the shortcode:
 
-    {{</* tweet 666616452582129664 */>}}
+    {{</* tweet user="SanDiegoZoo" id="1453110110599868418" */>}}
 
 ## Callouts
 
