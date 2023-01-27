@@ -25,7 +25,7 @@
 
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
   {{ with $block.content.text }}
-    <p>{{ . | emojify | markdownify }}</p>
+    <p>{{ . | emojify | markdownify | safeHTML }}</p>
   {{ end }}
 
   {{ if $use_form }}
