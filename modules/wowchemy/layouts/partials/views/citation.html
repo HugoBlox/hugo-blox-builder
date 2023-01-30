@@ -2,6 +2,7 @@
 {{ $has_attachments := partial "functions/has_attachments" $item }}
 
 <div class="pub-list-item view-citation" style="margin-bottom: 1rem">
+  <span>{{- add 1 .index -}}</span>.
   <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
 
   {{/* APA Style */}}

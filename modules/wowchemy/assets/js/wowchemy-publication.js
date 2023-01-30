@@ -17,6 +17,52 @@ let filterValues;
 // Publication container.
 let $grid_pubs = $('#container-publications');
 
+// Function to update the numbering of items
+function update_number_items() {
+  let index_item_visible = 1;
+
+  for (let i_item = 0; i_item < $grid_pubs[0].childElementCount; i_item++) {
+    let $this_element_i = document.getElementById('container-publications').children[i_item];
+
+    let searchResults = searchRegex ? $($this_element_i).text().match(searchRegex) : true;
+    let filterResults = filterValues ? $($this_element_i).is(filterValues) : true;
+
+    if (searchResults && filterResults) {
+      $($this_element_i.children[0].children[0]).text(index_item_visible);
+      index_item_visible++;
+    }
+  }
+}
+
+// Function to update the numbering of items
+function update_number_items_reverse() {
+  let index_item_visible = 0;
+
+  for (let i_item = 0; i_item < $grid_pubs[0].childElementCount; i_item++) {
+    let $this_element_i = document.getElementById('container-publications').children[i_item];
+
+    let searchResults = searchRegex ? $($this_element_i).text().match(searchRegex) : true;
+    let filterResults = filterValues ? $($this_element_i).is(filterValues) : true;
+
+    index_item_visible += searchResults && filterResults;
+  }
+  let total_number_visible_index = index_item_visible;
+
+  index_item_visible = 1;
+
+  for (let i_item = 0; i_item < $grid_pubs[0].childElementCount; i_item++) {
+    let $this_element_i = document.getElementById('container-publications').children[i_item];
+
+    let searchResults = searchRegex ? $($this_element_i).text().match(searchRegex) : true;
+    let filterResults = filterValues ? $($this_element_i).is(filterValues) : true;
+
+    if (searchResults && filterResults) {
+      $($this_element_i.children[0].children[0]).text(total_number_visible_index - index_item_visible + 1);
+      index_item_visible++;
+    }
+  }
+}
+
 // Initialise Isotope publication layout if required.
 if ($grid_pubs.length) {
   $grid_pubs.isotope({
@@ -38,6 +84,7 @@ if ($grid_pubs.length) {
   let $quickSearch = $('.filter-search').keyup(
     debounce(function () {
       searchRegex = new RegExp($quickSearch.val(), 'gi');
+      update_number_items();
       $grid_pubs.isotope();
     }),
   );
@@ -55,6 +102,7 @@ if ($grid_pubs.length) {
     filterValues = concatValues(pubFilters);
 
     // Activate filters.
+    update_number_items();
     $grid_pubs.isotope();
 
     // If filtering by publication type, update the URL hash to enable direct linking to results.
@@ -115,6 +163,7 @@ function filter_publications() {
   filterValues = concatValues(pubFilters);
 
   // Activate filters.
+  update_number_items();
   $grid_pubs.isotope();
 
   // Set selected option.
