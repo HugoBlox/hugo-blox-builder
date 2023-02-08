@@ -1,5 +1,7 @@
 ---
-# Files in this folder represent a Widget Page
+title: Contact
+date: 2022-10-24
+
 type: landing
 
 sections:
