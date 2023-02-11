@@ -17,7 +17,7 @@
     {{ end }}
 
     {{ with $block.content.text }}
-      <div class="hero-lead">{{ . | markdownify | emojify }}</div>
+      <div class="hero-lead">{{ . | $page.RenderString | emojify }}</div>
     {{ end }}
 
     {{/* Call-to-action link */}}

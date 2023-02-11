@@ -6,7 +6,7 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 {{ $columns := $block.design.columns | default "1" }}
-{{ $text := $block.content.text | emojify | markdownify }}
+{{ $text := $block.content.text | emojify | $page.RenderString }}
 
 {{ if ne $columns "1" }}
   <div class="col-12 col-lg-8">
