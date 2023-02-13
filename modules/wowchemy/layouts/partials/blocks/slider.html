@@ -57,7 +57,7 @@
 
           {{ with $item.content }}
           <p class="hero-lead" style="{{if eq $item.align "center"}}margin: 0 auto 0 auto;{{else if eq $item.align "right"}}margin-left: auto; margin-right: 0{{end}}">
-            {{ . | markdownify | emojify }}
+            {{ . | emojify | $page.RenderString }}
           </p>
           {{ end }}
 

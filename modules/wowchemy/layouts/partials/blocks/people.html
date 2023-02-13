@@ -20,13 +20,20 @@
 
   {{ with $block.content.text }}
     <div class="col-md-12">
-      {{ . }}
+      {{ . | emojify | $page.RenderString }}
     </div>
   {{ end }}
 
   {{ range $block.content.user_groups }}
     {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
-    {{ $query = sort $query ".Params.last_name" "asc" }}
+
+    {{/* Sort */}}
+    {{ $sort_by := $block.content.sort_by | default "last_name" }}
+    {{ if not ( in "last_name first_name title" $sort_by ) }} {{ $sort_by = "last_name" }} {{ end }}
+    {{ $sort_by = printf ".Params.%s" $sort_by }}
+    {{ $sort_ascending := $block.content.sort_ascending | default true }}
+    {{ $sort_order := cond $sort_ascending "asc" "desc" }}
+    {{ $query = sort $query $sort_by $sort_order }}
 
     {{if $query | and (gt (len $block.content.user_groups) 1) }}
       <div class="col-md-12">

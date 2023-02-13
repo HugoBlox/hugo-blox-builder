@@ -17,9 +17,10 @@ sections:
           - Administration
           - Visitors
           - Alumni
+      sort_by: last_name
+      sort_ascending: true
     design:
       show_interests: false
       show_role: true
       show_social: true
-      columns: '2'
 ---
