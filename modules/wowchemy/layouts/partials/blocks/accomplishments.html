@@ -9,7 +9,7 @@
 
 <!-- Accomplishments widget -->
 <div class="col-12 {{if eq $columns "2"}}col-lg-8{{end}}">
-  {{ with $block.Content }}{{ . }}{{ end }}
+  {{ with $block.content.text }}{{ . | emojify | $page.RenderString }}{{ end }}
 
   {{ if $block.content.items }}
   {{ range $idx, $key := sort $block.content.items ".date_start" "desc" }}

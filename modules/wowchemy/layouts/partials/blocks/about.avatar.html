@@ -82,7 +82,7 @@
     {{ end }}
   </ul>
 
-  {{ with ($block.content.text | emojify | markdownify) | default $person_page.Content }}
+  {{ with ($block.content.text | emojify | $page.RenderString) | default $person_page.Content }}
   <div class="article-style pt-2 d-flex justify-content-center">
     <div class="bio-text">
       {{ . }}
