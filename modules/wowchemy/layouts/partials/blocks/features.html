@@ -16,7 +16,7 @@
 
   {{ with $block.content.text }}
   <div class="col-md-12">
-    {{ . | emojify | markdownify }}
+    {{ . | emojify | $page.RenderString }}
   </div>
   {{ end }}
 
