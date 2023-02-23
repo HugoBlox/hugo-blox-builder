@@ -28,7 +28,8 @@
     {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
 
     {{/* Sort */}}
-    {{ $sort_by := $block.content.sort_by | default ".Params.last_name" }}
+    {{ $sort_by := $block.content.sort_by | default "Params.last_name" }}
+    {{/* $sort_by = partial "functions/get_sort_by_parameter" $sort_by */}}
     {{ $sort_ascending := $block.content.sort_ascending | default true }}
     {{ $sort_order := cond $sort_ascending "asc" "desc" }}
     {{ $query = sort $query $sort_by $sort_order }}
