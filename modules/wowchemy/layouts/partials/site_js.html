@@ -127,11 +127,52 @@
 {{ end }}
 
 {{/* Page Data */}}
-{{ $default_headroom := not (.IsHome | or (eq .Type "book")) }}
-{{ $use_headroom := cond (isset $.Params "header.on_scroll") (eq $.Params.header.on_scroll "disappear") (default $default_headroom) }}
-{{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
 
 {{/* Headroom */}}
+{{/*
+  Loading the Headroom js set the header to disappear when scrolling the page down.
+  So to have a sticky header, don't load the Headroom.
+  This option can be set in the following ways:
+    - globally, by adding in your 'params.yaml':
+      ```
+      header:
+        sticky: true/false
+      ```
+
+    - per page, by adding in the page Front Matter:
+      ```
+      header:
+        sticky: true/false
+      ```
+
+    - in order to be compatible with older versions where there was a bug, Headroom
+      is also disabled by setting in the page Front Matter (this is now deprecated)
+      ```
+      header.on_scroll: false
+      ```
+  'false' indicates that the header disappears on scrolling (-> load Headroom)
+  'true'  indicates that the header is sticky (-> don't load Headroom)
+
+  By default, the header is sticky in the homepage and in the book layout,
+  and disappears on scrolling in all other pages.
+*/}}
+
+{{/* by default don't use Headroom in homepage and book layout */}}
+{{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
+{{/* support for old "wrong" syntax */}}
+{{ if (isset $.Params "header.on_scroll") }}
+  {{ $use_headroom = false }}
+{{ end }}
+{{/* look global site parameter 'header.sticky' true/false */}}
+{{ if (isset site.Params.header "sticky") }}
+  {{ $use_headroom = not site.Params.header.sticky }}
+{{ end }}
+{{/* look page parameter 'header.sticky' true/false */}}
+{{ if (isset $.Params.header "sticky") }}
+  {{ $use_headroom = not $.Params.header.sticky }}
+{{ end }}
+{{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
+
 {{ if $use_headroom }}
   {{ $headroom := resources.Get "js/wowchemy-headroom.js" | js.Build (dict "format" "esm" "minify" true) }}
   {{- if hugo.IsProduction -}}
