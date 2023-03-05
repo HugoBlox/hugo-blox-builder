@@ -159,13 +159,13 @@
 
 {{/* by default don't use Headroom in homepage and book layout */}}
 {{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
-{{/* support for old "wrong" syntax */}}
-{{ if (isset $.Params "header.on_scroll") }}
-  {{ $use_headroom = false }}
-{{ end }}
 {{/* look global site parameter 'header.sticky' true/false */}}
 {{ if (isset site.Params.header "sticky") }}
   {{ $use_headroom = not site.Params.header.sticky }}
+{{ end }}
+{{/* support for old "buggy" syntax "header.on_scroll" in page parameters */}}
+{{ if (isset $.Params "header.on_scroll") }}
+  {{ $use_headroom = false }}
 {{ end }}
 {{/* look page parameter 'header.sticky' true/false */}}
 {{ if (isset $.Params.header "sticky") }}
