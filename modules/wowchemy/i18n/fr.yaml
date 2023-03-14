@@ -13,13 +13,13 @@
   translation: Retourner au début
 
 - id: home
-  translation: Home
+  translation: Accueil
 
 - id: close
-  translation: Close
+  translation: Fermer
 
 - id: languages
-  translation: Languages
+  translation: Langues
 
 # General
 
@@ -27,7 +27,7 @@
   translation: Sur le même sujet
 
 - id: minute_read
-  translation: min de lecture
+  translation: min. de lecture
 
 - id: previous
   translation: Précédent
@@ -39,26 +39,26 @@
   translation: 'Figure %d:'
 
 - id: edit_page
-  translation: Edit this page
+  translation: Editer cette page
 
 # Themes
 
 - id: theme_selector
-  translation: Display preferences
+  translation: Préférences d'affichage
 
 - id: theme_light
-  translation: Light
+  translation: Clair
 
 - id: theme_dark
-  translation: Dark
+  translation: Sombre
 
 - id: theme_auto
-  translation: Automatic
+  translation: Automatique
 
 # Buttons
 
 - id: btn_preprint
-  translation: Preprint
+  translation: Pré-impression
 
 - id: btn_pdf
   translation: PDF
@@ -91,7 +91,7 @@
   translation: Copier
 
 - id: btn_copied
-  translation: Copied
+  translation: Copié
 
 - id: btn_download
   translation: Télécharger
@@ -102,7 +102,7 @@
   translation: Intérêts
 
 - id: education
-  translation: Formation
+  translation: Éducation
 
 - id: user_profile_latest
   translation: Récents
@@ -143,7 +143,7 @@
   translation: Message
 
 - id: contact_attachment
-  translation: Attach file
+  translation: Joindre un fichier
 
 - id: contact_send
   translation: Envoyer
@@ -184,7 +184,7 @@
   translation: Article de revue
 
 - id: pub_preprint
-  translation: Preprint
+  translation: Pré-impression
 
 - id: pub_report
   translation: Rapport
@@ -224,7 +224,7 @@
   translation: Slides
 
 - id: authors
-  translation: Authors
+  translation: Auteurs
 
 # Search
 
@@ -241,7 +241,7 @@
   translation: Aucun résultat n'a été trouvé
 
 - id: search_common_queries
-  translation: Common searches
+  translation: Recherches fréquentes
 
 # Error 404
 
@@ -265,4 +265,4 @@
 # Published with
 
 - id: published_with
-  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+  translation: Publié avec {wowchemy} — le générateur {repo_link}libre{/repo_link} de site web gratuit permetant aux créateurs de s'épanouir.
