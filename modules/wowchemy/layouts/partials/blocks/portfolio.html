@@ -86,6 +86,7 @@
     {{ end }}
 
     {{/* Sort */}}
+    {{ $sort_by := $block.content.sort_by | default "Date" }}
     {{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
     {{ $sort_ascending := $block.content.sort_ascending | default (eq $block.content.order "asc") | default false }}
     {{ $sort_order := cond $sort_ascending "asc" "desc" }}
