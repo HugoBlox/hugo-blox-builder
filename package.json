@@ -18,7 +18,7 @@
     "bootstrap": "^4.6.1",
     "headroom.js": "^0.12.0",
     "instant.page": "^5.2.0",
-    "jquery": "^3.6.0",
+    "jquery": "^3.6.4",
     "medium-zoom": "^1.0.8"
   },
   "devDependencies": {
