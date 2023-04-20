@@ -1,28 +1,28 @@
 [中文](https://wowchemy.com/zh/)
 
-<p align="center"><a href="https://wowchemy.com/hugo-themes/" target="_blank" rel="noopener"><img src="https://wowchemy.com/media/sharing.png" alt="Wowchemy Website Builder"></a></p>
+<p align="center"><a href="https://wowchemy.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/sharing.png" alt="Wowchemy Website Builder"></a></p>
 
-[![Get Started](https://img.shields.io/badge/-Get%20started-ff4655?style=for-the-badge)](https://wowchemy.com/hugo-themes/)
+[![Get Started](https://img.shields.io/badge/-Get%20started-ff4655?style=for-the-badge)](https://wowchemy.com/templates/)
 [![Discord](https://img.shields.io/discord/722225264733716590?style=for-the-badge)](https://discord.com/channels/722225264733716590/742892432458252370/742895548159492138)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/gcushen?label=%E2%9D%A4%EF%B8%8F%20sponsor&style=for-the-badge)](https://github.com/sponsors/gcushen)
 [![Twitter Follow](https://img.shields.io/twitter/follow/wowchemy?label=Follow%20on%20Twitter&style=for-the-badge)](https://twitter.com/wowchemy)
 [![GitHub followers](https://img.shields.io/github/followers/gcushen?label=Follow%20on%20GH&style=for-the-badge)](https://github.com/gcushen)
 
-# [Wowchemy](https://wowchemy.com): the website builder for [Hugo](https://gohugo.io)
+# [Wowchemy](https://wowchemy.com): the all-in-one website builder
 
 ### Join 750,000+ Sites. No Code. Easily Create Future-Proof Websites ✏️ 📰 🚀
 
-🔥 **1. Create _any_ kind of website for free with widgets** - from landing pages, knowledge bases, and courses to professional resumés, conferences, and tech blogs
+🔥 **1. Create _any_ kind of website for free with [Hugo](https://gohugo.io)-powered blocks** - from landing pages, knowledge bases, and courses to professional resumés, conferences, and tech blogs
 
-🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and widgets**
+🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and blocks**
 
-🛋 **3. Write from your sofa or on the go with the integrated open source Content Management System (CMS) based on [Netlify CMS](https://wowchemy.com/docs/getting-started/hugo-cms/)**
+🛋 **3. Optionally, write from your sofa or on the go with the integrated open source Content Management System (CMS) based on [Netlify CMS](https://wowchemy.com/docs/getting-started/hugo-cms/)**
 
-<p style="text-align: center"><a href="https://wowchemy.com/hugo-themes/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Wowchemy CMS"></a></p>
+<p style="text-align: center"><a href="https://wowchemy.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Wowchemy CMS"></a></p>
 
-[Check out the latest **demos**](https://wowchemy.com/hugo-themes/) of what you'll get in less than 60 seconds, or [get **inspired**](https://wowchemy.com/creators/) by other creators.
+[Check out the latest **demos**](https://wowchemy.com/templates/) of what you'll get in less than 60 seconds, or [get **inspired**](https://wowchemy.com/creators/) by other creators.
 
-- 👉 [**Get Started**](https://wowchemy.com/hugo-themes/)
+- 👉 [**Get Started**](https://wowchemy.com/templates/)
 - 📚 [View the **documentation**](https://wowchemy.com/docs/)
 - 🙋‍♀️ **Have a question?**
   - **Chat with us now on [Discord](https://discord.gg/z8wNYzb)** or explore the [Troubleshooting Guide]() and [Q&A Forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
@@ -57,7 +57,7 @@ Wowchemy is a **no-code** framework for creating _any_ kind of website using **w
 
 Choose from one of the starter templates to easily get started:
 
-[![Writing technical content](./.github/media/starters.webp)](https://wowchemy.com/hugo-themes/)
+[![Writing technical content](./.github/media/starters.webp)](https://wowchemy.com/templates/)
 
 ## The Future of Technical Content Writing
 
@@ -67,14 +67,14 @@ Choose from one of the starter templates to easily get started:
 
 ## Features
 
-[![Screenshot](./.github/media/academic.png)](https://wowchemy.com/hugo-themes/)
+[![Screenshot](./.github/media/academic.png)](https://wowchemy.com/templates/)
 
 **Key features:**
 
 - **Page builder** - Create _anything_ with [**widgets**](https://wowchemy.com/docs/getting-started/page-builder/) and [**elements**](https://wowchemy.com/docs/content/writing-markdown-latex/)
 - **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
 - **Create content** in [**Markdown**](https://wowchemy.com/docs/content/writing-markdown-latex/), [**Jupyter**](https://wowchemy.com/docs/import/jupyter/), or [**RStudio**](https://wowchemy.com/docs/getting-started/install-hugo-extended/)
-- **Plugin System** - Fully customizable [**color** and **font themes**](https://wowchemy.com/hugo-themes/)
+- **Plugin System** - Fully customizable [**color** and **font themes**](https://wowchemy.com/templates/)
 - **Display Code and Math** - Code highlighting and [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics) supported
 - **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
 - **Beautiful Site** - Simple and refreshing one page design
@@ -89,13 +89,13 @@ Choose from one of the starter templates to easily get started:
 
 ## Themes
 
-Wowchemy comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the moon icon in the top right of one of the [Demos](https://wowchemy.com/hugo-themes/) to set your preferred mode!
+Wowchemy comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the moon icon in the top right of one of the [Demos](https://wowchemy.com/templates/) to set your preferred mode!
 
 Choose a stunning theme for your site and [customize it](https://wowchemy.com/docs/getting-started/customization/#custom-theme) to your liking:
 
-[![Themes](./.github/media/themes.png)](https://wowchemy.com/hugo-themes/)
+[![Themes](./.github/media/themes.png)](https://wowchemy.com/templates/)
 
-[Browse more templates and themes...](https://wowchemy.com/hugo-themes/)
+[Browse more templates and themes...](https://wowchemy.com/templates/)
 
 ## Ecosystem
 

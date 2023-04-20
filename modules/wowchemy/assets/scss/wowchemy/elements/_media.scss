@@ -126,6 +126,7 @@ svg {
   transition: transform 0.3s ease-in-out;
   cursor: zoom-in;
   counter-increment: item-counter;
+  overflow: hidden;
 
   a {
     z-index: 1;

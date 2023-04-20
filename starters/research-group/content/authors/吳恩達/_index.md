@@ -1,6 +1,10 @@
 ---
 # Display name
-title: 吳恩達
+title: Alice Wu 吳恩達
+
+# Full name (for SEO)
+first_name: Alice
+last_name: Wu
 
 # Username (this should match the folder name)
 authors:
