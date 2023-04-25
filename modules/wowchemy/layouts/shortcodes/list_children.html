@@ -7,7 +7,7 @@
         If "true", show also the summary in addition to the title.
 */}}
 
-{{ $show_summary := ne (.Get "show_summary") "false" }}
+{{ $show_summary := .Get "show_summary" | default false }}
 {{ if gt (len $.Page.Pages) 0}}
   <ul class="list-unstyled">
     {{ range $.Page.Pages }}
