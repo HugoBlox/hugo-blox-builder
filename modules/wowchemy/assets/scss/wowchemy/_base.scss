@@ -11,7 +11,7 @@ html {
   // Offset anchor scrolling by height of desktop fixed header.
   // scroll-padding-top: 70px;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     // Offset anchor scrolling by height of mobile fixed header.
     // scroll-padding-top: 50px;
   }
@@ -37,7 +37,7 @@ body {
   // Offset body content by fixed navbar height.
   // margin-top: 70px;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     // Offset body content by fixed navbar height.
     // margin-top: 50px;
   }
@@ -58,7 +58,7 @@ body.no-navbar {
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 100%;
 }
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   .page-wrapper {
     min-height: calc(100vh - 50px);
   }
