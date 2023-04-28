@@ -7,6 +7,7 @@
 
 # Node
 node_modules/
+.yarn
 
 # Hugo
 .hugo_build.lock

@@ -1,20 +1,32 @@
 // Disable animation if transitions are disabled
+
+// scss-docs-start progress-keyframes
 @if $enable-transitions {
   @keyframes progress-bar-stripes {
-    from { background-position: $progress-height 0; }
-    to { background-position: 0 0; }
+    0% { background-position-x: $progress-height; }
   }
 }
+// scss-docs-end progress-keyframes
 
 .progress {
+  // scss-docs-start progress-css-vars
+  --#{$prefix}progress-height: #{$progress-height};
+  @include rfs($progress-font-size, --#{$prefix}progress-font-size);
+  --#{$prefix}progress-bg: #{$progress-bg};
+  --#{$prefix}progress-border-radius: #{$progress-border-radius};
+  --#{$prefix}progress-box-shadow: #{$progress-box-shadow};
+  --#{$prefix}progress-bar-color: #{$progress-bar-color};
+  --#{$prefix}progress-bar-bg: #{$progress-bar-bg};
+  --#{$prefix}progress-bar-transition: #{$progress-bar-transition};
+  // scss-docs-end progress-css-vars
+
   display: flex;
-  height: $progress-height;
+  height: var(--#{$prefix}progress-height);
   overflow: hidden; // force rounded corners by cropping it
-  line-height: 0;
-  @include font-size($progress-font-size);
-  background-color: $progress-bg;
-  @include border-radius($progress-border-radius);
-  @include box-shadow($progress-box-shadow);
+  @include font-size(var(--#{$prefix}progress-font-size));
+  background-color: var(--#{$prefix}progress-bg);
+  @include border-radius(var(--#{$prefix}progress-border-radius));
+  @include box-shadow(var(--#{$prefix}progress-box-shadow));
 }
 
 .progress-bar {
@@ -22,23 +34,23 @@
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  color: $progress-bar-color;
+  color: var(--#{$prefix}progress-bar-color);
   text-align: center;
   white-space: nowrap;
-  background-color: $progress-bar-bg;
-  @include transition($progress-bar-transition);
+  background-color: var(--#{$prefix}progress-bar-bg);
+  @include transition(var(--#{$prefix}progress-bar-transition));
 }
 
 .progress-bar-striped {
   @include gradient-striped();
-  background-size: $progress-height $progress-height;
+  background-size: var(--#{$prefix}progress-height) var(--#{$prefix}progress-height);
 }
 
 @if $enable-transitions {
   .progress-bar-animated {
     animation: $progress-bar-animation-timing progress-bar-stripes;
 
-    @if $enable-prefers-reduced-motion-media-query {
+    @if $enable-reduced-motion {
       @media (prefers-reduced-motion: reduce) {
         animation: none;
       }
