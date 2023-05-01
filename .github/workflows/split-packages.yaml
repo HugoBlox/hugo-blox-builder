@@ -41,7 +41,7 @@ jobs:
 
       # step if no tag is pushed
       - if: "!startsWith(github.ref, 'refs/tags/')"
-        uses: "symplify/monorepo-split-github-action@2.3.0"
+        uses: "symplify/monorepo-split-github-action@v2.3.0"
         with:
           # ↓ split "packages/<package-name><package-name>" directory
           package_directory: 'starters/${{ matrix.package.local_path }}'
