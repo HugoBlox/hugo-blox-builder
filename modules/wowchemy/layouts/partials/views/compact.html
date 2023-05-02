@@ -28,8 +28,8 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-<div class="media stream-item view-compact">
-  <div class="media-body">
+<div class="d-flex stream-item view-compact">
+  <div class="flex-grow-1">
 
     <div class="section-subheading article-title mb-0 mt-0">
       <a href="{{$link}}" {{ $target | safeHTMLAttr }}>{{ $item.Title }}</a>
@@ -73,7 +73,7 @@
     {{ end }}
 
   </div>
-  <div class="ms-3">
+  <div class="flex-shrink-0 ms-3">
     {{ $resource := partial "functions/get_featured_image.html" $item }}
     {{ with $resource }}
       {{ $image := .Resize "150x webp" }}

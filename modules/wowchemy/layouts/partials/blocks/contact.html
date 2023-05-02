@@ -43,20 +43,20 @@
 
     <div class="mb-3">
       <form name="contact" method="POST" {{ $post_action | safeHTMLAttr }} {{ if $use_netlify_form }}netlify-honeypot="_gotcha"{{ end }} {{ if $use_netlify_captcha }}data-netlify-recaptcha="true"{{ end }} {{ with $block.content.form.netlify.success_url }}action="{{ . | relLangURL }}"{{ end }}>
-        <div class="form-group form-inline">
+        <div class="mb-3">
           <label class="sr-only" for="inputName">{{ i18n "contact_name" }}</label>
           <input type="text" name="name" class="form-control w-100" id="inputName" placeholder="{{ i18n "contact_name" | default "Name" }}" required>
         </div>
-        <div class="form-group form-inline">
+        <div class="mb-3">
           <label class="sr-only" for="inputEmail">{{ i18n "contact_email" }}</label>
           <input type="email" name="email" class="form-control w-100" id="inputEmail" placeholder="{{ i18n "contact_email" | default "Email" }}" required>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
           <label class="sr-only" for="inputMessage">{{ i18n "contact_message" }}</label>
           <textarea name="message" class="form-control" id="inputMessage" rows="5" placeholder="{{ i18n "contact_message" | default "Message" }}" required></textarea>
         </div>
         {{ if $block.content.form.netlify.attachments }}
-          <div class="form-group form-inline">
+          <div class="mb-3">
             <label class="sr-only" for="fileUpload">{{ i18n "contact_attachment" }}</label>
             <input type="file" name="file" class="form-control w-100" id="fileUpload" placeholder="{{ i18n "contact_attachment" | default "Attach file" }}">
           </div>
@@ -65,7 +65,7 @@
           <label>Do not fill this field unless you are a bot: <input name="_gotcha"></label>
         </div>
         {{ if and $use_netlify_form $use_netlify_captcha }}
-          <div class="form-group" data-netlify-recaptcha="true"></div>
+          <div class="md-3" data-netlify-recaptcha="true"></div>
         {{ else if and $use_formspree_form $use_formspree_captcha }}
           <div class="g-recaptcha" data-sitekey="{{ $block.content.form.formspree.captcha_key }}"></div>
           </br>
