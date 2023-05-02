@@ -62,7 +62,7 @@
 
 @media (min-width: 768px) {
   .docs-sidebar {
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-end: 1px solid rgba(0, 0, 0, 0.1);
   }
   @supports ((position: -webkit-sticky) or (position: sticky)) {
     .docs-sidebar {
@@ -81,7 +81,7 @@
 
 @media (min-width: 1200px) {
   .docs-sidebar {
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-end: 1px solid rgba(0, 0, 0, 0.1);
   }
   @supports ((position: -webkit-sticky) or (position: sticky)) {
     .docs-sidebar {
@@ -231,7 +231,7 @@
 
 #TableOfContents {
   padding-left: 0;
-  border-left: 1px solid #eee;
+  border-start: 1px solid #eee;
 }
 
 #TableOfContents ul,

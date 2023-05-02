@@ -93,7 +93,7 @@
 {{/* Special case: Slider widget. */}}
 {{ if in (slice "slider") $block_type }}
   {{ $css_classes = print $css_classes " carousel slide" }}
-  {{ $extra_attributes = printf "data-ride=\"carousel\" data-interval=\"%s\"" (cond ($block.design.loop | default true) (string $block.design.interval | default "3000") "false") }}
+  {{ $extra_attributes = printf "data-bs-ride=\"carousel\" data-bs-interval=\"%s\"" (cond ($block.design.loop | default true) (string $block.design.interval | default "3000") "false") }}
   {{ $use_container = false }}
 {{ end }}
 

@@ -38,9 +38,9 @@ summary:focus {
 details p {
   margin-left: 0.3rem;
   padding-left: 0.5rem;
-  border-left: 1px solid rgba(0, 0, 0, 0.8);
+  border-start: 1px solid rgba(0, 0, 0, 0.8);
 }
 
 .dark details p {
-  border-left: 1px solid rgba(255, 255, 255, 0.8);
+  border-start: 1px solid rgba(255, 255, 255, 0.8);
 }

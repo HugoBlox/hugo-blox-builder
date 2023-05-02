@@ -73,7 +73,7 @@
     {{ end }}
 
   </div>
-  <div class="ml-3">
+  <div class="ms-3">
     {{ $resource := partial "functions/get_featured_image.html" $item }}
     {{ with $resource }}
       {{ $image := .Resize "150x webp" }}

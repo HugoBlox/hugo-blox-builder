@@ -1,7 +1,7 @@
 <form class="docs-search d-flex align-items-center">
-  <button class="btn docs-toggle d-md-none p-0 mr-md-3 w-100" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+  <button class="btn docs-toggle d-md-none p-0 me-md-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
     <div class="d-flex">
-      <span class="d-md-none pl-1 flex-grow-1 text-left overflow-hidden">
+      <span class="d-md-none pl-1 flex-grow-1 text-start overflow-hidden">
         {{/* Don't use piped conditions here in order to utilise short-circuiting */}}
         {{ if and .Parent .Parent.IsHome }}
           {{ .LinkTitle | emojify }}
