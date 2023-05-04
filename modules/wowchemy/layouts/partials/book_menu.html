@@ -26,10 +26,10 @@
       {{- else if eq $pack "custom" -}}
         {{- $svg_icon := resources.Get (printf "media/icons/%s.svg" .) -}}
         {{- if $svg_icon -}}
-          {{ $icon = printf "<img src=\"%s\" alt=\"%s\" class=\"svg-icon svg-baseline pr-1\">" $svg_icon.RelPermalink . }}
+          {{ $icon = printf "<img src=\"%s\" alt=\"%s\" class=\"svg-icon svg-baseline pe-1\">" $svg_icon.RelPermalink . }}
         {{- end -}}
       {{- else -}}
-        {{ $icon = printf "<i class=\"%s %s-%s pr-1\"></i>" $pack $pack_prefix . }}
+        {{ $icon = printf "<i class=\"%s %s-%s pe-1\"></i>" $pack $pack_prefix . }}
       {{- end -}}
     {{ end }}
 

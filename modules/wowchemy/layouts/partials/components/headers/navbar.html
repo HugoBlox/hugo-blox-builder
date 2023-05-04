@@ -143,7 +143,7 @@
         </ul>
       </div><!-- /.navbar-collapse -->
 
-      <ul class="nav-icons navbar-nav flex-row ms-auto d-flex pl-md-2">
+      <ul class="nav-icons navbar-nav flex-row ms-auto d-flex ps-md-2">
 
         {{/* Display any social links that the superuser chose to display in the header. */}}
         {{ range where (where (where site.Pages "Section" "authors") ".Params.superuser" true) ".Params.social" "!=" nil }}

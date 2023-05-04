@@ -36,7 +36,7 @@
         {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
       {{ end }}
     <p class="cta-btns">
-      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="btn {{if $bg.text_color_light}}btn-light{{else}}btn-primary{{end}} btn-lg mb-md-1">{{ if $block.Params.cta.icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ $block.Params.cta.icon }} pr-1" aria-hidden="true"></i>{{end}}{{ $block.Params.cta.label | markdownify | emojify | safeHTML }}</a>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="btn {{if $bg.text_color_light}}btn-light{{else}}btn-primary{{end}} btn-lg mb-md-1">{{ if $block.Params.cta.icon }}<i class="{{ $pack }} {{ $pack_prefix }}-{{ $block.Params.cta.icon }} pe-1" aria-hidden="true"></i>{{end}}{{ $block.Params.cta.label | markdownify | emojify | safeHTML }}</a>
 
       {{/* Alternative Call-to-action link */}}
       {{ if $block.Params.cta_alt.url }}
@@ -48,7 +48,7 @@
         {{ else if in (slice "http" "https") $scheme }}
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
-      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="hero-cta-alt btn-lg pl-md-4">{{ $block.Params.cta_alt.label | markdownify | emojify | safeHTML }} <i class="fas fa-angle-right"></i></a>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="hero-cta-alt btn-lg ps-md-4">{{ $block.Params.cta_alt.label | markdownify | emojify | safeHTML }} <i class="fas fa-angle-right"></i></a>
       {{ end }}
     </p>
     {{ end }}
