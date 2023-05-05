@@ -29,7 +29,8 @@
       {{- if $img -}}
         {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
         {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
-        {{- if $isSVG | or $isGIF -}}
+        {{- $isPNG := eq $img.MediaType.SubType "png" -}}
+        {{- if $isSVG | or $isGIF | or $isPNG -}}
           <img alt="{{ $alt }}"
            src="{{ $img.RelPermalink }}"
            loading="lazy"
