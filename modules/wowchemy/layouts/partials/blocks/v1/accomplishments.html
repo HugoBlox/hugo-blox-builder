@@ -27,7 +27,7 @@
         {{ end }}
 
             {{- with .url -}}<a href="{{.}}" target="_blank" rel="noopener">{{- end -}}
-            <div class="section-subheading card-title exp-title text-muted my-0">{{.title | markdownify | emojify}}</div>
+            <div class="section-subheading card-title exp-title text-body-secondary my-0">{{.title | markdownify | emojify}}</div>
             {{- with .url -}}</a>{{- end -}}
 
             <div class="card-subtitle my-0 article-metadata">

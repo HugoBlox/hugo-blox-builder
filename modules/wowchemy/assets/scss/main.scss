@@ -43,8 +43,6 @@ $sta-home-section-even: {{ $scr.Get "home_section_even" }};
 $sta-dark-home-section-odd: {{ $scr.Get "dark_home_section_odd" }};
 $sta-dark-home-section-even: {{ $scr.Get "dark_home_section_even" }};
 
-
-
 // 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "_vendor/bootstrap/functions";
 
@@ -55,13 +53,13 @@ $sta-primary-dark: shade-color($sta-primary, $sta-darken-percentage);
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "_vendor/bootstrap/variables";
+@import "_vendor/bootstrap/variables-dark";
 
 // 4. Include any default map overrides here
 
 // 5. Include remainder of required parts
 @import "_vendor/bootstrap/maps";
 @import "_vendor/bootstrap/mixins";
-@import "_vendor/bootstrap/utilities";
 @import "_vendor/bootstrap/root";
 
 // 6. Optionally include any other parts as needed
@@ -96,9 +94,12 @@ $sta-primary-dark: shade-color($sta-primary, $sta-darken-percentage);
 @import "_vendor/bootstrap/tooltip";
 @import "_vendor/bootstrap/transitions";
 @import "_vendor/bootstrap/type";
-@import "_vendor/bootstrap/utilities/api";
+@import "_vendor/bootstrap/utilities";
 
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../node_modules/bootstrap/scss/utilities/api";
 
+// 8. Add additional custom code here
 @import "wowchemy/wowchemy";
 @import "template";
 @import "custom";

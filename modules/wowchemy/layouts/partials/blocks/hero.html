@@ -55,7 +55,7 @@
 
     {{/* Call-to-action note */}}
     {{ with $block.content.cta_note }}
-    <p class="hero-note text-muted mb-3 mb-md-1">
+    <p class="hero-note text-body-secondary mb-3 mb-md-1">
       {{ .label | markdownify | emojify | safeHTML }}
     </p>
     {{ end }}

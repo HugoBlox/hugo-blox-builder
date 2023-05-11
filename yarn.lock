@@ -101,6 +101,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.7":
+  version: 2.11.7
+  resolution: "@popperjs/core@npm:2.11.7"
+  checksum: 5b6553747899683452a1d28898c1b39173a4efd780e74360bfcda8eb42f1c5e819602769c81a10920fc68c881d07fb40429604517d499567eac079cfa6470f19
+  languageName: node
+  linkType: hard
+
 "@types/minimist@npm:^1.2.0":
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
@@ -231,12 +238,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.2.3":
-  version: 5.2.3
-  resolution: "bootstrap@npm:5.2.3"
+"bootstrap@npm:5.3.0-alpha3":
+  version: 5.3.0-alpha3
+  resolution: "bootstrap@npm:5.3.0-alpha3"
   peerDependencies:
-    "@popperjs/core": ^2.11.6
-  checksum: 0211805dec6a190c0911d142966df30fdb4b4139a04cc6c23dd83c6045ea3cb0a966b360ab2e701e7b3ad96ff01e05fdc0914be97b41bd876b11e457a8bdc6a3
+    "@popperjs/core": ^2.11.7
+  checksum: 1739c40e4033c134e9dc51235e8018f267a9fc8114feba6a5b402f2ab0c68e67c363e2f243c79f252d1cf8fcde82262b04bbaaf6ea1695c37537c02f34ae4f79
   languageName: node
   linkType: hard
 
@@ -1287,6 +1294,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.6":
+  version: 3.3.6
+  resolution: "nanoid@npm:3.3.6"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 7d0eda657002738aa5206107bd0580aead6c95c460ef1bdd0b1a87a9c7ae6277ac2e9b945306aaa5b32c6dcb7feaf462d0f552e7f8b5718abfc6ead5c94a71b3
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -1482,6 +1498,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-scss@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "postcss-scss@npm:4.0.6"
+  peerDependencies:
+    postcss: ^8.4.19
+  checksum: 133a1cba31e2e167f4e841e66ec6a798eaf44c7911f9182ade0b5b1e71a8198814aa390b8c9d5db6b01358115232e5b15b1a4f8c5198acfccfb1f3fdbd328cdf
+  languageName: node
+  linkType: hard
+
 "postcss-selector-parser@npm:^6.0.10, postcss-selector-parser@npm:^6.0.6":
   version: 6.0.10
   resolution: "postcss-selector-parser@npm:6.0.10"
@@ -1507,6 +1532,17 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 514fb3552805a5d039a2d6b4df3e73f657001716ca93c0d57e6067b0473abdea70276d80afc96005c9aaff82ed5d98062bd97724d3f47ca400fba0b5e9e436ed
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.23":
+  version: 8.4.23
+  resolution: "postcss@npm:8.4.23"
+  dependencies:
+    nanoid: ^3.3.6
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 8bb9d1b2ea6e694f8987d4f18c94617971b2b8d141602725fedcc2222fdc413b776a6e1b969a25d627d7b2681ca5aabb56f59e727ef94072e1b6ac8412105a2f
   languageName: node
   linkType: hard
 
@@ -2181,13 +2217,16 @@ __metadata:
   resolution: "wowchemy@workspace:."
   dependencies:
     "@fortawesome/fontawesome-free": ^6.4.0
-    bootstrap: 5.2.3
+    "@popperjs/core": ^2.11.7
+    bootstrap: 5.3.0-alpha3
     eslint: ~8.15.0
     eslint-config-prettier: ~8.5.0
     headroom.js: ^0.12.0
     instant.page: ^5.2.0
     jquery: ^3.6.4
     medium-zoom: ^1.0.8
+    postcss: ^8.4.23
+    postcss-scss: ^4.0.6
     prettier: ~2.6.2
     prettier-plugin-go-template: ~0.0.12
     stylelint: 14.8.2
