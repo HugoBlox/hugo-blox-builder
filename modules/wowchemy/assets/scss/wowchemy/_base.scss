@@ -31,7 +31,7 @@ body {
   padding-top: 0;
   counter-reset: captions;
 
-  // In Bootstrap 5.2 scrollspy does not work is overflow-x is set to hidden, which was set to
+  // In Bootstrap 5.2 scrollspy does not work if overflow-x is set to hidden, which was set to
   // prevent horizontal scrollbar in case a site admin adds fixed width content without applying `max-width: 100%`.
   overflow-x: clip;
 
