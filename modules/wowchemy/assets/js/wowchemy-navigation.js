@@ -44,17 +44,6 @@ function scrollToAnchor(target, duration = 0) {
   }
 }
 
-// Make Scrollspy responsive.
-function fixScrollspy() {
-  let $body = $('body');
-  let data = $body.data('bs.scrollspy');
-  if (data) {
-    data._config.offset = getNavBarHeight();
-    $body.data('bs.scrollspy', data);
-    $body.scrollspy('refresh');
-  }
-}
-
 /* ---------------------------------------------------------------------------
  * Add smooth scrolling to all links inside the main navbar.
  * --------------------------------------------------------------------------- */
@@ -111,14 +100,7 @@ $('body').on('mouseenter mouseleave', '.dropdown', function (e) {
   }, 300);
 });
 
-// Call `fixScrollspy` when window is resized.
-let resizeTimer;
-$(window).resize(function () {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(fixScrollspy, 200);
-});
-
 // Check for hash change event and fix responsive offset for hash links (e.g. Markdown footnotes).
 window.addEventListener('hashchange', scrollToAnchor);
 
-export {fixScrollspy, scrollToAnchor};
+export {scrollToAnchor};

@@ -8,7 +8,7 @@
 import mediumZoom from './_vendor/medium-zoom.esm';
 import {hugoEnvironment, searchEnabled, i18n} from '@params';
 import {scrollParentToChild} from './wowchemy-utils';
-import {fixScrollspy, scrollToAnchor} from './wowchemy-navigation';
+import {scrollToAnchor} from './wowchemy-navigation';
 import {printLatestRelease} from './wowchemy-github';
 import {
   changeThemeModeClick,
@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 $(window).on('load', function () {
   // Re-initialize Scrollspy with dynamic navbar height offset.
-  //fixScrollspy();
 
   // Detect instances of the Portfolio widget.
   let isotopeInstances = document.querySelectorAll('.projects-container');
