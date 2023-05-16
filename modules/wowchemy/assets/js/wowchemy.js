@@ -5,7 +5,7 @@
  *  Core JS functions and initialization.
  **************************************************/
 
-import { Tooltip } from 'bootstrap';
+import { Tooltip } from './_vendor/bootstrap.bundle.min.js';
 import mediumZoom from './_vendor/medium-zoom.esm';
 import { hugoEnvironment, searchEnabled, i18n } from '@params';
 import { scrollParentToChild } from './wowchemy-utils';
