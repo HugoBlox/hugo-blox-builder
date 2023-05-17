@@ -52,7 +52,7 @@
               <div class="section-subheading card-title exp-company text-body-secondary my-0">
                 {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end}}{{.company | markdownify | emojify}}{{with .company_url}}</a>{{end -}}
               </div>
-              <div class="text-bosy-secondary exp-meta">
+              <div class="text-body-secondary exp-meta">
                 {{ (time .date_start) | time.Format ($block.Params.date_format | default "January 2006") }} –
                 {{ if .date_end}}
                   {{ (time .date_end) | time.Format ($block.Params.date_format | default "January 2006") }}
