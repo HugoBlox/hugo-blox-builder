@@ -196,7 +196,7 @@
   translation: Buchkapitel
 
 - id: pub_thesis
-  translation: Thesis
+  translation: Abschlussarbeit
 
 - id: pub_patent
   translation: Patent
@@ -254,7 +254,7 @@
 # Cookie consent
 
 - id: cookie_message
-  translation: Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies.
+  translation: Um unsere Webseite für Sie passend zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies.
 
 - id: cookie_dismiss
   translation: Verstanden!

@@ -1,4 +1,4 @@
-/*! medium-zoom 1.0.6 | MIT License | https://github.com/francoischalifour/medium-zoom */
+/*! medium-zoom 1.0.8 | MIT License | https://github.com/francoischalifour/medium-zoom */
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -104,7 +104,7 @@ var createCustomEvent = function createCustomEvent(type, params) {
   return customEvent;
 };
 
-var mediumZoomEsm = function mediumZoom(selector) {
+var mediumZoom = function mediumZoom(selector) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   /**
@@ -184,7 +184,7 @@ var mediumZoomEsm = function mediumZoom(selector) {
 
   var clone = function clone() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return mediumZoomEsm(_extends({}, zoomOptions, options));
+    return mediumZoom(_extends({}, zoomOptions, options));
   };
 
   var attach = function attach() {
@@ -325,8 +325,8 @@ var mediumZoomEsm = function mediumZoom(selector) {
           width = _zoomTarget$getBoundi.width,
           height = _zoomTarget$getBoundi.height;
 
-      var scaleX = Math.min(naturalWidth, viewportWidth) / width;
-      var scaleY = Math.min(naturalHeight, viewportHeight) / height;
+      var scaleX = Math.min(Math.max(width, naturalWidth), viewportWidth) / width;
+      var scaleY = Math.min(Math.max(height, naturalHeight), viewportHeight) / height;
       var scale = Math.min(scaleX, scaleY);
       var translateX = (-left + (viewportWidth - width) / 2 + zoomOptions.margin + container.left) / scale;
       var translateY = (-top + (viewportHeight - height) / 2 + zoomOptions.margin + container.top) / scale;
@@ -389,6 +389,13 @@ var _images = images;
         document.body.appendChild(active.template);
       }
 
+      // If the selected <img> tag is inside a <picture> tag, set the
+      // currently-applied source as the cloned `src=` attribute.
+      // (as these might differ, or src= might be unset in some cases)
+      if (active.original.parentElement && active.original.parentElement.tagName === 'PICTURE' && active.original.currentSrc) {
+        active.zoomed.src = active.original.currentSrc;
+      }
+
       document.body.appendChild(active.zoomed);
 
       window.requestAnimationFrame(function () {
@@ -407,6 +414,8 @@ var _images = images;
         // Reset the `scrset` property or the HD image won't load.
         active.zoomedHd.removeAttribute('srcset');
         active.zoomedHd.removeAttribute('sizes');
+        // Remove loading attribute so the browser can load the image normally
+        active.zoomedHd.removeAttribute('loading');
 
         active.zoomedHd.src = active.zoomed.getAttribute('data-zoom-src');
 
@@ -619,4 +628,4 @@ function styleInject(css, ref) {
 var css = ".medium-zoom-overlay{position:fixed;top:0;right:0;bottom:0;left:0;opacity:0;transition:opacity .3s;will-change:opacity}.medium-zoom--opened .medium-zoom-overlay{cursor:pointer;cursor:zoom-out;opacity:1}.medium-zoom-image{cursor:pointer;cursor:zoom-in;transition:transform .3s cubic-bezier(.2,0,.2,1)!important}.medium-zoom-image--hidden{visibility:hidden}.medium-zoom-image--opened{position:relative;cursor:pointer;cursor:zoom-out;will-change:transform}";
 styleInject(css);
 
-export default mediumZoomEsm;
+export default mediumZoom;
