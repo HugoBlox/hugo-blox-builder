@@ -36,13 +36,13 @@
       <div class="card">
         <div class="card-body">
 
-          {{- if .company_logo}}
-          {{- $svg_icon := resources.Get (printf "media/icons/brands/%s.svg" .company_logo) -}}
-          {{ if not $svg_icon }}{{ errorf "Brand logo not found at `assets/media/icons/brands/%s.svg`" .company_logo }}{{end}}
+          {{- if .company_logo}}          
+          {{- $brand_logo := resources.Get (printf "media/icons/brands/%s.png" .company_logo) | default (resources.Get (printf "media/icons/brands/%s.svg" .company_logo)) -}}
+          {{ if not $brand_logo }}{{ errorf "Brand logo not found at `assets/media/icons/brands/%s`" .company_logo }}{{end}}
           <div class="d-flex align-content-start">
             <div class="mr-2 mb-2">
               {{- with .company_url}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
-              <img src="{{ $svg_icon.RelPermalink }}" width="56px" height="56px" alt="{{.company | plainify}}" loading="lazy">
+              <img src="{{ $brand_logo.RelPermalink }}" width="56px" height="56px" alt="{{.company | plainify}}" loading="lazy">
               {{- with .company_url}}</a>{{end -}}
             </div>
             <div>
