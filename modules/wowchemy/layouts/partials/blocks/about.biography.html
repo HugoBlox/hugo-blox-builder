@@ -75,20 +75,20 @@
         {{ else if in (slice "http" "https") $scheme }}
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
-          <li>
-            <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
-              {{ with .icon }}
-                {{- if eq $pack "custom" -}}
-                  {{- $svg_icon := resources.Get (printf "media/icons/%s.svg" .) -}}
-                  {{- if $svg_icon -}}
-                    <img src="{{ $svg_icon.RelPermalink }}" alt="{{.}}" class="fa bigicon" loading="lazy" style="height:2rem" >
-                  {{- end -}}
-                  {{- else -}}
-                  <i class="{{ $pack }} {{ $pack_prefix }}-{{ . }} big-icon"></i>
+        <li>
+          <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}">
+            {{ with .icon }}
+              {{- if eq $pack "custom" -}}
+                {{- $svg_icon := resources.Get (printf "media/icons/%s.svg" .) -}}
+                {{- if $svg_icon -}}
+                  <img src="{{ $svg_icon.RelPermalink }}" alt="{{.}}" class="fa bigicon" loading="lazy" style="height:2rem" >
                 {{- end -}}
-              {{ end }}
-            </a>
-          </li>
+              {{- else -}}
+                <i class="{{ $pack }} {{ $pack_prefix }}-{{ . }} big-icon"></i>
+              {{- end -}}
+            {{ end }}
+          </a>
+        </li>
         {{ end }}
       </ul>
 
