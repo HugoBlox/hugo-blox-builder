@@ -195,6 +195,7 @@ h3.article-title a:hover {
 a:hover,
 a:focus {
   color: $sta-link-hover;
+  text-decoration: underline;
 }
 
 .dark a,
