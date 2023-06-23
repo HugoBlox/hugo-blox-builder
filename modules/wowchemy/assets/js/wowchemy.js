@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
  * --------------------------------------------------------------------------- */
 
 $(window).on('load', function () {
-  // Re-initialize Scrollspy with dynamic navbar height offset.
 
   // Detect instances of the Portfolio widget.
   let isotopeInstances = document.querySelectorAll('.projects-container');
