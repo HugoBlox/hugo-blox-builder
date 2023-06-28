@@ -40,21 +40,14 @@
         {{ $caption = .caption }}
       {{ end }}
     {{ end }}
-  {{ $image_size := "gallery-item--medium" }}
-  {{if in .Name "-f." }}
-    {{ $image_size = "gallery-item--full" }}
-  {{else if in .Name "-s." }}
-    {{ $image_size = "" }}
-  {{else if in .Name "-l." }}
-    {{ $image_size = "gallery-item--large" }}
-  {{end}}
-  <div class="gallery-item {{$image_size}}">
-    <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{.|markdownify|emojify|safeHTMLAttr}}"{{ end }}>
-      <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
-    </a>
-  </div>
-  {{else}}
+    {{ $image_size := (printf "gallery-item%s" (if in .Name "-f." "--full" (if in .Name "-s." "" (if in .Name "-l." "--large")))) }}
+    <div class="{{ $image_size }}">
+      <a data-fancybox="gallery-{{$album}}" href="{{ .RelPermalink }}" {{ with $caption }}data-caption="{{ . | markdownify | emojify | safeHTMLAttr }}"{{ end }}>
+        <img src="{{ $image.RelPermalink }}" loading="lazy" alt="{{ plainify $caption | default $filename }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
+      </a>
+    </div>
+  {{ else }}
     {{ errorf "Unable to load gallery `%s` in `%s`." $album_path .Page.File.Filename }}
-  {{end}}
+  {{ end }}
 
 </div>
