@@ -8,7 +8,7 @@ tags:
   - current
 ---
 
-{{< figure src="featured.jpg" >}}
+{{< figure src="main.jpg" >}}
 
 {{< toc hide_on="xl" >}}
 
