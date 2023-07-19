@@ -131,45 +131,43 @@
 {{/* Headroom */}}
 {{/*
   Loading the Headroom js set the header to disappear when scrolling the page down.
-  So to have a sticky header, don't load the Headroom.
+  If you want the header to disappear, set the option to "disappear";
+  otherwise (sticky header), set it to any other value (eg. "sticky").
   This option can be set in the following ways:
     - globally, by adding in your 'params.yaml':
       ```
       header:
-        sticky: true/false
+        on_scroll: "disappear" | "sticky"
       ```
-
     - per page, by adding in the page Front Matter:
       ```
       header:
-        sticky: true/false
+        on_scroll: "disappear" | "sticky"
       ```
-
-    - in order to be compatible with older versions where there was a bug, Headroom
-      is also disabled by setting in the page Front Matter (this is now deprecated)
+    - in order to be compatible with older versions where there was a bug,
+      the header also disappears by setting in the page Front Matter (now deprecated):
       ```
-      header.on_scroll: false
+      header.on_scroll: "disappear" | "sticky"
       ```
-  'false' indicates that the header disappears on scrolling (-> load Headroom)
-  'true'  indicates that the header is sticky (-> don't load Headroom)
+  If the header is set to disappear, the Headroom js is loaded.
 
   By default, the header is sticky in the homepage and in the book layout,
-  and disappears on scrolling in all other pages.
+  and it disappears when scrolling in all other pages.
 */}}
 
 {{/* by default don't use Headroom in homepage and book layout */}}
 {{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
-{{/* look global site parameter 'header.sticky' true/false */}}
-{{ if (isset site.Params.header "sticky") }}
-  {{ $use_headroom = not site.Params.header.sticky }}
+{{/* look global site parameter 'header.on_scroll' */}}
+{{ if (isset site.Params.header "on_scroll") }}
+  {{ $use_headroom = eq site.Params.header.on_scroll "disappear" }}
 {{ end }}
-{{/* support for old "buggy" syntax "header.on_scroll" in page parameters */}}
+{{/* support for old buggy syntax "header.on_scroll" */}}
 {{ if (isset $.Params "header.on_scroll") }}
-  {{ $use_headroom = false }}
+  {{ $use_headroom = eq (index $.Params "header.on_scroll") "disappear" }}
 {{ end }}
-{{/* look page parameter 'header.sticky' true/false */}}
-{{ if (isset $.Params.header "sticky") }}
-  {{ $use_headroom = not $.Params.header.sticky }}
+{{/* look page parameter 'header.on_scroll' */}}
+{{ if (isset $.Params.header "on_scroll") }}
+  {{ $use_headroom = eq $.Params.header.on_scroll "disappear" }}
 {{ end }}
 {{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
 
