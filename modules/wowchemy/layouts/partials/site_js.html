@@ -126,49 +126,41 @@
 <script src="{{ $js_algolia_search.RelPermalink }}" type="module"></script>
 {{ end }}
 
-{{/* Page Data */}}
-
 {{/* Headroom */}}
 {{/*
-  Loading the Headroom js set the header to disappear when scrolling the page down.
-  If you want the header to disappear, set the option to "disappear";
-  otherwise (sticky header), set it to any other value (eg. "sticky").
+  Headroom JS enables hiding the header on scrolling down and showing it on scrolling up.
+  This is especially valuable on smaller displays such as mobile devices.
   This option can be set in the following ways:
-    - globally, by adding in your 'params.yaml':
+    - globally, in the site's 'params.yaml':
       ```
       header:
         on_scroll: "disappear" | "sticky"
       ```
-    - per page, by adding in the page Front Matter:
+    - per page, in the page front matter:
       ```
       header:
         on_scroll: "disappear" | "sticky"
       ```
-    - in order to be compatible with older versions where there was a bug,
-      the header also disappears by setting in the page Front Matter (now deprecated):
-      ```
-      header.on_scroll: "disappear" | "sticky"
-      ```
-  If the header is set to disappear, the Headroom js is loaded.
+  When the header is set to disappear, the Headroom JS is loaded.
 
   By default, the header is sticky in the homepage and in the book layout,
   and it disappears when scrolling in all other pages.
 */}}
 
-{{/* by default don't use Headroom in homepage and book layout */}}
+{{/* By default don't use Headroom in the homepage and book layout */}}
 {{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
-{{/* look global site parameter 'header.on_scroll' */}}
+
+{{/* Check for the global site parameter `header.on_scroll` */}}
 {{ if (isset site.Params.header "on_scroll") }}
   {{ $use_headroom = eq site.Params.header.on_scroll "disappear" }}
 {{ end }}
-{{/* support for old buggy syntax "header.on_scroll" */}}
-{{ if (isset $.Params "header.on_scroll") }}
-  {{ $use_headroom = eq (index $.Params "header.on_scroll") "disappear" }}
-{{ end }}
-{{/* look page parameter 'header.on_scroll' */}}
+
+{{/* Check for the page parameter `header.on_scroll` */}}
 {{ if (isset $.Params.header "on_scroll") }}
   {{ $use_headroom = eq $.Params.header.on_scroll "disappear" }}
 {{ end }}
+
+{{/* Output `use_headroom` variable for Headroom initialization in Wowchemy JS */}}
 {{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
 
 {{ if $use_headroom }}
