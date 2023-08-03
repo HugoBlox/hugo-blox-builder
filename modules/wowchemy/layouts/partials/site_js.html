@@ -2,7 +2,7 @@
 
 {{/* Rename _vendor dir as GitHub Pages doesn't automatically publish folders with underscores. */}}
 {{ $libs := slice }}
-{{- $lib_names := slice "jquery.min" "bootstrap.bundle.min" "instantpage" -}}
+{{- $lib_names := slice "jquery.min" "instantpage" -}}
 {{- range $lib_names -}}
     {{- $libs = $libs | append (resources.Get (printf "js/_vendor/%s.js" .) ) -}}
 {{- end -}}
