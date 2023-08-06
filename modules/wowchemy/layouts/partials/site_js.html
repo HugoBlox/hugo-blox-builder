@@ -151,13 +151,13 @@
 {{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
 
 {{/* Check for the global site parameter `header.on_scroll` */}}
-{{ if (isset site.Params.header "on_scroll") }}
+{{ if site.Params.header.on_scroll }}
   {{ $use_headroom = eq site.Params.header.on_scroll "disappear" }}
 {{ end }}
 
 {{/* Check for the page parameter `header.on_scroll` */}}
-{{ if (isset $.Params.header "on_scroll") }}
-  {{ $use_headroom = eq $.Params.header.on_scroll "disappear" }}
+{{ if .Params.header.on_scroll }}
+  {{ $use_headroom = eq .Params.header.on_scroll "disappear" }}
 {{ end }}
 
 {{/* Output `use_headroom` variable for Headroom initialization in Wowchemy JS */}}
