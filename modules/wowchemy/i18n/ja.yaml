@@ -7,7 +7,7 @@
   translation: 目次
 
 - id: on_this_page
-  translation: On this page
+  translation: このページの内容
 
 - id: back_to_top
   translation: トップへ戻る
@@ -19,7 +19,7 @@
   translation: 閉じる
 
 - id: languages
-  translation: Languages
+  translation: 言語
 
 # General
 
@@ -143,7 +143,7 @@
   translation: メッセージ本文
 
 - id: contact_attachment
-  translation: Attach file
+  translation: ファイルを添付
 
 - id: contact_send
   translation: 送信
@@ -178,16 +178,16 @@
   translation: 未分類
 
 - id: pub_conf
-  translation: Conference paper
+  translation: 学会論文
 
 - id: pub_journal
-  translation: Journal article
+  translation: ジャーナル記事
 
 - id: pub_preprint
-  translation: Preprint
+  translation: プレプリント
 
 - id: pub_report
-  translation: Report
+  translation: 報告
 
 - id: pub_book
   translation: 書籍
@@ -196,7 +196,7 @@
   translation: Book section
 
 - id: pub_thesis
-  translation: Thesis
+  translation: 論文
 
 - id: pub_patent
   translation: 特許
@@ -241,7 +241,7 @@
   translation: 結果が見つかりませんでした
 
 - id: search_common_queries
-  translation: Common searches
+  translation: よくある検索
 
 # Error 404
 
