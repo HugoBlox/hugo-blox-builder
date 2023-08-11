@@ -42,7 +42,7 @@ function getSearchQuery(name) {
 document.addEventListener('DOMContentLoaded', () => {
   let queryURL = getSearchQuery('q');
   if (queryURL) {
-    $('body').addClass('searching');
+    document.querySelector('body').classList.add('searching');
     $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
     let commonQueries = document.querySelector('#search-common-queries');
 

@@ -32,10 +32,11 @@ function removeQueryParamsFromUrl() {
  * --------------------------------------------------------------------------- */
 
 function toggleSearchDialog() {
-  if ($('body').hasClass('searching')) {
+  const body = document.querySelector('body');
+  if (body.classList.contains('searching')) {
     // Clear search query and hide search modal.
-    $('[id=search-query]').blur();
-    $('body').removeClass('searching compensate-for-scrollbar');
+    document.getElementById('search-query').blur();
+    body.classList.remove('searching', 'compensate-for-scrollbar');
 
     // Remove search query params from URL as user has finished searching.
     removeQueryParamsFromUrl();
@@ -50,17 +51,20 @@ function toggleSearchDialog() {
           (window.innerWidth - document.documentElement.clientWidth) +
           'px;}</style>',
       );
-      $('body').addClass('compensate-for-scrollbar');
+      body.classList.add('compensate-for-scrollbar');
     }
 
     // Show search modal.
-    $('body').addClass('searching');
+    body.classList.add('searching');
+
+    // I assume that is broken
     $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
+
     let algoliaSearchBox = document.querySelector('.ais-SearchBox-input');
     if (algoliaSearchBox) {
       algoliaSearchBox.focus();
     } else {
-      $('#search-query').focus();
+      document.getElementById('search-query').focus();
     }
   }
 }
@@ -75,15 +79,27 @@ function toggleSearchDialog() {
 function fixHugoOutput() {
   // Fix Goldmark table of contents.
   // - Must be performed prior to initializing ScrollSpy.
-  $('#TableOfContents').addClass('nav flex-column');
-  $('#TableOfContents li').addClass('nav-item');
-  $('#TableOfContents li a').addClass('nav-link');
+  if (document.querySelector('#TableOfContents')) {
+    document.querySelector('#TableOfContents').classList.add('nav', 'flex-column');
+  }
+
+  document.querySelectorAll('#TableOfContents li').forEach((item) => {
+    item.classList.add('nav-item')
+  });
+
+  document.querySelectorAll('#TableOfContents li a').forEach((link) => {
+    link.classList.add('nav-link');
+  });
 
   // Fix Goldmark task lists (remove bullet points).
-  $("input[type='checkbox'][disabled]").parents('ul').addClass('task-list');
-
+  document.querySelectorAll('input[type=\'checkbox\'][disabled]').forEach((checkbox) => {
+    checkbox.closest('ul').classList.add('task-list');
+  });
+  
   // Bootstrap table style is opt-in and Goldmark doesn't add it.
-  $('table').addClass('table');
+  document.querySelectorAll('table').forEach((table) => {
+    table.classList.add('table');
+  });
 }
 
 // Get an element's siblings.
@@ -123,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
  * On window loaded.
  * --------------------------------------------------------------------------- */
 
-$(window).on('load', function () {
+window.addEventListener('load', function () {
   // Re-initialize Scrollspy with dynamic navbar height offset.
   fixScrollspy();
 
@@ -263,10 +279,12 @@ $(window).on('load', function () {
   // Check that built-in search or Algolia enabled.
   if (searchEnabled) {
     // On search icon click toggle search dialog.
-    $('.js-search').click(function (e) {
-      e.preventDefault();
-      toggleSearchDialog();
-    });
+    document.querySelectorAll('.js-search').forEach((element) => {
+      element.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleSearchDialog();
+      });
+    })
   }
 
   // Init. author notes (tooltips).
