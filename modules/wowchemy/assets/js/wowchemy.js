@@ -35,7 +35,7 @@ function toggleSearchDialog() {
   const body = document.querySelector('body');
   if (body.classList.contains('searching')) {
     // Clear search query and hide search modal.
-    document.querySelector('[id=search-query]').blur();
+    document.getElementById('search-query').blur();
     body.classList.remove('searching', 'compensate-for-scrollbar');
 
     // Remove search query params from URL as user has finished searching.
