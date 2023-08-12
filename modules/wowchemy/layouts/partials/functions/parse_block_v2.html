@@ -11,9 +11,16 @@
   {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $block_path }}
 {{ end }}
 
-{{/* Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}
+{{/* Mermaid block: Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}
 {{ if $block.Page.Store.Get "has_mermaid" }}
   {{ $page.Page.Store.Set "has_mermaid" true }}
+{{ end }}
+
+{{/* Gallery block: Workaround to make Hugo's .Page.Store.Set cascade up from page blocks to the page context */}}
+{{/* Unfortunately, `.HasShortcode "gallery"` won't accept string input, only page context - so irrelevant here */}}
+{{/* Therefore, must do our own search for shortcodes within the `text` string */}}
+{{ if (gt (len (findRE `\{\{< gallery` $block.content.text 1)) 0) }}
+  {{ $page.Page.Store.Set "has_gallery" true }}
 {{ end }}
 
 {{/* Begin widget styling */}}

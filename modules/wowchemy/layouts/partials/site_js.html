@@ -23,7 +23,7 @@
   {{ end }}
 
   {{/* Workaround `.HasShortcode "gallery"` detection issue on `home/` WidgetPage v1 */}}
-  {{ if ($scr.Get "HasNestedGalleryShortcode") | or site.Params.require_fancybox }}
+  {{ if (.Page.Store.Get "has_gallery") | or site.Params.require_fancybox }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
   {{ end }}
 
