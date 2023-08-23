@@ -72,7 +72,7 @@ sections:
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
-        - certificate_url: static/uploads/Shell.ai_Participation.pdf
+        - certificate_url: uploads/Shell.ai_Participation.pdf
           date_end: '2020-10-20'
           date_start: '2020-09-14'
           description: 'In this Shell.ai Hackathon for Sustainable and Affordable Energy, we invite you to optimize the placement of 50 wind turbines of 100 m height and100 m rotor diameter each on a hypothetical 2D offshore wind farm area such that the AEP (Annual Energy Production) of the farm is maximized.'
@@ -80,7 +80,7 @@ sections:
           organization_url: https://www.coursera.org
           title: Shell.ai Hackathon
           url: 'https://www.hackerearth.com/challenges/new/competitive/shell-hackathon/'
-        - certificate_url: static/uploads/Baja_2015.jpg
+        - certificate_url: uploads/Baja_2015.jpg
           date_end: '2014-08-02'
           date_start: '2014-08-01'
           description: Participated in virtual Baja organized by SAE India
@@ -96,7 +96,7 @@ sections:
           organization_url: https://saeindia.org/
           title: Ganga Devi and Khem Chand Memorial award
           url: ''
-        - certificate_url: static/uploads/Baja_2015.jpg
+        - certificate_url: uploads/Baja_2015.jpg
           date_end: '2016-02-21'
           date_start: '2016-02-18'
           description: 'Participated in Mahindra Baja organized by SAE India'
@@ -104,7 +104,7 @@ sections:
           organization_url: https://saeindia.org/
           title: Mahindra BAJA SAE India 2016
           url: ''
-        - certificate_url: static/uploads/ExpertHub_ICEngines.jpg
+        - certificate_url: uploads/ExpertHub_ICEngines.jpg
           date_end: '2014-12-27'
           date_start: '2014-12-20'
           description: 'Received Best Innovation Award at the internship program organized by Automotive Industry Simulation Industry (AISI), Winter Season 2014' 
@@ -112,7 +112,7 @@ sections:
           organization_url: https://expertshub.org/
           title: 'Internship training program on Automotive IC Engine Design and Development'
           url: ''
-        - certificate_url: static/uploads/UDVAVISK_FEA_Workshop.jpg
+        - certificate_url: uploads/UDVAVISK_FEA_Workshop.jpg
           date_end: '2015-08-14'
           date_start: '2015-08-11'
           description: 'Fundamentals of FEA Analysis, Overview Models and Solver, Application of Models and Solver (Linear Elastic, Modal, Fluid flow, ...)'
