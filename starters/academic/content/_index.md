@@ -15,19 +15,16 @@ sections:
     content:
       title: Skills
       items:
-        - name: R
-          description: 90%
+        - name: Matlab
           icon: r-project
           icon_pack: fab
-        - name: Statistics
-          description: 100%
-          icon: chart-line
-          icon_pack: fas
-        - name: Photography
-          description: 10%
-          icon: camera-retro
-          icon_pack: fas
-  - block: experience
+        - name: Python
+          icon: python
+          icon_pack: fab
+        - name: FORTRAN
+          icon: coding
+          icon_pack: fab
+ # - block: experience
     content:
       title: Experience
       # Date format for experience
@@ -68,36 +65,52 @@ sections:
       title: 'Accomplish&shy;ments'
       subtitle:
       # Date format: https://wowchemy.com/docs/customization/#date-format
-      date_format: Jan 2006
+      date_format: Aug 2023
       # Accomplishments.
       #   Add/remove as many `item` blocks below as you like.
       #   `title`, `organization`, and `date_start` are the required parameters.
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
-        - certificate_url: https://www.coursera.org
-          date_end: ''
-          date_start: '2021-01-25'
-          description: ''
-          organization: Coursera
+        - certificate_url: static/upload/Shell.ai_Participation.pdf
+          date_end: '2020-10-20'
+          date_start: '2020-09-14'
+          description: 'In this Shell.ai Hackathon for Sustainable and Affordable Energy, we invite you to optimize the placement of 50 wind turbines of 100 m height and100 m rotor diameter each on a hypothetical 2D offshore wind farm area such that the AEP (Annual Energy Production) of the farm is maximized.'
+          organization: HackerEarth
           organization_url: https://www.coursera.org
-          title: Neural Networks and Deep Learning
+          title: Shell.ai Hackathon
+          url: 'https://www.hackerearth.com/challenges/new/competitive/shell-hackathon/'
+        - certificate_url: static/upload/Baja_2015.jpg
+          date_end: '2014-08-02'
+          date_start: '2014-08-01'
+          description: Participated in virtual Baja organized by SAE India
+          organization: SAE Indian
+          organization_url: https://saeindia.org/
+          title: Virtual BAJA SAE India 2014
+          url: 
+        - certificate_url: static/upload/Baja_2015.jpg
+          date_end: '2016-02-21'
+          date_start: '2016-02-18'
+          description: 'Participated in Mahindra Baja organized by SAE India'
+          organization: SAE India
+          organization_url: https://saeindia.org/
+          title: Mahindra BAJA SAE India 2016
           url: ''
-        - certificate_url: https://www.edx.org
-          date_end: ''
-          date_start: '2021-01-01'
-          description: Formulated informed blockchain models, hypotheses, and use cases.
-          organization: edX
-          organization_url: https://www.edx.org
-          title: Blockchain Fundamentals
-          url: https://www.edx.org/professional-certificate/uc-berkeleyx-blockchain-fundamentals
-        - certificate_url: https://www.datacamp.com
-          date_end: '2020-12-21'
-          date_start: '2020-07-01'
-          description: ''
-          organization: DataCamp
-          organization_url: https://www.datacamp.com
-          title: 'Object-Oriented Programming in R'
+        - certificate_url: static/upload/ExpertHub_ICEngines.jpg
+          date_end: '2014-12-27'
+          date_start: '2014-12-20'
+          description: 'Internship program organized by Automotive Industry Simulation Industry (AISI), Winter Season 2014' 
+          organization: ExpertsHub 
+          organization_url: https://expertshub.org/
+          title: 'Internship training program on Automotive IC Engine Design and Development'
+          url: ''
+        - certificate_url: static/upload/UDVAVISK_FEA_Workshop.jpg
+          date_end: '2015-08-14'
+          date_start: '2015-08-11'
+          description: 'Fundamentals of FEA Analysis, Overview Models and Solver, Application of Models and Solver (Linear Elastic, Modal, Fluid flow, ...)'
+          organization: Udvavisk Technologies Pvt. Ltd.
+          organization_url: https://www.udvavisk.com/
+          title: Individual Training on Finite Element Analysis (FEA)
           url: ''
     design:
       columns: '2'
