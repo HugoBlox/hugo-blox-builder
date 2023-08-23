@@ -22,7 +22,7 @@ sections:
           icon: python
           icon_pack: fab
         - name: FORTRAN
-          icon: coding
+          icon: computer
           icon_pack: fab
  # - block: experience
    # content:
