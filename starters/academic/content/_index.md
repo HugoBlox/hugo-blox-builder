@@ -217,15 +217,6 @@ sections:
   #    title: Popular Topics
   #  design:
    #   columns: '2'
-  - block: hobbies
-    id: hobbies
-    content:
-      title: Hobbies
-      subtitle: Cricket
-    design:
-      columns: '2'
-      view: compact
-
   - block: contact
     id: contact
     content:
