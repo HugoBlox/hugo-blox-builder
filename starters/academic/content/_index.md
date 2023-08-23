@@ -35,7 +35,7 @@ sections:
       #   Required fields are `title`, `company`, and `date_start`.
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
-      items:
+      #items:
         - title: CEO
           company: GenCoin
           company_url: ''
@@ -44,7 +44,7 @@ sections:
           date_start: '2021-01-01'
           date_end: ''
           description: |2-
-              Responsibilities include:
+            #  Responsibilities include:
 
               * Analysing
               * Modelling
@@ -114,7 +114,7 @@ sections:
           url: ''
     design:
       columns: '2'
-  - block: collection
+ # - block: collection
     id: posts
     content:
       title: Recent Posts
@@ -222,32 +222,32 @@ sections:
       title: Contact
       subtitle:
       text: |-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mi diam, venenatis ut magna et, vehicula efficitur enim.
+        Feel free to contact me for any questions, collaborations, or just a meet-up
       # Contact (add or remove contact options as necessary)
-      email: test@example.org
-      phone: 888 888 88 88
-      appointment_url: 'https://calendly.com'
+      email: knreddy@cas.iitd.ac.in
+      phone: +91 9533615121
+      #appointment_url: 'https://calendly.com'
       address:
-        street: 450 Serra Mall
-        city: Stanford
-        region: CA
-        postcode: '94305'
-        country: United States
-        country_code: US
-      directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
-      office_hours:
-        - 'Monday 10:00 to 13:00'
-        - 'Wednesday 09:00 to 10:00'
+        street: 421, Block VI, IITD, Hauz Khas
+        city: New Delhi
+        region: Delhi
+        postcode: '110016'
+        country: India
+        country_code: IN
+      #directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
+      #office_hours:
+        #- 'Monday 10:00 to 13:00'
+       # - 'Wednesday 09:00 to 10:00'
       contact_links:
         - icon: twitter
           icon_pack: fab
           name: DM Me
-          link: 'https://twitter.com/Twitter'
-        - icon: skype
+          link: 'https://twitter.com/vivekreddy'
+       # - icon: skype
           icon_pack: fab
           name: Skype Me
           link: 'skype:echo123?call'
-        - icon: video
+        #- icon: video
           icon_pack: fas
           name: Zoom Me
           link: 'https://zoom.com'
