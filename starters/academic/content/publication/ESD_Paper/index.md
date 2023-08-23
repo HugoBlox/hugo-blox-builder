@@ -2,7 +2,11 @@
 title: "Carbon fluxes in spring wheat agroecosystems in India"
 authors:
 - admin
-- Shilpa Gahlot et al.,
+- Shilpa Gahlot
+- Somnath Baidya Roy
+- G Venkateswara Varma
+- Vinay Kumar Sehgal
+- Vangala Gayatri
 author_notes:
 - "Equal contribution"
 - "Equal contribution"
