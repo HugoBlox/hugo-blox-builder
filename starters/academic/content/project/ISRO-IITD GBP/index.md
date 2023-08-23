@@ -9,7 +9,7 @@ date: '2023-08-22T00:00:00Z'
 external_link: ''
 
 image:
-  caption: Improvement in GPP simulations by CLM5
+  caption: 'Courtesy: [Lawrence et al., 2019]'
   focal_point: Smart
 
 #links:
