@@ -216,14 +216,14 @@ sections:
   #    title: Popular Topics
   #  design:
    #   columns: '2'
-  - block: hobbies
-    id: hobbies
-    content:
-      title: Hobbies
-      subtitle: Cricket
-      text: |-
-        I am an avid cricket player since my childhood. I have been part of the cricket teams at all levels of my education. The most decorated one is being in the IIT Delhi cricket team (Fun Fact: Won four consecutive gold medals in the Inter-IIT Sports Meet) and captaining it too. If anyone is interested, here are the stats of my cricket career.
-      url: https://cricheroes.in/player-profile/1779872/Narender-Reddy#STATS
+ # - block: hobbies
+ #   id: hobbies
+ #   content:
+ #     title: Hobbies
+ #     subtitle: Cricket
+ #     text: |-
+ #       I am an avid cricket player since my childhood. I have been part of the cricket teams at all levels of my education. The most #decorated one is being in the IIT Delhi cricket team (Fun Fact: Won four consecutive gold medals in the Inter-IIT Sports Meet) and #captaining it too. If anyone is interested, here are the stats of my cricket career.
+#      url: https://cricheroes.in/player-profile/1779872/Narender-Reddy#STATS
   - block: contact
     id: contact
     content:
