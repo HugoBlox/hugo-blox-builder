@@ -93,7 +93,7 @@ sections:
           date_start: '2019-07-01'
           description: 'Received Ganga Devi and Khem Chand Memorial award for securing the highest CGPA amongst the 2019 M.Tech batch'
           organization: Centre for Atmospheric Sciences, IIT Delhi
-          organization_url: https://saeindia.org/
+          organization_url: https://cas.iitd.ac.in/
           title: Ganga Devi and Khem Chand Memorial award
           url: ''
         - certificate_url: uploads/Baja_2015.jpg
