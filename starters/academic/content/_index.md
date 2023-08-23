@@ -171,7 +171,7 @@ sections:
   - block: markdown
     content:
       title: Gallery
-      subtitle: ''
+      subtitle: 'Here are some moments captured through my camera lens'
       text: |-
         {{< gallery album="demo" >}}
     design:
