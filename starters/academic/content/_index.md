@@ -99,7 +99,7 @@ sections:
         - certificate_url: static/uploads/ExpertHub_ICEngines.jpg
           date_end: '2014-12-27'
           date_start: '2014-12-20'
-          description: 'Internship program organized by Automotive Industry Simulation Industry (AISI), Winter Season 2014' 
+          description: 'Received Best Innovation Award at the internship program organized by Automotive Industry Simulation Industry (AISI), Winter Season 2014' 
           organization: ExpertsHub 
           organization_url: https://expertshub.org/
           title: 'Internship training program on Automotive IC Engine Design and Development'
