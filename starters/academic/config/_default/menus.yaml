@@ -19,12 +19,15 @@ main:
   - name: Publications
     url: '#featured'
     weight: 50
+  - name: Hobbies
+    url: '#hobbies'
+    weight: 60
   - name: Contact
     url: '#contact'
-    weight: 60
+    weight: 70
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/uploads/resume.pdf` and uncomment the lines below.
   - name: CV
     url: uploads/CV_Reddy_KNarender.pdf
-    weight: 70
+    weight: 80
