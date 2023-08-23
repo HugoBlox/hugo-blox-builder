@@ -9,7 +9,7 @@ date: '2020-10-17T00:00:00Z'
 external_link: ''
 
 image:
-  caption: (a) Annual mean 100 m wind speeds from CCMP data; the black box represents the Palk Strait region. (b) The wind rose for the Palk Strait region. (c) The hypothetical wind farm scenarios considered in this study.
+  caption: 'Visualization made by David Bock'
   focal_point: Smart
 
 links:
