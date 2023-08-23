@@ -176,20 +176,20 @@ sections:
         {{< gallery album="demo" >}}
     design:
       columns: '1'
+  #- block: collection
+  #  id: featured
+   # content:
+   #   title: Featured Publications
+    #  filters:
+     #   folders:
+      #    - publication
+       # featured_only: true
+    #design:
+     # columns: '2'
+      #view: card
   - block: collection
-    id: featured
     content:
-      title: Featured Publications
-      filters:
-        folders:
-          - publication
-        featured_only: true
-    design:
-      columns: '2'
-      view: card
-  - block: collection
-    content:
-      title: Recent Publications
+      title: Publications
       text: |-
         {{% callout note %}}
         Quickly discover relevant content by [filtering publications](./publication/).
@@ -244,13 +244,13 @@ sections:
           name: DM Me
           link: 'https://twitter.com/vivekreddy'
        # - icon: skype
-          icon_pack: fab
-          name: Skype Me
-          link: 'skype:echo123?call'
+        #  icon_pack: fab
+         # name: Skype Me
+          #link: 'skype:echo123?call'
         #- icon: video
-          icon_pack: fas
-          name: Zoom Me
-          link: 'https://zoom.com'
+          #icon_pack: fas
+          #name: Zoom Me
+          #link: 'https://zoom.com'
       # Automatically link email and phone or display as text?
       autolink: true
       # Email form provider
