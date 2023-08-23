@@ -1,5 +1,5 @@
 ---
-title: 'Improving crop dynamics in the CLM5 land surface model'
+title:'Improving crop dynamics in the CLM5 land surface model'
 
 # Authors
 # If you created a profile for a user (e.g. the default `admin` user), write the username (folder name) here
@@ -42,10 +42,10 @@ Correcting the spring wheat and rice growing seasons in CLM5 over India has grea
 # Summary. An optional shortened abstract.
 summary: 'There are significant errors in crop representation for the Indian region, including cropping areas, cropping season, irrigation, and crop characteristics. CLM5's estimated annual yield of wheat and rice has significant biases compared to UN-FAO estimates due to differences in growing seasons. Furthermore, observational data on the phenology of spring wheat and rice are scarce in the Indian region. As a result, crop growth model simulations in the Indian region suffer from poor calibration and validation. Improving the spring wheat and rice growing seasons in CLM5 over India has greatly improved crop phenology, yield, and irrigation pattern. As a result, the energy, carbon, and water fluxes are better estimated than the default CLM5 model.'
 
-tags: 
-    - 'Land Surface Modeling'
-    - 'Surface Fluxes'
-    - 'Crop Phenology'
+#tags: 
+#    - 'Land Surface Modeling'
+#    - 'Surface Fluxes'
+#    - 'Crop Phenology'
 
 # Display this page in the Featured widget?
 featured: true
