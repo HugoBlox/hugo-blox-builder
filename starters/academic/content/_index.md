@@ -87,7 +87,15 @@ sections:
           organization: SAE Indian
           organization_url: https://saeindia.org/
           title: Virtual BAJA SAE India 2014
-          url: 
+          url:
+        - certificate_url: ''
+          date_end: '2019-07-01'
+          date_start: '2019-07-01'
+          description: 'Received Ganga Devi and Khem Chand Memorial award for securing the highest CGPA amongst the 2019 M.Tech batch'
+          organization: Centre for Atmospheric Sciences, IIT Delhi
+          organization_url: https://saeindia.org/
+          title: Ganga Devi and Khem Chand Memorial award
+          url: ''
         - certificate_url: static/uploads/Baja_2015.jpg
           date_end: '2016-02-21'
           date_start: '2016-02-18'
