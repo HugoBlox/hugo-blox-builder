@@ -72,7 +72,7 @@ sections:
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
-        - certificate_url: uploads/Shell.ai_Participation.pdf
+        - certificate_url: uploads/SHELL.ai_Participation.pdf
           date_end: '2020-10-20'
           date_start: '2020-09-14'
           description: 'In this Shell.ai Hackathon for Sustainable and Affordable Energy, we invite you to optimize the placement of 50 wind turbines of 100 m height and100 m rotor diameter each on a hypothetical 2D offshore wind farm area such that the AEP (Annual Energy Production) of the farm is maximized.'
