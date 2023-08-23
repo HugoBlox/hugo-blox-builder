@@ -65,7 +65,7 @@ sections:
       title: 'Accomplish&shy;ments'
       subtitle:
       # Date format: https://wowchemy.com/docs/customization/#date-format
-      date_format: Aug 2023
+      date_format: '2023-08-15T00:00:00Z'
       # Accomplishments.
       #   Add/remove as many `item` blocks below as you like.
       #   `title`, `organization`, and `date_start` are the required parameters.
@@ -73,8 +73,8 @@ sections:
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
         - certificate_url: uploads/SHELL.ai_Participation.pdf
-          date_end: Oct 2020
-          date_start: Sep 2020
+          date_end: '2020-10-20T00:00:00Z'
+          date_start: '2020-09-14T00:00:00Z'
           description: 'In this Shell.ai Hackathon for Sustainable and Affordable Energy, we invite you to optimize the placement of 50 wind turbines of 100 m height and100 m rotor diameter each on a hypothetical 2D offshore wind farm area such that the AEP (Annual Energy Production) of the farm is maximized.'
           organization: HackerEarth
           organization_url: https://www.coursera.org
