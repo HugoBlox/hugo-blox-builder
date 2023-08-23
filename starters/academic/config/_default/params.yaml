@@ -71,7 +71,7 @@ features:
     enable: false
   repository:
     url: 'https://github.com/<username>/<repository>'
-    content_dir: content
+    content_dir: starters/academic/content
     branch: main
   avatar:
     gravatar: false
