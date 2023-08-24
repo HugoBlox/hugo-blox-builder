@@ -35,7 +35,7 @@ sections:
       default_button_index: 0
     design:
       # Choose how many columns the section has. Valid values: '1' or '2'.
-      columns: '4'
+      columns: '2'
       view: showcase
       # For Showcase view, flip alternate rows?
       flip_alt_rows: false
@@ -67,7 +67,7 @@ sections:
   - block: accomplishments
     content:
       # Note: `&shy;` is used to add a 'soft' hyphen in a long heading.
-      title: 'Awards, Competitions  <br>Workshops'
+      title: 'Awards, Competitions  <br>& Workshops'
       subtitle:
       # Date format: https://wowchemy.com/docs/customization/#date-format
       #date_format: '2023-08-15T00:00:00Z'
