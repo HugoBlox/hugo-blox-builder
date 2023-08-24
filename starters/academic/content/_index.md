@@ -16,7 +16,7 @@ sections:
       title: Skills
       items:
         - name: Matlab
-          icon: matlab
+          icon: code
           icon_pack: fab
         - name: Python
           icon: python
