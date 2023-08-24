@@ -64,7 +64,7 @@ sections:
         - certificate_url: ''#uploads/SHELL.ai_Participation.pdf
           date_end: '2020-10-20T00:00:00Z'
           date_start: '2020-09-14T00:00:00Z'
-          description: 'In this Shell.ai Hackathon for Sustainable and Affordable Energy, we invite you to optimize the placement of 50 wind turbines of 100 m height and 100 m rotor diameter each on a hypothetical 2D offshore wind farm area such that the AEP (Annual Energy Production) of the farm is maximized.'
+          description: 'In this Shell.ai Hackathon for Sustainable and Affordable Energy, we (a team of four) have optimized the placement of 50 wind turbines of 100 m height and 100 m rotor diameter each on a hypothetical 2D offshore wind farm area such that the AEP (Annual Energy Production) of the farm is maximized. We secured 63rd position among ~1600 participating teams'
           organization: HackerEarth
           organization_url: https://www.coursera.org
           title: Shell.ai Hackathon
