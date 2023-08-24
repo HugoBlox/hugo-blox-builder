@@ -40,7 +40,7 @@ sections:
         - certificate_url: ''
           date_end: '2021-06-10T00:00:00Z'
           date_start: '2021-06-07T00:00:00Z'
-          description: 'Attended in the workshop'
+          description: 'Attended the workshop'
           organization: MMM laboratory, NCAR
           organization_url: https://www.mmm.ucar.edu/
           title: Joint WRF and MPAS Users’ Workshop 2021
