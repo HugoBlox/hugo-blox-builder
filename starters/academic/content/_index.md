@@ -220,7 +220,7 @@ sections:
   - block: collection
     id: hobbies
     content:
-      title: Cricket and Trekking
+      title: Hobbies
     text: |-
       Few things that I love to spend time on.
       filters:
