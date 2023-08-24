@@ -11,19 +11,6 @@ sections:
       title: Bio
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: admin
-#  - block: features
-#    content:
-#      title: Skills
-#      items:
-#        - name: Matlab
-#          icon: code
-#          icon_pack: fab
-#        - name: Python
-#          icon: python
-#          icon_pack: fab
-#        - name: FORTRAN
-#          icon: computer
-#          icon_pack: fab
   - block: portfolio
     id: projects
     content:
