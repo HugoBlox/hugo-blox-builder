@@ -1,9 +1,10 @@
 ---
 title: Hiking & Trekking
 summary: '"It’s not the mountain we conquer, but ourselves":*Sir Edmund Hillary* ...  <br>Life demands often conspire to keep me from indulging in the soul-nourishing passion as regularly as I wish. Amidst the bustle of daily responsibilities, my hiking boots sometimes lie dormant, longing for the rugged terrain they yearn to explore. Yet, in those fleeting moments when I do find myself amidst the mountains, the euphoria is unparalleled, as if reuniting with a long-lost lover' 
-tags:
-  - Trekking
-date: '2017-07-20T00:00:00Z'
+#tags:
+#  - Trekking
+#date: '2017-07-20T00:00:00Z'
+type: landing
 
 # Optional external URL for the project (replaces project detail page).
 external_link: ''
