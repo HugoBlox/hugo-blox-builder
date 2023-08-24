@@ -217,6 +217,15 @@ sections:
       filters:
         folders:
           - event
+  - block: collection
+    id: hobbies
+    content:
+      title: Cricket and Trekking
+    text: |-
+      Few things that I love to spend time on.
+      filters:
+        folders:
+          - hobbies
     design:
       columns: '2'
       view: compact
