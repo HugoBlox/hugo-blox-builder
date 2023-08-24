@@ -140,7 +140,7 @@ sections:
     content:
       title: Hobbies
       text: |-
-        Few things that I love to spend time on.
+        The things that give me much-needed break from my routine job and enrich my day
       filters:
         folders:
           - hobbies
