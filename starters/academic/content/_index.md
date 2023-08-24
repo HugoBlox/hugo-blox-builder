@@ -35,7 +35,7 @@ sections:
       default_button_index: 0
     design:
       # Choose how many columns the section has. Valid values: '1' or '2'.
-      columns: '1'
+      columns: '4'
       view: showcase
       # For Showcase view, flip alternate rows?
       flip_alt_rows: false
