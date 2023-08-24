@@ -20,7 +20,7 @@ main:
     url: '#publications'
     weight: 50
   - name: Hobbies
-    url: 'https://cricheroes.in/player-profile/1779872/Narender-Reddy#STATS'
+    url: '#hobbies'
     weight: 60
   - name: Contact
     url: '#contact'
