@@ -1,14 +1,14 @@
 ---
 title: Hiking & Trekking
-summary: '' 
+summary: '*It’s not the mountain we conquer, but ourselves*: *Sir Edmund Hillary* ...  <be> The demands of life often prevent me from pursuing my soul-nourishing passion as much as I would like. With daily responsibilities keeping me busy, my hiking boots often sit unused, craving the rugged terrain they are meant to tread. But in those rare moments amidst the mountains, the joy is incomparable, like reuniting with a dear old friend' 
 text: |-
-  [Images from My travels] {(assets/media/albums/hiking)}
+  [Images from My travels] #{(assets/media/albums/hiking)}
 #  - Trekking
 #date: '2017-07-20T00:00:00Z'
 #type: page
 
 # Optional external URL for the project (replaces project detail page).
-external_link: ''
+external_link: 'media/albums/hiking/**'
 #sections:
 #- block: Hiking & Trekking
 #  content:
