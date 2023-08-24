@@ -4,7 +4,7 @@ summary: '"It’s not the mountain we conquer, but ourselves":*Sir Edmund Hillar
 #tags:
 #  - Trekking
 #date: '2017-07-20T00:00:00Z'
-type: landing
+type: gallery
 
 # Optional external URL for the project (replaces project detail page).
 external_link: ''
