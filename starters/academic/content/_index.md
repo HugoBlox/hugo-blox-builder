@@ -39,14 +39,6 @@ sections:
       view: showcase
       # For Showcase view, flip alternate rows?
       flip_alt_rows: false
-  - block: markdown
-    content:
-      title: Gallery
-      subtitle: 'Here are some moments captured through my camera lens'
-      text: |-
-        {{< gallery album="demo" >}}
-    design:
-      columns: '1'
   - block: collection
     id: publications
     content:
@@ -75,7 +67,7 @@ sections:
   - block: accomplishments
     content:
       # Note: `&shy;` is used to add a 'soft' hyphen in a long heading.
-      title: 'Accomplish&shy;ments'
+      title: 'Awards, Competitions  <br>Workshops'
       subtitle:
       # Date format: https://wowchemy.com/docs/customization/#date-format
       #date_format: '2023-08-15T00:00:00Z'
@@ -158,7 +150,7 @@ sections:
           title: Individual Training on Finite Element Analysis (FEA)
           url: ''
       design:
-      columns: '4'
+      columns: '2'
       view: compact
   - block: collection
     id: hobbies
@@ -172,6 +164,14 @@ sections:
       design:
       columns: '2'
       view: compact
+  - block: markdown
+    content:
+      title: Gallery
+      subtitle: 'Here are some moments captured through my camera lens'
+      text: |-
+        {{< gallery album="demo" >}}
+    design:
+      columns: '1'
   - block: contact
     id: contact
     content:
