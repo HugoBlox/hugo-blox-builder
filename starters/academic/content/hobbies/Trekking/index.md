@@ -1,6 +1,8 @@
 ---
 title: Trekking
 summary: 'It’s not the mountain we conquer, but ourselves: *Sir Edmund Hillary*' 
+text: |-
+  The list of treks I have been to: 1) Kheer Ganga (Kasol) 2) Sandhakphu (West Bengal) 3) KedarKanta (Uttarakhand)
 tags:
   - Trekking
 date: '2017-07-20T00:00:00Z'
