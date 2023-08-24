@@ -157,7 +157,7 @@ sections:
     content:
       title: Hobbies
       text: |-
-        The activities that offer a vital escape from my daily job and infuse my days with enrichment and much-needed respite.
+        The things I do to take a break from my regular job and add enjoyment and relaxation to my days.
       filters:
         folders:
           - hobbies
