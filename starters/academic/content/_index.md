@@ -37,6 +37,30 @@ sections:
       #   Leave other parameters empty if not required.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - certificate_url: ''
+          date_end: '2021-06-10T00:00:00Z'
+          date_start: '2021-06-07T00:00:00Z'
+          description: 'Attended in the workshop'
+          organization: MMM laboratory, NCAR
+          organization_url: https://www.mmm.ucar.edu/
+          title: Joint WRF and MPAS Users’ Workshop 2021
+          url: 'https://www.mmm.ucar.edu/events/workshops/wrf-mpas/2021'
+        - certificate_url: ''
+          date_end: '2021-03-06T00:00:00Z'
+          date_start: '2021-03-04T00:00:00Z'
+          description: 'A unique online conference bringing together Academics, Researchers & Corporate leaders from India and Canada to discuss Global Challenges in Agriculture, Climate, Energy, Plant, and Soil will be held from March 4-5, 2021.'
+          organization: IIT Delhi and University of Alberta
+          organization_url: 
+          title: 'Science and Technology for the New Age: Acquisition, Analyses and Adaptation'
+          url: 'https://international.iitd.ac.in/blog/2021/02/24/indo-canadian-conference/'
+        - certificate_url: ''
+          date_end: '2021-06-15T00:00:00Z'
+          date_start: '2021-06-16T00:00:00Z'
+          description: 'The purpose of the workshop is to identify areas of complementarity within the broad area of AgTech that IITD and UQ could collaborate on and partner with other organizations such as the Indian Council of Agricultural Research (ICAR) in India and Australia.'
+          organization: IIT Delhi and The University Of Queensland
+          organization_url: 
+          title: 'UQ-IITD Workshop on Agriculture Technology'
+          url: 'https://international.iitd.ac.in/agtech/'
         - certificate_url: ''#uploads/SHELL.ai_Participation.pdf
           date_end: '2020-10-20T00:00:00Z'
           date_start: '2020-09-14T00:00:00Z'
@@ -140,7 +164,7 @@ sections:
     content:
       title: Hobbies
       text: |-
-        The things that give me much-needed break from my routine job and enrich my day
+        The activities that offer a vital escape from my daily job and infuse my days with enrichment and much-needed respite.
       filters:
         folders:
           - hobbies
