@@ -5,16 +5,15 @@ text: |-
   [Images from My travels] #{(assets/media/albums/hiking)}
 #  - Trekking
 #date: '2017-07-20T00:00:00Z'
-type: page
 
 # Optional external URL for the project (replaces project detail page).
-external_link: 'media/albums/hiking/**'
-sections:
-- block: Hiking & Trekking
-  content:
-  title: Pics from my travels
-  text: |-
-  The list of treks I have been to: 1) Kheer Ganga (Kasol) 2) Sandhakphu (West Bengal) 3) KedarKanta (Uttarakhand)  <br> {{<gallery #album="hiking">}}
+#external_link: 'media/albums/hiking/**'
+#sections:
+#- block: Hiking & Trekking
+  #content:
+  #title: Pics from my travels
+  #text: |-
+  #The list of treks I have been to: 1) Kheer #Ganga (Kasol) 2) Sandhakphu (West Bengal) 3) #KedarKanta (Uttarakhand)  <br> {{<gallery #album="hiking">}}
 #  design:
 #  view: compact
 #image:
