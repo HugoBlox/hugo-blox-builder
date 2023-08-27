@@ -63,9 +63,9 @@
 # CSS
 
 [css.academicons]
-  version = "1.9.2"
-  sri = "sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg=="
-  url = "https://cdn.jsdelivr.net/npm/academicons@%s/css/academicons.min.css"
+  version = "1.9.4"
+  sri = "sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw=="
+  url = "https://cdn.jsdelivr.net/gh/jpswalsh/academicons@%s/css/academicons.min.css"
 [css.leaflet]
   version = "1.7.1"
   sri = ""  # Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
