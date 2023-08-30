@@ -1,5 +1,5 @@
 ---
-title: The journey of my manuscript by Narender Reddy
+title: The journey of my manuscript
 
 event: Informal Talk at CAS, IITD
 event_url: https://cas.iitd.ac.in/news/12
@@ -13,7 +13,7 @@ address:
   postcode: '110016'
   country: India
 
-summary: The talk expands on the interpretation and answers the comments of the reviewers. It's my journey from getting a rejection from JGR Biogeosciences to acceptance in the ESD journal.
+summary: The talk is about my interpretation of the comments of the reviewers and answering their comments. It's my journey from getting a rejection from JGR Biogeosciences to acceptance in the ESD journal.
 abstract: ''
 
 # Talk start and end times.
