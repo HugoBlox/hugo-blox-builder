@@ -80,5 +80,5 @@ email: ''
 highlight_name: false
 ---
 
-I am a research scholar at the Centre for Atmospheric Sciences, Indian Institute of Technology Delhi. My research interests include land surface modeling, surface fluxes, and wind farm layout optimization. I am part of the IIT Delhi team of the ISRO-IITD Geosphere-Biosphere Program (GBP), which aims to improve the CLM5 land surface model to simulate Indian agroecosystems accurately.
+I am a research scholar at the Centre for Atmospheric Sciences, Indian Institute of Technology Delhi. My primary research interests include land surface modeling, crop modeling, and associated surface fluxes. I also have expertise in wind farm layout optimization using machine learning. I am part of the IIT Delhi team of the ISRO-IITD Geosphere-Biosphere Program (GBP), which aims to improve the CLM5 land surface model to simulate Indian agroecosystems accurately.
 {style="text-align: justify;"}
