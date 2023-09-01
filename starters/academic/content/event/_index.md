@@ -1,6 +1,7 @@
 ---
 title: Recent & Upcoming Talks
 cms_exclude: true
+date_format: 'dd/mm/yyyy'
 
 # View.
 #   1 = List
