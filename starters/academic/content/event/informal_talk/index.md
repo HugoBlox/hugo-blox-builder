@@ -3,7 +3,7 @@ title: The journey of my manuscript
 
 event: Informal Talk at CAS, IITD
 event_url: https://cas.iitd.ac.in/news/12
-#date_format: yyyy-mm-ddThh:mm:ssZ
+date: 2010-12-27T12:36:59
 
 location: Room 412, Block VI, CAS, IITD
 address:
