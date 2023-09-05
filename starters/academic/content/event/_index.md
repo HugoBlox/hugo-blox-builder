@@ -1,7 +1,8 @@
 ---
 title: Recent & Upcoming Talks
 cms_exclude: true
-date: "Monday, January 2, 2006"
+
+
 # View.
 #   1 = List
 #   2 = Compact
