@@ -3,7 +3,7 @@ title: Talk by Narender Reddy
 
 event: One-hour Seminar at CAS, IITD
 event_url: https://cas.iitd.ac.in/news/12
-date_format: 'yyyy-mm-ddThh:mm:ssZ'
+#date_format: 'yyyy-mm-ddThh:mm:ssZ'
 
 location: Block VI, CAS, IITD
 address:
