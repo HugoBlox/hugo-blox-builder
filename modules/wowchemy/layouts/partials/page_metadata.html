@@ -20,6 +20,7 @@
       {{ $date = $page.Date | time.Format (site.Params.publications.date_format | default "January, 2006") }}
     {{ else }}
       {{ if ne $page.Params.Lastmod $page.Params.Date }}
+          {{ $date := slice (printf "%d %s %d" $page.Lastmod.Day $page.Lastmod.Month $page.Lastmod.Year) | append ((time #$page.Lastmod).Format site.Params.time_format) }}
           {{ i18n "last_updated" }}
       {{ end }}
     {{ end }}
