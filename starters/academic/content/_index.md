@@ -45,6 +45,7 @@ sections:
     id: talks
     content:
       title: Recent & Upcoming Talks
+      date_format: '2023-08-15T00:00:00Z'
       filters:
         folders:
           - event
