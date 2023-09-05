@@ -16,9 +16,9 @@ text: |-
   #The list of treks I have been to: 1) Kheer #Ganga (Kasol) 2) Sandhakphu (West Bengal) 3) #KedarKanta (Uttarakhand)  <br> {{<gallery #album="hiking">}}
 #  design:
 #  view: compact
-#image:
- # caption: 
- # focal_point: Smart
+image:
+  caption: "Images clicked by K.N.Reddy"
+  focal_point: Smart
 
 #links:
 #  - icon: sports
