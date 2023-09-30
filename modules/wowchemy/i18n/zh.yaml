@@ -174,16 +174,13 @@
 - id: location
   translation: 位置
 
-- id: pub_uncat
-  translation: 未分类
-
-- id: pub_conf
+- id: paper-conference
   translation: 会议文章
 
-- id: pub_journal
+- id: pub_article_journal
   translation: 期刊文章
 
-- id: pub_preprint
+- id: pub_article
   translation: 预印本
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: 书籍
 
-- id: pub_book_section
+- id: pub_chapter
   translation: 章节
 
 - id: pub_thesis

@@ -10,7 +10,7 @@
   translation: বিষয়বস্তু
 
 - id: back_to_top # Back to top
-  translation: উপরে ফিরে যান 
+  translation: উপরে ফিরে যান
 
 - id: home # Home
   translation: হোম পেজ
@@ -33,7 +33,7 @@
   translation: পূর্ববর্তী
 
 - id: next # Next
-  translation: পরবর্তী 
+  translation: পরবর্তী
 
 - id: figure # 'Figure %d:'
   translation: 'চিত্র %d:'
@@ -88,10 +88,10 @@
   translation: উৎস নথি
 
 - id: btn_copy # Copy
-  translation: কপি করুন 
+  translation: কপি করুন
 
 - id: btn_copied # Copied
-  translation: কপি করা হয়েছে 
+  translation: কপি করা হয়েছে
 
 - id: btn_download # Download
   translation: ডাউনলোড করুন
@@ -174,16 +174,13 @@
 - id: location # Location
   translation: অবস্থান
 
-- id: pub_uncat # Uncategorized
-  translation: শ্রেণী বহির্ভূত
-
-- id: pub_conf # Conference paper
+- id: paper-conference # Conference paper
   translation: সম্মেলন নিবন্ধ
 
-- id: pub_journal # Journal article
+- id: pub_article_journal # Journal article
   translation: জার্নাল নিবন্ধ
 
-- id: pub_preprint # Preprint
+- id: pub_article # Preprint
   translation: প্রিপ্রিন্ট
 
 - id: pub_report # Report
@@ -192,7 +189,7 @@
 - id: pub_book # Book
   translation: বই # Alternatively: পুস্তক
 
-- id: pub_book_section # Book section
+- id: pub_chapter # Book section
   translation: পুস্তক বিভাগ
 
 - id: pub_thesis # Thesis

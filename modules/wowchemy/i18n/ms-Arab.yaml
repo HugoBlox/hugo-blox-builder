@@ -174,16 +174,13 @@
 - id: location
   translation: کدودوقن
 
-- id: pub_uncat
-  translation: تياد کاتݢوري
-
-- id: pub_conf
+- id: paper-conference
   translation: کرتس سيدڠ
 
-- id: pub_journal
+- id: pub_article_journal
   translation: ارتيکل جورنل
 
-- id: pub_preprint
+- id: pub_article
   translation: ڤراچيتق
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: بوکو
 
-- id: pub_book_section
+- id: pub_chapter
   translation: بهاݢين بوکو
 
 - id: pub_thesis
@@ -265,7 +262,7 @@
 # Published with
 
 - id: published_with
-  translation: دتربيتکنن دڠن {wowchemy} — ڤمبوات لامن ويب ڤرچوما {repo_link}برسومبر تربوک{/repolink} دان برکواس 
+  translation: دتربيتکنن دڠن {wowchemy} — ڤمبوات لامن ويب ڤرچوما {repo_link}برسومبر تربوک{/repolink} دان برکواس
 
 # Feedback widget
 

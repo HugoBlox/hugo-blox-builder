@@ -174,16 +174,13 @@
 - id: location
   translation: Lokation
 
-- id: pub_uncat
-  translation: Ikke katagoriseret
-
-- id: pub_conf
+- id: paper-conference
   translation: Konference artikel
 
-- id: pub_journal
+- id: pub_article_journal
   translation: Videnskablig artikel
 
-- id: pub_preprint
+- id: pub_article
   translation: Preprint
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: Bog
 
-- id: pub_book_section
+- id: pub_chapter
   translation: Bøger
 
 - id: pub_thesis

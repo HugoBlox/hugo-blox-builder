@@ -104,8 +104,8 @@ function filter_publications() {
   let urlHash = window.location.hash.replace('#', '');
   let filterValue = '*';
 
-  // Check if hash is numeric.
-  if (urlHash != '' && !isNaN(urlHash)) {
+  // Check if hash is set.
+  if (urlHash != '') {
     filterValue = '.pubtype-' + urlHash;
   }
 
