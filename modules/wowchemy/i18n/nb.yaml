@@ -13,13 +13,13 @@
   translation: Tilbake til toppen
 
 - id: home
-  translation: Home
+  translation: Hjem
 
 - id: close
-  translation: Close
+  translation: Lukk
 
 - id: languages
-  translation: Languages
+  translation: Språk
 
 # General
 
@@ -44,7 +44,7 @@
 # Themes
 
 - id: theme_selector
-  translation: Display preferences
+  translation: Vis innstillinger
 
 - id: theme_light
   translation: Lys
@@ -58,7 +58,7 @@
 # Buttons
 
 - id: btn_preprint
-  translation: Opprinnelig manus (preprint)
+  translation: Upublisert manus (preprint)
 
 - id: btn_pdf
   translation: PDF
@@ -91,7 +91,7 @@
   translation: Kopi
 
 - id: btn_copied
-  translation: Copied
+  translation: Kopiert
 
 - id: btn_download
   translation: Last ned
@@ -143,7 +143,7 @@
   translation: Melding
 
 - id: contact_attachment
-  translation: Attach file
+  translation: Legg ved fil
 
 - id: contact_send
   translation: Send
@@ -178,10 +178,10 @@
   translation: Konferanseartikkel
 
 - id: pub_article_journal
-  translation: Tidskriftsartikel
+  translation: Tidskriftsartikkel
 
 - id: pub_article
-  translation: Opprinnelig manus (preprint)
+  translation: Upublisert manus (preprint)
 
 - id: pub_report
   translation: Rapport
@@ -193,7 +193,7 @@
   translation: Bokkapittel
 
 - id: pub_thesis
-  translation: Oppgave
+  translation: Avhandling
 
 - id: pub_patent
   translation: Patent
@@ -201,7 +201,7 @@
 # Project details
 
 - id: open_project_site
-  translation: Go til prosjektside
+  translation: Gå til prosjektside
 
 # Content types for default archive page titles and search results
 
@@ -221,7 +221,7 @@
   translation: Presentasjoner
 
 - id: authors
-  translation: Authors
+  translation: Forfattere
 
 # Search
 
@@ -238,7 +238,7 @@
   translation: Ingen resultater funnet
 
 - id: search_common_queries
-  translation: Common searches
+  translation: Felles søkeord
 
 # Error 404
 
@@ -262,4 +262,4 @@
 # Published with
 
 - id: published_with
-  translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+  translation: Publisert med {wowchemy} — en gratis løsning, {repo_link}basert på åpen kildekode{/repo_link} for å generere nettsider.
