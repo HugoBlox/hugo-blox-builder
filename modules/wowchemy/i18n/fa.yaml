@@ -174,16 +174,13 @@
 - id: location
   translation: مکان
 
-- id: pub_uncat
-  translation: بدون دسته‌بندی
-
-- id: pub_conf
+- id: paper-conference
   translation: مقاله کنفرانسی
 
-- id: pub_journal
+- id: pub_article_journal
   translation: مقاله ژورنالی
 
-- id: pub_preprint
+- id: pub_article
   translation: پیش‌نویس مقاله
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: کتاب
 
-- id: pub_book_section
+- id: pub_chapter
   translation: فصل از کتاب
 
 - id: pub_thesis

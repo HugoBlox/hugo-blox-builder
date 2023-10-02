@@ -174,16 +174,13 @@
 - id: location
   translation: Local
 
-- id: pub_uncat
-  translation: Sem categoria
-
-- id: pub_conf
+- id: paper-conference
   translation: Artigo de conferência
 
-- id: pub_journal
+- id: pub_article_journal
   translation: Artigo de revista
 
-- id: pub_preprint
+- id: pub_article
   translation: Pré-impressão
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: Livro
 
-- id: pub_book_section
+- id: pub_chapter
   translation: Seção de livro
 
 - id: pub_thesis

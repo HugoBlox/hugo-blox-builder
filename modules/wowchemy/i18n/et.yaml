@@ -174,16 +174,13 @@
 - id: location
   translation: Asukoht
 
-- id: pub_uncat
-  translation: Määramata
-
-- id: pub_conf
+- id: paper-conference
   translation: Ettekanne
 
-- id: pub_journal
+- id: pub_article_journal
   translation: Artikkel
 
-- id: pub_preprint
+- id: pub_article
   translation: Eeltrükk
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: Raamat
 
-- id: pub_book_section
+- id: pub_chapter
   translation: Peatükk
 
 - id: pub_thesis

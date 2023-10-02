@@ -1,14 +1,12 @@
 {{- define "main" -}}
-{{ $pub_types := partial "functions/get_pub_types" $ }}
-{{ $pub_type_param := .Params.publication_types | default (slice 0) }}
 
-{{/* Convert string in form `"0"` to int (`0`) */}}
-{{ $pub_type := (int (index $pub_type_param 0)) | default 0 }}
-
-{{/* Validate Pub Type if defined */}}
-{{ if gt $pub_type (sub (len $pub_types) 1) }}
-  {{ warnf "Unknown publication type in %s" .File.Path }}
-  {{ $pub_type = 0 }}
+{{ $pub_type_csl := "" }}
+{{ $pub_type_display := "" }}
+{{ if .Params.publication_types }}
+  {{ if reflect.IsSlice .Params.publication_types }}
+    {{ $pub_type_csl = index .Params.publication_types 0 }}
+    {{ $pub_type_display = i18n (printf "pub_%s" (strings.Replace $pub_type_csl "-" "_")) | default (strings.Title $pub_type_csl) }}
+  {{ end }}
 {{ end }}
 
 <div class="pub">
@@ -23,15 +21,15 @@
     {{ end }}
 
     {{/* If the type is Uncategorized, hide the type. */}}
-    {{ if ne $pub_type 0 }}
+    {{ if $pub_type_display }}
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10">
         <div class="row">
           <div class="col-12 col-md-3 pub-row-heading">{{ i18n "publication_type" }}</div>
           <div class="col-12 col-md-9">
-            <a href="{{ (site.GetPage "section" "publication").RelPermalink }}#{{ $pub_type | anchorize }}">
-              {{ index $pub_types $pub_type }}
+            <a href="{{ (site.GetPage "section" "publication").RelPermalink }}#{{ $pub_type_csl | anchorize }}">
+              {{ $pub_type_display }}
             </a>
           </div>
         </div>
