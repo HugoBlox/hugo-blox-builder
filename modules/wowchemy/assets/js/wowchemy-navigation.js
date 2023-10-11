@@ -29,14 +29,14 @@ function scrollToAnchor(target, duration = 0) {
     target = '#' + $.escapeSelector(target.substring(1)); // Previously, `target = target.replace(/:/g, '\\:');`
 
     let elementOffset = Math.ceil($(target).offset().top - getNavBarHeight()); // Round up to highlight right ID!
-    $('body').addClass('scrolling');
+    document.querySelector('body').classList.add('scrolling');
     $('html, body').animate(
       {
         scrollTop: elementOffset,
       },
       duration,
       function () {
-        $('body').removeClass('scrolling');
+        document.querySelector('body').classList.remove('scrolling');
       },
     );
   } else {

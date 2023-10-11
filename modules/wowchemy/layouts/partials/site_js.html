@@ -23,7 +23,7 @@
   {{ end }}
 
   {{/* Workaround `.HasShortcode "gallery"` detection issue on `home/` WidgetPage v1 */}}
-  {{ if ($scr.Get "HasNestedGalleryShortcode") | or site.Params.require_fancybox }}
+  {{ if (.Page.Store.Get "has_gallery") | or site.Params.require_fancybox }}
     {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
   {{ end }}
 
@@ -112,7 +112,7 @@
   {{/* Configure search engine. */}}
   {{ $min_length := site.Params.features.search.wowchemy.min_length | default 1 }}
   {{ $threshold := site.Params.features.search.wowchemy.threshold | default 0.3 }}
-  {{ $search_config := dict "indexURI" ("/index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
+  {{ $search_config := dict "indexURI" ("index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
   {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
   {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") "authors" (i18n "authors") }}
   {{ $js_search_params = dict "search_config" $search_config "algoliaConfig" $algoliaConfig "i18n" $search_i18n "content_type" $content_types }}
@@ -126,12 +126,43 @@
 <script src="{{ $js_algolia_search.RelPermalink }}" type="module"></script>
 {{ end }}
 
-{{/* Page Data */}}
-{{ $default_headroom := not (.IsHome | or (eq .Type "book")) }}
-{{ $use_headroom := cond (isset $.Params "header.on_scroll") (eq $.Params.header.on_scroll "disappear") (default $default_headroom) }}
+{{/* Headroom */}}
+{{/*
+  Headroom JS enables hiding the header on scrolling down and showing it on scrolling up.
+  This is especially valuable on smaller displays such as mobile devices.
+  This option can be set in the following ways:
+    - globally, in the site's 'params.yaml':
+      ```
+      header:
+        on_scroll: "disappear" | "sticky"
+      ```
+    - per page, in the page front matter:
+      ```
+      header:
+        on_scroll: "disappear" | "sticky"
+      ```
+  When the header is set to disappear, the Headroom JS is loaded.
+
+  By default, the header is sticky in the homepage and in the book layout,
+  and it disappears when scrolling in all other pages.
+*/}}
+
+{{/* By default don't use Headroom in the homepage and book layout */}}
+{{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
+
+{{/* Check for the global site parameter `header.on_scroll` */}}
+{{ if site.Params.header.on_scroll }}
+  {{ $use_headroom = eq site.Params.header.on_scroll "disappear" }}
+{{ end }}
+
+{{/* Check for the page parameter `header.on_scroll` */}}
+{{ if .Params.header.on_scroll }}
+  {{ $use_headroom = eq .Params.header.on_scroll "disappear" }}
+{{ end }}
+
+{{/* Output `use_headroom` variable for Headroom initialization in Wowchemy JS */}}
 {{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
 
-{{/* Headroom */}}
 {{ if $use_headroom }}
   {{ $headroom := resources.Get "js/wowchemy-headroom.js" | js.Build (dict "format" "esm" "minify" true) }}
   {{- if hugo.IsProduction -}}

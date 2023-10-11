@@ -174,16 +174,13 @@
 - id: location
   translation: موقع
 
-- id: pub_uncat
-  translation: غير مصنف
-
-- id: pub_conf
+- id: paper-conference
   translation: ورقة مؤتمر
 
-- id: pub_journal
+- id: pub_article_journal
   translation: مجلة محكمه
 
-- id: pub_preprint
+- id: pub_article
   translation: مسودة
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: كتاب
 
-- id: pub_book_section
+- id: pub_chapter
   translation: قسم من كتاب
 
 - id: pub_thesis

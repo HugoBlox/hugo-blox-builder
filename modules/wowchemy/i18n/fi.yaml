@@ -174,16 +174,13 @@
 - id: location
   translation: Sijainti
 
-- id: pub_uncat
-  translation: Lajittelematon
-
-- id: pub_conf
+- id: paper-conference
   translation: Konferenssijulkaisu
 
-- id: pub_journal
+- id: pub_article_journal
   translation: Artikkeli
 
-- id: pub_preprint
+- id: pub_article
   translation: Preprint
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: Kirja
 
-- id: pub_book_section
+- id: pub_chapter
   translation: Kirjan kohta
 
 - id: pub_thesis

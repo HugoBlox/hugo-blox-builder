@@ -174,16 +174,13 @@
 - id: location
   translation: מיקום
 
-- id: pub_uncat
-  translation: לא מסווג
-
-- id: pub_conf
+- id: paper-conference
   translation: נייר ועידה
 
-- id: pub_journal
+- id: pub_article_journal
   translation: מאמר בכתב עת
 
-- id: pub_preprint
+- id: pub_article
   translation: קדם-פרסום
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: ספר
 
-- id: pub_book_section
+- id: pub_chapter
   translation: קטע של ספר
 
 - id: pub_thesis

@@ -7,19 +7,19 @@
   translation: Mục Lục
 
 - id: on_this_page
-  translation: On this page
+  translation: Nội dung
 
 - id: back_to_top
-  translation: Back to top
+  translation: Lên đầu trang
 
 - id: home
-  translation: Home
+  translation: Trang chủ
 
 - id: close
-  translation: Close
+  translation: Đóng
 
 - id: languages
-  translation: Languages
+  translation: Ngôn ngữ
 
 # General
 
@@ -36,24 +36,24 @@
   translation: Sau
 
 - id: figure
-  translation: 'Figure %d:'
+  translation: 'Hình %d:'
 
 - id: edit_page
-  translation: Edit this page
+  translation: Chỉnh sửa trang này
 
 # Themes
 
 - id: theme_selector
-  translation: Display preferences
+  translation: Tùy chọn hiển thị
 
 - id: theme_light
-  translation: Light
+  translation: Sáng
 
 - id: theme_dark
-  translation: Dark
+  translation: Tối
 
 - id: theme_auto
-  translation: Automatic
+  translation: Tự động
 
 # Buttons
 
@@ -82,7 +82,7 @@
   translation: Dự Án
 
 - id: btn_poster
-  translation: Poster
+  translation: Áp phích
 
 - id: btn_source
   translation: Mã Nguồn
@@ -99,28 +99,28 @@
 # About widget
 
 - id: interests
-  translation: Hướng Nghiên Cứu
+  translation: Sở Thích
 
 - id: education
   translation: Học Vấn
 
 - id: user_profile_latest
-  translation: Latest
+  translation: Mới nhất
 
 # Accomplishments widget
 
 - id: see_certificate
-  translation: See certificate
+  translation: Xem chứng chỉ
 
 # Experience widget
 
 - id: present
-  translation: Present
+  translation: Hiện tại
 
 # Pages widget
 
 - id: more_pages
-  translation: See all
+  translation: Xem tất cả
 
 - id: more_posts
   translation: Bài Đăng Khác
@@ -134,22 +134,22 @@
 # Contact widget
 
 - id: contact_name
-  translation: Name
+  translation: Tên
 
 - id: contact_email
   translation: Email
 
 - id: contact_message
-  translation: Message
+  translation: Tin nhắn
 
 - id: contact_attachment
-  translation: Attach file
+  translation: Đính kèm tệp
 
 - id: contact_send
-  translation: Send
+  translation: Gửi
 
 - id: book_appointment
-  translation: Book an appointment
+  translation: Đặt cuộc hẹn
 
 # Publication/Event details
 
@@ -174,32 +174,29 @@
 - id: location
   translation: Địa Điểm
 
-- id: pub_uncat
-  translation: Uncategorized
+- id: pub_paper_conference
+  translation: Bài báo hội nghị
 
-- id: pub_conf
-  translation: Conference paper
+- id: pub_article_journal
+  translation: Bài viết tạp chí
 
-- id: pub_journal
-  translation: Journal article
-
-- id: pub_preprint
-  translation: Preprint
+- id: pub_article
+  translation: Bài viết trước
 
 - id: pub_report
-  translation: Report
+  translation: Báo cáo
 
 - id: pub_book
-  translation: Book
+  translation: Sách
 
-- id: pub_book_section
-  translation: Book section
+- id: pub_chapter
+  translation: Chương sách
 
 - id: pub_thesis
-  translation: Thesis
+  translation: Luận văn
 
 - id: pub_patent
-  translation: Patent
+  translation: Bằng sáng chế
 
 # Project details
 
@@ -224,24 +221,24 @@
   translation: Slides
 
 - id: authors
-  translation: Authors
+  translation: Tác giả
 
 # Search
 
 - id: search
-  translation: Search
+  translation: Tìm kiếm
 
 - id: search_placeholder
-  translation: Search...
+  translation: Tìm kiếm...
 
 - id: search_results
-  translation: results found
+  translation: kết quả được tìm thấy
 
 - id: search_no_results
-  translation: No results found
+  translation: Không tìm thấy kết quả
 
 - id: search_common_queries
-  translation: Common searches
+  translation: Tìm kiếm phổ biến
 
 # Error 404
 
@@ -254,15 +251,29 @@
 # Cookie consent
 
 - id: cookie_message
-  translation: This website uses cookies to ensure you get the best experience on our website.
+  translation: Trang web này sử dụng cookie để đảm bảo bạn có trải nghiệm tốt nhất trên trang web của chúng tôi.
 
 - id: cookie_dismiss
-  translation: Got it!
+  translation: Tôi đã hiểu!
 
 - id: cookie_learn
-  translation: Learn more
+  translation: Tìm hiểu thêm
 
 # Published with
 
 - id: published_with
   translation: Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Phản hồi
+
+- id: feedback_widget_question
+  translation: Trang này có hữu ích không?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Có
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Không

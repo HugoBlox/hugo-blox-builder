@@ -174,16 +174,13 @@
 - id: location
   translation: Meel
 
-- id: pub_uncat
-  translation: Kale
-
-- id: pub_conf
+- id: paper-conference
   translation: Qoraal Shir
 
-- id: pub_journal
+- id: pub_article_journal
   translation: Qoraal Majallad
 
-- id: pub_preprint
+- id: pub_article
   translation: Daabac Hore
 
 - id: pub_report
@@ -192,7 +189,7 @@
 - id: pub_book
   translation: Buug
 
-- id: pub_book_section
+- id: pub_chapter
   translation: Qayb Buug
 
 - id: pub_thesis

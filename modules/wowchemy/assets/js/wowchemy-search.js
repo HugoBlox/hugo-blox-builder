@@ -181,7 +181,7 @@ if (typeof Fuse === 'function') {
     // On page load, check for search query in URL.
     let query = getSearchQuery('q');
     if (query) {
-      $('body').addClass('searching');
+      document.querySelector('body').classList.add('searching');
       $('.search-results').css({opacity: 0, visibility: 'visible'}).animate({opacity: 1}, 200);
       $('#search-query').val(query);
       $('#search-query').focus();
