@@ -22,6 +22,7 @@ defaults:
 jobs:
   # Build website
   build:
+    if: github.repository_owner != 'wowchemy'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -53,6 +54,7 @@ jobs:
 
   # Deploy website to GitHub Pages hosting
   deploy:
+    if: github.repository_owner != 'wowchemy'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
