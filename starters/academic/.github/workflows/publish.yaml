@@ -1,11 +1,13 @@
 name: Deploy Wowchemy website to GitHub Pages
 
 on:
+  # Trigger the workflow every time you push to the `main` branch
   push:
     branches: ["main"]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
-# Provide permission to deploy to GitHub Pages
+# Provide permission to clone the repo and deploy it to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -44,9 +46,7 @@ jobs:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
-          hugo \
-            --gc --minify \
-            --baseURL "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
