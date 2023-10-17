@@ -1,7 +1,0 @@
-module:
-  mounts:
-    - source: media/docs
-      target: assets/media/docs
-    - source: en
-      target: content/docs
-      lang: en
