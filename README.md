@@ -1,4 +1,4 @@
-[中文](https://wowchemy.com/zh/)
+[**中文**](./README.zh.md)
 
 <p align="center"><a href="https://wowchemy.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/sharing.png" alt="Wowchemy Website Builder"></a></p>
 
@@ -99,8 +99,8 @@ Choose a stunning theme for your site and [customize it](https://wowchemy.com/do
 
 ## Ecosystem
 
-- **[Hugo Academic CLI](https://github.com/wowchemy/hugo-academic-cli/):** Automatically import academic publications from BibTeX
-- **[Awesome Hugo](https://github.com/wowchemy/awesome-hugo):** Scripts to help migrate content to new versions of Hugo
+- [**Bibtex to Markdown**](https://github.com/wowchemy/bibtex-to-markdown): Automatically import academic publications from BibTeX to Markdown files
+- [**Awesome Hugo**](https://github.com/wowchemy/awesome-hugo): Scripts to help migrate content to new versions of Hugo
 
 ## Join the community
 
