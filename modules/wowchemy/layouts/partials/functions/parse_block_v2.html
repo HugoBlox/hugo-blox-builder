@@ -95,7 +95,7 @@
 {{ $extra_attributes := "" }}
 {{ $use_container := true }}
 {{ $columns := $block.design.columns | default "1" }}
-{{ $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio") $block_type }}
+{{ $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio" "skills") $block_type }}
 
 {{/* Special case: Slider widget. */}}
 {{ if in (slice "slider") $block_type }}
