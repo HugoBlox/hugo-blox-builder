@@ -16,20 +16,20 @@
 
 🎨 **2. 个性化**漂亮的起始模板，享有**50+种浅色/深色主题、多语言包和模块**
 
-🛋 **3. 可选地，使用基于 [Netlify CMS](https://wowchemy.com/docs/getting-started/hugo-cms/) 的开源内容管理系统（CMS），随时随地从沙发上或外出写作**
+🛋 **3. 可选地，使用基于 [Decap CMS](https://university.wowchemy.com/getting-started/cms/decap/) 的开源内容管理系统（CMS），随时随地从沙发上或外出写作**
 
 <p style="text-align: center"><a href="https://wowchemy.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Wowchemy CMS"></a></p>
 
 [查看最新的 **演示**](https://wowchemy.com/templates/)，在不到 60 秒内获取您将获得的内容，或者获得其他创作者的 [**灵感**](https://wowchemy.com/creators/)。
 
 - 👉 [**开始使用**](https://wowchemy.com/templates/)
-- 📚 [查看 **文档**](https://wowchemy.com/docs/)
+- 📚 [查看 **文档**](https://university.wowchemy.com/)
 - 🙋‍♀️ **有问题吗？**
-  - **立即在 [Discord](https://discord.gg/z8wNYzb) 上与我们聊天**，或浏览 [故障排除指南]() 和 [问答论坛](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
+  - **立即在 [Discord](https://discord.gg/z8wNYzb) 上与我们聊天**，或浏览 [故障排除指南](https://university.wowchemy.com/reference/troubleshooting/) 和 [问答论坛](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
   - _此外，查看 [Hugo 论坛](https://discourse.gohugo.io) 解决 Hugo 相关问题，以及 [Netlify 论坛](https://answers.netlify.com/) 解答 Netlify 相关问题_
 - 🐦 与社区共享您的 Wowchemy 网站：[@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%23MadeWithWowchemy&src=typed_query)
 - 🗳 [参加调查，帮助我们改进 #开源](https://forms.gle/NioD9VhUg7PNmdCAA)
-- ⬆️ **更新？** 查看 [更新指南](https://wowchemy.com/docs/hugo-tutorials/update/) 和 [发布说明](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
+- ⬆️ **更新？** 查看 [更新指南](https://university.wowchemy.com/reference/update/) 和 [发布说明](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
 - 🚀 [贡献改进](CONTRIBUTING.md) 或 [建议改进](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
 
 ## 💙 我们向您恳请支持这个开源运动
@@ -61,7 +61,7 @@ Wowchemy 是一个使用**小部件**创建_任何_类型网站的**零代码**�
 
 ## 技术内容撰写的未来
 
-使用标准化的 Markdown 和捆绑的扩展（包括数学和图表）**编写丰富、具备未来性的内容**。可以在开源 CMS 中编辑，也可以通过在线的 GitHub 编辑器、Jupyter Notebook 或 RStudio 进行编辑！[了解更多](https://wowchemy.com/docs/content/writing-markdown-latex/)
+使用标准化的 Markdown 和捆绑的扩展（包括数学和图表）**编写丰富、具备未来性的内容**。可以在开源 CMS 中编辑，也可以通过在线的 GitHub 编辑器、Jupyter Notebook 或 RStudio 进行编辑！[了解更多](https://university.wowchemy.com/reference/markdown/)
 
 [![撰写技术内容](https://wowchemy.com/uploads/readmes/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
 
@@ -69,11 +69,11 @@ Wowchemy 是一个使用**小部件**创建_任何_类型网站的**零代码**�
 
 [![截图](./.github/media/academic.png)](https://wowchemy.com/templates/)
 
-**主要特点：**- **页面构建器** - 使用[小部件](https://wowchemy.com/docs/getting-started/page-builder/)和[元素](https://wowchemy.com/docs/content/writing-markdown-latex/)创建_任何东西_
+**主要特点：**- **页面构建器** - 使用[小部件](https://university.wowchemy.com/getting-started/page-builder/)和[元素](https://university.wowchemy.com/reference/markdown/)创建_任何东西_
 - **编辑任何类型的内容** - 博客文章、出版物、演讲、幻灯片、项目等等！
-- 使用 [**Markdown**](https://wowchemy.com/docs/content/writing-markdown-latex/)、[**Jupyter**](https://wowchemy.com/docs/import/jupyter/) 或 [**RStudio**](https://wowchemy.com/docs/getting-started/install-hugo-extended/) 创建内容
-- **插件系统** - 完全可定制的[**颜色**和**字体主题**](https://wowchemy.com/templates/)
-- **显示代码和数学公式** - 支持代码高亮和[LaTeX数学](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+- 使用 [**Markdown**](https://university.wowchemy.com/reference/markdown/)、[**Jupyter**](https://university.wowchemy.com/getting-started/cms/) 或 [**RStudio**](https://university.wowchemy.com/getting-started/cms/rstudio/) 创建内容
+- **插件系统** - 完全可定制的[**颜色**和**字体主题**](https://university.wowchemy.com/getting-started/customize/#appearance)
+- **显示代码和数学公式** - 支持代码高亮和[LaTeX数学](https://university.wowchemy.com/reference/markdown/#math)
 - **集成** - [Google Analytics](https://analytics.google.com)、[Disqus评论](https://disqus.com)、地图、联系表单等等！
 - **美丽的网站** - 简单清爽的单页设计
 - **行业领先的SEO** - 帮助您的网站在搜索引擎和社交媒体上被发现
@@ -89,7 +89,7 @@ Wowchemy 是一个使用**小部件**创建_任何_类型网站的**零代码**�
 
 Wowchemy内置了**自动白天（浅色）和黑夜（暗色）模式**。或者，单击[Demos](https://wowchemy.com/templates/)右上角的月亮图标设置您喜欢的模式！
 
-为您的网站选择一个惊艳的主题，并[自定义它](https://wowchemy.com/docs/getting-started/customization/#custom-theme)以满足您的喜好：
+为您的网站选择一个惊艳的主题，并[自定义它](https://university.wowchemy.com/getting-started/customize/#custom-theme)以满足您的喜好：
 
 [![主题](./.github/media/themes.png)](https://wowchemy.com/templates/)
 

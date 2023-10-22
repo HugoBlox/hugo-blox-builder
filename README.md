@@ -16,20 +16,20 @@
 
 🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and blocks**
 
-🛋 **3. Optionally, write from your sofa or on the go with the integrated open source Content Management System (CMS) based on [Netlify CMS](https://wowchemy.com/docs/getting-started/hugo-cms/)**
+🛋 **3. Optionally, write from your sofa or on the go with the integrated open source Content Management System (CMS) based on [Decap CMS](https://university.wowchemy.com/getting-started/cms/decap/)**
 
 <p style="text-align: center"><a href="https://wowchemy.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Wowchemy CMS"></a></p>
 
 [Check out the latest **demos**](https://wowchemy.com/templates/) of what you'll get in less than 60 seconds, or [get **inspired**](https://wowchemy.com/creators/) by other creators.
 
 - 👉 [**Get Started**](https://wowchemy.com/templates/)
-- 📚 [View the **documentation**](https://wowchemy.com/docs/)
+- 📚 [View the **documentation**](https://university.wowchemy.com/)
 - 🙋‍♀️ **Have a question?**
-  - **Chat with us now on [Discord](https://discord.gg/z8wNYzb)** or explore the [Troubleshooting Guide]() and [Q&A Forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
+  - **Chat with us now on [Discord](https://discord.gg/z8wNYzb)** or explore the [Troubleshooting Guide](https://university.wowchemy.com/reference/troubleshooting/) and [Q&A Forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
   - _Also, check out [Hugo Forum](https://discourse.gohugo.io) for Hugo Qs and [Netlify Forum](https://answers.netlify.com/) for Netlify Qs_
 - 🐦 Share your Wowchemy site with the community on Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%23MadeWithWowchemy&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
-- ⬆️ **Updating?** View the [Update Guide](https://wowchemy.com/docs/hugo-tutorials/update/) and [Release Notes](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
+- ⬆️ **Updating?** View the [Update Guide](https://university.wowchemy.com/reference/update/) and [Release Notes](https://github.com/wowchemy/wowchemy-hugo-themes/releases)
 - 🚀 [Contribute improvements](CONTRIBUTING.md) or [suggest improvements](https://github.com/wowchemy/wowchemy-hugo-themes/issues)
 
 ## 💙 We ask you, humbly, to support this open source movement
@@ -61,7 +61,7 @@ Choose from one of the starter templates to easily get started:
 
 ## The Future of Technical Content Writing
 
-**Write rich, future-proof content** using standardized Markdown along with bundled extensions for math and diagrams. Edit in the open source CMS or via an editor such as the online GitHub Editor, Jupyter Notebook, or RStudio! [Learn more](https://wowchemy.com/docs/content/writing-markdown-latex/)
+**Write rich, future-proof content** using standardized Markdown along with bundled extensions for math and diagrams. Edit in the open source CMS or via an editor such as the online GitHub Editor, Jupyter Notebook, or RStudio! [Learn more](https://university.wowchemy.com/reference/markdown/)
 
 [![Writing technical content](https://wowchemy.com/uploads/readmes/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
 
@@ -71,11 +71,11 @@ Choose from one of the starter templates to easily get started:
 
 **Key features:**
 
-- **Page builder** - Create _anything_ with [**widgets**](https://wowchemy.com/docs/getting-started/page-builder/) and [**elements**](https://wowchemy.com/docs/content/writing-markdown-latex/)
+- **Page builder** - Create _anything_ with [**blocks**](https://university.wowchemy.com/getting-started/page-builder/) and [**elements**](https://university.wowchemy.com/reference/markdown/)
 - **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
-- **Create content** in [**Markdown**](https://wowchemy.com/docs/content/writing-markdown-latex/), [**Jupyter**](https://wowchemy.com/docs/import/jupyter/), or [**RStudio**](https://wowchemy.com/docs/getting-started/install-hugo-extended/)
-- **Plugin System** - Fully customizable [**color** and **font themes**](https://wowchemy.com/templates/)
-- **Display Code and Math** - Code highlighting and [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics) supported
+- **Create content** in [**Markdown**](https://university.wowchemy.com/reference/markdown/), [**Jupyter**](https://university.wowchemy.com/getting-started/cms/), or [**RStudio**](https://university.wowchemy.com/getting-started/cms/rstudio/)
+- **Plugin System** - Fully customizable [**color** and **font themes**](https://university.wowchemy.com/getting-started/customize/#appearance)
+- **Display Code and Math** - Code highlighting and [LaTeX math](https://university.wowchemy.com/reference/markdown/#math) supported
 - **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
 - **Beautiful Site** - Simple and refreshing one page design
 - **Industry-Leading SEO** - Help get your website found on search engines and social media
@@ -91,7 +91,7 @@ Choose from one of the starter templates to easily get started:
 
 Wowchemy comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the moon icon in the top right of one of the [Demos](https://wowchemy.com/templates/) to set your preferred mode!
 
-Choose a stunning theme for your site and [customize it](https://wowchemy.com/docs/getting-started/customization/#custom-theme) to your liking:
+Choose a stunning theme for your site and [customize it](https://university.wowchemy.com/getting-started/customize/#custom-theme) to your liking:
 
 [![Themes](./.github/media/themes.png)](https://wowchemy.com/templates/)
 
