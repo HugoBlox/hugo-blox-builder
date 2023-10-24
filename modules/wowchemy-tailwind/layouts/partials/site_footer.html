@@ -1,0 +1,39 @@
+<footer class="text-sm leading-6 mt-12 mb-4 text-slate-700 flex justify-center dark:text-slate-200">
+
+  {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
+
+  {{ if or (site.GetPage "/terms.md") (site.GetPage "/privacy.md") }}
+  <p>
+    {{ with site.GetPage "/privacy.md" }}
+      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
+    {{ end }}
+    {{ with site.GetPage "/terms.md" }}
+      {{ if site.GetPage "/privacy.md" }} &middot; {{ end }}
+      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
+    {{ end }}
+  </p>
+  {{ end }}
+
+  {{ with site.Params.footer.text }}
+  <p>
+    {{ . | markdownify | emojify }}
+  </p>
+  {{ end }}
+
+  <p>
+    {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
+    {{ $hide_published_with_footer := site.Params.power_ups.hide_published_with | default true }}
+    {{ if not (and $is_sponsor $hide_published_with_footer) }}
+      {{ $default := "Published with {wowchemy} — the free, {repo_link}open source{/repo_link} website builder that empowers creators." }}
+      {{ $i18n_published_with := i18n "published_with" | default $default }}
+      {{ if not (findRE "{wowchemy}" $i18n_published_with) }}
+        {{ warnf "Please attribute Wowchemy using `{wowchemy}` in the `published_with` text." }}
+        {{ $i18n_published_with = $default }}
+      {{ end }}
+      {{ $i18n_published_with = replace $i18n_published_with "{wowchemy}" "<a href=\"https://wowchemy.com/?utm_campaign=poweredby\" target=\"_blank\" rel=\"noopener\">Wowchemy</a>" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/wowchemy/wowchemy-hugo-themes\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{/repo_link}" "</a>" | safeHTML }}
+      {{ $i18n_published_with | markdownify | emojify | safeHTML }}
+    {{ end }}
+  </p>
+</footer>

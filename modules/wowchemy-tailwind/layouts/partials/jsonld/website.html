@@ -1,0 +1,14 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  {{- if site.Params.features.search.provider }}
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {{ printf "%s?q={search_term_string}" site.BaseURL }},
+    "query-input": "required name=search_term_string"
+  },
+  {{end -}}
+  "url": {{site.BaseURL}}
+}
+</script>

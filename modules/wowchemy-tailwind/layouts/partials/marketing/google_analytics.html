@@ -1,0 +1,42 @@
+{{ $ga := site.Params.marketing.analytics.google_analytics | default site.GoogleAnalytics | default "" }}
+
+{{ if hugo.IsProduction | and $ga }}
+
+{{ $gtag_config := cond site.Params.features.privacy_pack.enable "{ 'anonymize_ip': true }" "{}" }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{$ga}}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  // Send GA event.
+  }
+
+  gtag('js', new Date());
+  gtag('config', '{{$ga}}', {{$gtag_config|safeJS}});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  // Outbound link tracking.
+  document.addEventListener('click', onClickCallback, false);
+</script>
+{{ end }}

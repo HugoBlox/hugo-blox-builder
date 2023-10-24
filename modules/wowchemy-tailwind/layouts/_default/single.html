@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="flex flex-col justify-center">
+  <article class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert">
+    <h1 class="lg:text-6xl">{{ .Title }}</h1>
+
+    {{ $featured := partial "functions/get_featured_image.html" . }}
+    {{/* Featured image layout */}}
+    {{ if and $featured (not .Params.image.preview_only) }}
+    {{/* Fit image within max size. */}}
+    {{ $image := $featured }}
+
+    {{/* Determine image placement. */}}
+    {{ $placement := .Params.image.placement | default 1 }}{{/* Default to full column width. */}}
+    {{/* Fit image to container's max width */}}
+    {{ $image_container := "" }}
+    {{ if eq $placement 2}}
+    {{ $image_container = "container" }}
+    {{ $image = $featured.Fit "1200x2500" }}
+    {{else if eq $placement 3}}
+    {{ $image_container = "container-fluid" }}
+    {{ $image := $featured.Fit "2560x2560" }}
+    {{else}}
+    {{ $image_container = "article-container" }}
+    {{ $image = $featured.Fit "720x2500" }}
+    {{end}}
+    {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+    {{/* Featured image */}}
+    <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-4" style="max-width: {{$image.Width}}px; max-height: {{$image.Height}}px;">
+      <div style="position: relative">
+        <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" class="featured-image">
+        {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+      </div>
+    </div>
+    {{end}}
+
+    {{ .Content }}
+  </article>
+
+<div class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert mt-5">
+  {{ partial "page_footer" . }}
+</div>
+
+</div>
+{{ end }}

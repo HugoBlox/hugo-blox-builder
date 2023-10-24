@@ -1,0 +1,26 @@
+{{ if ne .Params.share false }}
+<div class="share-box">
+  <ul class="share">
+    {{ range where site.Data.page_sharer.buttons "enable" true }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+        {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{/* Utilise `urlquery` over `htmlEscape` to encode sharing URL */}}
+      {{/* See https://github.com/wowchemy/wowchemy-hugo-themes/pull/2726 */}}
+      {{ $link := replace .url "{url}" ($.Permalink | urlquery) }}
+      {{ $link = replace $link "{title}" ($.Title | urlquery) }}
+      {{/* Workaround `urlquery` encoding for mailto as `urlquery` encodes `+` as `%2B` and ` ` (space) as `+` */}}
+      {{ if eq (urls.Parse $link).Scheme "mailto" }}
+        {{ $link = replace $link "+" "%20" }}
+      {{ end }}
+      <li>
+        <a href="{{$link|safeURL}}" target="_blank" rel="noopener" class="share-btn-{{.id}}" aria-label="{{.icon}}">
+          <i class="{{$pack}} {{$pack_prefix}}-{{.icon}}"></i>
+        </a>
+      </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

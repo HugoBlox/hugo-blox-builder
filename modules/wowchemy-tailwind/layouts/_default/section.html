@@ -1,0 +1,38 @@
+{{ define "main" }}
+
+<div class="flex justify-center">
+  <article class="container prose prose-slate lg:prose-xl dark:prose-invert">
+    <h1 class="lg:text-6xl">{{ .Title }}</h1>
+    {{ .Content }}
+  </article>
+</div>
+
+<div class="container max-w-[65ch] mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden  my-5"><!--max-w-md md:max-w-2xl-->
+  {{ range .Pages.ByDate.Reverse }}
+  {{ $resource := partial "functions/get_featured_image.html" . }}
+  {{ $anchor := .Params.image.focal_point | default "Center" }}
+
+  <a href="{{ .RelPermalink }}">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0">
+      {{ with $resource }}
+      {{ $image := .Fill (printf "655x655 %s" $anchor) }}
+      {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+      <img class="h-48 w-full object-cover md:w-48" loading="lazy" src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ .Title | plainify }}">
+      {{end}}
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ .Title }}</div>
+      <p class="block mt-1 text-md leading-tight font-medium text-black dark:text-white">
+        {{ (.Params.summary | default .Summary) | plainify | htmlUnescape | chomp -}}
+      </p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400">
+              {{- .Date | time.Format (site.Params.dateFormat | default ":date_long") -}}
+      </p>
+    </div>
+  </div>
+  </a>
+  {{ end }}
+</div>
+
+{{ end }}

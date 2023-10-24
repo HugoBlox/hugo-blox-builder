@@ -1,0 +1,30 @@
+{{- $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": {{site.Params.marketing.seo.site_type | default site.Params.marketing.seo.site_type}},
+  "@id": {{site.BaseURL}},
+  "name": {{site.Params.marketing.seo.org_name | default site.Title}},
+  "logo": {{ partial "functions/get_logo_url" . }},
+  {{with $sharing_image}}"image": {{.Permalink}},{{end}}
+  {{ if (eq site.Params.marketing.seo.site_type "LocalBusiness") | and site.Params.marketing.seo.coordinates }}
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{site.Params.marketing.seo.coordinates.latitude}},
+    "longitude": {{site.Params.marketing.seo.coordinates.longitude}}
+  },
+  {{end}}
+  {{ with site.Params.marketing.seo.address }}
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ .street | default "" }},
+    "addressLocality": {{ .city | default "" }},
+    "addressRegion": {{ .region | default "" }},
+    "postalCode": {{ .postcode | default "" }},
+    "addressCountry": {{ .country_code | default .country | default "" }}
+  },
+  {{end}}
+  {{ with site.Params.marketing.seo.phone }}"telephone": {{.}},{{end}}
+  "url": {{site.BaseURL}}
+}
+</script>

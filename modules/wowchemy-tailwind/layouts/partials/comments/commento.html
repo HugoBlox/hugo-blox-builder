@@ -1,0 +1,3 @@
+<div id="commento"></div>
+{{ $url := (printf "%s/js/commento.js" (site.Params.features.comment.commento.url | default "https://cdn.commento.io")) }}
+<script src="{{$url}}" defer></script>

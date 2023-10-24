@@ -1,0 +1,292 @@
+{{ $scr := .Scratch }}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="generator" content="Wowchemy {{ site.Data.wowchemy.version }} for Hugo" />
+
+  {{/* EXTENSIBILITY HOOK: HEAD-START */}}
+  {{ partial "functions/get_hook" (dict "hook" "head-start" "context" .) }}
+
+  {{ if .Params.private }}
+    <meta name="robots" content="noindex" />
+  {{- end -}}
+
+  {{/* Attempt to load superuser. */}}
+  {{ $superuser_name := "" }}
+  {{ $superuser_username := "" }}
+  {{ $superuser_role := "" }}
+  {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
+    {{ $superuser_name = .Title }}
+    {{ $superuser_username = path.Base .File.Dir }}
+    {{ $superuser_role = .Params.role }}
+  {{ end }}
+  {{ $scr.Set "superuser_username" $superuser_username }}{{/* Set superuser globally for page_author.html. */}}
+
+  {{ with $superuser_name }}<meta name="author" content="{{ . }}" />{{ end }}
+
+  {{/* Generate page description. */}}
+  {{ $desc := "" }}
+  {{ if .Params.summary }}
+    {{ $desc = .Params.summary }}
+  {{ else if .Params.abstract }}
+    {{ $desc = .Params.abstract }}
+  {{ else if .IsPage }}
+    {{ $desc = .Summary }}
+  {{ else if site.Params.marketing.seo.description }}
+    {{ $desc = site.Params.marketing.seo.description }}
+  {{ else }}
+    {{ $desc = $superuser_role }}
+  {{ end }}
+  <meta name="description" content="{{ $desc }}" />
+
+  {{ range .Translations }}
+    <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
+  {{ end }}
+  <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
+
+  {{/* Style */}}
+  {{ if hugo.IsProduction }}
+    {{ $styles := resources.Get "dist/wc.css" }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{ else }}
+    {{ $options := dict "inlineImports" true }}
+    {{ $styles := resources.Get "css/styles.css" }}
+    {{ $styles = $styles | resources.PostCSS $options }}
+    {{ if  hugo.IsProduction  }}
+      {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+    {{ end }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{ end }}
+
+  <script>
+    /* Light/dark mode */
+    const defaultMode = 'system';
+
+    const setDarkMode = () => {
+      document.documentElement.classList.add("dark");
+      document.documentElement.style.colorScheme = "dark";
+    }
+    const setLightMode = () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.style.colorScheme = "light";
+    }
+
+    if ("wc-color-theme" in localStorage) {
+      localStorage.getItem("wc-color-theme") === "dark" ? setDarkMode() : setLightMode();
+    } else {
+      defaultMode === "dark" ? setDarkMode() : setLightMode();
+      if (defaultMode === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkMode() : setLightMode();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const defaultMode = 'system'
+      const themeToggleButtons = document.querySelectorAll(".theme-toggle");
+
+      // Check previous theme settings or system theme, and update current theme button appropriately
+      if (
+        localStorage.getItem("wc-color-theme") === "dark" ||
+        (!("wc-color-theme" in localStorage) &&
+          ((window.matchMedia("(prefers-color-scheme: dark)").matches && defaultMode === "system") || defaultMode === "dark"))
+      ) {
+        themeToggleButtons.forEach((el) => el.dataset.theme = "dark");
+      } else {
+        themeToggleButtons.forEach((el) => el.dataset.theme = "light");
+      }
+
+      // Add click event handler to the light/dark buttons
+      themeToggleButtons.forEach((el) => {
+        el.addEventListener("click", function () {
+          console.debug('Theme toggled');
+          if (localStorage.getItem("wc-color-theme")) {
+            if (localStorage.getItem("wc-color-theme") === "light") {
+              setDarkMode();
+              localStorage.setItem("wc-color-theme", "dark");
+            } else {
+              setLightMode();
+              localStorage.setItem("wc-color-theme", "light");
+            }
+          } else {
+            if (document.documentElement.classList.contains("dark")) {
+              setLightMode();
+              localStorage.setItem("wc-color-theme", "light");
+            } else {
+              setDarkMode();
+              localStorage.setItem("wc-color-theme", "dark");
+            }
+          }
+          el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+        });
+      });
+
+      // Listen for system color theme changes
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        if (defaultMode === "system" && !("wc-color-theme" in localStorage)) {
+          e.matches ? setDarkMode() : setLightMode();
+          themeToggleButtons.forEach((el) =>
+            el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light"
+          );
+        }
+      });
+    });
+
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Fix Hugo task list style
+      let checkboxes = document.querySelectorAll('li input[type=\'checkbox\'][disabled]');
+      checkboxes.forEach(e => {
+        e.parentElement.parentElement.classList.add('task-list');
+      });
+
+      // Fix Hugo missing <label> around checkbox and its text (fixes Lighthouse accessibility errors)
+      const liNodes = document.querySelectorAll('.task-list li');
+      liNodes.forEach(nodes => {
+        let textNodes = Array.from(nodes.childNodes).filter(node => node.nodeType === 3 && node.textContent.trim().length > 1);
+        if (textNodes.length > 0) {
+          const span = document.createElement('label');
+          textNodes[0].after(span);  // Use first text node as label
+          span.appendChild(nodes.querySelector('input[type=\'checkbox\']'));
+          span.appendChild(textNodes[0]);
+        }
+      });
+    });
+  </script>
+
+  {{/* Config LaTeX math rendering. */}}
+  {{ if or .Params.math site.Params.features.math.enable }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // Add support for inline math with `$...$`
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError: false
+        });
+      });
+    </script>
+  {{ end }}
+
+  {{/* Hugo Chroma Syntax Highlighter Initialization */}}
+  {{/* TODO: optimize to only include the Chroma CSS themes when the page has code blocks. */}}
+  {{ $hl_theme_light := site.Params.features.syntax_highlighter.theme_light | default "github-light" }}
+  {{ $hl_theme_dark := site.Params.features.syntax_highlighter.theme_dark | default "dracula" }}
+  {{ $hl_theme_light_path := printf "css/libs/chroma/%s.css" $hl_theme_light }}
+  {{ $hl_theme_dark_path := printf "css/libs/chroma/%s.css" $hl_theme_dark }}
+  {{ if not (fileExists (printf "assets/%s" $hl_theme_light_path)) | or (not (fileExists (printf "assets/%s" $hl_theme_dark_path))) }}
+    {{ errorf "Hugo Chroma themes %s.css and %s.css not found in `css/libs/chroma/`. See https://gohugo.io/commands/hugo_gen_chromastyles/" $hl_theme_light $hl_theme_dark }}
+  {{ else }}
+    {{ $hl_theme_light_css := resources.Get $hl_theme_light_path | minify }}
+    {{ $hl_theme_dark_css := resources.Get $hl_theme_dark_path | minify }}
+    <link rel="stylesheet" href="{{ $hl_theme_light_css.RelPermalink }}" title="hl-light" media="print" onload="this.media='all'" {{ if ne ($scr.Get "light") true }}disabled{{end}}>
+    <link rel="stylesheet" href="{{ $hl_theme_dark_css.RelPermalink }}" title="hl-dark" media="print" onload="this.media='all'" {{ if eq ($scr.Get "light") true }}disabled{{end}}>
+  {{ end }}
+
+  {{/* Marketing */}}
+  {{ with site.Params.marketing.verification.google }}
+    <meta name="google-site-verification" content="{{ . }}" />
+  {{- end -}}
+  {{ with site.Params.marketing.verification.baidu }}
+    <meta name="baidu-site-verification" content="{{ . }}" />
+  {{- end -}}
+  {{ with site.Params.marketing.verification.bing }}
+    <meta name="msvalidate.01" content="{{ . }}" />
+  {{- end -}}
+  {{ partial "marketing/google_analytics" . }}
+  {{ partial "marketing/google_tag_manager" . }}
+  {{ partial "marketing/microsoft_clarity" . }}
+  {{ partial "marketing/baidu_tongji" . }}
+
+  {{/* RSS Feed */}}
+  {{ with .OutputFormats.Get "RSS" }}
+    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}" />
+  {{ end }}
+
+  {{/* Progressive Web App (PWA) Icon */}}
+  <link rel="icon" type="image/png" href="{{ (partial "functions/get_site_icon" 32).RelPermalink }}" />
+  <link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_site_icon" 180).RelPermalink }}" />
+
+  <link rel="canonical" href="{{ .Permalink }}" />
+
+  {{/* Get page image for sharing. */}}
+  {{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
+  {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
+  {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
+  {{ $og_image := "" }}
+  {{ $twitter_card := "summary_large_image" }}
+  {{ if (and (eq .Kind "term") $avatar_image) }}
+    {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
+    {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}
+    {{ $twitter_card = "summary" }}
+  {{ else if $featured_image }}
+    {{ $og_image = $featured_image.Permalink }}
+  {{ else if $sharing_image }}
+    {{ $og_image = $sharing_image.Permalink }}
+  {{ else if $has_logo }}
+    {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
+    {{ $twitter_card = "summary" }}
+  {{ else }}
+    {{ $og_image = (partial "functions/get_site_icon" 512).Permalink }}
+    {{ $twitter_card = "summary" }}
+  {{ end }}
+  {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
+
+  {{ $title := "" }}
+  {{ with .Params.seo.title }}
+    {{ $title = replace . "{brand}" site.Title }}
+  {{ else }}
+    {{ $title = .Title | default site.Title }}
+    {{ if ne $title site.Title }}{{ $title = printf "%s | %s" $title site.Title }}{{ end }}
+  {{ end }}
+  <meta property="twitter:card" content="{{ $twitter_card }}" />
+  {{ with site.Params.marketing.seo.twitter }}
+    <meta property="twitter:site" content="@{{ . }}" />
+    <meta property="twitter:creator" content="@{{ . }}" />
+  {{ end }}
+  <meta property="og:site_name" content="{{ site.Title }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $desc }}" />
+  {{- with $og_image -}}
+    <meta property="og:image" content="{{ . }}" />
+    <meta property="twitter:image" content="{{ . }}" />
+  {{- end -}}
+  <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}" />
+  {{ if .IsPage }}
+    {{ if not .PublishDate.IsZero }}
+      <meta
+        property="article:published_time"
+        content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"
+      />
+    {{ else if not .Date.IsZero }}
+      <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+    {{ end }}
+    {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ else }}
+    {{ if not .Date.IsZero }}
+      <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+    {{ end }}
+  {{ end }}
+
+  {{ partial "jsonld/main" (dict "page" . "summary" $desc) }}
+
+  <title>{{$title}}</title>
+
+  {{/* EXTENSIBILITY HOOK: HEAD-END */}}
+  {{/* Deprecated custom_head hook */}}
+  {{ if templates.Exists "partials/custom_head" }}
+    {{ partial "custom_head" . }}
+  {{ end }}
+  {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
+</head>

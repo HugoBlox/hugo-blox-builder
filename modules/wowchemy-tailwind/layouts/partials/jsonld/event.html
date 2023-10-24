@@ -1,0 +1,47 @@
+{{ $page := .page }}
+{{ $summary := .summary }}
+{{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
+{{ $author := partial "functions/get_author_name" $page }}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{$page.Permalink}}
+  },
+  "name": {{$page.Title}},
+  {{ with $page.Params.location }}
+  "location": {
+    "@type": "Place",
+    "name": {{. | plainify}}{{if $page.Params.address}},
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{$page.Params.address.street | default ""}},
+      "addressLocality": {{$page.Params.address.city | default ""}},
+      "postalCode": {{$page.Params.address.postcode | default ""}},
+      "addressRegion": {{$page.Params.address.region | default ""}},
+      "addressCountry": {{$page.Params.address.country | default ""}}
+    }
+    {{end}}
+  },
+  {{end}}
+  {{ if $featured_image }}
+  "image": [
+    {{$featured_image.Permalink}}
+  ],
+  {{end}}
+  "startDate": {{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }},
+  {{with $page.Params.date_end}}
+  "endDate": {{ (time .).Format "2006-01-02T15:04:05Z07:00" }},
+  {{end}}
+  {{with $author}}
+  "performer": {
+    "@type": "Person",
+    "name": {{.}}
+  },
+  {{end}}
+  "description": {{$summary}}
+}
+</script>

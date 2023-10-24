@@ -1,0 +1,25 @@
+{{ $item := .item }}
+
+{{ $resource := partial "functions/get_featured_image.html" $item }}
+{{ $anchor := $item.Params.image.focal_point | default "Center" }}
+
+<a href="{{ $item.RelPermalink }}" class="mb-5">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0">
+      {{ with $resource }}
+        {{ $image := .Fill (printf "655x655 %s" $anchor) }}
+        {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+      <img class="h-48 w-full object-cover md:w-48" loading="lazy" src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $item.Title | plainify }}">
+      {{end}}
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ $item.Title }}</div>
+      <p class="block mt-1 text-md leading-tight font-medium text-black dark:text-white">
+        {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | chomp -}}
+      </p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400">
+        {{- $item.Date | time.Format (site.Params.locale.date_format | default ":date_long") -}}
+      </p>
+    </div>
+  </div>
+</a>

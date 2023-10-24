@@ -1,0 +1,29 @@
+{
+  "comments": {
+    "dependencies": {},
+    "devDependencies": {
+      "@tailwindcss/typography": "project",
+      "autoprefixer": "project",
+      "postcss": "project",
+      "postcss-cli": "project",
+      "postcss-purgecss": "project",
+      "tailwindcss": "project"
+    }
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.4",
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "postcss-cli": "^10.0.0",
+    "postcss-import": "^14.1.0",
+    "postcss-purgecss": "^2.0.3",
+    "tailwindcss": "^3.1.8"
+  },
+  "license": "MIT",
+  "name": "wowchemy-tailwind",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wowchemy/wowchemy-hugo-themes.git"
+  },
+  "version": "0.1.0"
+}

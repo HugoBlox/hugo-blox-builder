@@ -1,0 +1,72 @@
+/* Page layout to push footer to bottom of page */
+
+.page-wrapper {
+  /* Min height = viewport height - navbar height */
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+}
+
+.page-header,
+.page-footer {
+  flex-shrink: 0;
+}
+
+.page-body {
+  flex-grow: 1;
+}
+
+.article-header {
+  position: relative; /* Required for caption positioning */
+  clear: both;
+}
+
+.article-banner {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+
+  /*@include media-breakpoint-up(lg) {*/
+  /*  height: 310px; !* Increased height on desktop *!*/
+  /*}*/
+}
+
+.featured-image-wrapper {
+  position: relative;
+  padding-left: 0; /* Override container padding. */
+  padding-right: 0; /* Override container padding. */
+}
+
+.featured-image {
+  position: relative;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.article-header-caption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 2px 5px;
+  color: #fff;
+  font-size: 0.7em;
+  background: #000;
+  text-align: right;
+  z-index: 5;
+  opacity: 0.65;
+  border-radius: 5px 0 0;
+}
+
+@media (min-width: 64em) {
+  .article-header-caption {
+    padding: 5px 10px;
+  }
+}
+
+.article-header-caption a {
+  color: #fff;
+  text-decoration: none;
+}

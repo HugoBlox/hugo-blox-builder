@@ -1,0 +1,13 @@
+{{ $baidu_tongji := site.Params.marketing.analytics.baidu_tongji | default "" }}
+
+{{ if hugo.IsProduction | and $baidu_tongji }}
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?{{ $baidu_tongji }}";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+{{ end }}

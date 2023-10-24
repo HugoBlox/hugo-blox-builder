@@ -1,0 +1,19 @@
+{{/* Function to inject custom code into layouts without overriding files. */}}
+{{/* Input: hook folder name (str) */}}
+{{/* Output: loaded (bool) */}}
+
+{{ $loaded := false }}
+{{ $partial_dir := printf "hooks/%s/" .hook }}
+{{ $context := .context }}
+{{ $hook_dir_path := path.Join "layouts/partials" $partial_dir }}
+{{ if fileExists $hook_dir_path }}
+  {{ range os.ReadDir $hook_dir_path }}
+    {{ if not .IsDir }}
+      {{ $partial_path := path.Join $partial_dir .Name }}
+      {{ partial $partial_path $context }}
+      {{ $loaded = true }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{/* The return statement below is for debug purposes only and prevents the above partial(s) being included in the page */}}
+{{/* return $loaded */}}

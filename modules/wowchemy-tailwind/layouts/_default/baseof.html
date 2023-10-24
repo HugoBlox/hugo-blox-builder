@@ -1,0 +1,18 @@
+<!doctype html>
+{{ "<!-- This site was created with Wowchemy. https://www.wowchemy.com -->" | safeHTML }}
+{{ printf "<!-- Last Published: %s -->" (now | time.Format ":date_long") | safeHTML }}
+{{- $language_code := site.LanguageCode | default "en-us" -}}
+<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{end}}>
+  {{ partial "site_head" . }}
+  <body class="dark:bg-gray-800 dark:text-white-800 page-wrapper">
+    <div class="page-header">
+      {{ partial "navbar" . }}
+    </div>
+    <div class="page-body my-10">
+      {{ block "main" . }}{{ end }}
+    </div>
+    <div class="page-footer">
+      {{ partial "site_footer" . }}
+    </div>
+  </body>
+</html>

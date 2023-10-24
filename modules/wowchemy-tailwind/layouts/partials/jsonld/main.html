@@ -1,0 +1,23 @@
+{{ $page := .page }}
+{{ $summary := .summary }}
+{{ $site_type := site.Params.marketing.seo.site_type | default "Person" }}
+
+{{- if $page.IsHome -}}
+
+  {{ partialCached "jsonld/website.html" $page }}
+
+  {{ if ne $site_type "Person" }}
+    {{ partial "jsonld/business.html" $page }}
+  {{ end }}
+
+{{- else if $page.IsPage -}}
+
+  {{ if (eq $page.Type "post") | or (eq $page.Type "publication") | or (eq $page.Type "project") }}
+    {{ partial "jsonld/article.html" (dict "page" $page "summary" $summary) }}
+  {{ end }}
+
+  {{ if eq $page.Type "event" }}
+    {{ partial "jsonld/event.html" (dict "page" $page "summary" $summary) }}
+  {{ end }}
+
+{{- end }}
