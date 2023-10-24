@@ -35,8 +35,8 @@ jobs:
             - recursive: false
               args: [--frozen-lockfile]
 
-      - name: Install JS dependencies
-        run: rm -rf node_modules && pnpm install --frozen-lockfile
+#      - name: Install JS dependencies
+#        run: rm -rf node_modules && pnpm install --frozen-lockfile
 
       - name: Check for linting errors
         run: pnpm run lint:js  # TODO: also lint styles again once new rule errors resolved
