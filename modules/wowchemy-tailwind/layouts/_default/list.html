@@ -22,7 +22,7 @@
         {{end}}
       </div>
       <div class="p-8">
-        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ .Title }}</div>
+        <div class="uppercase tracking-wide text-sm text-indigo-700 dark:text-indigo-200 font-semibold">{{ .Title }}</div>
         <p class="block mt-1 text-md leading-tight font-medium text-black dark:text-white">
           {{ (.Params.summary | default .Summary) | plainify | htmlUnescape | chomp -}}
         </p>

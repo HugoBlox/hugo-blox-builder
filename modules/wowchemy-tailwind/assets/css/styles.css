@@ -1,6 +1,6 @@
 /* Import Tailwind */
 @import "./tailwind.css";
 
-/*!* Import Wowchemy components *!*/
+/*! Wowchemy Components | https://wowchemy.com */
 @import "./components/all.css";
 @import "./blocks/all.css";
