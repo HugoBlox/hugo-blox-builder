@@ -46,7 +46,7 @@
   <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
 
   {{/* Style */}}
-  {{ if hugo.IsProduction }}
+  {{ if fileExists "assets/dist/wc.css" }}
     {{ $styles := resources.Get "dist/wc.css" }}
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ else }}
