@@ -25,5 +25,8 @@
     "type": "git",
     "url": "https://github.com/wowchemy/wowchemy-hugo-themes.git"
   },
+  "scripts": {
+    "build:blog": "npx tailwindcss -i ./assets/css/styles.css -o ../../starters/blog/assets/dist/wc.css --minify"
+  },
   "version": "0.1.0"
 }

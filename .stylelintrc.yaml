@@ -1,20 +1,25 @@
-plugins:
-  - stylelint-scss
+# PREVIOUS PLUGINS - no longer needed now porting from Bootstrap to Tailwind
+#plugins:
+#  - stylelint-scss
 extends:
   - stylelint-config-standard
   - stylelint-config-prettier
-  - stylelint-config-standard-scss
-  - stylelint-config-prettier-scss
+# PREVIOUS EXTENDS - no longer needed now porting from Bootstrap to Tailwind
+#  - stylelint-config-standard-scss
+#  - stylelint-config-prettier-scss
 rules:
-  at-rule-no-unknown: null # Use SCSS "at" rules
-  scss/at-rule-no-unknown: true # Use SCSS "at" rules
-  no-descending-specificity: null # Todo: remove once investigated/resolved
-  color-function-notation: null # Todo: refactor code
-  alpha-value-notation: null # Todo: refactor code
-  number-max-precision: null # Todo: refactor code
+  comment-empty-line-before: null # Allow more compact comments
   property-no-vendor-prefix: null # Necessary unless postcss prefix
   value-no-vendor-prefix: null # Necessary unless postcss prefix
-  font-family-no-missing-generic-family-keyword:
-    - true
-    - ignoreFontFamilies:
-        - Font Awesome 5 Free
+  at-rule-no-unknown: null # Use PostCSS "at" rules
+# PREVIOUS RULES - no longer needed now porting from Bootstrap to Tailwind
+#  at-rule-no-unknown: null # Use SCSS "at" rules
+#  scss/at-rule-no-unknown: true # Use SCSS "at" rules
+#  no-descending-specificity: null # Todo: remove once investigated/resolved
+#  color-function-notation: null # Todo: refactor code
+#  alpha-value-notation: null # Todo: refactor code
+#  number-max-precision: null # Todo: refactor code
+#  font-family-no-missing-generic-family-keyword:
+#    - true
+#    - ignoreFontFamilies:
+#        - Font Awesome 5 Free

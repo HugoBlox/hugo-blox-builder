@@ -12,7 +12,6 @@
     "type": "git",
     "url": "git+https://github.com/wowchemy/wowchemy-hugo-themes.git"
   },
-  "main": "index.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "bootstrap": "^4.6.1",
@@ -37,11 +36,11 @@
     "view": "scripts/view-starter.sh",
     "view:local": "scripts/view-starter-dev.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "yarn run lint:js && yarn run lint:style",
+    "lint": "pnpm run lint:js && yarn run lint:style",
     "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
     "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
-    "lint:style": "stylelint '*/**/*.{css,scss}'",
-    "lint:style:fix": "stylelint '*/**/*.{css,scss}' --fix",
+    "lint:style": "stylelint 'modules/wowchemy-tailwind/**/*.css'",
+    "lint:style:fix": "stylelint 'modules/wowchemy-tailwind/**/*.css' --fix",
     "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
     "stylelint-conflict-check": "stylelint-config-prettier-check",
     "update:starter": "scripts/update-starter.sh",

@@ -29,10 +29,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install JS dependencies
-        run: rm -rf node_modules && yarn install --frozen-lockfile
+        run: rm -rf node_modules && pnpm install --frozen-lockfile
 
       - name: Check for linting errors
-        run: yarn run lint:js  # TODO: also lint styles again once new rule errors resolved
+        run: pnpm run lint:js  # TODO: also lint styles again once new rule errors resolved
 
 #  format:
 #    runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
   hugo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: true  # Fetch any Git submodules (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
