@@ -23,10 +23,17 @@ jobs:
           submodules: true  # Fetch any Git submodules (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          version: 8
+          run_install: |
+            - recursive: false
+              args: [--frozen-lockfile]
 
       - name: Install JS dependencies
         run: rm -rf node_modules && pnpm install --frozen-lockfile
