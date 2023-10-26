@@ -12,19 +12,46 @@
   {{ end }}
   {{ $avatar := ($author_page.Resources.ByType "image").GetMatch "*avatar*" }}
   {{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
-  <div class="media author-card content-widget-hr">
-    {{ if and site.Params.features.avatar.gravatar $author_page.Params.email }}
-      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="https://s.gravatar.com/avatar/{{ md5 $author_page.Params.email }}?s=200" alt="{{$author_page.Title}}">{{if $profile_url}}</a>{{end}}
-    {{ else if $avatar }}
-      {{ $avatar_image := $avatar.Fill "270x270 Center" }}
-      {{if $profile_url}}<a href="{{$profile_url}}">{{end}}<img class="avatar mr-3 {{if eq $avatar_shape "square"}}avatar-square{{else}}avatar-circle{{end}}" src="{{ $avatar_image.RelPermalink }}" alt="{{$author_page.Title}}">{{if $profile_url}}</a>{{end}}
+
+<div class="flex">
+  {{ if $avatar }}
+  {{ $authorImage := $avatar.Fill "192x192 Center" }}
+  <img
+    class="mr-4 h-24 w-24 {{if ne $avatar_shape "square"}}rounded-full{{end}}"
+    width="96"
+    height="96"
+    alt="{{$author_page.Title}}"
+  src="{{ $authorImage.RelPermalink }}"
+  loading="lazy"
+  />
+  {{ end }}
+  <div class="place-self-center">
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      {{ i18n "authors" }}
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      {{if $profile_url}}<a href="{{$profile_url}}" class="no-underline">{{end}}
+      {{$author_page.Title}}
+      {{if $profile_url}}</a>{{end}}
+    </div>
+
+    {{ with $author_page.Params.role }}
+    <div class="text-sm font-bold text-neutral-700 dark:text-neutral-300">
+    {{. | markdownify | emojify}}
+    </div>
+    {{end}}
+
+
+    {{ with $author_page.Params.bio }}
+    <div class="text-sm text-neutral-700 dark:text-neutral-300">{{ . | markdownify | emojify }}</div>
     {{ end }}
 
-    <div class="media-body">
-      <h5 class="card-title">{{if $profile_url}}<a href="{{$profile_url}}">{{end}}{{$author_page.Title}}{{if $profile_url}}</a>{{end}}</h5>
-      {{ with $author_page.Params.role }}<h6 class="card-subtitle">{{. | markdownify | emojify}}</h6>{{end}}
-      {{ with $author_page.Params.bio }}<p class="card-text">{{. | markdownify | emojify}}</p>{{end}}
+    <div class="text-2xl sm:text-lg pt-1">
+
       {{ partial "social_links" $author_page }}
+
     </div>
   </div>
-{{end}}{{/* Profile page block */}}
+</div>
+
+{{end}}{{/* End Check for Author Profile */}}
