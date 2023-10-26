@@ -15,7 +15,7 @@
       href="{{ $link | safeURL }}"
       {{ $target | safeHTMLAttr }}
       aria-label="{{ .icon | title }}"
-    >{{ partial "functions/get_icon" (dict "name" .icon "attributes" "height=\"1em\"") }}</a>
+    >{{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1em;\"") }}</a>
   {{ end }}
 </div>
 {{ end }}

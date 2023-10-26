@@ -1,0 +1,19 @@
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#toggle-list
+
+    Parameters
+    ----------
+    text :
+        Spoiler title.
+    class : optional
+        Additional class for <details> tag.
+    style : optional
+        Additional style for <details> tag.
+*/}}
+
+{{- $id := printf "spoiler-%d" .Ordinal -}}
+
+<details class="spoiler {{ .Get "class" }}" {{ with .Get "style" }}style="{{ . | safeCSS }}"{{ end }} id="{{$id}}">
+  <summary>{{ .Get "text" | markdownify | emojify }}</summary>
+  <p>{{ .Inner | markdownify | emojify }}</p>
+</details>

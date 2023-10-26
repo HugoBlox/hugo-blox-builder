@@ -1,0 +1,41 @@
+{{/* Audio Shortcode for Wowchemy. */}}
+{{/* Load audio from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
+{{/* Supports primarily MP3 and MP4. */}}
+
+{{/*
+    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#audio
+
+    Parameters
+    ----------
+    src :
+        Path to file or url for the audio file.
+        If a local file, first it is searched in the page directory, and then in `assets/media/` .
+    id : optional
+        Custom id "audio-{id}" to associate to the <audio> tag.
+*/}}
+
+{{ $destination := .Get "src" }}
+{{ $is_remote := strings.HasPrefix $destination "http" }}
+{{- $asset := "" -}}
+{{- if not $is_remote -}}
+  {{- $asset = (.Page.Resources.ByType "audio").GetMatch $destination -}}
+  {{- if not $asset -}}
+    {{- $asset = resources.Get (path.Join "media" $destination) -}}
+  {{- end -}}
+{{- end -}}
+
+{{ if $asset }}
+  {{ $destination = $asset.RelPermalink }}
+{{ else }}
+  {{ $destination = $destination | safeURL }}
+{{ end }}
+
+
+{{ $audio_type := strings.TrimPrefix "." (path.Ext $destination) | lower }}
+
+{{/* Set MP3 mime type to mpeg. */}}
+{{ $audio_type = replace $audio_type "mp3" "mpeg" }}
+
+<audio controls {{ with (.Get "id") }}id="audio-{{.|anchorize}}"{{end}}>
+  <source src="{{$destination}}" type="audio/{{$audio_type}}">
+</audio>

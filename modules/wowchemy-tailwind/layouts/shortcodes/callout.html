@@ -1,0 +1,28 @@
+{{/*
+    Docs: https://university.wowchemy.com/reference/markdown/#callouts
+
+    Parameters
+    ----------
+    #0 : optional, positional
+        Name of the icon to display in the callout component.
+        Default Wowchemy available options include "note" and "warning".
+        Otherwise, you can add your own icon to assets/media/icons/ and reference its name when calling the shortcode.
+*/}}
+{{ $icon := "information-circle" }}
+{{ with (.Get 0) }}
+  {{ if eq . "note" }}
+    {{ $icon = "information-circle" }}
+  {{ else if eq . "warning" }}
+    {{ $icon = "triangle-exclamation" }}
+  {{ else }}
+    {{ $icon = . }}
+  {{end}}
+{{end}}
+<div class="flex px-4 py-3 rounded-md bg-primary-100 dark:bg-primary-900">
+<span class="pr-3 pt-1 text-primary-400">
+  {{ partial "functions/get_icon" (dict "name" $icon "attributes" "height=\"24\"") }}
+</span>
+  <span class="dark:text-neutral-300">
+  {{- .Inner | markdownify | emojify -}}
+</span>
+</div>
