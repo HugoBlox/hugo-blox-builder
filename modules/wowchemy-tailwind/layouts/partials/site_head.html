@@ -283,6 +283,20 @@
 
   <title>{{$title}}</title>
 
+  {{/* Load font theme */}}
+  {{ $font_family := "Inter var" }}
+  {{ $font_file := "Inter.var.woff2" }}
+  {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
+  <style>
+    @font-face {
+      font-family: '{{$font_family}}';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url({{ $font.RelPermalink }}) format("woff2");
+    }
+  </style>
+
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
   {{/* Deprecated custom_head hook */}}
   {{ if templates.Exists "partials/custom_head" }}

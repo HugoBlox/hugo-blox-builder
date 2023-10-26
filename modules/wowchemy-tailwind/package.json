@@ -28,5 +28,6 @@
   "scripts": {
     "build:blog": "npx tailwindcss -i ./assets/css/styles.css -o ../../starters/blog/assets/dist/wc.css --minify"
   },
+  "browserslist": "last 2 versions",
   "version": "0.1.0"
 }

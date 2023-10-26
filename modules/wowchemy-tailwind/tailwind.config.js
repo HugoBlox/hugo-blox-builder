@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: ['./hugo_stats.json', './layouts/**/*.html'],
   plugins: [
@@ -6,5 +8,12 @@ module.exports = {
   safelist: [
     'task-list',
   ],
-  darkMode: ['class']
+  darkMode: ['class'],
+  theme: {
+    extend: {
+      fontFamily: {
+        'sans': ['"Inter var"', ...defaultTheme.fontFamily.sans],
+      },
+    }
+  }
 }
