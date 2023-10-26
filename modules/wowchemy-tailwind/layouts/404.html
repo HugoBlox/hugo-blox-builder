@@ -1,0 +1,24 @@
+{{- define "main" -}}
+<div class="flex flex-col justify-center">
+  <article class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert">
+    <h1 class="lg:text-6xl">{{ i18n "page_not_found" }}</h1>
+
+    {{/* Suggest recently published pages to the user. */}}
+
+    <p>{{ i18n "404_recommendations" }}</p>
+
+    {{ $query := where (where (where (where site.Pages.ByDate.Reverse "Title" "!=" "") "Kind" "in" (slice "page" "section")) "Params.private" "!=" true) "Permalink" "!=" "" }}
+    {{ $count := len $query }}
+    {{ if gt $count 0 }}
+    <h2>{{ i18n "user_profile_latest" }}</h2>
+    <ul>
+      {{ range first 10 $query }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{ end }}
+    </ul>
+    {{ end }}
+
+  </article>
+</div>
+
+{{- end -}}
