@@ -54,7 +54,7 @@
     {{ $styles := resources.Get "css/styles.css" }}
     {{ $styles = $styles | resources.PostCSS $options }}
     {{ if  hugo.IsProduction  }}
-      {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+      {{ $styles = $styles | minify | fingerprint "sha256" | resources.PostProcess }}
     {{ end }}
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ end }}
@@ -289,7 +289,7 @@
   {{ $js_academic := $js_academic | resources.Minify }}
   {{ $js_bundle := slice $js_bundle_head $js_academic | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
-    {{ $js_bundle = $js_bundle | fingerprint "md5" }}
+    {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}
   <script
     defer

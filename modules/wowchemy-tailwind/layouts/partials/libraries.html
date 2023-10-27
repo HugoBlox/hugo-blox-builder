@@ -3,7 +3,7 @@
   {{ $mermaid_js := resources.Get "dist/lib/mermaid/mermaid.min.js" }}
   {{ $mermaid_config_js := resources.Get "js/wowchemy-mermaid-config.js" }}
   {{ $mermaid_config_js = $mermaid_config_js | resources.Minify }}
-  {{ $mermaid_bundle := slice $mermaid_js $mermaid_config_js | resources.Concat "js/mermaid.bundle.js" | resources.Fingerprint }}
+  {{ $mermaid_bundle := slice $mermaid_js $mermaid_config_js | resources.Concat "js/mermaid.bundle.js" | resources.Fingerprint "sha256" }}
   <script defer src="{{ $mermaid_bundle.RelPermalink }}" integrity="{{ $mermaid_bundle.Data.Integrity }}"></script>
 {{ end }}
 
@@ -28,20 +28,20 @@
   };
 </script>
 {{ $markmap_js := resources.Get "dist/lib/markmap/index.js" }}
-{{ $markmap_js = $markmap_js | resources.Minify | resources.Fingerprint }}
+{{ $markmap_js = $markmap_js | resources.Minify | resources.Fingerprint "sha256" }}
 <script defer src="{{ $markmap_js.RelPermalink }}" integrity="{{ $markmap_js.Data.Integrity }}"></script>
 {{ end }}
 
 {{/* Katex */}}
 {{ if (.Page.HasShortcode "math") | or .Params.math | or site.Params.features.math.enable }}
   {{ $katex_css := resources.Get "dist/lib/katex/katex.min.css" }}
-  {{ $katex_css = $katex_css | resources.Fingerprint }}
+  {{ $katex_css = $katex_css | resources.Fingerprint "sha256" }}
   <link type="text/css" rel="stylesheet" href="{{ $katex_css.RelPermalink }}" integrity="{{ $katex_css.Data.Integrity }}" />
   {{ $katex_js := resources.Get "dist/lib/katex/katex.min.js" }}
-  {{ $katex_js = $katex_js | resources.Fingerprint }}
+  {{ $katex_js = $katex_js | resources.Fingerprint "sha256" }}
   <script defer src="{{ $katex_js.RelPermalink }}" integrity="{{ $katex_js.Data.Integrity }}"></script>
   {{ $katex_render_js := resources.Get "dist/lib/katex/auto-render.min.js" }}
-  {{ $katex_render_js = $katex_render_js | resources.Fingerprint }}
+  {{ $katex_render_js = $katex_render_js | resources.Fingerprint "sha256" }}
   <script defer src="{{ $katex_render_js.RelPermalink }}" integrity="{{ $katex_render_js.Data.Integrity }}" onload="renderMathInElement(document.body);"></script>
   {{ $katex_fonts := resources.Match "dist/lib/katex/fonts/*" }}
   {{ range $katex_fonts }}
@@ -52,6 +52,6 @@
 {{/* Plotly */}}
 {{ if .Page.HasShortcode "chart" }}
 {{ $plotly_js := resources.Get "dist/lib/plotly/plotly.min.js" }}
-{{ $plotly_js = $plotly_js | resources.Fingerprint }}
+{{ $plotly_js = $plotly_js | resources.Fingerprint "sha256" }}
 <script defer src="{{ $plotly_js.RelPermalink }}" integrity="{{ $plotly_js.Data.Integrity }}"></script>
 {{ end }}
