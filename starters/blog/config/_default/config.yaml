@@ -3,7 +3,7 @@
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-title: Minimal Hugo Blog Theme # Website name
+title: Scientific Blog (Hugo Theme) # Website name
 baseURL: 'https://example.com/' # Website URL
 
 ############################
@@ -15,7 +15,7 @@ cascade:
   - _target:
       path: /post/**
     pager: true
-    editable: true
+    editable: false
     reading_time: true
     commentable: true
     show_related: true
