@@ -2,7 +2,7 @@
 {{ if .Param $taxonomy }}
 <div class="flex justify-center">
   {{ range $index, $value := (.GetTerms $taxonomy) }}
-  <a class="no-underline bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+  <a class="no-underline bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 lg:px-5 lg:py-2 rounded dark:bg-blue-900 dark:text-blue-300" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
   {{ end }}
 </div>
 {{ end }}

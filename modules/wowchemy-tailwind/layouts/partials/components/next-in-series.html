@@ -1,0 +1,54 @@
+{{ if .Params.pager | default true }}
+  {{ if or .NextInSection .PrevInSection }}
+    {{ $next := .NextInSection }}
+    {{ $prev := .PrevInSection }}
+    {{ if .Params.invert_pager | default false }}
+      {{ $next = .PrevInSection }}
+      {{ $prev = .NextInSection }}
+    {{ end }}
+<div class="pt-1">
+  <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+  <div class="flex justify-between pt-2">
+    <span>
+      {{ if $prev }}
+        <a class="group flex no-underline" href="{{ $prev.RelPermalink }}">
+          <span
+            class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+          ><span class="ltr:inline rtl:hidden">&larr;</span></span>
+          <span class="flex flex-col">
+            <span
+              class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+            >{{ $prev.Title }}</span>
+            <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+              {{ if .Params.show_date | default true }}
+                {{ time.Format (site.Params.locale.date_format | default ":date_long") $prev.Date }}
+              {{ end }}
+            </span>
+          </span>
+        </a>
+      {{ end }}
+    </span>
+    <span>
+      {{ if $next }}
+        <a class="group flex text-right no-underline" href="{{ $next.RelPermalink }}">
+          <span class="flex flex-col">
+            <span
+              class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+            >{{ $next.Title }}</span
+            >
+            <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+              {{ if .Params.show_date | default true }}
+                {{ time.Format (site.Params.locale.date_format | default ":date_long") $next.Date }}
+              {{ end }}
+            </span>
+          </span>
+          <span
+            class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+          ><span class="ltr:inline">&rarr;</span></span>
+        </a>
+      {{ end }}
+    </span>
+  </div>
+</div>
+{{ end }}
+{{ end }}

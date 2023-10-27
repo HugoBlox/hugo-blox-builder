@@ -1,0 +1,5 @@
+<div class="markmap" style="height: {{.Attributes.height | default "500px"}};">
+{{/* No indentation before PRE and .Inner otherwise mindmap first item will be indented */}}
+<pre>{{- .Inner | safeHTML -}}</pre>
+</div>
+{{ .Page.Store.Set "has_markmap" true }}

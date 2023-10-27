@@ -1,0 +1,57 @@
+{{/* Mermaid */}}
+{{ if (.Page.Store.Get "has_mermaid") }}
+  {{ $mermaid_js := resources.Get "dist/lib/mermaid/mermaid.min.js" }}
+  {{ $mermaid_config_js := resources.Get "js/wowchemy-mermaid-config.js" }}
+  {{ $mermaid_config_js = $mermaid_config_js | resources.Minify }}
+  {{ $mermaid_bundle := slice $mermaid_js $mermaid_config_js | resources.Concat "js/mermaid.bundle.js" | resources.Fingerprint }}
+  <script defer src="{{ $mermaid_bundle.RelPermalink }}" integrity="{{ $mermaid_bundle.Data.Integrity }}"></script>
+{{ end }}
+
+{{/* Markmap */}}
+{{ if (.Page.Store.Get "has_markmap") }}
+<style>
+  .markmap > svg {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<script>
+  window.markmap = {
+    autoLoader: {
+      manual: false,
+      onReady() {
+        const { autoLoader, builtInPlugins } = window.markmap;
+        // Disable Prism highlighting plugin as it conflicts and attempts to re-render code blocks outside of Markmap.
+        autoLoader.transformPlugins = builtInPlugins.filter(plugin => plugin.name !== 'prism');
+      },
+    },
+  };
+</script>
+{{ $markmap_js := resources.Get "dist/lib/markmap/index.js" }}
+{{ $markmap_js = $markmap_js | resources.Minify | resources.Fingerprint }}
+<script defer src="{{ $markmap_js.RelPermalink }}" integrity="{{ $markmap_js.Data.Integrity }}"></script>
+{{ end }}
+
+{{/* Katex */}}
+{{ if (.Page.HasShortcode "math") | or .Params.math | or site.Params.features.math.enable }}
+  {{ $katex_css := resources.Get "dist/lib/katex/katex.min.css" }}
+  {{ $katex_css = $katex_css | resources.Fingerprint }}
+  <link type="text/css" rel="stylesheet" href="{{ $katex_css.RelPermalink }}" integrity="{{ $katex_css.Data.Integrity }}" />
+  {{ $katex_js := resources.Get "dist/lib/katex/katex.min.js" }}
+  {{ $katex_js = $katex_js | resources.Fingerprint }}
+  <script defer src="{{ $katex_js.RelPermalink }}" integrity="{{ $katex_js.Data.Integrity }}"></script>
+  {{ $katex_render_js := resources.Get "dist/lib/katex/auto-render.min.js" }}
+  {{ $katex_render_js = $katex_render_js | resources.Fingerprint }}
+  <script defer src="{{ $katex_render_js.RelPermalink }}" integrity="{{ $katex_render_js.Data.Integrity }}" onload="renderMathInElement(document.body);"></script>
+  {{ $katex_fonts := resources.Match "dist/lib/katex/fonts/*" }}
+  {{ range $katex_fonts }}
+    {{ .Publish }}
+  {{ end }}
+{{ end }}
+
+{{/* Plotly */}}
+{{ if .Page.HasShortcode "chart" }}
+{{ $plotly_js := resources.Get "dist/lib/plotly/plotly.min.js" }}
+{{ $plotly_js = $plotly_js | resources.Fingerprint }}
+<script defer src="{{ $plotly_js.RelPermalink }}" integrity="{{ $plotly_js.Data.Integrity }}"></script>
+{{ end }}

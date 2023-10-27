@@ -37,6 +37,18 @@ module.exports = {
           800: "rgba(var(--color-primary-800), <alpha-value>)",
           900: "rgba(var(--color-primary-900), <alpha-value>)",
         },
+        secondary: {
+          50: "rgba(var(--color-secondary-50), <alpha-value>)",
+          100: "rgba(var(--color-secondary-100), <alpha-value>)",
+          200: "rgba(var(--color-secondary-200), <alpha-value>)",
+          300: "rgba(var(--color-secondary-300), <alpha-value>)",
+          400: "rgba(var(--color-secondary-400), <alpha-value>)",
+          500: "rgba(var(--color-secondary-500), <alpha-value>)",
+          600: "rgba(var(--color-secondary-600), <alpha-value>)",
+          700: "rgba(var(--color-secondary-700), <alpha-value>)",
+          800: "rgba(var(--color-secondary-800), <alpha-value>)",
+          900: "rgba(var(--color-secondary-900), <alpha-value>)",
+        },
       },
       fontFamily: {
         'sans': ['"Inter var"', ...defaultTheme.fontFamily.sans],

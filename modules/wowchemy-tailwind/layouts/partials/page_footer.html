@@ -1,13 +1,9 @@
-{{ partial "page_edit" . }}
-{{ partial "tags" . }}
-{{/* partial "components/page_sharer" . */}}
-{{ partial "page_author" . }}
-{{ partial "comments" . }}
-
-{{ if .Params.pager }}
-<div class="article-widget">
-  {{/* partial "components/pager" . */}}
+<div class="max-w-prose print:hidden">
+  {{ partial "page_edit" . }}
+  {{ partial "tags" . }}
+  {{/* partial "components/page_sharer" . */}}
+  {{ partial "page_author" . }}
+  {{ partial "components/next-in-series" . }}
+  {{/* partial "page_related" . */}}
+  {{ partial "comments" . }}
 </div>
-{{ end }}
-
-{{/* partial "page_related" . */}}

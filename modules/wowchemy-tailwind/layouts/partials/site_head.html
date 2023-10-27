@@ -156,27 +156,6 @@
     });
   </script>
 
-  {{/* Config LaTeX math rendering. */}}
-  {{ if or .Params.math site.Params.features.math.enable }}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous" media="print" onload="this.media='all'">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        renderMathInElement(document.body, {
-          // Add support for inline math with `$...$`
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-            {left: '\\(', right: '\\)', display: false},
-            {left: '\\[', right: '\\]', display: true}
-          ],
-          throwOnError: false
-        });
-      });
-    </script>
-  {{ end }}
-
   {{/* Hugo Chroma Syntax Highlighter Initialization */}}
   {{/* TODO: optimize to only include the Chroma CSS themes when the page has code blocks. */}}
   {{ $hl_theme_light := site.Params.features.syntax_highlighter.theme_light | default "github-light" }}
@@ -296,6 +275,27 @@
       src: url({{ $font.RelPermalink }}) format("woff2");
     }
   </style>
+
+  {{/* Load Third-Party Libraries */}}
+  {{ partial "libraries.html" . }}
+
+  {{ $js_license := printf "/*! Wowchemy Tailwind UI v%s | https://wowchemy.com/ */\n" site.Data.wowchemy.version }}
+  {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
+  {{ $js_license := $js_license | printf "%s/*! License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */\n" }}
+  {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
+  {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
+  {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}
+  {{ $js_academic := resources.Get "js/wowchemy-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
+  {{ $js_academic := $js_academic | resources.Minify }}
+  {{ $js_bundle := slice $js_bundle_head $js_academic | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
+  {{- if hugo.IsProduction -}}
+    {{ $js_bundle = $js_bundle | fingerprint "md5" }}
+  {{- end -}}
+  <script
+    defer
+    src="{{ $js_bundle.RelPermalink }}"
+    integrity="{{ $js_bundle.Data.Integrity }}"
+  ></script>
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
   {{/* Deprecated custom_head hook */}}
