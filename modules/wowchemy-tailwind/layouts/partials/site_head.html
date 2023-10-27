@@ -276,6 +276,9 @@
     }
   </style>
 
+  {{/* Init prior to auto-chunking/bundling scripts due to Hugo concurrency issues */}}
+  {{- partialCached "init.html" . -}}
+
   {{/* Load Third-Party Libraries */}}
   {{ partial "libraries.html" . }}
 

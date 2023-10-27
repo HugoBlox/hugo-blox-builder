@@ -1,0 +1,5 @@
+{{/* Workaround Hugo concurrency issues (e.g. not detecting Page.Store variables) */}}
+{{/* https://discourse.gohugo.io/t/persisting-data-across-the-build-of-a-site/41114/6 */}}
+{{- range site.AllPages }}
+  {{- $noop := .Content }}
+{{- end -}}
