@@ -2,3 +2,4 @@
 **/_vendor/
 **/vendor/
 public/
+**/assets/dist/lib/**
