@@ -29,7 +29,7 @@ jobs:
             split_repository: 'starter-hugo-portfolio-theme'
           - local_path: 'course'
             split_repository: 'starter-hugo-online-course'
-          - local_path: 'minimal'
+          - local_path: 'link-in-bio'
             split_repository: 'hugo-link-in-bio-theme'
           - local_path: 'research-group'
             split_repository: 'starter-hugo-research-group'

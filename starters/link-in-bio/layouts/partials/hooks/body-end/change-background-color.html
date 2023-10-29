@@ -1,0 +1,11 @@
+<script>
+  let bg = document.getElementById('page-bg');
+  bg.style.setProperty('will-change', 'filter', '');
+  let hue = 0;
+  setInterval(
+    function () {
+      hue = (hue + 1) % 360.;
+      // For dark mode, append: invert(1) saturate(2)
+      bg.style.setProperty('filter', 'hue-rotate(' + hue + 'deg)', '');
+    }, (5000 / 360.));
+</script>
