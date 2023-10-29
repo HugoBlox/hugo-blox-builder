@@ -60,81 +60,33 @@
   {{ end }}
 
   <script>
-    /* Light/dark mode */
-    const defaultMode = 'system';
+    /* Wowchemy JS Global Init */
+    window.wowchemy = {
+       defaultTheme: document.documentElement.dataset.wcThemeDefault,
+       setDarkTheme: () => {
+        document.documentElement.classList.add("dark");
+        document.documentElement.style.colorScheme = "dark";
+      },
+       setLightTheme: () => {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.style.colorScheme = "light";
+      }
+    }
 
-    const setDarkMode = () => {
-      document.documentElement.classList.add("dark");
-      document.documentElement.style.colorScheme = "dark";
-    }
-    const setLightMode = () => {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.style.colorScheme = "light";
-    }
+    console.debug(`Default Wowchemy theme is ${window.wowchemy.defaultTheme}`);
 
     if ("wc-color-theme" in localStorage) {
-      localStorage.getItem("wc-color-theme") === "dark" ? setDarkMode() : setLightMode();
+      localStorage.getItem("wc-color-theme") === "dark" ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
     } else {
-      defaultMode === "dark" ? setDarkMode() : setLightMode();
-      if (defaultMode === "system") {
-        window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkMode() : setLightMode();
+      window.wowchemy.defaultTheme === "dark" ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+      if (window.wowchemy.defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
       }
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const defaultMode = 'system'
-      const themeToggleButtons = document.querySelectorAll(".theme-toggle");
-
-      // Check previous theme settings or system theme, and update current theme button appropriately
-      if (
-        localStorage.getItem("wc-color-theme") === "dark" ||
-        (!("wc-color-theme" in localStorage) &&
-          ((window.matchMedia("(prefers-color-scheme: dark)").matches && defaultMode === "system") || defaultMode === "dark"))
-      ) {
-        themeToggleButtons.forEach((el) => el.dataset.theme = "dark");
-      } else {
-        themeToggleButtons.forEach((el) => el.dataset.theme = "light");
-      }
-
-      // Add click event handler to the light/dark buttons
-      themeToggleButtons.forEach((el) => {
-        el.addEventListener("click", function () {
-          console.debug('Theme toggled');
-          if (localStorage.getItem("wc-color-theme")) {
-            if (localStorage.getItem("wc-color-theme") === "light") {
-              setDarkMode();
-              localStorage.setItem("wc-color-theme", "dark");
-            } else {
-              setLightMode();
-              localStorage.setItem("wc-color-theme", "light");
-            }
-          } else {
-            if (document.documentElement.classList.contains("dark")) {
-              setLightMode();
-              localStorage.setItem("wc-color-theme", "light");
-            } else {
-              setDarkMode();
-              localStorage.setItem("wc-color-theme", "dark");
-            }
-          }
-          el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
-        });
-      });
-
-      // Listen for system color theme changes
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-        if (defaultMode === "system" && !("wc-color-theme" in localStorage)) {
-          e.matches ? setDarkMode() : setLightMode();
-          themeToggleButtons.forEach((el) =>
-            el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light"
-          );
-        }
-      });
-    });
-
   </script>
 
   <script>
+    // Apply Hugo style fixes
     document.addEventListener('DOMContentLoaded', function () {
       // Fix Hugo task list style
       let checkboxes = document.querySelectorAll('li input[type=\'checkbox\'][disabled]');
@@ -276,6 +228,26 @@
     }
   </style>
 
+  {{ if .Params.design.background.image.filename }}
+    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
+    {{ $bg_img := resources.Get (printf "media/%s" .Params.design.background.image.filename) }}
+    {{ if $bg_img }}
+      {{/* Exception for SVG as Hugo doesn't yet support image processing on SVG. */}}
+      {{ if ne $bg_img.MediaType.SubType "svg" }}
+        {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
+      {{ end }}
+      <style>
+        #page-bg {
+         background-image: url('{{$bg_img.Permalink}}');
+         background-position: center;
+         background-size: cover;
+        }
+      </style>
+      {{ else }}
+        {{ errorf "Couldn't find page background `%s` in the `assets/media/` folder - please add it." .Params.design.background.image.filename }}
+      {{ end }}
+  {{ end }}
+
   {{/* Init prior to auto-chunking/bundling scripts due to Hugo concurrency issues */}}
   {{- partialCached "init.html" . -}}
 
@@ -290,7 +262,8 @@
   {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}
   {{ $js_academic := resources.Get "js/wowchemy-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
   {{ $js_academic := $js_academic | resources.Minify }}
-  {{ $js_bundle := slice $js_bundle_head $js_academic | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
+  {{- $js_theme := resources.Get "js/wowchemy-theme.js" | resources.Minify -}}
+  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}
@@ -301,9 +274,5 @@
   ></script>
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
-  {{/* Deprecated custom_head hook */}}
-  {{ if templates.Exists "partials/custom_head" }}
-    {{ partial "custom_head" . }}
-  {{ end }}
   {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
 </head>

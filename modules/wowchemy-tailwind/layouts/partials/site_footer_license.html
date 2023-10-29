@@ -1,0 +1,53 @@
+{{/* Display copyright license. */}}
+
+{{ $copyright_license := .Params.copyright.license | default site.Params.footer.copyright.license }}
+{{ $notice := .Params.copyright.notice | default site.Params.footer.copyright.notice }}
+
+{{ if ($copyright_license.enable | default false) }}
+
+  {{ $allow_commercial := $copyright_license.allow_commercial | default false }}
+  {{ $allow_derivatives := $copyright_license.allow_derivatives | default false }}
+  {{ $share_alike := $copyright_license.share_alike | default true }}
+
+  {{ $cc_code := "by" }}
+  {{ if not $allow_commercial }}
+    {{ $cc_code = printf "%s-nc" $cc_code }}
+  {{end}}
+  {{ if and $allow_derivatives $share_alike }}
+    {{ $cc_code = printf "%s-sa" $cc_code }}
+  {{ else if not $allow_derivatives }}
+    {{ $cc_code = printf "%s-nd" $cc_code }}
+  {{end}}
+
+  {{ $license_url := printf "https://creativecommons.org/licenses/%s/4.0" ($cc_code | urlize) }}
+
+  {{ with $notice }}
+  <p class="powered-by text-center">
+    {{ replace (replace . "{year}" now.Year) "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) | markdownify }}
+  </p>
+  {{ end }}
+
+  <p class="powered-by footer-license-icons">
+    <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
+      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+      {{ if not $allow_commercial }}
+        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+      {{end}}
+      {{ if and $allow_derivatives $share_alike }}
+        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+      {{ else if not $allow_derivatives }}
+        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+      {{end}}
+    </a>
+  </p>
+
+{{ else }}
+
+  {{ with $notice }}
+  <p class="powered-by text-center">
+    {{ replace . "{year}" now.Year | markdownify }}
+  </p>
+  {{ end }}
+
+{{ end }}

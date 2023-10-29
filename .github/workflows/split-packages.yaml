@@ -30,7 +30,7 @@ jobs:
           - local_path: 'course'
             split_repository: 'starter-hugo-online-course'
           - local_path: 'minimal'
-            split_repository: 'hugo-minimal-theme'
+            split_repository: 'hugo-link-in-bio-theme'
           - local_path: 'research-group'
             split_repository: 'starter-hugo-research-group'
           - local_path: 'second-brain'

@@ -1,0 +1,26 @@
+{{/* Wowchemy Blocks: Buttons */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+<div class="flex items-center flex-col mx-auto w-full justify-center mt-4 px-8 pb-5">
+
+{{ range $index, $item := $block.content.buttons }}
+  <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" class="flex items-center p-1 w-full rounded-md hover:scale-105 transition-all bg-gray-100 mb-3 max-w-3xl">
+  <div class="flex text-center w-full">
+    <div class="w-10 h-10 text-gray-700">
+      {{ with .icon }}
+        {{ partial "functions/get_icon" (dict "name" . "attributes" "height=\"40\" width=\"40\" class=\"rounded-sm\"") }}
+      {{ end }}
+    </div>
+    <div class="flex justify-center items-center font-semibold w-full text-gray-700 -ml-10">
+      {{ .title | markdownify | emojify }}
+    </div>
+    </div>
+  </a>
+{{end}}
+
+</div>

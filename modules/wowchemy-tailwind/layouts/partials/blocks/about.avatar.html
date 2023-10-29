@@ -71,7 +71,7 @@
     <li>
       <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}"
          {{ with .label }} data-toggle="tooltip" data-placement="top" title="{{.}}"{{ end }}>
-        {{ partial "functions/get_icon" (dict "name" .icon "attributes" "height=1.5rem")  }}
+        {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1.5rem;\"")  }}
       </a>
     </li>
     {{ end }}

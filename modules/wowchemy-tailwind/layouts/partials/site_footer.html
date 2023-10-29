@@ -1,26 +1,16 @@
-<footer class="text-sm leading-6 mt-12 mb-4 text-slate-700 flex justify-center dark:text-slate-200">
+<footer class="container mx-auto flex flex-col justify-items-center text-sm leading-6 mt-12 mb-4 text-slate-700 dark:text-slate-200">
 
   {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
 
-  {{ if or (site.GetPage "/terms.md") (site.GetPage "/privacy.md") }}
-  <p>
-    {{ with site.GetPage "/privacy.md" }}
-      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
-    {{ end }}
-    {{ with site.GetPage "/terms.md" }}
-      {{ if site.GetPage "/privacy.md" }} &middot; {{ end }}
-      {{ printf "<a href=\"%s\">%s</a>" .RelPermalink .Title | safeHTML }}
-    {{ end }}
-  </p>
+  {{/* Load footer block */}}
+  {{ $footer_section_name := site.Params.footer.block | default "minimal" }}
+  {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
+  {{ if not (templates.Exists (printf "partials/%s" $footer_section_path)) }}
+    {{ errorf "Check your `params.yaml`. Cannot find footer block at `layouts/partials/%s`" $footer_section_path }}
   {{ end }}
+  {{ partial $footer_section_path . }}
 
-  {{ with site.Params.footer.text }}
-  <p>
-    {{ . | markdownify | emojify }}
-  </p>
-  {{ end }}
-
-  <p>
+  <p class="powered-by text-center">
     {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
     {{ $hide_published_with_footer := site.Params.power_ups.hide_published_with | default true }}
     {{ if not (and $is_sponsor $hide_published_with_footer) }}
@@ -33,7 +23,8 @@
       {{ $i18n_published_with = replace $i18n_published_with "{wowchemy}" "<a href=\"https://wowchemy.com/?utm_campaign=poweredby\" target=\"_blank\" rel=\"noopener\">Wowchemy</a>" | safeHTML }}
       {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/wowchemy/wowchemy-hugo-themes\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
       {{ $i18n_published_with = replace $i18n_published_with "{/repo_link}" "</a>" | safeHTML }}
-      {{ $i18n_published_with | markdownify | emojify | safeHTML }}
+      {{ $i18n_published_with | replaceRE "{year}" now.Year | markdownify | emojify | safeHTML }}
     {{ end }}
   </p>
+
 </footer>
