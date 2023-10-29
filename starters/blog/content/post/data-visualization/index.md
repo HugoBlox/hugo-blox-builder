@@ -28,7 +28,7 @@ You might also find the [Plotly JSON Editor](http://plotly-json-editor.getforge.
 
 ## Diagrams
 
-Wowchemy supports a Markdown extension for diagrams. You can enable this feature by toggling the `diagram` option in your `config/_default/params.toml` file or by adding `diagram: true` to your page front matter.
+Wowchemy supports the _Mermaid_ Markdown extension for diagrams.
 
 An example **flowchart**:
 

@@ -3,8 +3,11 @@
 # Documentation: https://wowchemy.com/docs/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-# SEO
+# Appearance
+appearance:
+  theme_default: system
 
+# SEO
 marketing:
   seo:
     site_type: Person
@@ -19,6 +22,12 @@ marketing:
     google: ''
     baidu: ''
 
+# Site header
+header:
+  navbar:
+    enable: true
+
+# Site footer
 footer:
   copyright:
     notice: '© {year} Me. This work is licensed under {license}'
@@ -29,13 +38,11 @@ footer:
       allow_commercial: false
 
 # Localization
-
 locale:
   date_format: 'Jan 2, 2006'
   time_format: '3:04 PM'
 
 # Site features
-
 features:
   syntax_highlighter:
     theme_light: github-light

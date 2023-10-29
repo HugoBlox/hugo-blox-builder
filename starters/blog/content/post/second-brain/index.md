@@ -19,13 +19,13 @@ Use it as your second brain, either publicly sharing your knowledge with your pe
 
 ## Mindmaps
 
-Wowchemy supports the _markmap_ Markdown extension for mindmaps.
+Wowchemy supports a Markdown extension for mindmaps.
 
 With this open format, can even edit your mindmaps in other popular tools such as Obsidian.
 
-Simply insert a Markdown `markmap` code block and optionally set the height of the mindmap as shown in the example below.
+Simply insert a Markdown code block labelled as `markmap` and optionally set the height of the mindmap as shown in the example below.
 
-A simple mindmap defined as a Markdown list:
+Mindmaps can be created by simply writing the items as a Markdown list within the `markmap` code block, indenting each item to create as many sub-levels as you need:
 
 <div class="highlight">
 <pre class="chroma">
@@ -51,7 +51,7 @@ renders as
   - wowchemy-plugins-reveal
 ```
 
-A more advanced mindmap with formatting, code blocks, and math:
+Anh here's a more advanced mindmap with formatting, code blocks, and math:
 
 <div class="highlight">
 <pre class="chroma">

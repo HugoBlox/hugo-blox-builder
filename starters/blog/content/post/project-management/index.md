@@ -15,9 +15,9 @@ Easily manage your projects - create ideation mind maps, Gantt charts, todo list
 
 Wowchemy supports a Markdown extension for mindmaps.
 
-Simply insert a Markdown `markmap` code block and optionally set the height of the mindmap as shown in the example below.
+Simply insert a Markdown code block labelled as `markmap` and optionally set the height of the mindmap as shown in the example below.
 
-A simple mindmap defined as a Markdown list:
+Mindmaps can be created by simply writing the items as a Markdown list within the `markmap` code block, indenting each item to create as many sub-levels as you need:
 
 <div class="highlight">
 <pre class="chroma">
@@ -45,7 +45,7 @@ renders as
 
 ## Diagrams
 
-Wowchemy supports a Markdown extension for diagrams. You can enable this feature by toggling the `diagram` option in your `config/_default/params.toml` file or by adding `diagram: true` to your page front matter.
+Wowchemy supports the _Mermaid_ Markdown extension for diagrams.
 
 An example **Gantt diagram**:
 

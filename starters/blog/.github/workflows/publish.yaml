@@ -1,5 +1,8 @@
 name: Deploy Wowchemy website to GitHub Pages
 
+env:
+  WC_HUGO_VERSION: '0.119.0'
+
 on:
   # Trigger the workflow every time you push to the `main` branch
   push:
@@ -31,18 +34,22 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.119.0'
+          hugo-version: ${{ env.WC_HUGO_VERSION }}
           extended: true
       - uses: actions/cache@v3
         with:
-          path: /home/runner/.cache/hugo_cache # Cache path for Hugo v0.116.0+
-          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
+          path: /tmp/hugo_cache_runner/
+          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.mod') }}
           restore-keys: |
             ${{ runner.os }}-hugomod-
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
         run: |
+          echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
           hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
