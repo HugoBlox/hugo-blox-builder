@@ -1,0 +1,20 @@
+{{/* Wowchemy Blocks: Markdown */}}
+{{/* Documentation: https://wowchemy.com/blocks/ */}}
+{{/* License: https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $text := $block.content.text | emojify | $page.RenderString }}
+
+<div class="flex flex-col justify-center">
+  <article class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert">
+
+    {{ with $block.content.title }}
+    <h2>{{ . }}</h2>
+    {{end}}
+
+    {{ $text }}
+
+  </article>
+</div>

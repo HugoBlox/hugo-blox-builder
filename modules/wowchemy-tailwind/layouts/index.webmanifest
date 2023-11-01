@@ -1,0 +1,20 @@
+{{- $scr := .Scratch -}}
+{{- $theme_color := "#fff" -}}
+{
+  "name": "{{site.Title}}",
+  "short_name": "{{site.Title}}",
+  "lang": "{{ site.LanguageCode | default "en-us" }}",
+  "theme_color": "{{ $theme_color }}",
+  "background_color": "{{ $theme_color }}",
+  "icons": [{
+    "src": "{{ (partial "functions/get_site_icon" 192).RelPermalink }}",
+    "sizes": "192x192",
+    "type": "image/png"
+    }, {
+    "src": "{{ (partial "functions/get_site_icon" 512).RelPermalink }}",
+    "sizes": "512x512",
+    "type": "image/png"
+     }],
+  "display": "standalone",
+  "start_url": "{{ site.Home.RelPermalink }}?utm_source=web_app_manifest"
+}
