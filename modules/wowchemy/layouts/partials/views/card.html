@@ -41,7 +41,7 @@
     {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
   {{ end }}
 
-  {{ $resource := partial "functions/get_featured_image.html" $item }}
+  {{ $resource := partial "wowchemy-core/functions/get_featured_image.html" $item }}
   {{ $anchor := $item.Params.image.focal_point | default "Smart" }}
   {{ with $resource }}
     {{ $image := .Fill (printf "808x455 %s" $anchor) }}

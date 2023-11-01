@@ -10,7 +10,7 @@
   {{ end }}
 
   {{/* EXTENSIBILITY HOOK: HEAD-START */}}
-  {{ partial "functions/get_hook" (dict "hook" "head-start" "context" .) }}
+  {{ partial "wowchemy-core/functions/get_hook" (dict "hook" "head-start" "context" .) }}
 
   {{/* Parse theme and font */}}
   {{ partial "functions/parse_theme" . }}
@@ -210,7 +210,7 @@
 
   {{ partial "cookie_consent" . }}
 
-  {{ $title := partial "functions/get_page_title" . }}
+  {{ $title := partial "wowchemy-core/functions/get_page_title" . }}
   <title>{{$title}}</title>
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
@@ -218,5 +218,5 @@
   {{ if templates.Exists "partials/custom_head.html" }}
     {{ partial "custom_head" . }}
   {{ end }}
-  {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
+  {{ partial "wowchemy-core/functions/get_hook" (dict "hook" "head-end" "context" .) }}
 </head>

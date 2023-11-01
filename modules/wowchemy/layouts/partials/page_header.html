@@ -1,5 +1,5 @@
 {{ $page := . }}
-{{ $featured := partial "functions/get_featured_image.html" $page }}
+{{ $featured := partial "wowchemy-core/functions/get_featured_image.html" $page }}
 
 {{ $anchor := $page.Params.image.focal_point | default "Smart" }}
 
