@@ -15,7 +15,8 @@
   {{ range $idx, $key := sort $block.content.items ".date_start" "desc" }}
     <div class="card experience course">
       <div class="card-body">
-        {{- $svg_icon := resources.Get (printf "media/icons/brands/%s.svg" (replace (lower .organization) " " "_")) -}}
+        {{- $icon := .icon | default (replace (lower .organization) " " "_") }}
+        {{- $svg_icon := resources.Get (printf "media/icons/brands/%s.svg" $icon) -}}
         {{- if $svg_icon }}
         <div class="d-flex align-content-start">
           <div class="mr-2 mb-2">

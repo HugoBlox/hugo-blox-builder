@@ -102,6 +102,7 @@ sections:
           date_end: ''
           date_start: '2021-01-25'
           description: ''
+          icon: coursera
           organization: Coursera
           organization_url: https://www.coursera.org
           title: Neural Networks and Deep Learning
@@ -110,6 +111,7 @@ sections:
           date_end: ''
           date_start: '2021-01-01'
           description: Formulated informed blockchain models, hypotheses, and use cases.
+          icon: edx
           organization: edX
           organization_url: https://www.edx.org
           title: Blockchain Fundamentals
@@ -118,6 +120,7 @@ sections:
           date_end: '2020-12-21'
           date_start: '2020-07-01'
           description: ''
+          icon: datacamp
           organization: DataCamp
           organization_url: https://www.datacamp.com
           title: 'Object-Oriented Programming in R'
