@@ -1,6 +1,6 @@
 {{- $page := .page }}
 {{ $summary := .summary }}
-{{ $featured_image := partial "functions/get_featured_image.html" $page }}
+{{ $featured_image := partial "wowchemy-core/functions/get_featured_image.html" $page }}
 
 {{/* Get schema type. */}}
 {{ $schema := "Article" }}
@@ -8,9 +8,9 @@
   {{ $schema = "BlogPosting" }}
 {{ end }}
 
-{{ $author := partial "functions/get_author_name" $page }}
+{{ $author := partial "wowchemy-core/functions/get_author_name" $page }}
 {{ $publisher := site.Params.marketing.seo.org_name | default site.Title }}
-{{ $logo_url := partial "functions/get_logo_url" $page -}}
+{{ $logo_url := partial "wowchemy-core/functions/get_logo_url" $page -}}
 
 <script type="application/ld+json">
 {

@@ -6,10 +6,11 @@
 {{- end -}}
 
 {{/* Attempt to load superuser (the main site author). */}}
+{{ $superuser := index (first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true)) 0 }}
 {{ $superuser_name := "" }}
 {{ $superuser_username := "" }}
 {{ $superuser_role := "" }}
-{{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
+{{ with $superuser }}
   {{ $superuser_name = .Title }}
   {{ $superuser_username = path.Base .File.Dir }}
   {{ $superuser_role = .Params.role }}
@@ -50,15 +51,15 @@
 {{ end }}
 
 {{/* Progressive Web App (PWA) Icon */}}
-<link rel="icon" type="image/png" href="{{ (partial "functions/get_icon" 32).RelPermalink }}" />
-<link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_icon" 180).RelPermalink }}" />
+<link rel="icon" type="image/png" href="{{ (partial "wowchemy-core/functions/get_icon" 32).RelPermalink }}" />
+<link rel="apple-touch-icon" type="image/png" href="{{ (partial "wowchemy-core/functions/get_icon" 180).RelPermalink }}" />
 {{ $theme_color := ($scr.Get "primary") | default site.Params.appearance.primary_color | default "#fff" }}
 <meta name="theme-color" content="{{ $theme_color }}" />
 
 {{/* Get page image for social sharing. */}}
 {{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
 {{/* Search for an image "*featured*" in post folder */}}
-{{ $featured_image := partial "functions/get_featured_image.html" . }}
+{{ $featured_image := partial "wowchemy-core/functions/get_featured_image.html" . }}
 {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
 {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
 {{ $og_image := "" }}
@@ -72,15 +73,15 @@
 {{ else if $sharing_image }}
   {{ $og_image = $sharing_image.Permalink }}
 {{ else if $has_logo }}
-  {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
+  {{ $og_image = (partial "wowchemy-core/functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
   {{ $twitter_card = "summary" }}
 {{ else }}
-  {{ $og_image = (partial "functions/get_icon" 512).Permalink }}
+  {{ $og_image = (partial "wowchemy-core/functions/get_icon" 512).Permalink }}
   {{ $twitter_card = "summary" }}
 {{ end }}
 {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
 
-{{ $title := partial "functions/get_page_title" . }}
+{{ $title := partial "wowchemy-core/functions/get_page_title" . }}
 
 {{/* Twitter metadata. */}}
 <meta property="twitter:card" content="{{ $twitter_card }}" />
@@ -93,6 +94,22 @@
 {{- end -}}
 
 {{/* Open Graph metadata. */}}
+{{ $site_type := lower (site.Params.marketing.seo.site_type | default "Person") }}
+{{ $og_type := "website" }}
+{{ if .IsHome }}
+  {{ if eq $site_type "person" }}
+    {{ $og_type = "profile" }}
+    {{ with $superuser.Params.first_name }}<meta property="profile:first_name" content="{{ . }}">{{end}}
+    {{ with $superuser.Params.last_name }}<meta property="profile:last_name" content="{{ . }}">{{end}}
+  {{ else }}
+    {{ $og_type = "website" }}
+  {{ end }}
+{{ else if .IsPage | and (in (slice "post" "publication" "project" "book") .Type ) }}
+  {{ $og_type = "article" }}
+{{ else }}
+  {{ $og_type = "website" }}
+{{ end }}
+<meta property="og:type" content="{{ $og_type }}" />
 <meta property="og:site_name" content="{{ site.Title }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
 <meta property="og:title" content="{{ $title }}" />
