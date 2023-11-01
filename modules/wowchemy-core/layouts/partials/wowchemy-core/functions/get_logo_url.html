@@ -4,9 +4,9 @@
 
 {{ $logo_url := "" }}
 {{ if resources.Get "media/logo.png" | or (resources.Get "media/logo.svg") }}
-  {{ $logo_url = (partial "functions/get_logo" (dict "constraint" "fit" "size" 192)).Permalink }}
+  {{ $logo_url = (partial "wowchemy-core/functions/get_logo" (dict "constraint" "fit" "size" 192)).Permalink }}
 {{ else }}
-  {{ $logo_url = (partial "functions/get_icon" 192).Permalink }}
+  {{ $logo_url = (partial "wowchemy-core/functions/get_icon" 192).Permalink }}
 {{ end }}
 
 {{ return $logo_url }}
