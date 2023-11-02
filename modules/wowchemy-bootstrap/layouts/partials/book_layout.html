@@ -12,7 +12,7 @@
     {{/* Show ToC by default. */}}
     {{ if ne .Params.toc false }}
     <div class="d-none d-xl-block col-xl-2 docs-toc">
-      {{ partial "functions/get_hook" (dict "hook" "toc-start" "context" .) }}
+      {{ partial "wowchemy-core/functions/get_hook" (dict "hook" "toc-start" "context" .) }}
 
       <ul class="nav toc-top">
         <li><a href="#" id="back_to_top" class="docs-toc-title">{{ i18n "on_this_page" }}</a></li>
@@ -20,7 +20,7 @@
 
       {{ .TableOfContents }}
 
-      {{ partial "functions/get_hook" (dict "hook" "toc-end" "context" .) }}
+      {{ partial "wowchemy-core/functions/get_hook" (dict "hook" "toc-end" "context" .) }}
     </div>
     {{ end }}
 
@@ -33,7 +33,7 @@
       </div>
 
       {{/* Cover image */}}
-      {{ $cover_image := partial "functions/get_featured_image.html" . }}
+      {{ $cover_image := partial "wowchemy-core/functions/get_featured_image.html" . }}
       {{ if $cover_image }}
       <div class="article-header">
         {{ $alt := (.Params.image.caption | default "") | plainify }}

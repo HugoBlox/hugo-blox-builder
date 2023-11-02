@@ -18,7 +18,7 @@
   {{ $summary = $item.Summary }}
 {{ end }}
 
-{{ $resource := partial "functions/get_featured_image.html" $item }}
+{{ $resource := partial "wowchemy-core/functions/get_featured_image.html" $item }}
 
 <div class="card">
   {{ with $resource }}

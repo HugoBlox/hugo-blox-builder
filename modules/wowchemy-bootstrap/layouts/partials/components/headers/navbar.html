@@ -10,7 +10,7 @@
 {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
 {{ $logo := "" }}
 {{ if $has_logo }}
-  {{ $logo = (partial "functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
+  {{ $logo = (partial "wowchemy-core/functions/get_logo" (dict "constraint" "max_height" "size" 70)) }}
 {{ end }}
 
 <header>
