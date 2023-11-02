@@ -14,4 +14,4 @@
   {{/* Show end time if not all day event. */}}
   {{ if not .Params.all_day }}{{ $str = $str | append (time.Format site.Params.locale.time_format (time $t2)) }}{{ end }}
 {{ end }}
-{{ return (delimit $str " ") }}
+{{ return ((delimit $str " ") | safeHTML) }}
