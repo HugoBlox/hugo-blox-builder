@@ -1,17 +1,17 @@
 {{ $return := "" }}
-{{ with site.Data.wowchemy_cms_tpl }}
+{{ with site.Data.decap_cms_config }}
   {{ $return = . }}
 {{ end }}
 
-{{ $backend_opts := dict "branch" (site.Params.extensions.cms.branch | default "main") }}
+{{ $backend_opts := dict "branch" (site.Params.extensions.decap_cms.branch | default "main") }}
 
-{{ with site.Params.extensions.cms.publish_mode }}
+{{ with site.Params.extensions.decap_cms.publish_mode }}
   {{ $publish_mode := dict "publish_mode" . }}
   {{ $return = merge $return $publish_mode }}
 {{ end }}
 
 {{ $local_backend := false }}
-{{ if site.Params.extensions.cms.local_backend | or (not hugo.IsProduction) }}
+{{ if site.Params.extensions.decap_cms.local_backend | or (not hugo.IsProduction) }}
   {{ $local_backend = true }}
 {{ end }}
 {{ $return = merge $return (dict "local_backend" $local_backend) }}
