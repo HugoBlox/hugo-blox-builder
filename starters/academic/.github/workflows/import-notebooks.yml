@@ -1,0 +1,54 @@
+# Wowchemy GitHub Action to import Jupyter Notebooks as blog posts
+name: Import Jupyter Notebooks as Blog Posts
+
+# Require permission to create a PR
+permissions:
+  contents: write
+  pull-requests: write
+
+# Run workflow when a `.bib` file is added or updated in the `data/` folder
+on:
+  push:
+    branches: ['main']
+    paths: ['notebooks/*.ipynb']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  wowchemy:
+    if: github.repository_owner != 'wowchemy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install academic==0.11.1
+      - name: Run Academic Converter Tool
+        run: academic import 'notebooks/*.ipynb' content/post/ --verbose
+      - name: Create Pull Request
+        # Set ID for `Check outputs` stage
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: 'content: import blog posts from `notebooks/` folder'
+          title: Wowchemy - Import latest blog posts
+          body: |
+            Convert Jupyter Notebooks in the `notebooks/` folder into blog posts in the `content/post/` folder.
+            将`notebooks/`文件夹中的Jupyter笔记本转换为`content/post/`文件夹中的博客帖子。
+            [View Documentation](https://github.com/wowchemy/bibtex-to-markdown)
+          base: main
+          labels: automated-pr, content
+          branch: wowchemy-import-posts
+          delete-branch: true
+      - name: Check outputs
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
