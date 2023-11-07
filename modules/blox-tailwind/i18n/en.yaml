@@ -1,0 +1,279 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Toggle navigation
+
+- id: table_of_contents
+  translation: Table of Contents
+
+- id: on_this_page
+  translation: Contents
+
+- id: back_to_top
+  translation: Back to top
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Related
+
+- id: minute_read
+  translation: min read
+
+- id: previous
+  translation: Previous
+
+- id: next
+  translation: Next
+
+- id: figure
+  translation: 'Figure %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preprint
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Cite
+
+- id: btn_slides
+  translation: Slides
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Project
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Source Document
+
+- id: btn_copy
+  translation: Copy
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: Interests
+
+- id: education
+  translation: Education
+
+- id: user_profile_latest
+  translation: Latest
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: See certificate
+
+# Experience widget
+
+- id: present
+  translation: Present
+
+# Pages widget
+
+- id: more_pages
+  translation: See all
+
+- id: more_posts
+  translation: See all posts
+
+- id: more_talks
+  translation: See all events
+
+- id: more_publications
+  translation: See all publications
+
+# Contact widget
+
+- id: contact_name
+  translation: Name
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Message
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Send
+
+- id: book_appointment
+  translation: Book an appointment
+
+# Publication/Event details
+
+- id: abstract
+  translation: Abstract
+
+- id: publication
+  translation: Publication
+
+- id: publication_type
+  translation: Type
+
+- id: date
+  translation: Date
+
+- id: last_updated
+  translation: Last updated on
+
+- id: event
+  translation: Event
+
+- id: location
+  translation: Location
+
+- id: pub_paper_conference
+  translation: Conference paper
+
+- id: pub_article_journal
+  translation: Journal article
+
+- id: pub_article
+  translation: Preprint
+
+- id: pub_report
+  translation: Report
+
+- id: pub_book
+  translation: Book
+
+- id: pub_chapter
+  translation: Book section
+
+- id: pub_thesis
+  translation: Thesis
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Go to Project Site
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Posts
+
+- id: publications
+  translation: Publications
+
+- id: talks
+  translation: Events
+
+- id: projects
+  translation: Projects
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Search
+
+- id: search_placeholder
+  translation: Search...
+
+- id: search_results
+  translation: results found
+
+- id: search_no_results
+  translation: No results found
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Page not found
+
+- id: 404_recommendations
+  translation: Perhaps you were looking for one of these?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+
+- id: cookie_dismiss
+  translation: Got it!
+
+- id: cookie_learn
+  translation: Learn more
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Feedback
+
+- id: feedback_widget_question
+  translation: Was this page helpful?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Yes
+
+- id: feedback_widget_answer_negative
+  translation: 😡 No

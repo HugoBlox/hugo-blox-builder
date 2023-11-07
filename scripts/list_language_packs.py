@@ -2,14 +2,14 @@
 
 # List Available Language Packs
 # Used for updating the Languages page of the documentation.
-# https://wowchemy.com
+# https://hugoblox.com
 #
 # Prerequisites: pip3 install PyYAML
 
 import yaml
 from pathlib import Path
 
-LANG_PATH = Path(__file__).resolve().parent.parent.joinpath('wowchemy').joinpath('data').joinpath('i18n')
+LANG_PATH = Path(__file__).resolve().parent.parent.joinpath('blox-tailwind').joinpath('data').joinpath('i18n')
 LANG_YAML = LANG_PATH.joinpath('languages.yaml')
 
 

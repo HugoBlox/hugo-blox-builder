@@ -1,0 +1,72 @@
+{{/* Markdown Image Renderer for Hugo Blox Builder. */}}
+{{/* Load image from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
+
+{{ $destination := .Destination }}
+{{ $is_remote := strings.HasPrefix $destination "http" }}
+{{ $caption := .Title | default "" }}
+{{ $zoom := "true" }}
+{{ $id := anchorize ($caption | plainify) }}
+{{ $alt := .Text | default ($caption | plainify) }}
+{{ $img_class := "" }}
+{{ $fig_class := "" }}
+{{ $max_width := "" }}
+{{ $width := "" }}
+{{ $height := "" }}
+{{ $numbered := false }}
+
+{{/* Workaround Hugo v0.81 error on Windows when `resources.Get (path.Join "media" <URL>)` */}}
+{{- $img := "" -}}
+{{- if not $is_remote -}}
+  {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+  {{- if not $img -}}
+    {{- $img = resources.Get (path.Join "media" $destination) -}}
+  {{- end -}}
+{{- end -}}
+
+<figure {{ with $fig_class }}class="{{.}}"{{end}} {{ with $id }}id="figure-{{ . }}"{{ end }}>
+  <div class="d-flex justify-content-center">
+    <div class="w-100" {{ with $max_width }}style="max-width: {{.}}"{{end}}>
+      {{- if $img -}}
+        {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
+        {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
+        {{- if $isSVG | or $isGIF -}}
+          <img alt="{{ $alt }}"
+           src="{{ $img.RelPermalink }}"
+           loading="lazy"
+           {{- if $zoom }} data-zoomable{{end}}
+           {{- with $width }} width="{{.}}"{{end}}
+           {{- with $height }} height="{{.}}"{{end}}
+           {{- with $img_class }} class="{{.}}"{{end}} />
+        {{- else }}
+          {{- $img_lg := $img.Fit "1200x1200 webp" -}}
+          {{- $img_md := $img_lg.Fit "760x760 webp" -}}{{/* Match `.docs-article-container` max-width */}}
+          {{- $img_sm := $img_md.Fit "400x400 webp" -}}
+          {{- $width := $width | default $img_md.Width -}}
+          {{- $height := $height | default $img_md.Height -}}
+          <img alt="{{ $alt }}" srcset="
+               {{ $img_sm.RelPermalink }} 400w,
+               {{ $img_md.RelPermalink }} 760w,
+               {{ $img_lg.RelPermalink }} 1200w"
+               src="{{ $img_sm.RelPermalink }}"
+               width="{{ $width }}"
+               height="{{ $height }}"
+               loading="lazy"
+               {{- if $zoom }} data-zoomable{{end}}
+               {{- with $img_class }} class="{{.}}"{{end}} />
+        {{- end }}
+      {{- else -}}
+        <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
+             {{- with $width }} width="{{.}}"{{end}} {{- with $height }} height="{{.}}"{{end}}
+             {{- with $img_class }} class="{{.}}"{{end}} />
+      {{- end -}}
+    </div>
+  </div>
+
+  {{- if $caption -}}
+    {{/* Localize the figure numbering (if enabled). */}}
+    {{- $figure := split (i18n "figure" | default "Figure %d:") "%d" -}}
+    <figcaption{{ if eq $numbered "true" }} data-pre="{{- trim (index $figure 0) " " -}}&nbsp;" data-post="{{ index $figure 1 }}&nbsp;" class="numbered"{{ end }}>
+      {{ $caption | markdownify | emojify }}
+    </figcaption>
+  {{- end -}}
+</figure>

@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Navigatiebalk
+
+- id: table_of_contents
+  translation: Inhoudsopgave
+
+- id: on_this_page
+  translation: Op deze pagina
+
+- id: back_to_top
+  translation: Terug naar boven
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Gerelateerd
+
+- id: minute_read
+  translation: minuten lezen
+
+- id: previous
+  translation: Vorige
+
+- id: next
+  translation: Volgende
+
+- id: figure
+  translation: 'Figuur %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preprint
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citeer
+
+- id: btn_slides
+  translation: Dia's
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Project
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Brondocument
+
+- id: btn_copy
+  translation: Kopieer
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: Interesses
+
+- id: education
+  translation: Educatie
+
+- id: user_profile_latest
+  translation: Nieuwste
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Bekijk certificate
+
+# Experience widget
+
+- id: present
+  translation: Present
+
+# Pages widget
+
+- id: more_pages
+  translation: Bekijk alles
+
+- id: more_posts
+  translation: Meer Berichten
+
+- id: more_talks
+  translation: Meer Presentaties
+
+- id: more_publications
+  translation: Meer Publicaties
+
+# Contact widget
+
+- id: contact_name
+  translation: Naam
+
+- id: contact_email
+  translation: E-mailadres
+
+- id: contact_message
+  translation: Bericht
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Verzend
+
+- id: book_appointment
+  translation: Maak een afspraak
+
+# Publication/Event details
+
+- id: abstract
+  translation: Samenvatting
+
+- id: publication
+  translation: Publicatie
+
+- id: publication_type
+  translation: Type
+
+- id: date
+  translation: Datum
+
+- id: last_updated
+  translation: Laatst bijgewerkt op
+
+- id: event
+  translation: Evenement
+
+- id: location
+  translation: Locatie
+
+- id: paper-conference
+  translation: Conferentiepaper
+
+- id: pub_article_journal
+  translation: Journalartikel
+
+- id: pub_article
+  translation: Preprint
+
+- id: pub_report
+  translation: Rapport
+
+- id: pub_book
+  translation: Boek
+
+- id: pub_chapter
+  translation: Boek sectie
+
+- id: pub_thesis
+  translation: Proefschrift
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Ga naar Projectenpagina
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Berichten
+
+- id: publications
+  translation: Publicaties
+
+- id: talks
+  translation: Presentaties
+
+- id: projects
+  translation: Projects
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Search
+
+- id: search_placeholder
+  translation: Zoeken...
+
+- id: search_results
+  translation: resultaten gevonden
+
+- id: search_no_results
+  translation: Geen resultaten gevonden
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Pagina niet gevonden
+
+- id: 404_recommendations
+  translation: Misschien was je op zoek naar een van deze pagina's?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Deze website gebruikt cookies om je de best mogelijke ervaring te bieden.
+
+- id: cookie_dismiss
+  translation: Accepteer cookies
+
+- id: cookie_learn
+  translation: Meer informatie
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

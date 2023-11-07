@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Переключить навигацию
+
+- id: table_of_contents
+  translation: Содержание
+
+- id: on_this_page
+  translation: На этой странице
+
+- id: back_to_top
+  translation: На верх
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Похожие
+
+- id: minute_read
+  translation: мин. для прочтения
+
+- id: previous
+  translation: Предыдущий
+
+- id: next
+  translation: Следующий
+
+- id: figure
+  translation: 'Схема № %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Предварительная печать
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Процитировать
+
+- id: btn_slides
+  translation: Слайды
+
+- id: btn_video
+  translation: Видео
+
+- id: btn_code
+  translation: Код
+
+- id: btn_dataset
+  translation: Набор данных
+
+- id: btn_project
+  translation: Проект
+
+- id: btn_poster
+  translation: Постер
+
+- id: btn_source
+  translation: Исходный документ
+
+- id: btn_copy
+  translation: Копия
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Скачать
+
+# About widget
+
+- id: interests
+  translation: Интересы
+
+- id: education
+  translation: Образование
+
+- id: user_profile_latest
+  translation: Последние
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Посмотреть сертификат
+
+# Experience widget
+
+- id: present
+  translation: Настоящий
+
+# Pages widget
+
+- id: more_pages
+  translation: Посмотреть всё
+
+- id: more_posts
+  translation: Больше статей
+
+- id: more_talks
+  translation: Больше выступлений
+
+- id: more_publications
+  translation: Больше публикаций
+
+# Contact widget
+
+- id: contact_name
+  translation: Имя
+
+- id: contact_email
+  translation: адрес электронной почты
+
+- id: contact_message
+  translation: Сообщение
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Отправить
+
+- id: book_appointment
+  translation: Назначить встречу
+
+# Publication/Event details
+
+- id: abstract
+  translation: Аннотация
+
+- id: publication
+  translation: Публикация
+
+- id: publication_type
+  translation: Тип публикации
+
+- id: date
+  translation: Дата
+
+- id: last_updated
+  translation: Обновлено
+
+- id: event
+  translation: Событие
+
+- id: location
+  translation: Место
+
+- id: paper-conference
+  translation: Статья для конференции
+
+- id: pub_article_journal
+  translation: Статья для журнала
+
+- id: pub_article
+  translation: Предварительная печать
+
+- id: pub_report
+  translation: Выступление
+
+- id: pub_book
+  translation: Книга
+
+- id: pub_chapter
+  translation: Глава книги
+
+- id: pub_thesis
+  translation: Тезис
+
+- id: pub_patent
+  translation: Патент
+
+# Project details
+
+- id: open_project_site
+  translation: Перейти на сайт проекта
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Статьи
+
+- id: publications
+  translation: Публикации
+
+- id: talks
+  translation: Выступления
+
+- id: projects
+  translation: Проекты
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Поиск
+
+- id: search_placeholder
+  translation: Поиск ...
+
+- id: search_results
+  translation: результат найден
+
+- id: search_no_results
+  translation: результат не найден
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Страница не найдена
+
+- id: 404_recommendations
+  translation: Вы наверное искали один из тезисов?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Для комфорной навигации на этом сайте используются куки (cookies).
+
+- id: cookie_dismiss
+  translation: Понял!
+
+- id: cookie_learn
+  translation: Узнать больше
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

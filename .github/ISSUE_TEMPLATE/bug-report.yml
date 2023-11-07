@@ -11,11 +11,11 @@ body:
 
         We use GitHub Issues for project management, **NOT for support**.
 
-        🚑 For **help** and **questions**, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)**, and if not, ask your question there instead.
+        🚑 For **help** and **questions**, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)**, and if not, ask your question there instead.
 
         Bug reports also shouldn't be used for support requests about a specific problem in your site, only if the issue can be reproduced on a fresh Wowchemy template.
 
-        Also, you can search and browse the extensive [Wowchemy](https://wowchemy.com/docs/) and [Hugo](https://gohugo.io/documentation/) **documentation**.
+        Also, you can search and browse the extensive [Wowchemy](https://hugoblox.com/docs/) and [Hugo](https://gohugo.io/documentation/) **documentation**.
 
         For questions on _Blogdown_, please reach out to the [Blogdown community](https://github.com/rstudio/blogdown).
 
@@ -27,7 +27,7 @@ body:
       label: Preliminary Checks
       description: Please make sure that you verify each checkbox and follow the instructions for them.
       options:
-        - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aissue"
+        - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/HugoBlox/hugo-blox-builder/issues?q=is%3Aissue"
           required: true
         - label: "This issue is not a question, feature request, or anything other than a bug report directly related to Wowchemy. Please post those things on Discord: https://discord.gg/z8wNYzb"
           required: true
@@ -46,7 +46,7 @@ body:
       description: |
         Link to a minimal reproduction of the issue (GitHub repository).
 
-        **Ideally, create a minimal reproduction of the issue on a fresh template rather than linking to your site's repository: https://wowchemy.com/hugo-themes/
+        **Ideally, create a minimal reproduction of the issue on a fresh template rather than linking to your site's repository: https://hugoblox.com/hugo-themes/
     validations:
       required: true
   - type: textarea
@@ -106,7 +106,7 @@ body:
     id: wowchemy-tpl
     attributes:
       label: Which Wowchemy template are you using?
-      description: 'For example, a template from https://wowchemy.com/hugo-themes/'
+      description: 'For example, a template from https://hugoblox.com/hugo-themes/'
       placeholder: 'e.g., Academic Resume'
     validations:
       required: true

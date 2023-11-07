@@ -1,0 +1,40 @@
+{{/* Table Shortcode for Hugo Blox Builder. */}}
+{{/* Load a CSV table from page dir falling back back to remote URL */}}
+{{/* Defaults to expecting a comma-separated CSV with a header row. */}}
+
+{{ $src := .Get "path" }}
+{{ $delimiter := .Get "delimiter" | default "," }}
+{{ $useHeaderRow := (eq (lower (.Get "header")) "true") | default true }}
+{{ $caption := .Get "caption" }}
+
+{{ $is_remote := strings.HasPrefix $src "http" }}
+{{ if not $is_remote }}
+  {{ $src = path.Join  "content" $.Page.File.Dir $src }}
+{{ end }}
+{{ $rows := getCSV $delimiter $src }}
+
+<table class="table-auto">
+  {{ if $useHeaderRow }}
+    {{ $headerRow := index $rows 0 }}
+    {{ $rows = after 1 $rows }}
+    <thead>
+      <tr> {{ range $headerRow }} <th>{{ . | markdownify | emojify }}</th> {{ end }} </tr>
+    </thead>
+  {{ end }}
+  <tbody>
+  {{ range $rows }}
+    <tr>
+      {{ range . }}
+        {{ if (findRE "^\\d+$" .) }}
+          <td data-table-dtype="number">{{ . }}</td>
+        {{ else }}
+          <td data-table-dtype="text">{{ . | markdownify | emojify }}</td>
+        {{ end }}
+      {{ end }}
+    </tr>
+  {{ end }}
+  </tbody>
+  {{ if $caption }}
+    <caption class="table-caption">{{ $caption | markdownify | emojify }}</caption>
+  {{ end }}
+</table>

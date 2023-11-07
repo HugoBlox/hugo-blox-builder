@@ -1,0 +1,47 @@
+{{/* Hugo Blox: Tag Cloud */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $taxonomy := $block.Params.content.taxonomy | default "tags" }}
+{{ $fontSmall := $block.Params.design.font_size_min | default 0.8 }}
+{{ $fontBig := $block.Params.design.font_size_max | default 2.5 }}
+
+{{ $items_count := $block.Params.content.count }}
+{{ if eq $items_count 0 }}
+  {{ $items_count = 65535 }}
+{{ else }}
+  {{ $items_count = $items_count | default 20 }}
+{{ end }}
+
+{{/* Query */}}
+{{ $tags := first $items_count (index site.Taxonomies $taxonomy).ByCount }}
+{{ $count := len $tags }}
+
+{{ $columns := $block.Params.design.columns | default "2" }}
+
+<div class="col-12 {{if eq $columns "2"}}col-lg-8{{else}}text-center{{end}}">
+  {{ with $block.Content }}{{ . }}{{ end }}
+
+  {{ if ne $count 0 }}
+
+    {{ $fontDelta := sub $fontBig $fontSmall }}
+    {{/* Warning: Hugo's `Reverse` function appears to operate in-place, hence the order of performing $max/$min matters. */}}
+    {{ $max := add (len (index $tags 0).Pages) 1 }}
+    {{ $min := len (index ($tags).Reverse 0).Pages }}
+    {{ $delta := sub $max $min }}
+    {{ $fontStep := div $fontDelta $delta }}
+
+    <div class="tag-cloud">
+      {{ range $name, $term := (sort $tags ".Page.Title" "asc") }}
+        {{ $tagCount := len $term.Pages }}
+        {{ $weight := div (sub (math.Log $tagCount) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
+        {{ $fontSize := add $fontSmall (mul (sub $fontBig $fontSmall) $weight) }}
+        <a href="{{ .Page.RelPermalink }}" style="font-size:{{ $fontSize }}rem">{{ .Page.Title }}</a>
+      {{ end }}
+    </div>
+  {{ end }}
+
+</div>

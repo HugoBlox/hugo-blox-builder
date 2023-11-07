@@ -1,0 +1,20 @@
+{{/* Hugo Blox Builder content preview renderer */}}
+
+{{ $page := .page }}
+{{ $item := .item }}
+{{ $view := .view }}
+{{ $view_file := "" }}
+{{ $view_dtype :=  printf "%T" $view }}
+{{ $index := .index }}
+
+
+  {{ if templates.Exists (printf "partials/views/%s.html" (lower $view)) }}
+    {{ $view_file = lower $view }}
+  {{else}}
+    {{/* Fallback to card view */}}
+    {{ warnf "Failed to locate view at `partials/views/%s.html`. Check you specified a supported `view` in `%s`" $view $page.File.Path }}
+    {{ $view_file = "card" }}
+  {{end}}
+
+
+{{ return (partial (printf "views/%s" $view_file) (dict "page" $page "item" $item "index" $index)) }}

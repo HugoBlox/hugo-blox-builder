@@ -1,14 +1,14 @@
 _vendor/
 vendor/
-wowchemy/assets/css/libs/
+blox-bootstrapassets/css/libs/
 
 public/
 resources/
 
 *.html
 
-wowchemy/assets/css/reveal.css
-wowchemy/assets/scss/main.scss
+blox-bootstrapassets/css/reveal.css
+blox-bootstrapassets/scss/main.scss
 
-wowchemy/layouts/index.json
-wowchemy/layouts/index.webmanifest
+blox-bootstraplayouts/index.json
+blox-bootstraplayouts/index.webmanifest

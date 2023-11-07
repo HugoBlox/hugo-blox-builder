@@ -1,0 +1,16 @@
+{{- define "main" -}}
+
+{{/* Check that user fully installed Wowchemy. */}}
+{{/* Commented out to allow user to have no params.yaml and just use the defaults. */}}
+{{/* if not (isset site.Params "seo") */}}
+{{/* errorf "Please complete the installation of Wowchemy by following the steps at https://docs.hugoblox.com/" */}}
+{{/* end */}}
+
+{{/* Deprecation warnings */}}
+{{/* Add here... */}}
+
+{{/* Generate homepage. */}}
+{{/* if eq .Type "landing" */}}{{/* Uncomment check once support other content types on homepage. */}}
+{{ partial "landing_page.html" . }}
+
+{{- end -}}

@@ -25,9 +25,9 @@ Mindmaps can be created by simply writing the items as a Markdown list within th
 ```markmap {height="200px"}
 - Hugo Modules
   - wowchemy
-  - wowchemy-plugins-netlify
-  - wowchemy-plugins-netlify-cms
-  - wowchemy-plugins-reveal
+  - blox-plugins-netlify
+  - blox-plugins-netlify-cms
+  - blox-plugins-reveal
 ```
 </code>
 </pre>
@@ -38,9 +38,9 @@ renders as
 ```markmap {height="200px"}
 - Hugo Modules
   - wowchemy
-  - wowchemy-plugins-netlify
-  - wowchemy-plugins-netlify-cms
-  - wowchemy-plugins-reveal
+  - blox-plugins-netlify
+  - blox-plugins-netlify-cms
+  - blox-plugins-reveal
 ```
 
 ## Diagrams

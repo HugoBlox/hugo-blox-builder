@@ -1,8 +1,8 @@
-title: Wowchemy Test
+title: Hugo Blox Test
 baseURL: https://example.com
 module:
   imports:
-    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-tailwind
+    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind
 outputs:
   home: [HTML, RSS, WebAppManifest]
 disableAliases: true

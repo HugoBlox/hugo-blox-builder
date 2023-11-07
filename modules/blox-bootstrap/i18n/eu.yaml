@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Nabigazio-barra
+
+- id: table_of_contents
+  translation: Aurkibidea
+
+- id: on_this_page
+  translation: Orrialde honetan
+
+- id: back_to_top
+  translation: Hasierara itzuli
+
+- id: home
+  translation: Hasiera
+
+- id: close
+  translation: Itxi
+
+- id: languages
+  translation: Hizkuntzak
+
+# General
+
+- id: related
+  translation: Erlazionatuta
+
+- id: minute_read
+  translation: minutuko irakurketa
+
+- id: previous
+  translation: Aurrekoa
+
+- id: next
+  translation: Hurrengoa
+
+- id: figure
+  translation: 'Figura %d:'
+
+- id: edit_page
+  translation: Orrialde hau editatu
+
+# Themes
+
+- id: theme_selector
+  translation: Bistaratze lehentasunak
+
+- id: theme_light
+  translation: Argia
+
+- id: theme_dark
+  translation: Iluna
+
+- id: theme_auto
+  translation: Automatikoa
+
+# Buttons
+
+- id: btn_preprint
+  translation: Aurreargitalpena
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Aipuak
+
+- id: btn_slides
+  translation: Diapositibak
+
+- id: btn_video
+  translation: Bideoa
+
+- id: btn_code
+  translation: Kodea
+
+- id: btn_dataset
+  translation: Datu-sorta
+
+- id: btn_project
+  translation: Proiektua
+
+- id: btn_poster
+  translation: Posterra
+
+- id: btn_source
+  translation: Jatorrizko dokumentua
+
+- id: btn_copy
+  translation: Kopiatu
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Deskargatu
+
+# About widget
+
+- id: interests
+  translation: Interesak
+
+- id: education
+  translation: Ikasketak
+
+- id: user_profile_latest
+  translation: Berriak
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Ikusi ziurtagiria
+
+# Experience widget
+
+- id: present
+  translation: Gaur egun
+
+# Pages widget
+
+- id: more_pages
+  translation: Ikusi dena
+
+- id: more_posts
+  translation: Post gehiago
+
+- id: more_talks
+  translation: Ekitaldi gehiago
+
+- id: more_publications
+  translation: Argitalpen gehiago
+
+# Contact widget
+
+- id: contact_name
+  translation: Izena
+
+- id: contact_email
+  translation: Emaila
+
+- id: contact_message
+  translation: Mezua
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Bidali
+
+- id: book_appointment
+  translation: Hitzordua eskatu
+
+# Publication/Event details
+
+- id: abstract
+  translation: Laburpena
+
+- id: publication
+  translation: Argitalpena
+
+- id: publication_type
+  translation: Mota
+
+- id: date
+  translation: Data
+
+- id: last_updated
+  translation: Azkenengoz editatua
+
+- id: event
+  translation: Ekitaldia
+
+- id: location
+  translation: Kokalekua
+
+- id: paper-conference
+  translation: Konferentzia-artikulua
+
+- id: pub_article_journal
+  translation: Aldizkari-artikulua
+
+- id: pub_article
+  translation: Aurreargitalpena
+
+- id: pub_report
+  translation: Txostena
+
+- id: pub_book
+  translation: Liburua
+
+- id: pub_chapter
+  translation: Liburu-kapitulua
+
+- id: pub_thesis
+  translation: Tesia
+
+- id: pub_patent
+  translation: Patentea
+
+# Project details
+
+- id: open_project_site
+  translation: Joan proiektuaren webgunera
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Posts
+
+- id: publications
+  translation: Argitalpenak
+
+- id: talks
+  translation: Ekitaldiak
+
+- id: projects
+  translation: Proiektuak
+
+- id: slides
+  translation: Diapositibak
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Bilatu
+
+- id: search_placeholder
+  translation: Bilatu...
+
+- id: search_results
+  translation: Bilaketaren emaitzak
+
+- id: search_no_results
+  translation: Ez da ezer aurkitu
+
+- id: search_common_queries
+  translation: Ohiko bilaketak
+
+# Error 404
+
+- id: page_not_found
+  translation: Ezin izan da orrialdea aurkitu
+
+- id: 404_recommendations
+  translation: Agian hauetako baten bila zenbiltzan?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Webgune honek cookie-ak erabiltzen ditu esperientzia hobea bermatzeko.
+
+- id: cookie_dismiss
+  translation: Ulertua!
+
+- id: cookie_learn
+  translation: Informazio gehiago
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

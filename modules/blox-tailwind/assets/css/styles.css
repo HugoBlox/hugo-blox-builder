@@ -1,0 +1,7 @@
+/* Import Tailwind */
+@import "./tailwind.css";
+
+/*! Hugo Blox Components | https://hugoblox.com */
+@import "./components/all.css";
+@import "./blocks/all.css";
+@import "themes/default.css";

@@ -1,0 +1,19 @@
+{{/*
+    Docs: https://hugoblox.com/docs/content/writing-markdown-latex/#mention-a-user
+
+    Parameters
+    ----------
+    #0 : positional
+        User account in Hugo Blox Builder to mention.
+*/}}
+
+{{- $username := .Get 0 -}}
+{{- $username_url := $username | urlize -}}
+{{- $taxonomy := "authors" -}}
+{{- $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $username_url) -}}
+{{- $name := $profile_page.Title | default ($username|markdownify) -}}
+{{- with $profile_page -}}
+  <a href="{{$profile_page.RelPermalink}}">{{$name}}</a>
+{{- else -}}
+  {{- $name -}}
+{{- end -}}

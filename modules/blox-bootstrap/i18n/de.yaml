@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Navigation einblenden
+
+- id: table_of_contents
+  translation: Inhaltsverzeichnis
+
+- id: on_this_page
+  translation: Auf dieser Seite
+
+- id: back_to_top
+  translation: Zurück zum Anfang
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: 语言
+
+# General
+
+- id: related
+  translation: Ähnliches
+
+- id: minute_read
+  translation: min Lesezeit
+
+- id: previous
+  translation: Zurück
+
+- id: next
+  translation: Weiter
+
+- id: figure
+  translation: 'Abbildung %d:'
+
+- id: edit_page
+  translation: Seite editieren
+
+# Themes
+
+- id: theme_selector
+  translation: Einstellungen anzeigen
+
+- id: theme_light
+  translation: Hell
+
+- id: theme_dark
+  translation: Dunkel
+
+- id: theme_auto
+  translation: Automatisch
+
+# Buttons
+
+- id: btn_preprint
+  translation: Vorabdruck
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Zitieren
+
+- id: btn_slides
+  translation: Folien
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Code
+
+- id: btn_dataset
+  translation: Datensatz
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Quelldokument
+
+- id: btn_copy
+  translation: Kopie
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: Interessen
+
+- id: education
+  translation: Bildung
+
+- id: user_profile_latest
+  translation: Aktuellste
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Zertifikat anzeigen
+
+# Experience widget
+
+- id: present
+  translation: Aktuell
+
+# Pages widget
+
+- id: more_pages
+  translation: Alle anzeigen
+
+- id: more_posts
+  translation: Weitere Blogbeiträge
+
+- id: more_talks
+  translation: Weitere Vorträge
+
+- id: more_publications
+  translation: Weitere Publikationen
+
+# Contact widget
+
+- id: contact_name
+  translation: Name
+
+- id: contact_email
+  translation: E-Mail
+
+- id: contact_message
+  translation: Nachricht
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Senden
+
+- id: book_appointment
+  translation: Termin vereinbaren
+
+# Publication/Event details
+
+- id: abstract
+  translation: Zusammenfassung
+
+- id: publication
+  translation: Publikation
+
+- id: publication_type
+  translation: Typ
+
+- id: date
+  translation: Datum
+
+- id: last_updated
+  translation: Zuletzt aktualisiert am
+
+- id: event
+  translation: Veranstaltung
+
+- id: location
+  translation: Ort
+
+- id: paper-conference
+  translation: Konferenzpapier
+
+- id: pub_article_journal
+  translation: Journalartikel
+
+- id: pub_article
+  translation: Preprint
+
+- id: pub_report
+  translation: Bericht
+
+- id: pub_book
+  translation: Buch
+
+- id: pub_chapter
+  translation: Buchkapitel
+
+- id: pub_thesis
+  translation: Abschlussarbeit
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Zur Projektseite
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Blog
+
+- id: publications
+  translation: Publikationen
+
+- id: talks
+  translation: Vorträge
+
+- id: projects
+  translation: Projekte
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Suche
+
+- id: search_placeholder
+  translation: Suche...
+
+- id: search_results
+  translation: Suchergebnisse
+
+- id: search_no_results
+  translation: Nichts gefunden
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Seite nicht gefunden
+
+- id: 404_recommendations
+  translation: Suchen Sie vielleicht nach einer der folgenden Seiten?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Um unsere Webseite für Sie passend zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies.
+
+- id: cookie_dismiss
+  translation: Verstanden!
+
+- id: cookie_learn
+  translation: Mehr erfahren
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

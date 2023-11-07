@@ -8,9 +8,9 @@ body:
     label: Prerequisites
     description: Take a minute to help our open source contributors.
     options:
-    - label: I have [searched](https://github.com/wowchemy/wowchemy-hugo-themes/issues?q=is%3Aissue) for duplicate or closed feature requests
+    - label: I have [searched](https://github.com/HugoBlox/hugo-blox-builder/issues?q=is%3Aissue) for duplicate or closed feature requests
       required: true
-    - label: I am mindful of the project [scope](https://github.com/wowchemy/wowchemy-hugo-themes/blob/main/CONTRIBUTING.md#scope)
+    - label: I am mindful of the project [scope](https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md#scope)
       required: true
 - type: textarea
   id: proposal

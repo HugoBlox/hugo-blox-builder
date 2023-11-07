@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Perjungti navigaciją
+
+- id: table_of_contents
+  translation: Turinys
+
+- id: on_this_page
+  translation: Turinys
+
+- id: back_to_top
+  translation: Grįžti į puslapio viršų
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Susiję
+
+- id: minute_read
+  translation: minučių skaitymo
+
+- id: previous
+  translation: Ankstesnis
+
+- id: next
+  translation: Tolimesnis
+
+- id: figure
+  translation: 'Pav. %d:'
+
+- id: edit_page
+  translation: Redaguoti šį puslapį
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Šviesus
+
+- id: theme_dark
+  translation: Tamsus
+
+- id: theme_auto
+  translation: Automatinis
+
+# Buttons
+
+- id: btn_preprint
+  translation: Nerecenzuota publikacija
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citata
+
+- id: btn_slides
+  translation: Prezentacija
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kodas
+
+- id: btn_dataset
+  translation: Duomenų rinkinys
+
+- id: btn_project
+  translation: Projektas
+
+- id: btn_poster
+  translation: Plakatas
+
+- id: btn_source
+  translation: Šaltinis
+
+- id: btn_copy
+  translation: Kopijuoti
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Parsisiųsti
+
+# About widget
+
+- id: interests
+  translation: Pomėgiai
+
+- id: education
+  translation: Išsilavinimas
+
+- id: user_profile_latest
+  translation: Naujausi
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Peržiūrėti sertifikatą
+
+# Experience widget
+
+- id: present
+  translation: Parodyti
+
+# Pages widget
+
+- id: more_pages
+  translation: Žiūrėti visus
+
+- id: more_posts
+  translation: Žiūrėti visus straipsnius
+
+- id: more_talks
+  translation: Žiūrėti visus pranešimus
+
+- id: more_publications
+  translation: Žiūrėti visas publikacijas
+
+# Contact widget
+
+- id: contact_name
+  translation: Vardas
+
+- id: contact_email
+  translation: Elektroninis paštas
+
+- id: contact_message
+  translation: Žinutė
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Siųsti
+
+- id: book_appointment
+  translation: Rezervuoti susitikimą
+
+# Publication/Event details
+
+- id: abstract
+  translation: Santrauka
+
+- id: publication
+  translation: Publikacija
+
+- id: publication_type
+  translation: Tipas
+
+- id: date
+  translation: Data
+
+- id: last_updated
+  translation: Vėliausiai atnaujinti
+
+- id: event
+  translation: Renginys
+
+- id: location
+  translation: Lokacija
+
+- id: paper-conference
+  translation: Konferencijos publikacija
+
+- id: pub_article_journal
+  translation: Mokslinis straipsnis
+
+- id: pub_article
+  translation: Nerecenzuota publikacija
+
+- id: pub_report
+  translation: Ataskaita
+
+- id: pub_book
+  translation: Knyga
+
+- id: pub_chapter
+  translation: Knygos skyrius
+
+- id: pub_thesis
+  translation: Tezė
+
+- id: pub_patent
+  translation: Patentas
+
+# Project details
+
+- id: open_project_site
+  translation: Eiti į projekto puslapį
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Straipsniai
+
+- id: publications
+  translation: Publikacijos
+
+- id: talks
+  translation: Pranešimai
+
+- id: projects
+  translation: Projektai
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Paieška
+
+- id: search_placeholder
+  translation: Ieškoti...
+
+- id: search_results
+  translation: rasta rezultatų
+
+- id: search_no_results
+  translation: Nieko nerasta
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Puslapis nerastas
+
+- id: 404_recommendations
+  translation: Galbūt jūs ieškojote šių puslapių?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Šis puslapis naudoja slapukus, kad užtikrintų geriausią naršymo patirtį.
+
+- id: cookie_dismiss
+  translation: Supratau!
+
+- id: cookie_learn
+  translation: Sužinoti daugiau
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

@@ -1,7 +1,0 @@
-/* Import Tailwind */
-@import "./tailwind.css";
-
-/*! Wowchemy Components | https://wowchemy.com */
-@import "./components/all.css";
-@import "./blocks/all.css";
-@import "themes/default.css";

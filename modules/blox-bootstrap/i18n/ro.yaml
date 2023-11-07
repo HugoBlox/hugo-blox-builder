@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Bara de navigare
+
+- id: table_of_contents
+  translation: Indice
+
+- id: on_this_page
+  translation: Pe această pagină
+
+- id: back_to_top
+  translation: Înapoi la început
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Înrudit
+
+- id: minute_read
+  translation: min de citire
+
+- id: previous
+  translation: Anterioară
+
+- id: next
+  translation: Următor
+
+- id: figure
+  translation: 'Imagine %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preimprimare
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citat
+
+- id: btn_slides
+  translation: Diapozitive
+
+- id: btn_video
+  translation: Vídeo
+
+- id: btn_code
+  translation: Cod
+
+- id: btn_dataset
+  translation: Date
+
+- id: btn_project
+  translation: Proiect
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Sursa document
+
+- id: btn_copy
+  translation: Copie
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Descărcare
+
+# About widget
+
+- id: interests
+  translation: Interese
+
+- id: education
+  translation: Educație
+
+- id: user_profile_latest
+  translation: Recent
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Vezi certificatul
+
+# Experience widget
+
+- id: present
+  translation: În prezent
+
+# Pages widget
+
+- id: more_pages
+  translation: Vezi tot
+
+- id: more_posts
+  translation: Mai multe postări
+
+- id: more_talks
+  translation: Mai multe discuții
+
+- id: more_publications
+  translation: Mai multe publicații
+
+# Contact widget
+
+- id: contact_name
+  translation: Nume
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Mesaj
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Trimiteți
+
+- id: book_appointment
+  translation: Solicitați o întâlnire
+
+# Publication/Event details
+
+- id: abstract
+  translation: Rezumat
+
+- id: publication
+  translation: Publicație
+
+- id: publication_type
+  translation: Tip
+
+- id: date
+  translation: Data
+
+- id: last_updated
+  translation: Ultima actualizare la
+
+- id: event
+  translation: Eveniment
+
+- id: location
+  translation: Localizare
+
+- id: paper-conference
+  translation: Conference paper
+
+- id: pub_article_journal
+  translation: Articol jurnal
+
+- id: pub_article
+  translation: Preprint
+
+- id: pub_report
+  translation: Report
+
+- id: pub_book
+  translation: Carte
+
+- id: pub_chapter
+  translation: Secțiunea cărți
+
+- id: pub_thesis
+  translation: Teza
+
+- id: pub_patent
+  translation: Brevet de invenție
+
+# Project details
+
+- id: open_project_site
+  translation: Accesați site-ul proiectului
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Articole
+
+- id: publications
+  translation: Publicații
+
+- id: talks
+  translation: Conferințe
+
+- id: projects
+  translation: Proiecte
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Căutare
+
+- id: search_placeholder
+  translation: Căutare...
+
+- id: search_results
+  translation: rezultate găsite
+
+- id: search_no_results
+  translation: Nu s-au găsit rezultate
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Pagina nu a fost găsită
+
+- id: 404_recommendations
+  translation: Căutați una din acestea?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Acest site utilizează cookie-uri pentru a garanta o experiență mai bună.
+
+- id: cookie_dismiss
+  translation: Înțeles!
+
+- id: cookie_learn
+  translation: Mai multe informații
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

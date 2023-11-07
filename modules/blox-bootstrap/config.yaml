@@ -1,0 +1,56 @@
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+        title: true
+  highlight:
+    codeFences: true
+    noHl: false
+    lineNumbersInTable: false
+    noClasses: false
+    guessSyntax: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+minify:
+  tdewolff:
+    html:
+      keepComments: true
+sitemap:
+  changefreq: weekly
+module:
+  hugoVersion:
+    min: '0.119.0'
+    extended: true
+  imports:
+    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-core
+    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-seo
+  mounts:
+    - source: content
+      target: content
+    - source: static
+      target: static
+    - source: layouts
+      target: layouts
+    - source: data
+      target: data
+    - source: assets
+      target: assets
+    - source: i18n
+      target: i18n
+    - source: archetypes
+      target: archetypes
+security:
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^WC_
+params:
+  locale:
+    date_format: 'Jan 2, 2006'
+    time_format: '3:04 PM'
+    address_format: en-us

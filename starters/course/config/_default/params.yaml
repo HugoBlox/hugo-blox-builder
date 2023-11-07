@@ -1,6 +1,6 @@
 # SITE SETUP
-# Guide: https://wowchemy.com/docs/getting-started/
-# Documentation: https://wowchemy.com/docs/
+# Guide: https://hugoblox.com/docs/getting-started/
+# Documentation: https://hugoblox.com/docs/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 # Appearance
@@ -18,7 +18,7 @@ marketing:
     site_type: Organization
     local_business_type: ''
     org_name: ''
-    description: 'A highly-customizable Hugo learning theme powered by Wowchemy website builder.'
+    description: 'A highly-customizable Hugo learning theme powered by Hugo Blox Builder.'
     twitter: 'wowchemy'
   analytics:
     google_analytics: ''

@@ -1,0 +1,29 @@
+<footer class="site-footer">
+
+  {{ partial "blox-core/functions/get_hook" (dict "hook" "footer-start" "context" .) }}
+
+  {{/* Load footer block */}}
+  {{ $footer_section_name := site.Params.footer.block | default "minimal" }}
+  {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
+  {{ if not (templates.Exists (printf "partials/%s" $footer_section_path)) }}
+    {{ errorf "Check your `params.yaml`. Cannot find footer block at `layouts/partials/%s`" $footer_section_path }}
+  {{ end }}
+  {{ partial $footer_section_path . }}
+
+  <p class="powered-by">
+    {{ $is_sponsor := site.Params.i_am_a_sponsor | default false }}
+    {{ $hide_published_with_footer := site.Params.power_ups.hide_published_with | default true }}
+    {{ if not (and $is_sponsor $hide_published_with_footer) }}
+      {{ $default := "Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators." }}
+      {{ $i18n_published_with := i18n "published_with" | default $default }}
+      {{ if not (findRE "{hugoblox}" $i18n_published_with) }}
+        {{ warnf "Please attribute Hugo Blox using `{hugoblox}` in the `published_with` text." }}
+        {{ $i18n_published_with = $default }}
+      {{ end }}
+      {{ $i18n_published_with = replace $i18n_published_with "{hugoblox}" "<a href=\"https://hugoblox.com/?utm_campaign=poweredby\" target=\"_blank\" rel=\"noopener\">Hugo Blox Builder</a>" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/HugoBlox/hugo-blox-builder\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{/repo_link}" "</a>" | safeHTML }}
+      {{ $i18n_published_with | replaceRE "{year}" now.Year | markdownify | emojify | safeHTML }}
+    {{ end }}
+  </p>
+</footer>

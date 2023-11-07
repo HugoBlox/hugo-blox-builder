@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Buka navigasi
+
+- id: table_of_contents
+  translation: Daftar isi
+
+- id: on_this_page
+  translation: Di halaman ini
+
+- id: back_to_top
+  translation: Kembali ke atas
+
+- id: home
+  translation: Beranda
+
+- id: close
+  translation: Tutup
+
+- id: languages
+  translation: Bahasa
+
+# General
+
+- id: related
+  translation: Terkait
+
+- id: minute_read
+  translation: menit untuk membaca
+
+- id: previous
+  translation: Sebelumnya
+
+- id: next
+  translation: Selanjutnya
+
+- id: figure
+  translation: 'Orang %d:'
+
+- id: edit_page
+  translation: Sunting halaman ini
+
+# Themes
+
+- id: theme_selector
+  translation: Preferensi tampilan
+
+- id: theme_light
+  translation: Terang
+
+- id: theme_dark
+  translation: Gelap
+
+- id: theme_auto
+  translation: Tema Otomatis
+
+# Buttons
+
+- id: btn_preprint
+  translation: Pracetak
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Sitasi
+
+- id: btn_slides
+  translation: Presentasi
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kode
+
+- id: btn_dataset
+  translation: Dataset
+
+- id: btn_project
+  translation: Proyek
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Sumber
+
+- id: btn_copy
+  translation: Salin
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Unduh
+
+# About widget
+
+- id: interests
+  translation: Minat
+
+- id: education
+  translation: Pendidikan
+
+- id: user_profile_latest
+  translation: Terbaru
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Lihat sertifikat
+
+# Experience widget
+
+- id: present
+  translation: Terkini
+
+# Pages widget
+
+- id: more_pages
+  translation: Lihat semua
+
+- id: more_posts
+  translation: Postingan lainnya
+
+- id: more_talks
+  translation: Percakapan lainnya
+
+- id: more_publications
+  translation: Publikasi lainnya
+
+# Contact widget
+
+- id: contact_name
+  translation: Nama
+
+- id: contact_email
+  translation: Surel
+
+- id: contact_message
+  translation: Pesan
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Kirim
+
+- id: book_appointment
+  translation: Menjadwalkan pertemuan
+
+# Publication/Event details
+
+- id: abstract
+  translation: Abstrak
+
+- id: publication
+  translation: Publikasi
+
+- id: publication_type
+  translation: Jenis publikasi
+
+- id: date
+  translation: Tanggal
+
+- id: last_updated
+  translation: Terakhir diperbaharui
+
+- id: event
+  translation: Acara
+
+- id: location
+  translation: Lokasi
+
+- id: paper-conference
+  translation: Kertas konferensi
+
+- id: pub_article_journal
+  translation: Artikel Jurnal
+
+- id: pub_article
+  translation: Pracetak
+
+- id: pub_report
+  translation: Laporan
+
+- id: pub_book
+  translation: Buku
+
+- id: pub_chapter
+  translation: Bagian buku
+
+- id: pub_thesis
+  translation: Tesis
+
+- id: pub_patent
+  translation: Paten
+
+# Project details
+
+- id: open_project_site
+  translation: Ke laman proyek
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Postingan
+
+- id: publications
+  translation: Publikasi
+
+- id: talks
+  translation: Perbincangan
+
+- id: projects
+  translation: Proyek
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Penulis
+
+# Search
+
+- id: search
+  translation: Cari
+
+- id: search_placeholder
+  translation: Cari...
+
+- id: search_results
+  translation: hasil pencarian
+
+- id: search_no_results
+  translation: Hasil pencarian tidak ada
+
+- id: search_common_queries
+  translation: Pencarian umum
+
+# Error 404
+
+- id: page_not_found
+  translation: Laman tidak ditemukan
+
+- id: 404_recommendations
+  translation: Apakah ini yang Anda cari?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Situs web ini menggunakan cookie untuk memastikan Anda mendapatkan pengalaman terbaik di situs web kami.
+
+- id: cookie_dismiss
+  translation: Mengerti!
+
+- id: cookie_learn
+  translation: Pelajari
+
+# Published with
+
+- id: published_with
+  translation: Diterbitkan dengan {hugoblox} — Secara gratis, {repo_link}sumber terbuka{/repo_link} pembuat situs web yang memberdayakan para pembuat konten.

@@ -5,17 +5,17 @@ date: 2023-10-24
 math: true
 tags:
   - Hugo
-  - Wowchemy
+  - Hugo Blox Builder
   - Markdown
 image:
   caption: 'Embed rich media such as videos and LaTeX math'
 ---
 
-[Wowchemy](https://wowchemy.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Wowchemy web framework which this template is built upon handles the rest.
+[Hugo Blox Builder](https://hugoblox.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.
 
 **Embed videos, podcasts, code, LaTeX math, and even test students!**
 
-On this page, you'll find some examples of the types of technical content that can be rendered with Wowchemy.
+On this page, you'll find some examples of the types of technical content that can be rendered with Hugo Blox.
 
 ## Video
 
@@ -63,12 +63,12 @@ renders as
 
 ## Math
 
-Wowchemy supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
+Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
 
 To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively.
 
 {{% callout note %}}
-We wrap the LaTeX math in the Wowchemy _math_ shortcode to prevent Hugo rendering our math as Markdown.
+We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown.
 {{% /callout %}}
 
 Example **math block**:
@@ -111,7 +111,7 @@ $$
 
 ## Code
 
-Wowchemy utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
+Hugo Blox Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
 
 
     ```python

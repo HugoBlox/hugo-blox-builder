@@ -1,8 +1,8 @@
-# Contributing to Wowchemy
+# Contributing to Hugo Blox Builder
 
 Thanks for being interested in contributing! We’re so glad you want to help!
 
-We want contributing to Wowchemy to be fun, enjoyable, and educational for anyone and everyone. All contributions are welcome, including new plugins (such as new widgets, shortcodes, theme packs, and language packs), templates, features, documentation as well as updates and tweaks, blog posts, YouTube tutorials, live streaming customizations, meetups, and more.
+We want contributing to Hugo Blox to be fun, enjoyable, and educational for anyone and everyone. All contributions are welcome, including new plugins (such as new widgets, shortcodes, theme packs, and language packs), templates, features, documentation as well as updates and tweaks, blog posts, YouTube tutorials, live streaming customizations, meetups, and more.
 
 ## Where to Start
 
@@ -12,22 +12,22 @@ Join the **Contributing** channel on the **[community Discord](https://discord.g
 
 Whether or not you're a developer, there are plenty of non-technical ways that you can help. We always need help with:
 
-- Helping the Wowchemy community via the live [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/wowchemy/wowchemy-hugo-themes/discussions)
-- Investigating and reviewing open [Issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) and [Pull Requests](https://github.com/wowchemy/wowchemy-hugo-themes/pulls)
+- Helping the Hugo Blox community via the live [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)
+- Investigating and reviewing open [Issues](https://github.com/HugoBlox/hugo-blox-builder/issues) and [Pull Requests](https://github.com/HugoBlox/hugo-blox-builder/pulls)
   - Influence the roadmap! Give a thumbs up 👍 to upvote a feature request you would like to use
-- Improving the [documentation](https://wowchemy.com/docs/) and writing tutorials
+- Improving the [documentation](https://hugoblox.com/docs/) and writing tutorials
   - Just click the _Edit_ button at the bottom of pages or open an issue with your proposed improvement
 - Testing and quality assurance, such as checking the latest version of the templates work as you expect and fixing any dead-links etc.
-- Translating the Wowchemy templates or the Wowchemy documentation
-- Hosting local Wowchemy themed events or meetups
-- Promoting Wowchemy to others by blogging, vlogging, code streaming, talking etc.
+- Translating the Hugo Blox templates or the Hugo Blox documentation
+- Hosting local Hugo Blox themed events or meetups
+- Promoting Hugo Blox to others by blogging, vlogging, code streaming, talking etc.
 
 ### For technical contributions
 
 Repository structure:
 
 - modules
-  - The components and layouts which form the Wowchemy page building framework that the templates depend on
+  - The components and layouts which form the Hugo Blox page building framework that the templates depend on
 - scripts
   - A collection of scripts for helping maintain the repository
 - starters
@@ -38,13 +38,13 @@ Repository structure:
 
 #### What are some good issues to contribute to?
 
-If you're a developer looking to contribute, but you're not sure where to begin, check out the [help wanted](https://github.com/wowchemy/wowchemy-hugo-themes/labels/help%20wanted) label on Github, which contains issues which need some love.
+If you're a developer looking to contribute, but you're not sure where to begin, check out the [help wanted](https://github.com/HugoBlox/hugo-blox-builder/labels/help%20wanted) label on Github, which contains issues which need some love.
 
 #### How can I propose an improvement?
 
-If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/wowchemy/wowchemy-hugo-themes/pulls) for the community to review.
+If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/HugoBlox/hugo-blox-builder/pulls) for the community to review.
 
-If you have an idea for a new feature, please start by [searching the issues](https://github.com/wowchemy/wowchemy-hugo-themes/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/wowchemy/wowchemy-hugo-themes/issues/new/choose), as adding new features to Wowchemy first requires some analysis around the design and spec.
+If you have an idea for a new feature, please start by [searching the issues](https://github.com/HugoBlox/hugo-blox-builder/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/HugoBlox/hugo-blox-builder/issues/new/choose), as adding new features to Hugo Blox first requires some analysis around the design and spec.
 
 Please be mindful of the project [scope](#scope).
 
@@ -61,7 +61,7 @@ Otherwise, for larger changes, you can edit locally on your computer in your fav
 Fork (copy) the repo on GitHub and then clone (download) your fork to your computer:
 
 ```sh
-git clone https://github.com/<YOUR_USERNAME>/wowchemy-hugo-themes.git
+git clone https://github.com/<YOUR_USERNAME>/hugo-blox-builder.git
 ```
 
 **View a template**
@@ -82,7 +82,7 @@ Implement you changes and then check for any linting or formatting issues.
 
 Code linting and formatting form part of the Continuous Integration process to help catch bugs and code issues in contributions.
 
-Contributors can also run the flow on their fork of the "Wowchemy Hugo Modules" repo when making contributions (you'll need Node and Yarn to run):
+Contributors can also run the flow on their fork of the "Hugo Blox Builder" repo when making contributions (you'll need Node and Yarn to run):
 
 ```sh
 yarn install
@@ -92,7 +92,7 @@ yarn run format
 
 **Open a Pull Request with your changes**
 
-Use git to push (upload) your changes to GitHub and then open a Pull Request (PR) at https://github.com/wowchemy/wowchemy-hugo-themes/pulls
+Use git to push (upload) your changes to GitHub and then open a Pull Request (PR) at https://github.com/HugoBlox/hugo-blox-builder/pulls
 
 Please be mindful of the project [scope](#scope).
 
@@ -106,26 +106,26 @@ Please be mindful of the project [scope](#scope).
 
 ### Contribute a language pack
 
-To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://wowchemy.com/docs/language/#create-or-modify-a-language-pack). Once created, [fork Wowchemy Hugo Modules](https://github.com/wowchemy/wowchemy-hugo-themes), place your language pack in `wowchemy/i18n/`, add the name of the language to `wowchemy/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
+To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://hugoblox.com/docs/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/hugo-blox-builder), place your language pack in `blox-tailwind/i18n/`, add the name of the language to `blox-tailwind/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
 
 ### Contribute a theme pack
 
-[View the guide](https://wowchemy.com/docs/customization/#share-your-theme) to contributing a color and font theme pack.
+[View the guide](https://hugoblox.com/docs/customization/#share-your-theme) to contributing a color and font theme pack.
 
 ### Contribute a template
 
-Consider duplicating a bare-bones template, such as the [Minimal](https://github.com/wowchemy/wowchemy-hugo-themes/tree/main/starters/minimal) folder, and building up your own template using the Wowchemy Hugo Module. Reach out on the **Contributing** channel in Discord to submit your template.
+Consider duplicating a bare-bones template, such as the [Minimal](https://github.com/HugoBlox/hugo-blox-builder/tree/main/starters/minimal) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
 
 ### Contribute to the Publication importer
 
-To contribute to **Hugo Academic CLI**, the automatic publication importer, refer to [its dedicated Github repository](https://github.com/wowchemy/hugo-academic-cli) and Issue queue.
+To contribute to **Hugo Academic CLI**, the automatic publication importer, refer to [its dedicated Github repository](https://github.com/GetRD/academic-file-converter) and Issue queue.
 
 ## Become a backer
 
 To help us develop this free software sustainably under the open source license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship:
 
 - ☕️ [**Donate a coffee**](https://github.com/sponsors/gcushen?frequency=one-time)
-- ❤️ [**Become a sponsor and unlock awesome rewards**](https://wowchemy.com/sponsor/)
+- ❤️ [**Become a sponsor and unlock awesome rewards**](https://hugoblox.com/sponsor/)
 
 ## Best practices
 
@@ -161,4 +161,4 @@ The more regular active volunteers (rather than one-off contributors) we have su
 
 The project's scope also has to be constrained so that it doesn't get too complex and unwieldy, from an architectural perspective, a testing perspective, and from a usability perspective.
 
-Plugins (widgets, shortcodes, theme packs, language packs, and third-party JavaScript integrations) as well as templates allow the community to add major features without needing to contribute to Wowchemy itself.
+Plugins (widgets, shortcodes, theme packs, language packs, and third-party JavaScript integrations) as well as templates allow the community to add major features without needing to contribute to Hugo Blox itself.

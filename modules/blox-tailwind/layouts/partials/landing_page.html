@@ -1,0 +1,7 @@
+{{/* Load Hugo Blox */}}
+{{ range $index, $block := .Params.sections }}
+  {{/* Do not show sections intended only for the demo site. */}}
+  {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "WC_DEMO") "true")) }}
+    {{ partial "functions/parse_block_v2" (dict "page" $ "block" $block) }}
+  {{ end }}
+{{ end }}

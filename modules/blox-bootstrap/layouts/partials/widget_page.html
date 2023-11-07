@@ -1,0 +1,32 @@
+{{/* Notify JS that this is a widget page */}}
+<!-- TODO: use data attribute on <body> instead if this is still required -->
+<span class="js-widget-page d-none"></span>
+
+{{/* Load widget page */}}
+{{ $page := "" }}
+{{ $headless_bundle := "" }}
+{{ if .IsHome }}
+  {{ $page = "/home/index.md" }}
+  {{ $headless_bundle = site.GetPage $page }}
+  {{/* Check homepage exists */}}
+  {{ if not $headless_bundle }}
+    {{ warnf "Hugo cannot find a Widget Page at %s!" $page }}
+    {{ warnf "If the page exists, Hugo Server may need restarting due to file changes." }}
+    {{ warnf "Add the `/home/index.md` homepage file to each language's content folder. For example, your site should have a `content/home/` folder containing `index.md` and your homepage sections, or for multi-language sites, `content/en/home/` and `content/zh/home/` etc. Refer to the 'Build Your Homepage' and 'Language' documentation at https://docs.hugoblox.com/ ." }}
+  {{ end }}
+{{ else }}
+  {{ $page = .File.Path }}
+  {{ $headless_bundle = site.GetPage $page }}
+  {{/* Check widget page exists. */}}
+  {{ if not $headless_bundle }}
+    {{ warnf "Hugo cannot find a Widget Page at %s!" $page }}
+    {{ warnf "If the page exists, Hugo Server may need restarting due to file changes." }}
+    {{ warnf "View the Widget Page documentation at https://hugoblox.com/docs/managing-content/#create-a-widget-page ." }}
+    {{ warnf "If the Hugo version is between 0.65 and 0.68, it may be a confirmed Hugo bug that is expected to be fixed in Hugo v0.69: https://github.com/HugoBlox/hugo-blox-builder/issues/1595#issuecomment-605514973 ." }}
+  {{ end }}
+{{ end }}
+
+{{/* Load Hugo Blox */}}
+{{ range $index, $block := where ( $headless_bundle.Resources.ByType "page" ) ".Params.active" "!=" false }}
+  {{ partial "functions/parse_block_v1" (dict "page" $ "block" $block) }}
+{{ end }}

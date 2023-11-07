@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: ניווט
+
+- id: table_of_contents
+  translation: תוכן עניינים
+
+- id: on_this_page
+  translation: תוכן
+
+- id: back_to_top
+  translation: חזרה למעלה
+
+- id: home
+  translation: בית
+
+- id: close
+  translation: סגירה
+
+- id: languages
+  translation: שפות
+
+# General
+
+- id: related
+  translation: קשור
+
+- id: minute_read
+  translation: דק׳ קריאה
+
+- id: previous
+  translation: הקודם
+
+- id: next
+  translation: הבא
+
+- id: figure
+  translation: 'איור %d:'
+
+- id: edit_page
+  translation: עריכת דף זה
+
+# Themes
+
+- id: theme_selector
+  translation: העדפות תצוגה
+
+- id: theme_light
+  translation: בהיר
+
+- id: theme_dark
+  translation: כהה
+
+- id: theme_auto
+  translation: אוטומטי
+
+# Buttons
+
+- id: btn_preprint
+  translation: קדם-פרסום
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: ציטוט
+
+- id: btn_slides
+  translation: שקופיות
+
+- id: btn_video
+  translation: וידאו
+
+- id: btn_code
+  translation: קוד
+
+- id: btn_dataset
+  translation: ערכת נתונים
+
+- id: btn_project
+  translation: פרויקט
+
+- id: btn_poster
+  translation: פוסטר
+
+- id: btn_source
+  translation: מסמך מקור
+
+- id: btn_copy
+  translation: העתקה
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: הורדה
+
+# About widget
+
+- id: interests
+  translation: תחומי עניין
+
+- id: education
+  translation: השכלה
+
+- id: user_profile_latest
+  translation: פורסם לאחרונה
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: תעודה
+
+# Experience widget
+
+- id: present
+  translation: הווה
+
+# Pages widget
+
+- id: more_pages
+  translation: הכל
+
+- id: more_posts
+  translation: כל הפוסטים
+
+- id: more_talks
+  translation: כל האירועים
+
+- id: more_publications
+  translation: כל הפרסומים
+
+# Contact widget
+
+- id: contact_name
+  translation: שם
+
+- id: contact_email
+  translation: דוא״ל
+
+- id: contact_message
+  translation: הודעה
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: שליחה
+
+- id: book_appointment
+  translation: קביעת פגישה
+
+# Publication/Event details
+
+- id: abstract
+  translation: תקציר
+
+- id: publication
+  translation: פרסום
+
+- id: publication_type
+  translation: סוג
+
+- id: date
+  translation: תאריך
+
+- id: last_updated
+  translation: עודכן לאחרונה ב-
+
+- id: event
+  translation: אירוע
+
+- id: location
+  translation: מיקום
+
+- id: paper-conference
+  translation: נייר ועידה
+
+- id: pub_article_journal
+  translation: מאמר בכתב עת
+
+- id: pub_article
+  translation: קדם-פרסום
+
+- id: pub_report
+  translation: דו״ח
+
+- id: pub_book
+  translation: ספר
+
+- id: pub_chapter
+  translation: קטע של ספר
+
+- id: pub_thesis
+  translation: תזה
+
+- id: pub_patent
+  translation: פטנט
+
+# Project details
+
+- id: open_project_site
+  translation: אתר הפרויקט
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: פוסטים
+
+- id: publications
+  translation: פרסומים
+
+- id: talks
+  translation: אירועים
+
+- id: projects
+  translation: פרויקטים
+
+- id: slides
+  translation: שקופיות
+
+- id: authors
+  translation: מחברים
+
+# Search
+
+- id: search
+  translation: חיפוש
+
+- id: search_placeholder
+  translation: חיפוש...
+
+- id: search_results
+  translation: תוצאות חיפוש
+
+- id: search_no_results
+  translation: לא נמצאו תוצאות
+
+- id: search_common_queries
+  translation: חיפושים נפוצים
+
+# Error 404
+
+- id: page_not_found
+  translation: העמוד לא נמצא
+
+- id: 404_recommendations
+  translation: אולי חיפשת אחד מאלה?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: אתר זה משתמש בקובצי Cookie כדי להבטיח שתקבלו את החוויה הטובה ביותר באתר.
+
+- id: cookie_dismiss
+  translation: הבנתי!
+
+- id: cookie_learn
+  translation: מידע נוסף
+
+# Published with
+
+- id: published_with
+  translation: פורסם באמצעות {hugoblox} — בונה האתרים החינמי, בעל {repo_link}קוד פתוח{/repo_link}, שמעצים יוצרים.

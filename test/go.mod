@@ -1,7 +1,7 @@
-module github.com/wowchemy/wowchemy-hugo-themes/test
+module github.com/HugoBlox/hugo-blox-builder/test
 
 go 1.15
 
-require github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-tailwind main
+require github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind main
 
-replace github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-tailwind => ../modules/wowchemy-tailwind
+replace github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind => ../modules/blox-tailwind

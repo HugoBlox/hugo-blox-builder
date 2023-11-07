@@ -1,0 +1,18 @@
+{{/* Return the requested SVG icon */}}
+{{/* Search for the icon in the Hugo Blox Builder icon library, falling back to user's icon library */}}
+
+{{- $icon := index site.Data.icons .name -}}
+
+{{ if not $icon }}
+  {{ with resources.GetMatch (printf "media/icons/%s.svg" .name) }}
+    {{ $icon = .Content }}
+  {{else}}
+    {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/` folder" .name }}
+  {{ end }}
+{{ end }}
+
+{{ if .attributes }}
+  {{ $icon = replaceRE "<svg" (printf "<svg %s" .attributes) $icon }}
+{{ end }}
+
+{{- return ($icon | safeHTML) -}}

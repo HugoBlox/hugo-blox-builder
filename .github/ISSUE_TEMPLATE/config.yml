@@ -4,11 +4,11 @@ contact_links:
     url: https://discord.gg/z8wNYzb
     about: Chat live with the Wowchemy community on Discord.
   - name: Discussions
-    url: https://github.com/wowchemy/wowchemy-hugo-themes/discussions
+    url: https://github.com/HugoBlox/hugo-blox-builder/discussions
     about: Discuss Wowchemy on the GitHub Discussions forum
   - name: Troubleshooting Guide
-    url: https://wowchemy.com/docs/hugo-tutorials/troubleshooting/
+    url: https://hugoblox.com/docs/hugo-tutorials/troubleshooting/
     about: Solve common issues fast.
   - name: Documentation
-    url: https://wowchemy.com/docs/
+    url: https://hugoblox.com/docs/
     about: Review the documentation

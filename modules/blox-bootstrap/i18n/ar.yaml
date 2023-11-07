@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: قائمة
+
+- id: table_of_contents
+  translation: فهرس المحتويات
+
+- id: on_this_page
+  translation: المحتويات
+
+- id: back_to_top
+  translation: الرجوع لأعلى الصفحة
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: ذات صلة
+
+- id: minute_read
+  translation: دقيقة قراءة
+
+- id: previous
+  translation: السابق
+
+- id: next
+  translation: التالي
+
+- id: figure
+  translation: 'شكل %d:'
+
+- id: edit_page
+  translation: عدل هذه الصفحة
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: الوضع العادي
+
+- id: theme_dark
+  translation: الوضع الليلي
+
+- id: theme_auto
+  translation: تلقائي
+
+# Buttons
+
+- id: btn_preprint
+  translation: المسودة
+
+- id: btn_pdf
+  translation: بي دي اف
+
+- id: btn_cite
+  translation: استشهاد
+
+- id: btn_slides
+  translation: شرائح
+
+- id: btn_video
+  translation: فيديو
+
+- id: btn_code
+  translation: تمريز
+
+- id: btn_dataset
+  translation: البيانات
+
+- id: btn_project
+  translation: مشروع
+
+- id: btn_poster
+  translation: ملصق
+
+- id: btn_source
+  translation: مستند أصلي
+
+- id: btn_copy
+  translation: نسخ
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: تحميل
+
+# About widget
+
+- id: interests
+  translation: الإهتمامات
+
+- id: education
+  translation: التعليم
+
+- id: user_profile_latest
+  translation: اخر
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: الشهادات
+
+# Experience widget
+
+- id: present
+  translation: حتى الأن
+
+# Pages widget
+
+- id: more_pages
+  translation: شاهد الكل
+
+- id: more_posts
+  translation: شاهد جميع التعليقات
+
+- id: more_talks
+  translation: شاهد جميع المحاضرات
+
+- id: more_publications
+  translation: شاهد جميع المنشورات
+
+# Contact widget
+
+- id: contact_name
+  translation: الأسم
+
+- id: contact_email
+  translation: البريد الإلكتروني
+
+- id: contact_message
+  translation: رسالة
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: إرسل الرسالة
+
+- id: book_appointment
+  translation: حجز موعد
+
+# Publication/Event details
+
+- id: abstract
+  translation: مقدمة
+
+- id: publication
+  translation: منشور
+
+- id: publication_type
+  translation: نوع
+
+- id: date
+  translation: التاريخ
+
+- id: last_updated
+  translation: اخر تحيث في
+
+- id: event
+  translation: حدث
+
+- id: location
+  translation: موقع
+
+- id: paper-conference
+  translation: ورقة مؤتمر
+
+- id: pub_article_journal
+  translation: مجلة محكمه
+
+- id: pub_article
+  translation: مسودة
+
+- id: pub_report
+  translation: تقرير
+
+- id: pub_book
+  translation: كتاب
+
+- id: pub_chapter
+  translation: قسم من كتاب
+
+- id: pub_thesis
+  translation: أطروحة
+
+- id: pub_patent
+  translation: براءة الإختراع
+
+# Project details
+
+- id: open_project_site
+  translation: أذهب لموقع المشروع
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: التعليقات
+
+- id: publications
+  translation: المنشورات
+
+- id: talks
+  translation: المحاضرات
+
+- id: projects
+  translation: المشروعات
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: بحث
+
+- id: search_placeholder
+  translation: ابحث هنا‫...‬
+
+- id: search_results
+  translation: نتائج البحث
+
+- id: search_no_results
+  translation: لم يتم العثور على نتائج
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: الصفحة غير موجودة
+
+- id: 404_recommendations
+  translation: هل تبحث عن أحد الصفحات التالية؟
+
+# Cookie consent
+
+- id: cookie_message
+  translation: هذا الموقع يستخدم ملفات تعريف الارتباط "الكوكيز" لنمنحك أفضل تجربة مستخدم ممكنة
+
+- id: cookie_dismiss
+  translation: أوافق‫!‬
+
+- id: cookie_learn
+  translation: تعرف على المزيد
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

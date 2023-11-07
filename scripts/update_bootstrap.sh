@@ -6,8 +6,8 @@
 # 3. update renamed dir in _mixins.scss to `@import "_vendor/rfs";`
 # 4. update jQuery and Popper CDN dependencies
 
-ASSETS_JS_DIR="wowchemy/assets/js/_vendor/"
-ASSETS_SCSS_DIR="wowchemy/assets/scss/_vendor/"
+ASSETS_JS_DIR="blox-bootstrap/assets/js/_vendor/"
+ASSETS_SCSS_DIR="blox-bootstrap/assets/scss/_vendor/"
 
 mkdir -p $ASSETS_SCSS_DIR/bootstrap/
 

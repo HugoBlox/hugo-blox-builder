@@ -15,7 +15,7 @@ slides:
 
 # Create slides in Markdown with Wowchemy
 
-[Wowchemy](https://wowchemy.com/) | [Documentation](https://wowchemy.com/docs/content/slides/)
+[Wowchemy](https://hugoblox.com/) | [Documentation](https://hugoblox.com/docs/content/slides/)
 
 ---
 
@@ -168,4 +168,4 @@ Create `assets/css/reveal_custom.css` with:
 
 [Ask](https://discord.gg/z8wNYzb)
 
-[Documentation](https://wowchemy.com/docs/content/slides/)
+[Documentation](https://hugoblox.com/docs/content/slides/)

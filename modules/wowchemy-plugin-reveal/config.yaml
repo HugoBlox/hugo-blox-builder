@@ -1,8 +1,0 @@
-module:
-  mounts:
-    - source: assets
-      target: assets
-    - source: layouts
-      target: layouts
-  imports:
-    - path: github.com/wowchemy/wowchemy-hugo-themes/modules/wowchemy-core

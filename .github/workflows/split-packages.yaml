@@ -17,12 +17,12 @@ jobs:
       matrix:
         # define package to repository map
         package:
-          - local_path: 'academic'
-            split_repository: 'starter-hugo-academic'
+          - local_path: 'academic-cv'
+            split_repository: 'theme-academic-cv'
           - local_path: 'markdown-slides'
             split_repository: 'starter-hugo-markdown-slides'
           - local_path: 'blog'
-            split_repository: 'hugo-blog-theme'
+            split_repository: 'theme-blog'
           - local_path: 'documentation'
             split_repository: 'hugo-documentation-theme'
           - local_path: 'portfolio'
@@ -30,7 +30,7 @@ jobs:
           - local_path: 'course'
             split_repository: 'starter-hugo-online-course'
           - local_path: 'link-in-bio'
-            split_repository: 'hugo-link-in-bio-theme'
+            split_repository: 'theme-link-in-bio'
           - local_path: 'research-group'
             split_repository: 'starter-hugo-research-group'
           - local_path: 'second-brain'
@@ -52,4 +52,4 @@ jobs:
 
           # ↓ the user signed under the split commit
           user_name: "Splitter Bot"
-          user_email: "no.reply@wowchemy.com"
+          user_email: "no.reply@hugoblox.com"

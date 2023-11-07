@@ -1,0 +1,96 @@
+{{ $current_page := . }}
+
+{{/* Check whether to show breadcrumb navigation. */}}
+{{ $show_breadcrumb := .Params.show_breadcrumb }}
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      {{ partial "book_sidebar" . }}
+    </div>
+
+    {{/* Show ToC by default. */}}
+    {{ if ne .Params.toc false }}
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      {{ partial "blox-core/functions/get_hook" (dict "hook" "toc-start" "context" .) }}
+
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">{{ i18n "on_this_page" }}</a></li>
+      </ul>
+
+      {{ .TableOfContents }}
+
+      {{ partial "blox-core/functions/get_hook" (dict "hook" "toc-end" "context" .) }}
+    </div>
+    {{ end }}
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <div class="docs-article-container">
+        {{ if $show_breadcrumb }}
+          {{ partial "components/breadcrumb" $current_page }}
+        {{ end }}
+      </div>
+
+      {{/* Cover image */}}
+      {{ $cover_image := partial "blox-core/functions/get_featured_image.html" . }}
+      {{ if $cover_image }}
+      <div class="article-header">
+        {{ $alt := (.Params.image.caption | default "") | plainify }}
+        {{ $cover_image = $cover_image.Fit "1800x310 webp" }}
+        <img src="{{$cover_image.RelPermalink}}" width="{{$cover_image.Width}}" height="{{$cover_image.Height}}" class="article-banner" alt="{{$alt}}">
+        {{ with (.Params.image.alt_text | default .Params.image.caption) }}
+          <span class="article-header-caption">{{ . | markdownify | emojify }}</span>
+        {{ end }}
+      </div>
+      {{end}}
+
+      <div class="docs-article-container">
+        {{/* Fallback to filename as title (useful for default Obsidian note structure) */}}
+        <h1>{{ cond (ne .File nil) (.Title | default (title .File.ContentBaseName)) .Title }}</h1>
+
+        <article class="article-style">
+
+          {{/* Only auto-list page children if _index has no content (or if it isn't a .File?) */}}
+          {{ if and (not .Content) (gt (len $.Page.Pages) 0) }}
+          <ul class="list-unstyled">
+            {{ range $.Page.Pages }}
+            <li>
+              <h5><a href="{{.RelPermalink}}">{{.LinkTitle | default (title .File.TranslationBaseName) }}</a></h5>
+              {{if .Summary}}<p>{{.Summary | plainify | emojify}}</p>{{end}}
+            </li>
+            {{end}}
+          </ul>
+          {{end}}
+
+          {{ .Content }}
+
+        </article>
+
+        {{ partial "components/feedback" . }}
+
+        {{ partial "tags.html" . }}
+
+        {{/* Show next/previous pages by default. */}}
+        {{ if ne .Params.pager false }}
+        <div class="article-widget">
+          {{ partial "components/pager" . }}
+        </div>
+        {{ end }}
+      </div>
+
+      <div class="body-footer">
+        <p>{{ i18n "last_updated" }} {{ $.Lastmod | time.Format site.Params.locale.date_format }}</p>
+
+        {{ partial "page_edit" . }}
+
+        {{ partial "comments" . }}
+
+        {{ partial "page_related" . }}
+      </div>
+
+      {{ partial "site_footer" . }}
+
+    </main>
+  </div>
+</div>

@@ -1,0 +1,116 @@
+{{/* Figure Shortcode for Hugo Blox Builder. */}}
+{{/* Load image from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
+{{/* Note: Uses `{{-` to unindent HTML so that Figure shortcode can be nested within a `{{%` Markdown shortcode,
+     such as Callout, without the HTML being rendered as a Markdown code block. */}}
+
+{{/*
+    Docs: https://hugoblox.com/docs/content/writing-markdown-latex/#single-image
+
+    Parameters
+    ----------
+    src :
+        Path to file or url for the image.
+        If a local file, first it is searched in the page directory, and then in `assets/media/` .
+    caption : optional
+        Caption to add to the figure.
+    title : optional
+        DEPRECATED. Legacy alias for 'caption'.
+    lightbox : default "true"
+        If 'lightbox' is "true" and no 'link' is specified, the figure is made zoomable.
+    link : optional
+        Link to open on click instead of zooming on click.
+    id : optional
+        Custom id "figure-{id}" to associate to the <figure> tag.
+        The id defaults to the caption if unset.
+    alt : optional
+        Screen reader text. Defaults to the caption if unset.
+    theme : optional
+        One of ["light", "dark"]. Respectively adds the class ["img-light", "img-dark"] to <figure>.
+        If "light", image is inverted when browsing in dark mode; the opposite otherwise.
+    class : optional
+        Optional additional class for <figure>.
+    max_width : optional
+        `max-width` style attribute for the <div class="w-100"> tage inside <figure>.
+        For example, "fit-content" makes the <div> of the same width of the contained image.
+    width : optional
+        `width` attribute of <img>. It defaults to image width.
+    height : optional
+        `height` attribute of <img>. It defaults to image height.
+    numbered : default "false"
+        If "true", the caption is numbered.
+*/}}
+
+{{ $destination := .Get "src" }}
+{{ $is_remote := strings.HasPrefix $destination "http" }}
+{{ $caption := .Get "caption" | default (.Get "title") | default "" }}{{/* Support legacy `title` option. */}}
+{{ $zoom := eq (.Get "lightbox" | default "true") "true" }}
+{{ $id := anchorize (.Get "id" | default ($caption | plainify)) }}
+{{ $alt := .Get "alt" | default ($caption | plainify) }}
+{{ $link := .Get "link" }}
+{{ $zoom = cond (ne $link "") false $zoom }}
+{{ $img_class := "" }}
+{{ if eq (.Get "theme" | lower) "light" }}{{ $img_class = printf "%s img-light" $img_class }}{{end}}
+{{ if eq (.Get "theme" | lower) "dark" }}{{ $img_class = printf "%s img-dark" $img_class }}{{end}}
+
+{{/* Workaround Hugo v0.81 error on Windows when `resources.Get (path.Join "media" <URL>)` */}}
+{{- $img := "" -}}
+{{- if not $is_remote -}}
+  {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+  {{- if not $img -}}
+    {{- $img = resources.Get (path.Join "media" $destination) -}}
+  {{- end -}}
+{{- end -}}
+
+<figure {{ with .Get "class" }}class="{{.}}"{{end}} {{ with $id }}id="figure-{{ . }}"{{ end }}>
+  <div class="d-flex justify-content-center">
+    <div class="w-100" {{ with .Get "max_width" }}style="max-width: {{.}}"{{end}}>
+      {{- if $link -}}
+        <a href="{{ $link }}" {{ if strings.HasPrefix $link "http" }} target="_blank" rel="noopener"{{ end }}>
+      {{- end -}}
+      {{- if $img -}}
+        {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
+        {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
+        {{- if $isSVG | or $isGIF -}}
+          <img alt="{{ $alt }}"
+           src="{{ $img.RelPermalink }}"
+           loading="lazy"
+           {{- if $zoom }} data-zoomable{{end}}
+           {{- with .Get "width" }} width="{{.}}"{{end}}
+           {{- with .Get "height" }} height="{{.}}"{{end}}
+           {{- with $img_class }} class="{{.}}"{{end}} />
+        {{- else }}
+          {{- $img_lg := $img.Fit "1200x1200 webp" -}}
+          {{- $img_md := $img_lg.Fit "760x760 webp" -}}{{/* Match `.docs-article-container` max-width */}}
+          {{- $img_sm := $img_md.Fit "400x400 webp" -}}
+          {{- $width := (.Get "width") | default $img_md.Width -}}
+          {{- $height := (.Get "height") | default $img_md.Height -}}
+          <img alt="{{ $alt }}" srcset="
+               {{ $img_sm.RelPermalink }} 400w,
+               {{ $img_md.RelPermalink }} 760w,
+               {{ $img_lg.RelPermalink }} 1200w"
+               src="{{ $img_sm.RelPermalink }}"
+               width="{{ $width }}"
+               height="{{ $height }}"
+               loading="lazy"
+               {{- if $zoom }} data-zoomable{{end}}
+               {{- with $img_class }} class="{{.}}"{{end}} />
+        {{- end }}
+      {{- else -}}
+        <img src="{{ $destination | safeURL }}" alt="{{ $alt }}" loading="lazy" {{ if $zoom }}data-zoomable{{end}}
+             {{- with .Get "width" }} width="{{.}}"{{end}} {{- with .Get "height" }} height="{{.}}"{{end}}
+             {{- with $img_class }} class="{{.}}"{{end}} />
+      {{- end -}}
+      {{- if $link -}}
+        </a>
+      {{- end -}}
+    </div>
+  </div>
+
+  {{- if $caption -}}
+    {{/* Localize the figure numbering (if enabled). */}}
+    {{- $figure := split (i18n "figure" | default "Figure %d:") "%d" -}}
+    <figcaption{{ if eq (.Get "numbered") "true" }} data-pre="{{- trim (index $figure 0) " " -}}&nbsp;" data-post="{{ index $figure 1 }}&nbsp;" class="numbered"{{ end }}>
+      {{ $caption | markdownify | emojify }}
+    </figcaption>
+  {{- end -}}
+</figure>

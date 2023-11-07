@@ -1,0 +1,19 @@
+{{/* Hugo Blox: Markdown */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $columns := $block.design.columns | default "1" }}
+{{ $text := $block.content.text | emojify | $page.RenderString }}
+
+{{ if ne $columns "1" }}
+  <div class="col-12 col-lg-8">
+    {{ $text }}
+  </div>
+{{ else }}
+  <div class="col-12">
+    {{ $text }}
+  </div>
+{{ end }}

@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: 네비게이션
+
+- id: table_of_contents
+  translation: 차례
+
+- id: on_this_page
+  translation: 이 페이지
+
+- id: back_to_top
+  translation: 맨 위로
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: 관련문서
+
+- id: minute_read
+  translation: 분 읽기
+
+- id: previous
+  translation: 이전
+
+- id: next
+  translation: 다음
+
+- id: figure
+  translation: '그림 %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: 출판 전 논문
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: 인용
+
+- id: btn_slides
+  translation: 발표자료
+
+- id: btn_video
+  translation: 비디오
+
+- id: btn_code
+  translation: 소스코드
+
+- id: btn_dataset
+  translation: 데이터셋
+
+- id: btn_project
+  translation: 프로젝트
+
+- id: btn_poster
+  translation: 포스터
+
+- id: btn_source
+  translation: 원본문서
+
+- id: btn_copy
+  translation: 복사
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: 다운로드
+
+# About widget
+
+- id: interests
+  translation: 관심분야
+
+- id: education
+  translation: 학위
+
+- id: user_profile_latest
+  translation: 최신
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: 증서 보기
+
+# Experience widget
+
+- id: present
+  translation: 현재
+
+# Pages widget
+
+- id: more_pages
+  translation: 전체 보기
+
+- id: more_posts
+  translation: 포스트 더 보기
+
+- id: more_talks
+  translation: 강연 더 보기
+
+- id: more_publications
+  translation: 논문 더 보기
+
+# Contact widget
+
+- id: contact_name
+  translation: 이름
+
+- id: contact_email
+  translation: 이메일
+
+- id: contact_message
+  translation: 메시지
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: 보내기
+
+- id: book_appointment
+  translation: 일정 약속
+
+# Publication/Event details
+
+- id: abstract
+  translation: 초록
+
+- id: publication
+  translation: 발행기관
+
+- id: publication_type
+  translation: 출판유형
+
+- id: date
+  translation: 날짜
+
+- id: last_updated
+  translation: 마지막 업데이트
+
+- id: event
+  translation: 이벤트
+
+- id: location
+  translation: 장소
+
+- id: paper-conference
+  translation: 학술 대회 논문
+
+- id: pub_article_journal
+  translation: 저널 논문
+
+- id: pub_article
+  translation: 출판 전 논문
+
+- id: pub_report
+  translation: 보고서
+
+- id: pub_book
+  translation: 도서
+
+- id: pub_chapter
+  translation: 책 소개 면
+
+- id: pub_thesis
+  translation: 졸업 논문
+
+- id: pub_patent
+  translation: 특허
+
+# Project details
+
+- id: open_project_site
+  translation: 프로젝트 사이트 열기
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: 포스트
+
+- id: publications
+  translation: 논문
+
+- id: talks
+  translation: 강연
+
+- id: projects
+  translation: 프로젝트
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: 검색
+
+- id: search_placeholder
+  translation: 검색...
+
+- id: search_results
+  translation: 검색 결과
+
+- id: search_no_results
+  translation: 검색 결과 없음
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: 페이지 없음
+
+- id: 404_recommendations
+  translation: 이 중에 찾는게 있나요?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: 이 사이트는 최적화된 사용 경험을 제공하기 위해 쿠키를 사용합니다.
+
+- id: cookie_dismiss
+  translation: 알겠어!
+
+- id: cookie_learn
+  translation: 더 알아보기
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

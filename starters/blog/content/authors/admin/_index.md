@@ -35,7 +35,7 @@ social:
     link: 'mailto:your-email@example.com'
   - icon: twitter
     icon_pack: wc
-    link: https://twitter.com/wowchemy
+    link: https://twitter.com/GetResearchDev
     label: Follow me on Twitter
   - icon: github
     icon_pack: wc

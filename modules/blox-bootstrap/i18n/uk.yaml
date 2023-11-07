@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Перемкнути навігацію
+
+- id: table_of_contents
+  translation: Зміст
+
+- id: on_this_page
+  translation: на сторінці
+
+- id: back_to_top
+  translation: Повернутися догори
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Подібні
+
+- id: minute_read
+  translation: хв читання
+
+- id: previous
+  translation: Попередній
+
+- id: next
+  translation: Наступний
+
+- id: figure
+  translation: 'Схема %d:'
+
+- id: edit_page
+  translation: Редагувати цю сторінку
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Попередній друк
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Цитувати
+
+- id: btn_slides
+  translation: Слайди
+
+- id: btn_video
+  translation: Відео
+
+- id: btn_code
+  translation: Код
+
+- id: btn_dataset
+  translation: Набір даних
+
+- id: btn_project
+  translation: Проєкт
+
+- id: btn_poster
+  translation: Постер
+
+- id: btn_source
+  translation: Вихідний документ
+
+- id: btn_copy
+  translation: Копія
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Завантажити
+
+# About widget
+
+- id: interests
+  translation: Зацікавлення
+
+- id: education
+  translation: Освіта
+
+- id: user_profile_latest
+  translation: Останні
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Переглянути сертифікат
+
+# Experience widget
+
+- id: present
+  translation: Теперішній
+
+# Pages widget
+
+- id: more_pages
+  translation: Переглянути все
+
+- id: more_posts
+  translation: Переглянути всі пости
+
+- id: more_talks
+  translation: Переглянути всі бесіди
+
+- id: more_publications
+  translation: Переглянути всі публікації
+
+# Contact widget
+
+- id: contact_name
+  translation: Ім'я
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Повідомлення
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Надіслати
+
+- id: book_appointment
+  translation: Призначити зустріч
+
+# Publication/Event details
+
+- id: abstract
+  translation: Анотація
+
+- id: publication
+  translation: Публікація
+
+- id: publication_type
+  translation: Тип
+
+- id: date
+  translation: Дата
+
+- id: last_updated
+  translation: Останнє оновлення
+
+- id: event
+  translation: Подія
+
+- id: location
+  translation: Місце
+
+- id: paper-conference
+  translation: Стаття для конференції
+
+- id: pub_article_journal
+  translation: Стаття для журнала
+
+- id: pub_article
+  translation: Попередній друк
+
+- id: pub_report
+  translation: Доповідь
+
+- id: pub_book
+  translation: Книга
+
+- id: pub_chapter
+  translation: Розділ книги
+
+- id: pub_thesis
+  translation: Тезис
+
+- id: pub_patent
+  translation: Патент
+
+# Project details
+
+- id: open_project_site
+  translation: Перейти на сайт проєкта
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Дописи
+
+- id: publications
+  translation: Публікації
+
+- id: talks
+  translation: Бесіди
+
+- id: projects
+  translation: Проєкти
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Пошук
+
+- id: search_placeholder
+  translation: Пошук...
+
+- id: search_results
+  translation: Знайдені результати
+
+- id: search_no_results
+  translation: Результатів не знайдено
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Не вдалося знайти сторінку
+
+- id: 404_recommendations
+  translation: Можливо, Ви шукали щось з цього?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Щоб упевнитись у зручності користування сайтом, ми використовуємо кукі-файли.
+
+- id: cookie_dismiss
+  translation: Зрозуміло!
+
+- id: cookie_learn
+  translation: Дізнатися більше
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

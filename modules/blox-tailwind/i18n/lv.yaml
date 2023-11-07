@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Pārslēgt navigāciju
+
+- id: table_of_contents
+  translation: Satura rādītājs
+
+- id: on_this_page
+  translation: Šajā lapā
+
+- id: back_to_top
+  translation: Uz augšu
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Līdzīgi
+
+- id: minute_read
+  translation: minūtes lasīšanai
+
+- id: previous
+  translation: Atpakaļ
+
+- id: next
+  translation: Uz priekšu
+
+- id: figure
+  translation: 'Attēls %d:'
+
+- id: edit_page
+  translation: Rediģēt šo lapu
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preprints
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citēt
+
+- id: btn_slides
+  translation: Slaidi
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kods
+
+- id: btn_dataset
+  translation: Datu kopa
+
+- id: btn_project
+  translation: Projekts
+
+- id: btn_poster
+  translation: Plakāts
+
+- id: btn_source
+  translation: Pirmavots
+
+- id: btn_copy
+  translation: Kopija
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Lejupielādēt
+
+# About widget
+
+- id: interests
+  translation: Intereses
+
+- id: education
+  translation: Izglītība
+
+- id: user_profile_latest
+  translation: Jaunākais
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Skatīt sertifikātu
+
+# Experience widget
+
+- id: present
+  translation: Šobrīd
+
+# Pages widget
+
+- id: more_pages
+  translation: Skatīt visu
+
+- id: more_posts
+  translation: Skatīt visus rakstus
+
+- id: more_talks
+  translation: Skatīt visas runas
+
+- id: more_publications
+  translation: Skatīt visas publikācijas
+
+# Contact widget
+
+- id: contact_name
+  translation: Vārds
+
+- id: contact_email
+  translation: E-pasts
+
+- id: contact_message
+  translation: Teksts
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Nosūtīt
+
+- id: book_appointment
+  translation: Pieteikt tikšanos
+
+# Publication/Event details
+
+- id: abstract
+  translation: Kopsavilkums
+
+- id: publication
+  translation: Publikācija
+
+- id: publication_type
+  translation: Veids
+
+- id: date
+  translation: Datums
+
+- id: last_updated
+  translation: Pēdējais atjauninājums
+
+- id: event
+  translation: Notikums
+
+- id: location
+  translation: Vieta
+
+- id: paper-conference
+  translation: Uzstāšanās konferencē
+
+- id: pub_article_journal
+  translation: Raksts žurnālā
+
+- id: pub_article
+  translation: Novilkums
+
+- id: pub_report
+  translation: Ziņojums
+
+- id: pub_book
+  translation: Grāmata
+
+- id: pub_chapter
+  translation: Grāmatas nodaļa
+
+- id: pub_thesis
+  translation: Disertācija
+
+- id: pub_patent
+  translation: Patents
+
+# Project details
+
+- id: open_project_site
+  translation: Pāriet pie projekta lapas
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Blogs
+
+- id: publications
+  translation: Publikācijas
+
+- id: talks
+  translation: Runas
+
+- id: projects
+  translation: Projekti
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Meklēt
+
+- id: search_placeholder
+  translation: Meklēt...
+
+- id: search_results
+  translation: rezultāti
+
+- id: search_no_results
+  translation: Nekas nav atrasts
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Lapa nav atrasta
+
+- id: 404_recommendations
+  translation: Iespējams, meklējāt kādu no šiem ierakstiem?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Šī vietne izmanto sīkdatnes, lai nodrošinātu Jums vislabāko pieredzi mūsu vietnē.
+
+- id: cookie_dismiss
+  translation: Sapratu!
+
+- id: cookie_learn
+  translation: Uzzināt vairāk
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: 切換導航
+
+- id: table_of_contents
+  translation: 目錄
+
+- id: on_this_page
+  translation: 於本頁
+
+- id: back_to_top
+  translation: 回到頂端
+
+- id: home
+  translation: 主頁
+
+- id: close
+  translation: 關閉
+
+- id: languages
+  translation: 語言
+
+# General
+
+- id: related
+  translation: 相關
+
+- id: minute_read
+  translation: 閱讀時間（分鐘）
+
+- id: previous
+  translation: 上一頁
+
+- id: next
+  translation: 下一頁
+
+- id: figure
+  translation: '圖%d:'
+
+- id: edit_page
+  translation: 編輯本業
+
+# Themes
+
+- id: theme_selector
+  translation: 顯示選項
+
+- id: theme_light
+  translation: 明亮
+
+- id: theme_dark
+  translation: 暗黑
+
+- id: theme_auto
+  translation: 自動
+
+# Buttons
+
+- id: btn_preprint
+  translation: 影印預覽
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: 引用
+
+- id: btn_slides
+  translation: 投影片
+
+- id: btn_video
+  translation: 影片
+
+- id: btn_code
+  translation: 程式碼
+
+- id: btn_dataset
+  translation: 數據集
+
+- id: btn_project
+  translation: 專案
+
+- id: btn_poster
+  translation: 海報
+
+- id: btn_source
+  translation: 原始檔
+
+- id: btn_copy
+  translation: 複製
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: 下載
+
+# About widget
+
+- id: interests
+  translation: 興趣
+
+- id: education
+  translation: 教育程度
+
+- id: user_profile_latest
+  translation: 最新
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: 查看證書
+
+# Experience widget
+
+- id: present
+  translation: 現在
+
+# Pages widget
+
+- id: more_pages
+  translation: 查看更多
+
+- id: more_posts
+  translation: 查看更多文章
+
+- id: more_talks
+  translation: 查看更多演講
+
+- id: more_publications
+  translation: 查看更多出版物
+
+# Contact widget
+
+- id: contact_name
+  translation: 姓名
+
+- id: contact_email
+  translation: 郵箱
+
+- id: contact_message
+  translation: 訊息
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: 發送
+
+- id: book_appointment
+  translation: 預約
+
+# Publication/Event details
+
+- id: abstract
+  translation: 摘要
+
+- id: publication
+  translation: 出版物
+
+- id: publication_type
+  translation: 類型
+
+- id: date
+  translation: 日期
+
+- id: last_updated
+  translation: 最近更新於
+
+- id: event
+  translation: 事件
+
+- id: location
+  translation: 位置
+
+- id: paper-conference
+  translation: 會議文章
+
+- id: pub_article_journal
+  translation: 期刊文章
+
+- id: pub_article
+  translation: 影印預覽
+
+- id: pub_report
+  translation: 報告
+
+- id: pub_book
+  translation: 書籍
+
+- id: pub_chapter
+  translation: 章節
+
+- id: pub_thesis
+  translation: 論文
+
+- id: pub_patent
+  translation: 專利
+
+# Project details
+
+- id: open_project_site
+  translation: 前往專案網站
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: 文章
+
+- id: publications
+  translation: 出版物
+
+- id: talks
+  translation: 演講
+
+- id: projects
+  translation: 專案
+
+- id: slides
+  translation: 投影片
+
+- id: authors
+  translation: 作者
+
+# Search
+
+- id: search
+  translation: 搜尋
+
+- id: search_placeholder
+  translation: 搜尋...
+
+- id: search_results
+  translation: 搜尋结果
+
+- id: search_no_results
+  translation: 找不到结果
+
+- id: search_common_queries
+  translation: 經常搜索
+
+# Error 404
+
+- id: page_not_found
+  translation: 找不到頁面
+
+- id: 404_recommendations
+  translation: 您可能在找？
+
+# Cookie consent
+
+- id: cookie_message
+  translation: 本網站使用cookies來確保您可以在網站中獲得最佳體驗。
+
+- id: cookie_dismiss
+  translation: 知道了!
+
+- id: cookie_learn
+  translation: 了解更多
+
+# Published with
+
+- id: published_with
+  translation: 由{hugoblox}支持發布——免費{repo_link}開源{/repo_link}網站，為創作者賦能。

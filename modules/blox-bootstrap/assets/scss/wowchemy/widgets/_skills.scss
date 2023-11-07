@@ -1,0 +1,57 @@
+/*************************************************
+ *  Hugo Blox: Skills
+ **************************************************/
+
+.skill-group-title {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #c7c7c7;
+  font-size: 1rem;
+  line-height: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.skills-content {
+  margin-bottom: 15px;
+}
+
+.skills-name {
+  margin-bottom: 6px;
+  color: #888;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.skills-description {
+  margin-bottom: 6px;
+  font-size: 0.7rem;
+  text-transform: none;
+}
+
+.dark .skills-name {
+  color: #eee;
+}
+
+.skills-icon {
+  margin-right: 0.5em;
+}
+
+.skills-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 10px;
+  border: 1px solid #a8e9e9;
+  border-radius: 10px;
+}
+
+.skills-percent {
+  position: absolute;
+  width: 60%;
+  height: 10px;
+  background-color: #3cb5b5;
+}

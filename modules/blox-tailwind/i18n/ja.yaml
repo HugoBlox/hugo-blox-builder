@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: ナビゲーションの切り替え
+
+- id: table_of_contents
+  translation: 目次
+
+- id: on_this_page
+  translation: このページの内容
+
+- id: back_to_top
+  translation: トップへ戻る
+
+- id: home
+  translation: ホーム
+
+- id: close
+  translation: 閉じる
+
+- id: languages
+  translation: 言語
+
+# General
+
+- id: related
+  translation: 関連項目
+
+- id: minute_read
+  translation: 分で読める
+
+- id: previous
+  translation: 前へ
+
+- id: next
+  translation: 次へ
+
+- id: figure
+  translation: '図 %d:'
+
+- id: edit_page
+  translation: このページを編集する
+
+# Themes
+
+- id: theme_selector
+  translation: 表示設定
+
+- id: theme_light
+  translation: ライト
+
+- id: theme_dark
+  translation: ダーク
+
+- id: theme_auto
+  translation: 自動
+
+# Buttons
+
+- id: btn_preprint
+  translation: プレプリント
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: 引用
+
+- id: btn_slides
+  translation: スライド
+
+- id: btn_video
+  translation: 動画
+
+- id: btn_code
+  translation: ソースコード
+
+- id: btn_dataset
+  translation: データセット
+
+- id: btn_project
+  translation: プロジェクト
+
+- id: btn_poster
+  translation: ポスター
+
+- id: btn_source
+  translation: ソース
+
+- id: btn_copy
+  translation: コピー
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: ダウンロード
+
+# About widget
+
+- id: interests
+  translation: 興味・関心
+
+- id: education
+  translation: 学歴
+
+- id: user_profile_latest
+  translation: 最新
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: 証明書を見る
+
+# Experience widget
+
+- id: present
+  translation: 現在
+
+# Pages widget
+
+- id: more_pages
+  translation: すべて表示
+
+- id: more_posts
+  translation: 投稿一覧
+
+- id: more_talks
+  translation: 登壇一覧
+
+- id: more_publications
+  translation: 発表文献一覧
+
+# Contact widget
+
+- id: contact_name
+  translation: 名前
+
+- id: contact_email
+  translation: メールアドレス
+
+- id: contact_message
+  translation: メッセージ本文
+
+- id: contact_attachment
+  translation: ファイルを添付
+
+- id: contact_send
+  translation: 送信
+
+- id: book_appointment
+  translation: 予約を取る
+
+# Publication/Event details
+
+- id: abstract
+  translation: 概要
+
+- id: publication
+  translation: 収録
+
+- id: publication_type
+  translation: タイプ
+
+- id: date
+  translation: 日付
+
+- id: last_updated
+  translation: 最終更新
+
+- id: event
+  translation: イベント
+
+- id: location
+  translation: 場所
+
+- id: paper-conference
+  translation: 学会論文
+
+- id: pub_article_journal
+  translation: ジャーナル記事
+
+- id: pub_article
+  translation: プレプリント
+
+- id: pub_report
+  translation: 報告
+
+- id: pub_book
+  translation: 書籍
+
+- id: pub_chapter
+  translation: Book section
+
+- id: pub_thesis
+  translation: 論文
+
+- id: pub_patent
+  translation: 特許
+
+# Project details
+
+- id: open_project_site
+  translation: プロジェクトのサイトへ
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: 投稿
+
+- id: publications
+  translation: 発表文献
+
+- id: talks
+  translation: 登壇
+
+- id: projects
+  translation: プロジェクト
+
+- id: slides
+  translation: スライド
+
+- id: authors
+  translation: 著者
+
+# Search
+
+- id: search
+  translation: 検索
+
+- id: search_placeholder
+  translation: 検索...
+
+- id: search_results
+  translation: 件の検索結果
+
+- id: search_no_results
+  translation: 結果が見つかりませんでした
+
+- id: search_common_queries
+  translation: よくある検索
+
+# Error 404
+
+- id: page_not_found
+  translation: ページが見つかりませんでした
+
+- id: 404_recommendations
+  translation: あなたが探しているものはこれらの中にあるかもしれません
+
+# Cookie consent
+
+- id: cookie_message
+  translation: このウェブサイトはあなたが最高の体験を得るためにクッキーを使用します。
+
+- id: cookie_dismiss
+  translation: はい
+
+- id: cookie_learn
+  translation: 詳細を見る
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

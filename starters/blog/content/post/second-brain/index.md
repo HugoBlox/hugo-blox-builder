@@ -33,9 +33,9 @@ Mindmaps can be created by simply writing the items as a Markdown list within th
 ```markmap {height="200px"}
 - Hugo Modules
   - wowchemy
-  - wowchemy-plugins-netlify
-  - wowchemy-plugins-netlify-cms
-  - wowchemy-plugins-reveal
+  - blox-plugins-netlify
+  - blox-plugins-netlify-cms
+  - blox-plugins-reveal
 ```
 </code>
 </pre>
@@ -46,9 +46,9 @@ renders as
 ```markmap {height="200px"}
 - Hugo Modules
   - wowchemy
-  - wowchemy-plugins-netlify
-  - wowchemy-plugins-netlify-cms
-  - wowchemy-plugins-reveal
+  - blox-plugins-netlify
+  - blox-plugins-netlify-cms
+  - blox-plugins-reveal
 ```
 
 Anh here's a more advanced mindmap with formatting, code blocks, and math:
@@ -59,9 +59,9 @@ Anh here's a more advanced mindmap with formatting, code blocks, and math:
 ```markmap
 - Mindmaps
   - Links
-    - [Wowchemy Docs](https://wowchemy.com/docs/)
+    - [Wowchemy Docs](https://hugoblox.com/docs/)
     - [Discord Community](https://discord.gg/z8wNYzb)
-    - [GitHub](https://github.com/wowchemy/wowchemy-hugo-themes)
+    - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
   - Features
     - Markdown formatting
     - **inline** ~~text~~ *styles*
@@ -84,9 +84,9 @@ renders as
 ```markmap
 - Mindmaps
   - Links
-    - [Wowchemy Docs](https://wowchemy.com/docs/)
+    - [Wowchemy Docs](https://hugoblox.com/docs/)
     - [Discord Community](https://discord.gg/z8wNYzb)
-    - [GitHub](https://github.com/wowchemy/wowchemy-hugo-themes)
+    - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
   - Features
     - Markdown formatting
     - **inline** ~~text~~ *styles*
@@ -111,7 +111,7 @@ renders as
 
 ## Callouts
 
-Use [callouts](https://university.wowchemy.com/reference/markdown/#callouts) (aka _asides_, _hints_, or _alerts_) to draw attention to notes, tips, and warnings.
+Use [callouts](https://docs.hugoblox.com/reference/markdown/#callouts) (aka _asides_, _hints_, or _alerts_) to draw attention to notes, tips, and warnings.
 
 By wrapping a paragraph in `{{%/* callout note */%}} ... {{%/* /callout */%}}`, it will render as an aside.
 

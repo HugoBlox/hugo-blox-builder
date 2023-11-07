@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "en-us" }}">
+<head>
+
+  {{/* Asset versions */}}
+  {{ $cdn_url_reveal := "https://cdn.jsdelivr.net/npm/reveal.js@4.6.1" }}
+  {{ $mermaid_version := "9.1.3" }}
+  {{ $mermaid_sri := "sha256-TIYL00Rhw/8WaoUhYTLX9SKIEFdXxg+yMWSLVUbhiLg=" }}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Hugo Blox Builder {{with site.Data.hugoblox.version}}{{.}}{{end}}">
+
+  {{ with site.Home.OutputFormats.Get "WebAppManifest" }}
+    <link rel="manifest" href="{{ .RelPermalink }}">
+  {{ end }}
+
+  <link rel="icon" type="image/png" href="{{(partial "blox-core/functions/get_icon" 32).RelPermalink}}">
+  <link rel="apple-touch-icon" type="image/png" href="{{(partial "blox-core/functions/get_icon" 192).RelPermalink}}">
+
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <title>{{ .Title }} | {{ site.Title }}</title>
+
+  {{/* Load Reveal CSS */}}
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/reveal.min.css">
+  {{- $theme := $.Param "slides.theme" | default "black" -}}
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/theme/{{ $theme }}.min.css">
+
+  {{/* Hugo Chroma Syntax Highlighter Initialization */}}
+  {{ $hl_theme := $.Param "slides.highlight_style" | default "dracula" }}
+  {{ $hl_theme_path := printf "css/libs/chroma/%s.css" $hl_theme }}
+  {{ if not (fileExists (printf "assets/%s" $hl_theme_path)) }}
+    {{ errorf "Hugo Chroma themes %s.css not found in `css/libs/chroma/`. See https://gohugo.io/commands/hugo_gen_chromastyles/" $hl_theme }}
+  {{ else }}
+    {{ $hl_theme_css := resources.Get $hl_theme_path | minify }}
+    <link rel="stylesheet" href="{{ $hl_theme_css.RelPermalink }}">
+  {{ end }}
+
+  {{/* Load any Reveal CSS customizations */}}
+  {{ $custom_reveal_css := printf "css/reveal_custom.css" }}
+  {{ if (fileExists (printf "assets/%s" $custom_reveal_css)) }}
+    {{ $css_custom := resources.Get "css/reveal_custom.css" }}
+    {{ $style := slice $css_custom | resources.Concat "css/reveal_custom.css" | resources.Minify }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+  {{ end }}
+</head>
+<body>
+
+  {{ block "main" . }}{{ end }}
+
+  {{/* Load Reveal and built-in plugins. */}}
+  <script src="{{ $cdn_url_reveal }}/dist/reveal.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/search/search.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/math/math.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/zoom/zoom.min.js" crossorigin="anonymous"></script>
+
+  {{/* Load third-party Reveal plugins. */}}
+  {{ if $.Param "slides.reveal_options.menu_enabled" | default true}}
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/plugin.js" integrity="sha256-M6JwAjnRAWmi+sbXURR/yAhWZKYhAw7YXnnLvIxrdGs=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.js" integrity="sha256-l14dklFcW5mWar6w/9KaW0fWVerf3mYr7Wt0+rXzFAA=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-menu@2.1.0/menu.css" integrity="sha256-0fU8HKLaTjgzfaV9CgSqbsN8ilA3zo6zK1M6rlgULd8=" crossorigin="anonymous">
+  {{ end }}
+
+  {{/* Load Mermaid. */}}
+  {{ if $.Param "slides.diagram" | default false}}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js" $mermaid_version) $mermaid_sri | safeHTML }}
+  {{ end }}
+
+  {{/* Initialize slides. */}}
+  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
+  <script src="{{ $slidejs.RelPermalink }}"></script>
+
+</body>
+</html>

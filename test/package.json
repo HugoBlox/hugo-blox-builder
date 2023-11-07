@@ -1,9 +1,9 @@
 {
-  "name": "wowchemy-test",
+  "name": "hugo-blox-test",
   "version": "0.0.1",
-  "description": "Wowchemy Test Build",
+  "description": "Hugo Blox Test Build",
   "main": "",
-  "repository": "https://github.com/wowchemy/wowchemy-hugo-themes",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
   "author": "George Cushen",
   "license": "MIT",
   "private": true,

@@ -1,0 +1,278 @@
+{{ $scr := .Scratch }}
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="generator" content="Hugo Blox Builder {{ site.Data.hugoblox.version }}" />
+
+  {{/* EXTENSIBILITY HOOK: HEAD-START */}}
+  {{ partial "functions/get_hook" (dict "hook" "head-start" "context" .) }}
+
+  {{ if .Params.private }}
+    <meta name="robots" content="noindex" />
+  {{- end -}}
+
+  {{/* Attempt to load superuser. */}}
+  {{ $superuser_name := "" }}
+  {{ $superuser_username := "" }}
+  {{ $superuser_role := "" }}
+  {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
+    {{ $superuser_name = .Title }}
+    {{ $superuser_username = path.Base .File.Dir }}
+    {{ $superuser_role = .Params.role }}
+  {{ end }}
+  {{ $scr.Set "superuser_username" $superuser_username }}{{/* Set superuser globally for page_author.html. */}}
+
+  {{ with $superuser_name }}<meta name="author" content="{{ . }}" />{{ end }}
+
+  {{/* Generate page description. */}}
+  {{ $desc := "" }}
+  {{ if .Params.summary }}
+    {{ $desc = .Params.summary }}
+  {{ else if .Params.abstract }}
+    {{ $desc = .Params.abstract }}
+  {{ else if .IsPage }}
+    {{ $desc = .Summary }}
+  {{ else if site.Params.marketing.seo.description }}
+    {{ $desc = site.Params.marketing.seo.description }}
+  {{ else }}
+    {{ $desc = $superuser_role }}
+  {{ end }}
+  <meta name="description" content="{{ $desc }}" />
+
+  {{ range .Translations }}
+    <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
+  {{ end }}
+  <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
+
+  {{/* Style */}}
+  {{ if fileExists "assets/dist/wc.css" }}
+    {{ $styles := resources.Get "dist/wc.css" }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{ else }}
+    {{ $options := dict "inlineImports" true }}
+    {{ $styles := resources.Get "css/styles.css" }}
+    {{ $styles = $styles | resources.PostCSS $options }}
+    {{ if  hugo.IsProduction  }}
+      {{ $styles = $styles | minify | fingerprint "sha256" | resources.PostProcess }}
+    {{ end }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{ end }}
+
+  <script>
+    /* Hugo Blox JS Global Init */
+    window.wowchemy = {
+       defaultTheme: document.documentElement.dataset.wcThemeDefault,
+       setDarkTheme: () => {
+        document.documentElement.classList.add("dark");
+        document.documentElement.style.colorScheme = "dark";
+      },
+       setLightTheme: () => {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.style.colorScheme = "light";
+      }
+    }
+
+    console.debug(`Default Hugo Blox Builder theme is ${window.wowchemy.defaultTheme}`);
+
+    if ("wc-color-theme" in localStorage) {
+      localStorage.getItem("wc-color-theme") === "dark" ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+    } else {
+      window.wowchemy.defaultTheme === "dark" ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+      if (window.wowchemy.defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+      }
+    }
+  </script>
+
+  <script>
+    // Apply Hugo style fixes
+    document.addEventListener('DOMContentLoaded', function () {
+      // Fix Hugo task list style
+      let checkboxes = document.querySelectorAll('li input[type=\'checkbox\'][disabled]');
+      checkboxes.forEach(e => {
+        e.parentElement.parentElement.classList.add('task-list');
+      });
+
+      // Fix Hugo missing <label> around checkbox and its text (fixes Lighthouse accessibility errors)
+      const liNodes = document.querySelectorAll('.task-list li');
+      liNodes.forEach(nodes => {
+        let textNodes = Array.from(nodes.childNodes).filter(node => node.nodeType === 3 && node.textContent.trim().length > 1);
+        if (textNodes.length > 0) {
+          const span = document.createElement('label');
+          textNodes[0].after(span);  // Use first text node as label
+          span.appendChild(nodes.querySelector('input[type=\'checkbox\']'));
+          span.appendChild(textNodes[0]);
+        }
+      });
+    });
+  </script>
+
+  {{/* Hugo Chroma Syntax Highlighter Initialization */}}
+  {{/* TODO: optimize to only include the Chroma CSS themes when the page has code blocks. */}}
+  {{ $hl_theme_light := site.Params.features.syntax_highlighter.theme_light | default "github-light" }}
+  {{ $hl_theme_dark := site.Params.features.syntax_highlighter.theme_dark | default "dracula" }}
+  {{ $hl_theme_light_path := printf "css/libs/chroma/%s.css" $hl_theme_light }}
+  {{ $hl_theme_dark_path := printf "css/libs/chroma/%s.css" $hl_theme_dark }}
+  {{ if not (fileExists (printf "assets/%s" $hl_theme_light_path)) | or (not (fileExists (printf "assets/%s" $hl_theme_dark_path))) }}
+    {{ errorf "Hugo Chroma themes %s.css and %s.css not found in `css/libs/chroma/`. See https://gohugo.io/commands/hugo_gen_chromastyles/" $hl_theme_light $hl_theme_dark }}
+  {{ else }}
+    {{ $hl_theme_light_css := resources.Get $hl_theme_light_path | minify }}
+    {{ $hl_theme_dark_css := resources.Get $hl_theme_dark_path | minify }}
+    <link rel="stylesheet" href="{{ $hl_theme_light_css.RelPermalink }}" title="hl-light" media="print" onload="this.media='all'" {{ if ne ($scr.Get "light") true }}disabled{{end}}>
+    <link rel="stylesheet" href="{{ $hl_theme_dark_css.RelPermalink }}" title="hl-dark" media="print" onload="this.media='all'" {{ if eq ($scr.Get "light") true }}disabled{{end}}>
+  {{ end }}
+
+  {{/* Marketing */}}
+  {{ with site.Params.marketing.verification.google }}
+    <meta name="google-site-verification" content="{{ . }}" />
+  {{- end -}}
+  {{ with site.Params.marketing.verification.baidu }}
+    <meta name="baidu-site-verification" content="{{ . }}" />
+  {{- end -}}
+  {{ with site.Params.marketing.verification.bing }}
+    <meta name="msvalidate.01" content="{{ . }}" />
+  {{- end -}}
+  {{ partial "marketing/google_analytics" . }}
+  {{ partial "marketing/google_tag_manager" . }}
+  {{ partial "marketing/microsoft_clarity" . }}
+  {{ partial "marketing/baidu_tongji" . }}
+
+  {{/* RSS Feed */}}
+  {{ with .OutputFormats.Get "RSS" }}
+    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}" />
+  {{ end }}
+
+  {{/* Progressive Web App (PWA) Icon */}}
+  <link rel="icon" type="image/png" href="{{ (partial "functions/get_site_icon" 32).RelPermalink }}" />
+  <link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_site_icon" 180).RelPermalink }}" />
+
+  <link rel="canonical" href="{{ .Permalink }}" />
+
+  {{/* Get page image for sharing. */}}
+  {{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
+  {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
+  {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
+  {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
+  {{ $og_image := "" }}
+  {{ $twitter_card := "summary_large_image" }}
+  {{ if (and (eq .Kind "term") $avatar_image) }}
+    {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
+    {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}
+    {{ $twitter_card = "summary" }}
+  {{ else if $featured_image }}
+    {{ $og_image = $featured_image.Permalink }}
+  {{ else if $sharing_image }}
+    {{ $og_image = $sharing_image.Permalink }}
+  {{ else if $has_logo }}
+    {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
+    {{ $twitter_card = "summary" }}
+  {{ else }}
+    {{ $og_image = (partial "functions/get_site_icon" 512).Permalink }}
+    {{ $twitter_card = "summary" }}
+  {{ end }}
+  {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
+
+  {{ $title := "" }}
+  {{ with .Params.seo.title }}
+    {{ $title = replace . "{brand}" site.Title }}
+  {{ else }}
+    {{ $title = .Title | default site.Title }}
+    {{ if ne $title site.Title }}{{ $title = printf "%s | %s" $title site.Title }}{{ end }}
+  {{ end }}
+  <meta property="twitter:card" content="{{ $twitter_card }}" />
+  {{ with site.Params.marketing.seo.twitter }}
+    <meta property="twitter:site" content="@{{ . }}" />
+    <meta property="twitter:creator" content="@{{ . }}" />
+  {{ end }}
+  <meta property="og:site_name" content="{{ site.Title }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ $title }}" />
+  <meta property="og:description" content="{{ $desc }}" />
+  {{- with $og_image -}}
+    <meta property="og:image" content="{{ . }}" />
+    <meta property="twitter:image" content="{{ . }}" />
+  {{- end -}}
+  <meta property="og:locale" content="{{ site.LanguageCode | default "en-us" }}" />
+  {{ if .IsPage }}
+    {{ if not .PublishDate.IsZero }}
+      <meta
+        property="article:published_time"
+        content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}"
+      />
+    {{ else if not .Date.IsZero }}
+      <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+    {{ end }}
+    {{ if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}">{{ end }}
+  {{ else }}
+    {{ if not .Date.IsZero }}
+      <meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}" />
+    {{ end }}
+  {{ end }}
+
+  {{ partial "jsonld/main" (dict "page" . "summary" $desc) }}
+
+  <title>{{$title}}</title>
+
+  {{/* Load font theme */}}
+  {{ $font_family := "Inter var" }}
+  {{ $font_file := "Inter.var.woff2" }}
+  {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
+  <style>
+    @font-face {
+      font-family: '{{$font_family}}';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url({{ $font.RelPermalink }}) format("woff2");
+    }
+  </style>
+
+  {{ if .Params.design.background.image.filename }}
+    {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
+    {{ $bg_img := resources.Get (printf "media/%s" .Params.design.background.image.filename) }}
+    {{ if $bg_img }}
+      {{/* Exception for SVG as Hugo doesn't yet support image processing on SVG. */}}
+      {{ if ne $bg_img.MediaType.SubType "svg" }}
+        {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
+      {{ end }}
+      <style>
+        #page-bg {
+         background-image: url('{{$bg_img.Permalink}}');
+         background-position: center;
+         background-size: cover;
+        }
+      </style>
+      {{ else }}
+        {{ errorf "Couldn't find page background `%s` in the `assets/media/` folder - please add it." .Params.design.background.image.filename }}
+      {{ end }}
+  {{ end }}
+
+  {{/* Init prior to auto-chunking/bundling scripts due to Hugo concurrency issues */}}
+  {{- partialCached "init.html" . -}}
+
+  {{/* Load Third-Party Libraries */}}
+  {{ partial "libraries.html" . }}
+
+  {{ $js_license := printf "/*! Hugo Blox Builder Tailwind UI v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
+  {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
+  {{ $js_license := $js_license | printf "%s/*! License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */\n" }}
+  {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
+  {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
+  {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}
+  {{ $js_academic := resources.Get "js/wowchemy-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
+  {{ $js_academic := $js_academic | resources.Minify }}
+  {{- $js_theme := resources.Get "js/wowchemy-theme.js" | resources.Minify -}}
+  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
+  {{- if hugo.IsProduction -}}
+    {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
+  {{- end -}}
+  <script
+    defer
+    src="{{ $js_bundle.RelPermalink }}"
+    integrity="{{ $js_bundle.Data.Integrity }}"
+  ></script>
+
+  {{/* EXTENSIBILITY HOOK: HEAD-END */}}
+  {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
+</head>

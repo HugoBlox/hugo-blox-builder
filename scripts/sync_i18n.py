@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # Sync Language Packs
-# Script to synchronize each language pack's items against Wowchemy's master pack (English).
-# https://wowchemy.com
+# Script to synchronize each language pack's items against Hugo Blox's master pack (English).
+# https://hugoblox.com
 #
 # Prerequisites: pip3 install ruamel.yaml
 # Note: we use Ruamel rather than PyYAML in order to preserve comments in language packs.
@@ -12,7 +12,7 @@ from pathlib import Path
 from ruamel.yaml import YAML
 
 I18N_PATH = Path(__file__).resolve().parents[1].joinpath(
-    'modules', 'wowchemy', 'i18n')
+    'modules', 'blox-tailwind', 'i18n')
 MASTER_PACK = I18N_PATH.joinpath('en.yaml')
 
 yaml = YAML()

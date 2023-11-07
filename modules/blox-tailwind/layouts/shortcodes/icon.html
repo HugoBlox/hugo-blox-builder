@@ -1,0 +1,20 @@
+{{/*
+    Docs: https://docs.hugoblox.com/reference/markdown/#inline-image
+
+    Parameters
+    ----------
+    name :
+        Icon name.
+    padding_left : default "0"
+        Left padding.
+    padding_right : default "1"
+        Right padding.
+*/}}
+
+{{- if (.Get "name") -}}
+  {{- $icon := .Get "name" -}}
+  {{- $padding_right := (.Get "padding_right") | default 1 -}}{{/* Defaulting to 1 prevents no spacing when minimizing HTML. */}}
+  <span class="inline-block {{with (.Get "padding_left")}}pl-{{.}}{{end}} {{with $padding_right}}pr-{{.}}{{end}}">
+    {{ partial "functions/get_icon" (dict "name" $icon "attributes" "style=\"height: 1em; transform: translateY(0.1em);\"") }}
+  </span>
+{{- end -}}

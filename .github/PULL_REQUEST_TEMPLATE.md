@@ -8,4 +8,4 @@ If this is a GUI change, try to include screenshots of the change. If not, pleas
 
 ### Documentation
 
-If this is an enhancement, add a link here to the corresponding pull request on https://github.com/sourcethemes/academic-www or describe the documentation changes necessary.
+If this is an enhancement, link to the relevant page on the documentation site and describe the necessary changes.

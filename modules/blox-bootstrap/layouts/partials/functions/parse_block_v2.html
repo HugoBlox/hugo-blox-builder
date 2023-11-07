@@ -1,0 +1,147 @@
+{{/* Hugo Blox Parser v2 */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{ $page := .page }}
+{{ $block := .block }}
+
+{{ $block_type := lower $block.block | default "markdown" }}
+{{ $block_path := printf "blocks/%s.html" $block_type }}
+{{ if not (templates.Exists (printf "partials/%s" $block_path)) }}
+  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $block_path }}
+{{ end }}
+
+{{/* Mermaid block: Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}
+{{ if $block.Page.Store.Get "has_mermaid" }}
+  {{ $page.Page.Store.Set "has_mermaid" true }}
+{{ end }}
+
+{{/* Gallery block: Workaround to make Hugo's .Page.Store.Set cascade up from page blocks to the page context */}}
+{{/* Unfortunately, `.HasShortcode "gallery"` won't accept string input, only page context - so irrelevant here */}}
+{{/* Therefore, must do our own search for shortcodes within the `text` string */}}
+{{ if (gt (len (findRE `\{\{< gallery` $block.content.text 1)) 0) }}
+  {{ $page.Page.Store.Set "has_gallery" true }}
+{{ end }}
+
+{{/* Begin widget styling */}}
+{{ $bg := $block.design.background }}
+{{ $style := "" }}
+{{ $style_bg := "" }}
+
+{{ if $bg.color }}
+  {{ $style_bg = printf "background-color: %s;" ($bg.color | default "transparent") }}
+{{ end }}
+
+{{ if and $bg.gradient_start $bg.gradient_end }}
+  {{ $angle := string $bg.gradient_angle | default "90" }}
+  {{ $style_bg = printf "%sbackground-image: linear-gradient(%sdeg, %s, %s);" $style_bg $angle $bg.gradient_start $bg.gradient_end }}
+{{ end }}
+
+{{ $bg_video := "" }}
+{{ $bg_video_class := "" }}
+{{ if $bg.video.filename }}
+  {{ $bg_video = resources.Get (printf "media/%s" $bg.video.filename) }}
+  {{ if $bg.video.flip }}
+    {{ $bg_video_class = "flip" }}
+  {{ end }}
+{{ end }}
+
+{{ if $bg.image.filename }}
+  {{/* See Hugo note on linking assets in styles: https://github.com/gohugoio/hugoThemes#common-permalink-issues */}}
+  {{ $bg_img := resources.Get (printf "media/%s" $bg.image.filename) }}
+  {{ if $bg_img }}
+    {{/* Exception for SVG as Hugo doesn't yet support image processing on SVG. */}}
+    {{ if ne $bg_img.MediaType.SubType "svg" }}
+      {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
+    {{ end }}
+    {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
+  {{ else }}
+    {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image.filename }}
+  {{ end }}
+  {{ with $bg.image.size }}
+    {{/* Allow sizes: actual, cover, and contain. */}}
+    {{ $style_bg = printf "%sbackground-size: %s;" $style_bg (replace . "actual" "auto") }}
+  {{ end }}
+  {{ with $bg.image.position }}
+    {{/* Allow valid CSS positions including left, center, and right. */}}
+    {{ $style_bg = printf "%sbackground-position: %s;" $style_bg . }}
+  {{ end }}
+{{ end }}
+
+{{ with $bg.image.filters.brightness }}
+  {{ $style_bg = printf "%sfilter: brightness(%s);" $style_bg (string .) }}
+{{ end }}
+
+{{ with $block.design.spacing.padding }}
+  {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
+  {{ $style = print $style $style_pad }}
+{{ end }}
+
+{{/* Support for clip path (design.clip_path) */}}
+{{ with $block.design.clip_path }}
+  {{ $style_clip_path := printf "clip-path: %s;" . }}
+  {{ $style = print $style $style_clip_path }}
+{{ end }}
+
+{{ with $block.design.css_style }}
+  {{ $style = print $style . }}
+{{ end }}
+
+{{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
+{{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
+
+{{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
+{{ $css_classes := $block.design.css_class | default "" }}
+{{ $extra_attributes := "" }}
+{{ $use_container := true }}
+{{ $columns := $block.design.columns | default "1" }}
+{{ $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio" "skills") $block_type }}
+
+{{/* Special case: Slider widget. */}}
+{{ if in (slice "slider") $block_type }}
+  {{ $css_classes = print $css_classes " carousel slide" }}
+  {{ $extra_attributes = printf "data-ride=\"carousel\" data-interval=\"%s\"" (cond ($block.design.loop | default true) (string $block.design.interval | default "3000") "false") }}
+  {{ $use_container = false }}
+{{ end }}
+
+{{ $widget_class := printf "wg-%s" (replace (replace $block_type "." "-") "_" "-") }}
+
+{{ $widget_config_file := printf "blocks/%s-config.html" $block_type }}
+{{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
+  {{ $cfg := partial $widget_config_file $widget_args }}
+  {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}
+  {{ with $cfg.inject_section_heading }}{{ $use_cols = . }}{{ end }}
+{{end}}
+
+{{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
+<section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+ <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
+   {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
+ </div>
+  {{if $use_container}}<div class="container">{{end}}
+
+  {{if $use_cols}}
+    <div class="row  {{if not $block.content.title | or (eq $columns "1") }}justify-content-center{{end}}">
+    {{ if $block.content.title }}
+      {{ if eq $columns "1" }}
+        <div class="section-heading col-12 mb-3 text-center">
+          {{ with $block.content.title }}<h1 class="mb-0">{{ . | markdownify | emojify }}</h1>{{ end }}
+          {{ with $block.content.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
+        </div>
+      {{else}}
+        <div class="section-heading col-12 col-lg-4 mb-3 mb-lg-0 d-flex flex-column align-items-center align-items-lg-start">
+          {{ with $block.content.title }}<h1 class="mb-0">{{ . | markdownify | emojify }}</h1>{{ end }}
+          {{ with $block.content.subtitle }}<p class="mt-1">{{ . | markdownify | emojify }}</p>{{ end }}
+        </div>
+      {{end}}
+    {{end}}
+  {{end}}
+
+    {{ partial $block_path $widget_args }}
+
+  {{if $use_cols}}
+    </div>
+  {{end}}
+
+  {{if $use_container}}</div>{{end}}
+</section>

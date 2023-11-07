@@ -1,9 +1,0 @@
-{{/*
-    Docs: https://wowchemy.com/docs/content/writing-markdown-latex/#tags-and-categories
-*/}}
-
-<ul class="list-unstyled">
-  {{ range site.Taxonomies.tags }}
-  <li><a href="{{.Page.RelPermalink}}">{{.Page.Title}}</a></li>
-  {{ end }}
-</ul>

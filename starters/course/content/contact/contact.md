@@ -1,6 +1,6 @@
 ---
 # An instance of the Contact widget.
-# Documentation: https://wowchemy.com/docs/page-builder/
+# Documentation: https://hugoblox.com/docs/page-builder/
 widget: contact
 
 # This file represents a page section.
@@ -20,7 +20,7 @@ content:
     - icon: comments
       icon_pack: fas
       name: Discuss on the forum
-      link: 'https://github.com/wowchemy/wowchemy-hugo-themes/discussions'
+      link: 'https://github.com/HugoBlox/hugo-blox-builder/discussions'
 
   # Automatically link email and phone or display as text?
   autolink: true

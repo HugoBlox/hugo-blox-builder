@@ -1,0 +1,33 @@
+{{/* Hugo Blox Builder content preview renderer */}}
+
+{{ $page := .page }}
+{{ $item := .item }}
+{{ $view := .view }}
+{{ $view_file := "" }}
+{{ $view_dtype :=  printf "%T" $view }}
+{{ $index := .index }}
+
+{{if eq $view_dtype "int" | or (eq $view_dtype "int64") }}
+  {{/* Support legacy numeric views 1-5 */}}
+  {{ if eq $view 1 }}
+    {{ $view_file = "list" }}
+  {{ else if eq $view 3 }}
+    {{ $view_file = "card" }}
+  {{ else if eq $view 4 }}
+    {{ $view_file = "citation" }}
+  {{ else if eq $view 5 }}
+    {{ $view_file = "showcase" }}
+  {{ else }}
+    {{ $view_file = "compact" }}
+  {{ end }}
+{{else}}
+  {{ if templates.Exists (printf "partials/views/%s.html" (lower $view)) }}
+    {{ $view_file = lower $view }}
+  {{else}}
+    {{/* Fallback to compact view */}}
+    {{ warnf "Failed to locate view at `partials/views/%s.html`. Check you specified a supported `view` in `%s`" $view $page.File.Path }}
+    {{ $view_file = "compact" }}
+  {{end}}
+{{ end }}
+
+{{ return (partial (printf "views/%s" $view_file) (dict "page" $page "item" $item "index" $index)) }}

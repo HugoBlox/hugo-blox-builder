@@ -1,0 +1,10 @@
+sitemap:
+  changefreq: weekly
+module:
+  mounts:
+    - source: assets
+      target: assets
+    - source: layouts
+      target: layouts
+  imports:
+    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-core

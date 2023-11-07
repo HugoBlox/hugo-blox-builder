@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Arayüz yönünü değiştir
+
+- id: table_of_contents
+  translation: Table of Contents
+
+- id: on_this_page
+  translation: On this page
+
+- id: back_to_top
+  translation: Back to top
+
+- id: home
+  translation: Home
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Related
+
+- id: minute_read
+  translation: min read
+
+- id: previous
+  translation: Previous
+
+- id: next
+  translation: Next
+
+- id: figure
+  translation: 'Figure %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Preprint
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Cite
+
+- id: btn_slides
+  translation: Slaytlar
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kod
+
+- id: btn_dataset
+  translation: Veri kümesi
+
+- id: btn_project
+  translation: Proje
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Source Document
+
+- id: btn_copy
+  translation: Copy
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: İlgi alanları
+
+- id: education
+  translation: Eğitim
+
+- id: user_profile_latest
+  translation: Latest
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: See certificate
+
+# Experience widget
+
+- id: present
+  translation: Present
+
+# Pages widget
+
+- id: more_pages
+  translation: See all
+
+- id: more_posts
+  translation: Daha fazla blog içeriği
+
+- id: more_talks
+  translation: Daha fazla konuşma
+
+- id: more_publications
+  translation: Daha fazla yayınlar
+
+# Contact widget
+
+- id: contact_name
+  translation: Name
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Message
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Send
+
+- id: book_appointment
+  translation: Book an appointment
+
+# Publication/Event details
+
+- id: abstract
+  translation: Özet
+
+- id: publication
+  translation: Yayın
+
+- id: publication_type
+  translation: Yayın tipi
+
+- id: date
+  translation: Tarih
+
+- id: last_updated
+  translation: Last updated on
+
+- id: event
+  translation: Etkinlikler
+
+- id: location
+  translation: Adres
+
+- id: paper-conference
+  translation: Conference paper
+
+- id: pub_article_journal
+  translation: Journal article
+
+- id: pub_article
+  translation: Preprint
+
+- id: pub_report
+  translation: Report
+
+- id: pub_book
+  translation: Book
+
+- id: pub_chapter
+  translation: Book section
+
+- id: pub_thesis
+  translation: Thesis
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Projenin sayfasına git
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Blog içerikleri
+
+- id: publications
+  translation: Yayınlar
+
+- id: talks
+  translation: Konuşmalar
+
+- id: projects
+  translation: Projects
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Search
+
+- id: search_placeholder
+  translation: Search...
+
+- id: search_results
+  translation: results found
+
+- id: search_no_results
+  translation: No results found
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Page not found
+
+- id: 404_recommendations
+  translation: Perhaps you were looking for one of these?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: This website uses cookies to ensure you get the best experience on our website.
+
+- id: cookie_dismiss
+  translation: Got it!
+
+- id: cookie_learn
+  translation: Learn more
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

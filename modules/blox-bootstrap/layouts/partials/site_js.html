@@ -1,0 +1,270 @@
+{{ $scr := $.Scratch }}
+
+{{/* Rename _vendor dir as GitHub Pages doesn't automatically publish folders with underscores. */}}
+{{ $libs := slice }}
+{{- $lib_names := slice "jquery.min" "bootstrap.bundle.min" "instantpage" -}}
+{{- range $lib_names -}}
+    {{- $libs = $libs | append (resources.Get (printf "js/_vendor/%s.js" .) ) -}}
+{{- end -}}
+{{ $libs := $libs | resources.Concat "js/vendor-bundle.js" | minify }}
+{{- if hugo.IsProduction -}}
+  {{ $libs = $libs | fingerprint "md5" }}
+{{- end -}}
+<script src="{{ $libs.RelPermalink }}"></script>
+
+{{/* Attempt to load local vendor JS, otherwise load from CDN. */}}
+{{ $js := site.Data.assets.js }}
+{{ if not ($scr.Get "use_cdn") }}
+  <script src="{{ printf "/js/vendor/%s" ($scr.Get "vendor_js_filename") | relURL }}"></script>
+{{ else }}
+  {{ if .Page.Store.Get "has_isotope" }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.imagesLoaded.url $js.imagesLoaded.version) $js.imagesLoaded.sri | safeHTML }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.isotope.url $js.isotope.version) $js.isotope.sri | safeHTML }}
+  {{ end }}
+
+  {{/* Workaround `.HasShortcode "gallery"` detection issue on `home/` WidgetPage v1 */}}
+  {{ if (.Page.Store.Get "has_gallery") | or site.Params.require_fancybox }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fancybox.url $js.fancybox.version) $js.fancybox.sri | safeHTML }}
+  {{ end }}
+
+  {{ if .Page.Store.Get "has_mermaid" }}
+    {{/* Title attribute is used by wowchemy-theming.js to detect Mermaid */}}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf $js.mermaid.url $js.mermaid.version) $js.mermaid.sri | safeHTML }}
+  {{ end }}
+
+{{ end }}
+
+{{/* Maps JS. */}}
+{{ $map_provider := lower site.Params.features.map.provider }}
+{{ if eq $map_provider "google" }}
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.features.map.api_key }}"></script>
+  {{ if ($scr.Get "use_cdn") }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
+  {{ end }}
+{{ else if (in (slice "mapnik" "mapbox") $map_provider) | and ($scr.Get "use_cdn") }}
+  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
+{{ end }}
+
+{{/* Load hash anchors for documentation pages. */}}
+{{ if in (slice "book" "docs") .Type }}
+{{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
+<script>
+  anchors.add();
+</script>
+{{ end }}
+
+{{ $algoliaConfig := dict }}
+{{ $search_provider := lower site.Params.features.search.provider }}
+{{ if eq $search_provider "wowchemy" }}
+  {{/* Hugo Blox built-in search result template (Fuse). */}}
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{"{{key}}"}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          {{ printf "<a href=\"%s\">%s</a>" "{{relpermalink}}" "{{title}}" | safeHTML }}
+          <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+          <p class="search-hit-description">{{"{{snippet}}"}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  {{ if ($scr.Get "use_cdn") }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
+  {{ end }}
+{{ else if eq $search_provider "algolia" }}
+  {{/* Algolia search result template. */}}
+  <script id="search-hit-algolia-template" type="text/html">
+    <div class="search-hit">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          {{ printf "<a href=\"%s\">{{#helpers.highlight}}{ \"attribute\": \"title\" }{{/helpers.highlight}}</a>" "{{relpermalink}}" | safeHTML }}
+        </div>
+        <div class="article-metadata search-hit-type">{{"{{type}}"}}</div>
+        <p class="search-hit-description">{{ safeHTML "{{#helpers.highlight}}{ \"attribute\": \"summary\" }{{/helpers.highlight}}" }}</p>
+      </div>
+    </div>
+  </script>
+  {{ if ($scr.Get "use_cdn") }}
+    {{ printf "<script src=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.instantsearch.url $js.instantsearch.version) | safeHTML }}
+  {{ end }}
+  {{ $algoliaConfig = dict "appId" (site.Params.features.search.algolia.app_id | default "") "apiKey" (site.Params.features.search.algolia.api_key | default "") "indexName" (site.Params.features.search.algolia.index_name | default "") "analytics" (site.Params.features.search.algolia.analytics | default false) "personalization" (site.Params.features.search.algolia.personalization | default false) }}
+{{ else if eq $search_provider "docsearch" }}
+  {{ $docsearch_config := dict "appId" (site.Params.features.search.docsearch.app_id | default "") "apiKey" (site.Params.features.search.docsearch.api_key | default "") "indexName" (site.Params.features.search.docsearch.index_name | default "") "container" (site.Params.features.search.docsearch.container | default "#docsearch") }}
+  <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+  {{ printf "<script>docsearch(%s);</script>" ($docsearch_config | jsonify) | safeHTML }}
+{{ end }}
+
+{{/* Charts */}}
+{{ if .HasShortcode "chart" }}
+  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.plotly.url $js.plotly.version) $js.plotly.sri | safeHTML }}
+{{ end }}
+
+{{/* Disqus Comment Count JS. */}}
+{{/* Note: count can appear both in listing previews and on the content page itself. */}}
+{{ $comments_provider := trim (site.Params.features.comment.provider | lower) " " }}
+{{ if eq $comments_provider "disqus" | and (site.Params.features.comment.disqus.show_count | default true) }}
+  <script id="dsq-count-scr" src="https://{{site.Params.features.comment.disqus.shortname}}.disqus.com/count.js" async></script>
+{{end}}
+
+{{ $js_search_params := dict }}
+{{ if in (slice "wowchemy" "algolia") $search_provider }}
+  {{/* Configure search engine. */}}
+  {{ $min_length := site.Params.features.search.wowchemy.min_length | default 1 }}
+  {{ $threshold := site.Params.features.search.wowchemy.threshold | default 0.3 }}
+  {{ $search_config := dict "indexURI" ("index.json" | relLangURL) "threshold" $threshold "minLength" $min_length }}
+  {{ $search_i18n := dict "placeholder" (i18n "search_placeholder") "results" (i18n "search_results") "no_results" (i18n "search_no_results") }}
+  {{ $content_types := dict "post" (i18n "posts") "project" (i18n "projects") "publication" (i18n "publications") "event" (i18n "talks") "slides" (i18n "slides") "authors" (i18n "authors") }}
+  {{ $js_search_params = dict "search_config" $search_config "algoliaConfig" $algoliaConfig "i18n" $search_i18n "content_type" $content_types }}
+{{ end }}
+
+{{ if eq $search_provider "algolia" }}
+{{ $js_algolia_search := resources.Get "js/algolia-search.js" | js.Build (dict "format" "esm" "targetPath" (printf "%s/js/algolia-search-built.js" .Lang) "params" $js_search_params) }}
+{{- if hugo.IsProduction -}}
+  {{- $js_algolia_search = $js_algolia_search | minify | fingerprint "md5" -}}
+{{- end -}}
+<script src="{{ $js_algolia_search.RelPermalink }}" type="module"></script>
+{{ end }}
+
+{{/* Headroom */}}
+{{/*
+  Headroom JS enables hiding the header on scrolling down and showing it on scrolling up.
+  This is especially valuable on smaller displays such as mobile devices.
+  This option can be set in the following ways:
+    - globally, in the site's 'params.yaml':
+      ```
+      header:
+        on_scroll: "disappear" | "sticky"
+      ```
+    - per page, in the page front matter:
+      ```
+      header:
+        on_scroll: "disappear" | "sticky"
+      ```
+  When the header is set to disappear, the Headroom JS is loaded.
+
+  By default, the header is sticky in the homepage and in the book layout,
+  and it disappears when scrolling in all other pages.
+*/}}
+
+{{/* By default don't use Headroom in the homepage and book layout */}}
+{{ $use_headroom := not (.IsHome | or (eq .Type "book")) }}
+
+{{/* Check for the global site parameter `header.on_scroll` */}}
+{{ if site.Params.header.on_scroll }}
+  {{ $use_headroom = eq site.Params.header.on_scroll "disappear" }}
+{{ end }}
+
+{{/* Check for the page parameter `header.on_scroll` */}}
+{{ if .Params.header.on_scroll }}
+  {{ $use_headroom = eq .Params.header.on_scroll "disappear" }}
+{{ end }}
+
+{{/* Output `use_headroom` variable for Headroom initialization in Hugo Blox JS */}}
+{{ printf "<script id=\"page-data\" type=\"application/json\">%s</script>" (dict "use_headroom" $use_headroom | jsonify) | safeHTML}}
+
+{{ if $use_headroom }}
+  {{ $headroom := resources.Get "js/wowchemy-headroom.js" | js.Build (dict "format" "esm" "minify" true) }}
+  {{- if hugo.IsProduction -}}
+    {{- $headroom = $headroom | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $headroom.RelPermalink }}" type="module"></script>
+{{- end -}}
+
+{{/* Mindmaps */}}
+{{ if .Page.Store.Get "has_markmap" -}}
+  <style>
+    .markmap > svg {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script>
+    window.markmap = {
+      autoLoader: {
+        manual: false,
+        onReady() {
+          const { autoLoader, builtInPlugins } = window.markmap;
+          // Disable Prism highlighting plugin as it conflicts and attempts to re-render code blocks outside of Markmap.
+          autoLoader.transformPlugins = builtInPlugins.filter(plugin => plugin.name !== 'prism');
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-autoloader"></script>
+{{ end -}}
+
+{{ $js_license := printf "/*! Hugo Blox Builder v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
+{{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
+{{ $js_license := $js_license | printf "%s/*! License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */\n" }}
+{{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
+{{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
+{{ $js_params := dict "hugoEnvironment" hugo.Environment "searchEnabled" (in (slice "wowchemy" "algolia") $search_provider) "i18n" $i18n }}
+{{ $js_academic := resources.Get "js/wowchemy.js" | js.Build (dict "targetPath" (printf "%s/js/wow-core.js" .Lang ) "params" $js_params) }}
+{{ $js_bundle := slice $js_academic }}
+{{ if eq $search_provider "wowchemy" }}
+  {{ $js_academic_search := resources.Get "js/wowchemy-search.js" | js.Build (dict "targetPath" (printf "%s/js/wow-search-built.js" .Lang) "params" $js_search_params) }}
+  {{ $js_bundle = $js_bundle | append $js_academic_search }}
+{{ end }}
+{{ range site.Params.plugins_js }}
+  {{ $js_bundle = $js_bundle | append (resources.Get (printf "js/%s.js" .)) }}
+{{ end }}
+{{ $js_bundle = $js_bundle | resources.Concat (printf "%s/js/wowchemy-bundle.js" .Lang) }}
+{{- if hugo.IsProduction -}}
+  {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife") | minify -}}
+{{- else -}}
+  {{- $js_bundle = $js_bundle | js.Build (dict "format" "iife" "sourceMap" "inline") -}}
+{{- end -}}
+{{ $js_bundle = slice $js_bundle_head $js_bundle | resources.Concat (printf "%s/js/wowchemy.min.js" .Lang) }}
+{{- if hugo.IsProduction -}}
+  {{ $js_bundle = $js_bundle | fingerprint "md5" }}
+{{- end -}}
+<script src="{{ $js_bundle.RelPermalink }}"></script>
+
+{{/* Maps */}}
+{{ if site.Params.features.map.provider }}
+  {{ $js := resources.Get "js/wowchemy-map.js" | js.Build (dict "format" "esm" "minify" true) }}
+  {{- if hugo.IsProduction -}}
+    {{- $js = $js | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $js.RelPermalink }}" type="module"></script>
+{{- end -}}
+
+{{/* Carousel */}}
+{{ $hasCarousel := where site.Pages "Params.widget" "slider" }}
+{{ if $hasCarousel }}
+  {{ $js := resources.Get "js/wowchemy-carousel.js" | js.Build (dict "format" "esm" "minify" true) }}
+  {{- if hugo.IsProduction -}}
+    {{- $js = $js | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $js.RelPermalink }}" type="module"></script>
+{{- end -}}
+
+{{/* Publications */}}
+{{ $hasPublications := where site.Pages "Type" "publication" }}
+{{ if $hasPublications }}
+  {{ partial "citation" . }}
+
+  {{ $js := resources.Get "js/wowchemy-publication.js" | js.Build (dict "format" "esm" "minify" true) }}
+  {{- if hugo.IsProduction -}}
+    {{- $js = $js | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $js.RelPermalink }}" type="module"></script>
+{{- end -}}
+
+{{/* Announcement Bar */}}
+{{ $hasAnnouncement := .Params.announcement.text }}
+{{ if $hasAnnouncement }}
+  {{ $js := resources.Get "js/wowchemy-announcement.js" | js.Build (dict "format" "esm" "minify" true) }}
+  {{- if hugo.IsProduction -}}
+    {{- $js = $js | fingerprint "md5" -}}
+  {{- end -}}
+  <script src="{{ $js.RelPermalink }}" type="module"></script>
+{{- end -}}
+
+{{/* EXTENSIBILITY HOOK: BODY-END */}}
+{{/* Deprecated custom_js hook */}}
+{{ if templates.Exists "partials/custom_js.html" }}
+  {{ partial "custom_js" . }}
+{{ end }}
+{{ partial "blox-core/functions/get_hook" (dict "hook" "body-end" "context" .) }}

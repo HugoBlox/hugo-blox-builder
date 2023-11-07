@@ -1,0 +1,25 @@
+<!doctype html>
+{{ "<!-- This site was created with Hugo Blox. https://hugoblox.com -->" | safeHTML }}
+{{ printf "<!-- Last Published: %s -->" (now | time.Format ":date_long") | safeHTML }}
+{{- $language_code := site.LanguageCode | default "en-us" -}}
+<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{end}}
+      data-wc-theme-default="{{ site.Params.appearance.theme_default | default "system" }}">
+  {{ partial "site_head" . }}
+  <body class="dark:bg-gray-800 dark:text-white-800 page-wrapper">
+    <div id="page-bg"></div>
+    <div class="page-header">
+      {{ if (site.Params.header.navbar.enable | default true) }}
+        {{ partial "navbar" . }}
+      {{ end }}
+    </div>
+    <div class="page-body my-10">
+      {{ block "main" . }}{{ end }}
+    </div>
+    <div class="page-footer">
+      {{ partial "site_footer" . }}
+    </div>
+
+    {{/* EXTENSIBILITY HOOK: BODY-END */}}
+    {{ partial "functions/get_hook" (dict "hook" "body-end" "context" .) }}
+  </body>
+</html>

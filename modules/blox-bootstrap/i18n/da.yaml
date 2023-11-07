@@ -1,0 +1,265 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Vis/skjul navigation
+
+- id: table_of_contents
+  translation: Indholdsfortegnelse
+
+- id: on_this_page
+  translation: På denne side
+
+- id: back_to_top
+  translation: Til toppen
+
+- id: home
+  translation: Hjem
+
+- id: close
+  translation: Close
+
+- id: languages
+  translation: Languages
+
+# General
+
+- id: related
+  translation: Relaterede
+
+- id: minute_read
+  translation: min læsning
+
+- id: previous
+  translation: Forrige
+
+- id: next
+  translation: Næste
+
+- id: figure
+  translation: 'Figur %d:'
+
+- id: edit_page
+  translation: Edit this page
+
+# Themes
+
+- id: theme_selector
+  translation: Display preferences
+
+- id: theme_light
+  translation: Light
+
+- id: theme_dark
+  translation: Dark
+
+- id: theme_auto
+  translation: Automatic
+
+# Buttons
+
+- id: btn_preprint
+  translation: Eksempel
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citer
+
+- id: btn_slides
+  translation: Præsentation
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kode
+
+- id: btn_dataset
+  translation: Datasæt
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Plakat
+
+- id: btn_source
+  translation: Kilde kode
+
+- id: btn_copy
+  translation: Kopier
+
+- id: btn_copied
+  translation: Copied
+
+- id: btn_download
+  translation: Download
+
+# About widget
+
+- id: interests
+  translation: Interesser
+
+- id: education
+  translation: Uddannelse
+
+- id: user_profile_latest
+  translation: Seneste
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Certifikat
+
+# Experience widget
+
+- id: present
+  translation: Nuværende
+
+# Pages widget
+
+- id: more_pages
+  translation: Se alle
+
+- id: more_posts
+  translation: Se alle indlæg
+
+- id: more_talks
+  translation: Se alle foredrag
+
+- id: more_publications
+  translation: Se alle udgivelser
+
+# Contact widget
+
+- id: contact_name
+  translation: Navn
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Besked
+
+- id: contact_attachment
+  translation: Attach file
+
+- id: contact_send
+  translation: Send
+
+- id: book_appointment
+  translation: Reserver en aftale
+
+# Publication/Event details
+
+- id: abstract
+  translation: Abstrakt
+
+- id: publication
+  translation: Udgivelse
+
+- id: publication_type
+  translation: Type
+
+- id: date
+  translation: Dato
+
+- id: last_updated
+  translation: Sidst opdateret
+
+- id: event
+  translation: Begivenhed
+
+- id: location
+  translation: Lokation
+
+- id: paper-conference
+  translation: Konference artikel
+
+- id: pub_article_journal
+  translation: Videnskablig artikel
+
+- id: pub_article
+  translation: Preprint
+
+- id: pub_report
+  translation: Rapport
+
+- id: pub_book
+  translation: Bog
+
+- id: pub_chapter
+  translation: Bøger
+
+- id: pub_thesis
+  translation: Thesis
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Gå til projekt side
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Indlæg
+
+- id: publications
+  translation: Udgivelser
+
+- id: talks
+  translation: Foredrag
+
+- id: projects
+  translation: Projekter
+
+- id: slides
+  translation: Slides
+
+- id: authors
+  translation: Authors
+
+# Search
+
+- id: search
+  translation: Søg
+
+- id: search_placeholder
+  translation: Søg...
+
+- id: search_results
+  translation: resultater fundet
+
+- id: search_no_results
+  translation: Ingen resultater fundet
+
+- id: search_common_queries
+  translation: Common searches
+
+# Error 404
+
+- id: page_not_found
+  translation: Side blev ikke fundet
+
+- id: 404_recommendations
+  translation: Måske du ledte efter dette?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Denne side benytter cookies for at sikre den bedste oplevelse.
+
+- id: cookie_dismiss
+  translation: Accepter
+
+- id: cookie_learn
+  translation: Læs mere
+
+# Published with
+
+- id: published_with
+  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.

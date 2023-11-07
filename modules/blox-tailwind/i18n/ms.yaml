@@ -1,0 +1,279 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Buka pengemudian
+
+- id: table_of_contents
+  translation: Daftar kandungan
+
+- id: on_this_page
+  translation: Kandungan
+
+- id: back_to_top
+  translation: Kembali ke atas
+
+- id: home
+  translation: Utama
+
+- id: close
+  translation: Tutup
+
+- id: languages
+  translation: Bahasa
+
+# General
+
+- id: related
+  translation: Terkait
+
+- id: minute_read
+  translation: minit untuk dibaca
+
+- id: previous
+  translation: Sebelumnya
+
+- id: next
+  translation: Seterusnya
+
+- id: figure
+  translation: 'Orang %d:'
+
+- id: edit_page
+  translation: Sunting halaman ini
+
+# Themes
+
+- id: theme_selector
+  translation: Pemilih tema
+
+- id: theme_light
+  translation: Cerah
+
+- id: theme_dark
+  translation: Gelap
+
+- id: theme_auto
+  translation: Automatik
+
+# Buttons
+
+- id: btn_preprint
+  translation: Pracetak
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Petik
+
+- id: btn_slides
+  translation: Persembahan
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kod
+
+- id: btn_dataset
+  translation: Set data
+
+- id: btn_project
+  translation: Projek
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Sumber
+
+- id: btn_copy
+  translation: Salin
+
+- id: btn_copied
+  translation: Disalin
+
+- id: btn_download
+  translation: Muat turun
+
+# About widget
+
+- id: interests
+  translation: Minat
+
+- id: education
+  translation: Pendidikan
+
+- id: user_profile_latest
+  translation: Terkini
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Lihat sijil
+
+# Experience widget
+
+- id: present
+  translation: Terkini
+
+# Pages widget
+
+- id: more_pages
+  translation: Lihat semua
+
+- id: more_posts
+  translation: Kiriman lainnya
+
+- id: more_talks
+  translation: Perbincangan lainnya
+
+- id: more_publications
+  translation: Terbitan lainnya
+
+# Contact widget
+
+- id: contact_name
+  translation: Nama
+
+- id: contact_email
+  translation: E-mel
+
+- id: contact_message
+  translation: Mesej
+
+- id: contact_attachment
+  translation: Sisip fail
+
+- id: contact_send
+  translation: Hantar
+
+- id: book_appointment
+  translation: Jadualkan pertemuan
+
+# Publication/Event details
+
+- id: abstract
+  translation: Abstrak
+
+- id: publication
+  translation: Terbitan
+
+- id: publication_type
+  translation: Jenis
+
+- id: date
+  translation: Tarikh
+
+- id: last_updated
+  translation: Terakhir dikemas kini
+
+- id: event
+  translation: Acara
+
+- id: location
+  translation: Kedudukan
+
+- id: paper-conference
+  translation: Kertas sidang
+
+- id: pub_article_journal
+  translation: Artikel jurnal
+
+- id: pub_article
+  translation: Pracetak
+
+- id: pub_report
+  translation: Laporan
+
+- id: pub_book
+  translation: Buku
+
+- id: pub_chapter
+  translation: Bahagian buku
+
+- id: pub_thesis
+  translation: Tesis
+
+- id: pub_patent
+  translation: Paten
+
+# Project details
+
+- id: open_project_site
+  translation: Ke laman projek
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Kiriman
+
+- id: publications
+  translation: Terbitan
+
+- id: talks
+  translation: Perbincangan
+
+- id: projects
+  translation: Projek
+
+- id: slides
+  translation: Persembahan
+
+- id: authors
+  translation: Penulis
+
+# Search
+
+- id: search
+  translation: Cari
+
+- id: search_placeholder
+  translation: Cari...
+
+- id: search_results
+  translation: hasil dijumpai
+
+- id: search_no_results
+  translation: Tiada hasil dijumpai
+
+- id: search_common_queries
+  translation: Pencarian umum
+
+# Error 404
+
+- id: page_not_found
+  translation: Laman tidak ditemukan
+
+- id: 404_recommendations
+  translation: Adakah ini yang anda cari?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Laman ini menggunakan kuki untuk memastikan anda mendapatkan pengalaman terbaik dari laman web kami.
+
+- id: cookie_dismiss
+  translation: Baiklah!
+
+- id: cookie_learn
+  translation: Lebih lanjut
+
+# Published with
+
+- id: published_with
+  translation: Diterbitkan dengan {hugoblox} — pembuat laman web percuma {repo_link}bersumber terbuka{/repo_link} dan berkuasa.
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Maklum balas
+
+- id: feedback_widget_question
+  translation: Adakah laman ini membantu?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Ya
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Tidak
