@@ -20,21 +20,21 @@ jobs:
           - local_path: 'academic-cv'
             split_repository: 'theme-academic-cv'
           - local_path: 'markdown-slides'
-            split_repository: 'starter-hugo-markdown-slides'
+            split_repository: 'theme-markdown-slides'
           - local_path: 'blog'
             split_repository: 'theme-blog'
           - local_path: 'documentation'
-            split_repository: 'hugo-documentation-theme'
+            split_repository: 'theme-documentation'
           - local_path: 'portfolio'
-            split_repository: 'starter-hugo-portfolio-theme'
+            split_repository: 'theme-portfolio'
           - local_path: 'course'
-            split_repository: 'starter-hugo-online-course'
+            split_repository: 'theme-online-course'
           - local_path: 'link-in-bio'
             split_repository: 'theme-link-in-bio'
           - local_path: 'research-group'
-            split_repository: 'starter-hugo-research-group'
+            split_repository: 'theme-research-group'
           - local_path: 'second-brain'
-            split_repository: 'hugo-second-brain-theme'
+            split_repository: 'theme-second-brain'
 
     steps:
       -   uses: actions/checkout@v3
@@ -47,7 +47,7 @@ jobs:
           package_directory: 'starters/${{ matrix.package.local_path }}'
 
           # ↓ into https://github.com/wowchemy/<package-name> repository
-          repository_organization: 'wowchemy'
+          repository_organization: 'HugoBlox'
           repository_name: '${{ matrix.package.split_repository }}'
 
           # ↓ the user signed under the split commit
