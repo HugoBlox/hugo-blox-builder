@@ -23,7 +23,7 @@ concurrency:
 jobs:
   # Build website
   build:
-    if: github.repository_owner != 'wowchemy'
+    if: github.repository_owner != 'HugoBlox'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -58,7 +58,7 @@ jobs:
 
   # Deploy website to GitHub Pages hosting
   deploy:
-    if: github.repository_owner != 'wowchemy'
+    if: github.repository_owner != 'HugoBlox'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
