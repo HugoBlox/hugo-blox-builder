@@ -1,4 +1,4 @@
-# Wowchemy GitHub Action to import Jupyter Notebooks as blog posts
+# Hugo Blox GitHub Action to import Jupyter Notebooks as blog posts
 name: Import Jupyter Notebooks as Blog Posts
 
 # Require permission to create a PR
@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  wowchemy:
+  hugoblox:
     if: github.repository_owner != 'HugoBlox'
     runs-on: ubuntu-latest
     steps:
@@ -38,14 +38,14 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: 'content: import blog posts from `notebooks/` folder'
-          title: Wowchemy - Import latest blog posts
+          title: Hugo Blox Builder - Import latest blog posts
           body: |
             Convert Jupyter Notebooks in the `notebooks/` folder into blog posts in the `content/post/` folder.
             将`notebooks/`文件夹中的Jupyter笔记本转换为`content/post/`文件夹中的博客帖子。
             [View Documentation](https://github.com/GetRD/academic-file-converter)
           base: main
           labels: automated-pr, content
-          branch: wowchemy-import-posts
+          branch: hugoblox-import-posts
           delete-branch: true
       - name: Check outputs
         if: ${{ steps.cpr.outputs.pull-request-number }}

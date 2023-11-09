@@ -7,7 +7,7 @@ image:
   caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
 ---
 
-Wowchemy is designed to give technical content creators a seamless experience. You can focus on the content and Wowchemy handles the rest.
+Hugo Blox Builder is designed to give technical content creators a seamless experience. You can focus on the content and Wowchemy handles the rest.
 
 **Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.**
 
@@ -73,7 +73,7 @@ A more advanced mindmap with formatting, code blocks, and math:
 ```markmap
 - Mindmaps
   - Links
-    - [Wowchemy Docs](https://hugoblox.com/docs/)
+    - [Wowchemy Docs](https://docs.hugoblox.com/)
     - [Discord Community](https://discord.gg/z8wNYzb)
     - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
   - Features
@@ -98,7 +98,7 @@ renders as
 ```markmap
 - Mindmaps
   - Links
-    - [Wowchemy Docs](https://hugoblox.com/docs/)
+    - [Wowchemy Docs](https://docs.hugoblox.com/)
     - [Discord Community](https://discord.gg/z8wNYzb)
     - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
   - Features
@@ -341,7 +341,7 @@ renders as
 
 ### Callouts
 
-Academic supports a [shortcode for callouts](https://hugoblox.com/docs/content/writing-markdown-latex/#callouts), also referred to as _asides_, _hints_, or _alerts_. By wrapping a paragraph in `{{%/* callout note */%}} ... {{%/* /callout */%}}`, it will render as an aside.
+Academic supports a [shortcode for callouts](https://docs.hugoblox.com/content/writing-markdown-latex/#callouts), also referred to as _asides_, _hints_, or _alerts_. By wrapping a paragraph in `{{%/* callout note */%}} ... {{%/* /callout */%}}`, it will render as an aside.
 
 ```markdown
 {{%/* callout note */%}}
@@ -371,7 +371,7 @@ renders as
 
 ### Icons
 
-Academic enables you to use a wide range of [icons from _Font Awesome_ and _Academicons_](https://hugoblox.com/docs/getting-started/page-builder/#icons) in addition to [emojis](https://hugoblox.com/docs/content/writing-markdown-latex/#emojis).
+Academic enables you to use a wide range of [icons from _Font Awesome_ and _Academicons_](https://docs.hugoblox.com/getting-started/page-builder/#icons) in addition to [emojis](https://docs.hugoblox.com/content/writing-markdown-latex/#emojis).
 
 Here are some examples using the `icon` shortcode to render icons:
 

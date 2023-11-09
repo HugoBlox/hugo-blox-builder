@@ -1,5 +1,5 @@
 ---
-title: Richard Hendricks Wins First Place in the Wowchemy Prize
+title: Richard Hendricks Wins First Place in the Hugo Blox Builder Prize
 date: 2020-12-01
 ---
 

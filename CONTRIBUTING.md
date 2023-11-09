@@ -15,7 +15,7 @@ Whether or not you're a developer, there are plenty of non-technical ways that y
 - Helping the Hugo Blox community via the live [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)
 - Investigating and reviewing open [Issues](https://github.com/HugoBlox/hugo-blox-builder/issues) and [Pull Requests](https://github.com/HugoBlox/hugo-blox-builder/pulls)
   - Influence the roadmap! Give a thumbs up 👍 to upvote a feature request you would like to use
-- Improving the [documentation](https://hugoblox.com/docs/) and writing tutorials
+- Improving the [documentation](https://docs.hugoblox.com/) and writing tutorials
   - Just click the _Edit_ button at the bottom of pages or open an issue with your proposed improvement
 - Testing and quality assurance, such as checking the latest version of the templates work as you expect and fixing any dead-links etc.
 - Translating the Hugo Blox templates or the Hugo Blox documentation
@@ -71,7 +71,7 @@ git clone https://github.com/<YOUR_USERNAME>/hugo-blox-builder.git
 Then choose the starter template you wish to view, such as _minimal_:
 
 ```sh
-yarn view:local minimal
+yarn view:local academic-cv
 ```
 
 Note that Hugo Server can occasionally stop working after changes are made (sometimes showing unrelated errors). If this happens, stop Hugo (Control-C) and restart it with the `yarn view:local ...` command above.
@@ -96,29 +96,29 @@ Use git to push (upload) your changes to GitHub and then open a Pull Request (PR
 
 Please be mindful of the project [scope](#scope).
 
-### Contribute a widget
+### Contribute Blox
 
-[Create and publish your own widget](https://github.com/wowchemy/wowchemy-widget-starter)
+[Create and publish your own blox](https://github.com/HugoBlox/create-blox)
 
 ### Contribute a shortcode
 
-[Create and publish your own shortcode](https://github.com/wowchemy/wowchemy-shortcode-starter)
+[Create and publish your own shortcode](https://github.com/HugoBlox/create-shortcode)
 
 ### Contribute a language pack
 
-To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://hugoblox.com/docs/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/hugo-blox-builder), place your language pack in `blox-tailwind/i18n/`, add the name of the language to `blox-tailwind/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
+To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/hugo-blox-builder), place your language pack in `blox-tailwind/i18n/`, add the name of the language to `blox-tailwind/data/i18n/language.yaml`, and open a Pull Request on Github with these two files.
 
 ### Contribute a theme pack
 
-[View the guide](https://hugoblox.com/docs/customization/#share-your-theme) to contributing a color and font theme pack.
+[View the guide](https://docs.hugoblox.com/getting-started/customize/#appearance) to contributing a color and font theme pack.
 
 ### Contribute a template
 
-Consider duplicating a bare-bones template, such as the [Minimal](https://github.com/HugoBlox/hugo-blox-builder/tree/main/starters/minimal) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
+Consider duplicating a bare-bones template, such as the [Link In Bio](https://github.com/HugoBlox/hugo-blox-builder/tree/main/starters/link-in-bio) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
 
 ### Contribute to the Publication importer
 
-To contribute to **Hugo Academic CLI**, the automatic publication importer, refer to [its dedicated Github repository](https://github.com/GetRD/academic-file-converter) and Issue queue.
+To contribute to **Hugo Academic CLI**, the automatic publication and blog post importer, refer to [its dedicated Github repository](https://github.com/GetRD/academic-file-converter) and Issue queue.
 
 ## Become a backer
 

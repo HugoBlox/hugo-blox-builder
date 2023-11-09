@@ -1,6 +1,6 @@
 ---
 # An instance of the Experience widget.
-# Documentation: https://hugoblox.com/docs/page-builder/
+# Documentation: https://docs.hugoblox.com/page-builder/
 widget: experience
 
 # This file represents a page section.
@@ -13,7 +13,7 @@ title: Education
 subtitle:
 
 # Date format for experience
-#   Refer to https://hugoblox.com/docs/customization/#date-format
+#   Refer to https://docs.hugoblox.com/customization/#date-format
 date_format: Jan 2006
 
 # Experiences.

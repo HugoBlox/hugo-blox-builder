@@ -61,7 +61,7 @@
 
   <script>
     /* Hugo Blox JS Global Init */
-    window.wowchemy = {
+    window.hbb = {
        defaultTheme: document.documentElement.dataset.wcThemeDefault,
        setDarkTheme: () => {
         document.documentElement.classList.add("dark");
@@ -73,14 +73,14 @@
       }
     }
 
-    console.debug(`Default Hugo Blox Builder theme is ${window.wowchemy.defaultTheme}`);
+    console.debug(`Default Hugo Blox Builder theme is ${window.hbb.defaultTheme}`);
 
     if ("wc-color-theme" in localStorage) {
-      localStorage.getItem("wc-color-theme") === "dark" ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+      localStorage.getItem("wc-color-theme") === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
     } else {
-      window.wowchemy.defaultTheme === "dark" ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
-      if (window.wowchemy.defaultTheme === "system") {
-        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+      window.hbb.defaultTheme === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
+      if (window.hbb.defaultTheme === "system") {
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
       }
     }
   </script>

@@ -59,7 +59,7 @@ Anh here's a more advanced mindmap with formatting, code blocks, and math:
 ```markmap
 - Mindmaps
   - Links
-    - [Wowchemy Docs](https://hugoblox.com/docs/)
+    - [Wowchemy Docs](https://docs.hugoblox.com/)
     - [Discord Community](https://discord.gg/z8wNYzb)
     - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
   - Features
@@ -84,7 +84,7 @@ renders as
 ```markmap
 - Mindmaps
   - Links
-    - [Wowchemy Docs](https://hugoblox.com/docs/)
+    - [Wowchemy Docs](https://docs.hugoblox.com/)
     - [Discord Community](https://discord.gg/z8wNYzb)
     - [GitHub](https://github.com/HugoBlox/hugo-blox-builder)
   - Features

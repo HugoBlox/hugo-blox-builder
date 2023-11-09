@@ -1,6 +1,6 @@
 ---
 # An instance of the Pages widget.
-# Documentation: https://hugoblox.com/docs/page-builder/
+# Documentation: https://docs.hugoblox.com/page-builder/
 widget: pages
 
 # This file represents a page section.

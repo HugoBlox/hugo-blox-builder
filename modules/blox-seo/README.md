@@ -1,6 +1,6 @@
 # blox-seo
 
-A Hugo plugin for [Search Engine Optimisation (SEO)](https://hugoblox.com/docs/hugo-tutorials/seo/), site verification, and [analytics](https://hugoblox.com/docs/hugo-tutorials/analytics/).
+A Hugo plugin for [Search Engine Optimisation (SEO)](https://docs.hugoblox.com/hugo-tutorials/seo/), site verification, and [analytics](https://docs.hugoblox.com/hugo-tutorials/analytics/).
 
 ## Install
 
@@ -24,4 +24,4 @@ Otherwise, if you are not using the `blox-bootstrap` module, you can get SEO fea
 
 ## Usage
 
-[View the documentation](https://hugoblox.com/docs/hugo-tutorials/seo/)
+[View the documentation](https://docs.hugoblox.com/hugo-tutorials/seo/)

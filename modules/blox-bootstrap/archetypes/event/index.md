@@ -1,5 +1,5 @@
 ---
-# Documentation: https://hugoblox.com/docs/managing-content/
+# Documentation: https://docs.hugoblox.com/managing-content/
 
 title: "{{ replace .Name "-" " " | title }}"
 event:

@@ -13,13 +13,13 @@ body:
 
         🚑 For **help** and **questions**, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)**, and if not, ask your question there instead.
 
-        Bug reports also shouldn't be used for support requests about a specific problem in your site, only if the issue can be reproduced on a fresh Wowchemy template.
+        Bug reports also shouldn't be used for support requests about a specific problem in your site, only if the issue can be reproduced on a fresh Hugo Blox Builder template.
 
-        Also, you can search and browse the extensive [Wowchemy](https://hugoblox.com/docs/) and [Hugo](https://gohugo.io/documentation/) **documentation**.
+        Also, you can search and browse the extensive [Hugo Blox Builder](https://docs.hugoblox.com) and [Hugo](https://gohugo.io/documentation/) **documentation**.
 
-        For questions on _Blogdown_, please reach out to the [Blogdown community](https://github.com/rstudio/blogdown).
+        For questions on _RStudio/Blogdown_, please reach out to the [RStudio/Blogdown community](https://github.com/rstudio/blogdown).
 
-        Please fill out each section below. This info allows Wowchemy contributors to diagnose (and fix!) your issue as quickly as possible. Otherwise we might need to close the issue (e.g. when it's missing clear steps to reproduce).
+        Please fill out each section below. This info allows Hugo Blox Builder contributors to diagnose (and fix!) your issue as quickly as possible. Otherwise we might need to close the issue (e.g. when it's missing clear steps to reproduce).
 
         Also, please verify that your issue is present in the very latest `main` version.
   - type: checkboxes
@@ -29,7 +29,7 @@ body:
       options:
         - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/HugoBlox/hugo-blox-builder/issues?q=is%3Aissue"
           required: true
-        - label: "This issue is not a question, feature request, or anything other than a bug report directly related to Wowchemy. Please post those things on Discord: https://discord.gg/z8wNYzb"
+        - label: "This issue is not a question, feature request, or anything other than a bug report directly related to Hugo Blox Builder. Please post those things on Discord: https://discord.gg/z8wNYzb"
           required: true
   - type: textarea
     attributes:

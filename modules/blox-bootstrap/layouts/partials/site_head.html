@@ -28,7 +28,7 @@
       <link rel="preload" as="style" {{ printf "href=\"https://fonts.googleapis.com/css2?%s&display=swap\"" . | safeHTMLAttr }}>
       <link rel="stylesheet" {{ printf "href=\"https://fonts.googleapis.com/css2?%s&display=swap\"" . | safeHTMLAttr }} media="print" onload="this.media='all'">
     {{ else }}
-      {{ errorf "There is a new version of Google Fonts. Learn how to upgrade your font pack at https://hugoblox.com/docs/customization/#custom-font" }}
+      {{ errorf "There is a new version of Google Fonts. Learn how to upgrade your font pack at https://docs.hugoblox.com/customization/#custom-font" }}
     {{ end }}
   {{ end }}
 

@@ -2,13 +2,13 @@ blank_issues_enabled: false
 contact_links:
   - name: Questions
     url: https://discord.gg/z8wNYzb
-    about: Chat live with the Wowchemy community on Discord.
+    about: Chat live with the Hugo Blox Builder community on Discord.
   - name: Discussions
     url: https://github.com/HugoBlox/hugo-blox-builder/discussions
-    about: Discuss Wowchemy on the GitHub Discussions forum
+    about: Discuss Hugo Blox Builder on the GitHub Discussions forum
   - name: Troubleshooting Guide
-    url: https://hugoblox.com/docs/hugo-tutorials/troubleshooting/
+    url: https://docs.hugoblox.com/reference/troubleshooting/
     about: Solve common issues fast.
   - name: Documentation
-    url: https://hugoblox.com/docs/
+    url: https://docs.hugoblox.com/
     about: Review the documentation

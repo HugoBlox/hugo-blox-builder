@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function addThemeToggleListener() {
-  const defaultTheme = window.wowchemy.defaultTheme;
+  const defaultTheme = window.hbb.defaultTheme;
   const themeToggleButtons = document.querySelectorAll(".theme-toggle");
 
   // Change the icons of the buttons based on previous settings or system theme
@@ -24,18 +24,18 @@ function addThemeToggleListener() {
       console.debug('Theme toggled');
       if (localStorage.getItem("wc-color-theme")) {
         if (localStorage.getItem("wc-color-theme") === "light") {
-          window.wowchemy.setDarkTheme();
+          window.hbb.setDarkTheme();
           localStorage.setItem("wc-color-theme", "dark");
         } else {
-          window.wowchemy.setLightTheme();
+          window.hbb.setLightTheme();
           localStorage.setItem("wc-color-theme", "light");
         }
       } else {
         if (document.documentElement.classList.contains("dark")) {
-          window.wowchemy.setLightTheme();
+          window.hbb.setLightTheme();
           localStorage.setItem("wc-color-theme", "light");
         } else {
-          window.wowchemy.setDarkTheme();
+          window.hbb.setDarkTheme();
           localStorage.setItem("wc-color-theme", "dark");
         }
       }
@@ -46,7 +46,7 @@ function addThemeToggleListener() {
   // Listen for dark mode toggling in OS
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
     if (defaultTheme === "system" && !("wc-color-theme" in localStorage)) {
-      event.matches ? window.wowchemy.setDarkTheme() : window.wowchemy.setLightTheme();
+      event.matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
       themeToggleButtons.forEach((el) =>
         el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light"
       );

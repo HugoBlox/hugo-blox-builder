@@ -1,5 +1,5 @@
 ---
-title: Welcome to Wowchemy, the website builder for Hugo
+title: Welcome to Hugo Blox Builder, the website builder for Hugo
 subtitle: Welcome 👋 We know that first impressions are important, so we've populated your new site with some initial content to help you get familiar with everything in no time.
 
 # Summary for listings and search engines
@@ -57,11 +57,11 @@ print('hello')
 ## Get Started
 
 - 👉 [**Create a new site**](https://hugoblox.com/templates/)
-- 📚 [**Personalize your site**](https://hugoblox.com/docs/)
+- 📚 [**Personalize your site**](https://docs.hugoblox.com/)
 - 💬 [Chat with the **Wowchemy community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
 - 🐦 Twitter: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%23MadeWithWowchemy&src=typed_query)
 - 💡 [Request a **feature** or report a **bug** for _Wowchemy_](https://github.com/HugoBlox/hugo-blox-builder/issues)
-- ⬆️ **Updating Wowchemy?** View the [Update Tutorial](https://hugoblox.com/docs/hugo-tutorials/update/) and [Release Notes](https://hugoblox.com/updates/)
+- ⬆️ **Updating Wowchemy?** View the [Update Tutorial](https://docs.hugoblox.com/hugo-tutorials/update/) and [Release Notes](https://hugoblox.com/updates/)
 
 ## Crowd-funded open-source software
 
@@ -81,10 +81,10 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 
 ## Features
 
-- **Page builder** - Create _anything_ with [**widgets**](https://hugoblox.com/docs/page-builder/) and [**elements**](https://hugoblox.com/docs/content/writing-markdown-latex/)
+- **Page builder** - Create _anything_ with [**widgets**](https://docs.hugoblox.com/page-builder/) and [**elements**](https://docs.hugoblox.com/content/writing-markdown-latex/)
 - **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
-- **Create content** in [**Markdown**](https://hugoblox.com/docs/content/writing-markdown-latex/), [**Jupyter**](https://hugoblox.com/docs/import/jupyter/), or [**RStudio**](https://hugoblox.com/docs/install-locally/)
-- **Plugin System** - Fully customizable [**color** and **font themes**](https://hugoblox.com/docs/customization/)
+- **Create content** in [**Markdown**](https://docs.hugoblox.com/content/writing-markdown-latex/), [**Jupyter**](https://docs.hugoblox.com/import/jupyter/), or [**RStudio**](https://docs.hugoblox.com/install-locally/)
+- **Plugin System** - Fully customizable [**color** and **font themes**](https://docs.hugoblox.com/customization/)
 - **Display Code and Math** - Code highlighting and [LaTeX math](https://en.wikibooks.org/wiki/LaTeX/Mathematics) supported
 - **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
 - **Beautiful Site** - Simple and refreshing one page design
@@ -101,7 +101,7 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 
 Wowchemy and its templates come with **automatic day (light) and night (dark) mode** built-in. Alternatively, visitors can choose their preferred mode - click the moon icon in the top right of the [Demo](https://academic-demo.netlify.com/) to see it in action! Day/night mode can also be disabled by the site admin in `params.toml`.
 
-[Choose a stunning **theme** and **font**](https://hugoblox.com/docs/customization) for your site. Themes are fully customizable.
+[Choose a stunning **theme** and **font**](https://docs.hugoblox.com/customization) for your site. Themes are fully customizable.
 
 ## License
 

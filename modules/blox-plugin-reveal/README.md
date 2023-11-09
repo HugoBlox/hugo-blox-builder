@@ -18,4 +18,4 @@ Supports math, syntax highlighting, diagrams, speaker notes, and much more!
 
 ## Usage
 
-[View the documentation](https://hugoblox.com/docs/content/slides/)
+[View the documentation](https://docs.hugoblox.com/content/slides/)

@@ -1,6 +1,6 @@
-# [Hugo Documentation Theme](https://github.com/wowchemy/hugo-documentation-theme)
+# [Hugo Documentation Theme](https://github.com/HugoBlox/theme-documentation)
 
-[![Screenshot](./preview.png)](https://hugoblox.com/hugo-themes/)
+[![Screenshot](./preview.png)](https://hugoblox.com/templates/)
 
 The **Documentation** starter template empowers you to easily create **product documentation**, **digital books**, **personal notes**, and **knowledge bases**.
 
@@ -8,18 +8,18 @@ The **Documentation** starter template empowers you to easily create **product d
 [![Discord](https://img.shields.io/discord/722225264733716590?style=for-the-badge)](https://discord.com/channels/722225264733716590/742892432458252370/742895548159492138)  
 [![Twitter Follow](https://img.shields.io/twitter/follow/GetResearchDev?label=Follow%20on%20Twitter)](https://twitter.com/wowchemy)
 
-[Check out the latest demo](https://hugoblox.com/docs/) of what you'll get in less than 10 minutes, or [get inspired by how others are using this template](https://hugoblox.com/creators/).
+[Check out the latest demo](https://docs.hugoblox.com/) of what you'll get in less than 10 minutes, or [get inspired by how others are using this template](https://hugoblox.com/creators/).
 
 The integrated [**Wowchemy**](https://hugoblox.com) website builder and CMS makes it easy to create a beautiful website for free. Edit your site in the CMS (or your favorite editor), generate it with [Hugo](https://github.com/gohugoio/hugo), and deploy with GitHub or Netlify. Customize anything on your site with widgets, light/dark themes, and language packs.
 
 - 👉 [**Get Started**](https://hugoblox.com/hugo-themes/)
-- 📚 [View the **documentation**](https://hugoblox.com/docs/)
+- 📚 [View the **documentation**](https://docs.hugoblox.com/)
 - 💬 [Chat with the **Wowchemy research community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
 - ⬇️ **Automatically import citations from BibTeX** with the [Hugo Academic CLI](https://github.com/GetRD/academic-file-converter)
 - 🐦 Share your new site with the community: [@wowchemy](https://twitter.com/wowchemy) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithWowchemy](https://twitter.com/search?q=%23MadeWithWowchemy&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
 - 🚀 [Contribute improvements](https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md) or [suggest improvements](https://github.com/HugoBlox/hugo-blox-builder/issues)
-- ⬆️ **Updating?** View the [Update Guide](https://hugoblox.com/docs/hugo-tutorials/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
+- ⬆️ **Updating?** View the [Update Guide](https://docs.hugoblox.com/hugo-tutorials/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
 
 ## We ask you, humbly, to support this open source movement
 

@@ -25,4 +25,4 @@ By default, the plugin will help secure your site with some common security head
 
 ## Configure
 
-- 📚 [View the **documentation**](https://hugoblox.com/docs/hugo-tutorials/security/)
+- 📚 [View the **documentation**](https://docs.hugoblox.com/hugo-tutorials/security/)

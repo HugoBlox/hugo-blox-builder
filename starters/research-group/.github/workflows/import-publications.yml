@@ -1,4 +1,4 @@
-# Wowchemy GitHub Action to convert Bibtex publications to Markdown-based webpages
+# Hugo Blox GitHub Action to convert Bibtex publications to Markdown-based webpages
 name: Import Publications From Bibtex
 
 # Require permission to create a PR
@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  wowchemy:
+  hugoblox:
     if: github.repository_owner != 'HugoBlox'
     runs-on: ubuntu-latest
     steps:
@@ -41,14 +41,14 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: 'content: import publications from Bibtex'
-          title: Wowchemy - Import latest publications
+          title: Hugo Blox Builder - Import latest publications
           body: |
             Import the latest publications from `publications.bib` to `content/publication/`.
             将最新的出版物从`publications.bib`导入到`content/publication/`。
             [View Documentation](https://github.com/GetRD/academic-file-converter)
           base: main
           labels: automated-pr, content
-          branch: wowchemy-import-publications
+          branch: hugoblox-import-publications
           delete-branch: true
       - name: Check outputs
         if: ${{ steps.cpr.outputs.pull-request-number }}

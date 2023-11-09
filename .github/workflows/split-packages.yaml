@@ -46,7 +46,7 @@ jobs:
           # ↓ split "packages/<package-name><package-name>" directory
           package_directory: 'starters/${{ matrix.package.local_path }}'
 
-          # ↓ into https://github.com/wowchemy/<package-name> repository
+          # ↓ into https://github.com/HugoBlox/<package-name> repository
           repository_organization: 'HugoBlox'
           repository_name: '${{ matrix.package.split_repository }}'
 

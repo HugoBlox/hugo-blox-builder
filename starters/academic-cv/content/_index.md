@@ -54,7 +54,7 @@ sections:
     content:
       title: Experience
       # Date format for experience
-      #   Refer to https://hugoblox.com/docs/customization/#date-format
+      #   Refer to https://docs.hugoblox.com/customization/#date-format
       date_format: Jan 2006
       # Experiences.
       #   Add/remove as many `experience` items below as you like.
@@ -90,7 +90,7 @@ sections:
       # Note: `&shy;` is used to add a 'soft' hyphen in a long heading.
       title: 'Accomplish&shy;ments'
       subtitle:
-      # Date format: https://hugoblox.com/docs/customization/#date-format
+      # Date format: https://docs.hugoblox.com/customization/#date-format
       date_format: Jan 2006
       # Accomplishments.
       #   Add/remove as many `item` blocks below as you like.

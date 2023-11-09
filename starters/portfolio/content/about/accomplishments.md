@@ -1,6 +1,6 @@
 ---
 # An instance of the Accomplishments widget.
-# Documentation: https://hugoblox.com/docs/page-builder/
+# Documentation: https://docs.hugoblox.com/page-builder/
 widget: accomplishments
 
 # This file represents a page section.
@@ -14,7 +14,7 @@ title: 'Accomplish&shy;ments'
 subtitle:
 
 # Date format
-#   Refer to https://hugoblox.com/docs/customization/#date-format
+#   Refer to https://docs.hugoblox.com/customization/#date-format
 date_format: Jan 2006
 
 # Accomplishments.

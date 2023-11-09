@@ -1,6 +1,6 @@
 ---
 # An instance of the Tag Cloud widget.
-# Docs: https://hugoblox.com/docs/page-builder/
+# Docs: https://docs.hugoblox.com/page-builder/
 widget: tag_cloud
 
 # This file represents a page section.

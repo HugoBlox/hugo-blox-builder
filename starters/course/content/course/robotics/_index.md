@@ -1,7 +1,7 @@
 ---
 title: 🤖 Learn Robotics
 linkTitle: Learn Robotics
-summary: An example of using Wowchemy's Book layout for publishing online courses.
+summary: An example of using Hugo Blox Builder's Book layout for publishing online courses.
 date: '2021-01-24'
 type: book
 tags:

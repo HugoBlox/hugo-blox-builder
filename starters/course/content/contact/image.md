@@ -1,6 +1,6 @@
 ---
 # An instance of the Blank widget.
-# Documentation: https://hugoblox.com/docs/page-builder/
+# Documentation: https://docs.hugoblox.com/page-builder/
 widget: blank
 
 # This file represents a page section.

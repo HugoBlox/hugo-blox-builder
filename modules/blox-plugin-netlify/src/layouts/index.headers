@@ -5,7 +5,7 @@
 {{- $permissions_policy := site.Params.security.permissions.policy | default $default_perms -}}
 # Netlify headers
 # Automatically generated
-# Documentation: https://hugoblox.com/docs/hugo-tutorials/security/
+# Documentation: https://docs.hugoblox.com/hugo-tutorials/security/
 /*
   {{if not $allow_frame}}X-Frame-Options: DENY{{end}}
   X-XSS-Protection: 1; mode=block

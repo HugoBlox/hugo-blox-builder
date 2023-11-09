@@ -1,6 +1,6 @@
 # SITE SETUP
-# Guide: https://hugoblox.com/docs/getting-started/
-# Documentation: https://hugoblox.com/docs/
+# Guide: https://docs.hugoblox.com/tutorial/
+# Documentation: https://docs.hugoblox.com/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 # Appearance
@@ -19,7 +19,7 @@ marketing:
     local_business_type: ''
     org_name: ''
     description: 'A highly-customizable Hugo learning theme powered by Hugo Blox Builder.'
-    twitter: 'wowchemy'
+    twitter: 'GetResearchDev'
   analytics:
     google_analytics: ''
     baidu_tongji: ''
@@ -69,7 +69,7 @@ features:
   privacy_pack:
     enable: false
   repository:
-    url: 'https://github.com/wowchemy/starter-hugo-online-course'
+    url: 'https://github.com/HugoBlox/theme-online-course'
     content_dir: content
     branch: main
   comment:
@@ -93,8 +93,5 @@ features:
       show_logo: false
 
 extensions:
-  cms:
-    branch: main
-    local_backend: false
   academicons:
     enable: false
