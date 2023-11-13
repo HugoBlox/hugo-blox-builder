@@ -49,7 +49,7 @@ education:
       Supervised by Prof Joe Smith
     button:
       label: 'Read Thesis'
-      url: ''
+      url: 'https://example.com'
   - area: MEng in Artificial Intelligence
     institution: Massachusetts Institute of Technology
     date_start: 2016-01-01
