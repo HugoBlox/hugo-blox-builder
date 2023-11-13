@@ -1,0 +1,43 @@
+{{/* Hugo Blox: Languages */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $author := $block.content.username | default "admin" }}
+
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your Skill block and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $langs := $person_page.Params.languages }}
+
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
+
+  <div class="mb-5 text-xl font-bold text-gray-900 dark:text-white">
+    {{ $block.content.title | markdownify | emojify }}
+  </div>
+
+  {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+
+  <div class="flex items-center flex-col lg:flex-row gap-x-8">
+    {{ range $langs }}
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-center w-28 h-28">
+        <svg class="transform -rotate-90" viewBox="0 0 288 288">
+          <circle cx="145" cy="145" r="120" stroke="currentColor" stroke-width="30" fill="transparent"
+                  class="text-gray-200 dark:text-gray-700" />
+          <circle cx="145" cy="145" r="120" stroke="currentColor" stroke-width="30" fill="transparent"
+                  class="text-primary-600 dark:text-primary-300"
+                  style="stroke-dasharray: calc(2 * 22 / 7 * 120); stroke-dashoffset: calc(((2 * 22 / 7 * 120) * {{.percent}}/100) - (2 * 22 / 7 * 120))" />
+        </svg>
+        <span class="absolute text-3xl">{{.percent}}%</span>
+      </div>
+      <span class="text-1xl">{{.name}}</span>
+    </div>
+    {{ end }}
+  </div>
+
+</div>

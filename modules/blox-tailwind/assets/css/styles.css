@@ -2,6 +2,7 @@
 @import "./tailwind.css";
 
 /*! Hugo Blox Components | https://hugoblox.com */
+@import "main.css";
 @import "./components/all.css";
-@import "./blocks/all.css";
+@import "./blox/all.css";
 @import "themes/default.css";

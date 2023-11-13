@@ -2,17 +2,22 @@
 {{ "<!-- This site was created with Hugo Blox. https://hugoblox.com -->" | safeHTML }}
 {{ printf "<!-- Last Published: %s -->" (now | time.Format ":date_long") | safeHTML }}
 {{- $language_code := site.LanguageCode | default "en-us" -}}
-<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{end}}
+<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{else}}dir="ltr"{{end}}
       data-wc-theme-default="{{ site.Params.appearance.theme_default | default "system" }}">
   {{ partial "site_head" . }}
   <body class="dark:bg-gray-800 dark:text-white-800 page-wrapper">
     <div id="page-bg"></div>
     <div class="page-header">
-      {{ if (site.Params.header.navbar.enable | default true) }}
-        {{ partial "navbar" . }}
-      {{ end }}
+        {{/* Load header block */}}
+        {{ $block_name := .Params.header.navbar.blox | default site.Params.header.navbar.blox | default "navbar" }}
+        {{ $block_path := printf "components/headers/%s.html" $block_name }}
+        {{ if not (templates.Exists (printf "partials/%s" $block_path)) }}
+          {{ errorf "Check your `header` config in `params.yaml` and/or front matter. Cannot find header block at `layouts/partials/%s`" $block_path }}
+        {{ else }}
+          {{ partial $block_path . }}
+        {{ end }}
     </div>
-    <div class="page-body my-10">
+    <div class="page-body {{if ne .Type "landing"}} my-10{{end}}">
       {{ block "main" . }}{{ end }}
     </div>
     <div class="page-footer">

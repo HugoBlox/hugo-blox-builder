@@ -6,7 +6,7 @@
 {{ $block := .block }}
 
 {{ $block_type := lower $block.block | default "markdown" }}
-{{ $block_path := printf "blocks/%s.html" $block_type }}
+{{ $block_path := printf "blox/%s.html" $block_type }}
 {{ if not (templates.Exists (printf "partials/%s" $block_path)) }}
   {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $block_path }}
 {{ end }}
@@ -93,7 +93,7 @@
 {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
 {{ $css_classes := $block.design.css_class | default "" }}
 {{ $extra_attributes := "" }}
-{{ $use_container := true }}
+{{ $use_container := false }}
 {{ $columns := $block.design.columns | default "1" }}
 {{/* $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio" "skills") $block_type */}}
 {{ $use_cols := false }}
@@ -115,7 +115,7 @@
 {{end}}
 
 {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
-<section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+<section id="{{$hash_id}}" class="hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
  <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
    {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
  </div>

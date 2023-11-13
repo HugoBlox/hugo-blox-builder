@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
     "katex": "^0.16.9",
     "markmap-autoloader": "^0.15.4",
     "mermaid": "^10.6.0",
@@ -24,7 +25,7 @@
     "url": "https://github.com/HugoBlox/hugo-blox-builder.git"
   },
   "scripts": {
-    "build:blog": "npx tailwindcss -i ./assets/css/styles.css -o ../../starters/blog/assets/dist/wc.css --minify",
+    "build:styles": "npx tailwindcss -i ./assets/css/styles.css -o ../../starters/${HB_TPL}/assets/dist/wc.css --minify",
     "assets:dist": "vite build"
   },
   "browserslist": "last 2 versions",

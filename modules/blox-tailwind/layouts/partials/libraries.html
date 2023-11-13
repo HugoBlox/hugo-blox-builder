@@ -41,8 +41,10 @@
   {{ $katex_js = $katex_js | resources.Fingerprint "sha256" }}
   <script defer src="{{ $katex_js.RelPermalink }}" integrity="{{ $katex_js.Data.Integrity }}"></script>
   {{ $katex_render_js := resources.Get "dist/lib/katex/auto-render.min.js" }}
-  {{ $katex_render_js = $katex_render_js | resources.Fingerprint "sha256" }}
-  <script defer src="{{ $katex_render_js.RelPermalink }}" integrity="{{ $katex_render_js.Data.Integrity }}" onload="renderMathInElement(document.body);"></script>
+  {{ $katex_config_js := resources.Get "js/katex-config.js" }}
+  {{ $katex_config_js = $katex_config_js | resources.Minify }}
+  {{ $katex_bundle := slice $katex_render_js $katex_config_js | resources.Concat "js/katex-renderer.js" | resources.Fingerprint "sha256" }}
+  <script defer src="{{ $katex_bundle.RelPermalink }}" integrity="{{ $katex_bundle.Data.Integrity }}"></script>
   {{ $katex_fonts := resources.Match "dist/lib/katex/fonts/*" }}
   {{ range $katex_fonts }}
     {{ .Publish }}

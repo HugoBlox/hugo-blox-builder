@@ -114,6 +114,9 @@
 
 # Experience widget
 
+- id: work_experience
+  translation: 工作经历
+
 - id: present
   translation: 现在
 
