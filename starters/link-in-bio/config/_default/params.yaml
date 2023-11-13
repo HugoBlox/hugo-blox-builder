@@ -25,7 +25,8 @@ marketing:
 # Site header
 header:
   navbar:
-    enable: false
+    enable: true
+    blox: floating-theme-toggler
 
 # Site footer
 footer:

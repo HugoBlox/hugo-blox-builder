@@ -27,15 +27,19 @@ organizations:
 # Social Networking
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
 social:
-  - icon: send
+  - icon: at-symbol
     link: 'mailto:your-email@example.com'
-  - icon: twitter
-    link: https://twitter.com/wowchemy
-    label: Follow me on Twitter
-  - icon: google-scholar
-    link: https://scholar.google.com/citations?user=mG4imMEAAAAJ
+  - icon: x
+    link: https://twitter.com/GetResearchDev
+    label: Follow me on X
+  - icon: instagram
+    link: https://www.instagram.com/
   - icon: linkedin
     link: https://www.linkedin.com/
+  - icon: google-scholar
+    link: https://scholar.google.com/citations?user=mG4imMEAAAAJ
+  - icon: orcid
+    link: https://www.orcid.com/
   # Link to a PDF of your resume/CV - upload it to `static/uploads/resume.pdf`
   - icon: cv
     link: uploads/resume.pdf
