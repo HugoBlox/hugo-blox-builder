@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  renderMathInElement(document.body, {
+  window.renderMathInElement(document.body, {
     delimiters: [
       { left: "$$", right: "$$", display: true },
       { left: "$", right: "$", display: false },

@@ -39,7 +39,7 @@
       </span>
       {{ end }}
 
-      <span class="skills-name">
+      <span class="skills-name text-gray-700 dark:text-gray-300">
         {{ .name | markdownify | emojify }}
         {{ with .description }}<p class="skills-description">{{ . | markdownify | emojify }}</p>{{ end }}
       </span>

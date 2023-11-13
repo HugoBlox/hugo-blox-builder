@@ -24,7 +24,7 @@
 <!--  </article>-->
 
 <!-- Need Gap >= 3 when flex-row due to negative margin on cols (-start-3) -->
-<div class="flex flex-col lg:flex-row lg:gap-x-6 w-100">
+<div class="flex flex-col lg:flex-row lg:gap-x-6 w-100 px-6 sm:px-0">
 
 {{ if $person.work }}
 <div class="w-full lg:w-1/2">
@@ -38,8 +38,8 @@
       <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white text-wrap">{{.position}}
         <!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
       </h3>
-      <span class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{.company_name}}</span>
-      <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+      <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{.company_name}}</span>
+      <time class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
         {{ if .date_start}}
           {{ (time .date_start) | time.Format ($block.design.date_format | default "January 2006") }} –
         {{ end }}
@@ -49,13 +49,13 @@
           {{ i18n "present" | default "Present" }}
         {{end}}
       </time>
-      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400 text-wrap list-disc">{{.summary | $page.RenderString}}</div>
+      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 text-wrap list-disc">{{.summary | $page.RenderString}}</div>
 
-      {{ with $block.content.button }}
-      <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+      {{ with .button }}
+      <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
         <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
         <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-      </svg> Download ZIP</a>
+      </svg> {{.label}}</a>
       {{ end }}
 
     </li>
@@ -77,8 +77,8 @@
         <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{.area}}
 <!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
         </h3>
-        <span class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{.institution}}</span>
-        <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+        <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{.institution}}</span>
+        <time class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
           {{ if .date_start }}
             {{ (time .date_start) | time.Format ($block.design.date_format | default "January 2006") }} –
           {{ end }}
@@ -88,10 +88,10 @@
             {{ i18n "present" | default "Present" }}
           {{end}}
         </time>
-        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400 list-disc">{{.summary | $page.RenderString}}</div>
+        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 list-disc">{{.summary | $page.RenderString}}</div>
 
         {{ with .button }}
-        <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
           <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
           <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
         </svg> {{.label}}</a>
