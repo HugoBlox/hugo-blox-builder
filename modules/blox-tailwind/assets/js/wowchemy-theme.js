@@ -40,6 +40,10 @@ function addThemeToggleListener() {
         }
       }
       el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+
+      // Dispatch `hbThemeChange` event to support themeable user plugins.
+      const themeChangeEvent = new CustomEvent('hbThemeChange', {detail: {isDarkTheme: () => document.documentElement.classList.contains("dark")}});
+      document.dispatchEvent(themeChangeEvent);
     });
   });
 
