@@ -15,10 +15,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node-version: [18.x]
+#        node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: true  # Fetch any Git submodules (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
@@ -41,6 +41,16 @@ jobs:
       - name: Check for linting errors
         run: pnpm run lint:js  # TODO: also lint styles again once new rule errors resolved
 
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.120.4'
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+        working-directory: test
+
 #  format:
 #    runs-on: ubuntu-latest
 #
@@ -59,21 +69,3 @@ jobs:
 #          commit_message: 'refactor: format code'
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  hugo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true  # Fetch any Git submodules (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: '0.119.0'
-          extended: true
-
-      - name: Build
-        run: hugo --minify
-        working-directory: test
