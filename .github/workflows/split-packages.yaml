@@ -19,6 +19,8 @@ jobs:
         package:
           - local_path: 'academic-cv'
             split_repository: 'theme-academic-cv'
+          - local_path: 'resume'
+            split_repository: 'theme-resume'
           - local_path: 'markdown-slides'
             split_repository: 'theme-markdown-slides'
           - local_path: 'blog'
