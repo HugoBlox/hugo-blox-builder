@@ -7,14 +7,11 @@
 {{ $block := .wcBlock }}
 {{ $text := $block.content.text | emojify | $page.RenderString }}
 
-<div class="flex flex-col justify-center">
-  <article class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert">
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
-    {{ with $block.content.title }}
-    <h2>{{ . }}</h2>
-    {{end}}
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $block.content.title | markdownify | emojify }}
+  </div>
 
-    {{ $text }}
-
-  </article>
+  {{ with $block.content.text }}<p class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . | markdownify | emojify }}</p>{{ end }}
 </div>

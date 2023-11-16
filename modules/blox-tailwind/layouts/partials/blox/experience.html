@@ -14,7 +14,7 @@
 {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
 {{end}}
 {{ $person := $person_page.Params }}
-
+{{ $is_education_first := $block.design.is_education_first | default false }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto">
 <!--  <article class="prose prose-slate lg:prose-xl dark:prose-invert">-->
@@ -24,11 +24,11 @@
 <!--  </article>-->
 
 <!-- Need Gap >= 3 when flex-row due to negative margin on cols (-start-3) -->
-<div class="flex flex-col lg:flex-row lg:gap-x-6 w-100 px-6 sm:px-0">
+<div class="flex flex-col lg:gap-x-6 w-100 px-6 sm:px-0 {{ if $is_education_first }}flex-col-reverse{{end}}">
 
 {{ if $person.work }}
-<div class="w-full lg:w-1/2">
-  <h3 class="mb-5 text-xl font-bold text-gray-900 dark:text-white">{{ i18n "work_experience" | default "Experience" }}</h3>
+<div class="w-full">
+  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{{ i18n "work_experience" | default "Experience" }}</h3>
   <ol class="relative border-s border-gray-200 dark:border-gray-700">
     {{ range $idx, $key := $person.work }}
     <li class="mb-10 ms-6">
@@ -39,7 +39,7 @@
         <!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
       </h3>
       <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{.company_name}}</span>
-      <time class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
+      <time class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
         {{ if .date_start}}
           {{ (time .date_start) | time.Format ($block.design.date_format | default "January 2006") }} –
         {{ end }}
@@ -49,7 +49,7 @@
           {{ i18n "present" | default "Present" }}
         {{end}}
       </time>
-      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 text-wrap list-disc">{{.summary | $page.RenderString}}</div>
+      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 text-wrap prose prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
 
       {{ with .button }}
       <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -65,8 +65,8 @@
 {{ end }}
 
 {{ if $person.education }}
-<div class="w-full lg:w-1/2">
-  <h3 class="mb-5 text-xl font-bold text-gray-900 dark:text-white">{{ i18n "education" }}</h3>
+<div class="w-full">
+  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{{ i18n "education" }}</h3>
     <ol class="relative border-s border-gray-200 dark:border-gray-700">
       {{ range $idx, $key := $person.education }}
       <li class="mb-10 ms-6">
@@ -78,7 +78,7 @@
 <!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
         </h3>
         <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{.institution}}</span>
-        <time class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
+        <time class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
           {{ if .date_start }}
             {{ (time .date_start) | time.Format ($block.design.date_format | default "January 2006") }} –
           {{ end }}
@@ -88,7 +88,7 @@
             {{ i18n "present" | default "Present" }}
           {{end}}
         </time>
-        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 list-disc">{{.summary | $page.RenderString}}</div>
+        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 prose prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
 
         {{ with .button }}
         <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

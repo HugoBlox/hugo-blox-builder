@@ -1,0 +1,64 @@
+{{/* Hugo Blox: Awards */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $author := $block.content.username | default "admin" }}
+
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+{{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your Skill block and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $awards := $person_page.Params.awards }}
+
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $block.content.title | markdownify | emojify }}
+  </div>
+
+  {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+
+<div class="w-full flex flex-col gap-6">
+{{ if $awards }}
+{{ range $idx, $key := sort $awards ".date_start" "desc" }}
+<div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  {{- $icon := .icon }}
+  {{ with $icon }}
+  <div class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3">
+    {{ partial "functions/get_icon" (dict "name" $icon "pack" "brands" "attributes" "style=\"height: 100%;\"")  }}
+  </div>
+  {{ end}}
+  {{with .url}}<a href={{.}} target="_blank" rel="noopener">{{end}}
+    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{{.title | markdownify | emojify}}</h5>
+  {{with .url}}</a>{{end}}
+
+  <div class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
+    {{.awarder}} &#8729;
+    {{ if .date}}
+      {{ (time .date) | time.Format ($block.design.date_format | default "January 2006") }}
+    {{else}}
+      {{ i18n "present" | default "Present" }}
+    {{end}}
+  </div>
+
+  {{with .summary}}
+  <div class="mb-3 font-normal text-gray-500 dark:text-gray-400 prose">{{. | markdownify | emojify}}</div>
+  {{end}}
+
+  {{ with .certificate_url }}
+  <a href="{{.}}" target="_blank" rel="noopener" class="inline-flex items-center text-blue-600 hover:underline">
+    {{ i18n "see_certificate" | default "See certificate" }}
+    <svg class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+    </svg>
+  </a>
+  {{ end }}
+</div>
+  {{end}}
+  {{end}}
+</div>
+</div>

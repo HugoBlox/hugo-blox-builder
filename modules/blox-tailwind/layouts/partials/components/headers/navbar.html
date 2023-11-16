@@ -1,4 +1,57 @@
 <!-- Main navigation container -->
+
+{{/* Show site search? */}}
+{{ $show_search := site.Params.header.navbar.show_search | default false }}
+{{ if $show_search }}
+  {{ $pf_css := resources.Get "dist/pagefind/pagefind-ui.css" }}
+  {{ $pf_css = $pf_css | resources.Fingerprint "sha256" }}
+  <link type="text/css" rel="stylesheet" href="{{ $pf_css.RelPermalink }}" integrity="{{ $pf_css.Data.Integrity }}" />
+  {{ $pf_js := resources.Get "dist/pagefind/pagefind-ui.js" }}
+  {{ $pf_js = $pf_js | resources.Fingerprint "sha256" }}
+  <script src="{{ $pf_js.RelPermalink }}" integrity="{{ $pf_js.Data.Integrity }}"></script>
+
+  <style>
+    html.dark {
+      --pagefind-ui-primary: #eeeeee;
+      --pagefind-ui-text: #eeeeee;
+      --pagefind-ui-background: #152028;
+      --pagefind-ui-border: #152028;
+      --pagefind-ui-tag: #152028;
+    }
+  </style>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      new PagefindUI({ element: "#search", showSubResults: true });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      let element = document.getElementById('search');
+      let trigger = document.getElementById('search_toggle');
+
+      if (trigger) {
+        trigger.addEventListener('click', () => {
+          element.classList.toggle('hidden');
+          element.querySelector("input").value = ""
+          element.querySelector("input").focus()
+
+          if (!element.classList.contains('hidden')) {
+            let clear_trigger = document.querySelector('.pagefind-ui__search-clear');
+
+            if (clear_trigger && !clear_trigger.hasAttribute('listenerOnClick')) {
+              clear_trigger.setAttribute('listenerOnClick', 'true');
+
+              clear_trigger.addEventListener('click', () => {
+                element.classList.toggle('hidden');
+              });
+            }
+          }
+
+        });
+      }
+    });
+  </script>
+{{ end }}
+
 <nav
   class="relative flex w-full flex-nowrap items-center justify-between bg-white py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-slate-900 lg:flex-wrap lg:justify-start lg:py-4"
   data-te-navbar-ref>
@@ -35,7 +88,7 @@
       <!-- Main links -->
       {{- $currentPage := . }}
       <ul
-        class="list-style-none flex flex-col pl-0 lg:mt-1 lg:flex-row"
+        class="list-style-none flex flex-col pl-0 lg:mt-1 lg:flex-row items-center"
         data-te-navbar-nav-ref>
         {{- range site.Menus.main }}
         {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
@@ -47,7 +100,7 @@
           class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1"
           data-te-nav-item-ref>
           <a
-            class=" lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
+            class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
             [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white {{ $activeClass }}"
             aria-current="page"
             href="{{ .URL | relLangURL }}"
@@ -56,6 +109,20 @@
           >
         </li>
         {{ end }}
+        {{ if $show_search }}
+        <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1">
+          <a
+            class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
+            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white"
+            aria-current="page"
+            href="#"
+            id="search_toggle"
+          >{{- i18n "search" -}}</a
+          >
+        </li>
+        {{ end }}
+        {{ $show_theme_chooser := site.Params.header.navbar.show_theme_chooser | default true }}
+        {{ if $show_theme_chooser }}
         <li>
           <button class="theme-toggle mt-1" accesskey="t" title="">
             <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -78,10 +145,16 @@
             </svg>
           </button>
         </li>
+        {{ end }}
       </ul>
     </div>
   </div>
 </nav>
+
+{{ if $show_search }}
+  <div id="search" class="hidden p-3"></div>
+{{ end }}
+
 <script>
   function toggleNavbar(collapseID){
     document.getElementById(collapseID).classList.toggle("hidden");

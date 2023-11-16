@@ -5,11 +5,11 @@
 
 <a href="{{ $item.RelPermalink }}" class="mb-5">
   <div class="md:flex">
-    <div class="md:flex-shrink-0">
+    <div class="md:flex-shrink-0 overflow-hidden">
       {{ with $resource }}
         {{ $image := .Fill (printf "655x655 %s" $anchor) }}
         {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
-      <img class="h-48 w-full object-cover md:w-48" loading="lazy" src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $item.Title | plainify }}">
+      <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" loading="lazy" src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $item.Title | plainify }}">
       {{end}}
     </div>
     <div class="p-8">

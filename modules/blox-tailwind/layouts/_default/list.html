@@ -1,13 +1,13 @@
 {{ define "main" }}
 
-<div class="flex justify-center">
-  <article class="container prose prose-slate lg:prose-xl dark:prose-invert">
+<div class="max-w-prose mx-auto flex justify-left">
+  <article class="prose prose-slate lg:prose-xl dark:prose-invert">
     <h1 class="lg:text-6xl">{{ .Title }}</h1>
     {{ .Content }}
   </article>
 </div>
 
-<div class="container max-w-[65ch] mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden  my-5"><!--max-w-md md:max-w-2xl-->
+<div class="max-w-prose mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden  my-5"><!--max-w-md md:max-w-2xl-->
   {{ range .Pages.ByDate.Reverse }}
   {{ $resource := partial "functions/get_featured_image.html" . }}
   {{ $anchor := .Params.image.focal_point | default "Center" }}

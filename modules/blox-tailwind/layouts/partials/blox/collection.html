@@ -77,10 +77,18 @@
 
 {{ $columns := $block.design.columns | default "2" }}
 
+{{ if $block.content.text }}
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $block.content.title | emojify | $page.RenderString }}
+  </div>
+
+  {{ with $block.content.text }}<p>{{ . | emojify | $page.RenderString }}</p>{{ end }}
+</div>
+{{ end }}
+
 <div class="container max-w-[65ch] mx-auto bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden  my-5"><!--max-w-md md:max-w-2xl-->
-
-
-  {{ with $block.content.text }}{{ . | emojify | $page.RenderString }}{{ end }}
 
   {{ range $index, $item := $query }}
     {{ partial "functions/render_view" (dict "page" $block "item" . "view" ($block.design.view | default "card") "index" $index) }}

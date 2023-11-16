@@ -14,6 +14,15 @@
 {{end}}
 {{ $skills := $person_page.Params.skills }}
 
+<div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
+
+  <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+    {{ $block.content.title | markdownify | emojify }}
+  </div>
+
+  {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+</div>
+
 <div class="flex flex-col lg:flex-row items-center max-w-prose mx-auto gap-3">
 
   {{ range $skills }}

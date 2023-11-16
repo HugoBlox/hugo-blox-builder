@@ -3,8 +3,12 @@
 
 {{- $icon := index site.Data.icons .name -}}
 
+{{/* Currently, only other pack supported is `brands` icon pack in sub-folder */}}
+{{ $pack := .pack | default "" }}
+{{ $pack = cond (gt (len $pack) 0) (printf "%s/" $pack) "" }}
+
 {{ if not $icon }}
-  {{ with resources.GetMatch (printf "media/icons/%s.svg" .name) }}
+  {{ with resources.GetMatch (printf "media/icons/%s%s.svg" $pack .name) }}
     {{ $icon = .Content }}
   {{else}}
     {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/` folder" .name }}
