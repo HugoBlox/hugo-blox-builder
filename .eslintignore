@@ -2,4 +2,5 @@
 **/_vendor/
 **/vendor/
 public/
-**/assets/dist/lib/**
+**/assets/dist/**
+**/pagefind/**
