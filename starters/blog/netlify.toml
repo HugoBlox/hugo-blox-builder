@@ -1,5 +1,5 @@
 [build]
-  command = "hugo --gc --minify -b $URL"
+  command = "hugo --gc --minify -b $URL && npx pagefind --source 'public'"
   publish = "public"
 
 [build.environment]
@@ -10,10 +10,10 @@
   HUGO_ENV = "production"
 
 [context.deploy-preview]
-  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL && npx pagefind --source 'public'"
 
 [context.branch-deploy]
-  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL && npx pagefind --source 'public'"
 
 [[plugins]]
   package = "netlify-plugin-hugo-cache-resources"
