@@ -2,31 +2,38 @@
 title: 'Home'
 date: 2023-10-24
 type: landing
+
+# Note: `username` refers to the user's folder name in `content/authors/`
+
+# Page sections
 sections:
   - block: about.avatar
     content:
-      # The user's folder name in content/authors/
       username: admin
       button:
         label: Download Résumé
         url: uploads/resume.pdf
     design:
       banner:
+        # Upload your cover image to the `assets/media/` folder and reference it here
         filename: kalen-emsley-Bkci_8qcdvQ-unsplash.jpg
   - block: experience
     content:
-      # The user's folder name in content/authors/
       username: admin
     design:
       # Hugo date format
       date_format: 'January 2006'
+      is_education_first: false
   - block: skills
     content:
-      # The user's folder name in content/authors/
+      title: Skills & Hobbies
+      username: admin
+  - block: awards
+    content:
+      title: Awards
       username: admin
   - block: languages
     content:
       title: Languages
-      # The user's folder name in content/authors/
       username: admin
 ---

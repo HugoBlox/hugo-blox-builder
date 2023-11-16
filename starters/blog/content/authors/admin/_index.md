@@ -30,22 +30,17 @@ bio: My research interests include distributed robotics, mobile computing and pr
 # Social Networking
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
 social:
-  - icon: send
-    icon_pack: wc
+  - icon: at-symbol
     link: 'mailto:your-email@example.com'
-  - icon: twitter
-    icon_pack: wc
+  - icon: x
     link: https://twitter.com/GetResearchDev
-    label: Follow me on Twitter
-  - icon: github
-    icon_pack: wc
-    link: https://github.com/gcushen
+    label: Follow me on X
+  - icon: instagram
+    link: https://www.instagram.com/
   - icon: linkedin
-    icon_pack: wc
     link: https://www.linkedin.com/
   # Link to a PDF of your resume/CV - upload it to `static/uploads/resume.pdf`
   - icon: cv
-    icon_pack: wc
     link: uploads/resume.pdf
   - icon: rss
     icon_pack: wc

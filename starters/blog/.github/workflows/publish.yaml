@@ -51,6 +51,8 @@ jobs:
         run: |
           echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
           hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Generate Pagefind search index
+        run: npx pagefind --source "public"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:

@@ -14,16 +14,18 @@ cascade:
   # Blog post options
   - _target:
       path: /post/**
+      kind: page
     pager: true
     editable: false
     reading_time: true
     commentable: true
     show_related: true
-    show_breadcrumb: true
     share: true
+    # Just use Breadcrumb for navigation on blog post pages?
+    show_breadcrumb: false
     header:
       navbar:
-        enable: false
+        enable: true
 
 ############################
 ## LANGUAGE
