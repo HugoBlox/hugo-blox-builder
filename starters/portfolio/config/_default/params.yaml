@@ -80,6 +80,8 @@ features:
     disqus:
       shortname: ''
       show_count: true
+    comentario:
+      url: ''
     commento:
       url: ''
     giscus:

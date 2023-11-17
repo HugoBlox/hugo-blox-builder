@@ -1,0 +1,3 @@
+<comentario-comments></comentario-comments>
+{{ $url := (printf "%s/comentario.js" (site.Params.features.comment.comentario.url | default "https://edge.comentario.app")) }}
+<script src="{{$url}}" defer></script>
