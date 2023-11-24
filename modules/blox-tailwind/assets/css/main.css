@@ -1,3 +1,31 @@
+:root {
+  /* TW Neutral */
+  --color-neutral-50: 250 250 250;
+  --color-neutral-100: 245 245 245;
+  --color-neutral-200: 229 229 229;
+  --color-neutral-300: 212 212 212;
+  --color-neutral-400: 163 163 163;
+  --color-neutral-500: 115 115 115;
+  --color-neutral-600: 82 82 82;
+  --color-neutral-700: 64 64 64;
+  --color-neutral-800: 38 38 38;
+  --color-neutral-900: 23 23 23;
+  --color-neutral-950: 10 10 10;
+
+  /* TW Zinc */
+  --color-secondary-50: 250 250 250;
+  --color-secondary-100: 244 244 245;
+  --color-secondary-200: 228 228 231;
+  --color-secondary-300: 212 212 216;
+  --color-secondary-400: 161 161 170;
+  --color-secondary-500: 113 113 122;
+  --color-secondary-600: 82 82 91;
+  --color-secondary-700: 63 63 70;
+  --color-secondary-800: 39 39 42;
+  --color-secondary-900: 24 24 27;
+  --color-secondary-950: 9 9 11;
+}
+
 .hbb-section {
   @apply mb-10 last:mb-0;
 }

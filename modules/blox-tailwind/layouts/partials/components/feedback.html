@@ -1,0 +1,36 @@
+{{/* TODO: port JS & response text from Bootstrap module. Re-integrate with GA plus Fathom/Plausible */}}
+{{/* $ga := site.Params.marketing.analytics.google_analytics | default site.GoogleAnalytics | default "" */}}
+{{ $show_feedback := .Params.feedback | default true }}
+
+{{ if hugo.IsProduction | and $show_feedback }}{{/*  | and $ga */}}
+<div class="
+          mt-3
+          bg-[#EAEEF6]
+          dark:bg-[#1F2938] dark:text-[#e2e8f0]
+          shadow-sm
+          pt-5
+          pb-5
+          flex
+          justify-center
+          items-center
+          flex-col
+          rounded-md
+        ">
+  <div class="contents">
+    <div class="opacity-60">
+      {{ i18n "feedback_widget_question" | default "Was this page helpful?" }}
+    </div>
+    <div class="flex items-center justify-around mt-3">
+      <div class="px-3 py-2 mr-1 text-2xl transition transform rounded-md cursor-pointer hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+              😞
+      </div>
+      <div class="px-3 py-2 mr-1 text-2xl transition transform rounded-md cursor-pointer hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+              😐
+      </div>
+      <div class="px-3 py-2 mr-1 text-2xl transition transform rounded-md cursor-pointer hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-700">
+              🤩
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
