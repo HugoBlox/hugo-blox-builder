@@ -1,0 +1,65 @@
+{{/* Hugo Blox: Hero */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+<div class="relative isolate px-6 pt-14 lg:px-8">
+
+  <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+
+    {{ with $block.content.announcement }}
+    <div class="hidden sm:mb-8 sm:flex sm:justify-center">
+      <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 dark:text-gray-400 ring-1 ring-gray-900/10 dark:ring-gray-100/10 hover:ring-gray-900/20">
+        {{.text | markdownify}} {{with .link}}<a href="{{.url}}" class="font-semibold text-primary-600 dark:text-primary-400"><span class="absolute inset-0" aria-hidden="true"></span>{{.text}} <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+    {{end}}
+
+    <div class="text-center">
+      {{ with $block.content.title }}<h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">{{ . | markdownify }}</h1>{{end}}
+      {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">{{ . | $page.RenderString | emojify }}</p>{{end}}
+
+      {{ if $block.content.primary_action.url }}
+        {{ $pack := or $block.content.primary_action.icon_pack "fas" }}
+        {{ $pack_prefix := $pack }}
+        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+          {{ $pack_prefix = "fa" }}
+        {{ end }}
+        {{ $link := $block.content.primary_action.url }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ $target := "" }}
+        {{ if not $scheme }}
+          {{ $link = $link | relLangURL }}
+        {{ else if in (slice "http" "https") $scheme }}
+          {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="rounded-md bg-primary-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
+          {{ $block.content.primary_action.text | markdownify | emojify }}
+          {{ with $block.content.primary_action.icon }}
+            {{ partial "functions/get_icon" (dict "name" . "attributes" "style=\"height: 1em\" class='inline-block pl-2'") }}
+          {{ end }}
+        </a>
+        {{end}}
+
+        {{ if $block.content.secondary_action.url }}
+          {{ $link_alt := $block.content.secondary_action.url }}
+          {{ $scheme_alt := (urls.Parse $link_alt).Scheme }}
+          {{ $target_alt := "" }}
+          {{ if not $scheme_alt }}
+            {{ $link_alt = $link_alt | relLangURL }}
+          {{ else if in (slice "http" "https") $scheme_alt }}
+            {{ $target_alt = "target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+        <a href="{{ $link_alt | safeURL }}" {{ $target_alt | safeHTMLAttr }} class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">{{ $block.content.secondary_action.text | markdownify | emojify }} <span aria-hidden="true">→</span></a>
+        {{end}}
+
+      </div>
+      {{ end }}
+
+    </div>
+  </div>
+
+</div>
