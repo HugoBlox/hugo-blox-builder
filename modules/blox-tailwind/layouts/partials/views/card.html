@@ -13,7 +13,7 @@
       {{end}}
     </div>
     <div class="p-8">
-      <div class="uppercase tracking-wide text-md text-indigo-700 dark:text-indigo-200 font-semibold">{{ $item.Title }}</div>
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">{{ $item.Title }}</div>
       <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
         {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | chomp -}}
       </p>
