@@ -10,22 +10,25 @@ design:
       filename: bg-hue.svg
 
 sections:
-  - block: about.avatar
+  - block: biography
     content:
       # The user's folder name in content/authors/
       username: admin
-  - block: buttons
+    design:
+      biography:
+        style: 'text-align: justify; font-size: 0.8em;'
+  - block: cta-button-list
     content:
       # Need a custom icon?
       # Add an SVG image to the `assets/media/icons/` folder and reference it in the `icon` field below
       buttons:
-        - title: Read my latest paper on LLMs
+        - text: Read my latest paper on LLMs
           icon: arxiv
           url: https://arxiv.org/abs/2304.01852
-        - title: Watch my new YouTube video to achieve 20x productivity
+        - text: Watch my new YouTube video to achieve 20x productivity
           icon: youtube
           url: https://youtube.com
-        - title: Connect with me on LinkedIn
+        - text: Connect with me on LinkedIn
           icon: linkedin
           url: https://linkedin.com
 ---

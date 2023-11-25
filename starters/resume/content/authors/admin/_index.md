@@ -19,25 +19,25 @@ superuser: true
 # Role/position/tagline
 role: Director of Cloud Infrastructure
 
-# Organizations/Affiliations to display in About block
+# Organizations/Affiliations to display in Biography blox
 organizations:
   - name: GenCoin
     url: https://www.example.com/
 
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
-social:
+profiles:
   - icon: at-symbol
-    link: 'mailto:your-email@example.com'
+    url: 'mailto:your-email@example.com'
+    label: E-mail Me
   - icon: x
-    link: https://twitter.com/GetResearchDev
-    label: Follow me on Twitter
+    url: https://twitter.com/GetResearchDev
   - icon: github
-    link: https://github.com/gcushen
+    url: https://github.com/gcushen
   - icon: linkedin
-    link: https://www.linkedin.com/
+    url: https://www.linkedin.com/
   - icon: instagram
-    link: https://www.instagram.com/
+    url: https://www.instagram.com/
 
 education:
   - area: PhD Artificial Intelligence
@@ -47,7 +47,7 @@ education:
     summary: |
       Thesis on _Why LLMs are awesome_. Supervised by [Prof Joe Smith](https://example.com). Presented papers at 5 IEEE conferences with the contributions being published in 2 Springer journals.
     button:
-      label: 'Read Thesis'
+      text: 'Read Thesis'
       url: 'https://example.com'
   - area: MEng Artificial Intelligence
     institution: Massachusetts Institute of Technology
@@ -170,4 +170,3 @@ awards:
 ---
 
 I am currently Director of Cloud Infrastructure at GenCoin where I am leading teams on edge computing, deep sea data center architecture, and hivemind optimization.
-{style="text-align: justify; font-size: 0.8em;"}

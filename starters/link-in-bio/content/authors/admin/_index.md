@@ -26,26 +26,26 @@ organizations:
 
 # Social Networking
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
-social:
+profiles:
   - icon: at-symbol
-    link: 'mailto:your-email@example.com'
+    url: 'mailto:your-email@example.com'
+    label: E-mail Me
   - icon: x
-    link: https://twitter.com/GetResearchDev
-    label: Follow me on X
+    url: https://twitter.com/GetResearchDev
   - icon: instagram
-    link: https://www.instagram.com/
+    url: https://www.instagram.com/
   - icon: linkedin
-    link: https://www.linkedin.com/
+    url: https://www.linkedin.com/
   - icon: google-scholar
-    link: https://scholar.google.com/citations?user=mG4imMEAAAAJ
+    url: https://scholar.google.com/citations?user=mG4imMEAAAAJ
   - icon: orcid
-    link: https://www.orcid.com/
+    url: https://www.orcid.com/
   # Link to a PDF of your resume/CV - upload it to `static/uploads/resume.pdf`
   - icon: cv
-    link: uploads/resume.pdf
+    url: uploads/resume.pdf
+    label: Download my resume
 ---
 
 Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include
 distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops
 self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-{style="text-align: justify; font-size: 0.8em;"}

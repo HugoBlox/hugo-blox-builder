@@ -1,10 +1,8 @@
-<!--<p align="center"><a href="https://hugoblox.com" target="_blank" rel="noopener"><img src="https://sourcethemes.com/academic/img/logo_200px.png" alt="Hugo Blox Builder"></a></p>-->
-
-# [Hugo Minimal Blog Theme](https://github.com/HugoBlox/theme-blog)
+# [Creator's Blog: Hugo Theme](https://github.com/HugoBlox/theme-blog)
 
 [![Screenshot](./.github/preview.png)](https://hugoblox.com/templates/)
 
-The **Hugo Minimal Blog Template** empowers you to easily create your own _personal blog_ or _build a business around your content_.
+The **Creator's Blog** Hugo Theme empowers you to easily create your own _personal blog_ or _build a business around your content_.
 
 ️**Trusted by 250,000+ researchers, educators, and students.** Highly customizable via the integrated **no-code, block-based website builder**, making every site truly personalized ⭐⭐⭐⭐⭐
 
@@ -33,7 +31,7 @@ Today we ask you to defend the open source independence of the Hugo Blox Builder
 
 We're an open source movement that depends on your support to stay online and thriving, but 99.9% of our creators don't give; they simply look the other way.
 
-### [❤️ Click here to become a GitHub Sponsor, unlocking awesome perks such as _exclusive academic templates and widgets_](https://github.com/sponsors/gcushen)
+### [❤️ Click here to become a GitHub Sponsor, unlocking awesome perks such as _exclusive academic templates and widgets_](https://hugoblox.com/sponsors/)
 
 ## Demo credits
 

@@ -29,22 +29,23 @@ bio: My research interests include distributed robotics, mobile computing and pr
 
 # Social Networking
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
-social:
+profiles:
   - icon: at-symbol
-    link: 'mailto:your-email@example.com'
+    url: 'mailto:your-email@example.com'
+    label: E-mail Me
   - icon: x
-    link: https://twitter.com/GetResearchDev
-    label: Follow me on X
+    url: https://twitter.com/GetResearchDev
   - icon: instagram
-    link: https://www.instagram.com/
+    url: https://www.instagram.com/
   - icon: linkedin
-    link: https://www.linkedin.com/
+    url: https://www.linkedin.com/
   # Link to a PDF of your resume/CV - upload it to `static/uploads/resume.pdf`
   - icon: cv
-    link: uploads/resume.pdf
+    url: uploads/resume.pdf
+    label: Download my resume
   - icon: rss
-    icon_pack: wc
-    link: ./post/index.xml
+    url: ./post/index.xml
+    label: Subscribe to my blog via RSS feed
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
@@ -53,4 +54,3 @@ highlight_name: true
 Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include
 distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops
 self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
-{style="text-align: justify; font-size: 0.8em;"}

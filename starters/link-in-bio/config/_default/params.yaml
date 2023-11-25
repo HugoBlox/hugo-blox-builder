@@ -5,7 +5,8 @@
 
 # Appearance
 appearance:
-  theme_default: light
+  mode: light
+  color: blue
 
 # SEO
 marketing:
@@ -18,6 +19,9 @@ marketing:
   analytics:
     google_analytics: ''
     baidu_tongji: ''
+    plausible: ''
+    fathom: ''
+    pirsch: ''
   verification:
     google: ''
     baidu: ''

@@ -5,7 +5,8 @@
 
 # Appearance
 appearance:
-  theme_default: system
+  mode: system
+  color: blue
 
 # SEO
 marketing:
@@ -18,6 +19,9 @@ marketing:
   analytics:
     google_analytics: ''
     baidu_tongji: ''
+    plausible: ''
+    fathom: ''
+    pirsch: ''
   verification:
     google: ''
     baidu: ''
@@ -45,9 +49,6 @@ locale:
 
 # Site features
 features:
-  syntax_highlighter:
-    theme_light: github-light
-    theme_dark: github-dark
   math:
     enable: false
   privacy_pack:
