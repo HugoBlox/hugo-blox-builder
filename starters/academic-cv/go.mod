@@ -1,4 +1,4 @@
-module my_website
+module github.com/HugoBlox/theme-academic
 
 go 1.15
 
