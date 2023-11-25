@@ -1,11 +1,11 @@
-{{ if .Params.social }}
+{{ if .Params.profiles }}
 <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
-  {{ range $links := .Params.social }}
-    {{ $link := .link }}
+  {{ range $links := .Params.profiles }}
+    {{ $link := .url }}
     {{ $scheme := (urls.Parse $link).Scheme }}
     {{ $target := "" }}
     {{ if not $scheme }}
-      {{ $link = .link | relLangURL }}
+      {{ $link = .url | relLangURL }}
     {{ else if in (slice "http" "https") $scheme }}
       {{ $target = "target=\"_blank\" rel=\"noopener\" rel=\"me noopener noreferrer\"" }}
     {{ end }}

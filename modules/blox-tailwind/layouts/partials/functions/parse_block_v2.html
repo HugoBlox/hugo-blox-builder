@@ -105,7 +105,7 @@
   {{ $use_container = false }}
 {{ end }}
 
-{{ $widget_class := printf "wg-%s" (replace (replace $block_type "." "-") "_" "-") }}
+{{ $widget_class := printf "blox-%s" (replace (replace $block_type "." "-") "_" "-") }}
 
 {{ $widget_config_file := printf "blocks/%s-config.html" $block_type }}
 {{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
