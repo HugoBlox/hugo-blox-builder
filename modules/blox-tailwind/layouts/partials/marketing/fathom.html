@@ -1,0 +1,5 @@
+{{ $fathom := site.Params.marketing.analytics.fathom | default "" }}
+
+{{ if hugo.IsProduction | and $fathom }}
+<script src="https://cdn.usefathom.com/script.js" data-site="{{$fathom}}" defer></script>
+{{ end }}
