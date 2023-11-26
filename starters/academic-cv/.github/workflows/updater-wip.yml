@@ -3,6 +3,12 @@ name: Updater (WIP)
 on:
   schedule:
     - cron: 0 0 * * 0
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Provide permission to clone the repo and deploy it to GitHub Pages
+permissions:
+  contents: write
 
 jobs:
   update:
