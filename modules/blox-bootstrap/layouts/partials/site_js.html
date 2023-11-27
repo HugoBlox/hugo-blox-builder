@@ -91,6 +91,9 @@
   {{ $algoliaConfig = dict "appId" (site.Params.features.search.algolia.app_id | default "") "apiKey" (site.Params.features.search.algolia.api_key | default "") "indexName" (site.Params.features.search.algolia.index_name | default "") "analytics" (site.Params.features.search.algolia.analytics | default false) "personalization" (site.Params.features.search.algolia.personalization | default false) }}
 {{ else if eq $search_provider "docsearch" }}
   {{ $docsearch_config := dict "appId" (site.Params.features.search.docsearch.app_id | default "") "apiKey" (site.Params.features.search.docsearch.api_key | default "") "indexName" (site.Params.features.search.docsearch.index_name | default "") "container" (site.Params.features.search.docsearch.container | default "#docsearch") }}
+  {{ if (site.Params.features.search.docsearch.search_parameters.facetFilters) }}
+  {{ $docsearch_config = merge $docsearch_config (dict  (slice "searchParameters" "facetFilters")  (site.Params.features.search.docsearch.search_parameters.facetFilters ))}}
+  {{ end }}
   <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
   {{ printf "<script>docsearch(%s);</script>" ($docsearch_config | jsonify) | safeHTML }}
 {{ end }}
