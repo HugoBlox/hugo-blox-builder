@@ -75,6 +75,11 @@
 {{ with $block.design.spacing.padding }}
   {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
   {{ $style = print $style $style_pad }}
+{{ else }}
+  {{ with $page.Params.design.spacing }}
+    {{ $style_pad := printf "margin: %s 0 %s 0;" . . }}
+    {{ $style = print $style $style_pad }}
+  {{ end }}
 {{ end }}
 
 {{/* Support for clip path (design.clip_path) */}}
@@ -86,6 +91,8 @@
 {{ with $block.design.css_style }}
   {{ $style = print $style . }}
 {{ end }}
+
+
 
 {{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
 {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}

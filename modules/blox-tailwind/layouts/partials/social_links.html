@@ -1,5 +1,5 @@
 {{ if .Params.profiles }}
-<div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+<div class="flex flex-wrap text-neutral-500 dark:text-neutral-300">
   {{ range $links := .Params.profiles }}
     {{ $link := .url }}
     {{ $scheme := (urls.Parse $link).Scheme }}
