@@ -5,13 +5,14 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
 {{ $text := $block.content.text | emojify | $page.RenderString }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
   <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-    {{ $block.content.title | markdownify | emojify }}
+    {{ $title }}
   </div>
 
-  {{ with $block.content.text }}<p class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . | markdownify | emojify }}</p>{{ end }}
+  {{ with $text }}<p class="prose prose-slate lg:prose-xl dark:prose-invert max-w-prose">{{ . }}</p>{{ end }}
 </div>

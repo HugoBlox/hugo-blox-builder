@@ -1,0 +1,38 @@
+{{ $page := .page }}
+{{ $class := .class }}
+{{ $hide_language_name := site.Params.header.navbar.hide_language_name | default false }}
+{{ $str_languages := T "languages" }}
+
+{{- if $page.IsTranslated -}}
+  <div class="flex justify-items-start {{ with $class }}{{. | safeCSS }}{{ end }}">
+    <button
+      title="{{ $str_languages }}"
+      data-state="closed"
+      data-hb-language-chooser
+      class="grow h-7 rounded-md px-2 text-left text-xs font-medium text-gray-600 transition-colors dark:text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-primary-100/5 dark:hover:text-gray-50"
+      type="button"
+      aria-label="{{ $str_languages }}"
+    >
+      <div class="flex items-center gap-2 capitalize">
+        {{/* Match theme chooser icon height */}}
+        {{- partial "functions/get_icon" (dict "name" "globe-alt" "attributes" "height=18") -}}
+        {{- if not $hide_language_name -}}<span>{{ index site.Data.languages $page.Lang }}</span>{{ end -}}
+      </div>
+    </button>
+    <ul
+      class="fixed m-0 min-w-[100px] hidden z-20 max-h-64 overflow-auto rounded-md ring-1 ring-black/5 bg-white py-1 text-sm shadow-lg dark:ring-white/20 dark:bg-neutral-800"
+      style="inset: auto auto 0 0;"
+    >
+      {{ range $page.Translations }}
+        <li class="flex flex-col">
+          <a
+            href="{{ .Permalink }}"
+            class="relative cursor-pointer text-gray-800 dark:text-gray-100 hover:bg-primary-50 hover:text-primary-600 hover:dark:bg-primary-500/10 hover:dark:text-primary-200 whitespace-nowrap py-1.5 transition-colors ltr:pl-3 ltr:pr-9 rtl:pr-3 rtl:pl-9"
+          >
+            {{- index site.Data.languages .Lang -}}
+          </a>
+        </li>
+      {{ end -}}
+    </ul>
+  </div>
+{{- end -}}

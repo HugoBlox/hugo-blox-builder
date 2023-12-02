@@ -25,7 +25,8 @@
     "url": "https://github.com/HugoBlox/hugo-blox-builder.git"
   },
   "scripts": {
-    "build:styles": "npx tailwindcss -i ./assets/css/styles.css -o ../../starters/${HB_TPL}/assets/dist/wc.css --minify",
+    "build:styles": "npx tailwindcss -i ./assets/css/styles.css -o ./assets/dist/wc.min.css --minify",
+    "build:starter:styles": "npx tailwindcss -i ./assets/css/styles.css -o ../../starters/${HB_TPL}/assets/dist/wc.min.css --minify",
     "assets:dist": "vite build"
   },
   "browserslist": "last 2 versions",

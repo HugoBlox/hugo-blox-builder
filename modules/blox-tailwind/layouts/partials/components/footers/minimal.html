@@ -1,9 +1,13 @@
-{{ if .IsTranslated | and site.Params.footer.show_translations }}
-<div class="powered-by d-flex flex-wrap pb-2 justify-content-center">
-  <div class="p-2 font-weight-bold"><i class="fas fa-globe pr-1" aria-hidden="true"></i>{{ i18n "languages" }}:</div>
-  <div class="p-2">{{ index site.Data.i18n.languages .Lang }}</div>
+{{ $show_translations := site.Params.footer.show_translations | default true }}
+{{ if .IsTranslated | and $show_translations }}
+<div class="mx-auto flex gap-3 py-2 px-4">
+  <div class="font-bold">
+    {{- partial "functions/get_icon" (dict "name" "globe-alt" "attributes" `class="inline-block pr-1" style="height: 1em"`) -}}
+    {{ i18n "languages" }}:
+  </div>
+  <div class="font-bold">{{ index site.Data.languages .Lang }}</div>
   {{ range .Translations }}
-  <div class="p-2"><a href="{{ .Permalink }}">{{ index site.Data.i18n.languages .Lang }}</a></div>
+  <div><a href="{{ .Permalink }}">{{ index site.Data.languages .Lang }}</a></div>
   {{ end }}
 </div>
 {{ end }}

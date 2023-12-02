@@ -123,7 +123,8 @@
         {{ end }}
         {{ $show_theme_chooser := site.Params.header.navbar.show_theme_chooser | default true }}
         {{ if $show_theme_chooser }}
-        <li>
+        <li class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
+            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
           <button class="theme-toggle mt-1" accesskey="t" title="">
             <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -131,7 +132,7 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
             <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                 fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                  stroke-linejoin="round" class=" dark:block [&:not(dark)]:hidden">
               <circle cx="12" cy="12" r="5"></circle>
               <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -144,6 +145,13 @@
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
           </button>
+        </li>
+        {{ end }}
+        {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
+        {{ if .IsTranslated | and $show_translations }}
+        <li class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
+            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
+          {{- partial "components/language-chooser.html" (dict "page" .) -}}
         </li>
         {{ end }}
       </ul>

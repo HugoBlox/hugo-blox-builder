@@ -56,8 +56,8 @@
   {{ end }}
 
   {{/* Style */}}
-  {{ if fileExists "assets/dist/wc.css" }}
-    {{ $styles := resources.Get "dist/wc.css" }}
+  {{ if ne (os.Getenv "WC_POSTCSS") "true" }}
+    {{ $styles := resources.Get "dist/wc.min.css" }}
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ else }}
     {{ $options := dict "inlineImports" true }}
@@ -261,7 +261,8 @@
   {{ $js_academic := resources.Get "js/wowchemy-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
   {{ $js_academic := $js_academic | resources.Minify }}
   {{- $js_theme := resources.Get "js/wowchemy-theme.js" | resources.Minify -}}
-  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
+  {{- $js_lang := resources.Get "js/hb-i18n.js" | resources.Minify -}}
+  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang | resources.Concat (printf "js/wowchemy-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}
