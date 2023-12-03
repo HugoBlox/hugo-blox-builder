@@ -29,3 +29,43 @@
 .hbb-section {
   @apply mb-10 last:mb-0;
 }
+
+/* Fill padding of `.home-section` parent */
+ .home-section-bg {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%; /* Or fill-available when supported. */
+   width: 100%; /* Or fill-available when supported. */
+   z-index: -1; /* Place bg div behind content. */
+ }
+
+/* Default background image properties for home sections. */
+.home-section-bg.bg-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0;
+  max-height: initial; /* Override general `video` selector's max-height.  */
+}
+
+.bg-video.flip {
+  transform: rotateY(180deg);
+}
+
+/* Create a parallax-like scrolling effect on desktop browsers. */
+.parallax {
+  background-attachment: fixed;
+}
+
+/* Workaround issue with mobile browser support for fixed parallax background.
+@include media-breakpoint-down(md) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}
+*/

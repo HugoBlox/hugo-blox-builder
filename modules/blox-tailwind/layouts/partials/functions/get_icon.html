@@ -1,17 +1,31 @@
 {{/* Return the requested SVG icon */}}
 {{/* Search for the icon in the Hugo Blox Builder icon library, falling back to user's icon library */}}
 
-{{- $icon := index site.Data.icons .name -}}
+{{ $dirFile := path.Split .name }}
+{{ $pack := .pack | default (strings.Replace $dirFile.Dir "/" "") | default "hero" }}
+{{ $name := $dirFile.File }}
 
-{{/* Currently, only other pack supported is `brands` icon pack in sub-folder */}}
-{{ $pack := .pack | default "" }}
-{{ $pack = cond (gt (len $pack) 0) (printf "%s/" $pack) "" }}
+{{- $icon_pack := index site.Data.icons $pack -}}
+{{- $icon := index (index $icon_pack "icons") $name -}}
 
-{{ if not $icon }}
-  {{ with resources.GetMatch (printf "media/icons/%s%s.svg" $pack .name) }}
-    {{ $icon = .Content }}
-  {{else}}
-    {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/` folder" .name }}
+{{ if $icon }}
+  {{ if eq $pack "hb" }}
+    {{/* Pass */}}
+  {{ else }}
+    {{ $icon_body := index $icon "body" }}
+    {{ $icon_size := index $icon_pack "height" }}
+    {{ $icon = printf `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s">%s</svg>` (cast.ToString $icon_size) (cast.ToString $icon_size) $icon_body }}
+  {{ end }}
+{{ else }}
+  {{ with index (index site.Data.icons.hb "icons") $name -}}
+    {{ $icon = . }}
+  {{ else }}
+    {{ with resources.GetMatch (printf "media/icons/%s%s.svg" $pack .name) }}
+      {{ $icon = .Content }}
+    {{else}}
+      {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/` folder" .name }}
+      {{ $icon = index (index site.Data.icons.hb "icons") "hugo" }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
