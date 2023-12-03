@@ -37,6 +37,8 @@ jobs:
             split_repository: 'theme-research-group'
           - local_path: 'second-brain'
             split_repository: 'theme-second-brain'
+          - local_path: 'landing-page'
+            split_repository: 'theme-landing-page'
 
     steps:
       -   uses: actions/checkout@v3
