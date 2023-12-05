@@ -122,6 +122,9 @@
 
 # Pages widget
 
+- id: read_more
+  translation: 阅读文章
+
 - id: more_pages
   translation: 查看全部
 

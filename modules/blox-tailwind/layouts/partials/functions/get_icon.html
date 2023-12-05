@@ -9,7 +9,7 @@
 {{- $icon := index (index $icon_pack "icons") $name -}}
 
 {{ if $icon }}
-  {{ if eq $pack "hb" }}
+  {{ if in (slice "hb" "brands") $pack }}
     {{/* Pass */}}
   {{ else }}
     {{ $icon_body := index $icon "body" }}
@@ -20,11 +20,11 @@
   {{ with index (index site.Data.icons.hb "icons") $name -}}
     {{ $icon = . }}
   {{ else }}
-    {{ with resources.GetMatch (printf "media/icons/%s%s.svg" $pack .name) }}
+    {{ with resources.GetMatch (printf "media/icons/%s.svg" (path.Join $pack .name)) }}
       {{ $icon = .Content }}
     {{else}}
-      {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/` folder" .name }}
-      {{ $icon = index (index site.Data.icons.hb "icons") "hugo" }}
+      {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/%s` folder" .name $pack }}
+      {{ $icon = index (index site.Data.icons.brands "icons") "hugo" }}
     {{ end }}
   {{ end }}
 {{ end }}

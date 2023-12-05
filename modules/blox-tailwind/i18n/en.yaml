@@ -122,6 +122,9 @@
 
 # Pages widget
 
+- id: read_more
+  translation: Read more
+
 - id: more_pages
   translation: See all
 
