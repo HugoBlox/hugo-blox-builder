@@ -33,14 +33,14 @@ profiles:
   - icon: at-symbol
     url: 'mailto:your-email@example.com'
     label: E-mail Me
-  - icon: x
+  - icon: brands/x
     url: https://twitter.com/GetResearchDev
-  - icon: instagram
+  - icon: brands/instagram
     url: https://www.instagram.com/
-  - icon: linkedin
+  - icon: brands/linkedin
     url: https://www.linkedin.com/
   # Link to a PDF of your resume/CV - upload it to `static/uploads/resume.pdf`
-  - icon: cv
+  - icon: academicons/cv
     url: uploads/resume.pdf
     label: Download my resume
   - icon: rss

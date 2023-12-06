@@ -30,13 +30,13 @@ profiles:
   - icon: at-symbol
     url: 'mailto:your-email@example.com'
     label: E-mail Me
-  - icon: x
+  - icon: brands/x
     url: https://twitter.com/GetResearchDev
-  - icon: github
+  - icon: brands/github
     url: https://github.com/gcushen
-  - icon: linkedin
+  - icon: brands/linkedin
     url: https://www.linkedin.com/
-  - icon: instagram
+  - icon: brands/instagram
     url: https://www.instagram.com/
 
 education:
