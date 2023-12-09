@@ -1,0 +1,78 @@
+{{ $item := .item }}
+
+{{ $resource := partial "functions/get_featured_image.html" $item }}
+{{ $anchor := $item.Params.image.focal_point | default "Center" }}
+
+<div class="group cursor-pointer">
+
+  {{ with $resource }}
+  {{ $image := .Fill (printf "655x655 %s" $anchor) }}
+  {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+  <div class="overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
+
+    <a
+      class="relative block aspect-video"
+      href="{{ $item.RelPermalink }}">
+
+      <img alt="{{ $item.Title | plainify }}"
+           class="object-cover transition-all"
+           data-nimg="fill"
+           decoding="async"
+           fetchpriority="high" height="{{ $image.Height }}" loading="lazy" src="{{ $image.RelPermalink }}"
+           style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+           width="{{ $image.Width }}"></a>
+  </div>
+  {{end}}
+  <div class="">
+    <div class="">
+      <div class="flex gap-3">
+        {{ range $index, $value := first 1 ($item.GetTerms "tags") }}
+        <a href="{{.RelPermalink}}"><span
+          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-600 dark:text-primary-300">{{ .Page.LinkTitle }}</span></a>
+        {{end}}
+      </div>
+      <!--          <div class="relative line-clamp-2" style="display: block; height: 4em">-->
+      <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
+        href="{{ $item.RelPermalink }}"><span
+        class="bg-gradient-to-r from-primary-200 to-primary-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-primary-800 dark:to-primary-900">
+           {{- $item.Title -}}
+          </span></a>
+      </h2>
+      <!--          </div>-->
+      <div class="grow"><p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"><a
+        href="{{ $item.RelPermalink }}">
+        {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | chomp -}}
+      </a></p>
+      </div>
+      <div class="flex-none">
+        <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
+          <!--          <a href="">-->
+          <div class="flex items-center gap-3">
+            {{ range $index, $value := first 1 ($item.GetTerms "authors") }}
+            <div class="relative h-5 w-5 flex-shrink-0">
+              {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+              {{ $authorImage := $avatar.Process "Fill 50x50 Center 95 webp" }}
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="{{$authorImage.Height}}"
+                   loading="lazy"
+                   sizes="20px"
+                   src="{{$authorImage.RelPermalink}}"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="{{$authorImage.Width}}">
+            </div>
+            <span class="truncate text-sm">
+                {{- .Page.LinkTitle -}}
+              </span></div>
+          <!--          </a>-->
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
+          {{end}}
+          <time class="truncate text-sm" datetime="{{ time.Format "2006-01-02" $item.Date }}">
+          {{- $item.Date | time.Format (site.Params.locale.date_format | default ":date_long") -}}
+          </time>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

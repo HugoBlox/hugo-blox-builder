@@ -1,0 +1,12 @@
+{{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+<nav class="mt-1">
+  <ul class="container mx-auto flex justify-center">
+    {{ if .Paginator.HasPrev }}
+    <li class="p-5"><a class="page-link" href="{{ .Paginator.Prev.URL }}">&laquo; {{ T "previous" }}</a></li>
+    {{ end }}
+    {{ if .Paginator.HasNext }}
+    <li class="p-5"><a class="page-link" href="{{ .Paginator.Next.URL }}">{{ T "next" }} &raquo;</a></li>
+    {{ end }}
+  </ul>
+</nav>
+{{ end }}

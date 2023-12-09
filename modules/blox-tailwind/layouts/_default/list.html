@@ -10,15 +10,18 @@
 {{ $view := .Params.view | default "card" }}
 {{ $block := . }}
 
-<div class="flex justify-center">
+<div class="flex flex-col justify-center">
 
   {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view) }}
 
-  {{ range $index, $item := .Pages.ByDate.Reverse }}
+  {{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+  {{ range $index, $item := $paginator.Pages }}
   {{ partial "functions/render_view" (dict "page" . "item" . "view" $view "index" $index) }}
   {{end}}
 
   {{ partial "functions/render_view" (dict "fragment" "end" "page" $block "item" . "view" $view) }}
+
+  {{ partial "components/paginator" . }}
 
 </div>
 
