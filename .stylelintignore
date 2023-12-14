@@ -2,6 +2,7 @@
 **/vendor/
 **/_vendor/
 **/libs/
+**/dist/
 public/
 
 blox-bootstrap/assets/scss/main.scss

@@ -103,11 +103,11 @@ body:
         - Microsoft Edge
         - Other
   - type: input
-    id: wowchemy-tpl
+    id: hb-tpl
     attributes:
-      label: Which Wowchemy template are you using?
-      description: 'For example, a template from https://hugoblox.com/hugo-themes/'
-      placeholder: 'e.g., Academic Resume'
+      label: Which Hugo Blox template are you using?
+      description: 'For example, a template from https://hugoblox.com/templates/'
+      placeholder: 'e.g., Academic CV'
     validations:
       required: true
   - type: input

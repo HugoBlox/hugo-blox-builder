@@ -89,6 +89,8 @@
 </div>
 {{ end }}
 
+<div class="flex flex-col items-center">
+
   {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view) }}
 
   {{ range $index, $item := $query }}
@@ -97,40 +99,42 @@
 
   {{ partial "functions/render_view" (dict "fragment" "end" "page" $block "item" . "view" $view) }}
 
-  {{/* Archive link */}}
-  {{ $show_archive_link := $block.content.archive.enable | default (gt $count $items_count) }}
-  {{ if $show_archive_link | and $archive_page }}
-
-    {{ $archive_link := "" }}
-    {{ if $block.content.archive.link }}
-      {{ $archive_link = $block.content.archive.link | relLangURL }}
-    {{ else }}
-      {{ $archive_link = $archive_page.RelPermalink }}
-    {{ end }}
-
-    {{/* Localisation */}}
-    {{ $items_type := $archive_page.Type }}
-    {{ $i18n := "" }}
-    {{ if eq $items_type "post" }}
-      {{ $i18n = "more_posts" }}
-    {{ else if eq $items_type "event" }}
-      {{ $i18n = "more_talks" }}
-    {{ else if eq $items_type "publication" }}
-      {{ $i18n = "more_publications" }}
-    {{ else }}
-      {{ $i18n = "more_pages" }}
-    {{ end }}
-
-    {{ $archive_text := $block.content.archive.text | default (i18n $i18n) | default "See all" }}
-
-<div class="container mx-auto max-w-screen-lg px-8 xl:px-5 pb-5 lg:pb-8">
-  <div class="mt-10 flex justify-center">
-    <a
-      class="relative inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300"
-      href="{{ $archive_link }}">
-        <span>{{ $archive_text | emojify }}</span>
-      </a>
-    </div>
 </div>
+
+{{/* Archive link */}}
+{{ $show_archive_link := $block.content.archive.enable | default (gt $count $items_count) }}
+{{ if $show_archive_link | and $archive_page }}
+
+  {{ $archive_link := "" }}
+  {{ if $block.content.archive.link }}
+    {{ $archive_link = $block.content.archive.link | relLangURL }}
+  {{ else }}
+    {{ $archive_link = $archive_page.RelPermalink }}
+  {{ end }}
+
+  {{/* Localisation */}}
+  {{ $items_type := $archive_page.Type }}
+  {{ $i18n := "" }}
+  {{ if eq $items_type "post" }}
+    {{ $i18n = "more_posts" }}
+  {{ else if eq $items_type "event" }}
+    {{ $i18n = "more_talks" }}
+  {{ else if eq $items_type "publication" }}
+    {{ $i18n = "more_publications" }}
+  {{ else }}
+    {{ $i18n = "more_pages" }}
+  {{ end }}
+
+  {{ $archive_text := $block.content.archive.text | default (i18n $i18n) | default "See all" }}
+
+  <div class="container mx-auto max-w-screen-lg px-8 xl:px-5 pb-5 lg:pb-8">
+    <div class="mt-10 flex justify-center">
+      <a
+        class="relative inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300"
+        href="{{ $archive_link }}">
+          <span>{{ $archive_text | emojify }}</span>
+        </a>
+      </div>
+  </div>
 
 {{ end }}

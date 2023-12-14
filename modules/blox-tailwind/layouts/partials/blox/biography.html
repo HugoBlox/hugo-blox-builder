@@ -46,7 +46,7 @@
   </div>
   {{ end }}
 
-  <div class="portrait-title">
+  <div class="portrait-title dark:text-white">
 
     <div class="text-3xl font-bold mb-2 mt-6">
       {{- if $person.name_pronunciation -}}
@@ -70,7 +70,7 @@
     {{ end }}
   </div>
 
-  <ul class="network-icon">
+  <ul class="network-icon dark:text-zinc-100">
     {{ range $person.profiles }}
     {{ $pack := or .icon_pack "fas" }}
     {{ $pack_prefix := $pack }}
