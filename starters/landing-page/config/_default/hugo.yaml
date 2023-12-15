@@ -7,6 +7,20 @@ title: Creator's Landing Page | Hugo Theme # Website name
 baseURL: 'https://example.com/' # Website URL
 
 ############################
+## PAGE OPTIONS
+############################
+
+cascade:
+  # Blog post options
+  - _target:
+      path: /post/*
+      kind: section
+    # Change url to /blog/
+    url: /blog/
+    # Set the listing view
+    view: date-title-summary
+
+############################
 ## LANGUAGE
 ############################
 
@@ -29,6 +43,7 @@ enableRobotsTXT: true
 footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
 permalinks:
+  post: '/blog/:slug/'
   authors: '/author/:slug/'
   tags: '/tag/:slug/'
   categories: '/category/:slug/'
@@ -42,6 +57,8 @@ imaging:
   anchor: smart
 timeout: 600000
 taxonomies:
+  tag: tags
+  category: categories
   author: authors
 markup:
   _merge: deep

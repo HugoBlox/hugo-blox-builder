@@ -30,8 +30,17 @@ marketing:
 header:
   navbar:
     enable: true
-    blox: navbar
-    show_search: false
+    blox: "navbar"
+    fixed_to_top: true
+    logo:
+      text: ""
+      # Logo filename in `assets/media/` folder
+      filename: "logo.svg"
+    button:
+      enable: true
+      text: "Get Started"
+      url: "https://hugoblox.com/templates/"
+    show_search: true
     show_theme_chooser: true
 
 # Site footer
