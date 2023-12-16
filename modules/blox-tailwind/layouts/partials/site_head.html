@@ -118,21 +118,6 @@
     });
   </script>
 
-  {{/* Hugo Chroma Syntax Highlighter Initialization */}}
-  {{/* TODO: optimize to only include the Chroma CSS themes when the page has code blocks. */}}
-  {{ $hl_theme_light := site.Params.features.syntax_highlighter.theme_light | default "github-light" }}
-  {{ $hl_theme_dark := site.Params.features.syntax_highlighter.theme_dark | default "dracula" }}
-  {{ $hl_theme_light_path := printf "css/libs/chroma/%s.css" $hl_theme_light }}
-  {{ $hl_theme_dark_path := printf "css/libs/chroma/%s.css" $hl_theme_dark }}
-  {{ if not (fileExists (printf "assets/%s" $hl_theme_light_path)) | or (not (fileExists (printf "assets/%s" $hl_theme_dark_path))) }}
-    {{ errorf "Hugo Chroma themes %s.css and %s.css not found in `css/libs/chroma/`. See https://gohugo.io/commands/hugo_gen_chromastyles/" $hl_theme_light $hl_theme_dark }}
-  {{ else }}
-    {{ $hl_theme_light_css := resources.Get $hl_theme_light_path | minify }}
-    {{ $hl_theme_dark_css := resources.Get $hl_theme_dark_path | minify }}
-    <link rel="stylesheet" href="{{ $hl_theme_light_css.RelPermalink }}" title="hl-light" media="print" onload="this.media='all'" {{ if ne ($scr.Get "light") true }}disabled{{end}}>
-    <link rel="stylesheet" href="{{ $hl_theme_dark_css.RelPermalink }}" title="hl-dark" media="print" onload="this.media='all'" {{ if eq ($scr.Get "light") true }}disabled{{end}}>
-  {{ end }}
-
   {{/* Marketing */}}
   {{ partial "marketing/index" . }}
 

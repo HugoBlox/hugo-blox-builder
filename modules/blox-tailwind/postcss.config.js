@@ -3,7 +3,7 @@ let tailwindConfig = process.env.HUGO_FILE_TAILWIND_CONFIG_JS || './tailwind.con
 module.exports = {
 	plugins: {
     'postcss-import': {},
-    '@tailwindcss/nesting': {},
+    'tailwindcss/nesting': {},
     tailwindcss: {config: tailwindConfig},
     autoprefixer: {},
   }
