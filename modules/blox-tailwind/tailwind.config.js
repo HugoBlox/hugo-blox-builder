@@ -134,6 +134,7 @@ module.exports = {
             },
             mark: {
               backgroundColor: theme("colors.primary.400 / 1"),
+              color: theme("colors.black / 1"),
             },
           },
         },

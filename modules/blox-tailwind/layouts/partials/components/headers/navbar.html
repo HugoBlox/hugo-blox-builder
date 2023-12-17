@@ -2,7 +2,7 @@
   <nav class="navbar px-3 flex justify-left">
     <div class="order-0 h-100">
       <!-- Brand -->
-      <a class="navbar-brand" href="{{ site.Home.RelPermalink }}">
+      <a class="navbar-brand" href="{{ site.Home.RelPermalink }}" title="{{ site.Title }}">
         {{- $logo_filename := site.Params.header.navbar.logo.filename -}}
         {{ with $logo_filename }}
           {{- $logo:= resources.Get (path.Join "media" $logo_filename) -}}
@@ -146,7 +146,7 @@
       {{ if $show_theme_chooser }}
       <div class="px-3 text-black hover:text-primary-700 dark:text-white dark:hover:text-primary-300
             [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
-        <button class="theme-toggle mt-1" accesskey="t" title="">
+        <button class="theme-toggle mt-1" accesskey="t" title="appearance">
           <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" class="dark:hidden">
