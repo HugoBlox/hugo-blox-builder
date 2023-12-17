@@ -16,7 +16,9 @@ cascade:
       path: /post/**
       kind: page
     pager: true
-    editable: false
+    editable: true
+    hide_date: false
+    show_date_updated: true
     reading_time: true
     commentable: true
     show_related: true
@@ -69,6 +71,9 @@ taxonomies:
 markup:
   _merge: deep
   highlight:
+    codeFences: true
+    noHl: false
+    noClasses: false
     lineNos: false
 related:
   threshold: 80

@@ -46,7 +46,7 @@ header:
 # Site footer
 footer:
   copyright:
-    notice: '© {year} Me'
+    notice: '© {year} My Company'
 
 # Localization
 locale:

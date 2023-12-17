@@ -2,8 +2,10 @@
 title: ✅ Manage your projects
 summary: Easily manage your projects - create ideation mind maps, Gantt charts, todo lists, and more!
 date: 2023-10-23
+authors:
+  - admin
 tags:
-  - Wowchemy
+  - Hugo Blox
   - Markdown
 image:
   caption: 'Image credit: [**Unsplash**](https://unsplash.com)'
@@ -13,7 +15,7 @@ Easily manage your projects - create ideation mind maps, Gantt charts, todo list
 
 ## Ideation
 
-Wowchemy supports a Markdown extension for mindmaps.
+Hugo Blox supports a Markdown extension for mindmaps.
 
 Simply insert a Markdown code block labelled as `markmap` and optionally set the height of the mindmap as shown in the example below.
 
@@ -24,7 +26,7 @@ Mindmaps can be created by simply writing the items as a Markdown list within th
 <code>
 ```markmap {height="200px"}
 - Hugo Modules
-  - wowchemy
+  - Hugo Blox
   - blox-plugins-netlify
   - blox-plugins-netlify-cms
   - blox-plugins-reveal
@@ -37,7 +39,7 @@ renders as
 
 ```markmap {height="200px"}
 - Hugo Modules
-  - wowchemy
+  - Hugo Blox
   - blox-plugins-netlify
   - blox-plugins-netlify-cms
   - blox-plugins-reveal
@@ -45,7 +47,7 @@ renders as
 
 ## Diagrams
 
-Wowchemy supports the _Mermaid_ Markdown extension for diagrams.
+Hugo Blox supports the _Mermaid_ Markdown extension for diagrams.
 
 An example **Gantt diagram**:
 

@@ -3,6 +3,10 @@ title: 'Home'
 date: 2023-10-24
 type: landing
 
+design:
+  # Default section spacing
+  spacing: "6rem"
+
 sections:
   - block: hero
     content:
@@ -21,7 +25,11 @@ sections:
           text: Read more
           url: /blog/
     design:
-      css_class: dark
+      spacing:
+        padding: [0, 0, 0, 0]
+        margin: [0, 0, 0, 0]
+      # For full-screen, add `min-h-screen` below
+      css_class: "dark"
       background:
         image:
           # Add your image background to `assets/media/`.
@@ -80,6 +88,8 @@ sections:
           button:
             text: Join Discord
             url: https://discord.gg/z8wNYzb
+    design:
+      css_class: "bg-gray-100 dark:bg-gray-900"
   - block: cta-card
     content:
       title: Build your future-proof website
