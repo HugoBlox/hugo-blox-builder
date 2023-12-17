@@ -77,7 +77,8 @@
   {{ $style = print $style $style_pad }}
 {{ else }}
   {{ with $page.Params.design.spacing }}
-    {{ $style_pad := printf "margin: %s 0 %s 0;" . . }}
+    {{/* Fallback to default section spacing setting */}}
+    {{ $style_pad := printf "padding: %s 0 %s 0;" . . }}
     {{ $style = print $style $style_pad }}
   {{ end }}
 {{ end }}

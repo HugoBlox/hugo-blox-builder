@@ -27,7 +27,7 @@
 }
 
 .hbb-section {
-  @apply mb-10 last:mb-0;
+  @apply py-24; /* last:mb-0 */
 }
 
 /* Fill padding of `.home-section` parent */

@@ -23,8 +23,9 @@ module.exports = {
   safelist: [
     'task-list',   /* As it's added via JS */
     'pl-4', 'pl-8', 'pl-12',   /* TOC indents */
+    'min-h-screen', /* Blox options */
   ],
-  // whitelistPatterns: [/^pl-/],
+  whitelistPatterns: [/^bg-white/, /^bg-gray-/], /* /^pl-/ for TOC */
   darkMode: ['class'],
   theme: {
     extend: {
@@ -126,9 +127,9 @@ module.exports = {
         invert: {
           css: {
             a: {
-              textDecorationColor: theme("colors.neutral.600 / 1"),
+              textDecorationColor: theme("colors.neutral.500 / 1"),
               "&:hover": {
-                color: theme("colors.primary.400 / 1"),
+                color: theme("colors.primary.300 / 1"),
               },
             },
             mark: {

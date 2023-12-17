@@ -6,7 +6,7 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
-<section class="bg-white dark:bg-gray-900">
+<div>
   {{ range $idx, $item := $block.content.items }}
   {{ $title := .title | emojify | $page.RenderString }}
   {{ $text := .text | emojify | $page.RenderString }}
@@ -37,4 +37,4 @@
     </div>
   </div>
   {{ end }}
-</section>
+</div>
