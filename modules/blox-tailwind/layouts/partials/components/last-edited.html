@@ -1,0 +1,11 @@
+{{- $last_updated := T "last_updated" -}}
+
+{{- if .Params.show_date_updated | and .Lastmod -}}
+  {{ $datetime := (time.Format "2006-01-02T15:04:05.000Z" .Lastmod) }}
+  <time class="mt-12 mb-8 block text-xs text-gray-500 ltr:text-right rtl:text-left dark:text-gray-400" datetime="{{ $datetime }}">
+    <span>{{ $last_updated }}</span>
+    {{ .Lastmod | time.Format (site.Params.locale.date_format | default ":date_long") -}}
+  </time>
+{{- else -}}
+  <div class="mt-16"></div>
+{{- end -}}

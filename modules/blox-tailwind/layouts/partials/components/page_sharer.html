@@ -1,26 +1,25 @@
 {{ if ne .Params.share false }}
-<div class="share-box">
-  <ul class="share">
-    {{ range where site.Data.page_sharer.buttons "enable" true }}
-      {{ $pack := or .icon_pack "fas" }}
-      {{ $pack_prefix := $pack }}
-      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-        {{ $pack_prefix = "fa" }}
-      {{ end }}
-      {{/* Utilise `urlquery` over `htmlEscape` to encode sharing URL */}}
-      {{/* See https://github.com/HugoBlox/hugo-blox-builder/pull/2726 */}}
-      {{ $link := replace .url "{url}" ($.Permalink | urlquery) }}
-      {{ $link = replace $link "{title}" ($.Title | urlquery) }}
-      {{/* Workaround `urlquery` encoding for mailto as `urlquery` encodes `+` as `%2B` and ` ` (space) as `+` */}}
-      {{ if eq (urls.Parse $link).Scheme "mailto" }}
-        {{ $link = replace $link "+" "%20" }}
-      {{ end }}
-      <li>
-        <a href="{{$link|safeURL}}" target="_blank" rel="noopener" class="share-btn-{{.id}}" aria-label="{{.icon}}">
-          <i class="{{$pack}} {{$pack_prefix}}-{{.icon}}"></i>
-        </a>
-      </li>
-    {{ end }}
-  </ul>
-</div>
+<section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+  {{ range where site.Data.page_sharer.links "enable" true }}
+
+  {{/* Utilise `urlquery` over `htmlEscape` to encode sharing URL */}}
+  {{/* See https://github.com/HugoBlox/hugo-blox-builder/pull/2726 */}}
+  {{ $link := replace .url "{url}" ($.Permalink | urlquery) }}
+  {{ $link = replace $link "{title}" ($.Title | urlquery) }}
+  {{/* Workaround `urlquery` encoding for mailto as `urlquery` encodes `+` as `%2B` and ` ` (space) as `+` */}}
+  {{ if eq (urls.Parse $link).Scheme "mailto" }}
+    {{ $link = replace $link "+" "%20" }}
+  {{ end }}
+  <a
+    target="_blank" rel="noopener"
+    class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+    href="{{$link|safeURL}}"
+    title="{{ .title }}"
+    aria-label="{{ .title }}"
+    id="share-link-{{.id}}"
+  >
+    {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1em;\"") }}
+  </a>
+  {{ end }}
+</section>
 {{ end }}

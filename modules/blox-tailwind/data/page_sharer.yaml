@@ -1,65 +1,55 @@
 # Hugo Blox
-# Social sharing buttons
+# Social sharing links
 # Docs: https://docs.hugoblox.com/reference/page-sharer/
 
-buttons:
-  - id: twitter
+links:
+  - id: x
     url: 'https://twitter.com/intent/tweet?url={url}&text={title}'
-    title: Twitter
-    icon_pack: fab
-    icon: twitter
+    title: X
+    icon: brands/x
     enable: true
   - id: facebook
     url: 'https://www.facebook.com/sharer.php?u={url}&t={title}'
     title: Facebook
-    icon_pack: fab
-    icon: facebook
+    icon: brands/facebook
     enable: true
   - id: email
     url: 'mailto:?subject={title}&body={url}'
     title: Email
-    icon_pack: fas
-    icon: envelope
+    icon: hero/at-symbol
     enable: true
   - id: linkedin
     url: 'https://www.linkedin.com/shareArticle?url={url}&title={title}'
     title: LinkedIn
-    icon_pack: fab
-    icon: linkedin-in
+    icon: brands/linkedin
     enable: true
   - id: whatsapp
     url: 'whatsapp://send?text={title}%20{url}'
     title: WhatsApp
-    icon_pack: fab
-    icon: whatsapp
+    icon: brands/whatsapp
     enable: true
-  - id: weibo
-    url: 'https://service.weibo.com/share/share.php?url={url}&title={title}'
-    title: Weibo
-    icon_pack: fab
-    icon: weibo
-    enable: true
-  - id: reddit
-    url: 'https://reddit.com/submit?url={url}&title={title}'
-    title: Reddit
-    icon_pack: fab
-    icon: reddit-alien
-    enable: false
-  - id: pinterest
-    url: 'https://pinterest.com/pin/create/link/?url={url}&description={title}'
-    title: Pinterest
-    icon_pack: fab
-    icon: pinterest
-    enable: false
-  - id: xing
-    url: 'https://www.xing.com/spi/shares/new?url={url}&title={title}'
-    title: Xing
-    icon_pack: fab
-    icon: xing
-    enable: false
-  - id: tumblr
-    url: 'https://www.tumblr.com/widgets/share/tool?canonicalUrl={url}&title={title}'
-    title: Tumblr
-    icon_pack: fab
-    icon: tumblr
-    enable: false
+#  - id: weibo
+#    url: 'https://service.weibo.com/share/share.php?url={url}&title={title}'
+#    title: Weibo
+#    icon: weibo
+#    enable: true
+#  - id: reddit
+#    url: 'https://reddit.com/submit?url={url}&title={title}'
+#    title: Reddit
+#    icon: reddit-alien
+#    enable: false
+#  - id: pinterest
+#    url: 'https://pinterest.com/pin/create/link/?url={url}&description={title}'
+#    title: Pinterest
+#    icon: pinterest
+#    enable: false
+#  - id: xing
+#    url: 'https://www.xing.com/spi/shares/new?url={url}&title={title}'
+#    title: Xing
+#    icon: xing
+#    enable: false
+#  - id: tumblr
+#    url: 'https://www.tumblr.com/widgets/share/tool?canonicalUrl={url}&title={title}'
+#    title: Tumblr
+#    icon: tumblr
+#    enable: false

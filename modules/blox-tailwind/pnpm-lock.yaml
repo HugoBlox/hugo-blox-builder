@@ -8,6 +8,9 @@ dependencies:
   '@tailwindcss/nesting':
     specifier: 0.0.0-insiders.565cd3e
     version: 0.0.0-insiders.565cd3e(postcss@8.4.31)
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
   katex:
     specifier: ^0.16.9
     version: 0.16.9
@@ -1300,6 +1303,11 @@ packages:
 
   /dompurify@3.0.6:
     resolution: {integrity: sha512-ilkD8YEnnGh1zJ240uJsW7AzE+2qpbOUYjacomn3AvJ6J4JhKGSZ2nh4wUIXPZrEPppaCLx5jFe8T89Rk8tQ7w==}
+    dev: false
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /draw-svg-path@1.0.0:

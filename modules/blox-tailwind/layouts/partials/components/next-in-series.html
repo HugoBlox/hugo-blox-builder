@@ -2,14 +2,14 @@
   {{ if or .NextInSection .PrevInSection }}
     {{ $next := .NextInSection }}
     {{ $prev := .PrevInSection }}
-    {{ if .Params.invert_pager | default false }}
+    {{ if (eq (.Scratch.Get "invert_pager") true) | default .Params.invert_pager | default false }}
       {{ $next = .PrevInSection }}
       {{ $prev = .NextInSection }}
     {{ end }}
-<div class="pt-1">
+<div class="pt-1 no-prose">
   <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-  <div class="flex justify-between pt-2">
-    <span>
+  <div class="flex flex-col md:flex-row flex-nowrap justify-between gap-5 pt-2">
+    <div class="flex-1 flex-grow">
       {{ if $prev }}
         <a class="group flex no-underline" href="{{ $prev.RelPermalink }}">
           <span
@@ -27,8 +27,8 @@
           </span>
         </a>
       {{ end }}
-    </span>
-    <span>
+    </div>
+    <span class="flex-1 flex-grow">
       {{ if $next }}
         <a class="group flex text-right no-underline" href="{{ $next.RelPermalink }}">
           <span class="flex flex-col">

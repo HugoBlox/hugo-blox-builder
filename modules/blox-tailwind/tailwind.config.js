@@ -1,13 +1,30 @@
+import 'dotenv/config'
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+const content_extra = process.env.HB_TW_CONTENT ? process.env.HB_TW_CONTENT.split(', ') : '';
+
+console.log('Current directory: ' + process.cwd());
+console.log(`content_extra: ${content_extra}`);
+// console.log('../../starters/'+process.env.HB_TPL+'/hugo_stats.json')
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./hugo_stats.json', './layouts/**/*.html'],
+  content: [
+    // './hugo_stats.json',
+    './layouts/**/*.html',
+    '**/libs/chroma/*.css',
+    './**/*.svg',
+    ...content_extra,
+    // ...(process.env.HB_TPL ? '../../starters/'+process.env.HB_TPL+'/hugo_stats.json' : './hugo_stats.json'),
+  ],
   plugins: [
     require('@tailwindcss/typography'),
   ],
   safelist: [
-    'task-list', /* As it's added via JS */
+    'task-list',   /* As it's added via JS */
+    'pl-4', 'pl-8', 'pl-12',   /* TOC indents */
   ],
+  // whitelistPatterns: [/^pl-/],
   darkMode: ['class'],
   theme: {
     extend: {
@@ -53,6 +70,73 @@ module.exports = {
       fontFamily: {
         'sans': ['"Inter var"', ...defaultTheme.fontFamily.sans],
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": theme("colors.neutral.700 / 1"),
+            "--tw-prose-headings": theme("colors.neutral.800 / 1"),
+            "--tw-prose-lead": theme("colors.neutral.500 / 1"),
+            "--tw-prose-links": theme("colors.primary.600 / 1"),
+            "--tw-prose-bold": theme("colors.neutral.900 / 1"),
+            "--tw-prose-counters": theme("colors.neutral.800 / 1"),
+            "--tw-prose-bullets": theme("colors.neutral.500 / 1"),
+            "--tw-prose-hr": theme("colors.neutral.200 / 1"),
+            "--tw-prose-quotes": theme("colors.neutral.700 / 1"),
+            "--tw-prose-quote-borders": theme("colors.primary.200 / 1"),
+            "--tw-prose-captions": theme("colors.neutral.500 / 1"),
+            "--tw-prose-code": theme("colors.secondary.700 / 1"),
+            "--tw-prose-pre-code": theme("colors.neutral.700 / 1"),
+            "--tw-prose-pre-bg": theme("colors.neutral.50 / 1"),
+            "--tw-prose-th-borders": theme("colors.neutral.500 / 1"),
+            "--tw-prose-td-borders": theme("colors.neutral.300 / 1"),
+            "--tw-prose-invert-body": theme("colors.neutral.300 / 1"),
+            "--tw-prose-invert-headings": theme("colors.neutral.50 / 1"),
+            "--tw-prose-invert-lead": theme("colors.neutral.500 / 1"),
+            "--tw-prose-invert-links": theme("colors.primary.400 / 1"),
+            "--tw-prose-invert-bold": theme("colors.neutral.DEFAULT / 1"),
+            "--tw-prose-invert-counters": theme("colors.neutral.400 / 1"),
+            "--tw-prose-invert-bullets": theme("colors.neutral.600 / 1"),
+            "--tw-prose-invert-hr": theme("colors.neutral.500 / 1"),
+            "--tw-prose-invert-quotes": theme("colors.neutral.200 / 1"),
+            "--tw-prose-invert-quote-borders": theme("colors.primary.900 / 1"),
+            "--tw-prose-invert-captions": theme("colors.neutral.400 / 1"),
+            "--tw-prose-invert-code": theme("colors.secondary.400 / 1"),
+            "--tw-prose-invert-pre-code": theme("colors.neutral.200 / 1"),
+            "--tw-prose-invert-pre-bg": theme("colors.neutral.700 / 1"),
+            "--tw-prose-invert-th-borders": theme("colors.neutral.500 / 1"),
+            "--tw-prose-invert-td-borders": theme("colors.neutral.700 / 1"),
+            a: {
+              textDecoration: "underline",
+              textDecorationColor: theme("colors.primary.300 / 1"),
+              fontWeight: "500",
+              "&:hover": {
+                color: theme("colors.primary.600 / 1"),
+                textDecoration: "none",
+                borderRadius: "0.09rem",
+              },
+            },
+            mark: {
+              color: theme("colors.neutral.100 / 1"),
+              backgroundColor: theme("colors.primary.600 / 1"),
+              padding: "0.1rem 0.2rem",
+              borderRadius: "0.25rem",
+            },
+          },
+        },
+        invert: {
+          css: {
+            a: {
+              textDecorationColor: theme("colors.neutral.600 / 1"),
+              "&:hover": {
+                color: theme("colors.primary.400 / 1"),
+              },
+            },
+            mark: {
+              backgroundColor: theme("colors.primary.400 / 1"),
+            },
+          },
+        },
+      }),
     }
   }
 }

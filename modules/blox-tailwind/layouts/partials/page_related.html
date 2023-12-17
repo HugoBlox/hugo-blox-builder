@@ -2,7 +2,8 @@
 {{ if .Params.show_related }}
   {{ $related := site.RegularPages.Related . | first 5 }}
   {{ with $related }}
-  <div class="article-widget content-widget-hr">
+<hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+  <div class="text-sm">
     <h3>{{ i18n "related" }}</h3>
     <ul>
       {{ range . }}

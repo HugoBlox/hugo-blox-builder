@@ -1,0 +1,46 @@
+@media (max-width: 767px) {
+  .hb-sidebar-container {
+    @apply fixed top-0 w-full bottom-0 z-[15] pt-[calc(var(--navbar-height))] overscroll-contain bg-white dark:bg-slate-700;
+    contain: layout style;
+    backface-visibility: hidden;
+    transition: transform 0.8s cubic-bezier(0.52, 0.16, 0.04, 1);
+    will-change: transform, opacity;
+  }
+}
+
+.hb-sidebar-container {
+  li > div {
+    @apply h-0;
+  }
+  li.open > div {
+    @apply h-auto pt-1;
+  }
+  li.open > a > span > svg > path {
+    @apply rotate-90;
+  }
+}
+
+.hb-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(55.55% 0 0 / 40%) transparent;
+  scrollbar-gutter: stable;
+
+  &::-webkit-scrollbar {
+    @apply w-3 h-3;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-[10px];
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    background-color: var(--tw-shadow-color);
+    background-clip: content-box;
+    @apply shadow-neutral-500/20 hover:shadow-neutral-500/40;
+  }
+}

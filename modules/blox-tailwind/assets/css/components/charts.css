@@ -1,0 +1,21 @@
+/* Mermaid.js diagram div */
+div.mermaid {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  svg {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Plotly chart */
+div.chart {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+
+  /* Add horizontal scroll on mobile since Plotly */
+  overflow-x: auto;
+}

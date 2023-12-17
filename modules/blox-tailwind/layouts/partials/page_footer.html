@@ -1,9 +1,11 @@
 <div class="max-w-prose print:hidden">
-  {{ partial "page_edit" . }}
+  {{/* Moved to TOC sidebar */}}
+  {{/* partial "page_edit" . */}}
+
   {{ partial "tags" . }}
-  {{/* partial "components/page_sharer" . */}}
+  {{ partial "components/page_sharer" . }}
   {{ partial "page_author" . }}
   {{ partial "components/next-in-series" . }}
-  {{/* partial "page_related" . */}}
+  {{ partial "page_related" . }}
   {{ partial "comments" . }}
 </div>

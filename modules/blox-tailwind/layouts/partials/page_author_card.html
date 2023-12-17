@@ -13,7 +13,7 @@
   {{ $avatar := ($author_page.Resources.ByType "image").GetMatch "*avatar*" }}
   {{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
 
-<div class="flex">
+<div class="flex pt-12 pb-4">
   {{ if $avatar }}
   {{ $authorImage := $avatar.Fill "192x192 Center" }}
   <img

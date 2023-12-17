@@ -1,0 +1,12 @@
+{{- $is_disabled := .disable | default false -}}
+{{- $is_empty := .empty | default false -}}
+
+{{- $sidebar_class := cond $is_disabled (cond $is_empty "md:hidden xl:block" "md:hidden") "md:sticky" -}}
+
+<div class="hidden mobile-menu-overlay [transition:background-color_1.5s_ease] fixed inset-0 z-10 bg-black/80 dark:bg-black/60"></div>
+
+<aside class="hb-sidebar-container flex flex-col print:hidden md:top-16 md:shrink-0 md:w-64 md:self-start max-md:[transform:translate3d(0,-100%,0)] {{ $sidebar_class }}">
+  <div class="hb-scrollbar overflow-y-auto overflow-x-hidden p-4 grow md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <div class="max-xl:hidden h-0 w-64 shrink-0"></div>
+  </div>
+</aside>
