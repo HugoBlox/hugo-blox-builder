@@ -13,7 +13,7 @@
 <div id="chart-{{$id}}" class="chart"></div>
 <script>
   async function fetchChartJSON() {
-    console.debug('Wowchemy fetching chart JSON...')
+    console.debug('Hugo Blox fetching chart JSON...')
     const response = await fetch('{{$json}}');
     return await response.json();
   }

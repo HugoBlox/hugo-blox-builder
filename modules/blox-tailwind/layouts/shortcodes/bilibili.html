@@ -1,3 +1,8 @@
-<div class="bilibili">
-  <iframe src="//player.bilibili.com/player.html?bvid={{ .Get `id` }}&page={{ .Get `p` | default 1 }}" allow="fullscreen"></iframe>
+{{- $video_id := cond .IsNamedParams (.Get `id`) (.Get 0) -}}
+{{- $video_page := (cond .IsNamedParams (.Get `p`) (.Get 1)) | default 1 -}}
+<div class="w-full h-auto aspect-video relative">
+  <iframe src="//player.bilibili.com/player.html?bvid={{ $video_id }}&page={{ $video_page }}"
+  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; fullscreen; picture-in-picture;"
+  class="w-full h-full"
+  ></iframe>
 </div>

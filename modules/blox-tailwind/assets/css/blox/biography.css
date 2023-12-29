@@ -1,4 +1,4 @@
-.blox-biography {
+.blox-resume-biography {
   #profile {
     text-align: center;
     padding: 30px 10px;
@@ -75,8 +75,6 @@
 
     /* color: rgba(0, 0, 0, 0.6); */
   }
-
-
 
   .network-icon .big-icon {
     font-size: 1.5rem;

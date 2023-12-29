@@ -5,7 +5,10 @@
 {{ $page := .page }}
 {{ $block := .block }}
 
-{{ $block_type := lower $block.block | default "markdown" }}
+{{ $block_type := lower ($block.blox | default $block.block) | default "markdown" }}
+{{ range $r := site.Data.blox_aliases.renames }}
+  {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}
+{{ end }}
 {{ $block_path := printf "blox/%s.html" $block_type }}
 {{ if not (templates.Exists (printf "partials/%s" $block_path)) }}
   {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $block_path }}

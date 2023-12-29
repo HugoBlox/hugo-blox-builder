@@ -69,6 +69,11 @@
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ end }}
 
+  {{ if fileExists "assets/css/custom.css" }}
+    {{ $styles := resources.Get "css/custom.css" | minify | fingerprint "sha256" }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{ end }}
+
   <script>
     /* Hugo Blox JS Global Init */
     window.hbb = {
@@ -118,8 +123,8 @@
     });
   </script>
 
-  {{/* Marketing */}}
-  {{ partial "marketing/index" . }}
+  {{/* Analytics & Verification */}}
+  {{ partial "blox-analytics/index" . }}
 
   {{/* RSS Feed */}}
   {{ with .OutputFormats.Get "RSS" }}
@@ -243,9 +248,9 @@
   {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
   {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
   {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}
-  {{ $js_academic := resources.Get "js/wowchemy-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
+  {{ $js_academic := resources.Get "js/hb-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
   {{ $js_academic := $js_academic | resources.Minify }}
-  {{- $js_theme := resources.Get "js/wowchemy-theme.js" | resources.Minify -}}
+  {{- $js_theme := resources.Get "js/hb-theme.js" | resources.Minify -}}
   {{- $js_lang := resources.Get "js/hb-i18n.js" | resources.Minify -}}
   {{- $js_nav := resources.Get "js/hb-nav.js" | resources.Minify -}}
   {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}

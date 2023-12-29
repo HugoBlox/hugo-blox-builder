@@ -53,7 +53,7 @@
 {{/* Mermaid */}}
 {{ if (.Page.Store.Get "has_mermaid") }}
   {{ $mermaid_js := resources.Get "dist/lib/mermaid/mermaid.min.js" }}
-  {{ $mermaid_config_js := resources.Get "js/wowchemy-mermaid-config.js" }}
+  {{ $mermaid_config_js := resources.Get "js/hb-mermaid-config.js" }}
   {{ $mermaid_config_js = $mermaid_config_js | resources.Minify }}
   {{ $mermaid_bundle := slice $mermaid_js $mermaid_config_js | resources.Concat "js/mermaid.bundle.js" | resources.Fingerprint "sha256" }}
   <script defer src="{{ $mermaid_bundle.RelPermalink }}" integrity="{{ $mermaid_bundle.Data.Integrity }}"></script>

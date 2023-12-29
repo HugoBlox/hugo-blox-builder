@@ -1,0 +1,11 @@
+renames:
+  - old: awards
+    new: resume-awards
+  - old: biography
+    new: resume-biography
+  - old: experience
+    new: resume-experience
+  - old: languages
+    new: resume-languages
+  - old: skills
+    new: resume-skills
