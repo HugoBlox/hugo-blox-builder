@@ -1,0 +1,21 @@
+{{/* Site Verification with Third Party Services */}}
+
+{{- with site.Params.marketing.verification.google -}}
+<meta name="google-site-verification" content="{{ . }}" />
+{{- end -}}
+
+{{- with site.Params.marketing.verification.bing -}}
+<meta name="msvalidate.01" content="{{ . }}" />
+{{- end -}}
+
+{{- with site.Params.marketing.verification.yandex -}}
+<meta name="yandex-verification" content="{{ . }}" />
+{{- end -}}
+
+{{- with site.Params.marketing.verification.pinterest -}}
+<meta name="p:domain_verify" content="{{ . }}" />
+{{- end -}}
+
+{{- with site.Params.marketing.verification.baidu -}}
+<meta name="baidu-site-verification" content="{{ . }}" />
+{{- end -}}
