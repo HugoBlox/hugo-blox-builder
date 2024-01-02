@@ -19,7 +19,7 @@ Get analytics and verification for your Hugo site by following the guide below:
 2. Load the module in your site's `<head>` with:
 
    ```go
-   {{ partial "blox_analytics/index" . }}
+   {{ partial "blox-analytics/index" . }}
    ```
 
 ## Usage
