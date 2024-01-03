@@ -1,0 +1,37 @@
+{{/* Hugo Blox: Stats */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString }}
+
+
+<div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+
+  {{ with $title }}
+  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+    <div class="max-w-screen-md mb-8 lg:mb-16 flex flex-col justify-center mx-auto">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">{{.}}</h2>
+      {{ with $text }}
+      <p class="text-gray-500 sm:text-xl dark:text-gray-400 text-center">{{.}}</p>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div class="grid grid-cols-3 row-gap-8">
+    {{ range $idx, $item := $block.content.items }}
+    <div class="text-center {{if ne (math.Add $idx 1) (len $block.content.items) }}md:border-r{{end}}">
+      <h6 class="text-4xl font-bold lg:text-5xl xl:text-6xl">
+        {{- .statistic | $page.RenderString -}}
+      </h6>
+      <p class="text-sm font-medium tracking-widest lg:text-base text-gray-800 dark:text-gray-300">
+        {{- .description | $page.RenderString -}}
+      </p>
+    </div>
+    {{ end }}
+  </div>
+</div>

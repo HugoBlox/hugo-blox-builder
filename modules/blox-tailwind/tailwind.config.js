@@ -25,7 +25,7 @@ module.exports = {
     'pl-4', 'pl-8', 'pl-12',   /* TOC indents */
     'min-h-screen', /* Blox options */
   ],
-  whitelistPatterns: [/^bg-white/, /^bg-gray-/], /* /^pl-/ for TOC */
+  whitelistPatterns: [/^bg-white/, /^bg-gray-/, /^bg-primary-/], /* /^pl-/ for TOC */
   darkMode: ['class'],
   theme: {
     extend: {
