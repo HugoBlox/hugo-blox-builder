@@ -1,4 +1,7 @@
 ---
+_build:
+  render: always
+
 # Display name
 title: Alice Wu 吳恩達
 
