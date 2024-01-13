@@ -20,10 +20,10 @@ sections:
         text: Read the docs
         url: https://docs.hugoblox.com
       announcement:
-        text: Announcing the release of version 1.
+        text: "Announcing the release of version 1."
         link:
-          text: Read more
-          url: /blog/
+          text: "Read more"
+          url: "/blog/"
     design:
       spacing:
         padding: [0, 0, 0, 0]
