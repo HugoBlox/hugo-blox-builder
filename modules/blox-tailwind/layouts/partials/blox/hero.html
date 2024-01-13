@@ -9,17 +9,18 @@
 
   <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
 
-    {{ with $block.content.announcement }}
+    {{ if $block.content.announcement.text }}
+    {{ $announcement := $block.content.announcement }}
     <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-      <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 dark:text-gray-400 ring-1 ring-gray-900/10 dark:ring-gray-100/10 hover:ring-gray-900/20">
-        {{.text | markdownify}} {{with .link}}<a href="{{.url}}" class="font-semibold text-primary-600 dark:text-primary-400"><span class="absolute inset-0" aria-hidden="true"></span>{{.text}} <span aria-hidden="true">&rarr;</span></a>
+      <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 dark:text-gray-300 ring-1 ring-gray-900/10 dark:ring-gray-300 hover:ring-gray-900/20 dark:hover:ring-gray-400">
+        {{$announcement.text | markdownify}} {{if $announcement.link.text}}<a href="{{$announcement.link.url}}" class="font-semibold text-primary-600 dark:text-primary-300"><span class="absolute inset-0" aria-hidden="true"></span>{{$announcement.link.text}} <span aria-hidden="true">&rarr;</span></a>{{end}}
       </div>
     </div>
     {{end}}
 
     <div class="text-center">
       {{ with $block.content.title }}<h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">{{ . | markdownify }}</h1>{{end}}
-      {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">{{ . | $page.RenderString | emojify }}</p>{{end}}
+      {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">{{ . | $page.RenderString | emojify }}</p>{{end}}
 
       {{ if $block.content.primary_action.url }}
         {{ $pack := or $block.content.primary_action.icon_pack "fas" }}
@@ -53,11 +54,10 @@
           {{ else if in (slice "http" "https") $scheme_alt }}
             {{ $target_alt = "target=\"_blank\" rel=\"noopener\"" }}
           {{ end }}
-        <a href="{{ $link_alt | safeURL }}" {{ $target_alt | safeHTMLAttr }} class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">{{ $block.content.secondary_action.text | markdownify | emojify }} <span aria-hidden="true">→</span></a>
-        {{end}}
+        <a href="{{ $link_alt | safeURL }}" {{ $target_alt | safeHTMLAttr }} class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:dark:text-gray-200 hover:text-gray-800">{{ $block.content.secondary_action.text | markdownify | emojify }} <span aria-hidden="true">→</span></a>
+      {{end}}
 
       </div>
-      {{ end }}
 
     </div>
   </div>
