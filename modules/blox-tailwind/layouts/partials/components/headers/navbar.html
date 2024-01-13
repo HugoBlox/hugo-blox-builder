@@ -47,9 +47,11 @@
     <!-- /Mobile menu -->
 
     <!-- Main menu -->
+    {{ $align_menu := site.Params.header.navbar.align | default "center" }}
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-left">
+      class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-left
+      {{ if in (slice "l" "left") $align_menu }}mr-auto ml-6{{ else if (in (slice "r" "right") $align_menu) }}ml-auto mr-6{{end}}">
       {{ $currentPage := . }}
       {{ range site.Menus.main }}
       {{ $menuURL := .URL | absLangURL }}
