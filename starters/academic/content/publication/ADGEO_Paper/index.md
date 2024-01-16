@@ -32,8 +32,8 @@ featured: false
 # links:
 # - name: ""
 #   url: ""
-url_pdf: https://adgeo.copernicus.org/articles/54/79/2020/adgeo-54-79-2020.pdf
-url_code: ''
+url_pdf: 'https://adgeo.copernicus.org/articles/54/79/2020/adgeo-54-79-2020.pdf'
+url_code: 'https://doi.org/10.5281/zenodo.7947725'
 url_dataset: ''
 url_poster: ''
 url_project: ''
