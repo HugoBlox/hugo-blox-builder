@@ -1,5 +1,5 @@
 ---
-title: "Weather data at experimental rice sites across rice growing region of India from 2000 to 2021"
+title: "Weather data at experimental agricultural sites across Indian croplands from 1960's to 2020"
 authors:
 - G Venkateswara Varma
 - admin
@@ -9,17 +9,17 @@ authors:
 author_notes:
 - "Equal contribution"
 - "Equal contribution"
-date: "2023-08-15T00:00:00Z"
-doi: "https://doi.pangaea.de/10.1594/PANGAEA.959854"
+date: "2024-01-01T00:00:00Z"
+doi: "https://doi.pangaea.de/10.1594/PANGAEA.964635"
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2023-08-23T00:00:00Z"
+publishDate: "2024-01-16T00:00:00Z"
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
-# 7 = Thesis; 8 = Patent
-publication_types: ["0"]
+# 7 = Thesis; 8 = Patent; 9 = Dataset
+publication_types: ["9"]
 
 # Publication name and optional abbreviated publication name.
 publication: "*PANGAEA*"
@@ -39,7 +39,7 @@ featured: false
 #   url: ""
 url_pdf: 
 url_code: ''
-url_dataset: 'https://doi.pangaea.de/10.1594/PANGAEA.959854'
+url_dataset: ''
 url_poster: ''
 url_project: ''
 url_slides: ''
@@ -49,7 +49,7 @@ url_video: ''
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 image:
-  caption: '(a) Annual mean 100 m wind speeds from CCMP data; the black box represents the Palk Strait region. (b) The wind rose for the Palk Strait region. (c) The hypothetical wind farm scenarios considered in this study.'
+  caption: ''
   focal_point: "smart"
   preview_only: false
 
