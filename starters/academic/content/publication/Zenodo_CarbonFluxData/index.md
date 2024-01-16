@@ -1,5 +1,5 @@
 ---
-title: "Carbon fluxes data over Indian spring wheat agro-ecosystem."
+title: "Carbon fluxes data over Indian spring wheat agro-ecosystem"
 authors:
 - admin
 - Shilpa Gahlot
