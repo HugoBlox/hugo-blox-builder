@@ -46,7 +46,7 @@ url_video: ''
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 image:
-  caption: '(a) Annual mean 100 m wind speeds from CCMP data; the black box represents the Palk Strait region. (b) The wind rose for the Palk Strait region. (c) The hypothetical wind farm scenarios considered in this study.'
+  caption: 'Publication page'
   focal_point: "smart"
   preview_only: false
 
