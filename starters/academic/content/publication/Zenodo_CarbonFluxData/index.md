@@ -8,8 +8,6 @@ authors:
 
 
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
 date: "2022-10-08T00:00:00Z"
 doi: "https://doi.org/10.5281/zenodo.10517033"
 
