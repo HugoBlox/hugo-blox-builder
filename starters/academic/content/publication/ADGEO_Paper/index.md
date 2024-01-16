@@ -4,8 +4,6 @@ authors:
 - admin
 - Somnath Baidya Roy
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
 date: "2020-10-17T00:00:00Z"
 doi: "https://doi.org/10.5194/adgeo-54-79-2020"
 
