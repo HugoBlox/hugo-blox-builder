@@ -5,8 +5,6 @@ authors:
 - Somnath Baidya Roy
 
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
 date: "2022-10-01T00:00:00Z"
 doi: ""
 
