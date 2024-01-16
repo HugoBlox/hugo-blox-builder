@@ -6,8 +6,6 @@ authors:
 - Bimal K Bhattacharya
 - G Venkateswara Varma
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
 date: "2023-04-24T00:00:00Z"
 doi: "https://doi.org/10.5194/egusphere-egu23-6395"
 
