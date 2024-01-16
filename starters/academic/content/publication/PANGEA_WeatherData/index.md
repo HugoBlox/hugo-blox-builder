@@ -7,8 +7,6 @@ authors:
 
 
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
 date: "2024-01-01T00:00:00Z"
 doi: "https://doi.pangaea.de/10.1594/PANGAEA.964635"
 
