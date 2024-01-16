@@ -23,19 +23,19 @@ publishDate: "2024-01-16T00:00:00Z"
 publication_types: ["9"]
 
 # Publication name and optional abbreviated publication name.
-publication: "*Zenodo*"
+publication: "Zenodo"
 publication_short: ""
 
 abstract: ''
 
 # Summary. An optional shortened abstract.
-summary: 'The data consists of the following:
+summary: "The data consists of the following:
 
 1) Site-scale carbon flux data for an IARI experimental wheat site for the growing season 2013–2014 in New Delhi (28°40' N, 77°12' E).
 2) The simulation data in NetCDF format comprises carbon fluxes such as GPP, NPP, Ra, Rh, and NEE.
 3) Harvested wheat area of spring wheat across the Indian wheat-growing regions.
 4) Site-scale NEP (gC/m2/mon) measured at Meerut (29°05′33″N, 77°41′53″E; growing season 2009-2010) and Saharanpur (29° 52′ 19.139″ N and   
-   077° 34′ 01.621″ E; growing season 2014-15) extracted from published work (Patel et al., 2011; Patel et al., 2021, respectively)'
+   077° 34′ 01.621″ E; growing season 2014-15) extracted from published work (Patel et al., 2011; Patel et al., 2021, respectively)"
 
 tags:
 - Source Themes
