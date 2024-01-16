@@ -8,8 +8,6 @@ authors:
 - Vinay Kumar Sehgal
 - Vangala Gayatri
 author_notes:
-- "Equal contribution"
-- "Equal contribution"
 date: "2023-01-25T00:00:00Z"
 doi: "https://doi.org/10.5194/esd-14-915-2023"
 
