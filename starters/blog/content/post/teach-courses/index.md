@@ -67,51 +67,43 @@ renders as
 
 ## Math
 
-Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the `math` option in your `config/_default/params.yaml` file.
+Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. Enable math by setting the `math: true` option in your page's front matter, or enable math for your entire site by toggling math in your `config/_default/params.yaml` file:
 
-To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively.
+```yaml
+features:
+  math:
+    enable: true
+```
 
-{{% callout note %}}
-We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown.
-{{% /callout %}}
+To render _inline_ or _block_ math, wrap your LaTeX math with `$...$` or `$$...$$`, respectively.
 
 Example **math block**:
 
 ```latex
-{{</* math */>}}
 $$
 \gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}
 $$
-{{</* /math */>}}
 ```
 
 renders as
 
-{{< math >}}
 $$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-{{< /math >}}
 
-Example **inline math** `{{</* math */>}}$\nabla F(\mathbf{x}_{n})${{</* /math */>}}` renders as {{< math >}}$\nabla F(\mathbf{x}_{n})${{< /math >}}.
+Example **inline math** `$\nabla F(\mathbf{x}_{n})$` renders as $\nabla F(\mathbf{x}_{n})$.
 
 Example **multi-line math** using the math linebreak (`\\`):
 
 ```latex
-{{</* math */>}}
 $$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
 1-p_{0}^{*} & \text{if }k=0.\end{cases}$$
-{{</* /math */>}}
 ```
 
 renders as
-
-{{< math >}}
 
 $$
 f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} & \text{if }k=1, \\
 1-p_{0}^{*} & \text{if }k=0.\end{cases}
 $$
-
-{{< /math >}}
 
 ## Code
 

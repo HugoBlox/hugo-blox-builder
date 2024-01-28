@@ -3,7 +3,7 @@
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-title: Creator's Blog (Hugo Theme) # Website name
+title: "Creator's Blog (Hugo Theme)" # Website name
 baseURL: 'https://example.com/' # Website URL
 
 ############################
@@ -70,11 +70,6 @@ taxonomies:
   author: authors
 markup:
   _merge: deep
-  highlight:
-    codeFences: true
-    noHl: false
-    noClasses: false
-    lineNos: false
 related:
   threshold: 80
   includeNewer: true
@@ -87,4 +82,6 @@ related:
 security:
   _merge: deep
 sitemap:
+  _merge: deep
+minify:
   _merge: deep
