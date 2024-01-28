@@ -7,6 +7,20 @@ markup:
       attribute:
         block: true
         title: true
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - - \[
+              - \]
+            - - $$
+              - $$
+          inline:
+            - - \(
+              - \)
+            - - $
+              - $
   highlight:
     codeFences: true
     noHl: false
@@ -24,7 +38,7 @@ sitemap:
   changefreq: weekly
 module:
   hugoVersion:
-    min: '0.119.0'
+    min: '0.122.0'
     extended: true
   imports:
     - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics
