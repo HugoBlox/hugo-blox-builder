@@ -1,0 +1,35 @@
+{{/*
+Docs: https://docs.hugoblox.com/content/writing-markdown-latex/
+*/}}
+
+{{- $url := .Get "url" -}}
+{{- $is_external := strings.HasPrefix $url "http" -}}
+{{- $url = cond (strings.HasPrefix $url "/") ($url | relURL) $url -}}
+
+{{- $icon := .Get "icon" -}}
+{{- $title := .Get "title" -}}
+{{- $subtitle := .Get "subtitle" -}}
+
+<a
+  class="hb-card group"
+  {{- if $url -}}
+    href="{{ $url }}" {{ with $is_external }}target="_blank" rel="noreferrer"{{ end -}}
+  {{- end -}}
+>
+
+  {{/* Adjust padding depending on content */}}
+  {{- $padding := "p-4" -}}
+  {{- with $subtitle -}}
+    {{- $padding = "pt-4 px-4" -}}
+  {{- end -}}
+
+  <span class="hb-card-title {{ $padding }}">
+    {{- with $icon }}
+      {{ partial "functions/get_icon" (dict "name" $icon "attributes" "style=\"height: 1em; width: 1em;\"") -}}
+    {{- end -}}
+    {{- $title -}}
+  </span>
+  {{- with $subtitle -}}
+    <div class="hb-card-subtitle">{{- $subtitle | markdownify -}}</div>
+  {{- end -}}
+</a>

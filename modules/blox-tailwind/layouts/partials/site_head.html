@@ -253,7 +253,8 @@
   {{- $js_theme := resources.Get "js/hb-theme.js" | resources.Minify -}}
   {{- $js_lang := resources.Get "js/hb-i18n.js" | resources.Minify -}}
   {{- $js_nav := resources.Get "js/hb-nav.js" | resources.Minify -}}
-  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
+  {{- $js_sidebar := resources.Get "js/hb-sidebar.js" | resources.Minify -}}
+  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav $js_sidebar | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}

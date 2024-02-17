@@ -1,5 +1,7 @@
 @import "page.css";
 @import "task-list.css";
 @import "copy.css";
-@import "sidebar.css";
+@import "sidebar-left.css";
 @import "charts.css";
+@import "steps.css";
+@import "cards.css";

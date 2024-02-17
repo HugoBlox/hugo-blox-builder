@@ -7,7 +7,7 @@
 {{ $block := .wcBlock }}
 <div class="relative isolate px-6 pt-14 lg:px-8">
 
-  <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+  <div class="mx-auto max-w-2xl {{if not ($block.design.no_padding | default false) }}py-32 sm:py-48 lg:py-56{{end}}">
 
     {{ if $block.content.announcement.text }}
     {{ $announcement := $block.content.announcement }}

@@ -71,5 +71,5 @@
 */
 
 .powered-by a {
-  @apply underline text-blue-600 hover:text-blue-800
+  @apply underline text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200;
 }

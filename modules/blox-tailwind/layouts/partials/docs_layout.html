@@ -1,0 +1,20 @@
+<div class="mx-auto flex max-w-screen-xl">
+  {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" false) }}
+  {{ partial "components/toc.html" . }}
+  <article class="flex w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] justify-center break-words pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+    <main class="prose prose-slate lg:prose-xl dark:prose-invert w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+      <div class="mb-1">
+        {{ partial "components/breadcrumb.html" . }}
+      </div>
+
+      <div class="content">
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+      </div>
+
+      {{ partial "components/last-edited.html" . }}
+      {{ partial "components/next-in-series.html" . }}
+      {{ partial "comments.html" . }}
+    </main>
+  </article>
+</div>

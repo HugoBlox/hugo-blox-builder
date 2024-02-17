@@ -1,0 +1,43 @@
+:root {
+  --hb-cols: 2;
+}
+
+
+.hb-cards {
+  grid-template-columns: repeat(auto-fill, minmax(max(250px, calc((100% - 1rem * 2) / var(--hb-cols))), 1fr));
+}
+
+.hb-card {
+  @apply flex flex-col justify-start overflow-hidden rounded-lg border border-gray-200 text-current no-underline dark:shadow-none hover:shadow-gray-100 dark:hover:shadow-none shadow-gray-100 active:shadow-sm active:shadow-gray-200 transition-all duration-200;
+  @apply hover:border-gray-300 bg-transparent shadow-sm dark:border-neutral-800 hover:bg-slate-50 hover:shadow-md dark:hover:border-neutral-700 dark:hover:bg-neutral-900;
+}
+
+.hb-card-title {
+  @apply flex font-semibold items-start gap-2 text-gray-700 hover:text-gray-900 dark:text-neutral-200 dark:hover:text-neutral-50 items-center;
+}
+
+.hb-card-subtitle {
+  @apply line-clamp-3 text-sm font-normal text-gray-500 dark:text-gray-400 px-4 mb-4 mt-2;
+}
+
+.hb-card:hover svg {
+  color: currentcolor;
+}
+
+.hb-card svg {
+  width: 1.5rem;
+  color: #0003;
+  transition: color 0.3s ease;
+}
+
+.hb-card p {
+  margin-top: 0.5rem;
+}
+
+.dark .hb-card svg {
+  color: #fff6;
+}
+
+.dark .hb-card:hover svg {
+  color: currentcolor;
+}
