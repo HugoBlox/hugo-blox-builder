@@ -1,9 +1,16 @@
 ---
-title: Docs
-type: book # Do not modify.
-toc: false
+linkTitle: Documentation
+title: Introduction
 ---
 
-Welcome to the _Project Docs_ template!
+👋 Welcome to the demo of the Hugo Blox Documentation template!
 
-{{< cta cta_text="👉 Get Started with Chapter 1" cta_link="chapter1" >}}
+<!--more-->
+
+This site is a demo of the Hugo Blox Documentation theme. For the full documentation on how to use this template, refer to the [Hugo Blox Documentation](https://docs.hugoblox.com/).
+
+## Next
+
+{{< cards >}}
+  {{< card url="getting-started" title="Get Started" icon="document-text" subtitle="Create your docs in just 5 minutes!" >}}
+{{< /cards >}}
