@@ -16,6 +16,10 @@ cascade:
       path: /docs/**
     editable: true
     show_breadcrumb: true
+    # Hide date from Next In Series
+    show_date: false
+    # Show date modified at end of content
+    show_date_updated: true
   # Blog post options
   - _target:
       path: /post/**
