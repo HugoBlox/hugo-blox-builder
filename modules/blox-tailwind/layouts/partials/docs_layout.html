@@ -13,6 +13,7 @@
       </div>
 
       {{ partial "components/last-edited.html" . }}
+      {{ .Scratch.Set "invert_pager" true }}
       {{ partial "components/next-in-series.html" . }}
       {{ partial "comments.html" . }}
     </main>
