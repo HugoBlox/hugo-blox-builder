@@ -1,6 +1,6 @@
 {{- $last_updated := T "last_updated" -}}
 
-{{- if .Params.show_date_updated | and .Lastmod -}}
+{{- if (.Params.show_date_updated | default true) | and .Lastmod -}}
   {{ $datetime := (time.Format "2006-01-02T15:04:05.000Z" .Lastmod) }}
   <time class="mt-12 mb-8 block text-xs text-gray-500 ltr:text-right rtl:text-left dark:text-gray-400" datetime="{{ $datetime }}">
     <span>{{ $last_updated }}</span>

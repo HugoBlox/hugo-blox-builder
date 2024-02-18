@@ -1,5 +1,5 @@
 .hb-steps {
-  @apply ml-4 mb-12 pl-6 border-l border-gray-200 dark:border-neutral-800 [counter-reset:hb_step];
+  @apply ml-4 mb-12 pl-6 border-l border-gray-200 dark:border-neutral-600 [counter-reset:hb_step];
 }
 
 .hb-steps h3 {
@@ -8,8 +8,8 @@
   &::before {
     @apply absolute w-[33px] h-[33px];
     @apply rounded-full border-4 border-white dark:border-slate-300;
-    @apply bg-gray-100 dark:bg-neutral-800;
-    @apply text-neutral-400 text-base font-normal text-center -indent-px;
+    @apply bg-gray-100 dark:bg-hb-dark;
+    @apply text-neutral-700 dark:text-neutral-200 text-base font-normal text-center -indent-px;
     @apply mt-[3px] ml-[-41px];
     content: counter(hb-step);
   }

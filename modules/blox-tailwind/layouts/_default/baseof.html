@@ -5,7 +5,7 @@
 <html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{else}}dir="ltr"{{end}}
       data-wc-theme-default="{{ (lower site.Params.appearance.mode) | default "system" }}">
   {{ partial "site_head" . }}
-  <body class="dark:bg-gray-800 dark:text-white-800 page-wrapper" id="top">
+  <body class="dark:bg-hb-dark dark:text-white page-wrapper" id="top">
     <div id="page-bg"></div>
     <div class="page-header {{ if site.Params.header.navbar.fixed_to_top }}sticky top-0 z-30{{ end }}">
       {{/* Load header block */}}

@@ -31,7 +31,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 #site-header.header {
-  @apply bg-white dark:bg-slate-900 py-3 shadow;
+  @apply bg-white dark:bg-zinc-800 py-3 shadow;
 }
 
 /* navbar items */

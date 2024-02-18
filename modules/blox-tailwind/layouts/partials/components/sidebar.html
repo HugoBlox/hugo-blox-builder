@@ -15,7 +15,7 @@
     <!-- Currently, use the navbar search button instead -->
     {{/* partial "search.html" */}}
   </div>
-  <div class="hb-scrollbar">
+  <div class="hb-scrollbar md:h-[calc(100vh-var(--navbar-height))]">
     <ul class="flex flex-col gap-1 md:hidden">
       <!-- Navigation links -->
       {{ template "menu-links" (dict "context" site.Home "pageURL" $page_url "page" $context "toc" true) -}}
@@ -128,7 +128,7 @@
     {{- if .active }}
       sidebar-active-item bg-primary-100 font-semibold text-primary-800 dark:bg-primary-300 dark:text-primary-900
     {{- else }}
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-100/5 dark:hover:text-gray-50
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50
     {{- end -}}"
     href="{{ .link }}"
     {{ if $is_external }}target="_blank" rel="noreferer"{{ end }}

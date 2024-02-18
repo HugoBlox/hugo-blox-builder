@@ -9,7 +9,7 @@
 
 .hb-card {
   @apply flex flex-col justify-start overflow-hidden rounded-lg border border-gray-200 text-current no-underline dark:shadow-none hover:shadow-gray-100 dark:hover:shadow-none shadow-gray-100 active:shadow-sm active:shadow-gray-200 transition-all duration-200;
-  @apply hover:border-gray-300 bg-transparent shadow-sm dark:border-neutral-800 hover:bg-slate-50 hover:shadow-md dark:hover:border-neutral-700 dark:hover:bg-neutral-900;
+  @apply hover:border-gray-300 bg-transparent shadow-sm dark:border-neutral-700 hover:bg-slate-50 hover:shadow-md dark:hover:border-neutral-600 dark:hover:bg-neutral-800;
 }
 
 .hb-card-title {
@@ -26,7 +26,7 @@
 
 .hb-card svg {
   width: 1.5rem;
-  color: #0003;
+  @apply text-neutral-700;
   transition: color 0.3s ease;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .dark .hb-card svg {
-  color: #fff6;
+  @apply text-neutral-300;
 }
 
 .dark .hb-card:hover svg {

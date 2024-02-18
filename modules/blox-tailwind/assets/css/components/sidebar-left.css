@@ -1,6 +1,6 @@
 @media (max-width: 767px) {
   .hb-sidebar-container {
-    @apply fixed top-0 w-full bottom-0 z-[15] pt-[calc(var(--navbar-height))] overscroll-contain bg-white dark:bg-slate-700;
+    @apply fixed top-0 w-full bottom-0 z-[15] pt-[calc(var(--navbar-height))] overscroll-contain;
     contain: layout style;
     backface-visibility: hidden;
     transition: transform 0.8s cubic-bezier(0.52, 0.16, 0.04, 1);
@@ -23,11 +23,11 @@
 }
 
 .hb-sidebar-list {
-  @apply relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-800;
+  @apply relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-700;
 }
 
 .hb-scrollbar {
-  @apply overflow-y-auto overflow-x-hidden p-4 grow md:h-[calc(100vh-var(--navbar-height)-var(--menu-height))];
+  @apply overflow-y-auto overflow-x-hidden p-4 grow;
 
   scrollbar-width: thin;
   scrollbar-color: oklch(55.55% 0 0 / 40%) transparent;

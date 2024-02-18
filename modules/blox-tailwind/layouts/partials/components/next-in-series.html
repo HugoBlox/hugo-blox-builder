@@ -6,14 +6,14 @@
       {{ $next = .PrevInSection }}
       {{ $prev = .NextInSection }}
     {{ end }}
-<div class="pt-1 no-prose">
+<div class="pt-1 no-prose w-full">
   <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
   <div class="flex flex-col md:flex-row flex-nowrap justify-between gap-5 pt-2">
-    <div class="flex-1 flex-grow">
+    <div class="">
       {{ if $prev }}
         <a class="group flex no-underline" href="{{ $prev.RelPermalink }}">
           <span
-            class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+            class="mt-[-0.3rem] me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
           ><span class="ltr:inline rtl:hidden">&larr;</span></span>
           <span class="flex flex-col">
             <span
@@ -28,7 +28,7 @@
         </a>
       {{ end }}
     </div>
-    <span class="flex-1 flex-grow">
+    <div class="">
       {{ if $next }}
         <a class="group flex text-right no-underline" href="{{ $next.RelPermalink }}">
           <span class="flex flex-col">
@@ -43,11 +43,11 @@
             </span>
           </span>
           <span
-            class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+            class="mt-[-0.3rem] ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
           ><span class="ltr:inline">&rarr;</span></span>
         </a>
       {{ end }}
-    </span>
+    </div>
   </div>
 </div>
 {{ end }}
