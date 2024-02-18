@@ -8,8 +8,8 @@ A Hugo extension to create cards. Cards can be shown as links or as plain text.
 ## Usage
 
 {{< cards >}}
-  {{< card link="../" title="Learn Shortcodes" icon="academic-cap" >}}
-  {{< card link="" title="A card without an icon or link" >}}
+  {{< card url="../" title="Learn Shortcodes" icon="academic-cap" >}}
+  {{< card url="" title="A card without an icon or link" >}}
 {{< /cards >}}
 
 is rendered by:

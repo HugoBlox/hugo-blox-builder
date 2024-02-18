@@ -54,7 +54,7 @@ sections:
             for support
     design:
       # Section background color (CSS class)
-      css_class: "bg-gray-100 dark:bg-gray-900"
+      css_class: "bg-gray-100 dark:bg-gray-800"
       # Reduce spacing
       spacing:
         padding: ["1rem", 0, "1rem", 0]
