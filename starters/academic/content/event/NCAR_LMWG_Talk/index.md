@@ -1,9 +1,8 @@
 ---
-title: "Improving the representation of major Indian crops in Community Land Surface Model version 5.0 (CLM5)
-using site-scale cropdataset and evaluating the impact on surface fluxes"
+title: Improving the representation of major Indian crops in Community Land Surface Model version 5.0 (CLM5) using site-scale cropdataset and evaluating the impact on surface fluxes
 
 event: Land Model and Biogeochemistry Working Group Meeting 2024
-event_url: https://www.cesm.ucar.edu/events/working-groups/2024/land-biogeochemistry
+event_url: "https://www.cesm.ucar.edu/events/working-groups/2024/land-biogeochemistry"
 #date_format: 'yyyy-mm-ddThh:mm:ssZ'
 
 location: Remote (online)
@@ -53,5 +52,5 @@ url_video: ''
 #   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
 #   Otherwise, set `projects = []`.
 projects:
-  - ISRO-IITD Geosphere-Biosphere Program
+  - ISRO-IITD GBP
 ---
