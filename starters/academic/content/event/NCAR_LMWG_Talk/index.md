@@ -19,7 +19,7 @@ all_day: false
 # Schedule page publish date (NOT talk date).
 publishDate: '2024-02-22T16:00:00Z'
 
-authors: admin
+authors: [K Narender Reddy, Somnath Baidya Roy, Sam Rabin]
 tags: []
 
 # Is this a featured talk? (true/false)
