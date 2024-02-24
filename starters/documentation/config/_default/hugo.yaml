@@ -37,14 +37,6 @@ cascade:
     header:
       navbar:
         enable: true
-  # Blog section options
-  - _target:
-      path: /post/*
-      kind: section
-    # Change url to /blog/
-    url:  /blog/
-    # Set the listing view
-    view: date-title-summary
 
 ############################
 ## LANGUAGE
@@ -70,6 +62,7 @@ footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
 enableInlineShortcodes: true
 permalinks:
+  post: '/blog/:slug/'
   authors: '/author/:slug/'
   tags: '/tag/:slug/'
   categories: '/category/:slug/'
