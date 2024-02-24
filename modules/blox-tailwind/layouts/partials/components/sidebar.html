@@ -2,7 +2,7 @@
 
 {{- $no_sidebar := .no_sidebar | default true -}}
 {{- $pad_sidebar := true -}}
-{{- $sidebar_dynamic_class := cond $no_sidebar (cond $pad_sidebar "md:hidden xl:block" "md:hidden") "md:sticky" -}}
+{{- $sidebar_dynamic_class := cond $no_sidebar (cond $pad_sidebar "lg:hidden xl:block" "lg:hidden") "lg:sticky" -}}
 
 {{- $root_section := cond (eq site.Home.Type "docs") site.Home $context.FirstSection -}}
 {{- $page_url := $context.RelPermalink -}}
@@ -10,14 +10,14 @@
 {{/* Classes appended to `hb-sidebar-mobile-menu` are modified via sidebar JS, so do not @apply them to `hb-sidebar-mobile-menu` */}}
 <div class="hb-sidebar-mobile-menu fixed inset-0 z-10 bg-white dark:bg-black/80 hidden"></div>
 <!-- Explicit `transform` class as we toggle it in JS -->
-<aside class="hb-sidebar-container max-md:[transform:translate3d(0,-100%,0)] {{ $sidebar_dynamic_class }}">
+<aside class="hb-sidebar-container max-lg:[transform:translate3d(0,-100%,0)] {{ $sidebar_dynamic_class }}">
   <!-- Search bar on small screen -->
-  <div class="px-4 pt-4 md:hidden">
+  <div class="px-4 pt-4 lg:hidden">
     <!-- Currently, use the navbar search button instead -->
     {{/* partial "search.html" */}}
   </div>
-  <div class="hb-scrollbar md:h-[calc(100vh-var(--navbar-height))]">
-    <ul class="flex flex-col gap-1 md:hidden">
+  <div class="hb-scrollbar lg:h-[calc(100vh-var(--navbar-height))]">
+    <ul class="flex flex-col gap-1 lg:hidden">
       <!-- Navigation links -->
       {{ template "menu-links" (dict "context" site.Home "pageURL" $page_url "page" $context "toc" true) -}}
       {{ template "custom-menu-links" }}
@@ -27,7 +27,7 @@
     {{- if $no_sidebar -}}
       <div class="max-xl:hidden h-0 w-64 shrink-0"></div>
     {{- else -}}
-      <ul class="flex flex-col gap-1 max-md:hidden">
+      <ul class="flex flex-col gap-1 max-lg:hidden">
         {{ template "menu-links" (dict "context" $root_section "page" $context  "pageURL" $page_url) }}
         {{ template "custom-menu-links" }}
       </ul>

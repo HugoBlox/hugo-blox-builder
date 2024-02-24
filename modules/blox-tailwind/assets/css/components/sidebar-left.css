@@ -1,15 +1,16 @@
-@media (max-width: 767px) {
+/* Match Tailwind lg (default 1024px): https://tailwindcss.com/docs/screens */
+@media (max-width: 1024px) {
   .hb-sidebar-container {
     @apply fixed top-0 w-full bottom-0 z-[15] pt-[calc(var(--navbar-height))] overscroll-contain;
     contain: layout style;
-    backface-visibility: hidden;
     transition: transform 0.8s cubic-bezier(0.52, 0.16, 0.04, 1);
     will-change: transform, opacity;
+    backface-visibility: hidden;
   }
 }
 
 .hb-sidebar-container {
-  @apply flex flex-col print:hidden md:top-16 md:shrink-0 md:w-64 md:self-start;
+  @apply flex flex-col print:hidden lg:top-16 lg:shrink-0 lg:w-64 lg:self-start;
 
   li > div {
     @apply h-0;

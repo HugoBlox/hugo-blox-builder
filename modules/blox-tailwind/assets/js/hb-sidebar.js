@@ -31,12 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // See `hb-nav.js` - it handles the default behavior (irrespective of if sidebar is shown).
 
     // When menu is open, show the navigation sidebar
-    sidebarContainer.classList.toggle('max-md:[transform:translate3d(0,-100%,0)]');
-    sidebarContainer.classList.toggle('max-md:[transform:translate3d(0,0,0)]');
+    sidebarContainer.classList.toggle('max-lg:[transform:translate3d(0,-100%,0)]');
+    sidebarContainer.classList.toggle('max-lg:[transform:translate3d(0,0,0)]');
 
     // When menu is open, prevent body from scrolling
     document.body.classList.toggle('overflow-hidden');
-    document.body.classList.toggle('md:overflow-auto');
+    document.body.classList.toggle('lg:overflow-auto');
   }
 
   menu.addEventListener('click', (e) => {
