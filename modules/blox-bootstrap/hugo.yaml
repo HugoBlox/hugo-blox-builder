@@ -24,7 +24,7 @@ sitemap:
   changefreq: weekly
 module:
   hugoVersion:
-    min: '0.119.0'
+    min: '0.123.3'
     extended: true
   imports:
     - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-core
