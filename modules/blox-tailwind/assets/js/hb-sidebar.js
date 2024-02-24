@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Initialize the overlay
-  const overlayClasses = ['fixed', 'z-10', 'inset-0', 'bg-black/80', 'dark:bg-black/60'];
+  const overlayClasses = ['fixed', 'z-10', 'inset-0', 'bg-white', 'dark:bg-black/80'];
   overlay.classList.add('bg-transparent');
   overlay.classList.remove("hidden", ...overlayClasses);
 

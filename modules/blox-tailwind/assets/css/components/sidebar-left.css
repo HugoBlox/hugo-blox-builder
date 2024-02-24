@@ -58,7 +58,7 @@
 }
 
 .hb-sidebar-mobile-menu {
-  @apply fixed inset-0 z-10 bg-black/80 dark:bg-black/60 hidden [transition:background-color_1.5s_ease];
+  @apply [transition:background-color_0.5s_ease];
 }
 
 .hb-sidebar-mobile-toc {
