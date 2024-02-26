@@ -20,10 +20,10 @@
   {{ with index (index site.Data.icons.hb "icons") $name -}}
     {{ $icon = . }}
   {{ else }}
-    {{ with resources.GetMatch (printf "media/icons/%s.svg" (path.Join $pack .name)) }}
+    {{ with resources.GetMatch (path.Join "media" "icons" $pack (printf "%s.svg" $name)) }}
       {{ $icon = .Content }}
     {{else}}
-      {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/%s` folder" .name $pack }}
+      {{ warnf "The icon `%s.svg` was not found in your `assets/media/icons/%s/` folder" $name $pack }}
       {{ $icon = index (index site.Data.icons.brands "icons") "hugo" }}
     {{ end }}
   {{ end }}
