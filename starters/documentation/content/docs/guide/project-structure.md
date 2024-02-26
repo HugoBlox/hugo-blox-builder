@@ -11,7 +11,7 @@ There are **4 main folders for Hugo-based sites**:
   - `_index.md` the homepage (**Hugo requires that the homepage and archive pages have an underscore prefix**)
 - `assets/`
   - `media/` for your media files (images, videos)
-    - `icons/` upload any custom SVG icons you want to use
+    - `icons/custom/` upload any custom SVG icons you want to use
 - `config/_default/` for your site configuration files
   - `hugo.yaml` to configure Hugo (site title, URL, Hugo options, setup per-folder page features)
   - `module.yaml` to install or uninstall Hugo themes and plugins
