@@ -34,6 +34,10 @@ links:
     icon_pack: fab
     name: Follow
     url: https://twitter.com/vivekreddy
+  - icon: youtube
+    icon_pack: fab
+    name: watch
+    url: https://www.youtube.com/@NCAR_CGD
 url_code: ''
 url_pdf: ''
 url_slides: ''
