@@ -19,7 +19,7 @@ all_day: false
 # Schedule page publish date (NOT talk date).
 publishDate: '2024-02-29T21:05:00Z'
 
-authors: [K Narender Reddy, Somnath Baidya Roy, Sam Rabin, Danica Lombardozzi]
+authors: [K Narender Reddy, Somnath Baidya Roy, Sam Rabin, Danica Lombardozzi, G V Varma, Ruchira Biswas, D Chiru Naik]
 tags: []
 
 # Is this a featured talk? (true/false)
