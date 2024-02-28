@@ -103,15 +103,15 @@ skills:
       - name: Python
         description: ''
         percent: 80
-        icon: code-bracket
-      - name: Data Science
+        icon: devicon/python
+      - name: RStudio
         description: ''
         percent: 100
-        icon: chart-bar
-      - name: SQL
+        icon: devicon/rstudio
+      - name: PyTorch
         description: ''
         percent: 40
-        icon: circle-stack
+        icon: devicon/pytorch
   - name: Hobbies
     color: '#eeac02'
     color_border: '#f0bf23'
