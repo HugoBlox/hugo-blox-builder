@@ -1,4 +1,4 @@
-module github.com/wowchemy/hugo-documentation-theme
+module github.com/HugoBlox/theme-documentation
 
 go 1.15
 

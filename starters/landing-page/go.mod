@@ -1,4 +1,4 @@
-module my_website
+module github.com/HugoBlox/theme-landing-page
 
 go 1.19
 

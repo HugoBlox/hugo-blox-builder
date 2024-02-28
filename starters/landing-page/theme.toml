@@ -1,0 +1,15 @@
+name = "Landing Page Builder"
+license = "MIT"
+licenselink = "https://github.com/HugoBlox/theme-landing-page/blob/main/LICENSE.md"
+description = "Easily build your landing page with pre-designed blocks. Create beautiful startup websites, marketing websites, and landing pages to accelerate your business growth."
+
+homepage = "https://github.com/HugoBlox/theme-landing-page"
+demosite = "https://theme-landing-page.netlify.app/"
+
+tags = ["landing", "docs", "blog", "responsive", "minimal", "light", "dark", "multilingual", "dark mode", "tailwind", "company", "gallery"]
+features = ["secure", "fast", "search", "dark mode", "widgets"]
+
+# If the theme has a single author
+[author]
+  name = "George Cushen"
+  homepage = "https://georgecushen.com/"
