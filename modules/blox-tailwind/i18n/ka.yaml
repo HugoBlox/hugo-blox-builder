@@ -258,7 +258,6 @@
 
 - id: cookie_message
   translation: თვენი საუკეთესო გამოცდილების უზრუნველსაყოფად, ეს საიტი ქუქი-ფაილებს იყენებს.
-  This website uses cookies to ensure you get the best experience on our website.
 
 - id: cookie_dismiss
   translation: კარგი!
@@ -269,8 +268,7 @@
 # Published with
 
 - id: published_with
-  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
-  გამოქვეყნებულია {hugoblox}-ით, უფასო, {repo_link}ღია წყაროს{/repo_link} მქონე ვებ-საიტების შემქმნელით.
+  translation: გამოქვეყნებულია {hugoblox}-ით, უფასო, {repo_link}ღია წყაროს{/repo_link} მქონე ვებ-საიტების შემქმნელით.
 
 # Feedback widget
 
