@@ -37,7 +37,7 @@ links:
   - icon: youtube
     icon_pack: fab
     name: watch
-    url: https://www.youtube.com/@NCAR_CGD
+    url: https://www.youtube.com/watch?v=et2nOz82Gq0
 url_code: ''
 url_pdf: ''
 url_slides: ''
