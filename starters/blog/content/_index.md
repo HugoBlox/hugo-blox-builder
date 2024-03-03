@@ -16,7 +16,7 @@ sections:
     content:
       filters:
         folders:
-          - post
+          - blog
     design:
       spacing:
         padding: ['3rem', 0, '6rem', 0]
