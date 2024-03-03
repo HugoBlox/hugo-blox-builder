@@ -22,7 +22,7 @@ cascade:
     show_date_updated: true
   # Blog post options
   - _target:
-      path: /post/**
+      path: /blog/**
       kind: page
     pager: true
     editable: true
@@ -62,7 +62,6 @@ footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
 enableInlineShortcodes: true
 permalinks:
-  post: '/blog/:slug/'
   authors: '/author/:slug/'
   tags: '/tag/:slug/'
   categories: '/category/:slug/'

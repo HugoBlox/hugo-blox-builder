@@ -13,7 +13,7 @@ baseURL: 'https://example.com/' # Website URL
 cascade:
   # Blog post options
   - _target:
-      path: /post/**
+      path: /blog/**
       kind: page
     pager: true
     editable: true

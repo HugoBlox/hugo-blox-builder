@@ -13,7 +13,7 @@ baseURL: 'https://example.com/' # Website URL
 cascade:
   # Blog post options
   - _target:
-      path: /post/**
+      path: /blog/**
       kind: page
     pager: true
     editable: true
@@ -30,10 +30,8 @@ cascade:
         enable: true
   # Blog section options
   - _target:
-      path: /post/*
+      path: /blog/*
       kind: section
-    # Change url to /blog/
-    url: /blog/
     # Set the listing view
     view: date-title-summary
 
@@ -60,7 +58,6 @@ enableRobotsTXT: true
 footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
 permalinks:
-  post: '/blog/:slug/'
   authors: '/author/:slug/'
   tags: '/tag/:slug/'
   categories: '/category/:slug/'
