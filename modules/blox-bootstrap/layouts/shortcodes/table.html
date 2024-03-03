@@ -1,5 +1,5 @@
 {{/* Table Shortcode for Hugo Blox Builder. */}}
-{{/* Load a CSV table from page dir falling back back to remote URL */}}
+{{/* Load a CSV table from page dir falling back to remote URL */}}
 {{/* Defaults to expecting a comma-separated CSV with a header row. */}}
 
 {{/*
@@ -23,17 +23,17 @@
 {{ $caption := .Get "caption" }}
 
 {{ $is_remote := strings.HasPrefix $src "http" }}
-{{ if not $is_remote }}
-  {{ $src = path.Join  "content" $.Page.File.Dir $src }}
-{{ end }}
-{{ $rows := getCSV $delimiter $src }}
+{{ $rows := transform.Unmarshal (dict "delimiter" $delimiter) (.Page.Resources.Get $src).Content }}
 
 <table class="table">
   {{ if $useHeaderRow }}
     {{ $headerRow := index $rows 0 }}
     {{ $rows = after 1 $rows }}
-    <tr> {{ range $headerRow }} <th>{{ . | markdownify | emojify }}</th> {{ end }} </tr>
+    <thead>
+      <tr> {{ range $headerRow }} <th>{{ . | markdownify | emojify }}</th> {{ end }} </tr>
+    </thead>
   {{ end }}
+  <tbody>
   {{ range $rows }}
     <tr>
       {{ range . }}
@@ -45,6 +45,7 @@
       {{ end }}
     </tr>
   {{ end }}
+  </tbody>
   {{ if $caption }}
     <caption>{{ $caption | markdownify | emojify }}</caption>
   {{ end }}
