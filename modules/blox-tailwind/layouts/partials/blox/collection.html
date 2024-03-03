@@ -115,7 +115,7 @@
   {{/* Localisation */}}
   {{ $items_type := $archive_page.Type }}
   {{ $i18n := "" }}
-  {{ if eq $items_type "post" }}
+  {{ if eq $items_type "blog" }}
     {{ $i18n = "more_posts" }}
   {{ else if eq $items_type "event" }}
     {{ $i18n = "more_talks" }}

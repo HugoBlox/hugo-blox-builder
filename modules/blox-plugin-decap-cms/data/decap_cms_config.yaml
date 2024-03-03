@@ -86,9 +86,9 @@ collections:
         required: false
         widget: "list"
   - name: posts
-    label: Posts
-    label_singular: Post
-    folder: 'content/post'
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: 'content/blog'
     path: '{{slug}}/index'
     filter: {field: "cms_exclude"}
     create: true  # Allow users to create new documents in this collection

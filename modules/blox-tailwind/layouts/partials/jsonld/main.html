@@ -12,7 +12,7 @@
 
 {{- else if $page.IsPage -}}
 
-  {{ if (eq $page.Type "post") | or (eq $page.Type "publication") | or (eq $page.Type "project") }}
+  {{ if (eq $page.Type "blog") | or (eq $page.Type "publication") | or (eq $page.Type "project") }}
     {{ partial "jsonld/article.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 
