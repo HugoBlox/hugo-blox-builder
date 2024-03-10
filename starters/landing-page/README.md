@@ -1,6 +1,6 @@
 # [Hugo Landing Page Theme](https://github.com/HugoBlox/theme-landing-page)
 
-[![Screenshot](./.github/preview.webp)](https://hugoblox.com/templates/)
+[![Screenshot](https://raw.githubusercontent.com/HugoBlox/theme-landing-page/main/.github/preview.webp)](https://hugoblox.com/templates/)
 
 The Hugo **Landing Page Template** empowers you to easily create startup websites, marketing websites, and landing pages to accelerate your business growth.
 
