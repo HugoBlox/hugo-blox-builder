@@ -19,3 +19,7 @@
 {{- with site.Params.marketing.verification.baidu -}}
 <meta name="baidu-site-verification" content="{{ . }}" />
 {{- end -}}
+
+{{ with site.Params.marketing.verification.naver }}
+  <meta name="naver-site-verification" content="{{ . }}" />
+{{- end -}}
