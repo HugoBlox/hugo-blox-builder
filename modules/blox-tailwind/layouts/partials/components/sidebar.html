@@ -7,8 +7,12 @@
 {{- $root_section := cond (eq site.Home.Type "docs") site.Home $context.FirstSection -}}
 {{- $page_url := $context.RelPermalink -}}
 
-{{/* Classes appended to `hb-sidebar-mobile-menu` are modified via sidebar JS, so do not @apply them to `hb-sidebar-mobile-menu` */}}
-<div class="hb-sidebar-mobile-menu fixed inset-0 z-10 bg-white dark:bg-black/80 hidden"></div>
+{{/* Only replace explicit mobile menu links with automated links for Docs pages */}}
+{{ if not $no_sidebar }}
+  {{/* Classes appended to `hb-sidebar-mobile-menu` are modified via sidebar JS, so do not @apply them to `hb-sidebar-mobile-menu` */}}
+  <div class="hb-sidebar-mobile-menu fixed inset-0 z-10 bg-white dark:bg-black/80 hidden"></div>
+{{ end }}
+
 <!-- Explicit `transform` class as we toggle it in JS -->
 <aside class="hb-sidebar-container max-lg:[transform:translate3d(0,-100%,0)] {{ $sidebar_dynamic_class }}">
   <!-- Search bar on small screen -->
