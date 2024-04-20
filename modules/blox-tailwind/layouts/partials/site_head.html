@@ -69,6 +69,16 @@
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ end }}
 
+  {{/* Load community blox styles */}}
+  {{ $hb_community_styles := resources.Match "dist/community/blox/**.css" }}
+  {{ with $hb_community_styles }}
+    {{ $hb_community_styles = $hb_community_styles | resources.Concat "css/community-hugo-blox.css" }}
+    {{- if hugo.IsProduction -}}
+      {{- $hb_community_styles = $hb_community_styles | minify | fingerprint "sha256" -}}
+    {{- end -}}
+    <link href="{{ $hb_community_styles.RelPermalink }}" rel="stylesheet" />
+  {{ end }}
+
   {{ if fileExists "assets/css/custom.css" }}
     {{ $styles := resources.Get "css/custom.css" | minify | fingerprint "sha256" }}
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
