@@ -1,6 +1,6 @@
 # [Hugo Online Course Theme](https://github.com/wowchemy/starter-hugo-online-course)
 
-[![Screenshot](./preview.png)](https://hugoblox.com/hugo-themes/)
+[![Screenshot](preview.png)](https://hugoblox.com/hugo-themes/)
 
 The **Online Course Template** empowers you easily create an online course or coaching business with the open source [**Hugo Blox Builder**](https://hugoblox.com/) for [Hugo](https://github.com/gohugoio/hugo). This Hugo learning theme helps you to teach the way that you want to learn!
 

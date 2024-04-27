@@ -17,27 +17,27 @@ jobs:
       matrix:
         # define package to repository map
         package:
-          - local_path: 'academic-cv'
+          - local_path: 'starters-bootstrap/academic-cv'
             split_repository: 'theme-academic-cv'
-          - local_path: 'resume'
+          - local_path: 'starters/resume'
             split_repository: 'theme-resume'
-          - local_path: 'markdown-slides'
+          - local_path: 'starters-bootstrap/markdown-slides'
             split_repository: 'theme-markdown-slides'
-          - local_path: 'blog'
+          - local_path: 'starters/blog'
             split_repository: 'theme-blog'
-          - local_path: 'documentation'
+          - local_path: 'starters/documentation'
             split_repository: 'theme-documentation'
-          - local_path: 'portfolio'
+          - local_path: 'starters-bootstrap/portfolio'
             split_repository: 'theme-portfolio'
-          - local_path: 'course'
+          - local_path: 'starters-bootstrap/course'
             split_repository: 'theme-online-course'
-          - local_path: 'link-in-bio'
+          - local_path: 'starters/link-in-bio'
             split_repository: 'theme-link-in-bio'
-          - local_path: 'research-group'
+          - local_path: 'starters-bootstrap/research-group'
             split_repository: 'theme-research-group'
-          - local_path: 'second-brain'
+          - local_path: 'starters-bootstrap/second-brain'
             split_repository: 'theme-second-brain'
-          - local_path: 'landing-page'
+          - local_path: 'starters/landing-page'
             split_repository: 'theme-landing-page'
 
     steps:
@@ -48,7 +48,7 @@ jobs:
         uses: "symplify/monorepo-split-github-action@v2.3.0"
         with:
           # ↓ split "packages/<package-name><package-name>" directory
-          package_directory: 'starters/${{ matrix.package.local_path }}'
+          package_directory: '${{ matrix.package.local_path }}'
 
           # ↓ into https://github.com/HugoBlox/<package-name> repository
           repository_organization: 'HugoBlox'
