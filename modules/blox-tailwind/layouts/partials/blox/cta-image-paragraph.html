@@ -10,8 +10,13 @@
   {{ range $idx, $item := $block.content.items }}
   {{ $title := .title | emojify | $page.RenderString }}
   {{ $text := .text | emojify | $page.RenderString }}
-  {{ $image := resources.GetMatch (path.Join "media" .image) }}
-  {{ $image = $image.Process "Resize 800x webp" }}
+  {{ $image_path := path.Join "media" .image }}
+  {{ $image := resources.GetMatch $image_path }}
+  {{ with $image }}
+    {{ $image = $image.Process "Resize 800x webp" }}
+  {{ else }}
+    {{ errorf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Please add the image to this folder and try again." $page.File.Path $image_path }}
+  {{ end }}
   <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
     <img class="w-full" src="{{$image.RelPermalink}}" alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     <div class="mt-4 md:mt-0">
