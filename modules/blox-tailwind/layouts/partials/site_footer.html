@@ -3,7 +3,7 @@
   {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
 
   {{/* Load footer block */}}
-  {{ $footer_section_name := site.Params.footer.block | default "minimal" }}
+  {{ $footer_section_name := site.Params.footer.blox | default "minimal" }}
   {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
   {{ if not (templates.Exists (printf "partials/%s" $footer_section_path)) }}
     {{ errorf "Check your `params.yaml`. Cannot find footer block at `layouts/partials/%s`" $footer_section_path }}
