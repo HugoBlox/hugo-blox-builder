@@ -107,6 +107,17 @@
 - id: user_profile_latest
   translation: Latest
 
+# Countdown widget
+
+- id: days
+  translation: Days
+- id: hours
+  translation: Hours
+- id: minutes
+  translation: Minutes
+- id: seconds
+  translation: Seconds
+
 # Accomplishments widget
 
 - id: see_certificate

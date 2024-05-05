@@ -123,12 +123,15 @@
 
 {{ $widget_class := printf "blox-%s" (replace (replace $block_type "." "-") "_" "-") }}
 
-{{ $widget_config_file := printf "blocks/%s-config.html" $block_type }}
-{{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
-  {{ $cfg := partial $widget_config_file $widget_args }}
-  {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}
-  {{ with $cfg.inject_section_heading }}{{ $use_cols = . }}{{ end }}
-{{end}}
+{{/* Now loaded in `init.html` */}}
+{{/*
+  {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
+  {{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
+    {{ $cfg := partial $widget_config_file $widget_args }}
+    {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}
+    {{ with $cfg.inject_section_heading }}{{ $use_cols = . }}{{ end }}
+  {{end}}
+*/}}
 
 {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
 <section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>

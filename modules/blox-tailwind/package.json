@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
+    "alpinejs": "^3.13.10",
     "dotenv": "^16.3.1",
     "katex": "^0.16.9",
     "markmap-autoloader": "^0.15.4",

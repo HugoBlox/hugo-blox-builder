@@ -23,11 +23,6 @@
       {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">{{ . | $page.RenderString | emojify }}</p>{{end}}
 
       {{ if $block.content.primary_action.url }}
-        {{ $pack := or $block.content.primary_action.icon_pack "fas" }}
-        {{ $pack_prefix := $pack }}
-        {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-          {{ $pack_prefix = "fa" }}
-        {{ end }}
         {{ $link := $block.content.primary_action.url }}
         {{ $scheme := (urls.Parse $link).Scheme }}
         {{ $target := "" }}

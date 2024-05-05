@@ -134,7 +134,8 @@
   </script>
 
   {{/* Analytics & Verification */}}
-  {{ partial "blox-analytics/index" . }}
+  {{/* !CACHED! All analytics and verification code is at site level */}}
+  {{ partialCached "blox-analytics/index" . }}
 
   {{/* RSS Feed */}}
   {{ with .OutputFormats.Get "RSS" }}
@@ -163,7 +164,8 @@
   {{ else if $sharing_image }}
     {{ $og_image = $sharing_image.Permalink }}
   {{ else if $has_logo }}
-    {{ $og_image = (partial "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
+    {{/* !CACHED! Can safely cache this site logo variant */}}
+    {{ $og_image = (partialCached "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
     {{ $twitter_card = "summary" }}
   {{ else }}
     {{ $og_image = (partial "functions/get_site_icon" 512).Permalink }}
@@ -247,6 +249,7 @@
   {{ end }}
 
   {{/* Init prior to auto-chunking/bundling scripts due to Hugo concurrency issues */}}
+  {{/* !CACHED! Initialized once at site level and then cached for each page */}}
   {{- partialCached "init.html" . -}}
 
   {{/* Load Third-Party Libraries */}}

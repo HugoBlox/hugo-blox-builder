@@ -14,6 +14,7 @@ module.exports = {
     './layouts/**/*.html',
     '**/libs/chroma/*.css',
     './**/*.svg',
+    '../../starters/**/*.html',
     ...content_extra,
     // ...(process.env.HB_TPL ? '../../starters/'+process.env.HB_TPL+'/hugo_stats.json' : './hugo_stats.json'),
   ],
@@ -25,7 +26,7 @@ module.exports = {
     'pl-4', 'pl-8', 'pl-12',   /* TOC indents */
     'min-h-screen', /* Blox options */
   ],
-  whitelistPatterns: [/^bg-white/, /^bg-gray-/, /^bg-primary-/], /* /^pl-/ for TOC */
+  whitelistPatterns: [/^bg-white/, /^bg-gray-/, /^bg-primary-/, /^bg-gradient-/, /^from-primary-/, /^to-primary-/], /* /^pl-/ for TOC */
   darkMode: ['class'],
   theme: {
     extend: {

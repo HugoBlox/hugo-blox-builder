@@ -30,6 +30,8 @@ export default defineConfig({
       "src": "node_modules/katex/dist/fonts/", "dest": "katex/"
     }, {
       "src": "node_modules/markmap-autoloader/dist/index.js", "dest": "markmap/"
+    }, {
+      "src": "node_modules/alpinejs/dist/cdn.min.js", "dest": "alpinejs/"
     },
     ],
     hook: "buildStart", enforce: 'pre'

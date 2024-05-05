@@ -4,7 +4,8 @@
 
 {{ $logo_url := "" }}
 {{ if resources.Get "media/logo.png" | or (resources.Get "media/logo.svg") }}
-  {{ $logo_url = (partial "functions/get_logo" (dict "constraint" "fit" "size" 192)).Permalink }}
+  {{/* !CACHED! Can safely cache this site logo variant */}}
+  {{ $logo_url = (partialCached "functions/get_logo" (dict "constraint" "fit" "size" 192)).Permalink }}
 {{ else }}
   {{ $logo_url = (partial "functions/get_site_icon" 192).Permalink }}
 {{ end }}

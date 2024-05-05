@@ -1,3 +1,10 @@
+{{/* Load Alpine JS extension? */}}
+{{ if (.Page.Store.Get "has_alpine") }}
+  {{ $alpine_js := resources.Get "dist/lib/alpinejs/cdn.min.js" }}
+  {{ $alpine_js = $alpine_js | resources.Fingerprint "sha256" }}
+  <script src="{{ $alpine_js.RelPermalink }}" integrity="{{ $alpine_js.Data.Integrity }}" defer></script>
+{{ end }}
+
 {{/* Show site search? */}}
 {{ $show_search := site.Params.header.navbar.show_search | default false }}
 {{ if $show_search }}
