@@ -19,9 +19,9 @@ main:
   - name: Publications
     url: '#publications'
     weight: 50
-  - name: Hobbies
-    url: '#hobbies'
-    weight: 60
+ # - name: Hobbies
+ #   url: '#hobbies'
+ #   weight: 60
   - name: Contact
     url: '#contact'
     weight: 70
