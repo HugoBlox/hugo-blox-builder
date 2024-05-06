@@ -10,7 +10,7 @@
 */}}
 {{ $icon := "information-circle" }}
 {{ $class := "bg-primary-100 dark:bg-primary-900" }}
-{{ $class_text := "text-primary-400" }}
+{{ $class_text := "text-primary-600 dark:text-primary-300" }}
 {{ with (.Get 0) }}
   {{ if eq . "note" }}
     {{ $icon = "information-circle" }}
@@ -22,7 +22,7 @@
     {{ $icon = . }}
   {{end}}
 {{end}}
-<div class="flex px-4 py-3 rounded-md {{$class}}">
+<div class="flex px-4 py-3 mb-6 rounded-md {{$class}}">
 <span class="pr-3 pt-1 {{$class_text}}">
   {{ partial "functions/get_icon" (dict "name" $icon "attributes" "height=\"24\"") }}
 </span>
