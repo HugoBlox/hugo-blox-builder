@@ -29,7 +29,7 @@ sections:
   - block: collection
     id: publications
     content:
-      title: Publications
+      title: Published Articles, Dataset, and Conference abstracts
       text: |-
         {{% callout note %}}
         Quickly discover relevant content by [filtering publications](./publication/).
