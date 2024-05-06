@@ -14,7 +14,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Early Career Scientist [https://www.egu.eu/ecs/]
+role: Early Career Scientist
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -77,7 +77,7 @@ social:
 email: ''
 
 # Highlight the author in author lists? (true/false)
-highlight_name: false
+highlight_name: true
 ---
 
 I am a research scholar at the Centre for Atmospheric Sciences, Indian Institute of Technology Delhi. My primary research interests include land surface modeling, crop modeling, and associated surface fluxes. I also have expertise in wind farm layout optimization using machine learning. I am part of the IIT Delhi team of the ISRO-IITD Geosphere-Biosphere Program (GBP), which aims to improve the CLM5 land surface model to simulate Indian agroecosystems accurately.
