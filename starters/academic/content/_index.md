@@ -140,8 +140,8 @@ sections:
       design:
       columns: '2'
       view: compact
-  - block: collection
-    id: hobbies
+  #- block: collection
+  #  id: hobbies
     content:
       title: Hobbies
       text: |-
