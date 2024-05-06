@@ -5,4 +5,5 @@
 @import "main.css";
 @import "./components/all.css";
 @import "./blox/all.css";
+@import "./views/attachments.css";
 @import "chroma.css";
