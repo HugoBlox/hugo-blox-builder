@@ -152,14 +152,14 @@ sections:
   #    design:
   #    columns: '2'
   #    view: compact
-  - block: markdown
-    content:
-      title: Gallery
-      subtitle: 'Here are some moments captured through my camera lens'
-      text: |-
-        {{< gallery album="demo" >}}
-    design:
-      columns: '1'
+  #- block: markdown
+  #  content:
+  #    title: Gallery
+  #    subtitle: 'Here are some moments captured through my camera lens'
+  #    text: |-
+  #      {{< gallery album="demo" >}}
+  #  design:
+  #    columns: '1'
   - block: contact
     id: contact
     content:
