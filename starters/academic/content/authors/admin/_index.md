@@ -14,8 +14,9 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Early Career Scientist
-url: https://www.egu.eu/ecs/
+role: 
+  - name: Early Career Scientist
+    url: https://www.egu.eu/ecs/
 
 # Organizations/Affiliations to show in About widget
 organizations:
