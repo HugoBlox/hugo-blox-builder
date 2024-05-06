@@ -216,7 +216,15 @@
 
   {{/* Load font theme */}}
   {{ $font_family := "Inter var" }}
-  {{ $font_file := "Inter.var.woff2" }}
+  {{ $font_file := "" }}
+  {{ $font_type := "" }}
+  {{ if eq site.Params.appearance.font "serif" }}
+    {{ $font_file = "RobotoSlab-VariableFont_wght.ttf" }}
+    {{ $font_type = "truetype" }}
+  {{else}}
+    {{ $font_file = "Inter.var.woff2" }}
+    {{ $font_type = "woff2" }}
+  {{end}}
   {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
   <style>
     @font-face {
@@ -224,7 +232,7 @@
       font-style: normal;
       font-weight: 100 900;
       font-display: swap;
-      src: url({{ $font.RelPermalink }}) format("woff2");
+      src: url({{ $font.RelPermalink }}) format({{$font_type}});
     }
   </style>
 
