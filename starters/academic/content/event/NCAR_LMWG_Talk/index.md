@@ -36,7 +36,7 @@ links:
     url: https://twitter.com/vivekreddy
   - icon: youtube
     icon_pack: fab
-    name: watch
+    name: watch (2:00 to 25:00)
     url: https://www.youtube.com/watch?v=et2nOz82Gq0
 url_code: ''
 url_pdf: ''
