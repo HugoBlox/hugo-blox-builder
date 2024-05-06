@@ -13,6 +13,7 @@
 {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your Skill block and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
 {{end}}
 {{ $skills := $person_page.Params.skills }}
+{{ $show_show_skill_percentage := $block.design.show_skill_percentage | default true }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
@@ -52,7 +53,7 @@
         {{ .name | markdownify | emojify }}
         {{ with .description }}<p class="skills-description">{{ . | markdownify | emojify }}</p>{{ end }}
       </span>
-      {{ if .percent }}
+      {{ if .percent | and $show_show_skill_percentage }}
       <div class="skills-wrapper" {{with $color_border}}{{ (printf "style=\"border-color: %s\"" .) | safeHTMLAttr }}{{end}}>
         <div class="skills-percent" style="width: {{ (printf "%s" (cast.ToString (.percent | default 100))) | safeCSS }}%; {{with $color}}{{ (printf "background-color: %s" .) | safeCSS }}{{end}}"></div>
       </div>
