@@ -142,16 +142,16 @@ sections:
       view: compact
   #- block: collection
   #  id: hobbies
-    content:
-      title: Hobbies
-      text: |-
-        The things I do to take a break from my regular job and add enjoyment and relaxation to my days.
-      filters:
-        folders:
-          - hobbies
-      design:
-      columns: '2'
-      view: compact
+  #  content:
+  #   title: Hobbies
+  #    text: |-
+  #      The things I do to take a break from my regular job and add enjoyment and relaxation to my days.
+  #    filters:
+  #      folders:
+  #        - hobbies
+  #    design:
+  #    columns: '2'
+  #    view: compact
   - block: markdown
     content:
       title: Gallery
