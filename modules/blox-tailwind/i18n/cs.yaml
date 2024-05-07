@@ -174,7 +174,7 @@
 - id: location
   translation: Místo
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: Materiál ke konferenci
 
 - id: pub_article_journal

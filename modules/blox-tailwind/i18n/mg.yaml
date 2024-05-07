@@ -174,7 +174,7 @@
 - id: location
   translation: Toerana
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: Taratasy fihaonambe
 
 - id: pub_article_journal
