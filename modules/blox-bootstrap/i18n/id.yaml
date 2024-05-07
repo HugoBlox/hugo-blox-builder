@@ -174,7 +174,7 @@
 - id: location
   translation: Lokasi
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: Kertas konferensi
 
 - id: pub_article_journal

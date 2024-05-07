@@ -174,7 +174,7 @@
 - id: location
   translation: 場所
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: 学会論文
 
 - id: pub_article_journal

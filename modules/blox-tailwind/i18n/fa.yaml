@@ -174,7 +174,7 @@
 - id: location
   translation: مکان
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: مقاله کنفرانسی
 
 - id: pub_article_journal

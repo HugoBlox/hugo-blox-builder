@@ -174,7 +174,7 @@
 - id: location
   translation: Lokation
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: Konference artikel
 
 - id: pub_article_journal

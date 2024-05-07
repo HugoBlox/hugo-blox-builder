@@ -174,7 +174,7 @@
 - id: location # Location
   translation: অবস্থান
 
-- id: paper-conference # Conference paper
+- id: pub_paper_conference # Conference paper
   translation: সম্মেলন নিবন্ধ
 
 - id: pub_article_journal # Journal article

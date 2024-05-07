@@ -174,7 +174,7 @@
 - id: location
   translation: Meel
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: Qoraal Shir
 
 - id: pub_article_journal

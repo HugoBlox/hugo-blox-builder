@@ -174,7 +174,7 @@
 - id: location
   translation: Τοποθεσία
 
-- id: paper-conference
+- id: pub_paper_conference
   translation: Conference paper
 
 - id: pub_article_journal
