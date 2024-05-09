@@ -107,6 +107,17 @@
 - id: user_profile_latest
   translation: Najnovije
 
+# Countdown widget
+
+- id: days
+  translation: Dani
+- id: hours
+  translation: Sati
+- id: minutes
+  translation: Minute
+- id: seconds
+  translation: Sekunde
+
 # Accomplishments widget
 
 - id: see_certificate
