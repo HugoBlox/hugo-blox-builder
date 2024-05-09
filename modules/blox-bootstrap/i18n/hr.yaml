@@ -1,0 +1,285 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Promjeni navigaciju
+
+- id: table_of_contents
+  translation: Sadržaj
+
+- id: on_this_page
+  translation: Na ovoj stranici
+
+- id: back_to_top
+  translation: Natrag na vrh
+
+- id: home
+  translation: Početna stranica
+
+- id: close
+  translation: Zatvori
+
+- id: languages
+  translation: Jezici
+
+# General
+
+- id: related
+  translation: Povezano
+
+- id: minute_read
+  translation: Čitanje u minutama
+
+- id: previous
+  translation: Prethodni
+
+- id: next
+  translation: Sljedeći
+
+- id: figure
+  translation: 'Slika %d:'
+
+- id: edit_page
+  translation: Promjeni ovu stranicu
+
+# Themes
+
+- id: theme_selector
+  translation: Postavke prikaza
+
+- id: theme_light
+  translation: Svjetla
+
+- id: theme_dark
+  translation: Tamna
+
+- id: theme_auto
+  translation: Automatska
+
+# Buttons
+
+- id: btn_preprint
+  translation: Pretisak
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Citiraj
+
+- id: btn_slides
+  translation: Slajdovi
+
+- id: btn_video
+  translation: Video
+
+- id: btn_code
+  translation: Kod
+
+- id: btn_dataset
+  translation: Set podataka
+
+- id: btn_project
+  translation: Projekt
+
+- id: btn_poster
+  translation: Poster
+
+- id: btn_source
+  translation: Izvorni Dokument
+
+- id: btn_copy
+  translation: Kopiraj
+
+- id: btn_copied
+  translation: Kopirano
+
+- id: btn_download
+  translation: Preuzmi
+
+# About widget
+
+- id: interests
+  translation: Interesi
+
+- id: education
+  translation: Obrazovanje
+
+- id: user_profile_latest
+  translation: Najnovije
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: See certifikat
+
+# Experience widget
+
+- id: experience
+  translation: Iskustvo
+
+- id: present
+  translation: Trenutno
+
+# Pages widget
+
+- id: read_more
+  translation: Pročitaj više
+
+- id: more_pages
+  translation: Vidi sve
+
+- id: more_posts
+  translation: Vidi sve objave
+
+- id: more_talks
+  translation: Vidi sve događaje
+
+- id: more_publications
+  translation: Vidi sve publikacije
+
+# Contact widget
+
+- id: contact_name
+  translation: Ime
+
+- id: contact_email
+  translation: Email
+
+- id: contact_message
+  translation: Poruka
+
+- id: contact_attachment
+  translation: Dodaj privitak
+
+- id: contact_send
+  translation: Pošalji
+
+- id: book_appointment
+  translation: Dogovori sastanak
+
+# Publication/Event details
+
+- id: abstract
+  translation: Sažetak
+
+- id: publication
+  translation: Publikacija
+
+- id: publication_type
+  translation: Tip
+
+- id: date
+  translation: Datum
+
+- id: last_updated
+  translation: Zadnji put ažurirano
+
+- id: event
+  translation: Događaj
+
+- id: location
+  translation: Lokacija
+
+- id: pub_paper_conference
+  translation: Rad na konferenciji
+
+- id: pub_article_journal
+  translation: Rad u časopisu
+
+- id: pub_article
+  translation: Pretisak
+
+- id: pub_report
+  translation: Izvještaj
+
+- id: pub_book
+  translation: Knjiga
+
+- id: pub_chapter
+  translation: Poglavlje u knjizi
+
+- id: pub_thesis
+  translation: Doktorski rad
+
+- id: pub_patent
+  translation: Patent
+
+# Project details
+
+- id: open_project_site
+  translation: Idi na Stranicu Projekta
+
+# Content types for default archive page titles and search results
+
+- id: posts
+  translation: Objave
+
+- id: publications
+  translation: Publikacije
+
+- id: talks
+  translation: Događaji
+
+- id: projects
+  translation: Projekti
+
+- id: slides
+  translation: Prezentacije
+
+- id: authors
+  translation: Autori
+
+# Search
+
+- id: search
+  translation: Pretraži
+
+- id: search_placeholder
+  translation: Pretraži...
+
+- id: search_results
+  translation: pronađeni rezultati
+
+- id: search_no_results
+  translation: Nisu pronađeni rezultati 
+
+- id: search_common_queries
+  translation: Česta pretraživanja
+
+# Error 404
+
+- id: page_not_found
+  translation: Stranica nije pronađena
+
+- id: 404_recommendations
+  translation: Možda ste tražili nešto od ovoga?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Ova web stranica koristi kolačiće kako bi vam osigurala najbolje iskustvo na našoj web stranici.
+
+- id: cookie_dismiss
+  translation: Shvaćam!
+
+- id: cookie_learn
+  translation: Saznajte više
+
+# Published with
+
+- id: published_with
+  translation: Objavljeno pomoću {hugoblox} — besplatnog alata za izradu web stranica {repo_link}otvorenog koda{/repo_link} koji osnažuje kreatore.
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Povratne informacije
+
+- id: feedback_widget_question
+  translation: Je li ova stranica bila korisna?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Da
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Ne
