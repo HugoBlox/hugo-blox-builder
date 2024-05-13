@@ -42,6 +42,9 @@
   {{ $archive_page = site.GetPage (printf "publication_types/%s" $block.content.filters.publication_type) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
+{{ if $block.content.filters.exclude_publication_type }}
+  {{ $query = $query | complement (site.GetPage (printf "publication_types/%s" $block.content.filters.exclude_publication_type)).Pages }}
+{{ end }}
 {{ if $block.content.filters.author }}
   {{ $archive_page = site.GetPage (printf "authors/%s" (urlize $block.content.filters.author)) }}
   {{ $query = $query | intersect $archive_page.Pages }}
