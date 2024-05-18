@@ -11,6 +11,10 @@ Make sure to check out [uses.tech](https://uses.tech/) for a list of everyone's 
 
 I often get asked about what software or hardware I use, so this page will serve as a living document and a place to point curious readers to when I get asked.
 
+## Website
+
+- [Hugo Blox](https://hugoblox.com) (see the tutorial on [Getting Started](/blog/get-started/))
+
 ## Editor + Terminal
 
 - [Visual Studio Code](https://code.visualstudio.com/) is my current editor
