@@ -38,6 +38,8 @@
     </div>
     {{- end -}}
 
+    {{ partial "components/backlinks" . }}
+
     {{ partial "functions/get_hook" (dict "hook" "toc-end" "context" .) }}
 
   </div>

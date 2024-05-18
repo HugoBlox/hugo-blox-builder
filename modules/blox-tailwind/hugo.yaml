@@ -1,13 +1,20 @@
 markup:
   defaultMarkdownHandler: goldmark
   goldmark:
+    renderHooks:
+      link:
+        # Process backlinks hook
+        enableDefault: true
     renderer:
+      # Render HTML in Markdown
       unsafe: true
     parser:
+      # Support Latex math(?)
       attribute:
         block: true
         title: true
     extensions:
+      # Support Latex math
       passthrough:
         enable: true
         delimiters:
@@ -21,7 +28,18 @@ markup:
               - \)
             - - $
               - $
+      extras:
+        # Enable subscript, superscript, and highlighting with ~,^, and == wrappers
+        insert:
+          enable: false
+        mark:
+          enable: true
+        subscript:
+          enable: true
+        superscript:
+          enable: true
   highlight:
+    # Enable code highlighting
     codeFences: true
     noHl: false
     lineNumbersInTable: false
@@ -31,14 +49,16 @@ markup:
     startLevel: 2
     endLevel: 3
 minify:
+  minifyOutput: true
   tdewolff:
     html:
       keepComments: true
+      keepSpecialComments: true
 sitemap:
   changefreq: weekly
 module:
   hugoVersion:
-    min: '0.122.0'
+    min: '0.126.0'
     extended: true
   imports:
     - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics
@@ -62,6 +82,14 @@ security:
     getenv:
       - ^HUGO_
       - ^WC_
+      - ^HB_
+outputFormats:
+  backlinks:
+    mediaType: application/json
+    baseName: backlinks
+    isPlainText: true
+    notAlternative: true
+    weight: 1
 params:
   locale:
     date_format: 'Jan 2, 2006'

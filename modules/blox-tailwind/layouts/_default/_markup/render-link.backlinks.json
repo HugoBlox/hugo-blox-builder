@@ -1,0 +1,18 @@
+{{- $u := urls.Parse .Destination -}}
+{{- if or $u.IsAbs (strings.HasPrefix $u.String "#") }}
+  {{- /* do nothing */}}
+{{- else }}
+  {{- with .PageInner.GetPage (strings.TrimPrefix "./" $u.Path) }}
+    {{- $source := dict
+      "date" ($.Page.Date.UTC.Format "2006-01-02T15:04:05-07:00")
+      "linkTitle" $.Page.LinkTitle
+      "permalink" $.Page.Permalink
+      "relPermalink" $.Page.RelPermalink
+      "section" $.Page.Section
+      "title" $.Page.Title
+      "type" $.Page.Type
+    }}
+    {{- $el := dict "source" $source "target" .RelPermalink }}
+    {{- site.Home.Store.Add "backlinks" (slice $el) }}
+  {{- end }}
+{{- end }}

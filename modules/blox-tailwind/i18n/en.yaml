@@ -26,6 +26,9 @@
 - id: related
   translation: Related
 
+- id: backlinks
+  translation: Backlinks
+
 - id: minute_read
   translation: min read
 
