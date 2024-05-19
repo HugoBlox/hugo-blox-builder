@@ -17,7 +17,7 @@ jobs:
       matrix:
         # define package to repository map
         package:
-          - local_path: 'starters-bootstrap/academic-cv'
+          - local_path: 'starters/academic-cv'
             split_repository: 'theme-academic-cv'
           - local_path: 'starters/resume'
             split_repository: 'theme-resume'
