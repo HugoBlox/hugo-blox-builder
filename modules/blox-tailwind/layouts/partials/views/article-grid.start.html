@@ -1,2 +1,4 @@
-<div class="container px-8 mx-auto max-w-screen-lg xl:px-5 py-5 lg:py-8">
-  <div class="grid gap-10 md:grid-cols-2 lg:gap-10">
+{{ $columns := .config.columns | default 2 }}
+{{ $len := .config.len | default 2 }}
+<div class="container px-8 mx-auto xl:px-5 py-5 lg:py-8 {{ if eq $len 1 }}max-w-[500px] justify-center{{else}}max-w-screen-lg {{end}}">
+  <div class="grid gap-10 md:grid-cols-{{$columns}} lg:gap-10">
