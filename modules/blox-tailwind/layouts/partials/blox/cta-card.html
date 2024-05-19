@@ -7,7 +7,7 @@
 {{ $block := .wcBlock }}
 
 {{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
 {{ $card_class := $block.design.card.css_class }}
 {{ $card_style := $block.design.card.css_style }}
 
@@ -17,9 +17,9 @@
   <h2 class="text-white text-4xl md:text-6xl tracking-tight">
     {{ $title }}
   </h2>
-  <p class="text-slate-300 mt-4 text-lg md:text-xl">
+  <div class="text-gray-100 mt-4 text-lg md:text-xl prose">
     {{ $text }}
-  </p>
+  </div>
   {{ with $block.content.button }}
   <div class="flex mt-5">
     <a href="{{.url}}" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-white hover:bg-gray-300 text-black border-2 border-transparent">
