@@ -1,21 +1,34 @@
 {{ $item := .item }}
+{{ $fill_image := .config.fill_image | default true }}
 
 {{ $resource := partial "functions/get_featured_image.html" $item }}
 {{ $anchor := $item.Params.image.focal_point | default "Center" }}
 
+{{ $link := $item.Params.external_link | default $item.RelPermalink }}
+{{ $target := "" }}
+{{ if $item.Params.external_link }}
+  {{ $link = $item.Params.external_link }}
+  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+{{ end }}
+
 <div class="group cursor-pointer">
 
   {{ with $resource }}
-  {{ $image := .Fill (printf "655x655 %s" $anchor) }}
+  {{ $image := "" }}
+  {{if $fill_image}}
+    {{ $image = .Fill (printf "960x540 %s" $anchor) }}
+  {{else}}
+    {{ $image = .Fit (printf "960x540 %s" $anchor) }}
+  {{end}}
   {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
   <div class="overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
 
     <a
       class="relative block aspect-video"
-      href="{{ $item.RelPermalink }}">
+      href="{{ $link }}" {{ $target | safeHTMLAttr }}>
 
       <img alt="{{ $item.Title | plainify }}"
-           class="object-cover transition-all"
+           class="{{if $fill_image}}object-fill{{else}}object-contain{{end}} transition-all"
            data-nimg="fill"
            decoding="async"
            fetchpriority="high" height="{{ $image.Height }}" loading="lazy" src="{{ $image.RelPermalink }}"
@@ -33,14 +46,15 @@
       </div>
       <!--          <div class="relative line-clamp-2" style="display: block; height: 4em">-->
       <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
-        href="{{ $item.RelPermalink }}"><span
+        href="{{ $link }}" {{ $target | safeHTMLAttr }}><span
         class="bg-gradient-to-r from-primary-200 to-primary-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-primary-800 dark:to-primary-900">
            {{- $item.Title -}}
+           {{if $target}}{{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-6 w-6 pl-2\"")  }}{{end}}
           </span></a>
       </h2>
       <!--          </div>-->
       <div class="grow"><p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"><a
-        href="{{ $item.RelPermalink }}">
+        href="{{ $link }}" {{ $target | safeHTMLAttr }}>
         {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | chomp -}}
       </a></p>
       </div>

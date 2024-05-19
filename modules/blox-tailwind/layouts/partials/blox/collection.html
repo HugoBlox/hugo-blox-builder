@@ -94,11 +94,11 @@
 
 <div class="flex flex-col items-center">
 
-  {{ $config := dict "columns" ($block.design.columns | default 2) "len" (len $query) }}
+  {{ $config := dict "columns" ($block.design.columns | default 2) "len" (len $query) "fill_image" ($block.design.fill_image | default true) }}
   {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view "config" $config) }}
 
   {{ range $index, $item := $query }}
-    {{ partial "functions/render_view" (dict "page" $block "item" . "view" $view "index" $index) }}
+    {{ partial "functions/render_view" (dict "page" $block "item" . "view" $view "index" $index "config" $config) }}
   {{end}}
 
   {{ partial "functions/render_view" (dict "fragment" "end" "page" $block "item" . "view" $view) }}
