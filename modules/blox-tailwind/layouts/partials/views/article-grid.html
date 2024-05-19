@@ -28,7 +28,7 @@
       <div class="flex gap-3">
         {{ range $index, $value := first 1 ($item.GetTerms "tags") }}
         <a href="{{.RelPermalink}}"><span
-          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-600 dark:text-primary-300">{{ .Page.LinkTitle }}</span></a>
+          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-700 dark:text-primary-300">{{ .Page.LinkTitle }}</span></a>
         {{end}}
       </div>
       <!--          <div class="relative line-clamp-2" style="display: block; height: 4em">-->
@@ -47,6 +47,7 @@
       <div class="flex-none">
         <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
           <!--          <a href="">-->
+          {{ if .Params.authors }}
           <div class="flex items-center gap-3">
             {{ range $index, $value := first 1 ($item.GetTerms "authors") }}
             <div class="relative h-5 w-5 flex-shrink-0">
@@ -64,7 +65,9 @@
             </div>
             <span class="truncate text-sm">
                 {{- .Page.LinkTitle -}}
-              </span></div>
+              </span>
+          </div>
+          {{end}}
           <!--          </a>-->
           <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
           {{end}}
@@ -73,6 +76,7 @@
           </time>
         </div>
       </div>
+
     </div>
   </div>
 </div>
