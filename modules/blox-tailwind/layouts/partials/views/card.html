@@ -24,7 +24,7 @@
       <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
         {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | chomp -}}
       </p>
-      <p class="mt-2 text-gray-500 dark:text-gray-400">
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">
         {{- $item.Date | time.Format (site.Params.locale.date_format | default ":date_long") -}}
       </p>
     </div>
