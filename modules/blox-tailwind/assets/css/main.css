@@ -30,6 +30,10 @@
   @apply py-24; /* last:mb-0 */
 }
 
+.section-subheading {
+  @apply font-bold text-xl;
+}
+
 /* Fill padding of `.home-section` parent */
  .home-section-bg {
    position: absolute;

@@ -1,0 +1,158 @@
+{{/* Hugo Blox: Biography */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{ $author := $block.content.username | default "admin" }}
+
+{{ $person_page_path := (printf "/authors/%s" $author) }}
+{{ $person_page := site.GetPage $person_page_path }}
+{{ if not $person_page }}
+  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
+{{end}}
+{{ $person := $person_page.Params }}
+{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+{{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
+
+
+<div class="resume-biography px-3 flex flex-col md:flex-row justify-center gap-12">
+  <div class="flex-none m-w-[130px] mx-auto md:mx-0">
+
+  {{ $img := "" }}
+  {{with $block.design.banner.filename}}
+  {{- $img = resources.Get (path.Join "media" .) -}}
+  {{ if $img }}
+    {{- $img = $img.Process "webp" -}}
+    <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
+      <div class="w-full bg-white rounded dark:bg-gray-800">
+        <div class="h-2/4 sm:h-64 overflow-hidden w-full">
+          <img class="w-full object-cover"
+               src="{{$img.RelPermalink}}"
+               width="{{$img.Width}}" height="{{$img.Height}}"
+               alt="" />
+        </div>
+      </div>
+    </div>
+  {{ end }}
+  {{ end }}
+
+  <div id="profile" class="flex justify-center items-center flex-col">
+    {{ if $avatar }}
+
+    <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}">
+      {{ $avatar_image := $avatar.Fill "150x150 Center" }}
+      <img class="avatar rounded-full bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$person_page.Title}}"
+           width="{{ $avatar_image.Width }}" height="{{ $avatar_image.Height }}">
+      {{with $person.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
+    </div>
+    {{ end }}
+
+    <div class="portrait-title dark:text-white">
+
+      <div class="text-3xl font-bold mb-2 mt-6">
+        {{- if $person.name_pronunciation -}}
+          <ruby>
+            <rb>{{ $person_page.Title }}</rb>
+            <rt>{{ $person.name_pronunciation }}</rt>
+          </ruby>
+        {{- else -}}
+          {{- $person_page.Title -}}
+        {{- end -}}
+      </div>
+
+      {{ with $person.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
+
+      {{ range $person.organizations }}
+      <div class="mb-2">
+        {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+        <div>{{ .name }}</div>
+        {{ if .url }}</a>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+
+    <ul class="network-icon dark:text-zinc-100">
+      {{ range $person.profiles }}
+      {{ $pack := or .icon_pack "fas" }}
+      {{ $pack_prefix := $pack }}
+      {{ if in (slice "fab" "fas" "far" "fal") $pack }}
+        {{ $pack_prefix = "fa" }}
+      {{ end }}
+      {{ $link := .url | default .link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+        {{ $link = (.url | default .link) | relLangURL }}
+        {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <li>
+        <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}"
+           {{ with .label }} data-toggle="tooltip" data-placement="top" title="{{.}}"{{ end }}>
+          {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1.5rem;\"")  }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  </div>
+
+  <div class="flex-auto max-w-prose md:mt-12">
+    {{ with ($block.content.text | emojify | $page.RenderString) | default $person_page.Content }}
+    <div class="pt-2 justify-content-center prose prose-slate dark:prose-invert">
+      <div class="bio-text" {{ with $block.design.biography.style }}{{ (printf "style=\"%s\"" .) | safe.HTMLAttr }}{{end}}>
+        {{ . }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{ with $block.content.button }}
+    <a href="{{.url}}" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+      <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+    </svg> {{.text}}</a>
+    {{ end }}
+
+
+
+
+  <div class="grid grid-cols-2 gap-4 justify-between mt-6 dark:text-gray-300">
+
+    {{ with $person.interests }}
+    <div class="">
+      <div class="section-subheading mb-3">{{ i18n "interests" | markdownify }}</div>
+      <ul class="list-disc list-inside space-y-1 pl-5">
+        {{ range . }}
+        <li>
+          {{ . | markdownify | emojify }}
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{ with $person.education }}
+    <div class="">
+      <div class="section-subheading mb-3">{{ i18n "education" | markdownify }}</div>
+      <ul class="">
+        {{ range . }}
+        <li class="flex items-start gap-3">
+          {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"\" class='flex-shrink-0 w-5 h-5 me-2 mt-1'") }}
+          <div class="description">
+            <p class="course">{{ .area }}{{ with .year }}, {{ . }}{{ end }}</p>
+            <p class="text-sm">{{ .institution }}</p>
+          </div>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+  </div>
+
+</div>
+</div>

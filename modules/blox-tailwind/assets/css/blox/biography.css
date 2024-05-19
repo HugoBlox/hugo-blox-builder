@@ -1,4 +1,4 @@
-.blox-resume-biography {
+.resume-biography {
   #profile {
     text-align: center;
     padding: 30px 10px;
@@ -53,18 +53,18 @@
     font-size: 0.9rem;
   }
 
- .ul-edu {
-    list-style: none;
-  }
+ /*.ul-edu {*/
+ /*   list-style: none;*/
+ /* }*/
 
-  .ul-edu li {
-    position: relative;
-    padding: 0 15px 4px 3px;
-  }
+ /* .ul-edu li {*/
+ /*   position: relative;*/
+ /*   padding: 0 15px 4px 3px;*/
+ /* }*/
 
-  .ul-edu li .description p {
-    margin: 0;
-  }
+ /* .ul-edu li .description p {*/
+ /*   margin: 0;*/
+ /* }*/
 
   .ul-edu li .description p.course {
     font-size: 0.9rem;
