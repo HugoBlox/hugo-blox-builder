@@ -16,10 +16,10 @@
   translation: Home
 
 - id: close
-  translation: Close
+  translation: Schließen
 
 - id: languages
-  translation: 语言
+  translation: Sprachen
 
 # General
 
@@ -27,7 +27,7 @@
   translation: Ähnliches
 
 - id: minute_read
-  translation: min Lesezeit
+  translation: Min Lesezeit
 
 - id: previous
   translation: Zurück
@@ -39,7 +39,7 @@
   translation: 'Abbildung %d:'
 
 - id: edit_page
-  translation: Seite editieren
+  translation: Seite bearbeiten
 
 # Themes
 
@@ -91,7 +91,7 @@
   translation: Kopie
 
 - id: btn_copied
-  translation: Copied
+  translation: Kopiert
 
 - id: btn_download
   translation: Download
@@ -143,7 +143,7 @@
   translation: Nachricht
 
 - id: contact_attachment
-  translation: Attach file
+  translation: Anhang
 
 - id: contact_send
   translation: Senden
@@ -181,7 +181,7 @@
   translation: Journalartikel
 
 - id: pub_article
-  translation: Preprint
+  translation: Vordruck
 
 - id: pub_report
   translation: Bericht
@@ -221,7 +221,7 @@
   translation: Slides
 
 - id: authors
-  translation: Authors
+  translation: Autoren
 
 # Search
 
@@ -238,7 +238,7 @@
   translation: Nichts gefunden
 
 - id: search_common_queries
-  translation: Common searches
+  translation: Allgemeine Suche
 
 # Error 404
 
@@ -262,4 +262,4 @@
 # Published with
 
 - id: published_with
-  translation: Published with {hugoblox} — the free, {repo_link}open source{/repo_link} website builder that empowers creators.
+  translation: Veröffentlicht mit {hugoblox} - dem kostenlosen, {repo_link}Open Source{/repo_link} Website-Builder, der Kreative fördert.
