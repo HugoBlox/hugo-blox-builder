@@ -1,0 +1,23 @@
+{{- /*
+    Docs: https://docs.hugoblox.com/reference/markdown/#include
+
+    Parameters
+    ----------
+    postional parameter 0 :
+        Path to the Markdown file to include, relative to the `content` folder.
+
+    Example
+    ----------
+    {{% include "snippet/intro" %}}
+*/ -}}
+
+{{- with .Get 0 }}
+  {{- $page := . -}}
+  {{- with site.GetPage $page }}
+    {{- .RenderShortcodes }}
+  {{- else }}
+    {{- errorf "The %q shortcode at %s could not locate %q" $.Name $.Position (printf "content/%s.md" .) }}
+  {{- end }}
+{{- else }}
+  {{- errorf "Call the %q shortcode in %s with the path of the Markdown file to include." .Name .Position }}
+{{- end }}
