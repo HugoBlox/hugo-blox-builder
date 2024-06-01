@@ -6,7 +6,7 @@
   {{ if eq .Type "landing" }}
     {{ range $index, $block := .Params.sections }}
       {{/* Do not show sections intended only for the demo site. */}}
-      {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "WC_DEMO") "true")) }}
+      {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "HUGO_BLOX_DEMO") "true")) }}
         {{ $block_type := lower ($block.blox | default $block.block) | default "markdown" }}
         {{ range $r := site.Data.blox_aliases.renames }}
           {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}

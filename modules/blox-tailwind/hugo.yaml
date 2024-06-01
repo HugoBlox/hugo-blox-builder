@@ -80,9 +80,10 @@ module:
 security:
   funcs:
     getenv:
+      # Allow HUGO_ and HUGO_BLOX_ vars
       - ^HUGO_
-      - ^WC_
-      - ^HB_
+      # Allow continuous integration vars
+      - ^CI$
 outputFormats:
   backlinks:
     mediaType: application/json

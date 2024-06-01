@@ -56,7 +56,7 @@
   {{ end }}
 
   {{/* Style */}}
-  {{ if ne (os.Getenv "WC_POSTCSS") "true" }}
+  {{ if ne (os.Getenv "HUGO_BLOX_POSTCSS") "true" }}
     {{ $styles := resources.Get "dist/wc.min.css" }}
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ else }}
