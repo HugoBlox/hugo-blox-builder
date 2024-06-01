@@ -28,7 +28,7 @@
 
 {{ if $person.work }}
 <div class="w-full">
-  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{{ i18n "work_experience" | default "Experience" }}</h3>
+  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{{ i18n "experience" | default "Experience" }}</h3>
   <ol class="relative border-s border-gray-200 dark:border-gray-700">
     {{ range $idx, $key := $person.work }}
     <li class="mb-10 ms-6">
