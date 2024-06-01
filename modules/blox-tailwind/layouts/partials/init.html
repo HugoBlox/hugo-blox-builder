@@ -1,5 +1,6 @@
 {{/* Workaround Hugo concurrency issues (e.g. not detecting Page.Store variables) */}}
-{{/* https://discourse.gohugo.io/t/persisting-data-across-the-build-of-a-site/41114/6 */}}
+{{/* Use cases: Page.Store use within shortcodes, blox, and backlinks. */}}
+{{/* See https://discourse.gohugo.io/t/persisting-data-across-the-build-of-a-site/41114/6 */}}
 {{- range $page := site.AllPages }}
   {{- $noop := .Content }}
   {{ if eq .Type "landing" }}

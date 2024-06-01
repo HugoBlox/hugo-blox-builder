@@ -1,0 +1,18 @@
+{{/*
+    Docs: https://docs.hugoblox.com/reference/markdown/#table-of-contents
+
+    Parameters
+    ----------
+    mobile_only : true/false (optional)
+        Hide TOC on desktop when TOC is shown in right sidebar?
+    is_open : true/false (optional)
+        Show the TOC in the open, expanded state?
+*/}}
+{{ $mobile_only := .Get "mobile_only" | default true }}
+{{ $is_open := .Get "is_open" | default false }}
+<details class="print:hidden {{with $mobile_only}}xl:hidden{{end}}" {{with $is_open}}open{{end}}>
+  <summary>{{ i18n "table_of_contents" }}</summary>
+  <div class="text-sm">
+  {{ $.Page.TableOfContents }}
+  </div>
+</details>
