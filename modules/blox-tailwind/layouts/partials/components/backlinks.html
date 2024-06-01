@@ -1,20 +1,19 @@
 {{ $show_backlinks := .Params.backlinks | default true }}
 {{ if $show_backlinks }}
-  {{- $debug := false }}
-  {{- $backlinks := site.Home.Store.Get "backlinks" | uniq  }}
-  {{- with (where $backlinks "target" .RelPermalink) }}
+  {{ $backlinks := site.Home.Store.Get "backlinks" | uniq }}
+  {{ with (where $backlinks "links_to" .RelPermalink) }}
   <div class="backlinks">
     <div class="mb-1 font-semibold tracking-tight">
-      {{ or (T "backlinks") "Backlinks" }}
+      {{ (T "backlinks") | default "Backlinks" }}
     </div>
     <ul>
-      {{- range (sort . "source.linkTitle" "asc") }}
-      <li><a href="{{ .source.relPermalink }}" class="backlink">{{ .source.linkTitle }}</a></li>
-      {{- end }}
+      {{ range (sort . "page.date" "desc") }}
+      {{ $page := .page }}
+      <li>
+        <a href="{{ $page.relPermalink }}" class="backlink">{{ $page.linkTitle }}</a>
+      </li>
+      {{ end }}
     </ul>
   </div>
-  {{- end }}
-  {{- if $debug }}
-  <pre>{{ jsonify (dict "indent" "  ") $backlinks }}</pre>
-  {{- end }}
+  {{ end }}
 {{ end }}
