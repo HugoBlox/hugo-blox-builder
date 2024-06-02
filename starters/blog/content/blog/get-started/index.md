@@ -20,6 +20,8 @@ tags:
 
 Welcome 👋
 
+{{< toc mobile_only=true is_open=true >}}
+
 ## Overview
 
 1. The Hugo Blox website builder for Hugo, along with its starter templates, is designed for professional creators, educators, and teams/organizations - although it can be used to create any kind of site
