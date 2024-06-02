@@ -15,6 +15,9 @@
 {{ $pf_js = $pf_js | resources.Fingerprint "sha256" }}
 <script src="{{ $pf_js.RelPermalink }}" integrity="{{ $pf_js.Data.Integrity }}"></script>
 
+{{ $search_config := dict "baseUrl" (relURL "") }}
+{{ printf "<script>window.hbb.pagefind = %s;</script>" ($search_config | jsonify) | safeHTML }}
+
 <style>
   html.dark {
     --pagefind-ui-primary: #eeeeee;
@@ -27,7 +30,12 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
-    new PagefindUI({ element: "#search", showSubResults: true });
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      baseUrl: window.hbb.pagefind.baseUrl,
+      bundlePath: window.hbb.pagefind.baseUrl + "pagefind/",
+    });
   });
   document.addEventListener('DOMContentLoaded', () => {
     let element = document.getElementById('search');
