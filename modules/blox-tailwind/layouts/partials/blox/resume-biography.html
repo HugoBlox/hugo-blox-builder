@@ -35,7 +35,7 @@
 {{ end }}
 {{ end }}
 
-<div id="profile" class="resume-biography flex justify-center items-center flex-col">
+<div id="profile" class="resume-biography flex justify-center items-center flex-col dark:text-white">
   {{ if $avatar }}
 
   <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}">
@@ -46,29 +46,26 @@
   </div>
   {{ end }}
 
-  <div class="portrait-title dark:text-white">
-
-    <div class="text-3xl font-bold mb-2 mt-6">
-      {{- if $person.name_pronunciation -}}
-        <ruby>
-          <rb>{{ $person_page.Title }}</rb>
-          <rt>{{ $person.name_pronunciation }}</rt>
-        </ruby>
-      {{- else -}}
-        {{- $person_page.Title -}}
-      {{- end -}}
-    </div>
-
-    {{ with $person.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
-
-    {{ range $person.organizations }}
-    <div class="mb-2">
-      {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
-      <div>{{ .name }}</div>
-      {{ if .url }}</a>{{ end }}
-    </div>
-    {{ end }}
+  <div class="text-3xl font-bold mb-2 mt-6">
+    {{- if $person.name_pronunciation -}}
+      <ruby>
+        <rb>{{ $person_page.Title }}</rb>
+        <rt>{{ $person.name_pronunciation }}</rt>
+      </ruby>
+    {{- else -}}
+      {{- $person_page.Title -}}
+    {{- end -}}
   </div>
+
+  {{ with $person.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
+
+  {{ range $person.organizations }}
+  <div class="mb-2">
+    {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+    <div>{{ .name }}</div>
+    {{ if .url }}</a>{{ end }}
+  </div>
+  {{ end }}
 
   <ul class="network-icon dark:text-zinc-100">
     {{ range $person.profiles }}
