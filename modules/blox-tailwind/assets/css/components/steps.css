@@ -11,6 +11,7 @@
     @apply bg-gray-100 dark:bg-hb-dark;
     @apply text-neutral-700 dark:text-neutral-200 text-base font-normal text-center -indent-px;
     @apply mt-[3px] ml-[-41px];
+
     content: counter(hb-step);
   }
 }

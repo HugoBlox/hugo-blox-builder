@@ -2,6 +2,7 @@
 @media (max-width: 1024px) {
   .hb-sidebar-container {
     @apply fixed top-0 w-full bottom-0 z-[15] pt-[calc(var(--navbar-height))] overscroll-contain;
+
     contain: layout style;
     transition: transform 0.8s cubic-bezier(0.52, 0.16, 0.04, 1);
     will-change: transform, opacity;
@@ -15,9 +16,11 @@
   li > div {
     @apply h-0;
   }
+
   li.open > div {
     @apply h-auto pt-1;
   }
+
   li.open > a > span > svg > path {
     @apply rotate-90;
   }
