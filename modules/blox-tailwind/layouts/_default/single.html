@@ -29,7 +29,7 @@
       <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2">
         {{- if .Date | and (not .Params.hide_date) -}}
         <span class="mr-1">{{- .Date | time.Format (site.Params.locale.date_format | default ":date_long") -}}</span>
-        {{- if .Params.authors }}<span class="ml-1 mr-1">·</span>{{ end -}}
+        {{- if .Params.authors }}<span class="mx-1">·</span>{{ end -}}
         {{- end -}}
 
         {{ $taxonomy := "authors" }}
