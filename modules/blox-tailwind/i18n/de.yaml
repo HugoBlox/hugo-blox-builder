@@ -26,6 +26,9 @@
 - id: related
   translation: Ähnliches
 
+- id: backlinks
+  translation: Backlinks
+
 - id: minute_read
   translation: Min Lesezeit
 
@@ -107,6 +110,17 @@
 - id: user_profile_latest
   translation: Aktuellste
 
+# Countdown widget
+
+- id: days
+  translation: Tage
+- id: hours
+  translation: Stunden
+- id: minutes
+  translation: Minuten
+- id: seconds
+  translation: Sekunden
+
 # Accomplishments widget
 
 - id: see_certificate
@@ -114,10 +128,16 @@
 
 # Experience widget
 
+- id: experience
+  translation: Erfahrung
+
 - id: present
   translation: Aktuell
 
 # Pages widget
+
+- id: read_more
+  translation: Mehr lesen
 
 - id: more_pages
   translation: Alle anzeigen
@@ -263,3 +283,17 @@
 
 - id: published_with
   translation: Veröffentlicht mit {hugoblox} - dem kostenlosen, {repo_link}Open Source{/repo_link} Website-Builder, der Kreative fördert.
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Feedback
+
+- id: feedback_widget_question
+  translation: War diese Seite hilfreich?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Ja
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Nein
