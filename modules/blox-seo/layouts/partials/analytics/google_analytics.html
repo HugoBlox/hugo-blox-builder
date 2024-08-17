@@ -1,4 +1,4 @@
-{{ $ga := site.Params.marketing.analytics.google_analytics | default site.GoogleAnalytics | default "" }}
+{{ $ga := site.Params.marketing.analytics.google_analytics | default "" }}
 
 {{ if hugo.IsProduction | and $ga }}
 
