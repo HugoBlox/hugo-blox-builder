@@ -1,5 +1,5 @@
 {{/* TODO: port JS & response text from Bootstrap module. Re-integrate with GA plus Fathom/Plausible */}}
-{{/* $ga := site.Params.marketing.analytics.google_analytics | default site.GoogleAnalytics | default "" */}}
+{{/* $ga := site.Params.marketing.analytics.google_analytics | default site.Config.Services.GoogleAnalytics.ID | default "" */}}
 {{ $show_feedback := .Params.feedback | default true }}
 
 {{ if hugo.IsProduction | and $show_feedback }}{{/*  | and $ga */}}
