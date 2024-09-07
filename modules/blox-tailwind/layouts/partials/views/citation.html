@@ -19,7 +19,7 @@
   {{ end }}
 
   {{ if $has_attachments }}
-  <div class="flex space-x-3">
+  <div class="flex flex-wrap space-x-3">
     {{ partial "page_links" (dict "page" $item "is_list" 1) }}
   </div>
   {{ end }}
@@ -39,7 +39,7 @@
   {{- $item.Date.Format "2006" -}}.
 
   {{ if $has_attachments }}
-  <div class="flex space-x-3">
+  <div class="flex flex-wrap space-x-3">
     {{ partial "page_links" (dict "page" $item "is_list" 1) }}
   </div>
   {{ end }}
