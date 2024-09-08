@@ -1,0 +1,2 @@
+/* Prevent long equations overflowing on small screens by scrolling horizontally instead. */
+.katex-display { overflow: auto hidden; }
