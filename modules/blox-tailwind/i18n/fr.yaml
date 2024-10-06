@@ -114,6 +114,9 @@
 
 # Experience widget
 
+- id: experience
+  translation: Expériences
+
 - id: present
   translation: Actuellement
 
