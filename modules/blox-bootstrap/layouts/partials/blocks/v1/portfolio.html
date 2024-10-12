@@ -17,7 +17,7 @@
 
   {{ if $block.Params.content.filter_button }}
 
-    {{ $filter_default := default (int $block.Params.content.filter_default) 0 }}
+    {{ $filter_default := default 0 (int $block.Params.content.filter_default) }}
 
     {{/* Parse default filter tag from front matter in the form of either tag name or CSS class name. */}}
     {{ $default_filter_item := (index $block.Params.content.filter_button ($filter_default)) }}
