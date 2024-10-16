@@ -36,7 +36,7 @@
 {{ else }}
   {{ $desc = $superuser_role }}
 {{ end }}
-<meta name="description" content="{{ $desc }}" />
+<meta name="description" content="{{ $desc | plainify }}" />
 
 {{/* Get all URL variations for the page. */}}
 {{ range .Translations }}
