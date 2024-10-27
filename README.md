@@ -12,7 +12,7 @@
 
 ### Join 750,000+ Sites. No Code. Easily Create Future-Proof Websites ✏️ 📰 🚀
 
-🔥 **1. Create _any_ kind of website for free with [Hugo](https://gohugo.io)-powered blocks** - from landing pages, knowledge bases, and courses to professional resumés, conferences, and tech blogs
+🔥 **1. Create _any_ kind of website for free with [Hugo](https://github.com/gohugoio/hugo)-powered blocks** - from landing pages, knowledge bases, and courses to professional resumés, conferences, and tech blogs
 
 🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and blocks**
 
