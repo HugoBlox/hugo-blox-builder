@@ -1,19 +1,22 @@
 {{ $show_backlinks := .Params.backlinks | default true }}
 {{ if $show_backlinks }}
-  {{ $backlinks := site.Home.Store.Get "backlinks" | uniq }}
-  {{ with (where $backlinks "links_to" .RelPermalink) }}
-  <div class="backlinks">
-    <div class="mb-1 font-semibold tracking-tight">
-      {{ (T "backlinks") | default "Backlinks" }}
+  {{ $defer_globals := (dict "page" . )}}
+  {{ with (templates.Defer (dict "data" $defer_globals )) }}
+    {{ $backlinks := (site.Home.Store.Get "backlinks" | uniq) | default dict }}
+    {{ with (where $backlinks "links_to" .page.RelPermalink) }}
+    <div class="backlinks">
+      <div class="mb-1 font-semibold tracking-tight">
+        {{ (T "backlinks") | default "Backlinks" }}
+      </div>
+      <ul>
+        {{ range (sort . "page.date" "desc") }}
+        {{ $page := .page }}
+        <li>
+          <a href="{{ $page.relPermalink }}" class="backlink">{{ $page.linkTitle }}</a>
+        </li>
+        {{ end }}
+      </ul>
     </div>
-    <ul>
-      {{ range (sort . "page.date" "desc") }}
-      {{ $page := .page }}
-      <li>
-        <a href="{{ $page.relPermalink }}" class="backlink">{{ $page.linkTitle }}</a>
-      </li>
-      {{ end }}
-    </ul>
-  </div>
+    {{ end }}
   {{ end }}
 {{ end }}

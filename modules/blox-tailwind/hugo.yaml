@@ -90,7 +90,6 @@ outputFormats:
     baseName: backlinks
     isPlainText: true
     notAlternative: true
-    weight: 1
 params:
   locale:
     date_format: 'Jan 2, 2006'
