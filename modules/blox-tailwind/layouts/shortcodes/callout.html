@@ -9,8 +9,8 @@
         Otherwise, you can add your own icon to assets/media/icons/ and reference its name when calling the shortcode.
 */}}
 {{ $icon := "information-circle" }}
-{{ $class := "bg-primary-100 dark:bg-primary-900" }}
-{{ $class_text := "text-primary-600 dark:text-primary-300" }}
+{{ $class := "bg-blue-100 dark:bg-blue-900" }}
+{{ $class_text := "text-blue-600 dark:text-blue-300" }}
 {{ with (.Get 0) }}
   {{ if eq . "note" }}
     {{ $icon = "information-circle" }}
