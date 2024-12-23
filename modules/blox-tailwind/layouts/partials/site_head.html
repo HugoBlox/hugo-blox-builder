@@ -57,7 +57,7 @@
 
   {{/* Style */}}
   {{ if ne (os.Getenv "HUGO_BLOX_POSTCSS") "true" }}
-    {{ $styles := resources.Get "dist/wc.min.css" }}
+    {{ $styles := resources.Get "dist/wc.min.css" | fingerprint "sha256" }}
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ else }}
     {{ $options := dict "inlineImports" true }}
