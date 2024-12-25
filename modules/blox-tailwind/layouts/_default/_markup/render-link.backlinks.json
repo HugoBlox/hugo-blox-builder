@@ -7,7 +7,7 @@
       "date" ($.Page.Date.UTC.Format "2006-01-02T15:04:05-07:00")
       "linkTitle" $.Page.LinkTitle
       "relPermalink" $.Page.RelPermalink
-    }}
+    -}}
     {{- $backlink := dict "page" $page "links_to" .RelPermalink }}
     {{- site.Home.Store.Add "backlinks" (slice $backlink) }}
   {{- end }}
