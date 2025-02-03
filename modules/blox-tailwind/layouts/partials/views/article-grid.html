@@ -61,11 +61,12 @@
       <div class="flex-none">
         <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
           <!--          <a href="">-->
-          {{ if .Params.authors }}
+          {{ if $item.Params.authors }}
           <div class="flex items-center gap-3">
             {{ range $index, $value := first 1 ($item.GetTerms "authors") }}
             <div class="relative h-5 w-5 flex-shrink-0">
               {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+              {{ if $avatar }}
               {{ $authorImage := $avatar.Process "Fill 50x50 Center 95 webp" }}
               <img alt="avatar"
                    class="rounded-full object-cover"
@@ -76,6 +77,9 @@
                    src="{{$authorImage.RelPermalink}}"
                    style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
                    width="{{$authorImage.Width}}">
+              {{ else }}
+                {{ warnf "An image named `avatar` was not found in the `%s` folder" $value.Path }}
+              {{ end }}
             </div>
             <span class="truncate text-sm">
                 {{- .Page.LinkTitle -}}
