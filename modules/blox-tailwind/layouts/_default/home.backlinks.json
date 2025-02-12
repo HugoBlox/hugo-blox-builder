@@ -1,6 +1,6 @@
 {{- /* Hugo 0.126+ requires a `home` layout file even if it's empty, otherwise shows warning */ -}}
+{{- range site.Pages -}}{{- $_ := .WordCount -}}{{- end -}}
 {{- if (eq (getenv "HUGO_BLOX_DEBUG") "true") -}}
-  {{- range site.Pages -}}{{- $_ := .WordCount -}}{{- end -}}
   {{- $backlinks := (.Store.Get "backlinks" | uniq) | default dict -}}
   {{- jsonify (dict "indent" "  ") $backlinks -}}
 {{- else -}}

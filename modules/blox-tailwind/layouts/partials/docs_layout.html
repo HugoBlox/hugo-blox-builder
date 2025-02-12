@@ -3,9 +3,11 @@
   {{ partial "components/toc.html" . }}
   <article class="flex w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] justify-center break-words pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
     <main class="prose prose-slate lg:prose-xl dark:prose-invert w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+      {{ if (.Params.show_breadcrumb | default true) }}
       <div class="mb-1">
         {{ partial "components/breadcrumb.html" . }}
       </div>
+      {{ end }}
 
       <div class="content text-base">
         <h1>{{ .Title }}</h1>
