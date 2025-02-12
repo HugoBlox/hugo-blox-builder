@@ -111,7 +111,7 @@
 </nav>
 
 {{ if $show_search }}
-  <div id="search" class="hidden p-3"></div>
+  {{- partial "components/search-modal.html" . -}}
 {{ end }}
 
 <script>
