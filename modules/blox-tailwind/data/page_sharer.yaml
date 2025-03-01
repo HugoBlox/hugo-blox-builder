@@ -36,7 +36,7 @@ links:
 #  - id: reddit
 #    url: 'https://reddit.com/submit?url={url}&title={title}'
 #    title: Reddit
-#    icon: reddit-alien
+#    icon: brands/reddit
 #    enable: false
 #  - id: pinterest
 #    url: 'https://pinterest.com/pin/create/link/?url={url}&description={title}'
