@@ -57,6 +57,17 @@
       {{ $menuURL := .URL | absLangURL }}
       {{ $pageURL:= $currentPage.Permalink | absLangURL }}
       {{ $active := eq $menuURL $pageURL }}
+      {{ $url := "" }}
+      {{ if .URL }}
+        {{- if findRE `^#` .URL -}}
+          {{- if not $.IsHome -}}
+            {{- $url = site.Home.RelPermalink -}}
+          {{- end }}
+          {{- $url = printf "%s%s" $url .URL -}}
+        {{- else -}}
+          {{- $url = .URL | relLangURL -}}
+        {{- end -}}
+      {{ end }}
       {{ if .HasChildren }}
       <li class="nav-item nav-dropdown group relative">
             <span
@@ -65,7 +76,11 @@
                 {{ $active := eq $childURL $pageURL }}
                 {{ if $active }}active{{ end }}
               {{ end }} inline-flex items-center">
+              {{- if $url -}}<a class="{{ if $active }}active{{- end -}}" 
+                             {{ if findRE `^http` .URL }}target="_blank" rel="noopener"{{ end }} href="{{$url}}">
+              {{- end -}}
               {{ .Name }}
+              {{ if $url }}</a>{{ end }}
               <svg class="h-4 w-4 fill-current inline-block" viewBox="0 0 20 20">
                 <path
                   d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
@@ -77,14 +92,16 @@
           {{ $childURL := .URL | absLangURL }}
           {{ $active := eq $childURL $pageURL }}
           {{ $url := "" }}
-          {{- if findRE `^#` .URL -}}
-            {{- if not $.IsHome -}}
-              {{- $url = site.Home.RelPermalink -}}
-            {{- end }}
-            {{- $url = .URL -}}
-          {{- else -}}
-            {{- $url = .URL | relLangURL -}}
-          {{- end -}}
+          {{ if .URL }}
+            {{- if findRE `^#` .URL -}}
+              {{- if not $.IsHome -}}
+                {{- $url = site.Home.RelPermalink -}}
+              {{- end }}
+              {{- $url = printf "%s%s" $url .URL -}}
+            {{- else -}}
+              {{- $url = .URL | relLangURL -}}
+            {{- end -}}
+          {{ end }}
           <li class="nav-dropdown-item">
             <a
               class="nav-dropdown-link {{ if $active }}active{{- end -}}"
@@ -99,15 +116,6 @@
         </ul>
       </li>
       {{ else }}
-      {{ $url := "" }}
-      {{- if findRE `^#` .URL -}}
-        {{- if not $.IsHome -}}
-          {{- $url = site.Home.RelPermalink -}}
-        {{- end }}
-        {{- $url = .URL -}}
-        {{- else -}}
-        {{- $url = .URL | relLangURL -}}
-      {{- end -}}
       <li class="nav-item">
         <a
           class="nav-link {{ if $active }}active{{- end -}}"
