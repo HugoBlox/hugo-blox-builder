@@ -4,7 +4,7 @@ markup:
     renderHooks:
       link:
         # Process backlinks hook
-        enableDefault: true
+        useEmbedded: fallback
     renderer:
       # Render HTML in Markdown
       unsafe: true
@@ -58,7 +58,7 @@ sitemap:
   changefreq: weekly
 module:
   hugoVersion:
-    min: '0.134.1'
+    min: '0.148.2'
     extended: true
   imports:
     - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics

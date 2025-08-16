@@ -38,12 +38,14 @@
   {{end}}
   <div class="">
     <div class="">
-      <div class="flex gap-3">
-        {{ range $index, $value := first 1 ($item.GetTerms "tags") }}
-        <a href="{{.RelPermalink}}"><span
-          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-700 dark:text-primary-300">{{ .Page.LinkTitle }}</span></a>
-        {{end}}
-      </div>
+        <div class="flex gap-3">
+          {{ if and $item.Params.tags (gt (len $item.Params.tags) 0) }}
+            {{ range $index, $value := first 1 ($item.GetTerms "tags") }}
+            <a href="{{.RelPermalink}}"><span
+              class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-700 dark:text-primary-300">{{ .Page.LinkTitle }}</span></a>
+            {{end}}
+          {{ end }}
+        </div>
       <!--          <div class="relative line-clamp-2" style="display: block; height: 4em">-->
       <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
         href="{{ $link }}" {{ $target | safeHTMLAttr }}><span
@@ -63,8 +65,9 @@
           <!--          <a href="">-->
           {{ if $item.Params.authors }}
           <div class="flex items-center gap-3">
-            {{ range $index, $value := first 1 ($item.GetTerms "authors") }}
-            <div class="relative h-5 w-5 flex-shrink-0">
+            {{ if and $item.Params.authors (gt (len $item.Params.authors) 0) }}
+              {{ range $index, $value := first 1 ($item.GetTerms "authors") }}
+              <div class="relative h-5 w-5 flex-shrink-0">
               {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
               {{ if $avatar }}
               {{ $authorImage := $avatar.Process "Fill 50x50 Center 95 webp" }}
@@ -86,6 +89,7 @@
               </span>
           </div>
           {{end}}
+            {{ end }}
           <!--          </a>-->
           <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
           {{end}}

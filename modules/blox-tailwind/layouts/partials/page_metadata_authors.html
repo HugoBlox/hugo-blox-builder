@@ -1,8 +1,7 @@
 {{/* Display author list. */}}
 
-{{- $taxonomy := "authors" }}
-{{ if .Param $taxonomy }}
-  {{ range $index, $value := (.GetTerms $taxonomy) }}
+{{ if .Params.authors }}
+  {{ range $index, $value := (.GetTerms "authors") }}
     {{- /* Highlight the author's name? */ -}}
     {{- $highlight_name := .Page.Params.highlight_name | default false -}}
 
