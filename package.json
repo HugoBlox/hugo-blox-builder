@@ -50,5 +50,6 @@
     "vendor:libs": "vite build --config vite.config.js",
     "vendor:libs:watch": "vite build --config vite.config.js --watch"
   },
-  "browserslist": "> 1%"
+  "browserslist": "> 1%",
+  "packageManager": "pnpm@10.14.0"
 }

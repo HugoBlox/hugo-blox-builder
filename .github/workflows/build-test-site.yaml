@@ -28,9 +28,8 @@ jobs:
 #        with:
 #          node-version: ${{ matrix.node-version }}
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
-          version: 10
           run_install: |
             - recursive: false
               args: [--frozen-lockfile]
