@@ -14,8 +14,12 @@ go.sum
 resources/
 public/
 
+# Pagefind search index (generated)
+**/pagefind/
+
 # Mac
 .DS_Store
 
 # Test
 test/go.sum
+hugo_stats.json
