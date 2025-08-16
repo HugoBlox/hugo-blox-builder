@@ -23,7 +23,6 @@
     "vite-plugin-static-copy": "^0.17.0"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^11.0.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "~8.5.0",
     "prettier": "~2.6.2",
@@ -33,9 +32,7 @@
     "stylelint-config-prettier-scss": "^0.0.1",
     "stylelint-config-standard": "~25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "stylelint-scss": "~4.2.0",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4"
+    "stylelint-scss": "~4.2.0"
   },
   "scripts": {
     "view": "scripts/view-starter.sh",
@@ -49,7 +46,9 @@
     "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
     "stylelint-conflict-check": "stylelint-config-prettier-check",
     "update:starter": "scripts/update-starter.sh",
-    "update:starters": "poetry run python ./scripts/update.py"
+    "update:starters": "poetry run python ./scripts/update.py",
+    "vendor:libs": "vite build --config vite.config.js",
+    "vendor:libs:watch": "vite build --config vite.config.js --watch"
   },
   "browserslist": "> 1%"
 }
