@@ -11,7 +11,7 @@
 {{ if eq $block_type "pages" }}{{ $block_type = "collection" }}{{ end }}{{/* Support legacy Pages block */}}
 {{ if eq $block_type "featured" }}{{ $block_type = "collection" }}{{ end }}{{/* Support legacy Featured block */}}
 {{ $widget_path := printf "blocks/v1/%s.html" $block_type }}
-{{ if not (templates.Exists (printf "partials/%s" $widget_path)) }}
+{{ if not (templates.Exists (printf "_partials/%s" $widget_path)) }}
   {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $widget_path }}
 {{ end }}
 
@@ -102,7 +102,7 @@
 {{ $widget_class := printf "wg-%s" (replace (replace $block_type "." "-") "_" "-") }}
 
 {{ $widget_config_file := printf "blocks/v1/%s-config.html" $block_type }}
-{{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
+{{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
   {{ $cfg := partial $widget_config_file $widget_args }}
   {{ $use_container = $cfg.use_container }}
 {{end}}

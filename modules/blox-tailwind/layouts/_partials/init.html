@@ -12,7 +12,7 @@
           {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}
         {{ end }}
         {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
-        {{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
+        {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
           {{/* warnf "Loading blox config at %s" $widget_config_file */}}
           {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
           {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}

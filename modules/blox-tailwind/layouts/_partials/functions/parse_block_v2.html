@@ -5,10 +5,18 @@
 {{ $page := .page }}
 {{ $block := .block }}
 
-{{ $block_type := lower $block.block | default "markdown" }}
-{{ $block_path := printf "blocks/%s.html" $block_type }}
-{{ if not (templates.Exists (printf "partials/%s" $block_path)) }}
-  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $block_path }}
+{{ $block_type := lower ($block.blox | default $block.block) | default "markdown" }}
+{{ range $r := site.Data.blox_aliases.renames }}
+  {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}
+{{ end }}
+{{ $block_path := printf "blox/%s.html" $block_type }}
+{{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
+  {{ $block_path_community := printf "blox/community/%s.html" $block_type }}
+  {{ if not (templates.Exists (printf "_partials/%s" $block_path_community)) }}
+    {{ errorf "%s uses a `%s` blox but the `%s` blox was not found. Check the name of the blox and try again. For a custom or community blox, upload it first to `hugo-blox/blox/community/%s.html`. For an All Access blox, upload it first to `hugo-blox/blox/all-access/%s.html`" $page.File.Path $block_type $block_type $block_type $block_type }}
+  {{ else }}
+    {{ $block_path = $block_path_community }}
+  {{ end }}
 {{ end }}
 
 {{/* Mermaid block: Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}
@@ -75,6 +83,12 @@
 {{ with $block.design.spacing.padding }}
   {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
   {{ $style = print $style $style_pad }}
+{{ else }}
+  {{ with $page.Params.design.spacing }}
+    {{/* Fallback to default section spacing setting */}}
+    {{ $style_pad := printf "padding: %s 0 %s 0;" . . }}
+    {{ $style = print $style $style_pad }}
+  {{ end }}
 {{ end }}
 
 {{/* Support for clip path (design.clip_path) */}}
@@ -87,15 +101,18 @@
   {{ $style = print $style . }}
 {{ end }}
 
+
+
 {{/* Fix Hugo's ContentBaseName returning wrong file base name when page section is within a bundle. */}}
 {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
 
 {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
 {{ $css_classes := $block.design.css_class | default "" }}
 {{ $extra_attributes := "" }}
-{{ $use_container := true }}
+{{ $use_container := false }}
 {{ $columns := $block.design.columns | default "1" }}
-{{ $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio" "skills") $block_type }}
+{{/* $use_cols := in (slice "collection" "experience" "accomplishments" "contact" "markdown" "tag_cloud" "portfolio" "skills") $block_type */}}
+{{ $use_cols := false }}
 
 {{/* Special case: Slider widget. */}}
 {{ if in (slice "slider") $block_type }}
@@ -104,21 +121,24 @@
   {{ $use_container = false }}
 {{ end }}
 
-{{ $widget_class := printf "wg-%s" (replace (replace $block_type "." "-") "_" "-") }}
+{{ $widget_class := printf "blox-%s" (replace (replace $block_type "." "-") "_" "-") }}
 
-{{ $widget_config_file := printf "blocks/%s-config.html" $block_type }}
-{{ if templates.Exists (printf "partials/%s" $widget_config_file) }}
-  {{ $cfg := partial $widget_config_file $widget_args }}
-  {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}
-  {{ with $cfg.inject_section_heading }}{{ $use_cols = . }}{{ end }}
-{{end}}
+{{/* Now loaded in `init.html` */}}
+{{/*
+  {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
+  {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
+    {{ $cfg := partial $widget_config_file $widget_args }}
+    {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}
+    {{ with $cfg.inject_section_heading }}{{ $use_cols = . }}{{ end }}
+  {{end}}
+*/}}
 
 {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
-<section id="{{$hash_id}}" class="home-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
+<section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
  <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
    {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
  </div>
-  {{if $use_container}}<div class="container">{{end}}
+  {{if $use_container}}<div class="container mx-auto">{{end}}
 
   {{if $use_cols}}
     <div class="row  {{if not $block.content.title | or (eq $columns "1") }}justify-content-center{{end}}">

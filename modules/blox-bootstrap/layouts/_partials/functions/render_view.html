@@ -21,7 +21,7 @@
     {{ $view_file = "compact" }}
   {{ end }}
 {{else}}
-  {{ if templates.Exists (printf "partials/views/%s.html" (lower $view)) }}
+  {{ if templates.Exists (printf "_partials/views/%s.html" (lower $view)) }}
     {{ $view_file = lower $view }}
   {{else}}
     {{/* Fallback to compact view */}}

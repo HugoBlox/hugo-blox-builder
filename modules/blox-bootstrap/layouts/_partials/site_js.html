@@ -267,7 +267,7 @@
 
 {{/* EXTENSIBILITY HOOK: BODY-END */}}
 {{/* Deprecated custom_js hook */}}
-{{ if templates.Exists "partials/custom_js.html" }}
+{{ if templates.Exists "_partials/custom_js.html" }}
   {{ partial "custom_js" . }}
 {{ end }}
 {{ partial "blox-core/functions/get_hook" (dict "hook" "body-end" "context" .) }}

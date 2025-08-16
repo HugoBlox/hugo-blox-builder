@@ -8,7 +8,7 @@
 {{ $index := .index }}
 {{ $html := "" }}
 
-{{ if not (templates.Exists (printf "partials/views/%s.html" $view)) }}
+{{ if not (templates.Exists (printf "_partials/views/%s.html" $view)) }}
   {{/* Fallback to card view */}}
   {{ warnf "Failed to locate view at `partials/views/%s.html`. Check you specified a supported `view` in `%s`" $view $page.File.Path }}
   {{ $view = "card" }}
