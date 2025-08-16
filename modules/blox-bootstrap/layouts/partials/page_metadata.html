@@ -53,12 +53,11 @@
     <a href="{{ $page.RelPermalink }}#disqus_thread"><!-- Count will be inserted here --></a>
   {{ end}}
 
-  {{ $taxonomy := "categories" }}
-  {{ if $page.Param $taxonomy }}
+  {{ if $page.Params.categories }}
   <span class="middot-divider"></span>
   <span class="article-categories">
     <i class="fas fa-folder mr-1"></i>
-    {{- range $index, $value := ($page.GetTerms $taxonomy) -}}
+    {{- range $index, $value := ($page.GetTerms "categories") -}}
       {{- if gt $index 0 }}, {{ end -}}
       <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
     {{- end -}}
