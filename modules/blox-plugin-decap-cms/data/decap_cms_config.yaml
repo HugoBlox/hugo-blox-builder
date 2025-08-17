@@ -16,6 +16,7 @@ collections:
       - {label: "Display name (such as your full name)", name: "title", widget: "string"}
       - {label: "First name", name: "first_name", widget: "string", required: false}
       - {label: "Last name", name: "last_name", widget: "string", required: false}
+      - {label: "Pronouns (e.g., she/her, he/him, they/them)", name: "pronouns", widget: "string", required: false}
       - {label: "Position or tagline (such as Professor of AI)", name: "role", widget: "string", required: false}
       - label: "Avatar (upload an image named `avatar.jpg/png`)"
         name: "avatar_filename"

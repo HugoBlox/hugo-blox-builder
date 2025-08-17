@@ -30,9 +30,14 @@
       {{ i18n "authors" }}
     </div>
     <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-      {{if $profile_url}}<a href="{{$profile_url}}" class="no-underline">{{end}}
-      {{$author_page.Title}}
-      {{if $profile_url}}</a>{{end}}
+      <span class="inline-block">
+        {{if $profile_url}}<a href="{{$profile_url}}" class="no-underline">{{end}}
+        {{$author_page.Title}}
+        {{if $profile_url}}</a>{{end}}
+      </span>
+      {{- with $author_page.Params.pronouns -}}
+        <span class="text-sm font-normal text-gray-600 dark:text-gray-400 ml-1 inline-block">({{ . }})</span>
+      {{- end -}}
     </div>
 
     {{ with $author_page.Params.role }}
