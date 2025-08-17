@@ -32,10 +32,10 @@
 {{ end }}
 {{ $resource := $page.Resources.GetMatch "cite.bib" }}
 {{ with $resource }}
-<a class="hb-attachment-link {{ if $is_list }}hb-attachment-link-small{{else}}hb-attachment-link-large{{end}}" href="{{ .RelPermalink }}" target="_blank" data-filename="{{ .RelPermalink }}">
+<button class="hb-attachment-link {{ if $is_list }}hb-attachment-link-small{{else}}hb-attachment-link-large{{end}} js-cite-clipboard cursor-pointer" type="button" data-filename="{{ .RelPermalink }}">
   {{ partial "functions/get_icon" (dict "name" "document-duplicate" "attributes" "style=\"height: 1em\" class='inline-block'") }}
-  {{ i18n "btn_cite" }}
-</a>
+  <span>{{ i18n "btn_cite" }}</span>
+</button>
 {{ end }}
 {{ with $page.Params.url_code }}
   {{ $resource := $page.Resources.GetMatch . }}

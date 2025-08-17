@@ -16,6 +16,7 @@ node_modules/
 go.sum
 resources/
 public/
+**/assets/jsconfig.json
 
 # Pagefind search index (generated)
 **/pagefind/

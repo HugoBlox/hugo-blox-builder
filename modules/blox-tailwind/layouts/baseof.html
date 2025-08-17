@@ -27,6 +27,9 @@
       {{ partial "site_footer" . }}
     </div>
 
+    {{/* Notification Container for toasts/alerts */}}
+    {{ partial "notification-container" . }}
+
     {{/* EXTENSIBILITY HOOK: BODY-END */}}
     {{ partial "functions/get_hook" (dict "hook" "body-end" "context" .) }}
   </body>

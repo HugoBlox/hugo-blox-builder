@@ -1,5 +1,8 @@
 title: Hugo Blox Test
 baseURL: https://example.com
+build:
+  buildStats:
+    enable: true
 module:
   imports:
     - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind

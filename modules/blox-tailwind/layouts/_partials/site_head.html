@@ -267,7 +267,10 @@
   {{- $js_lang := resources.Get "js/hb-i18n.js" | resources.Minify -}}
   {{- $js_nav := resources.Get "js/hb-nav.js" | resources.Minify -}}
   {{- $js_sidebar := resources.Get "js/hb-sidebar.js" | resources.Minify -}}
-  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav $js_sidebar | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
+  {{- $js_notifier := resources.Get "js/hb-notifier.js" | js.Build (dict "targetPath" (printf "js/hb-notifier-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
+  {{- $js_clipboard := resources.Get "js/hb-clipboard.js" | js.Build (dict "targetPath" (printf "js/hb-clipboard-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
+  {{- $js_citation := resources.Get "js/hb-citation.js" | js.Build (dict "targetPath" (printf "js/hb-citation-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
+  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav $js_sidebar $js_notifier $js_clipboard $js_citation | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}

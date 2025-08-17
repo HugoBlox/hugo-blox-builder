@@ -12,7 +12,7 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12
       '@tailwindcss/typography':
-        specifier: ^0.5.10
+        specifier: ^0.5.15
         version: 0.5.16(tailwindcss@4.1.12)
       tailwindcss:
         specifier: ^4.1.12

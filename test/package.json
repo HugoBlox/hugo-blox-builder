@@ -7,9 +7,15 @@
   "author": "George Cushen",
   "license": "MIT",
   "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "tailwindcss": "^4.1.12",
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/typography": "^0.5.15"
+  },
   "scripts": {
     "view": "hugo server --port 8080 --bind 0.0.0.0",
     "build": "hugo --minify --cleanDestinationDir --gc --templateMetrics --templateMetricsHints",
-    "cms": "(trap 'kill 0' SIGINT; npx netlify-cms-proxy-server & hugo server --port 8080 --bind 0.0.0.0)"
+    "cms": "(trap 'kill 0' SIGINT; pnpm dlx netlify-cms-proxy-server & hugo server --port 8080 --bind 0.0.0.0)"
   }
 }
