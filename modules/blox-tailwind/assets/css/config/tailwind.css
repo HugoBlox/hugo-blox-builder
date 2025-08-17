@@ -1,0 +1,25 @@
+/* Tailwind CSS v4 Configuration */
+/* Content detection and plugin configuration */
+
+/* Typography plugin for prose styles */
+@plugin "@tailwindcss/typography";
+
+/* Content detection sources */
+/* Note: @source is a Tailwind v4 directive - linters may show warnings that can be ignored */
+@source "hugo_stats.json";
+@source "../../layouts/**/*.html";
+@source "../../assets/**/*.{js,css}";
+
+/* Custom Variants Configuration */
+/* Configure dark mode to use class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Configure hover to work on all devices (like v3 behavior) */
+@custom-variant hover (&:hover);
+
+/* Dark mode configuration */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

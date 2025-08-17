@@ -55,18 +55,10 @@
     <link rel="stylesheet" href="{{ $theme_css.RelPermalink }}" />
   {{ end }}
 
-  {{/* Style */}}
-  {{ if ne (os.Getenv "HUGO_BLOX_POSTCSS") "true" }}
-    {{ $styles := resources.Get "dist/wc.min.css" | fingerprint "sha256" }}
-    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
-  {{ else }}
-    {{ $options := dict "inlineImports" true }}
-    {{ $styles := resources.Get "css/styles.css" }}
-    {{ $styles = $styles | resources.PostCSS $options }}
-    {{ if  hugo.IsProduction  }}
-      {{ $styles = $styles | minify | fingerprint "sha256" | resources.PostProcess }}
-    {{ end }}
-    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  {{/* Tailwind CSS v4 Processing */}}
+  {{/* Use templates.Defer to process CSS after all content is analyzed */}}
+  {{ with (templates.Defer (dict "key" "tailwind-css")) }}
+    {{ partial "css.html" . }}
   {{ end }}
 
   {{/* Load community blox styles */}}

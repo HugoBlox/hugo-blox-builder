@@ -1,79 +1,36 @@
-:root {
-  /* TW Neutral */
-  --color-neutral-50: 250 250 250;
-  --color-neutral-100: 245 245 245;
-  --color-neutral-200: 229 229 229;
-  --color-neutral-300: 212 212 212;
-  --color-neutral-400: 163 163 163;
-  --color-neutral-500: 115 115 115;
-  --color-neutral-600: 82 82 82;
-  --color-neutral-700: 64 64 64;
-  --color-neutral-800: 38 38 38;
-  --color-neutral-900: 23 23 23;
-  --color-neutral-950: 10 10 10;
-
-  /* TW Zinc */
-  --color-secondary-50: 250 250 250;
-  --color-secondary-100: 244 244 245;
-  --color-secondary-200: 228 228 231;
-  --color-secondary-300: 212 212 216;
-  --color-secondary-400: 161 161 170;
-  --color-secondary-500: 113 113 122;
-  --color-secondary-600: 82 82 91;
-  --color-secondary-700: 63 63 70;
-  --color-secondary-800: 39 39 42;
-  --color-secondary-900: 24 24 27;
-  --color-secondary-950: 9 9 11;
-}
-
-.hbb-section {
-  @apply py-24; /* last:mb-0 */
-}
-
-.section-subheading {
-  @apply font-bold text-xl;
-}
-
-/* Fill padding of `.home-section` parent */
- .home-section-bg {
-   position: absolute;
-   top: 0;
-   left: 0;
-   height: 100%; /* Or fill-available when supported. */
-   width: 100%; /* Or fill-available when supported. */
-   z-index: -1; /* Place bg div behind content. */
- }
-
-/* Default background image properties for home sections. */
-.home-section-bg.bg-image {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.bg-video {
-  position: absolute;
-  top: 0;
-  max-height: initial; /* Override general `video` selector's max-height.  */
-}
-
-.bg-video.flip {
-  transform: rotateY(180deg);
-}
-
-/* Create a parallax-like scrolling effect on desktop browsers. */
-.parallax {
-  background-attachment: fixed;
-}
-
-/* Workaround issue with mobile browser support for fixed parallax background.
-@include media-breakpoint-down(md) {
-  .parallax {
-    background-attachment: scroll;
-  }
-}
+/* 
+  Hugo Blox Tailwind CSS v4 - Main Entry Point
+  
+  This file orchestrates all CSS imports in the correct order:
+  1. Tailwind base with configuration
+  2. Theme and color definitions
+  3. Base styles and utilities
+  4. Hugo Blox framework components
+  5. Hugo Blox module components
+  6. Safelist for dynamic classes
 */
 
-.powered-by a {
-  @apply underline text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200;
-}
+/* Tailwind CSS v4 Base */
+@import "tailwindcss";
+
+/* Configuration */
+@import "./config/tailwind.css";
+@import "./config/theme.css";
+
+/* Base styles and utilities */
+@import "./framework/base.css";
+
+/* Hugo Blox theme system (color utilities) */
+@import "./color-utilities.css";
+
+/* Hugo Blox framework components */
+@import "./framework/components.css";
+
+/* Hugo Blox module components */
+@import "./components/all.css";
+@import "./blox/all.css";
+@import "./views/attachments.css";
+@import "chroma.css";
+
+/* Safelist for dynamic classes */
+@import "./config/safelist.css";

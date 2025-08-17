@@ -5,5 +5,12 @@
 /* Requires relative position for Code Copy button */
 .prose .chroma,
 .prose pre {
-  @apply relative rounded-md text-neutral-700 bg-neutral-50 dark:bg-slate-700 dark:text-white;
+  @apply relative rounded-md dark:bg-slate-700 dark:text-white;
+  color: rgb(var(--color-neutral-700));
+  background-color: rgb(var(--color-neutral-50));
+}
+
+.dark .prose .chroma,
+.dark .prose pre {
+  color: white;
 }

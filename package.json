@@ -4,6 +4,7 @@
   "description": "The Page Builder for Hugo",
   "author": "George Cushen",
   "license": "MIT",
+  "packageManager": "pnpm@10.14.0",
   "bugs": {
     "url": "https://github.com/HugoBlox/hugo-blox-builder/issues"
   },
@@ -18,9 +19,9 @@
     "mermaid": "^10.6.0",
     "plotly.js": "^2.27.0",
     "rollup-plugin-delete": "^2.0.0",
-    "vite": "^4.5.0",
+    "vite": "^7.1.2",
     "vite-hugo-plugin": "^3.1.0",
-    "vite-plugin-static-copy": "^0.17.0"
+    "vite-plugin-static-copy": "^3.1.1"
   },
   "devDependencies": {
     "eslint": "~8.15.0",

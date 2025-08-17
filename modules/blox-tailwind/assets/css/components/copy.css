@@ -24,5 +24,12 @@
 .copy-button:focus,
 .copy-button:active,
 .copy-button:active:hover {
-  @apply bg-primary-100 dark:bg-primary-600;
+  background-color: rgb(var(--color-primary-100));
+}
+
+.dark .copy-button:hover,
+.dark .copy-button:focus,
+.dark .copy-button:active,
+.dark .copy-button:active:hover {
+  background-color: rgb(var(--color-primary-600));
 }

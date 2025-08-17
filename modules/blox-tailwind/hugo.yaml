@@ -1,3 +1,12 @@
+build:
+  buildStats:
+    enable: true
+  cachebusters:
+    - source: assets/notwatching/hugo_stats\.json
+      target: css
+    - source: (postcss|tailwind)\.config\.js
+      target: css
+
 markup:
   defaultMarkdownHandler: goldmark
   goldmark:
@@ -77,6 +86,9 @@ module:
       target: i18n
     - source: archetypes
       target: archetypes
+    - disableWatch: true
+      source: hugo_stats.json
+      target: assets/notwatching/hugo_stats.json
 security:
   funcs:
     getenv:

@@ -1,19 +1,20 @@
 [build]
-  command = "hugo --gc --minify -b $URL && npx pagefind --source 'public'"
+  command = "pnpm install && hugo --gc --minify -b $URL && pnpm dlx pagefind --source 'public'"
   publish = "public"
 
 [build.environment]
   HUGO_VERSION = "0.148.2"
+  NODE_VERSION = "20.0.0"
   HUGO_ENABLEGITINFO = "true"
 
 [context.production.environment]
   HUGO_ENV = "production"
 
 [context.deploy-preview]
-  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL && npx pagefind --source 'public'"
+  command = "pnpm install && hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL && pnpm dlx pagefind --source 'public'"
 
 [context.branch-deploy]
-  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL && npx pagefind --source 'public'"
+  command = "pnpm install && hugo --gc --minify -b $DEPLOY_PRIME_URL && pnpm dlx pagefind --source 'public'"
 
 [[plugins]]
   package = "netlify-plugin-hugo-cache-resources"

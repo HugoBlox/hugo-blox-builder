@@ -1,0 +1,61 @@
+/* Tailwind CSS v4 Hugo BloxTheme Configuration */
+
+/* Theme Configuration */
+@theme {
+  /* Custom Colors */
+  --color-hb-dark: 23 24 28;
+  
+  /* Neutral Colors - Space-separated RGB values (for use with rgb() function) */
+  --color-neutral-50: 250 250 250;
+  --color-neutral-100: 245 245 245;
+  --color-neutral-200: 229 229 229;
+  --color-neutral-300: 212 212 212;
+  --color-neutral-400: 163 163 163;
+  --color-neutral-500: 115 115 115;
+  --color-neutral-600: 82 82 82;
+  --color-neutral-700: 64 64 64;
+  --color-neutral-800: 38 38 38;
+  --color-neutral-900: 23 23 23;
+  --color-neutral-950: 10 10 10;
+  
+  /* Primary Colors - Space-separated RGB values (Blue defaults) */
+  --color-primary-50: 239 246 255;
+  --color-primary-100: 219 234 254;
+  --color-primary-200: 191 219 254;
+  --color-primary-300: 147 197 253;
+  --color-primary-400: 96 165 250;
+  --color-primary-500: 59 130 246;
+  --color-primary-600: 37 99 235;
+  --color-primary-700: 29 78 216;
+  --color-primary-800: 30 64 175;
+  --color-primary-900: 30 58 138;
+  --color-primary-950: 23 37 84;
+  
+  /* Secondary Colors - Space-separated RGB values (Cyan defaults) */
+  --color-secondary-50: 236 254 255;
+  --color-secondary-100: 207 250 254;
+  --color-secondary-200: 165 243 252;
+  --color-secondary-300: 103 232 249;
+  --color-secondary-400: 34 211 238;
+  --color-secondary-500: 6 182 212;
+  --color-secondary-600: 8 145 178;
+  --color-secondary-700: 14 116 144;
+  --color-secondary-800: 21 94 117;
+  --color-secondary-900: 22 78 99;
+  --color-secondary-950: 8 51 68;
+  
+  /* Font family */
+  --font-family-sans: Inter var, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
+}

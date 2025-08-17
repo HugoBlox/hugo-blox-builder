@@ -1,0 +1,16 @@
+{
+  "name": "hugo-blox-landing-page-starter",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "description": "Landing page starter template for Hugo Blox with Tailwind CSS v4",
+  "scripts": {
+    "dev": "hugo server --disableFastRender",
+    "build": "hugo --minify"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^4.1.12"
+  }
+}

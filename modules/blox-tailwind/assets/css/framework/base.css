@@ -1,0 +1,54 @@
+/* Base styles for better text rendering */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  body {
+    line-height: 1.5;
+  }
+}
+
+/* Custom utilities and components */
+@utility task-list {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+/* Custom typography styles - the plugin handles the base styles */
+/* Additional customization for prose elements */
+@layer components {
+  .prose a {
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--color-primary-300));
+    font-weight: 500;
+  }
+  
+  .prose a:hover {
+    color: rgb(var(--color-primary-600));
+    text-decoration: none;
+    border-radius: 0.09rem;
+  }
+  
+  .prose mark {
+    color: rgb(var(--color-neutral-900));
+    background-color: rgb(var(--color-primary-200));
+    padding: 0.1rem 0.2rem;
+    border-radius: 0.25rem;
+  }
+  
+  .dark .prose-invert a {
+    text-decoration-color: rgb(var(--color-neutral-500));
+  }
+  
+  .dark .prose-invert a:hover {
+    color: rgb(var(--color-primary-300));
+  }
+  
+  .dark .prose-invert mark {
+    background-color: rgb(var(--color-primary-400));
+    color: black;
+  }
+}

@@ -27,7 +27,15 @@
 }
 
 .hb-sidebar-list {
-  @apply relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0 dark:before:bg-neutral-700;
+  @apply relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0;
+}
+
+.hb-sidebar-list::before {
+  background-color: rgb(var(--color-neutral-200));
+}
+
+.dark .hb-sidebar-list::before {
+  background-color: rgb(var(--color-neutral-700));
 }
 
 .hb-scrollbar {
@@ -58,7 +66,11 @@
 }
 
 .hb-docs-link {
-  @apply flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-100/5 dark:hover:text-gray-50;
+  @apply flex rounded px-2 py-1.5 text-sm transition-colors [word-break:break-word] cursor-pointer [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] gap-2 before:opacity-25 before:content-['#'] text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-50;
+}
+
+.dark .hb-docs-link:hover {
+  background-color: rgb(var(--color-primary-100) / 0.05);
 }
 
 .hb-sidebar-mobile-menu {
@@ -66,7 +78,15 @@
 }
 
 .hb-sidebar-mobile-toc {
-  @apply flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] dark:before:bg-neutral-800 ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3;
+  @apply flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3;
+}
+
+.hb-sidebar-mobile-toc::before {
+  background-color: rgb(var(--color-neutral-200));
+}
+
+.dark .hb-sidebar-mobile-toc::before {
+  background-color: rgb(var(--color-neutral-800));
 }
 
 .hb-sidebar-custom-link {

@@ -1,0 +1,110 @@
+/* Hugo Blox Framework Custom Classes */
+@layer components {
+  /* Section styles for Hugo Blox blocks */
+  .hbb-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+  
+  .section-subheading {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  
+  /* Home section background styles */
+  .home-section-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  .home-section-bg.bg-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Video background */
+  .bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    opacity: 1;
+  }
+  
+  /* Flip video horizontally */
+  .bg-video.flip {
+    transform: scaleX(-1);
+  }
+  
+  /* Container styles */
+  .universal-wrapper {
+    margin: 0 auto;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    width: 100%;
+  }
+  
+  @media (min-width: 1200px) {
+    .universal-wrapper {
+      max-width: 1200px;
+    }
+  }
+  
+  .article-container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  
+  /* Button toolbar */
+  .btn-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  /* Documentation specific */
+  .docs-article-container {
+    max-width: 760px;
+  }
+  
+  /* Powered-by footer styles */
+  .powered-by {
+    font-size: 0.75rem;
+  }
+  
+  .powered-by a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .powered-by a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Parallax effect */
+  .parallax {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  /* Section color schemes - for backward compatibility */
+  section.light {
+    background-color: transparent;
+  }
+  
+  section.dark {
+    background-color: transparent;
+  }
+}

@@ -41,7 +41,15 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-link {
-  @apply hover:text-primary-700 dark:hover:text-primary-300 dark:text-white block p-3 font-semibold transition lg:px-2 lg:py-3;
+  @apply dark:text-white block p-3 font-semibold transition lg:px-2 lg:py-3;
+}
+
+.nav-link:hover {
+  color: rgb(var(--color-primary-700));
+}
+
+.dark .nav-link:hover {
+  color: rgb(var(--color-primary-300));
 }
 
 .nav-dropdown {
@@ -63,9 +71,17 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-item {
-  @apply px-4  [&:not(:last-child)]:mb-2 dark:hover:bg-primary-500;
+  @apply px-4  [&:not(:last-child)]:mb-2;
+}
+
+.dark .nav-dropdown-item:hover {
+  background-color: rgb(var(--color-primary-500));
 }
 
 .nav-dropdown-link {
-  @apply hover:text-primary-700 dark:text-white  dark:hover:text-white block py-1 font-semibold transition;
+  @apply dark:text-white  dark:hover:text-white block py-1 font-semibold transition;
+}
+
+.nav-dropdown-link:hover {
+  color: rgb(var(--color-primary-700));
 }
