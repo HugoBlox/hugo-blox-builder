@@ -12,13 +12,13 @@
 {{ $id := delimit (shuffle (seq 1 9)) "" }}
 <div id="chart-{{$id}}" class="chart"></div>
 <script>
-  async function fetchChartJSON() {
-    console.debug('Hugo Blox fetching chart JSON...')
-    const response = await fetch('{{$json}}');
-    return await response.json();
-  }
-
   (function() {
+    async function fetchChartJSON() {
+      console.debug('Hugo Blox fetching chart JSON...')
+      const response = await fetch('{{$json}}');
+      return await response.json();
+    }
+
     let a = setInterval( function() {
       if ( typeof window.Plotly === 'undefined' ) {
         console.debug('Plotly not loaded yet...')
