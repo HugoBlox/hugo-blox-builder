@@ -1,0 +1,25 @@
+{{/*
+    Docs: https://docs.hugoblox.com/content/writing-markdown-latex/#cite
+    
+    Cite shortcode for Hugo Blox Builder.
+    
+    Parameters
+    ----------
+    page : required
+        Path to Markdown page to be referenced.
+    view : optional, default "citation"
+        A built-in Hugo Blox Builder view or an installed community view.
+    
+*/}}
+
+{{ $page := .Page }}
+{{ $item := .Get "page" }}
+
+{{/* Default to citation view for Tailwind module */}}
+{{ $view := (.Get "view") | default "citation" }}
+
+{{ with site.GetPage $item }}
+  {{ partial "functions/render_view" (dict "page" $page "item" . "view" $view "index" 0) }}
+{{ else }}
+  {{ warnf "Failed to find page for cite shortcode: %s" $item }}
+{{ end }}
