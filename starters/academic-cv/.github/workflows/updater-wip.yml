@@ -1,3 +1,4 @@
+# This workflow is only for the Hugo Blox repository. It is safe to delete from your site.
 name: Updater (WIP)
 
 on:
@@ -15,7 +16,7 @@ jobs:
     if: github.repository_owner == 'HugoBlox'
     runs-on: ubuntu-latest
     steps:
-      - uses: HugoBlox/gh-action-updater@v1
+      - uses: HugoBlox/gh-action-updater@v2
         with:
           feed-url: https://hugoblox.com/rss.xml
           readme-section: news
