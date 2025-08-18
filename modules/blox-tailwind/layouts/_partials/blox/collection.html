@@ -79,6 +79,15 @@
   {{ $query = first $items_count $query }}
 {{ end }}
 
+{{/* Check if any items have author_notes to enable Alpine.js */}}
+{{ range $query }}
+  {{ if isset .Params "author_notes" }}
+    {{ $page.Store.Set "has_alpine" true }}
+    <script>console.log('Author notes found in collection - Alpine.js enabled');</script>
+    {{ break }}
+  {{ end }}
+{{ end }}
+
 {{ $columns := $block.design.columns | default "2" }}
 
 {{ if $block.content.title }}

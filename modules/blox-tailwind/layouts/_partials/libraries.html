@@ -1,5 +1,6 @@
 {{/* Load Alpine JS extension? */}}
 {{ if (.Page.Store.Get "has_alpine") }}
+  <script>console.log('✓ Alpine.js loading on demand');</script>
   {{ $alpine_js := resources.Get "dist/lib/alpinejs/cdn.min.js" }}
   {{ $alpine_js = $alpine_js | resources.Fingerprint "sha256" }}
   <script src="{{ $alpine_js.RelPermalink }}" integrity="{{ $alpine_js.Data.Integrity }}" defer></script>

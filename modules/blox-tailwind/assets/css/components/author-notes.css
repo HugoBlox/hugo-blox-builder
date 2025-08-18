@@ -1,0 +1,47 @@
+/* Author Notes Tooltip Styles */
+
+/* Hide elements with x-cloak until Alpine.js initializes */
+[x-cloak] {
+  display: none !important;
+}
+
+/* Ensure tooltip appears above other content */
+.author-notes-tooltip {
+  z-index: 9999;
+}
+
+/* Smooth hover effect for the info icon */
+.author-notes {
+  @apply inline-flex items-center justify-center;
+  @apply transition-all duration-200 ease-in-out;
+}
+
+/* Focus styles for accessibility */
+.author-notes:focus {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2 rounded-full;
+}
+
+/* Additional responsive styles for mobile */
+@media (max-width: 640px) {
+  /* On mobile, tooltips should be wider if needed */
+  .author-notes-tooltip {
+    white-space: normal;
+    max-width: 200px;
+  }
+}
+
+/* Print styles - show author notes inline when printing */
+@media print {
+  .author-notes {
+    display: none;
+  }
+  
+  /* Show author notes as superscript numbers in print */
+  .author-notes::after {
+    display: inline;
+    content: attr(data-tooltip);
+    vertical-align: super;
+    font-size: 0.75em;
+    margin-left: 0.25em;
+  }
+}
