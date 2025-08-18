@@ -48,7 +48,7 @@
           {{ end }}
           <div class="group inline-flex items-center text-current gap-x-1.5 mx-1">
             {{ with $avatar }}
-            {{ $avatar = $avatar.Process "Fill 50x50 Center webp" }}
+            {{ $avatar = $avatar.Process "Fill 100x100 Center webp" }}
             <img src="{{ $avatar.RelPermalink }}" alt="{{ $author_page.Title }}" class="inline-block h-4 w-4 rounded-full border border-current" loading="lazy" />
             {{ end }}
             <div {{if $author_page.Params.website}}class="group-hover:underline"{{end}}>{{ $author_page.Title }}</div>

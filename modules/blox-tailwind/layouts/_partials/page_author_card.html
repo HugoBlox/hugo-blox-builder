@@ -15,7 +15,7 @@
 
 <div class="flex pt-12 pb-4">
   {{ if $avatar }}
-  {{ $authorImage := $avatar.Fill "192x192 Center" }}
+  {{ $authorImage := $avatar.Fill "384x384 Center" }}
   <img
     class="mr-4 h-24 w-24 {{if ne $avatar_shape "square"}}rounded-full{{end}}"
     width="96"

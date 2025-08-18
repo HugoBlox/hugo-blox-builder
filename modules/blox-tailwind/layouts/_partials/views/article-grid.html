@@ -70,7 +70,7 @@
               <div class="relative h-5 w-5 flex-shrink-0">
               {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
               {{ if $avatar }}
-              {{ $authorImage := $avatar.Process "Fill 50x50 Center 95 webp" }}
+              {{ $authorImage := $avatar.Process "Fill 100x100 Center webp" }}
               <img alt="avatar"
                    class="rounded-full object-cover"
                    data-nimg="fill"

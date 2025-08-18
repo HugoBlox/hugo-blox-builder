@@ -5,13 +5,11 @@
     position: relative;
   }
 
-  /* Custom avatar size on homepage */
+  /* Custom avatar size on homepage - size controlled by template params */
 
   .avatar {
     width: auto;
     height: auto;
-    max-width: 225px;
-    max-height: 225px;
     object-fit: cover;
   }
 
@@ -97,8 +95,7 @@
 
 .avatar-wrapper {
   position: relative;
-  width: 150px; /* Match image size in about.avatar widget */
-  height: 150px;
+  /* width and height controlled by template params */
   margin-left: auto;
   margin-right: auto;
 }

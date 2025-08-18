@@ -15,7 +15,20 @@
 {{end}}
 {{ $person := $person_page.Params }}
 {{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
-{{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
+
+{{/* Avatar customization parameters */}}
+{{ $avatar_size := $block.design.avatar.size | default "medium" }}
+{{ $avatar_shape := $block.design.avatar.shape | default "circle" }}
+
+{{/* Size mappings optimized for 2025 standards: display_size -> [display_px, generation_px] */}}
+{{ $size_map := dict "small" (slice "150" "300") "medium" (slice "200" "400") "large" (slice "320" "640") "xl" (slice "400" "800") "xxl" (slice "500" "1000") }}
+{{ $size_config := index $size_map $avatar_size | default (index $size_map "medium") }}
+{{ $display_size := index $size_config 0 }}
+{{ $generation_size := index $size_config 1 }}
+
+{{/* Shape class mappings */}}
+{{ $shape_classes := dict "circle" "rounded-full" "square" "rounded-none" "rounded" "rounded-lg" }}
+{{ $shape_class := index $shape_classes $avatar_shape | default "rounded-full" }}
 
 
 <div class="resume-biography px-3 flex flex-col md:flex-row justify-center gap-12">
@@ -42,10 +55,11 @@
   <div id="profile" class="flex justify-center items-center flex-col">
     {{ if $avatar }}
 
-    <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}">
-      {{ $avatar_image := $avatar.Fill "150x150 Center" }}
-      <img class="avatar rounded-full bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$person_page.Title}}"
-           width="{{ $avatar_image.Width }}" height="{{ $avatar_image.Height }}">
+    <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
+      {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
+      <img class="avatar {{$shape_class}} bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$person_page.Title}}"
+           width="{{$display_size}}" height="{{$display_size}}"
+           style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
       {{with $person.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
     </div>
     {{ end }}

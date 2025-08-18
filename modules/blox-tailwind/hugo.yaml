@@ -102,6 +102,12 @@ outputFormats:
     baseName: backlinks
     isPlainText: true
     notAlternative: true
+imaging:
+  # High quality defaults for crisp avatar display
+  quality: 90
+  resampleFilter: lanczos
+  anchor: smart
+  hint: picture
 params:
   locale:
     date_format: 'Jan 2, 2006'

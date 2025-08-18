@@ -1,14 +1,33 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Questions
+  - name: 💬 Contributing chat (Discord)
     url: https://discord.gg/z8wNYzb
-    about: Chat live with the Hugo Blox Builder community on Discord.
-  - name: Discussions
-    url: https://github.com/HugoBlox/hugo-blox-builder/discussions
-    about: Discuss Hugo Blox Builder on the GitHub Discussions forum
-  - name: Troubleshooting Guide
+    about: Ask quick questions in the Contributing channel and coordinate with Geo & contributors.
+
+  - name: 🧪 Troubleshooting Guide
     url: https://docs.hugoblox.com/reference/troubleshooting/
-    about: Solve common issues fast.
-  - name: Documentation
+    about: Fix common issues fast and follow the reproducible-issue checklist before filing.
+
+  - name: 🏷️ Help-wanted issues (good first tasks)
+    url: https://github.com/HugoBlox/hugo-blox-builder/labels/help%20wanted
+    about: Pick a bite-sized task and open your first PR in minutes.
+
+  - name: 🧭 Contributing Guide
+    url: https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md
+    about: How we work, environment setup, style, and PR tips.
+
+  - name: 🧵 Discussions (Q&A, ideas)
+    url: https://github.com/HugoBlox/hugo-blox-builder/discussions
+    about: Ask for help, propose features, or share learnings.
+
+  - name: 📚 Documentation
     url: https://docs.hugoblox.com/
-    about: Review the documentation
+    about: Explore all Hugo Blox docs, tutorials, and references.
+
+  - name: 💚 Support Hugo Blox (All Access)
+    url: https://hugoblox.com/all-access
+    about: Too busy to contribute? Support development and get lifetime template updates.
+
+  - name: 🫶 Sponsor on GitHub
+    url: https://github.com/sponsors/gcushen
+    about: Prefer monthly or one-time sponsorship via GitHub.

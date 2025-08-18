@@ -149,7 +149,7 @@
   {{ $twitter_card := "summary_large_image" }}
   {{ if (and (eq .Kind "term") $avatar_image) }}
     {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
-    {{ $og_image = ($avatar_image.Fill "270x270 Center").Permalink }}
+    {{ $og_image = ($avatar_image.Fill "540x540 Center").Permalink }}
     {{ $twitter_card = "summary" }}
   {{ else if $featured_image }}
     {{ $og_image = $featured_image.Permalink }}
