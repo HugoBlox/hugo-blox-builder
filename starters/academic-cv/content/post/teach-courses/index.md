@@ -43,7 +43,6 @@ Teach your course by sharing videos with your students. Choose from one of the f
 
     {{</* bilibili BV1WV4y1r7DF */>}}
 
-{{< bilibili BV1WV4y1r7DF >}}
 
 **Video file**
 
