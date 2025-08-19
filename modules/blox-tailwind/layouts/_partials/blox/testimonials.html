@@ -33,8 +33,14 @@
       <div class="flex items-center justify-center mt-6 space-x-3">
         {{ $image := resources.GetMatch (path.Join "media" .image) }}
         {{ with $image }}
-        {{ $image = $image.Process "Fill 75x75 center webp" }}
-        <img class="w-12 h-12 rounded-full" src="{{$image.RelPermalink}}" alt="{{$item.name | plainify}}">
+          {{/* Serve a single 2x retina source for a 48px display */}}
+          {{ $avatar_96 := $image.Process "Fill 96x96 Center webp" }}
+          <img class="w-12 h-12 rounded-full" 
+               src="{{$avatar_96.RelPermalink}}" 
+               width="48"
+               height="48"
+               alt="{{$item.name | plainify}}"
+               loading="lazy">
         {{ end }}
         <div class="flex flex-col items-center">
           <div class="pr-3 font-medium text-gray-900 dark:text-white">{{.name}}</div>

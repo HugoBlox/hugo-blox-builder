@@ -25,7 +25,7 @@
 
 <figure {{ with $fig_class }}class="{{.}}"{{end}} {{ with $id }}id="figure-{{ . }}"{{ end }}>
   <div class="flex justify-center	">
-    <div class="w-100" {{ with $max_width }}style="max-width: {{.}}"{{end}}>
+    <div class="w-full" {{ with $max_width }}style="max-width: {{.}}"{{end}}>
       {{- if $img -}}
         {{- $isSVG := eq $img.MediaType.SubType "svg" -}}
         {{- $isGIF := eq $img.MediaType.SubType "gif" -}}
@@ -38,16 +38,15 @@
            {{- with $height }} height="{{.}}"{{end}}
            {{- with $img_class }} class="{{.}}"{{end}} />
         {{- else }}
-          {{- $img_lg := $img.Fit "1200x1200 webp" -}}
-          {{- $img_md := $img_lg.Fit "760x760 webp" -}}{{/* Match `.docs-article-container` max-width */}}
-          {{- $img_sm := $img_md.Fit "400x400 webp" -}}
+          {{/* Process responsive images - use 760px as default display size */}}
+          {{- $img_md := $img.Fit "760x760 webp" -}}
+          {{- $responsive := partial "functions/process_responsive_image.html" (dict "image" $img_md "mode" "responsive") -}}
           {{- $width := $width | default $img_md.Width -}}
           {{- $height := $height | default $img_md.Height -}}
-          <img alt="{{ $alt }}" srcset="
-               {{ $img_sm.RelPermalink }} 400w,
-               {{ $img_md.RelPermalink }} 760w,
-               {{ $img_lg.RelPermalink }} 1200w"
-               src="{{ $img_sm.RelPermalink }}"
+          <img alt="{{ $alt }}" 
+               srcset="{{ $responsive.srcset }}"
+               sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1024px) 80vw, 760px"
+               src="{{ $responsive.fallback.RelPermalink }}"
                width="{{ $width }}"
                height="{{ $height }}"
                loading="lazy"

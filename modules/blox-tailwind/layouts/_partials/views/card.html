@@ -14,9 +14,21 @@
   <div class="md:flex">
     <div class="md:flex-shrink-0 overflow-hidden">
       {{ with $resource }}
-        {{ $image := .Fill (printf "655x655 %s" $anchor) }}
-        {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
-      <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" loading="lazy" src="{{ $image.RelPermalink }}" height="{{ $image.Height }}" width="{{ $image.Width }}" alt="{{ $item.Title | plainify }}">
+        {{ $original_image := .Fill (printf "655x655 %s" $anchor) }}
+        {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+            "image" $original_image 
+            "mode" "responsive"
+            "sizes" (slice 192 384 480 655)
+        ) }}
+        
+        <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" 
+             srcset="{{ $responsive.srcset }}"
+             sizes="(max-width: 768px) 100vw, 192px"
+             src="{{ $responsive.fallback.RelPermalink }}" 
+             width="{{ $original_image.Width }}" 
+             height="{{ $original_image.Height }}"
+             loading="lazy" 
+             alt="{{ $item.Title | plainify }}">
       {{end}}
     </div>
     <div class="p-8">

@@ -48,8 +48,14 @@
           {{ end }}
           <div class="group inline-flex items-center text-current gap-x-1.5 mx-1">
             {{ with $avatar }}
-            {{ $avatar = $avatar.Process "Fill 100x100 Center webp" }}
-            <img src="{{ $avatar.RelPermalink }}" alt="{{ $author_page.Title }}" class="inline-block h-4 w-4 rounded-full border border-current" loading="lazy" />
+              {{/* Simple 2x retina image for small avatar */}}
+              {{ $avatar_32 := $avatar.Process "Fill 32x32 Center webp" }}
+              <img src="{{ $avatar_32.RelPermalink }}" 
+                   width="16"
+                   height="16"
+                   alt="{{ $author_page.Title }}" 
+                   class="inline-block h-4 w-4 rounded-full border border-current" 
+                   loading="lazy" />
             {{ end }}
             <div {{if $author_page.Params.website}}class="group-hover:underline"{{end}}>{{ $author_page.Title }}</div>
           </div>
@@ -116,26 +122,78 @@
 
       {{/* Determine image placement. */}}
       {{ $placement := .Params.image.placement | default 1 }}{{/* Default to full column width. */}}
-      {{/* Fit image to container's max width */}}
+      {{/* Configure responsive processing based on placement */}}
       {{ $image_container := "" }}
+      {{ $responsive_sizes := slice }}
+      {{ $sizes_attr := "" }}
       {{ if eq $placement 2}}
-      {{ $image_container = "container" }}
-      {{ $image = $featured.Fit "1200x2500" }}
+        {{ $image_container = "container" }}
+        {{ $responsive_sizes = slice 480 768 1024 1200 1600 }}
+        {{ $sizes_attr = "(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1200px) 80vw, 1200px" }}
       {{else if eq $placement 3}}
-      {{ $image_container = "container-fluid" }}
-      {{ $image := $featured.Fit "2560x2560" }}
+        {{ $image_container = "container-fluid" }}
+        {{ $responsive_sizes = slice 768 1024 1366 1920 2560 }}
+        {{ $sizes_attr = "(max-width: 768px) 100vw, (max-width: 1366px) 90vw, (max-width: 1920px) 80vw, 2560px" }}
       {{else}}
-      {{ $image_container = "article-container" }}
-      {{ $image = $featured.Fit "720x2500" }}
+        {{ $image_container = "article-container" }}
+        {{ $responsive_sizes = slice 320 480 640 720 960 }}
+        {{ $sizes_attr = "(max-width: 480px) 100vw, (max-width: 640px) 90vw, (max-width: 720px) 80vw, 720px" }}
       {{end}}
-      {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
-      {{/* Featured image */}}
-      <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$image.Width}}px; max-height: {{$image.Height}}px;">
-        <div style="position: relative">
-          <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" class="featured-image">
-          {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+      
+      {{/* Process featured image using utility with placement-specific constraints */}}
+      {{ if ne $featured.MediaType.SubType "gif" }}
+        {{/* Pre-fit image to placement constraints, then apply responsive processing */}}
+        {{ $fitted_image := $featured }}
+        {{ if eq $placement 2}}
+          {{ $fitted_image = $featured.Fit "1200x2500" }}
+        {{else if eq $placement 3}}
+          {{ $fitted_image = $featured.Fit "2560x2560" }}
+        {{else}}
+          {{ $fitted_image = $featured.Fit "720x2500" }}
+        {{end}}
+        
+        {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+            "image" $fitted_image 
+            "mode" "responsive"
+            "sizes" $responsive_sizes
+        ) }}
+        
+        {{/* Featured image - use fitted image dimensions for container, responsive for srcset */}}
+        <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$fitted_image.Width}}px; max-height: {{$fitted_image.Height}}px;">
+          <div style="position: relative">
+            <img srcset="{{ $responsive.srcset }}"
+                 sizes="{{ $sizes_attr }}"
+                 src="{{ $responsive.fallback.RelPermalink }}" 
+                 width="{{ $fitted_image.Width }}" 
+                 height="{{ $fitted_image.Height }}" 
+                 alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
+                 class="featured-image"
+                 fetchpriority="high">
+            {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+          </div>
         </div>
-      </div>
+      {{ else }}
+        {{/* Handle GIF - apply same placement constraints without responsive processing */}}
+        {{ $image := $featured }}
+        {{ if eq $placement 2}}
+          {{ $image = $featured.Fit "1200x2500" }}
+        {{else if eq $placement 3}}
+          {{ $image = $featured.Fit "2560x2560" }}
+        {{else}}
+          {{ $image = $featured.Fit "720x2500" }}
+        {{end}}
+        <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$image.Width}}px; max-height: {{$image.Height}}px;">
+          <div style="position: relative">
+            <img src="{{ $image.RelPermalink }}" 
+                 width="{{ $image.Width }}" 
+                 height="{{ $image.Height }}" 
+                 alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
+                 class="featured-image"
+                 fetchpriority="high">
+            {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+          </div>
+        </div>
+      {{ end }}
       {{end}}
 
       {{/* EVENT / PUBLICATION METADATA */}}

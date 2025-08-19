@@ -13,12 +13,30 @@
   {{ $image_path := path.Join "media" .image }}
   {{ $image := resources.GetMatch $image_path }}
   {{ with $image }}
-    {{ $image = $image.Process "Resize 800x webp" }}
+  <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+    {{ if ne $image.MediaType.SubType "gif" }}
+      {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+          "image" $image 
+          "mode" "fit"
+          "sizes" (slice 400 600 800 1200)
+      ) }}
+      <img class="w-full" 
+           srcset="{{ $responsive.srcset }}"
+           sizes="(max-width: 768px) 100vw, 50vw"
+           src="{{ $responsive.fallback.RelPermalink }}" 
+           width="{{ $responsive.fallback.Width }}"
+           height="{{ $responsive.fallback.Height }}"
+           alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
+    {{ else }}
+      <img class="w-full" 
+           src="{{$image.RelPermalink}}" 
+           width="{{$image.Width}}"
+           height="{{$image.Height}}"
+           alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
+    {{ end }}
   {{ else }}
     {{ errorf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Please add the image to this folder and try again." $page.File.Path $image_path }}
   {{ end }}
-  <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-    <img class="w-full" src="{{$image.RelPermalink}}" alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     <div class="mt-4 md:mt-0">
       <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{$title}}</h2>
       <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{$text}}</p>

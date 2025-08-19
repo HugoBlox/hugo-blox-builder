@@ -14,27 +14,56 @@
 <div class="group cursor-pointer">
 
   {{ with $resource }}
-  {{ $image := "" }}
-  {{if $fill_image}}
-    {{ $image = .Fill (printf "960x540 %s" $anchor) }}
-  {{else}}
-    {{ $image = .Fit (printf "960x540 %s" $anchor) }}
-  {{end}}
-  {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
-  <div class="overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
+  {{/* Skip GIF processing */}}
+  {{ if ne .MediaType.SubType "gif" }}
+    {{/* Process original image first, then create responsive variants */}}
+    {{ $original_image := "" }}
+    {{if $fill_image}}
+      {{ $original_image = .Fill (printf "960x540 %s" $anchor) }}
+    {{else}}
+      {{ $original_image = .Fit (printf "960x540 %s" $anchor) }}
+    {{end}}
+    
+    {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+        "image" $original_image 
+        "mode" "responsive"
+        "sizes" (slice 480 768 960 1200 1920)
+    ) }}
+    <div class="overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
+      <a
+        class="relative block aspect-video"
+        href="{{ $link }}" {{ $target | safeHTMLAttr }}>
 
-    <a
-      class="relative block aspect-video"
-      href="{{ $link }}" {{ $target | safeHTMLAttr }}>
+        <img alt="{{ $item.Title | plainify }}"
+             class="{{if $fill_image}}object-fill{{else}}object-contain{{end}} transition-all"
+             srcset="{{ $responsive.srcset }}"
+             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+             src="{{ $responsive.fallback.RelPermalink }}"
+             width="{{ $original_image.Width }}"
+             height="{{ $original_image.Height }}"
+             decoding="async"
+             fetchpriority="high"
+             loading="lazy"
+             style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;" />
+      </a>
+    </div>
+  {{ else }}
+    {{/* Handle GIF without processing */}}
+    <div class="overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
+      <a
+        class="relative block aspect-video"
+        href="{{ $link }}" {{ $target | safeHTMLAttr }}>
 
-      <img alt="{{ $item.Title | plainify }}"
-           class="{{if $fill_image}}object-fill{{else}}object-contain{{end}} transition-all"
-           data-nimg="fill"
-           decoding="async"
-           fetchpriority="high" height="{{ $image.Height }}" loading="lazy" src="{{ $image.RelPermalink }}"
-           style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
-           width="{{ $image.Width }}"></a>
-  </div>
+        <img alt="{{ $item.Title | plainify }}"
+             class="{{if $fill_image}}object-fill{{else}}object-contain{{end}} transition-all"
+             src="{{ .RelPermalink }}"
+             width="{{ .Width }}"
+             height="{{ .Height }}"
+             loading="lazy"
+             style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;" />
+      </a>
+    </div>
+  {{ end }}
   {{end}}
   <div class="">
     <div class="">
@@ -70,16 +99,16 @@
               <div class="relative h-5 w-5 flex-shrink-0">
               {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
               {{ if $avatar }}
-              {{ $authorImage := $avatar.Process "Fill 100x100 Center webp" }}
-              <img alt="avatar"
-                   class="rounded-full object-cover"
-                   data-nimg="fill"
-                   decoding="async" height="{{$authorImage.Height}}"
-                   loading="lazy"
-                   sizes="20px"
-                   src="{{$authorImage.RelPermalink}}"
-                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
-                   width="{{$authorImage.Width}}">
+                {{/* Use a single 2x retina source for a 20px display */}}
+                {{ $avatar_40 := $avatar.Process "Fill 40x40 Center webp" }}
+                <img alt="avatar"
+                     class="rounded-full object-cover"
+                     src="{{$avatar_40.RelPermalink}}"
+                     width="20"
+                     height="20"
+                     loading="lazy"
+                     decoding="async"
+                     style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;" />
               {{ else }}
                 {{ warnf "An image named `avatar` was not found in the `%s` folder" $value.Path }}
               {{ end }}
