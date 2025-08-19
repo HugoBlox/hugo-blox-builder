@@ -1,0 +1,150 @@
+types:
+  pdf:
+    label_i18n: btn_pdf
+    icon: hero/document-text
+  preprint:
+    label_i18n: btn_preprint
+    icon: hero/document-text
+  doi:
+    label_i18n: btn_doi
+    icon: hero/link
+  code:
+    label_i18n: btn_code
+    icon: hero/code-bracket
+  dataset:
+    label_i18n: btn_dataset
+    icon: hero/circle-stack
+  model:
+    label_i18n: btn_model
+    icon: hero/link
+  slides:
+    label_i18n: btn_slides
+    icon: hero/presentation-chart-bar
+  video:
+    label_i18n: btn_video
+    icon: hero/video-camera
+  poster:
+    label_i18n: btn_poster
+    icon: hero/photo
+  project:
+    label_i18n: btn_project
+    icon: hero/link
+  site:
+    label_i18n: btn_site
+    icon: hero/link
+  source:
+    label_i18n: btn_source
+    icon: hero/document
+  bibtex:
+    label_i18n: btn_cite
+    icon: hero/document-duplicate
+  canonical:
+    label_i18n: btn_canonical
+    icon: hero/link
+  crosspost:
+    label_i18n: btn_crosspost
+    icon: hero/link
+  discussion:
+    label_i18n: btn_discussion
+    icon: hero/link
+  event:
+    label_i18n: btn_event
+    icon: hero/calendar
+  calendar:
+    label_i18n: btn_calendar
+    icon: hero/calendar
+  registration:
+    label_i18n: btn_registration
+    icon: hero/link
+  demo:
+    label_i18n: btn_demo
+    icon: hero/link
+
+# Mapping of identifier keys under `hugoblox.ids` to derived links
+derived:
+  doi:
+    type: doi
+    label_i18n: btn_doi
+    icon: hero/link
+    url_template: "https://doi.org/{id}"
+  arxiv:
+    type: preprint
+    label_i18n: btn_preprint
+    icon: hero/document-text
+    url_template: "https://arxiv.org/abs/{id}"
+  openreview:
+    type: preprint
+    label_i18n: btn_preprint
+    icon: hero/document-text
+    url_template: "https://openreview.net/forum?id={id}"
+  acl_id:
+    type: source
+    label_i18n: btn_source
+    icon: hero/document
+    url_template: "https://aclanthology.org/{id}"
+  hal:
+    type: source
+    label_i18n: btn_hal
+    icon: hero/document
+    url_template: "https://hal.science/{id}"
+  dblp:
+    type: source
+    label_i18n: btn_dblp
+    icon: hero/document
+    url_template: "https://dblp.org/rec/{id}.html"
+  isbn:
+    type: source
+    label_i18n: btn_isbn
+    icon: hero/document
+    url_template: "https://openlibrary.org/isbn/{id}"
+  osf:
+    type: source
+    label_i18n: btn_osf
+    icon: hero/document
+    url_template: "https://osf.io/{id}"
+  zenodo:
+    type: source
+    label_i18n: btn_zenodo
+    icon: hero/document
+    url_template: "https://zenodo.org/records/{id}"
+  kaggle_dataset:
+    type: dataset
+    label_i18n: btn_kaggle
+    icon: hero/circle-stack
+    url_template: "https://www.kaggle.com/datasets/{id}"
+  kaggle_competition:
+    type: site
+    label_i18n: btn_kaggle
+    icon: hero/link
+    url_template: "https://www.kaggle.com/competitions/{id}"
+  openalex:
+    type: source
+    label_i18n: btn_openalex
+    icon: hero/document
+    url_template: "https://openalex.org/{id}"
+  semanticscholar:
+    type: source
+    label_i18n: btn_semanticscholar
+    icon: hero/document
+    url_template: "https://www.semanticscholar.org/paper/{id}"
+  pwc:
+    type: site
+    label_i18n: btn_pwc
+    icon: hero/link
+    url_template: "https://paperswithcode.com/paper/{id}"
+  huggingface_model:
+    type: model
+    label_i18n: btn_model
+    icon: hero/link
+    url_template: "https://huggingface.co/{id}"
+  huggingface_dataset:
+    type: dataset
+    label_i18n: btn_dataset
+    icon: hero/circle-stack
+    url_template: "https://huggingface.co/datasets/{id}"
+  huggingface_space:
+    type: demo
+    label_i18n: btn_demo
+    icon: hero/link
+    url_template: "https://huggingface.co/spaces/{id}"
+

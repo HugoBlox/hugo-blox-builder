@@ -90,6 +90,46 @@
 - id: btn_source
   translation: Source Document
 
+# New link types
+- id: btn_doi
+  translation: DOI
+- id: btn_site
+  translation: Site
+- id: btn_canonical
+  translation: Canonical
+- id: btn_crosspost
+  translation: Crosspost
+- id: btn_discussion
+  translation: Discussion
+- id: btn_event
+  translation: Event
+- id: btn_calendar
+  translation: Calendar
+- id: btn_registration
+  translation: Registration
+- id: btn_demo
+  translation: Demo
+- id: btn_model
+  translation: Model
+- id: btn_hal
+  translation: HAL
+- id: btn_dblp
+  translation: DBLP
+- id: btn_isbn
+  translation: ISBN
+- id: btn_osf
+  translation: OSF
+- id: btn_zenodo
+  translation: Zenodo
+- id: btn_kaggle
+  translation: Kaggle
+- id: btn_openalex
+  translation: OpenAlex
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+- id: btn_pwc
+  translation: Papers With Code
+
 - id: btn_copy
   translation: Copy
 

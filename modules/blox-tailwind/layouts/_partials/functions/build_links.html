@@ -1,0 +1,259 @@
+{{/*
+  Hugo Blox Page Link Builder
+  Build a normalized list of page links from:
+  - Author-provided front matter `links` (array order respected)
+  - Auto-detected resources (local PDF, cite.bib)
+  - Derived identifiers from `hugoblox.ids`
+  - Associated internal `projects` references
+
+  Inputs: dict { "page": . , "is_list": 0|1 }
+  Output: slice of dicts with fields: type, url, icon, labelKey, label, contexts, rel
+
+  Deprecations handled with warnings and mapped:
+    - external_link -> type: site
+    - url_pdf -> type: pdf
+    - url_preprint -> type: preprint
+    - url_code -> type: code
+    - url_dataset -> type: dataset
+    - url_poster -> type: poster
+    - url_project -> type: project
+    - url_slides -> type: slides
+    - url_source -> type: source
+    - url_video -> type: video
+*/}}
+
+{{ $page := .page }}
+{{ $is_list := .is_list }}
+
+{{ $types := site.Data.link_types.types }}
+{{ $derived := site.Data.link_types.derived }}
+
+{{ $links := slice }}
+{{ $seen := newScratch }}
+{{ $seen.Set "set" (dict) }}
+
+{{/* 1) Author-provided links (array order) */}}
+{{ with $page.Params.links }}
+  {{ range . }}
+    {{/* Support new fields: type, url, icon (pack/name), label, contexts, rel; legacy: name */}}
+    {{ $type := .type | default "custom" }}
+    {{ $url := .url | default "" }}
+    {{/* Optional provider+id derivation for common platforms */}}
+    {{ if and (not $url) .id }}
+      {{ if eq $type "doi" }}
+        {{ $url = replace (index (index $derived "doi") "url_template") "{id}" (printf "%v" .id) }}
+      {{ else if and (eq $type "preprint") (eq .provider "arxiv") }}
+        {{ $url = replace (index (index $derived "arxiv") "url_template") "{id}" (printf "%v" .id) }}
+      {{ else if and (eq $type "preprint") (eq .provider "openreview") }}
+        {{ $url = replace (index (index $derived "openreview") "url_template") "{id}" (printf "%v" .id) }}
+      {{ end }}
+    {{ end }}
+    {{ $typeF := $type }}
+    {{ $urlF := $url }}
+    {{ $keyF := printf "%s::%s" $typeF $urlF }}
+    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+      {{ $seen.SetInMap "set" $keyF true }}
+      {{ $links = $links | append (dict
+          "type" $typeF
+          "url" $urlF
+          "icon" (.icon | default (index (index $types $typeF) "icon") | default "hero/link")
+          "labelKey" (index (index $types $typeF) "label_i18n")
+          "label" (.label | default .name)
+          "contexts" (.contexts | default (slice "list" "page"))
+          "rel" .rel
+        ) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* 2) Associated projects (internal) */}}
+{{ with $page.Params.projects }}
+  {{ range . }}
+    {{ with (site.GetPage (printf "project/%s" .)) }}
+      {{ $typeF := "project" }}
+      {{ $urlF := .RelPermalink }}
+      {{ $keyF := printf "%s::%s" $typeF $urlF }}
+      {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+        {{ $seen.SetInMap "set" $keyF true }}
+        {{ $links = $links | append (dict
+            "type" $typeF
+            "url" $urlF
+            "icon" (index (index $types $typeF) "icon")
+            "labelKey" (index (index $types $typeF) "label_i18n")
+            "contexts" (slice "list" "page")
+          ) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* 2b) Slides relation parameter (legacy but common) */}}
+{{ with $page.Params.slides }}
+  {{ with (site.GetPage (printf "slides/%s" .)) }}
+    {{ $typeF := "slides" }}
+    {{ $urlF := .RelPermalink }}
+    {{ $keyF := printf "%s::%s" $typeF $urlF }}
+    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+      {{ $seen.SetInMap "set" $keyF true }}
+      {{ $links = $links | append (dict
+          "type" $typeF
+          "url" $urlF
+          "icon" (index (index $types $typeF) "icon")
+          "labelKey" (index (index $types $typeF) "label_i18n")
+          "contexts" (slice "list" "page")
+        ) }}
+    {{ end }}
+  {{ else }}
+    {{ warnf "`slides` relation could not resolve to a page for %s" $page.File.Path }}
+  {{ end }}
+{{ end }}
+
+{{/* 3) Auto-detected resources (local PDF by content basename, cite.bib) */}}
+{{ with $page.File.ContentBaseName }}
+  {{ with ($page.Resources.GetMatch (printf "%s.pdf" .)) }}
+    {{ $typeF := "pdf" }}
+    {{ $urlF := .RelPermalink }}
+    {{ $keyF := printf "%s::%s" $typeF $urlF }}
+    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+      {{ $seen.SetInMap "set" $keyF true }}
+      {{ $links = $links | append (dict
+          "type" $typeF
+          "url" $urlF
+          "icon" (index (index $types $typeF) "icon")
+          "labelKey" (index (index $types $typeF) "label_i18n")
+          "contexts" (slice "list" "page")
+        ) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ with ($page.Resources.GetMatch "cite.bib") }}
+  {{ $typeF := "bibtex" }}
+  {{ $urlF := .RelPermalink }}
+  {{ $keyF := printf "%s::%s" $typeF $urlF }}
+  {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+    {{ $seen.SetInMap "set" $keyF true }}
+    {{ $links = $links | append (dict
+        "type" $typeF
+        "url" $urlF
+        "icon" (index (index $types $typeF) "icon")
+        "labelKey" (index (index $types $typeF) "label_i18n")
+        "contexts" (slice "list" "page")
+      ) }}
+  {{ end }}
+{{ end }}
+
+{{/* 4) Derived links from identifiers under `hugoblox.ids` */}}
+{{ with $page.Params.hugoblox }}
+  {{ with .ids }}
+    {{ range $key, $val := . }}
+      {{ with (index $derived $key) }}
+        {{ $der := . }}
+        {{ $typeF := index $der "type" }}
+        {{ $urlF := replace (index $der "url_template") "{id}" (printf "%v" $val) }}
+        {{ $keyF := printf "%s::%s" $typeF $urlF }}
+        {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+          {{ $seen.SetInMap "set" $keyF true }}
+          {{ $links = $links | append (dict
+              "type" $typeF
+              "url" $urlF
+              "icon" (index $der "icon")
+              "labelKey" (index $der "label_i18n")
+              "contexts" (slice "list" "page")
+            ) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* 5) Legacy fields -> deprecation warnings and normalized items */}}
+{{/* external_link */}}
+{{ with $page.Params.external_link }}
+  {{ warnf "`external_link` is deprecated. Use `links: [{type: site, url: ...}]` in %s" $page.File.Path }}
+  {{ $typeF := "site" }}
+  {{ $urlF := . }}
+  {{ $keyF := printf "%s::%s" $typeF $urlF }}
+  {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+    {{ $seen.SetInMap "set" $keyF true }}
+    {{ $links = $links | append (dict
+        "type" $typeF
+        "url" $urlF
+        "icon" (index (index $types $typeF) "icon")
+        "labelKey" (index (index $types $typeF) "label_i18n")
+        "contexts" (slice "list" "page")
+      ) }}
+  {{ end }}
+{{ end }}
+{{/* top-level doi */}}
+{{ with $page.Params.doi }}
+  {{ warnf "Top-level `doi` is deprecated. Use `hugoblox.ids: { doi: ... }` in %s" $page.File.Path }}
+  {{ with (index $derived "doi") }}
+    {{ $der := . }}
+    {{ $typeF := index $der "type" }}
+    {{ $urlF := replace (index $der "url_template") "{id}" (printf "%v" $page.Params.doi) }}
+    {{ $keyF := printf "%s::%s" $typeF $urlF }}
+    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+      {{ $seen.SetInMap "set" $keyF true }}
+      {{ $links = $links | append (dict
+          "type" $typeF
+          "url" $urlF
+          "icon" (index $der "icon")
+          "labelKey" (index $der "label_i18n")
+          "contexts" (slice "list" "page")
+        ) }}
+    {{ end }}
+  {{ else }}
+    {{ $typeF := "doi" }}
+    {{ $urlF := printf "https://doi.org/%v" $page.Params.doi }}
+    {{ $keyF := printf "%s::%s" $typeF $urlF }}
+    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+      {{ $seen.SetInMap "set" $keyF true }}
+      {{ $links = $links | append (dict
+          "type" $typeF
+          "url" $urlF
+          "icon" (index (index $types $typeF) "icon")
+          "labelKey" (index (index $types $typeF) "label_i18n")
+          "contexts" (slice "list" "page")
+        ) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{/* Map of legacy url_* to new types */}}
+{{ $legacy := dict
+  "url_pdf" "pdf"
+  "url_preprint" "preprint"
+  "url_code" "code"
+  "url_dataset" "dataset"
+  "url_poster" "poster"
+  "url_project" "project"
+  "url_slides" "slides"
+  "url_source" "source"
+  "url_video" "video"
+}}
+{{ range $legacyKey, $legacyType := $legacy }}
+  {{ with index $page.Params $legacyKey }}
+    {{ warnf "`%s` is deprecated. Use `links: [{type: %s, url: ...}]` in %s" $legacyKey $legacyType $page.File.Path }}
+    {{/* Resolve relative resource if present */}}
+    {{ $u := . }}
+    {{ with ($page.Resources.GetMatch $u) }}
+      {{ $u = .RelPermalink }}
+    {{ else }}
+      {{ $u = $u | relURL }}
+    {{ end }}
+    {{ $typeF := $legacyType }}
+    {{ $urlF := $u }}
+    {{ $keyF := printf "%s::%s" $typeF $urlF }}
+    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+      {{ $seen.SetInMap "set" $keyF true }}
+      {{ $links = $links | append (dict
+          "type" $typeF
+          "url" $urlF
+          "icon" (index (index $types $typeF) "icon")
+          "labelKey" (index (index $types $typeF) "label_i18n")
+          "contexts" (slice "list" "page")
+        ) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{- return $links -}}
