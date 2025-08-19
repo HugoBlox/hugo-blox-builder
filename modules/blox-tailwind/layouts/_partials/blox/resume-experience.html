@@ -16,7 +16,7 @@
 {{ $person := $person_page.Params }}
 {{ $is_education_first := $block.design.is_education_first | default false }}
 
-<div class="flex flex-col items-center max-w-prose mx-auto">
+<div class="flex flex-col items-center mx-auto w-full max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl">
 <!--  <article class="prose prose-slate lg:prose-xl dark:prose-invert">-->
 <!--    {{ with $block.content.title }}-->
 <!--    <h2>{{ . }}</h2>-->
@@ -24,18 +24,18 @@
 <!--  </article>-->
 
 <!-- Need Gap >= 3 when flex-row due to negative margin on cols (-start-3) -->
-<div class="flex flex-col lg:gap-x-6 w-100 px-6 sm:px-0 {{ if $is_education_first }}flex-col-reverse{{end}}">
+<div class="flex flex-col lg:gap-x-6 w-full px-6 sm:px-0 {{ if $is_education_first }}flex-col-reverse{{end}}">
 
 {{ if $person.work }}
 <div class="w-full">
-  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{{ i18n "experience" | default "Experience" }}</h3>
-  <ol class="relative border-s border-gray-200 dark:border-gray-700">
+  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "experience" | default "Experience" }}</h3>
+  <ol class="relative w-full border-s border-gray-200 dark:border-gray-700">
     {{ range $idx, $key := $person.work }}
     <li class="mb-10 ms-6">
         <span class="absolute flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-primary-900">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-5 h-5 text-primary-800 dark:text-primary-300"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"></path></svg>
         </span>
-      <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white text-wrap">{{.position}}
+      <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{.position}}
         <!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
       </h3>
       <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{.company_name}}</span>
@@ -49,7 +49,7 @@
           {{ i18n "present" | default "Present" }}
         {{end}}
       </time>
-      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 text-wrap prose prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
+      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 prose max-w-none prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
 
       {{ with .button }}
       <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -66,8 +66,8 @@
 
 {{ if $person.education }}
 <div class="w-full">
-  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{{ i18n "education" }}</h3>
-    <ol class="relative border-s border-gray-200 dark:border-gray-700">
+  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "education" }}</h3>
+    <ol class="relative w-full border-s border-gray-200 dark:border-gray-700">
       {{ range $idx, $key := $person.education }}
       <li class="mb-10 ms-6">
         <span class="absolute flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-primary-900">
@@ -88,7 +88,7 @@
             {{ i18n "present" | default "Present" }}
           {{end}}
         </time>
-        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 prose prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
+        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 prose max-w-none prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
 
         {{ with .button }}
         <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-primary-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
