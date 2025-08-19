@@ -3,7 +3,7 @@ module:
     - source: data
       target: data
     - source: functions
-      target: layouts/partials/mod-decap-cms
+      target: layouts/_partials/mod-decap-cms
     - source: templates
       target: layouts/decap_cms
 outputFormats:

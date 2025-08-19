@@ -12,7 +12,7 @@
 {{ if eq $block_type "featured" }}{{ $block_type = "collection" }}{{ end }}{{/* Support legacy Featured block */}}
 {{ $widget_path := printf "blocks/v1/%s.html" $block_type }}
 {{ if not (templates.Exists (printf "_partials/%s" $widget_path)) }}
-  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $widget_path }}
+  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/_partials/%s`" $block.File.Path $block_type $block_type $widget_path }}
 {{ end }}
 
 {{/* Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}

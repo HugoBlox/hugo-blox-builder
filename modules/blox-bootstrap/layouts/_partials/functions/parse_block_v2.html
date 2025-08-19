@@ -8,7 +8,7 @@
 {{ $block_type := lower $block.block | default "markdown" }}
 {{ $block_path := printf "blocks/%s.html" $block_type }}
 {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
-  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/partials/%s`" $block.File.Path $block_type $block_type $block_path }}
+  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `layouts/_partials/%s`" $block.File.Path $block_type $block_type $block_path }}
 {{ end }}
 
 {{/* Mermaid block: Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}

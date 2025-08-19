@@ -41,7 +41,7 @@
   {{ $block_name := .Params.header.navbar.block | default site.Params.header.navbar.block | default "navbar" }}
   {{ $block_path := printf "components/headers/%s.html" $block_name }}
   {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
-    {{ errorf "Check your `header` config in `params.yaml` and/or front matter. Cannot find header block at `layouts/partials/%s`" $block_path }}
+    {{ errorf "Check your `header` config in `params.yaml` and/or front matter. Cannot find header block at `layouts/_partials/%s`" $block_path }}
   {{ end }}
   {{ partial $block_path . }}
   </div>
