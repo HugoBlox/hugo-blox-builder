@@ -22,6 +22,8 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      LOG_LEVEL: INFO
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,15 +55,13 @@ jobs:
       - name: Show plan (dry run)
         if: ${{ inputs.dry_run }}
         run: |
-          poetry run python scripts/release_modules.py --print-plan
+          poetry run python scripts/release_modules.py --print-plan --log-level $LOG_LEVEL
 
       - name: Release (commit, tag, push)
         if: ${{ !inputs.dry_run }}
         run: |
           if [ "${{ inputs.propagate }}" = "true" ]; then
-            poetry run python scripts/release_modules.py --yes --propagate
+            poetry run python scripts/release_modules.py --yes --propagate --log-level $LOG_LEVEL
           else
-            poetry run python scripts/release_modules.py --yes --no-propagate
+            poetry run python scripts/release_modules.py --yes --no-propagate --log-level $LOG_LEVEL
           fi
-
-

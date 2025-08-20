@@ -268,6 +268,38 @@ def update_go_mod_require_version(go_mod_text: str, dep_module_path: str, new_ve
   return new_text
 
 
+def update_module_requirements_to_latest(
+  module: Module,
+  modules: Dict[str, Module],
+  known_latest_versions: Dict[str, str],
+) -> Optional[Path]:
+  """
+  Ensure module's go.mod requires the latest tag for all internal dependencies.
+  Uses known_latest_versions (from earlier releases in this run) or the dependency's last tag.
+  Returns the go.mod path if changed.
+  """
+  go_mod_file = module.rel_dir / "go.mod"
+  if not go_mod_file.exists() or not module.requires:
+    return None
+
+  original = go_mod_file.read_text(encoding="utf-8")
+  updated = original
+
+  for dep_path in sorted(module.requires):
+    if dep_path not in modules:
+      continue  # external dep
+    version = known_latest_versions.get(dep_path) or modules[dep_path].last_version()
+    if not version:
+      continue
+    updated = update_go_mod_require_version(updated, dep_path, version)
+
+  if updated != original:
+    go_mod_file.write_text(updated, encoding="utf-8")
+    logging.info("%s: synced go.mod internal deps to latest tags", module.name)
+    return go_mod_file
+  return None
+
+
 def stage_and_maybe_commit(paths: List[Path], message: str, commit: bool, push: bool) -> None:
   if not paths:
     return
@@ -511,7 +543,7 @@ def main() -> None:
   if not yes:
     return
 
-  # 1) Release in dependency order: update metadata, commit, tag, push, then update dependents' go.mod
+  # 1) Release in dependency order: sync module go.mod deps, update metadata, commit, tag, push, then update dependents' go.mod
   latest_versions: Dict[str, str] = {}
   for m in order:
     if m.module_path not in will_release:
@@ -519,6 +551,10 @@ def main() -> None:
     next_version = planned[m.module_path]["next"]
 
     touched_files: List[Path] = []
+    # Sync internal deps in this module's go.mod to latest known tags before tagging
+    go_mod_synced = update_module_requirements_to_latest(m, modules, latest_versions)
+    if go_mod_synced:
+      touched_files.append(go_mod_synced)
     # Special-case blox-tailwind theme version bump
     touched_files.extend(write_blox_tailwind_theme_version(m, next_version))
 
@@ -561,5 +597,3 @@ if __name__ == "__main__":
     logging.exception("release failed: %s", e)
     print(f"Error: {e}", file=sys.stderr)
     sys.exit(1)
-
-
