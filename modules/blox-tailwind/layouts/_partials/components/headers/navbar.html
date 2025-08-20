@@ -60,7 +60,11 @@
       {{ if .HasChildren }}
       <li class="nav-item nav-dropdown group relative">
             <span
-              class="nav-link {{ range .Children }}
+              role="button"
+              tabindex="0"
+              aria-haspopup="true"
+              aria-expanded="false"
+              class="nav-link cursor-pointer select-none {{ range .Children }}
                 {{ $childURL := .URL | absLangURL }}
                 {{ $active := eq $childURL $pageURL }}
                 {{ if $active }}active{{ end }}
