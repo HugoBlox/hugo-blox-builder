@@ -12,8 +12,8 @@ Features:
 - Updates starter templates' go.mod to latest released module versions and bumps Hugo version in CI/Netlify config
 
 Usage examples:
-  poetry run python scripts/release_modules.py --dry-run
-  poetry run python scripts/release_modules.py --yes --no-propagate
+  poetry run python scripts/release_modules.py --dry-run --log-level INFO
+  poetry run python scripts/release_modules.py --yes --no-propagate --log-level DEBUG
 
 Notes:
 - Tags must be created with the subdirectory path prefix per Go's submodule tagging rules.
@@ -30,6 +30,7 @@ import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
+import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
 
@@ -46,8 +47,15 @@ EXCLUDED_MODULE_DIRS = {"blox-bootstrap"}
 
 
 def run_cmd(args: List[str], cwd: Optional[Path] = None, check: bool = True) -> subprocess.CompletedProcess:
-  process = subprocess.run(args, cwd=str(cwd) if cwd else None, text=True, capture_output=True)
+  workdir = str(cwd) if cwd else None
+  logging.debug("run: %s [cwd=%s]", " ".join(args), workdir or str(REPO_ROOT))
+  process = subprocess.run(args, cwd=workdir, text=True, capture_output=True)
+  if process.stdout:
+    logging.debug("stdout:\n%s", process.stdout.strip())
+  if process.stderr:
+    logging.debug("stderr:\n%s", process.stderr.strip())
   if check and process.returncode != 0:
+    logging.error("command failed (%s): %s", process.returncode, " ".join(args))
     raise RuntimeError(f"Command failed: {' '.join(args)}\nSTDOUT:\n{process.stdout}\nSTDERR:\n{process.stderr}")
   return process
 
@@ -141,12 +149,14 @@ def discover_modules() -> Dict[str, Module]:
       major=major,
       requires=requires,
     )
+    logging.debug("discovered module: %s (dir=%s, major=%s, requires=%s)", module_path, rel_dir, major, sorted(list(requires)))
 
   # Fill dependents
   for mod in modules.values():
     for req in list(mod.requires):
       if req in modules:
         modules[req].dependents.add(mod.module_path)
+  logging.info("discovered %d modules", len(modules))
   return modules
 
 
@@ -157,6 +167,7 @@ def get_commits_since_tag(module: Module, tag: Optional[str]) -> List[str]:
   else:
     res = run_cmd(["git", "log", f"{tag}..HEAD", "--pretty=%s", "--", str(module.rel_dir)], cwd=REPO_ROOT)
   msgs = [l.strip() for l in res.stdout.splitlines() if l.strip()]
+  logging.debug("%s commits since %s: %d", module.name, tag or "<none>", len(msgs))
   return msgs
 
 
@@ -164,7 +175,9 @@ def has_changes_since_tag(module: Module, tag: Optional[str]) -> bool:
   if not tag:
     return True
   res = run_cmd(["git", "diff", "--name-only", tag, "--", str(module.rel_dir)], cwd=REPO_ROOT)
-  return any(l.strip() for l in res.stdout.splitlines())
+  changed = any(l.strip() for l in res.stdout.splitlines())
+  logging.debug("changed since tag? %s: %s", module.name, changed)
+  return changed
 
 
 def determine_bump_from_commits(commits: List[str]) -> str:
@@ -236,6 +249,7 @@ def write_blox_tailwind_theme_version(module: Module, version: str) -> List[Path
   with data_file.open("w", encoding="utf-8") as f:
     yaml.dump(data, f)
   updated.append(data_file)
+  logging.info("bumped theme version in %s to %s", data_file, version)
   return updated
 
 
@@ -257,11 +271,26 @@ def update_go_mod_require_version(go_mod_text: str, dep_module_path: str, new_ve
 def stage_and_maybe_commit(paths: List[Path], message: str, commit: bool, push: bool) -> None:
   if not paths:
     return
-  str_paths = [str(p.relative_to(REPO_ROOT)) for p in paths]
+  str_paths: List[str] = []
+  for p in paths:
+    if p.is_absolute():
+      try:
+        rel = p.relative_to(REPO_ROOT)
+        str_paths.append(str(rel))
+      except Exception:
+        # Fallback to OS relpath if not within repo root
+        rel = os.path.relpath(str(p), str(REPO_ROOT))
+        str_paths.append(rel)
+    else:
+      # Use as-is relative to repo root since git cwd is REPO_ROOT
+      str_paths.append(str(p))
+  logging.info("git add: %s", ", ".join(str_paths))
   run_cmd(["git", "add", *str_paths], cwd=REPO_ROOT)
   if commit:
+    logging.info("git commit -m '%s'", message)
     run_cmd(["git", "commit", "-m", message], cwd=REPO_ROOT)
     if push:
+      logging.info("git push origin main")
       run_cmd(["git", "push", "origin", "main"], cwd=REPO_ROOT)
 
 
@@ -269,7 +298,9 @@ def create_and_push_tag(module: Module, version: str, yes: bool) -> None:
   tag = f"{module.rel_dir.as_posix()}/v{version}"
   annotate_msg = f"{module.name}: v{version}"
   if yes:
+    logging.info("create tag %s", tag)
     run_cmd(["git", "tag", "-a", tag, "-m", annotate_msg], cwd=REPO_ROOT)
+    logging.info("push tag %s", tag)
     run_cmd(["git", "push", "origin", tag], cwd=REPO_ROOT)
 
 
@@ -293,6 +324,7 @@ def topological_order(modules: Dict[str, Module]) -> List[Module]:
   # If cycle (shouldn't happen), just return arbitrary order
   if len(ordered) != len(modules):
     return list(modules.values())
+  logging.info("release order: %s", ", ".join(m.module_path for m in ordered))
   return ordered
 
 
@@ -320,6 +352,7 @@ def update_dependents_for_release(
     if updated != original:
       go_mod_file.write_text(updated, encoding="utf-8")
       stage_and_maybe_commit([go_mod_file], f"chore({dep_mod.name}): require {released_module.name} v{released_version}", commit, push)
+      logging.info("updated dependent %s go.mod -> %s %s", dep_mod.name, released_module.name, released_version)
       touched.append(dep_mod)
   return touched
 
@@ -346,6 +379,7 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
       if new_text != text:
         go_mod.write_text(new_text, encoding="utf-8")
         updated_paths.append(go_mod)
+        logging.info("starter %s: updated go.mod module versions", starter_dir.name)
 
     # bump hugo version in hugoblox.yaml
     hb_yaml = starter_dir / "hugoblox.yaml"
@@ -359,6 +393,7 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
         with hb_yaml.open("w", encoding="utf-8") as f:
           yaml.dump(data, f)
         updated_paths.append(hb_yaml)
+        logging.info("starter %s: hugoblox.yaml hugo_version -> %s", starter_dir.name, latest_hugo)
 
     # bump netlify.toml HUGO_VERSION
     netlify = starter_dir / "netlify.toml"
@@ -370,6 +405,7 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
           env["HUGO_VERSION"] = latest_hugo
           netlify.write_text(tomlkit.dumps(parsed), encoding="utf-8")
           updated_paths.append(netlify)
+          logging.info("starter %s: netlify.toml HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
     # bump publish.yaml env WC_HUGO_VERSION
     workflow = starter_dir / ".github" / "workflows" / "publish.yaml"
@@ -381,6 +417,7 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
         with workflow.open("w", encoding="utf-8") as f:
           yaml.dump(wf, f)
         updated_paths.append(workflow)
+        logging.info("starter %s: publish.yaml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
   if updated_paths:
     stage_and_maybe_commit(updated_paths, "chore(starters): bump modules and Hugo", commit, push)
@@ -391,6 +428,7 @@ def ensure_clean_worktree() -> None:
   dirty = [l for l in res.stdout.splitlines() if l.strip()]
   if dirty:
     raise RuntimeError("Working tree is dirty. Commit or stash changes before running with --yes. Use --dry-run to preview.")
+  logging.info("working tree is clean")
 
 
 def main() -> None:
@@ -401,7 +439,12 @@ def main() -> None:
   parser.add_argument("--no-propagate", dest="propagate", action="store_false", help="Do not bump dependents purely for dependency updates.")
   parser.add_argument("--allow-major", action="store_true", help="Allow major version bumps when inferred from commits. By default majors are downgraded to minor to avoid Go module path changes.")
   parser.add_argument("--print-plan", action="store_true", help="Print the planned releases as JSON.")
+  parser.add_argument("--log-level", default=os.getenv("LOG_LEVEL", "INFO"), help="Logging level: DEBUG, INFO, WARNING, ERROR")
   args = parser.parse_args()
+
+  # Configure logging
+  level = getattr(logging, str(args.log_level).upper(), logging.INFO)
+  logging.basicConfig(level=level, format="%(asctime)s %(levelname)s %(message)s")
 
   yes = bool(args.yes) and not bool(args.dry_run)
   commit = yes
@@ -437,6 +480,7 @@ def main() -> None:
       "effective_bump": effective_bump,
     }
     will_release.add(m.module_path)
+    logging.info("plan: %s -> %s (bump=%s, effective=%s)", m.name, next_version, bump, effective_bump)
 
   # If propagate is enabled, any dependent of a releasing module is considered for release later (due to go.mod update)
   if args.propagate:
@@ -485,6 +529,7 @@ def main() -> None:
     # Tag and push
     create_and_push_tag(m, next_version, yes=True)
     latest_versions[m.module_path] = next_version
+    logging.info("released %s v%s", m.name, next_version)
 
     # Update dependents to require this new version (causes their go.mod to change)
     touched_dependents = update_dependents_for_release(modules, m, next_version, commit=True, push=True)
@@ -506,13 +551,14 @@ def main() -> None:
   # 3) Update Starters (excluding starters-bootstrap)
   update_starters(modules, commit=True, push=True)
 
-  print("Release complete.")
+  logging.info("release complete")
 
 
 if __name__ == "__main__":
   try:
     main()
   except Exception as e:
+    logging.exception("release failed: %s", e)
     print(f"Error: {e}", file=sys.stderr)
     sys.exit(1)
 
