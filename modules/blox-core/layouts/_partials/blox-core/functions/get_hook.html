@@ -5,7 +5,7 @@
 {{ $loaded := false }}
 {{ $partial_dir := printf "hooks/%s/" .hook }}
 {{ $context := .context }}
-{{ $hook_dir_path := path.Join "layouts/_partialss" $partial_dir }}
+{{ $hook_dir_path := path.Join "layouts/_partials" $partial_dir }}
 {{ if fileExists $hook_dir_path }}
   {{ range os.ReadDir $hook_dir_path }}
     {{ if not .IsDir }}
