@@ -1,0 +1,519 @@
+#!/usr/bin/env python3
+
+"""
+Release management for HugoBlox modules.
+
+Features:
+- Detects changes per module since last path-prefixed tag (e.g., modules/blox-tailwind/v0.4.3)
+- Determines next semantic version per module (conventional commits heuristics, default to patch)
+- Updates special module metadata (blox-tailwind data/hugoblox.yaml version)
+- Updates dependent modules' go.mod "require" versions when a dependency is released
+- Tags changed modules with annotated tags and pushes tags
+- Updates starter templates' go.mod to latest released module versions and bumps Hugo version in CI/Netlify config
+
+Usage examples:
+  poetry run python scripts/release_modules.py --dry-run
+  poetry run python scripts/release_modules.py --yes --no-propagate
+
+Notes:
+- Tags must be created with the subdirectory path prefix per Go's submodule tagging rules.
+- For modules with major version path suffix (e.g., /v5), versions must start with that major (e.g., v5.2.3).
+- This script assumes you have a clean working tree before running with --yes.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Dict, List, Optional, Set, Tuple
+
+import requests
+import tomlkit
+from ruamel.yaml import YAML
+from ruamel.yaml.scalarstring import SingleQuotedScalarString
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+MODULES_DIR = REPO_ROOT / "modules"
+STARTERS_DIR = REPO_ROOT / "starters"
+EXCLUDED_MODULE_DIRS = {"blox-bootstrap"}
+
+
+def run_cmd(args: List[str], cwd: Optional[Path] = None, check: bool = True) -> subprocess.CompletedProcess:
+  process = subprocess.run(args, cwd=str(cwd) if cwd else None, text=True, capture_output=True)
+  if check and process.returncode != 0:
+    raise RuntimeError(f"Command failed: {' '.join(args)}\nSTDOUT:\n{process.stdout}\nSTDERR:\n{process.stderr}")
+  return process
+
+
+def get_latest_hugo_version() -> Optional[str]:
+  url = "https://api.github.com/repos/gohugoio/hugo/releases/latest"
+  try:
+    resp = requests.get(url, timeout=15)
+    if resp.status_code == 200:
+      tag = resp.json().get("tag_name", "").lstrip("v").strip()
+      return tag or None
+  except Exception:
+    pass
+  return None
+
+
+@dataclass
+class Module:
+  name: str  # e.g., blox-tailwind
+  rel_dir: Path  # e.g., modules/blox-tailwind
+  module_path: str  # go module path e.g., github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind
+  major: int  # 0,1,2,... (derived from module_path suffix /vN if any)
+  requires: Set[str] = field(default_factory=set)  # module paths this module requires
+  dependents: Set[str] = field(default_factory=set)  # reverse edge, filled later
+
+  def tag_prefix(self) -> str:
+    # tags must be like: modules/blox-tailwind/vX.Y.Z
+    return f"{self.rel_dir.as_posix()}/v"
+
+  def current_version_tag(self) -> Optional[str]:
+    # Find last tag for this module, prefixed by module rel path
+    # Sorted by semantic version descending
+    # For modules with major >= 2, the version series must start with v{major}.
+    pattern = f"{self.rel_dir.as_posix()}/v{self.major if self.major >= 2 else ''}*"
+    # Clean potential double 'v' for major 0/1
+    pattern = pattern.replace("v*v", "v*")
+    res = run_cmd(["git", "tag", "--list", pattern, "--sort=-v:refname"], cwd=REPO_ROOT)
+    tags = [t.strip() for t in res.stdout.splitlines() if t.strip()]
+    return tags[0] if tags else None
+
+  def last_version(self) -> Optional[str]:
+    tag = self.current_version_tag()
+    if not tag:
+      return None
+    m = re.search(r"/v(\d+\.\d+\.\d+)$", tag)
+    return m.group(1) if m else None
+
+
+def _extract_requires_from_go_mod(content: str) -> Set[str]:
+  requires: Set[str] = set()
+  # Single-line require
+  for m in re.findall(r"(?m)^\s*require\s+([^\s]+)\s+v[0-9][^\s]*$", content):
+    requires.add(m.strip())
+
+  # Block require
+  for block in re.findall(r"(?ms)^require\s*\(\s*(.*?)\s*\)", content):
+    for line in block.splitlines():
+      m = re.search(r"^\s*([^\s]+)\s+v[0-9][^\s]*$", line)
+      if m:
+        requires.add(m.group(1).strip())
+  return requires
+
+
+def discover_modules() -> Dict[str, Module]:
+  modules: Dict[str, Module] = {}
+  for go_mod in MODULES_DIR.glob("*/go.mod"):
+    rel_dir = go_mod.parent.relative_to(REPO_ROOT)
+    if rel_dir.name in EXCLUDED_MODULE_DIRS:
+      continue
+    content = go_mod.read_text(encoding="utf-8")
+    m = re.search(r"^module\s+(.+)$", content, re.MULTILINE)
+    if not m:
+      continue
+    module_path = m.group(1).strip()
+    name = rel_dir.name
+    major = 0
+    major_suffix = re.search(r"/v(\d+)$", module_path)
+    if major_suffix:
+      major = int(major_suffix.group(1))
+    else:
+      # default major version is 0 or 1. We keep 0 to preserve existing series.
+      # We don't force elevation to 1 automatically.
+      major = 0
+
+    requires: Set[str] = _extract_requires_from_go_mod(content)
+
+    modules[module_path] = Module(
+      name=name,
+      rel_dir=rel_dir,
+      module_path=module_path,
+      major=major,
+      requires=requires,
+    )
+
+  # Fill dependents
+  for mod in modules.values():
+    for req in list(mod.requires):
+      if req in modules:
+        modules[req].dependents.add(mod.module_path)
+  return modules
+
+
+def get_commits_since_tag(module: Module, tag: Optional[str]) -> List[str]:
+  if not tag:
+    # All history counts as changes for initial release
+    res = run_cmd(["git", "log", "--pretty=%s", "--", str(module.rel_dir)], cwd=REPO_ROOT)
+  else:
+    res = run_cmd(["git", "log", f"{tag}..HEAD", "--pretty=%s", "--", str(module.rel_dir)], cwd=REPO_ROOT)
+  msgs = [l.strip() for l in res.stdout.splitlines() if l.strip()]
+  return msgs
+
+
+def has_changes_since_tag(module: Module, tag: Optional[str]) -> bool:
+  if not tag:
+    return True
+  res = run_cmd(["git", "diff", "--name-only", tag, "--", str(module.rel_dir)], cwd=REPO_ROOT)
+  return any(l.strip() for l in res.stdout.splitlines())
+
+
+def determine_bump_from_commits(commits: List[str]) -> str:
+  # conventional commits heuristic
+  # returns one of: "major" | "minor" | "patch"
+  bump = "patch"
+  for msg in commits:
+    lower = msg.lower()
+    if "breaking change" in lower or re.search(r"^\w+(\(.+\))?!:", lower):
+      return "major"
+    if lower.startswith("feat:") or lower.startswith("feat("):
+      bump = "minor"
+  return bump
+
+
+def bump_semver(version: Optional[str], bump: str, enforced_major: Optional[int]) -> str:
+  """
+  Calculate next version. For modules with v2+ path (enforced_major >= 2), do NOT auto-bump
+  the major number here; a true major requires a new module path (/vN+1). We clamp the major to
+  enforced_major and treat a requested "major" bump as "minor".
+  For modules without a vN suffix, v0->v1 is allowed, but v1->v2 is NOT (would require /v2 path),
+  so a requested "major" bump at v1 is treated as "minor".
+  """
+  if version is None:
+    # initial release default
+    if enforced_major and enforced_major >= 2:
+      return f"{enforced_major}.0.0"
+    return "0.1.0"
+
+  major, minor, patch = [int(x) for x in version.split(".")]
+
+  if enforced_major and enforced_major >= 2:
+    # clamp major and downgrade a requested major bump to minor
+    major = enforced_major
+    effective_bump = "minor" if bump == "major" else bump
+  else:
+    # No suffix: v0->v1 is OK, but v1->v2 requires path change we don't automate here
+    if bump == "major" and major >= 1:
+      effective_bump = "minor"
+    else:
+      effective_bump = bump
+
+  if effective_bump == "major":
+    major += 1
+    minor = 0
+    patch = 0
+  elif effective_bump == "minor":
+    minor += 1
+    patch = 0
+  else:
+    patch += 1
+
+  return f"{major}.{minor}.{patch}"
+
+
+def write_blox_tailwind_theme_version(module: Module, version: str) -> List[Path]:
+  updated: List[Path] = []
+  # Update modules/blox-tailwind/data/hugoblox.yaml version: "X.Y.Z"
+  if module.name != "blox-tailwind":
+    return updated
+  data_file = module.rel_dir / "data" / "hugoblox.yaml"
+  if not data_file.exists():
+    return updated
+  yaml = YAML()
+  yaml.preserve_quotes = True
+  with data_file.open("r", encoding="utf-8") as f:
+    data = yaml.load(f) or {}
+  data["version"] = SingleQuotedScalarString(version)
+  with data_file.open("w", encoding="utf-8") as f:
+    yaml.dump(data, f)
+  updated.append(data_file)
+  return updated
+
+
+def update_go_mod_require_version(go_mod_text: str, dep_module_path: str, new_version: str) -> str:
+  # Replace exact require line if present
+  # Handles both single-line require and block form
+  pattern_line = rf"(?m)^(\s*{re.escape(dep_module_path)}\s+)v\d+[^\s]*$"
+  replacement_line = rf"\g<1>v{new_version}"
+
+  def replace_in_block(text: str) -> str:
+    # single-line replacement will naturally work for block content too
+    return re.sub(pattern_line, replacement_line, text)
+
+  # First try block section-specific replace
+  new_text = replace_in_block(go_mod_text)
+  return new_text
+
+
+def stage_and_maybe_commit(paths: List[Path], message: str, commit: bool, push: bool) -> None:
+  if not paths:
+    return
+  str_paths = [str(p.relative_to(REPO_ROOT)) for p in paths]
+  run_cmd(["git", "add", *str_paths], cwd=REPO_ROOT)
+  if commit:
+    run_cmd(["git", "commit", "-m", message], cwd=REPO_ROOT)
+    if push:
+      run_cmd(["git", "push", "origin", "main"], cwd=REPO_ROOT)
+
+
+def create_and_push_tag(module: Module, version: str, yes: bool) -> None:
+  tag = f"{module.rel_dir.as_posix()}/v{version}"
+  annotate_msg = f"{module.name}: v{version}"
+  if yes:
+    run_cmd(["git", "tag", "-a", tag, "-m", annotate_msg], cwd=REPO_ROOT)
+    run_cmd(["git", "push", "origin", tag], cwd=REPO_ROOT)
+
+
+def topological_order(modules: Dict[str, Module]) -> List[Module]:
+  # Kahn's algorithm
+  in_degree: Dict[str, int] = {mp: 0 for mp in modules}
+  for m in modules.values():
+    for req in m.requires:
+      if req in modules:
+        in_degree[m.module_path] += 1
+
+  queue: List[str] = [mp for mp, deg in in_degree.items() if deg == 0]
+  ordered: List[Module] = []
+  while queue:
+    mp = queue.pop(0)
+    ordered.append(modules[mp])
+    for dep in modules[mp].dependents:
+      in_degree[dep] -= 1
+      if in_degree[dep] == 0:
+        queue.append(dep)
+  # If cycle (shouldn't happen), just return arbitrary order
+  if len(ordered) != len(modules):
+    return list(modules.values())
+  return ordered
+
+
+def update_dependents_for_release(
+  modules: Dict[str, Module],
+  released_module: Module,
+  released_version: str,
+  commit: bool,
+  push: bool,
+) -> List[Module]:
+  """
+  For each dependent module, update go.mod to require the released_module at released_version.
+  Returns the list of modules that were touched (and thus should be considered changed for this run).
+  """
+  touched: List[Module] = []
+  for dependent_path in sorted(released_module.dependents):
+    dep_mod = modules.get(dependent_path)
+    if not dep_mod:
+      continue
+    go_mod_file = dep_mod.rel_dir / "go.mod"
+    if not go_mod_file.exists():
+      continue
+    original = go_mod_file.read_text(encoding="utf-8")
+    updated = update_go_mod_require_version(original, released_module.module_path, released_version)
+    if updated != original:
+      go_mod_file.write_text(updated, encoding="utf-8")
+      stage_and_maybe_commit([go_mod_file], f"chore({dep_mod.name}): require {released_module.name} v{released_version}", commit, push)
+      touched.append(dep_mod)
+  return touched
+
+
+def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> None:
+  updated_paths: List[Path] = []
+  latest_hugo = get_latest_hugo_version()
+  yaml = YAML()
+  yaml.preserve_quotes = True
+
+  for starter_dir in sorted([p for p in STARTERS_DIR.glob("*") if p.is_dir()]):
+    # skip non-starters explicitly (none yet) and respect ignore list
+    go_mod = starter_dir / "go.mod"
+    if go_mod.exists():
+      text = go_mod.read_text(encoding="utf-8")
+      new_text = text
+      # For any internal module referenced, replace with its latest tag version
+      referenced = _extract_requires_from_go_mod(text)
+      for module_path in referenced:
+        if module_path in modules:
+          latest = modules[module_path].last_version()
+          if latest:
+            new_text = update_go_mod_require_version(new_text, module_path, latest)
+      if new_text != text:
+        go_mod.write_text(new_text, encoding="utf-8")
+        updated_paths.append(go_mod)
+
+    # bump hugo version in hugoblox.yaml
+    hb_yaml = starter_dir / "hugoblox.yaml"
+    if latest_hugo and hb_yaml.exists():
+      with hb_yaml.open("r", encoding="utf-8") as f:
+        data = yaml.load(f) or {}
+      if "build" not in data:
+        data["build"] = {}
+      if data["build"].get("hugo_version") != latest_hugo:
+        data["build"]["hugo_version"] = SingleQuotedScalarString(latest_hugo)
+        with hb_yaml.open("w", encoding="utf-8") as f:
+          yaml.dump(data, f)
+        updated_paths.append(hb_yaml)
+
+    # bump netlify.toml HUGO_VERSION
+    netlify = starter_dir / "netlify.toml"
+    if latest_hugo and netlify.exists():
+      parsed = tomlkit.parse(netlify.read_text(encoding="utf-8"))
+      if "build" in parsed and "environment" in parsed["build"]:
+        env = parsed["build"]["environment"]
+        if env.get("HUGO_VERSION") != latest_hugo:
+          env["HUGO_VERSION"] = latest_hugo
+          netlify.write_text(tomlkit.dumps(parsed), encoding="utf-8")
+          updated_paths.append(netlify)
+
+    # bump publish.yaml env WC_HUGO_VERSION
+    workflow = starter_dir / ".github" / "workflows" / "publish.yaml"
+    if latest_hugo and workflow.exists():
+      with workflow.open("r", encoding="utf-8") as f:
+        wf = yaml.load(f) or {}
+      if "env" in wf and wf["env"].get("WC_HUGO_VERSION") != latest_hugo:
+        wf["env"]["WC_HUGO_VERSION"] = latest_hugo
+        with workflow.open("w", encoding="utf-8") as f:
+          yaml.dump(wf, f)
+        updated_paths.append(workflow)
+
+  if updated_paths:
+    stage_and_maybe_commit(updated_paths, "chore(starters): bump modules and Hugo", commit, push)
+
+
+def ensure_clean_worktree() -> None:
+  res = run_cmd(["git", "status", "--porcelain"], cwd=REPO_ROOT)
+  dirty = [l for l in res.stdout.splitlines() if l.strip()]
+  if dirty:
+    raise RuntimeError("Working tree is dirty. Commit or stash changes before running with --yes. Use --dry-run to preview.")
+
+
+def main() -> None:
+  parser = argparse.ArgumentParser(description="Release HugoBlox modules.")
+  parser.add_argument("--yes", action="store_true", help="Execute changes (commits, tags, pushes). Without this, it's a dry run.")
+  parser.add_argument("--dry-run", action="store_true", help="Alias for not passing --yes; forces no-op execution.")
+  parser.add_argument("--propagate", action="store_true", default=True, help="Propagate dependency updates to dependents (default true).")
+  parser.add_argument("--no-propagate", dest="propagate", action="store_false", help="Do not bump dependents purely for dependency updates.")
+  parser.add_argument("--allow-major", action="store_true", help="Allow major version bumps when inferred from commits. By default majors are downgraded to minor to avoid Go module path changes.")
+  parser.add_argument("--print-plan", action="store_true", help="Print the planned releases as JSON.")
+  args = parser.parse_args()
+
+  yes = bool(args.yes) and not bool(args.dry_run)
+  commit = yes
+  push = yes
+
+  modules = discover_modules()
+  order = topological_order(modules)
+
+  if yes:
+    ensure_clean_worktree()
+
+  # Detect changes and planned bumps
+  planned: Dict[str, Dict[str, str]] = {}
+  will_release: Set[str] = set()
+  changed_since_tag: Dict[str, bool] = {}
+
+  for m in order:
+    tag = m.current_version_tag()
+    changed = has_changes_since_tag(m, tag)
+    changed_since_tag[m.module_path] = changed
+    if not changed:
+      continue
+    commits = get_commits_since_tag(m, tag)
+    bump = determine_bump_from_commits(commits)
+    effective_bump = "minor" if (bump == "major" and not args.allow_major) else bump
+    next_version = bump_semver(m.last_version(), effective_bump, m.major if m.major >= 2 else None)
+    planned[m.module_path] = {
+      "name": m.name,
+      "path": m.rel_dir.as_posix(),
+      "last": m.last_version() or "<none>",
+      "next": next_version,
+      "bump": bump,
+      "effective_bump": effective_bump,
+    }
+    will_release.add(m.module_path)
+
+  # If propagate is enabled, any dependent of a releasing module is considered for release later (due to go.mod update)
+  if args.propagate:
+    frontier = list(will_release)
+    while frontier:
+      mp = frontier.pop()
+      for dep in modules[mp].dependents:
+        if dep not in will_release:
+          # For dependents that weren't changed otherwise, default to patch bump
+          base_version = modules[dep].last_version()
+          next_version = bump_semver(base_version, "patch", modules[dep].major if modules[dep].major >= 2 else None)
+          planned[dep] = planned.get(dep, {
+            "name": modules[dep].name,
+            "path": modules[dep].rel_dir.as_posix(),
+            "last": base_version or "<none>",
+            "next": next_version,
+            "bump": "patch",
+          })
+          will_release.add(dep)
+          frontier.append(dep)
+
+  if args.print_plan or not yes:
+    print(json.dumps({
+      "planned_releases": planned,
+      "order": [m.module_path for m in order],
+    }, indent=2))
+
+  if not yes:
+    return
+
+  # 1) Release in dependency order: update metadata, commit, tag, push, then update dependents' go.mod
+  latest_versions: Dict[str, str] = {}
+  for m in order:
+    if m.module_path not in will_release:
+      continue
+    next_version = planned[m.module_path]["next"]
+
+    touched_files: List[Path] = []
+    # Special-case blox-tailwind theme version bump
+    touched_files.extend(write_blox_tailwind_theme_version(m, next_version))
+
+    # Stage and commit any pre-release file changes
+    if touched_files:
+      stage_and_maybe_commit(touched_files, f"chore({m.name}): prepare v{next_version}", commit=True, push=True)
+
+    # Tag and push
+    create_and_push_tag(m, next_version, yes=True)
+    latest_versions[m.module_path] = next_version
+
+    # Update dependents to require this new version (causes their go.mod to change)
+    touched_dependents = update_dependents_for_release(modules, m, next_version, commit=True, push=True)
+    # Note: those dependents will be tagged in their respective iteration when reached in order
+
+  # 2) After all module tags are created and dependents were updated, ensure every planned module has been tagged
+  # It's possible a dependent with no other changes still needs a tag due to go.mod update above
+  for m in order:
+    if m.module_path not in will_release:
+      continue
+    # If it wasn't directly tagged earlier (it was), this loop is just a safeguard
+    next_version = planned[m.module_path]["next"]
+    # Verify tag exists; if not, create it
+    tag = f"{m.rel_dir.as_posix()}/v{next_version}"
+    res = run_cmd(["git", "tag", "--list", tag], cwd=REPO_ROOT)
+    if not res.stdout.strip():
+      create_and_push_tag(m, next_version, yes=True)
+
+  # 3) Update Starters (excluding starters-bootstrap)
+  update_starters(modules, commit=True, push=True)
+
+  print("Release complete.")
+
+
+if __name__ == "__main__":
+  try:
+    main()
+  except Exception as e:
+    print(f"Error: {e}", file=sys.stderr)
+    sys.exit(1)
+
+

@@ -1,0 +1,67 @@
+name: Release HugoBlox Modules
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without committing/tagging"
+        type: boolean
+        default: true
+      propagate:
+        description: "Propagate dependency bumps to dependents"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-modules
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: 1.8.3
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Install dependencies
+        run: |
+          poetry --version
+          poetry install --no-interaction --no-ansi
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Show plan (dry run)
+        if: ${{ inputs.dry_run }}
+        run: |
+          poetry run python scripts/release_modules.py --print-plan
+
+      - name: Release (commit, tag, push)
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if [ "${{ inputs.propagate }}" = "true" ]; then
+            poetry run python scripts/release_modules.py --yes --propagate
+          else
+            poetry run python scripts/release_modules.py --yes --no-propagate
+          fi
+
+
