@@ -27,3 +27,6 @@ public/
 # Test
 test/go.sum
 hugo_stats.json
+
+# Starter templates
+starters/**/pnpm-lock.yaml
