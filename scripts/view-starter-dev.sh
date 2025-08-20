@@ -1,68 +1,113 @@
 #!/usr/bin/env bash
 
-exitfn () {
-    trap SIGINT              # Restore signal handling for SIGINT
-    cd ../..
-    exit                     #   then exit script.
+set -euo pipefail
+
+INITIAL_DIR="$(pwd)"
+
+cleanup() {
+    cd "$INITIAL_DIR" || true
+}
+trap cleanup EXIT INT TERM
+
+usage() {
+    echo "Usage: ./scripts/view-starter-dev.sh <starter-name> [--debug] [--no-pagefind]"
+    echo "Example: ./scripts/view-starter-dev.sh blog --debug"
 }
 
-trap "exitfn" INT            # Set up SIGINT trap to call function.
-
-# Check if starter name is provided
-if [ -z "$1" ]; then
-    echo "Usage: ./scripts/view-starter-dev.sh <starter-name>"
-    echo "Example: ./scripts/view-starter-dev.sh blog"
+if [ $# -lt 1 ]; then
+    usage
     exit 1
 fi
 
-# Install Tailwind v4 dependencies if blox-tailwind module is present
-if [ -d "modules/blox-tailwind" ]; then
-    echo "📦 Installing Tailwind v4 dependencies in module..."
-    cd modules/blox-tailwind
-    if command -v pnpm &> /dev/null; then
-        pnpm install
-    else
-        npm install
-    fi
-    cd ../..
+STARTER=""
+DEBUG_MODE=false
+PAGEFIND=true
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --debug)
+            DEBUG_MODE=true
+            shift
+            ;;
+        --no-pagefind)
+            PAGEFIND=false
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        -*)
+            echo "Unknown option: $1"
+            usage
+            exit 1
+            ;;
+        *)
+            STARTER="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$STARTER" ]; then
+    usage
+    exit 1
 fi
 
-# export HUGO_STATS_PATH="./starters/$1/hugo_stats.json"
-# printf 'HUGO_STATS_PATH: %s\n' "$HUGO_STATS_PATH"
+# Run Hugo from the site dir so Tailwind CLI is discoverable
+cd "starters/$STARTER"
 
-# `--source "starters/$1"` won't work for Tailwind Module
-# due to Hugo limitation requiring Hugo to be run from site dir
-cd "starters/$1"
-
-# Install Tailwind CLI in starter directory if package.json exists
-# Hugo's css.TailwindCSS function needs to find the CLI from where Hugo runs
-if [ -f "package.json" ]; then
+# Ensure Tailwind CLI exists in starter (required for Hugo css.TailwindCSS)
+if [ -f "package.json" ] && [ ! -x "node_modules/.bin/tailwindcss" ]; then
     echo "📦 Installing Tailwind CLI in starter directory for Hugo..."
-    if command -v pnpm &> /dev/null; then
+    if command -v pnpm >/dev/null 2>&1; then
         pnpm install
     else
         npm install
     fi
 fi
 
-export HUGO_BLOX_DEMO=true \
-export HUGO_BLOX_DEBUG=true \
-export HUGO_ENVIRONMENT=development \
-export HUGOxPARAMSxDECAP_CMSxLOCAL_BACKEND=true \
-export HUGO_MODULE_REPLACEMENTS="github.com/HugoBlox/hugo-blox-builder/modules/blox-bootstrap/v5 -> ../../../modules/blox-bootstrap,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-netlify -> ../../../modules/blox-plugin-netlify,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-reveal -> ../../../modules/blox-plugin-reveal,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind -> ../../../modules/blox-tailwind,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-decap-cms -> ../../../modules/blox-plugin-decap-cms,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-core -> ../../../modules/blox-core,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-seo -> ../../../modules/blox-seo,
-github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics -> ../../../modules/blox-analytics" \
-# START PAGEFIND
-hugo && \
-npm_config_yes=true npx pagefind --site "public" --output-subdir ../static/pagefind && \
-# END PAGEFIND
-# --renderStaticToDisk  --printUnusedTemplates  --panicOnWarning
-# --templateMetrics --templateMetricsHints --ignoreCache --noHTTPCache
-hugo server --disableFastRender --printI18nWarnings --printPathWarnings --gc --port 8081 --bind 0.0.0.0 --logLevel debug
+# Core environment for local dev linking modules and enabling demo/debug flags
+export HUGO_BLOX_DEMO=true
+export HUGO_BLOX_DEBUG=true
+export HUGO_ENVIRONMENT=development
+export HUGOxPARAMSxDECAP_CMSxLOCAL_BACKEND=true
+export HUGO_MODULE_REPLACEMENTS="github.com/HugoBlox/hugo-blox-builder/modules/blox-bootstrap/v5 -> ../../../modules/blox-bootstrap,github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-netlify -> ../../../modules/blox-plugin-netlify,github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-reveal -> ../../../modules/blox-plugin-reveal,github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind -> ../../../modules/blox-tailwind,github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-decap-cms -> ../../../modules/blox-plugin-decap-cms,github.com/HugoBlox/hugo-blox-builder/modules/blox-core -> ../../../modules/blox-core,github.com/HugoBlox/hugo-blox-builder/modules/blox-seo -> ../../../modules/blox-seo,github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics -> ../../../modules/blox-analytics"
 
-trap SIGINT                  # Restore signal handling to previous before exit.
+# Optionally pre-build and generate Pagefind index for local search
+if [ "$PAGEFIND" = true ]; then
+    hugo
+    if command -v pnpm >/dev/null 2>&1; then
+        pnpm dlx pagefind --site "public" --output-subdir ../static/pagefind
+    else
+        npm_config_yes=true npx pagefind --site "public" --output-subdir ../static/pagefind
+    fi
+fi
+
+# Compose Hugo server args
+HUGO_ARGS=(
+    server
+    --disableFastRender
+    --printI18nWarnings
+    --printPathWarnings
+    --gc
+    -F
+    --port 8081
+    --bind 0.0.0.0
+)
+
+if [ "$DEBUG_MODE" = true ]; then
+    HUGO_ARGS+=(
+        --logLevel debug
+        --panicOnWarning
+        --templateMetrics
+        --templateMetricsHints
+        --ignoreCache
+        --noHTTPCache
+        --renderStaticToDisk
+        -D
+        -E
+    )
+fi
+
+hugo "${HUGO_ARGS[@]}"
