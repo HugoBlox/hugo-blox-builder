@@ -17,6 +17,15 @@
   @apply max-h-full w-auto inline-block;
 }
 
+/* Ensure interactive controls show hand cursor */
+.theme-toggle,
+[data-search-toggle],
+#search_toggle,
+[data-te-collapse-init],
+.nav-dropdown > .nav-link[role='button'] {
+  @apply cursor-pointer;
+}
+
 /* navbar toggler */
 input#nav-toggle:checked + label #show-button {
   @apply hidden;
