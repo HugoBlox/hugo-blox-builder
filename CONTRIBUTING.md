@@ -66,15 +66,15 @@ git clone https://github.com/<YOUR_USERNAME>/hugo-blox-builder.git
 
 **View a template**
 
-[Install Yarn](https://yarnpkg.com/), the project's build system if necessary.
+[Install pnpm](https://pnpm.io/), the project's package manager.
 
 Then choose the starter template you wish to view, such as _minimal_:
 
 ```sh
-yarn view:local academic-cv
+pnpm view:local academic-cv
 ```
 
-Note that Hugo Server can occasionally stop working after changes are made (sometimes showing unrelated errors). If this happens, stop Hugo (Control-C) and restart it with the `yarn view:local ...` command above.
+Note that Hugo Server can occasionally stop working after changes are made (sometimes showing unrelated errors). If this happens, stop Hugo (Control-C) and restart it with the `pnpm view:local ...` command above.
 
 **Implement your improvements**
 
@@ -82,12 +82,12 @@ Implement you changes and then check for any linting or formatting issues.
 
 Code linting and formatting form part of the Continuous Integration process to help catch bugs and code issues in contributions.
 
-Contributors can also run the flow on their fork of the "Hugo Blox Builder" repo when making contributions (you'll need Node and Yarn to run):
+Contributors can also run the flow on their fork of the "Hugo Blox Builder" repo when making contributions (you'll need Node and pnpm to run):
 
 ```sh
-yarn install
-yarn run lint
-yarn run format
+pnpm install
+pnpm run lint
+pnpm run format
 ```
 
 **Open a Pull Request with your changes**
@@ -146,9 +146,9 @@ For example:
 ### Linting and formatting
 
 ```sh
-yarn install
-yarn run lint
-yarn run format
+pnpm install
+pnpm run lint
+pnpm run format
 ```
 
 ## Scope

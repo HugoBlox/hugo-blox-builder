@@ -1,0 +1,5 @@
+# Hide Bootstrap module and starters from ripgrep/VS Code search
+modules/blox-bootstrap/**
+starters-bootstrap/**
+
+
