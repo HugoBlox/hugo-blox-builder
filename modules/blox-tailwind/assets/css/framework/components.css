@@ -99,6 +99,11 @@
     position: relative;
   }
   
+  /* When parallax is used with home-section-bg, preserve absolute positioning */
+  .home-section-bg.parallax {
+    position: absolute;
+  }
+  
   /* Section color schemes - for backward compatibility */
   section.light {
     background-color: transparent;
