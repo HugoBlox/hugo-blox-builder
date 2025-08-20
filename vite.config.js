@@ -26,7 +26,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // Don't bundle these libraries, just copy them
-      external: ['mermaid', 'plotly.js', 'katex', 'markmap-autoloader'],
+      external: ['mermaid', 'plotly.js', 'katex', 'markmap-autoloader', 'alpinejs'],
     }
   },
   
@@ -67,8 +67,12 @@ export default defineConfig({
         // Markmap - Mind map rendering
         {
           src: 'node_modules/markmap-autoloader/dist/index.js',
-          dest: 'markmap/',
-          rename: 'markmap-autoloader.min.js'
+          dest: 'markmap/'
+        },
+        // Alpine.js
+        {
+          src: 'node_modules/alpinejs/dist/cdn.min.js',
+          dest: 'alpinejs/'
         }
       ]
     }),

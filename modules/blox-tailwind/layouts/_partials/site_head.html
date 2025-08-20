@@ -76,54 +76,12 @@
     <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ end }}
 
-  <script>
-    /* Hugo Blox JS Global Init */
-    window.hbb = {
-       defaultTheme: document.documentElement.dataset.wcThemeDefault,
-       setDarkTheme: () => {
-        document.documentElement.classList.add("dark");
-        document.documentElement.style.colorScheme = "dark";
-      },
-       setLightTheme: () => {
-        document.documentElement.classList.remove("dark");
-        document.documentElement.style.colorScheme = "light";
-      }
-    }
-
-    console.debug(`Default Hugo Blox Builder theme is ${window.hbb.defaultTheme}`);
-
-    if ("wc-color-theme" in localStorage) {
-      localStorage.getItem("wc-color-theme") === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-    } else {
-      window.hbb.defaultTheme === "dark" ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-      if (window.hbb.defaultTheme === "system") {
-        window.matchMedia("(prefers-color-scheme: dark)").matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-      }
-    }
-  </script>
-
-  <script>
-    // Apply Hugo style fixes
-    document.addEventListener('DOMContentLoaded', function () {
-      // Fix Hugo task list style
-      let checkboxes = document.querySelectorAll('li input[type=\'checkbox\'][disabled]');
-      checkboxes.forEach(e => {
-        e.parentElement.parentElement.classList.add('task-list');
-      });
-
-      // Fix Hugo missing <label> around checkbox and its text (fixes Lighthouse accessibility errors)
-      const liNodes = document.querySelectorAll('.task-list li');
-      liNodes.forEach(nodes => {
-        let textNodes = Array.from(nodes.childNodes).filter(node => node.nodeType === 3 && node.textContent.trim().length > 1);
-        if (textNodes.length > 0) {
-          const span = document.createElement('label');
-          textNodes[0].after(span);  // Use first text node as label
-          span.appendChild(nodes.querySelector('input[type=\'checkbox\']'));
-          span.appendChild(textNodes[0]);
-        }
-      });
-    });
-  </script>
+  {{/* Externalized init scripts for CSP-friendly head */}}
+  {{- $hb_head := resources.Get "js/hb-head.js" | js.Build | resources.Minify -}}
+  {{- if hugo.IsProduction -}}
+    {{- $hb_head = $hb_head | fingerprint "sha256" -}}
+  {{- end -}}
+  <script defer src="{{ $hb_head.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $hb_head.Data.Integrity }}" crossorigin="anonymous"{{ end }}></script>
 
   {{/* Analytics & Verification */}}
   {{/* !CACHED! All analytics and verification code is at site level */}}
@@ -218,6 +176,7 @@
     {{ $font_type = "woff2" }}
   {{end}}
   {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
+  <link rel="preload" href="{{ $font.RelPermalink }}" as="font" type="font/{{ $font_type }}" crossorigin>
   <style>
     @font-face {
       font-family: '{{$font_family}}';
