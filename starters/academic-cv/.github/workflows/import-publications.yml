@@ -5,7 +5,6 @@ name: Import Publications From Bibtex
 permissions:
   contents: write
   pull-requests: write
-  metadata: read
 
 # Run workflow when a `.bib` file is added or updated in the `data/` folder
 on:
@@ -16,6 +15,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Prevent concurrent runs of this workflow
+concurrency:
+  group: import-publications-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   hugoblox:
     if: github.repository_owner != 'HugoBlox'
@@ -24,44 +28,62 @@ jobs:
 
     env:
       ACADEMIC_VERSION: '>=0.10.0'
+      PYTHON_VERSION: '3.12'
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v4
         with:
-          # Fetch history for better performance and debugging
-          fetch-depth: 0
+          # Only need recent history for publication import
+          fetch-depth: 1
 
       - name: Set up Python 3.13
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.12'
       - name: Setup pip cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-academic-${{ env.ACADEMIC_VERSION }}
           restore-keys: |
+            ${{ runner.os }}-pip-academic-
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install academic${{ env.ACADEMIC_VERSION }}
+          pip install "academic${{ env.ACADEMIC_VERSION }}"
+      - name: Validate publications.bib file
+        if: ${{ hashFiles('publications.bib') != '' }}
+        run: |
+          if [ ! -f "publications.bib" ]; then
+            echo "❌ publications.bib file not found"
+            exit 1
+          fi
+          echo "✅ publications.bib file found"
+          
       - name: Run Academic (Bibtex To Markdown Converter)
         # Check `.bib` file exists for case when action runs on `.bib` deletion
         # Note GH only provides hashFiles func in `steps.if` context, not `jobs.if` context
         if: ${{ hashFiles('publications.bib') != '' }}
         run: |
-          echo "Starting publication import..."
-          academic import publications.bib content/publication/ --compact
-          echo "Publication import completed successfully"
+          echo "🚀 Starting publication import..."
+          academic import publications.bib content/publication/ --compact --verbose
+          echo "✅ Publication import completed successfully"
+          
+          # Verify that files were created
+          if [ -d "content/publication" ] && [ "$(ls -A content/publication/)" ]; then
+            echo "📚 Publications imported: $(ls content/publication/ | wc -l) items"
+          else
+            echo "⚠️ No publications were imported"
+          fi
         continue-on-error: false
       - name: Create Pull Request
         # Set ID for `Check outputs` stage
         id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: 'content(publications): run Hugo Blox importer to import publications from Bibtex'
+          commit-message: 'feat(publications): import latest publications from bibtex'
           title: 'Hugo Blox Builder - Import latest publications from Bibtex'
           body: |
             🔄 **Automated Publication Import**
