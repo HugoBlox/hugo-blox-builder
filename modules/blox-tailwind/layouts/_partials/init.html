@@ -1,9 +1,18 @@
 {{/* Workaround Hugo concurrency issues (e.g. not detecting Page.Store variables) */}}
 {{/* Use cases: Page.Store use within shortcodes, blox, and backlinks. */}}
 {{/* See https://discourse.gohugo.io/t/persisting-data-across-the-build-of-a-site/41114/6 */}}
-{{- range $page := site.AllPages }}
-  {{- $noop := .Content }}
-  {{ if eq .Type "landing" }}
+{{ $scr := site.Scratch }}
+{{ if not ($scr.Get "hb_init_done") }}
+  {{ $scr.Set "hb_init_done" true }}
+
+  {{/* Pre-warm only content pages so Page.Store/backlinks are populated deterministically */}}
+  {{- range where site.Pages "Kind" "page" -}}
+    {{- $ := .Content -}}
+  {{- end -}}
+
+  {{/* Preload block configs for landing pages */}}
+  {{- range where site.Pages "Type" "landing" -}}
+    {{ $page := . }}
     {{ range $index, $block := .Params.sections }}
       {{/* Do not show sections intended only for the demo site. */}}
       {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "HUGO_BLOX_DEMO") "true")) }}
@@ -13,12 +22,11 @@
         {{ end }}
         {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
         {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
-          {{/* warnf "Loading blox config at %s" $widget_config_file */}}
           {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
           {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
           {{ partial $widget_config_file $widget_args }}
-        {{end}}
+        {{ end }}
       {{ end }}
     {{ end }}
   {{- end -}}
-{{- end -}}
+{{ end }}
