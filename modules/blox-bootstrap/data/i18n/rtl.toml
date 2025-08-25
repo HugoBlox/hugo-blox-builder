@@ -1,2 +1,0 @@
-# List of ISO 639-1 language codes for which text is directed from right to left.
-rtl = ["ar", "fa", "he", "ms-Arab", "ur"]

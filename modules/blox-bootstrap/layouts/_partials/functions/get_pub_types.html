@@ -1,6 +1,0 @@
-{{/* Get Publication Types */}}
-{{ $pub_types := slice }}
-{{ range site.Data.publication_types.types }}
-  {{ $pub_types = $pub_types | append (i18n . | default "Uncategorized") }}
-{{ end }}
-{{ return $pub_types }}

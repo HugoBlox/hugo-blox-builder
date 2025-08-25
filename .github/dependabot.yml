@@ -1,0 +1,29 @@
+version: 2
+updates:
+  # Update GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 10
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'
+
+  # Update GitHub Actions in main starter template (academic-cv)
+  # Other starters can be manually updated from this template
+  - package-ecosystem: 'github-actions'
+    directory: '/starters/academic-cv'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 3
+    labels:
+      - 'dependencies'
+      - 'starters'
+      - 'template'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'

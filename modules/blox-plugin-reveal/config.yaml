@@ -4,5 +4,3 @@ module:
       target: assets
     - source: layouts
       target: layouts
-  imports:
-    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-core

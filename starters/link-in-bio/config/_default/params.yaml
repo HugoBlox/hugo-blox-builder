@@ -14,7 +14,7 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: 'A highly-customizable Hugo link in bio theme powered by Wowchemy website builder.'
+    description: 'A highly-customizable Hugo link in bio theme powered by Hugo Blox website builder.'
     twitter: 'GetResearchDev'
   analytics:
     google_analytics: ''

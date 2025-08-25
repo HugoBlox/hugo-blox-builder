@@ -16,8 +16,8 @@
     <link rel="manifest" href="{{ .RelPermalink }}">
   {{ end }}
 
-  <link rel="icon" type="image/png" href="{{(partial "blox-core/functions/get_icon" 32).RelPermalink}}">
-  <link rel="apple-touch-icon" type="image/png" href="{{(partial "blox-core/functions/get_icon" 192).RelPermalink}}">
+  <link rel="icon" type="image/png" href="{{ "media/icon.png" | relURL }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ "media/icon.png" | relURL }}">
 
   <link rel="canonical" href="{{ .Permalink }}">
 
@@ -71,7 +71,7 @@
   {{ end }}
 
   {{/* Initialize slides. */}}
-  {{ $slidejs := resources.Get "js/wowchemy-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
+  {{ $slidejs := resources.Get "js/hugoblox-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) }}
   <script src="{{ $slidejs.RelPermalink }}"></script>
 
 </body>

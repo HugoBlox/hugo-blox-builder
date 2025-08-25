@@ -6,7 +6,7 @@ links:
     url: https://github.com/pytorch/pytorch
 tags:
   - Hugo
-  - Wowchemy
+  - HugoBlox
   - Markdown
 ---
 

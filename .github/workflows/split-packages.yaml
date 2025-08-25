@@ -21,31 +21,21 @@ jobs:
             split_repository: 'theme-academic-cv'
           - local_path: 'starters/resume'
             split_repository: 'theme-resume'
-          - local_path: 'starters-bootstrap/markdown-slides'
-            split_repository: 'theme-markdown-slides'
           - local_path: 'starters/blog'
             split_repository: 'theme-blog'
           - local_path: 'starters/documentation'
             split_repository: 'theme-documentation'
-          - local_path: 'starters-bootstrap/portfolio'
-            split_repository: 'theme-portfolio'
-          - local_path: 'starters-bootstrap/course'
-            split_repository: 'theme-online-course'
           - local_path: 'starters/link-in-bio'
             split_repository: 'theme-link-in-bio'
-          - local_path: 'starters-bootstrap/research-group'
-            split_repository: 'theme-research-group'
-          - local_path: 'starters-bootstrap/second-brain'
-            split_repository: 'theme-second-brain'
           - local_path: 'starters/landing-page'
             split_repository: 'theme-landing-page'
 
     steps:
-      -   uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # step if no tag is pushed
-      - if: "!startsWith(github.ref, 'refs/tags/')"
-        uses: "symplify/monorepo-split-github-action@v2.3.0"
+      - if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        uses: 'symplify/monorepo-split-github-action@v2.3.0'
         with:
           # ↓ split "packages/<package-name><package-name>" directory
           package_directory: '${{ matrix.package.local_path }}'
@@ -55,5 +45,5 @@ jobs:
           repository_name: '${{ matrix.package.split_repository }}'
 
           # ↓ the user signed under the split commit
-          user_name: "Splitter Bot"
-          user_email: "no.reply@hugoblox.com"
+          user_name: 'Splitter Bot'
+          user_email: 'no.reply@hugoblox.com'

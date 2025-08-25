@@ -1,8 +1,0 @@
-# IDEs
-.idea/
-
-# Hugo
-/resources/
-public/
-jsconfig.json
-node_modules/

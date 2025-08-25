@@ -6,7 +6,7 @@ links:
     url: https://github.com/scikit-learn/scikit-learn
 tags:
   - Hugo
-  - Wowchemy
+  - HugoBlox
   - Markdown
 ---
 

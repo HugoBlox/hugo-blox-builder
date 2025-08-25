@@ -6,7 +6,7 @@ links:
     url: https://github.com/pandas-dev/pandas
 tags:
   - Hugo
-  - Wowchemy
+  - HugoBlox
   - Markdown
 ---
 

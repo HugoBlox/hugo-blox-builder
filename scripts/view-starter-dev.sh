@@ -72,7 +72,15 @@ export HUGO_BLOX_DEMO=true
 export HUGO_BLOX_DEBUG=true
 export HUGO_ENVIRONMENT=development
 export HUGOxPARAMSxDECAP_CMSxLOCAL_BACKEND=true
-export HUGO_MODULE_REPLACEMENTS="github.com/HugoBlox/hugo-blox-builder/modules/blox-bootstrap/v5 -> ../../../modules/blox-bootstrap,github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-netlify -> ../../../modules/blox-plugin-netlify,github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-reveal -> ../../../modules/blox-plugin-reveal,github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind -> ../../../modules/blox-tailwind,github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-decap-cms -> ../../../modules/blox-plugin-decap-cms,github.com/HugoBlox/hugo-blox-builder/modules/blox-core -> ../../../modules/blox-core,github.com/HugoBlox/hugo-blox-builder/modules/blox-seo -> ../../../modules/blox-seo,github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics -> ../../../modules/blox-analytics"
+
+# Link local modules for development (Hugo module replacements)
+export HUGO_MODULE_REPLACEMENTS="\
+github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind -> ../../../modules/blox-tailwind,\
+github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics -> ../../../modules/blox-analytics,\
+github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-netlify -> ../../../modules/blox-plugin-netlify,\
+github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-reveal -> ../../../modules/blox-plugin-reveal,\
+github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-decap-cms -> ../../../modules/blox-plugin-decap-cms\
+"
 
 # Optionally pre-build and generate Pagefind index for local search
 if [ "$PAGEFIND" = true ]; then

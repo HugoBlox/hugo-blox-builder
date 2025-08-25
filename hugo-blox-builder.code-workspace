@@ -1,74 +1,70 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"**/modules/blox-bootstrap/**": true,
-			"**/starters-bootstrap/**": true,
-			"**/node_modules/**": true,
-			"**/public/**": true,
-			"**/resources/**": true,
-			"**/pagefind/**": true
-		},
-		"search.exclude": {
-			"**/modules/blox-bootstrap/**": true,
-			"**/starters-bootstrap/**": true,
-			"**/node_modules/**": true,
-			"**/public/**": true,
-			"**/resources/**": true,
-			"**/pagefind/**": true
-		},
-		"files.watcherExclude": {
-			"**/node_modules/**": true,
-			"**/public/**": true,
-			"**/resources/**": true,
-			"**/pagefind/**": true
-		},
-		"explorer.excludeGitIgnore": true,
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules/**": true,
+      "**/public/**": true,
+      "**/resources/**": true,
+      "**/pagefind/**": true
+    },
+    "search.exclude": {
+      "**/node_modules/**": true,
+      "**/public/**": true,
+      "**/resources/**": true,
+      "**/pagefind/**": true
+    },
+    "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/public/**": true,
+      "**/resources/**": true,
+      "**/pagefind/**": true
+    },
+    "explorer.excludeGitIgnore": true,
 
-		"npm.packageManager": "pnpm",
+    "npm.packageManager": "pnpm",
 
-		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.codeActionsOnSave": {
-			"source.fixAll.eslint": "explicit",
-			"source.fixAll.stylelint": "explicit"
-		},
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    },
 
-		"[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-		"[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-		"[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-		"[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-		"[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-		"[markdown]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[javascript]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+    "[typescript]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+    "[json]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+    "[css]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+    "[html]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+    "[markdown]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
 
-		"eslint.workingDirectories": [{ "mode": "auto" }],
-		"eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "eslint.workingDirectories": [{"mode": "auto"}],
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
 
-		"stylelint.validate": ["css"],
+    "stylelint.validate": ["css"],
 
-		"tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.emmetCompletions": true,
 
-		"yaml.validate": true
-	},
-	"extensions": {
-		"recommendations": [
-			"dbaeumer.vscode-eslint",
-			"esbenp.prettier-vscode",
-			"stylelint.vscode-stylelint",
-			"bradlc.vscode-tailwindcss",
-			"redhat.vscode-yaml",
-			"tamasfe.even-better-toml",
-			"DavidAnson.vscode-markdownlint",
-			"ms-python.python",
-			"charliermarsh.ruff",
-			"streetsidesoftware.code-spell-checker",
-			"mikestead.dotenv",
-			"eamodio.gitlens",
-			"bierner.markdown-mermaid"
-		]
-	}
+    "yaml.validate": true
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "stylelint.vscode-stylelint",
+      "bradlc.vscode-tailwindcss",
+      "redhat.vscode-yaml",
+      "tamasfe.even-better-toml",
+      "DavidAnson.vscode-markdownlint",
+      "ms-python.python",
+      "charliermarsh.ruff",
+      "streetsidesoftware.code-spell-checker",
+      "mikestead.dotenv",
+      "eamodio.gitlens",
+      "bierner.markdown-mermaid"
+    ]
+  }
 }

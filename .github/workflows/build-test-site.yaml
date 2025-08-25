@@ -15,18 +15,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-#        node-version: [18.x]
+    #        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true  # Fetch any Git submodules (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          submodules: true # Fetch any Git submodules (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
-#      - name: Use Node.js ${{ matrix.node-version }}
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: ${{ matrix.node-version }}
+      #      - name: Use Node.js ${{ matrix.node-version }}
+      #        uses: actions/setup-node@v3
+      #        with:
+      #          node-version: ${{ matrix.node-version }}
 
       - uses: pnpm/action-setup@v4
         with:
@@ -41,18 +41,17 @@ jobs:
           cd ..
 
       - name: Check for linting errors
-        run: pnpm run lint:js  # TODO: also lint styles again once new rule errors resolved
+        run: pnpm run lint:js # TODO: also lint styles again once new rule errors resolved
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.148.2'
           extended: true
 
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --templateMetrics --templateMetricsHints
         working-directory: test
-
 #  format:
 #    runs-on: ubuntu-latest
 #

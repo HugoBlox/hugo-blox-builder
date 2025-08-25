@@ -220,8 +220,8 @@
   {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
   {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
   {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}
-  {{ $js_academic := resources.Get "js/hb-code-copy.js" | js.Build (dict "targetPath" (printf "js/wow-core-%s.js" .Lang ) "params" $js_params) }}
-  {{ $js_academic := $js_academic | resources.Minify }}
+  {{ $js_hugoblox := resources.Get "js/hb-code-copy.js" | js.Build (dict "targetPath" (printf "js/hugoblox-core-%s.js" .Lang ) "params" $js_params) }}
+  {{ $js_hugoblox := $js_hugoblox | resources.Minify }}
   {{- $js_theme := resources.Get "js/hb-theme.js" | resources.Minify -}}
   {{- $js_lang := resources.Get "js/hb-i18n.js" | resources.Minify -}}
   {{- $js_nav := resources.Get "js/hb-nav.js" | resources.Minify -}}
@@ -229,7 +229,7 @@
   {{- $js_notifier := resources.Get "js/hb-notifier.js" | js.Build (dict "targetPath" (printf "js/hb-notifier-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
   {{- $js_clipboard := resources.Get "js/hb-clipboard.js" | js.Build (dict "targetPath" (printf "js/hb-clipboard-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
   {{- $js_citation := resources.Get "js/hb-citation.js" | js.Build (dict "targetPath" (printf "js/hb-citation-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
-  {{ $js_bundle := slice $js_bundle_head $js_academic $js_theme $js_lang $js_nav $js_sidebar $js_notifier $js_clipboard $js_citation | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
+  {{ $js_bundle := slice $js_bundle_head $js_hugoblox $js_theme $js_lang $js_nav $js_sidebar $js_notifier $js_clipboard $js_citation | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}

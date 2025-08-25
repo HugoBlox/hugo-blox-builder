@@ -1,3 +1,0 @@
----
-type: widget_page
----
