@@ -8,7 +8,7 @@ on:
   # Trigger the workflow every time you push to the `main` branch
   push:
     branches: ['main']
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  # Allows you to run this workflow manually from the Actions tab on GitHub
   workflow_dispatch:
 
 # Provide permission to clone the repo and deploy it to GitHub Pages
@@ -56,15 +56,24 @@ jobs:
           hugo-version: ${{ env.WC_HUGO_VERSION }}
           extended: true
 
+      # Cache dependencies (Go modules, node_modules) - stable, rarely changes
       - uses: actions/cache@v4
         with:
           path: |
             /tmp/hugo_cache_runner/
             node_modules/
             modules/*/node_modules/
-          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.mod', '**/package-lock.json', '**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-hugo-deps-${{ hashFiles('**/go.mod', '**/package-lock.json', '**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-hugomod-
+            ${{ runner.os }}-hugo-deps-
+
+      # Cache Hugo resources (processed images, CSS) - invalidates only when assets/config change
+      - uses: actions/cache@v4
+        with:
+          path: resources/
+          key: ${{ runner.os }}-hugo-resources-${{ hashFiles('assets/**/*', 'config/**/*', 'hugo.yaml', 'package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-resources-
 
       - name: Setup Pages
         id: pages
@@ -79,7 +88,7 @@ jobs:
 
       - name: Generate Pagefind search index (if applicable)
         run: |
-          # Check if site uses Pagefind
+          # Check if site uses Pagefind search
           if [ -f "package.json" ] && grep -q "pagefind" package.json; then
             pnpm dlx pagefind --source "public" || npx pagefind --source "public"
           elif [ -f "netlify.toml" ] && grep -q "pagefind" netlify.toml; then
@@ -94,11 +103,16 @@ jobs:
   # Deploy website to GitHub Pages hosting
   deploy:
     if: github.repository_owner != 'HugoBlox'
+    needs: build
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+    # Deploy to the github-pages environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
