@@ -209,7 +209,7 @@
 
   {{/* Init prior to auto-chunking/bundling scripts due to Hugo concurrency issues */}}
   {{/* !CACHED! Initialized once at site level and then cached for each page */}}
-  {{- partialCached "init.html" . -}}
+  {{- partialCached "init.html" . "hb_init_once" -}}
 
   {{/* Load Third-Party Libraries */}}
   {{ partial "libraries.html" . }}
