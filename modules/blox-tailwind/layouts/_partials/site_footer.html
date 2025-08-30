@@ -3,7 +3,8 @@
   {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
 
   {{/* Load footer block */}}
-  {{ $footer_section_name := site.Params.footer.blox | default "minimal" }}
+  {{- $footer_config := site.Params.footer | default dict -}}
+  {{- $footer_section_name := partial "hbx/resolve-block-param" (dict "config" $footer_config "context" "footer") | default "minimal" -}}
   {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
   {{ if not (templates.Exists (printf "_partials/%s" $footer_section_path)) }}
     {{ errorf "Check your `params.yaml`. Cannot find footer block at `layouts/_partials/%s`" $footer_section_path }}

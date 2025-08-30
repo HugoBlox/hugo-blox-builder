@@ -1,0 +1,20 @@
+{{/* Context-aware block parameter resolution with backward compatibility */}}
+{{/* Strategy: Prefers "block" over "blox" (legacy) in configs */}}
+{{- $config := .config -}}
+{{- $context := .context | default "component" -}}
+
+{{- $block_id := "" -}}
+{{- $using_legacy := false -}}
+
+{{- if $config.block -}}
+  {{- $block_id = $config.block -}}
+{{- else if $config.blox -}}
+  {{- $block_id = $config.blox -}}
+  {{- $using_legacy = true -}}
+{{- end -}}
+
+{{- if $using_legacy -}}
+  {{- warnf "HBX: Using legacy 'blox' parameter for %s. Please update to 'block' for consistency. (Found: blox=%s)" $context $block_id -}}
+{{- end -}}
+
+{{- return $block_id -}}

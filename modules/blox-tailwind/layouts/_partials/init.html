@@ -13,7 +13,8 @@
   {{ range $index, $block := .Params.sections }}
     {{/* Do not show sections intended only for the demo site. */}}
     {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "HUGO_BLOX_DEMO") "true")) }}
-      {{ $block_type := lower ($block.blox | default $block.block) | default "markdown" }}
+      {{- $block_type := partial "hbx/resolve-block-param" (dict "config" $block "context" "content section") | default "markdown" -}}
+      {{ $block_type = lower $block_type }}
       {{ range $r := .Site.Data.blox_aliases.renames }}
         {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}
       {{ end }}

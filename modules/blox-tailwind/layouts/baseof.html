@@ -11,7 +11,8 @@
       {{/* Load header block */}}
       {{ $show_navbar := ((site.Params.header.navbar.enable | default true) | and (ne .Params.header.navbar.enable false)) | or .Params.header.navbar.enable }}
       {{ if $show_navbar }}
-        {{ $block_name := .Params.header.navbar.blox | default site.Params.header.navbar.blox | default "navbar" }}
+        {{- $header_config := .Params.header.navbar | default site.Params.header.navbar | default dict -}}
+        {{- $block_name := partial "hbx/resolve-block-param" (dict "config" $header_config "context" "header") | default "navbar" -}}
         {{ $block_path := printf "components/headers/%s.html" $block_name }}
         {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
           {{ errorf "Check your `header` config in `params.yaml` and/or front matter. Cannot find header block at `layouts/_partials/%s`" $block_path }}
