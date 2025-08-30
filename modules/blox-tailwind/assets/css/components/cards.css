@@ -8,7 +8,7 @@
 }
 
 .hb-card {
-  @apply flex flex-col justify-start overflow-hidden rounded-lg border border-gray-200 text-current no-underline dark:shadow-none hover:shadow-gray-100 dark:hover:shadow-none shadow-gray-100 active:shadow-sm active:shadow-gray-200 transition-all duration-200;
+  @apply flex flex-col justify-start overflow-hidden rounded-lg border border-gray-200 text-current no-underline dark:shadow-transparent hover:shadow-gray-100 dark:hover:shadow-transparent shadow-gray-100 active:shadow-sm active:shadow-gray-200 transition-all duration-200;
   @apply hover:border-gray-300 bg-transparent shadow-sm hover:bg-slate-50 hover:shadow-md;
   border-color: rgb(var(--color-neutral-700));
 }
