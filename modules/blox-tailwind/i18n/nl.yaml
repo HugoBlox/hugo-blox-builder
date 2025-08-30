@@ -263,3 +263,6 @@
 
 - id: published_with
   translation: Made with {hugoblox}.
+
+- id: poweredby_button
+  translation: 'Bouw de jouwe →'

@@ -284,6 +284,9 @@
 - id: published_with
   translation: Veröffentlicht mit {hugoblox} - dem kostenlosen, {repo_link}Open Source{/repo_link} Website-Builder, der Kreative fördert.
 
+- id: poweredby_button
+  translation: 'Erstelle deine →'
+
 # Feedback widget
 
 - id: feedback_widget_title

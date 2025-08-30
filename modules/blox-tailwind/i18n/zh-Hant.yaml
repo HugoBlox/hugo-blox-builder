@@ -263,3 +263,6 @@
 
 - id: published_with
   translation: 由{hugoblox}支持發布——免費{repo_link}開源{/repo_link}網站，為創作者賦能。
+
+- id: poweredby_button
+  translation: '構建您的 →'

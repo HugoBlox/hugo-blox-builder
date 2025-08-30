@@ -1,113 +1,130 @@
 [**中文**](./README.zh.md)
+<p align="center">
+  <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme">
+    <img src="./.github/media/hero.png" alt="Build world-class sites with Hugo Blox" width="100%">
+  </a>
+</p>
 
-<p align="center"><a href="https://hugoblox.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/sharing.png" alt="Hugo Blox Builder"></a></p>
+<h1 align="center">The #1 Open Source Toolkit for Technical & Academic Websites</h1>
 
-[![Get Started](https://img.shields.io/badge/-Get%20started-ff4655?style=for-the-badge)](https://hugoblox.com/templates/)
-[![Discord](https://img.shields.io/discord/722225264733716590?style=for-the-badge)](https://discord.com/channels/722225264733716590/742892432458252370/742895548159492138)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/gcushen?label=%E2%9D%A4%EF%B8%8F%20sponsor&style=for-the-badge)](https://github.com/sponsors/gcushen)
-[![Twitter Follow](https://img.shields.io/twitter/follow/GetResearchDev?label=Follow%20on%20Twitter&style=for-the-badge)](https://twitter.com/GetResearchDev)
-[![GitHub followers](https://img.shields.io/github/followers/gcushen?label=Follow%20on%20GH&style=for-the-badge)](https://github.com/gcushen)
+<p align="center">
+  <strong>Accelerate Your Impact:</strong> Build blazing-fast, SEO-optimized sites in minutes.<br/>
+  <!-- Trusted by 250,000+ innovators at <strong>Meta, Stanford, Google, MIT, and OpenAI</strong>. -->
+</p>
 
-# [Hugo Blox Builder](https://hugoblox.com): easy, all-in-one website builder
+<p align="center">
+  <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 Get Started Free</b></a>
+  &nbsp;•&nbsp;
+  <a href="https://hugoblox.com/all-access?utm_source=github&utm_medium=readme">Explore All Access</a>
+  <!-- &nbsp;•&nbsp;
+  <a href="https://discord.gg/z8wNYzb">Join Discord</a> -->
+</p>
 
-### Join 750,000+ Sites. No Code. Easily Create Future-Proof Websites ✏️ 📰 🚀
+<p align="center">
+  <a href="https://discord.gg/z8wNYzb">
+    <img src="https://img.shields.io/discord/722225264733716590?label=Join%20Discord&style=social" alt="Discord">
+  </a>
+  <a href="https://github.com/HugoBlox/hugo-blox-builder">
+    <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=Star%20Hugo%20Blox&style=social" alt="GitHub Stars">
+  </a>
+  <a href="https://github.com/gcushen">
+    <img src="https://img.shields.io/github/followers/gcushen?label=Follow&style=social" alt="Follow on GitHub">
+  </a>
+</p>
 
-🔥 **1. Create _any_ kind of website for free with [Hugo](https://github.com/gohugoio/hugo)-powered blocks** - from landing pages, knowledge bases, and courses to professional resumés, conferences, and tech blogs
+---
 
-🎨 **2. Personalize** a beautiful starter template with **50+ light/dark color themes, language packs, and blocks**
+## Why Hugo Blox?
 
-🛋 **3. Optionally, write from your sofa or on the go with the integrated open source Content Management System (CMS) based on [Decap CMS](https://docs.hugoblox.com/getting-started/cms/decap/)**
+- **Launch in Minutes, Not Months:** Pick a template, customize with drag-and-drop blocks, and deploy. Build anything from SaaS landing pages and online courses to academic resumés and lab sites.
+- **Own Your Content & Brand:** You get static files with no vendor lock-in, leading to 100/100 Lighthouse scores. Your content, your rules.
+- **Built for a Technical Workflow:** A modern stack with Hugo and Tailwind CSS. Write in Markdown, Jupyter, or BibTeX. Auto-sync publications.
+- **Open & Extendable:** Start with a generous MIT-licensed core. Upgrade with premium templates and blocks or extend with React "islands" for custom interactivity.
 
-<p style="text-align: center"><a href="https://hugoblox.com/templates/" target="_blank" rel="noopener"><img src="./.github/media/write-from-phone.gif" alt="Hugo Blox Builder CMS"></a></p>
+<p align="center">
+  <img src="./.github/media/templates.webp" alt="Template previews" width="900">
+</p>
 
-[Check out the latest **demos**](https://hugoblox.com/templates/) of what you'll get in less than 60 seconds, or [get **inspired**](https://hugoblox.com/creators/) by other creators.
+<p align="center">
+  <a href="https://hugoblox.com/templates?utm_source=github&utm_medium=readme"><b>Browse Templates →</b></a>
+</p>
 
-- 👉 [**Get Started**](https://hugoblox.com/templates/)
-- 📚 [View the **documentation**](https://docs.hugoblox.com/)
-- 🙋‍♀️ **Have a question?**
-  - **Chat with us now on [Discord](https://discord.gg/z8wNYzb)** or explore the [Troubleshooting Guide](https://docs.hugoblox.com/reference/troubleshooting/) and [Q&A Forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)
-  - _Also, check out [Hugo Forum](https://discourse.gohugo.io) for Hugo Qs and [Netlify Forum](https://answers.netlify.com/) for Netlify Qs_
-- 🐦 Share your Hugo Blox Builder site with the community on Twitter: [@GetResearchDev](https://twitter.com/GetResearchDev) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithHugoBlox](https://twitter.com/search?q=%23MadeWithHugoBlox&src=typed_query)
-- 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
-- ⬆️ **Updating?** View the [Update Guide](https://docs.hugoblox.com/reference/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
-- 🚀 [Contribute improvements](CONTRIBUTING.md) or [suggest improvements](https://github.com/HugoBlox/hugo-blox-builder/issues)
+---
 
-## 💙 We ask you, humbly, to support this open source movement
+## Get started
 
-Today we ask you to defend the open source independence of the Hugo Blox Builder website builder and themes 🐧
+**Recommended (fastest, no install):**  
+👉 <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>Start free in your browser</b></a> — pick a template, customize blocks, and publish to GitHub Pages.
 
-We're an **open source and open science movement** that depends on your support to stay online and thriving, but 99.9% of our creators don't give; they simply look the other way 🤦🏻‍♀️
+**Prefer the CLI?**  
+Use the local quickstart:
 
-### [😍️ Click here to become a GitHub Sponsor, unlocking awesome perks such as _exclusive templates, widgets, and tutorials_](https://github.com/sponsors/gcushen)
+```bash
+# 1) Install Hugo Extended → https://docs.hugoblox.com/getting-started/install-hugo/#prerequisites
 
-### Business Sponsors
+# 2) Clone a starter (example: Academic CV) - see https://hugoblox.com/templates
+git clone https://github.com/HugoBlox/theme-academic-cv my-site
+cd my-site
 
-<div style="display: grid; column-gap: 50px; grid-template-columns: repeat(3, 1fr);">
-  <div style="display: flex; align-items: center;">
-    <a href="https://www.netlify.com/" target="_blank"><img src=".github/media/sponsors/netlify.svg" alt="" height="40" width="147" style="display: inline-block;"></a>
-  </div>
-  <div>
-    <a href="https://github.com/sponsors/gcushen"><img src=".github/media/sponsors/your-logo-here.png" alt="" style="display: inline-block;"></a>
-  </div>
-</div>
+# 3) Run locally
+pnpm install && hugo server -D
+```
 
-## Starter Templates
+For more guides, visit our documentation at **https://docs.hugoblox.com/**.
 
-Hugo Blox Builder is a **no-code** framework for creating _any_ kind of website using **widgets**. Each site is 100% customizable to **make it your own**!
+---
 
-Choose from one of the starter templates to easily get started:
+## Free vs. All Access
 
-[![Writing technical content](./.github/media/starters.webp)](https://hugoblox.com/templates/)
+Hugo Blox ships with a library of **free blocks** for heroes, features, testimonials, FAQs, and more. **All Access** is a one-time donation that adds **exclusive, professionally designed blocks** and full site templates to help you launch even faster.
 
-## The Future of Technical Content Writing
+<!-- <p align="center">
+  <img src="./.github/media/blocks-strip.png" alt="Premium blocks preview" width="900">
+</p> -->
 
-**Write rich, future-proof content** using standardized Markdown along with bundled extensions for math and diagrams. Edit in the open source CMS or via an editor such as the online GitHub Editor, Jupyter Notebook, or RStudio! [Learn more](https://docs.hugoblox.com/reference/markdown/)
+- Free templates & blocks: <a href="https://hugoblox.com/templates?utm_source=github&utm_medium=readme"><b>Templates Catalog</b></a>
+- Premium catalog & lifetime updates: <a href="https://hugoblox.com/all-access?utm_source=github&utm_medium=readme"><b>All Access Pass</b></a>
 
-[![Writing technical content](https://hugoblox.com/uploads/readmes/writing-technical-content.gif)](https://academic-demo.netlify.app/post/writing-technical-content/)
+---
 
-## Features
+## What Creators Say
 
-[![Screenshot](./.github/media/academic.png)](https://hugoblox.com/templates/)
+> “Hugo Blox saved me 40+ hours on my lab site. Bibtex integration auto-updates publications — **our citations are up 3×**.”
+> — **Dr. Sarah Yang**, AI Researcher
 
-**Key features:**
+> “We launched our documentation in 10 minutes. The block system is genius; **onboarding time dropped by 60%**.”
+> — **Alexandre Rodrigues**, Founder
 
-- **Page builder** - Create _anything_ with [**blocks**](https://docs.hugoblox.com/getting-started/page-builder/) and [**elements**](https://docs.hugoblox.com/reference/markdown/)
-- **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
-- **Create content** in [**Markdown**](https://docs.hugoblox.com/reference/markdown/), [**Jupyter**](https://docs.hugoblox.com/getting-started/cms/), or [**RStudio**](https://docs.hugoblox.com/getting-started/cms/rstudio/)
-- **Plugin System** - Fully customizable [**color** and **font themes**](https://docs.hugoblox.com/getting-started/customize/#appearance)
-- **Display Code and Math** - Code highlighting and [LaTeX math](https://docs.hugoblox.com/reference/markdown/#math) supported
-- **Integrations** - [Google Analytics](https://analytics.google.com), [Disqus commenting](https://disqus.com), Maps, Contact Forms, and more!
-- **Beautiful Site** - Simple and refreshing one page design
-- **Industry-Leading SEO** - Help get your website found on search engines and social media
-- **Media Galleries** - Display your images and videos with captions in a customizable gallery
-- **Mobile Friendly** - Look amazing on every screen with a mobile friendly version of your site
-- **Multi-language** - 35+ language packs including English, 中文, and Português
-- **Multi-user** - Each author gets their own profile page
-- **Privacy Pack** - Assists with GDPR
-- **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
-- **One-Click Deployment** - No servers. No databases. Only files.
+---
 
-## Themes
+## Support the Project
 
-Hugo Blox Builder comes with **automatic day (light) and night (dark) mode** built-in. Alternatively, click the moon icon in the top right of one of the [Demos](https://hugoblox.com/templates/) to set your preferred mode!
+- 💎 **All Access (one-time donation)** — Get lifetime access to all premium templates, blocks, and updates.
+  <br/><a href="https://hugoblox.com/all-access?utm_source=github&utm_medium=readme"><b>Get All Access →</b></a>
 
-Choose a stunning theme for your site and [customize it](https://docs.hugoblox.com/getting-started/customize/#custom-theme) to your liking:
+- ☕️ **Donate a Coffee** — Support open source and open research.
+  <br/><a href="https://github.com/sponsors/gcushen"><b>Sponsor on GitHub →</b></a>
 
-[![Themes](./.github/media/themes.png)](https://hugoblox.com/templates/)
+- 🤝 **Corporate Sponsors** — Reach thousands of developers and researchers. Get your logo and link in this README.
+  <br/><a href="https://github.com/sponsors/gcushen"><b>Become a Partner →</b></a>
 
-[Browse more templates and themes...](https://hugoblox.com/templates/)
+---
 
-## Ecosystem
+## Community
 
-- [**Academic File Converter**](https://github.com/GetRD/academic-file-converter): Automatically import academic publications from BibTeX to Markdown files
-- [**Awesome Hugo**](https://github.com/HugoBlox/awesome-hugo): Scripts to help migrate content to new versions of Hugo
+Join the community to ask questions, share your work, and help us improve.
 
-## Join the community
+- 💬 <a href="https://discord.gg/z8wNYzb">Discord</a>
+- 📚 <a href="https://docs.hugoblox.com/">Docs & Guides</a>
+- 🐦 <a href="https://twitter.com/GetResearchDev">X / Twitter</a>
+- ⭐ <a href="https://github.com/HugoBlox/hugo-blox-builder">Star on GitHub</a>
 
-Feel free to [_star_ the project on Github](https://github.com/HugoBlox/hugo-blox-builder), [join the community](https://discord.gg/z8wNYzb) on Discord, and follow [@GetResearchDev](https://twitter.com/GetResearchDev) on Twitter to be the first to hear about new features.
+---
 
 ## License
 
-Copyright 2016-present [George Cushen](https://georgecushen.com).
+MIT © 2016–Present <a href="https://georgecushen.com">George Cushen</a> — <a href="./LICENSE.md">License Details</a>
 
-The [Hugo Blox Builder](https://github.com/HugoBlox/hugo-blox-builder/) repository is released under the [MIT](https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md) license.
+<p align="center">
+  <sub>No tracking. No lock-in. Your content stays yours.</sub>
+</p>

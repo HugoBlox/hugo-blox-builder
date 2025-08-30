@@ -59,7 +59,11 @@
     <p class="powered-by text-center text-sm opacity-80 py-1">
       {{ $published_with := "Made with {hugoblox}." }}
       {{ $i18n_published_with := i18n "published_with" | default $published_with }}
+      {{ $defaultEnText := "Build yours →" }}
       {{ $i18n_ctaText := i18n "poweredby_button" | default $ctaText }}
+      {{ if eq $i18n_ctaText $defaultEnText }}
+        {{ $i18n_ctaText = $ctaText }}
+      {{ end }}
       {{ if not (findRE "{hugoblox}" $i18n_published_with) }}
         {{ warnf "Please attribute Hugo Blox using `{hugoblox}` in the i18n `published_with` text or sponsor with All Access to remove attribution." }}
         {{ $i18n_published_with = $published_with }}

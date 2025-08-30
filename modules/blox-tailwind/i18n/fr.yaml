@@ -266,3 +266,6 @@
 
 - id: published_with
   translation: Publié avec {hugoblox} — le générateur {repo_link}libre{/repo_link} de site web gratuit permettant aux créateurs de s'épanouir.
+
+- id: poweredby_button
+  translation: 'Créer le vôtre →'
