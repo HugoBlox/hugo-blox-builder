@@ -1,5 +1,11 @@
-{{/* Load Hugo Blox */}}
-{{ range $index, $block := .Params.sections }}
+{{/* Load Hugo Blox - HBX resolver-based system 
+     Blocks live in `blox/<block-id>/block.html` and are mounted to `layouts/partials/hbx/blocks/<block-id>/block.html`.
+     Landing pages must specify `sections: [{ block: '<id>', ... }]`.
+*/}}
+{{/* Use unified sections source */}}
+{{- $sections := partial "hbx/sections.html" . -}}
+
+{{ range $index, $block := $sections }}
   {{/* Do not show sections intended only for the demo site. */}}
   {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "HUGO_BLOX_DEMO") "true")) }}
     {{ partial "functions/parse_block_v2" (dict "page" $ "block" $block) }}

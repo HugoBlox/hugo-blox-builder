@@ -65,30 +65,6 @@ minify:
       keepSpecialComments: true
 sitemap:
   changefreq: weekly
-module:
-  hugoVersion:
-    min: '0.148.2'
-    extended: true
-  imports:
-    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics
-  mounts:
-    - source: content
-      target: content
-    - source: static
-      target: static
-    - source: layouts
-      target: layouts
-    - source: data
-      target: data
-    - source: assets
-      target: assets
-    - source: i18n
-      target: i18n
-    - source: archetypes
-      target: archetypes
-    - disableWatch: true
-      source: hugo_stats.json
-      target: assets/notwatching/hugo_stats.json
 security:
   funcs:
     getenv:
@@ -113,3 +89,62 @@ params:
     date_format: 'Jan 2, 2006'
     time_format: '3:04 PM'
     address_format: en-us
+module:
+  hugoVersion:
+    min: '0.148.2'
+    extended: true
+  imports:
+    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-analytics
+  mounts:
+    - source: content
+      target: content
+    - source: static
+      target: static
+    - source: layouts
+      target: layouts
+    - source: data
+      target: data
+    - source: assets
+      target: assets
+    - source: i18n
+      target: i18n
+    - source: archetypes
+      target: archetypes
+    - disableWatch: true
+      source: hugo_stats.json
+      target: assets/notwatching/hugo_stats.json
+
+    # BLOX A) Server-rendered block templates (Go HTML)
+    - source: blox
+      target: layouts/partials/hbx/blocks
+      includeFiles:
+        - '**/block.html'
+
+    # BLOX B) Client islands (compiled with js.Build/js.Batch)
+    - source: blox
+      target: assets/js/hbx/blocks
+      includeFiles:
+        - '**/*.js'
+        - '**/*.ts'
+        - '**/*.jsx'
+        - '**/*.tsx'
+
+    # BLOX C) Block-specific CSS
+    - source: blox
+      target: assets/css/hbx/blocks
+      includeFiles:
+        - '**/*.css'
+
+    # BLOX D) Shared assets (optional)
+    - source: blox/shared/js
+      target: assets/js/hbx/shared
+    - source: blox/shared/css
+      target: assets/css/hbx/shared
+    - source: blox
+      target: assets/img/hbx/blocks
+      includeFiles:
+        - '**/*.png'
+        - '**/*.jpg'
+        - '**/*.jpeg'
+        - '**/*.svg'
+        - '**/*.webp'

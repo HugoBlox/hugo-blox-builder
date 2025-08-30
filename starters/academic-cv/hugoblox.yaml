@@ -1,2 +1,5 @@
 build:
   hugo_version: '0.148.2'
+template:
+  id: "academic-cv" 
+  name: "Academic CV"

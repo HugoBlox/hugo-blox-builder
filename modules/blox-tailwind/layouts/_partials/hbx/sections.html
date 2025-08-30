@@ -1,0 +1,11 @@
+{{/* Returns sections from front matter or from data. */}}
+{{- $sections := .Params.sections -}}
+{{- if not $sections -}}
+  {{/* Data-driven pages. */}}
+  {{- $p := .File.PathBase -}}
+  {{- with index site.Data.pages $p -}}
+    {{- $sections = .sections -}}
+    {{- warnf "HBX: Using data-driven sections from data/pages/%s for page %s" $p $.RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+{{- return $sections -}}

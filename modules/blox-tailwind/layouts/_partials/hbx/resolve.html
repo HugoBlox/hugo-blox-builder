@@ -1,0 +1,15 @@
+{{/* HBX resolver: maps a section { block: "<id>", ... } to the block partial.
+     This resolver looks up blocks from the blox/<block-id>/block.html structure,
+     which are mounted to layouts/partials/hbx/blocks/<block-id>/block.html via module.yaml.
+*/}}
+{{- $id := .section.block -}}
+{{- if not $id }}{{ errorf "HBX: section is missing 'block' key: %v" .section }}{{ end -}}
+
+{{- $params := .section -}}
+{{- $path := printf "hbx/blocks/%s/block.html" $id -}}
+
+{{- if templates.Exists (printf "partials/%s" $path) -}}
+  {{ partial $path (dict "wcPage" .ctx "wcBlock" $params "wcIdentifier" ($params.id | default (printf "section-%s" $id))) }}
+{{- else -}}
+  {{ errorf "HBX: block '%s' not found at %q" $id $path }}
+{{- end -}}

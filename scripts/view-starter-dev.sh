@@ -10,8 +10,15 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 usage() {
+    echo "View a starter template with local development modules and debug features."
+    echo ""
     echo "Usage: ./scripts/view-starter-dev.sh <starter-name> [--debug] [--no-pagefind]"
     echo "Example: ./scripts/view-starter-dev.sh blog --debug"
+    echo ""
+    echo "This script uses:"
+    echo "  • Local development modules (via HUGO_MODULE_REPLACEMENTS)"
+    echo "  • Development environment with demo/debug flags enabled"
+    echo "  • Optional Pagefind search indexing and enhanced debugging"
 }
 
 if [ $# -lt 1 ]; then

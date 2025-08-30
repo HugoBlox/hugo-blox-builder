@@ -8,9 +8,20 @@ exitfn () {
 
 trap "exitfn" INT
 
+usage() {
+    echo "View a starter template with published production modules."
+    echo ""
+    echo "Usage: ./scripts/view-starter-prod.sh <starter-name>"
+    echo "Example: ./scripts/view-starter-prod.sh blog"
+    echo ""
+    echo "This script uses:"
+    echo "  • Published/released modules (no local overrides)"
+    echo "  • Production environment (simulates end-user experience)"
+    echo "  • Minimal configuration for testing published versions"
+}
+
 if [ -z "$1" ]; then
-    echo "Usage: ./scripts/view-starter.sh <starter-name>"
-    echo "Example: ./scripts/view-starter.sh blog"
+    usage
     exit 1
 fi
 
@@ -31,8 +42,8 @@ if [ -f "package.json" ]; then
     fi
 fi
 
-HUGO_ENVIRONMENT=development \
-HUGOxPARAMSxDECAP_CMSxLOCAL_BACKEND=true \
+# Use production environment with published modules (no local module replacements)
+HUGO_ENVIRONMENT=production \
 hugo server --panicOnWarning --renderStaticToDisk -F --port 8081 --bind 0.0.0.0
 
 trap SIGINT

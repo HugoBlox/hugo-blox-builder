@@ -9,14 +9,9 @@
 {{ range $r := site.Data.blox_aliases.renames }}
   {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}
 {{ end }}
-{{ $block_path := printf "blox/%s.html" $block_type }}
+{{ $block_path := printf "hbx/blocks/%s/block.html" $block_type }}
 {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
-  {{ $block_path_community := printf "blox/community/%s.html" $block_type }}
-  {{ if not (templates.Exists (printf "_partials/%s" $block_path_community)) }}
-    {{ errorf "%s uses a `%s` blox but the `%s` blox was not found. Check the name of the blox and try again. For a custom or community blox, upload it first to `hugo-blox/blox/community/%s.html`. For an All Access blox, upload it first to `hugo-blox/blox/all-access/%s.html`" $page.File.Path $block_type $block_type $block_type $block_type }}
-  {{ else }}
-    {{ $block_path = $block_path_community }}
-  {{ end }}
+  {{ errorf "%s uses a `%s` block but the `%s` block was not found at `%s`. Check the name of the block and ensure it exists in the blox/%s/ directory." $page.File.Path $block_type $block_type $block_path $block_type }}
 {{ end }}
 
 {{/* Mermaid block: Workaround to make Hugo's .Page.Store.Set cascade up to the parent of headless pages */}}

@@ -24,7 +24,8 @@
       "**/pagefind/**": true
     },
     "explorer.excludeGitIgnore": true,
-
+    "workbench.editor.labelFormat": "medium",
+    "breadcrumbs.enabled": true,
     "npm.packageManager": "pnpm",
 
     "editor.formatOnSave": true,

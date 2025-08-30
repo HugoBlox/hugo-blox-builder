@@ -32,27 +32,23 @@
     "prettier-plugin-go-template": "~0.0.12",
     "stylelint": "14.8.2",
     "stylelint-config-prettier": "~9.0.3",
-    "stylelint-config-prettier-scss": "^0.0.1",
     "stylelint-config-standard": "~25.0.0",
-    "stylelint-config-standard-scss": "^3.0.0",
     "stylelint-scss": "~4.2.0"
   },
   "scripts": {
-    "view": "scripts/view-starter.sh",
-    "view:local": "scripts/view-starter-dev.sh",
+    "prod": "scripts/view-starter-prod.sh",
+    "dev": "scripts/view-starter-dev.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "pnpm run lint:js && pnpm run lint:style",
     "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
     "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
-    "lint:style": "stylelint 'modules/blox-tailwind/**/*.css'",
-    "lint:style:fix": "stylelint 'modules/blox-tailwind/**/*.css' --fix",
-    "format": "prettier --write \"*.{css,js,json,md,scss}\" \"./**/*.{css,js,json,md,scss}\"",
+    "lint:style": "stylelint '**/*.css'",
+    "lint:style:fix": "stylelint '**/*.css' --fix",
+    "format": "prettier --write \"*.{css,js,json,md}\" \"./**/*.{css,js,json,md}\"",
     "stylelint-conflict-check": "stylelint-config-prettier-check",
-    "update:starter": "scripts/update-starter.sh",
     "update:starters": "poetry run python ./scripts/update.py",
     "vendor:libs": "vite build --config vite.config.js",
     "vendor:libs:watch": "vite build --config vite.config.js --watch"
   },
-  "browserslist": "> 1%",
-  "packageManager": "pnpm@10.14.0"
+  "browserslist": "> 1%"
 }
