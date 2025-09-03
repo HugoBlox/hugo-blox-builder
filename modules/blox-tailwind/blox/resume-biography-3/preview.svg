@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Left side - Avatar and basic info -->
+  <circle cx="45" cy="40" r="15" fill="#e5e7eb" stroke="#d1d5db" stroke-width="1"/>
+  <circle cx="45" cy="35" r="6" fill="#9ca3af"/>
+  <path d="M35 48c0-6 5-9 10-9s10 3 10 9" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <!-- Name and role -->
+  <rect x="25" y="60" width="40" height="4" rx="2" fill="#1f2937"/>
+  <rect x="30" y="68" width="30" height="3" rx="1.5" fill="#6b7280"/>
+  
+  <!-- Social icons -->
+  <circle cx="30" cy="80" r="3" fill="#3b82f6" opacity="0.3"/>
+  <circle cx="40" cy="80" r="3" fill="#1f2937" opacity="0.3"/>
+  <circle cx="50" cy="80" r="3" fill="#10b981" opacity="0.3"/>
+  
+  <!-- Right side - Education and interests -->
+  <rect x="80" y="15" width="100" height="90" rx="4" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Education section -->
+  <rect x="90" y="25" width="50" height="4" rx="2" fill="#1f2937"/>
+  <circle cx="95" cy="35" r="2" fill="#3b82f6"/>
+  <rect x="100" y="33" width="60" height="3" rx="1.5" fill="#374151"/>
+  <rect x="100" y="38" width="40" height="2" rx="1" fill="#6b7280"/>
+  
+  <circle cx="95" cy="48" r="2" fill="#3b82f6"/>
+  <rect x="100" y="46" width="50" height="3" rx="1.5" fill="#374151"/>
+  <rect x="100" y="51" width="35" height="2" rx="1" fill="#6b7280"/>
+  
+  <!-- Interests section -->
+  <rect x="90" y="65" width="40" height="4" rx="2" fill="#1f2937"/>
+  <circle cx="95" cy="75" r="1.5" fill="#10b981"/>
+  <rect x="100" y="73" width="30" height="2" rx="1" fill="#374151"/>
+  
+  <circle cx="95" cy="82" r="1.5" fill="#10b981"/>
+  <rect x="100" y="80" width="40" height="2" rx="1" fill="#374151"/>
+  
+  <circle cx="95" cy="89" r="1.5" fill="#10b981"/>
+  <rect x="100" y="87" width="35" height="2" rx="1" fill="#374151"/>
+</svg>
+

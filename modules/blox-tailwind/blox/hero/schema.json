@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/hero.json",
+  "title": "Hero Block Schema",
+  "description": "Schema for the Hero block - displays prominent hero sections with title, text, and call-to-action buttons",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "hero"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the hero block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Main hero title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Hero description text (supports Markdown)"
+            },
+            "announcement": {
+              "type": "object",
+              "description": "Optional announcement banner",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Announcement text (supports Markdown)"
+                },
+                "link": {
+                  "type": "object",
+                  "description": "Optional announcement link",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "Link text"
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "Link URL"
+                    }
+                  },
+                  "required": ["text", "url"]
+                }
+              },
+              "required": ["text"]
+            },
+            "primary_action": {
+              "type": "object",
+              "description": "Primary call-to-action button",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "Button URL"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Button text (supports Markdown)"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Optional button icon (icon pack format: pack/icon-name)"
+                }
+              },
+              "required": ["url", "text"]
+            },
+            "secondary_action": {
+              "type": "object",
+              "description": "Secondary call-to-action link",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "Link URL"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Link text (supports Markdown)"
+                }
+              },
+              "required": ["url", "text"]
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+

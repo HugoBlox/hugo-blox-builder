@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/features.json",
+  "title": "Features Block Schema",
+  "description": "Schema for the Features block - displays a grid of features with icons, names, and descriptions",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "features"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the features block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description (supports Markdown)"
+            },
+            "items": {
+              "type": "array",
+              "description": "Array of feature items",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Feature name/title (supports Markdown)"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Feature description (supports Markdown)"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Feature icon (icon pack format: pack/icon-name)"
+                  }
+                },
+                "required": ["name", "description"]
+              }
+            }
+          },
+          "required": ["items"]
+        }
+      }
+    }
+  ]
+}
+

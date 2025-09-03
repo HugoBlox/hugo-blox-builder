@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- CTA Card -->
+  <rect x="20" y="15" width="160" height="90" rx="8" fill="#1f2937"/>
+  
+  <!-- Large title -->
+  <rect x="40" y="30" width="120" height="8" rx="4" fill="white"/>
+  <rect x="60" y="42" width="80" height="6" rx="3" fill="white" opacity="0.8"/>
+  
+  <!-- Description text -->
+  <rect x="50" y="55" width="100" height="3" rx="1.5" fill="white" opacity="0.6"/>
+  <rect x="50" y="60" width="80" height="3" rx="1.5" fill="white" opacity="0.6"/>
+  <rect x="50" y="65" width="60" height="3" rx="1.5" fill="white" opacity="0.6"/>
+  
+  <!-- CTA Button -->
+  <rect x="70" y="80" width="60" height="20" rx="10" fill="white"/>
+  <rect x="80" y="87" width="40" height="6" rx="3" fill="#1f2937"/>
+</svg>
+

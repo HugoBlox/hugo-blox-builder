@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/markdown.json",
+  "title": "Markdown Block Schema",
+  "description": "Schema for the Markdown block - displays markdown content with optional title",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "markdown"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the markdown block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Markdown content (supports full Markdown syntax)"
+            }
+          },
+          "required": ["text"]
+        }
+      }
+    }
+  ]
+}
+

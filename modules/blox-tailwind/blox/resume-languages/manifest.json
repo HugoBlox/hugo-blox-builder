@@ -1,0 +1,14 @@
+{
+  "id": "resume-languages",
+  "name": "Resume Languages",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "resume",
+  "tags": ["resume", "languages", "multilingual", "skills", "fluency", "international", "cv", "circular-progress"],
+  "description": "Showcase language proficiency with beautiful circular progress indicators and percentage displays",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "resume", "languages", "multilingual", "fluency", "skills", "cv"]
+}
+

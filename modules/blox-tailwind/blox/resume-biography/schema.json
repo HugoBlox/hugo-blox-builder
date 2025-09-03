@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/resume-biography.json",
+  "title": "Resume Biography Block Schema",
+  "description": "Schema for the Resume Biography block - displays author biography with avatar, social links, and bio text",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "resume-biography"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the resume biography block",
+          "properties": {
+            "username": {
+              "type": "string",
+              "description": "Author username (references authors/{username}/ page)",
+              "default": "admin"
+            },
+            "text": {
+              "type": "string",
+              "description": "Biography text override (supports Markdown). If not provided, uses author page content."
+            },
+            "button": {
+              "type": "object",
+              "description": "Optional call-to-action button",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "Button URL"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Button text"
+                }
+              },
+              "required": ["url", "text"]
+            }
+          }
+        },
+        "design": {
+          "allOf": [
+            {
+              "$ref": "../shared/schemas/base-block.json#/properties/design"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "avatar": {
+                  "type": "object",
+                  "description": "Avatar styling options",
+                  "properties": {
+                    "size": {
+                      "type": "string",
+                      "enum": ["small", "medium", "large", "xl", "xxl"],
+                      "description": "Avatar size",
+                      "default": "medium"
+                    },
+                    "shape": {
+                      "type": "string",
+                      "enum": ["circle", "square", "rounded"],
+                      "description": "Avatar shape",
+                      "default": "circle"
+                    }
+                  }
+                },
+                "banner": {
+                  "type": "object",
+                  "description": "Optional banner image",
+                  "properties": {
+                    "filename": {
+                      "type": "string",
+                      "description": "Banner image filename (in assets/media/)"
+                    }
+                  }
+                },
+                "biography": {
+                  "type": "object",
+                  "description": "Biography text styling",
+                  "properties": {
+                    "style": {
+                      "type": "string",
+                      "description": "Custom CSS styles for biography text"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,14 @@
+{
+  "id": "testimonials",
+  "name": "Testimonials",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "marketing",
+  "tags": ["testimonials", "reviews", "social-proof", "quotes", "customers", "trust", "credibility"],
+  "description": "Build trust with authentic customer testimonials featuring quotes, names, and profile photos",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "testimonials", "social-proof", "reviews", "customers", "trust"]
+}
+

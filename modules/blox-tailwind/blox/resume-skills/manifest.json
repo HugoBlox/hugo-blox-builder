@@ -1,0 +1,14 @@
+{
+  "id": "resume-skills",
+  "name": "Resume Skills",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "resume",
+  "tags": ["resume", "skills", "technical", "progress-bars", "expertise", "professional", "competencies", "cv"],
+  "description": "Display technical and professional skills with optional progress bars and organized categories",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "resume", "skills", "technical", "progress", "expertise", "cv"]
+}
+

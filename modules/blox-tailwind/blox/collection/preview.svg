@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Grid of content cards -->
+  <rect x="20" y="20" width="50" height="35" rx="4" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="80" y="20" width="50" height="35" rx="4" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="140" y="20" width="50" height="35" rx="4" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  
+  <rect x="20" y="65" width="50" height="35" rx="4" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="80" y="65" width="50" height="35" rx="4" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="140" y="65" width="50" height="35" rx="4" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  
+  <!-- Filter icon -->
+  <path d="M175 8h-4l-6 10v8h4v-6l6-10z M169 8h-4l-6 10v8h4v-6l6-10z" fill="#6b7280"/>
+  
+  <!-- Sort arrows -->
+  <path d="M12 8l3 4h-6l3-4z" fill="#6b7280"/>
+  <path d="M12 16l3-4h-6l3 4z" fill="#6b7280"/>
+</svg>
+

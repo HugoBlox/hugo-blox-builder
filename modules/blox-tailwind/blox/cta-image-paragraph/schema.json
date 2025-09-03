@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/cta-image-paragraph.json",
+  "title": "CTA Image Paragraph Block Schema",
+  "description": "Schema for the CTA Image Paragraph block - displays alternating image and text sections with features and buttons",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "cta-image-paragraph"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the CTA image paragraph block",
+          "properties": {
+            "items": {
+              "type": "array",
+              "description": "Array of image-paragraph items",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Item title (supports Markdown)"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Item description text (supports Markdown)"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Image filename (in assets/media/)"
+                  },
+                  "features": {
+                    "type": "array",
+                    "description": "Array of feature list items",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "feature_icon": {
+                    "type": "string",
+                    "description": "Icon for feature list items (icon pack format: pack/icon-name)",
+                    "default": "check"
+                  },
+                  "button": {
+                    "type": "object",
+                    "description": "Optional call-to-action button",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "Button URL"
+                      },
+                      "text": {
+                        "type": "string",
+                        "description": "Button text"
+                      }
+                    },
+                    "required": ["url", "text"]
+                  }
+                },
+                "required": ["title", "text", "image"]
+              }
+            }
+          },
+          "required": ["items"]
+        }
+      }
+    }
+  ]
+}
+

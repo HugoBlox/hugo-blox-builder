@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/resume-awards.json",
+  "title": "Resume Awards Block Schema",
+  "description": "Schema for the Resume Awards block - displays awards and certifications from author profile",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "resume-awards"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the resume awards block",
+          "properties": {
+            "username": {
+              "type": "string",
+              "description": "Author username (references authors/{username}/ page)",
+              "default": "admin"
+            },
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description (supports Markdown)"
+            }
+          }
+        },
+        "design": {
+          "allOf": [
+            {
+              "$ref": "../shared/schemas/base-block.json#/properties/design"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "date_format": {
+                  "type": "string",
+                  "description": "Date format for award dates",
+                  "default": "January 2006"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+

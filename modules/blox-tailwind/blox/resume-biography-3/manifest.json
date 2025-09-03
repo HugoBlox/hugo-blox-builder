@@ -1,0 +1,14 @@
+{
+  "id": "resume-biography-3",
+  "name": "Resume Biography 3",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "resume",
+  "tags": ["resume", "biography", "profile", "horizontal", "education", "interests", "cv", "layout"],
+  "description": "Horizontal biography layout with integrated education and interests sections",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "resume", "biography", "horizontal", "education", "interests", "cv"]
+}
+

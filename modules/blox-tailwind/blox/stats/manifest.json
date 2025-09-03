@@ -1,0 +1,14 @@
+{
+  "id": "stats",
+  "name": "Stats",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["statistics", "numbers", "metrics", "achievements", "data", "showcase", "grid"],
+  "description": "Showcase impressive statistics and achievements in a clean, impactful grid layout",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "statistics", "metrics", "achievements", "data", "numbers"]
+}
+

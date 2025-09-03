@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Language progress circles -->
+  <!-- English - 100% -->
+  <circle cx="50" cy="40" r="20" fill="none" stroke="#e5e7eb" stroke-width="3"/>
+  <circle cx="50" cy="40" r="20" fill="none" stroke="#3b82f6" stroke-width="3" 
+          stroke-dasharray="125.6" stroke-dashoffset="0" transform="rotate(-90 50 40)"/>
+  <text x="50" y="45" text-anchor="middle" font-family="system-ui" font-size="10" font-weight="600" fill="#1f2937">100%</text>
+  <text x="50" y="70" text-anchor="middle" font-family="system-ui" font-size="8" fill="#374151">English</text>
+  
+  <!-- Spanish - 85% -->
+  <circle cx="100" cy="40" r="20" fill="none" stroke="#e5e7eb" stroke-width="3"/>
+  <circle cx="100" cy="40" r="20" fill="none" stroke="#10b981" stroke-width="3" 
+          stroke-dasharray="125.6" stroke-dashoffset="18.8" transform="rotate(-90 100 40)"/>
+  <text x="100" y="45" text-anchor="middle" font-family="system-ui" font-size="10" font-weight="600" fill="#1f2937">85%</text>
+  <text x="100" y="70" text-anchor="middle" font-family="system-ui" font-size="8" fill="#374151">Spanish</text>
+  
+  <!-- French - 70% -->
+  <circle cx="150" cy="40" r="20" fill="none" stroke="#e5e7eb" stroke-width="3"/>
+  <circle cx="150" cy="40" r="20" fill="none" stroke="#f59e0b" stroke-width="3" 
+          stroke-dasharray="125.6" stroke-dashoffset="37.7" transform="rotate(-90 150 40)"/>
+  <text x="150" y="45" text-anchor="middle" font-family="system-ui" font-size="10" font-weight="600" fill="#1f2937">70%</text>
+  <text x="150" y="70" text-anchor="middle" font-family="system-ui" font-size="8" fill="#374151">French</text>
+  
+  <!-- German - 60% -->
+  <circle cx="75" cy="90" r="18" fill="none" stroke="#e5e7eb" stroke-width="3"/>
+  <circle cx="75" cy="90" r="18" fill="none" stroke="#ef4444" stroke-width="3" 
+          stroke-dasharray="113" stroke-dashoffset="45.2" transform="rotate(-90 75 90)"/>
+  <text x="75" y="94" text-anchor="middle" font-family="system-ui" font-size="9" font-weight="600" fill="#1f2937">60%</text>
+  <text x="75" y="110" text-anchor="middle" font-family="system-ui" font-size="7" fill="#374151">German</text>
+  
+  <!-- Japanese - 40% -->
+  <circle cx="125" cy="90" r="18" fill="none" stroke="#e5e7eb" stroke-width="3"/>
+  <circle cx="125" cy="90" r="18" fill="none" stroke="#8b5cf6" stroke-width="3" 
+          stroke-dasharray="113" stroke-dashoffset="67.8" transform="rotate(-90 125 90)"/>
+  <text x="125" y="94" text-anchor="middle" font-family="system-ui" font-size="9" font-weight="600" fill="#1f2937">40%</text>
+  <text x="125" y="110" text-anchor="middle" font-family="system-ui" font-size="7" fill="#374151">Japanese</text>
+</svg>
+

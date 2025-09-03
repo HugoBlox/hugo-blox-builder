@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/cta-card.json",
+  "title": "CTA Card Block Schema",
+  "description": "Schema for the CTA Card block - displays a prominent call-to-action card with title, text, and button",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "cta-card"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the CTA card block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Card title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Card description text (supports Markdown)"
+            },
+            "button": {
+              "type": "object",
+              "description": "Call-to-action button",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "Button URL"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Button text"
+                }
+              },
+              "required": ["url", "text"]
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Announcement banner -->
+  <rect x="50" y="15" width="100" height="12" rx="6" fill="#3b82f6" opacity="0.1" stroke="#3b82f6" stroke-width="1"/>
+  <rect x="60" y="19" width="60" height="4" rx="2" fill="#3b82f6"/>
+  <path d="M125 21l3 2-3 2" stroke="#3b82f6" stroke-width="1" fill="none"/>
+  
+  <!-- Large hero title -->
+  <rect x="40" y="40" width="120" height="8" rx="4" fill="#1f2937"/>
+  <rect x="60" y="52" width="80" height="6" rx="3" fill="#1f2937"/>
+  
+  <!-- Subtitle text -->
+  <rect x="50" y="65" width="100" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="60" y="70" width="80" height="3" rx="1.5" fill="#6b7280"/>
+  
+  <!-- Primary CTA button -->
+  <rect x="60" y="85" width="50" height="20" rx="10" fill="#3b82f6"/>
+  <rect x="70" y="92" width="30" height="6" rx="3" fill="white"/>
+  
+  <!-- Secondary CTA link -->
+  <rect x="120" y="92" width="30" height="6" rx="3" fill="#6b7280"/>
+  <path d="M153 95l3 2-3 2" stroke="#6b7280" stroke-width="1" fill="none"/>
+</svg>
+

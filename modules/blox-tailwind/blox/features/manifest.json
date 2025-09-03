@@ -1,0 +1,14 @@
+{
+  "id": "features",
+  "name": "Features",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["features", "grid", "icons", "benefits", "product", "services", "highlights"],
+  "description": "Showcase features, benefits, or services in an organized grid with icons and descriptions",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "features", "grid", "services", "benefits", "product"]
+}
+

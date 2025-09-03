@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Timeline line -->
+  <line x1="50" y1="20" x2="50" y2="100" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- Timeline nodes and content -->
+  <!-- Work experience -->
+  <circle cx="50" cy="30" r="6" fill="#3b82f6"/>
+  <path d="M47 27h6v6h-6zM49 25v2M51 25v2M49 33v2M51 33v2" stroke="white" stroke-width="1" fill="none"/>
+  
+  <rect x="65" y="23" width="80" height="4" rx="2" fill="#1f2937"/>
+  <rect x="65" y="29" width="60" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="65" y="34" width="40" height="2" rx="1" fill="#9ca3af"/>
+  <rect x="65" y="38" width="70" height="2" rx="1" fill="#d1d5db"/>
+  <rect x="65" y="42" width="50" height="2" rx="1" fill="#d1d5db"/>
+  
+  <!-- Education -->
+  <circle cx="50" cy="60" r="6" fill="#10b981"/>
+  <path d="M46 57l8 6M54 57l-8 6M50 55v2M46 63h8" stroke="white" stroke-width="1" fill="none"/>
+  
+  <rect x="65" y="53" width="70" height="4" rx="2" fill="#1f2937"/>
+  <rect x="65" y="59" width="50" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="65" y="64" width="35" height="2" rx="1" fill="#9ca3af"/>
+  <rect x="65" y="68" width="60" height="2" rx="1" fill="#d1d5db"/>
+  
+  <!-- Another work experience -->
+  <circle cx="50" cy="85" r="6" fill="#3b82f6"/>
+  <path d="M47 82h6v6h-6zM49 80v2M51 80v2M49 88v2M51 88v2" stroke="white" stroke-width="1" fill="none"/>
+  
+  <rect x="65" y="78" width="75" height="4" rx="2" fill="#1f2937"/>
+  <rect x="65" y="84" width="55" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="65" y="89" width="30" height="2" rx="1" fill="#9ca3af"/>
+  <rect x="65" y="93" width="65" height="2" rx="1" fill="#d1d5db"/>
+  <rect x="65" y="97" width="45" height="2" rx="1" fill="#d1d5db"/>
+  
+  <!-- Date indicators -->
+  <rect x="25" y="28" width="20" height="2" rx="1" fill="#9ca3af"/>
+  <rect x="25" y="58" width="20" height="2" rx="1" fill="#9ca3af"/>
+  <rect x="25" y="83" width="20" height="2" rx="1" fill="#9ca3af"/>
+</svg>
+

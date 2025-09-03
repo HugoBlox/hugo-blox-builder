@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/base-block.json",
+  "title": "Hugo Blox Base Block Schema",
+  "description": "Common parameters available to all Hugo Blox blocks",
+  "type": "object",
+  "properties": {
+    "block": {
+      "type": "string",
+      "description": "Block type identifier (required)"
+    },
+    "blox": {
+      "type": "string",
+      "description": "Legacy block type identifier (deprecated, use 'block' instead)",
+      "deprecated": true
+    },
+    "id": {
+      "type": "string",
+      "description": "Optional unique identifier for this section"
+    },
+    "demo": {
+      "type": "boolean",
+      "description": "Whether this section should only appear in demo mode",
+      "default": false
+    },
+    "design": {
+      "type": "object",
+      "description": "Design and styling options",
+      "properties": {
+        "background": {
+          "type": "object",
+          "description": "Background styling options",
+          "properties": {
+            "color": {
+              "type": "string",
+              "description": "Background color (any valid CSS color)"
+            },
+            "gradient_start": {
+              "type": "string",
+              "description": "Gradient start color"
+            },
+            "gradient_end": {
+              "type": "string",
+              "description": "Gradient end color"
+            },
+            "gradient_angle": {
+              "type": "number",
+              "description": "Gradient angle in degrees",
+              "minimum": 0,
+              "maximum": 360,
+              "default": 90
+            },
+            "text_color_light": {
+              "type": "boolean",
+              "description": "Whether to use light text color (for dark backgrounds)"
+            },
+            "image": {
+              "type": "object",
+              "description": "Background image options",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "description": "Image filename in assets/media/"
+                },
+                "size": {
+                  "type": "string",
+                  "enum": ["cover", "contain", "actual"],
+                  "description": "Background image size behavior",
+                  "default": "cover"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": ["left", "center", "right"],
+                  "description": "Background image position",
+                  "default": "center"
+                },
+                "parallax": {
+                  "type": "boolean",
+                  "description": "Enable parallax effect on desktop",
+                  "default": true
+                },
+                "filters": {
+                  "type": "object",
+                  "properties": {
+                    "brightness": {
+                      "type": "number",
+                      "description": "Image brightness filter (0-1, where 1 is normal)",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  }
+                }
+              }
+            },
+            "video": {
+              "type": "object",
+              "description": "Background video options",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "description": "Video filename in assets/media/"
+                },
+                "flip": {
+                  "type": "boolean",
+                  "description": "Flip video horizontally",
+                  "default": false
+                }
+              }
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "description": "Spacing options",
+          "properties": {
+            "padding": {
+              "type": "array",
+              "description": "Padding values [top, right, bottom, left]",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          }
+        },
+        "clip_path": {
+          "type": "string",
+          "description": "CSS clip-path value"
+        },
+        "css_style": {
+          "type": "string",
+          "description": "Custom CSS styles to apply to the section"
+        },
+        "css_class": {
+          "type": "string",
+          "description": "Custom CSS classes to apply to the section"
+        },
+        "columns": {
+          "type": ["string", "number"],
+          "description": "Number of columns for layout",
+          "default": "1"
+        },
+        "view": {
+          "type": "string",
+          "description": "Display view type (used by collection block)",
+          "enum": ["card", "compact", "showcase", "citation", "list", "masonry"]
+        },
+        "loop": {
+          "type": "boolean",
+          "description": "Enable looping (for slider blocks)",
+          "default": true
+        },
+        "interval": {
+          "type": ["string", "number"],
+          "description": "Interval in milliseconds (for slider blocks)",
+          "default": "3000"
+        },
+        "no_padding": {
+          "type": "boolean",
+          "description": "Disable default padding (for hero block)",
+          "default": false
+        },
+        "card": {
+          "type": "object",
+          "description": "Card styling options (for CTA card block)",
+          "properties": {
+            "css_class": {
+              "type": "string",
+              "description": "CSS classes for the card"
+            },
+            "css_style": {
+              "type": "string",
+              "description": "CSS styles for the card"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["block"],
+  "additionalProperties": true
+}
+

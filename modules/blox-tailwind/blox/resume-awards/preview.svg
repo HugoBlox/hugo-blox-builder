@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Award cards -->
+  <rect x="20" y="15" width="160" height="30" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="20" y="55" width="160" height="30" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="20" y="95" width="160" height="20" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Trophy/award icons -->
+  <path d="M35 25l3-5 3 5-1 8h-4l-1-8z" fill="#f59e0b"/>
+  <rect x="33" y="33" width="8" height="4" rx="2" fill="#f59e0b"/>
+  <rect x="35" y="37" width="4" height="3" fill="#d97706"/>
+  
+  <path d="M35 65l3-5 3 5-1 8h-4l-1-8z" fill="#10b981"/>
+  <rect x="33" y="73" width="8" height="4" rx="2" fill="#10b981"/>
+  <rect x="35" y="77" width="4" height="3" fill="#059669"/>
+  
+  <!-- Award text -->
+  <rect x="50" y="22" width="80" height="4" rx="2" fill="#1f2937"/>
+  <rect x="50" y="28" width="60" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="50" y="33" width="40" height="2" rx="1" fill="#9ca3af"/>
+  
+  <rect x="50" y="62" width="90" height="4" rx="2" fill="#1f2937"/>
+  <rect x="50" y="68" width="70" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="50" y="73" width="50" height="2" rx="1" fill="#9ca3af"/>
+  
+  <!-- Certificate link icon -->
+  <path d="M155 25l5 5-5 5M160 25h-5" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+  <path d="M155 65l5 5-5 5M160 65h-5" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+  
+  <!-- Date -->
+  <rect x="140" y="38" width="25" height="2" rx="1" fill="#9ca3af"/>
+  <rect x="140" y="78" width="25" height="2" rx="1" fill="#9ca3af"/>
+</svg>
+

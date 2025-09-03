@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/collection.json",
+  "title": "Collection Block Schema",
+  "description": "Schema for the Collection block - displays filtered and sorted collections of pages",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "collection"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the collection block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description (supports Markdown)"
+            },
+            "count": {
+              "type": "number",
+              "description": "Maximum number of items to display",
+              "minimum": 0,
+              "default": 5
+            },
+            "offset": {
+              "type": "number",
+              "description": "Number of items to skip",
+              "minimum": 0,
+              "default": 0
+            },
+            "page_type": {
+              "type": "string",
+              "description": "Filter by page type (e.g., 'post', 'publication')"
+            },
+            "sort_by": {
+              "type": "string",
+              "description": "Field to sort by",
+              "default": "Date"
+            },
+            "sort_ascending": {
+              "type": "boolean",
+              "description": "Sort in ascending order",
+              "default": false
+            },
+            "order": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "description": "Sort order (alternative to sort_ascending)"
+            },
+            "filters": {
+              "type": "object",
+              "description": "Content filtering options",
+              "properties": {
+                "folders": {
+                  "type": "array",
+                  "description": "Filter by content folders/sections",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "tag": {
+                  "type": "string",
+                  "description": "Filter by tag"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Filter by category"
+                },
+                "publication_type": {
+                  "type": "string",
+                  "description": "Filter by publication type"
+                },
+                "exclude_publication_type": {
+                  "type": "string",
+                  "description": "Exclude specific publication type"
+                },
+                "author": {
+                  "type": "string",
+                  "description": "Filter by author"
+                },
+                "featured_only": {
+                  "type": "boolean",
+                  "description": "Show only featured content",
+                  "default": false
+                },
+                "exclude_featured": {
+                  "type": "boolean",
+                  "description": "Exclude featured content",
+                  "default": false
+                },
+                "exclude_past": {
+                  "type": "boolean",
+                  "description": "Exclude past-dated content",
+                  "default": false
+                },
+                "exclude_future": {
+                  "type": "boolean",
+                  "description": "Exclude future-dated content",
+                  "default": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+

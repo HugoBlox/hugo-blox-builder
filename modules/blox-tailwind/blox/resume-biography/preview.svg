@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Avatar -->
+  <circle cx="100" cy="35" r="20" fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  <circle cx="100" cy="28" r="8" fill="#9ca3af"/>
+  <path d="M85 47c0-8 7-12 15-12s15 4 15 12" stroke="#9ca3af" stroke-width="3" fill="none"/>
+  
+  <!-- Name -->
+  <rect x="70" y="60" width="60" height="6" rx="3" fill="#1f2937"/>
+  
+  <!-- Role/title -->
+  <rect x="80" y="70" width="40" height="4" rx="2" fill="#6b7280"/>
+  
+  <!-- Organization -->
+  <rect x="85" y="78" width="30" height="3" rx="1.5" fill="#9ca3af"/>
+  
+  <!-- Social links -->
+  <circle cx="85" cy="90" r="4" fill="#3b82f6" opacity="0.2"/>
+  <path d="M83 88l4 4M87 88l-4 4" stroke="#3b82f6" stroke-width="1"/>
+  
+  <circle cx="100" cy="90" r="4" fill="#1f2937" opacity="0.2"/>
+  <rect x="98" y="88" width="4" height="4" rx="1" fill="#1f2937"/>
+  
+  <circle cx="115" cy="90" r="4" fill="#10b981" opacity="0.2"/>
+  <circle cx="115" cy="90" r="2" fill="#10b981"/>
+  
+  <!-- Bio text lines -->
+  <rect x="30" y="102" width="140" height="2" rx="1" fill="#6b7280"/>
+  <rect x="40" y="107" width="120" height="2" rx="1" fill="#6b7280"/>
+  <rect x="50" y="112" width="100" height="2" rx="1" fill="#6b7280"/>
+</svg>
+

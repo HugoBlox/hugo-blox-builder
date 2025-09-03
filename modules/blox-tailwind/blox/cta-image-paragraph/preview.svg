@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- First section: Image left, text right -->
+  <rect x="15" y="15" width="40" height="30" rx="4" fill="#e5e7eb"/>
+  <path d="M25 25l10 8 10-8v20H25V25z" fill="#9ca3af"/>
+  <circle cx="30" cy="30" r="3" fill="#6b7280"/>
+  
+  <!-- Text content -->
+  <rect x="65" y="20" width="50" height="4" rx="2" fill="#374151"/>
+  <rect x="65" y="27" width="40" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="65" y="32" width="45" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="65" y="37" width="35" height="3" rx="1.5" fill="#6b7280"/>
+  
+  <!-- Second section: Text left, image right -->
+  <rect x="15" y="60" width="50" height="4" rx="2" fill="#374151"/>
+  <rect x="15" y="67" width="40" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="15" y="72" width="45" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="15" y="77" width="35" height="3" rx="1.5" fill="#6b7280"/>
+  
+  <rect x="145" y="60" width="40" height="30" rx="4" fill="#e5e7eb"/>
+  <path d="M155 70l10 8 10-8v20h-20V70z" fill="#9ca3af"/>
+  <circle cx="160" cy="75" r="3" fill="#6b7280"/>
+  
+  <!-- Feature bullets -->
+  <circle cx="75" cy="40" r="1.5" fill="#10b981"/>
+  <circle cx="25" cy="85" r="1.5" fill="#10b981"/>
+</svg>
+

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Stats grid 3 columns -->
+  <!-- Stat 1 -->
+  <text x="50" y="40" text-anchor="middle" font-family="system-ui, -apple-system" font-size="20" font-weight="bold" fill="#1f2937">1.2M</text>
+  <rect x="25" y="50" width="50" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="30" y="55" width="40" height="2" rx="1" fill="#9ca3af"/>
+  
+  <!-- Separator -->
+  <line x1="75" y1="25" x2="75" y2="65" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Stat 2 -->
+  <text x="100" y="40" text-anchor="middle" font-family="system-ui, -apple-system" font-size="20" font-weight="bold" fill="#1f2937">98%</text>
+  <rect x="75" y="50" width="50" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="85" y="55" width="30" height="2" rx="1" fill="#9ca3af"/>
+  
+  <!-- Separator -->
+  <line x1="125" y1="25" x2="125" y2="65" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Stat 3 -->
+  <text x="150" y="40" text-anchor="middle" font-family="system-ui, -apple-system" font-size="20" font-weight="bold" fill="#1f2937">500+</text>
+  <rect x="125" y="50" width="50" height="3" rx="1.5" fill="#6b7280"/>
+  <rect x="130" y="55" width="40" height="2" rx="1" fill="#9ca3af"/>
+  
+  <!-- Optional title section -->
+  <rect x="50" y="80" width="100" height="6" rx="3" fill="#1f2937"/>
+  <rect x="60" y="90" width="80" height="4" rx="2" fill="#6b7280"/>
+  
+  <!-- Growth indicators/trending -->
+  <path d="M30 30l10-8 10 4 10-6" stroke="#10b981" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M80 32l10-5 10 2 10-3" stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M130 30l10-10 10 6 10-8" stroke="#f59e0b" stroke-width="2" fill="none" opacity="0.6"/>
+  
+  <!-- Small trend arrows -->
+  <path d="M65 22l3 2-3 2" stroke="#10b981" stroke-width="1" fill="none"/>
+  <path d="M115 24l3 2-3 2" stroke="#3b82f6" stroke-width="1" fill="none"/>
+  <path d="M165 18l3 2-3 2" stroke="#f59e0b" stroke-width="1" fill="none"/>
+</svg>
+

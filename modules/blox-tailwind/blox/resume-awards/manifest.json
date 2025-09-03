@@ -1,0 +1,14 @@
+{
+  "id": "resume-awards",
+  "name": "Resume Awards",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "resume",
+  "tags": ["resume", "awards", "certifications", "achievements", "credentials", "professional", "cv"],
+  "description": "Showcase professional awards and certifications with elegant card layouts and certificate links",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "resume", "awards", "certifications", "cv", "professional"]
+}
+

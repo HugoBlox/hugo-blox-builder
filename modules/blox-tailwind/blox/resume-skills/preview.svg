@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Left column - Technical Skills -->
+  <rect x="20" y="15" width="70" height="4" rx="2" fill="#1f2937"/>
+  
+  <!-- Skill items with progress bars -->
+  <circle cx="25" cy="30" r="2" fill="#3b82f6"/>
+  <rect x="32" y="28" width="30" height="3" rx="1.5" fill="#374151"/>
+  <rect x="32" y="33" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="32" y="33" width="45" height="4" rx="2" fill="#3b82f6"/>
+  
+  <circle cx="25" cy="45" r="2" fill="#10b981"/>
+  <rect x="32" y="43" width="25" height="3" rx="1.5" fill="#374151"/>
+  <rect x="32" y="48" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="32" y="48" width="35" height="4" rx="2" fill="#10b981"/>
+  
+  <circle cx="25" cy="60" r="2" fill="#f59e0b"/>
+  <rect x="32" y="58" width="35" height="3" rx="1.5" fill="#374151"/>
+  <rect x="32" y="63" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="32" y="63" width="40" height="4" rx="2" fill="#f59e0b"/>
+  
+  <circle cx="25" cy="75" r="2" fill="#ef4444"/>
+  <rect x="32" y="73" width="20" height="3" rx="1.5" fill="#374151"/>
+  <rect x="32" y="78" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="32" y="78" width="30" height="4" rx="2" fill="#ef4444"/>
+  
+  <!-- Right column - Soft Skills -->
+  <rect x="110" y="15" width="60" height="4" rx="2" fill="#1f2937"/>
+  
+  <circle cx="115" cy="30" r="2" fill="#8b5cf6"/>
+  <rect x="122" y="28" width="40" height="3" rx="1.5" fill="#374151"/>
+  <rect x="122" y="33" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="122" y="33" width="42" height="4" rx="2" fill="#8b5cf6"/>
+  
+  <circle cx="115" cy="45" r="2" fill="#06b6d4"/>
+  <rect x="122" y="43" width="35" height="3" rx="1.5" fill="#374151"/>
+  <rect x="122" y="48" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="122" y="48" width="38" height="4" rx="2" fill="#06b6d4"/>
+  
+  <circle cx="115" cy="60" r="2" fill="#f59e0b"/>
+  <rect x="122" y="58" width="30" height="3" rx="1.5" fill="#374151"/>
+  <rect x="122" y="63" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="122" y="63" width="44" height="4" rx="2" fill="#f59e0b"/>
+  
+  <circle cx="115" cy="75" r="2" fill="#10b981"/>
+  <rect x="122" y="73" width="25" height="3" rx="1.5" fill="#374151"/>
+  <rect x="122" y="78" width="50" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="122" y="78" width="48" height="4" rx="2" fill="#10b981"/>
+  
+  <!-- Percentage indicators -->
+  <text x="85" y="36" font-family="system-ui" font-size="6" fill="#6b7280">90%</text>
+  <text x="70" y="51" font-family="system-ui" font-size="6" fill="#6b7280">70%</text>
+  <text x="75" y="66" font-family="system-ui" font-size="6" fill="#6b7280">80%</text>
+  <text x="65" y="81" font-family="system-ui" font-size="6" fill="#6b7280">60%</text>
+  
+  <text x="175" y="36" font-family="system-ui" font-size="6" fill="#6b7280">85%</text>
+  <text x="165" y="51" font-family="system-ui" font-size="6" fill="#6b7280">75%</text>
+  <text x="175" y="66" font-family="system-ui" font-size="6" fill="#6b7280">88%</text>
+  <text x="175" y="81" font-family="system-ui" font-size="6" fill="#6b7280">95%</text>
+</svg>
+

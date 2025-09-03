@@ -1,0 +1,14 @@
+{
+  "id": "resume-experience",
+  "name": "Resume Experience",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "resume",
+  "tags": ["resume", "experience", "timeline", "work", "education", "career", "professional", "cv"],
+  "description": "Professional timeline displaying work experience and education history in chronological order",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "resume", "experience", "timeline", "work", "education", "career"]
+}
+

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <!-- Background -->
+  <rect width="200" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <!-- Title -->
+  <rect x="40" y="20" width="120" height="8" rx="4" fill="#1f2937"/>
+  
+  <!-- Paragraph text -->
+  <rect x="40" y="35" width="110" height="3" rx="1.5" fill="#374151"/>
+  <rect x="40" y="40" width="120" height="3" rx="1.5" fill="#374151"/>
+  <rect x="40" y="45" width="100" height="3" rx="1.5" fill="#374151"/>
+  <rect x="40" y="50" width="90" height="3" rx="1.5" fill="#374151"/>
+  
+  <!-- List items -->
+  <circle cx="45" cy="60" r="2" fill="#6b7280"/>
+  <rect x="52" y="58" width="80" height="3" rx="1.5" fill="#374151"/>
+  
+  <circle cx="45" cy="70" r="2" fill="#6b7280"/>
+  <rect x="52" y="68" width="90" height="3" rx="1.5" fill="#374151"/>
+  
+  <circle cx="45" cy="80" r="2" fill="#6b7280"/>
+  <rect x="52" y="78" width="70" height="3" rx="1.5" fill="#374151"/>
+  
+  <!-- Link styling -->
+  <rect x="60" y="90" width="40" height="3" rx="1.5" fill="#3b82f6"/>
+  <path d="M55 92h50" stroke="#3b82f6" stroke-width="1"/>
+  
+  <!-- Bold text -->
+  <rect x="110" y="90" width="30" height="3" rx="1.5" fill="#1f2937"/>
+</svg>
+

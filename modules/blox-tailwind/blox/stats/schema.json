@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/stats.json",
+  "title": "Stats Block Schema",
+  "description": "Schema for the Stats block - displays statistics in a grid layout",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "stats"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the stats block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description (supports Markdown)"
+            },
+            "items": {
+              "type": "array",
+              "description": "Array of statistics to display",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "statistic": {
+                    "type": "string",
+                    "description": "The statistic value/number (supports Markdown)"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description of the statistic (supports Markdown)"
+                  }
+                },
+                "required": ["statistic", "description"]
+              }
+            }
+          },
+          "required": ["items"]
+        }
+      }
+    }
+  ]
+}
+

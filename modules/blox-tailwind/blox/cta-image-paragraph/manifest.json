@@ -1,0 +1,14 @@
+{
+  "id": "cta-image-paragraph",
+  "name": "CTA Image Paragraph",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "marketing",
+  "tags": ["cta", "image", "features", "alternating", "marketing", "storytelling", "visual"],
+  "description": "Engaging alternating image and text sections with feature lists and call-to-action buttons",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "marketing", "images", "features", "storytelling", "conversion"]
+}
+

@@ -1,0 +1,14 @@
+{
+  "id": "cta-button-list",
+  "name": "CTA Button List",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "marketing",
+  "tags": ["cta", "buttons", "links", "social", "marketing", "conversion", "list"],
+  "description": "Create compelling vertical lists of call-to-action buttons with icons and hover effects",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "cta", "buttons", "conversion", "marketing", "social-links"]
+}
+
