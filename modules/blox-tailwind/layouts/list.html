@@ -10,6 +10,16 @@
 {{ $view := .Params.view | default "card" }}
 {{ $block := . }}
 
+{{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+{{ $config := dict 
+  "columns" (.Params.columns | default 2) 
+  "len" (len $paginator.Pages) 
+  "fill_image" (.Params.fill_image | default true)
+  "show_date" (.Params.show_date | default true)
+  "show_read_time" (.Params.show_read_time | default true)
+  "show_read_more" (.Params.show_read_more | default true)
+}}
+
 {{/* Check if any pages have author_notes to enable Alpine.js */}}
 {{ range .Pages }}
   {{ if isset .Params "author_notes" }}
@@ -21,11 +31,10 @@
 
 <div class="flex flex-col items-center">
 
-  {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view) }}
+  {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view "config" $config) }}
 
-  {{ $paginator := .Paginate .Pages.ByDate.Reverse }}
   {{ range $index, $item := $paginator.Pages }}
-  {{ partial "functions/render_view" (dict "page" . "item" . "view" $view "index" $index) }}
+  {{ partial "functions/render_view" (dict "page" . "item" . "view" $view "index" $index "config" $config) }}
   {{end}}
 
   {{ partial "functions/render_view" (dict "fragment" "end" "page" $block "item" . "view" $view) }}

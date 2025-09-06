@@ -23,37 +23,12 @@ sections:
         education: ''
         interests: ''
     design:
+      # Apply a gradient background
       css_class: hbx-bg-gradient
       # Avatar customization
       avatar:
         size: medium # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
         shape: circle # Options: circle (default), square, rounded
-      background:
-        #color: black
-        #image:
-        # RECOMMENDED: Modern gradient mesh backgrounds
-        # Option 1: Abstract neural network visualization (perfect for AI researchers)
-        # filename: https://images.unsplash.com/photo-1635070041078-e363dbe005cb
-
-        # Option 2: Dark gradient mesh (sophisticated and modern)
-        # filename: https://images.unsplash.com/photo-1557683316-973673baf926
-
-        # Option 3: Subtle tech pattern (professional)
-        # filename: https://images.unsplash.com/photo-1451187580459-43490279c0fa
-
-        # Current: Generic geometric pattern (consider upgrading)
-        #filename: stacked-peaks.svg
-
-        # For best 2025 results, consider:
-        # 1. Using a CSS gradient instead (remove image section)
-        # 2. Implementing particle.js for interactive background
-        # 3. Using a subtle video background with neural network visualization
-
-        #filters:
-        #brightness: 0.7 # Darkened for better text contrast
-        size: cover
-        position: center
-        parallax: false
   - block: markdown
     content:
       title: '📚 My Research'
@@ -95,8 +70,7 @@ sections:
         folders:
           - event
     design:
-      view: article-grid
-      columns: 1
+      view: card
   - block: collection
     id: news
     content:
@@ -122,7 +96,7 @@ sections:
       order: desc
     design:
       # Choose a layout view
-      view: date-title-summary
+      view: card
       # Reduce spacing
       spacing:
         padding: [0, 0, 0, 0]

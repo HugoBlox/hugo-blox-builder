@@ -343,3 +343,20 @@
 
 - id: feedback_widget_answer_negative
   translation: 😡 No
+
+# AI Features
+
+- id: ai_insight
+  translation: AI Insight
+
+# Content Metadata
+- id: content_type
+  translation: Content Type
+- id: difficulty
+  translation: Difficulty
+- id: prerequisites
+  translation: Prerequisites
+
+# Card metadata
+- id: trending
+  translation: Trending

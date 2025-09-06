@@ -103,7 +103,14 @@
 
 <div class="flex flex-col items-center px-6">
 
-  {{ $config := dict "columns" ($block.design.columns | default 2) "len" (len $query) "fill_image" ($block.design.fill_image | default true) }}
+  {{ $config := dict 
+      "columns" ($block.design.columns | default 2) 
+      "len" (len $query) 
+      "fill_image" ($block.design.fill_image | default true)
+      "show_date" ($block.design.show_date | default true)
+      "show_read_time" ($block.design.show_read_time | default true)
+      "show_read_more" ($block.design.show_read_more | default true)
+    }}
   {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view "config" $config) }}
 
   {{ range $index, $item := $query }}

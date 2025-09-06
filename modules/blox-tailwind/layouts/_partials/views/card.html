@@ -9,36 +9,189 @@
 
 {{ $resource := partial "functions/get_featured_image.html" $item }}
 {{ $anchor := $item.Params.image.focal_point | default "Center" }}
+{{ $fill_image := .config.fill_image | default true }}
+{{ $showDate := .config.show_date | default true }}
+{{ $showReadTime := .config.show_read_time | default true }}
+{{ $showReadMore := .config.show_read_more | default true }}
+{{ $hasMeta := or $showDate $showReadTime $showReadMore }}
+{{ $index := .index }}
 
-<a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="mb-5">
-  <div class="md:flex">
-    <div class="md:flex-shrink-0 overflow-hidden">
+<div class="group bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50" role="article" aria-labelledby="card-title-{{ $item.File.UniqueID }}">
+    <!-- Image Section -->
+    <div class="relative overflow-hidden aspect-[16/9] bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
+      {{ with $item.Params.content_meta }}
+        {{ if .trending }}
+          <div class="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/55 backdrop-blur-sm text-white shadow-sm">
+            <span>{{ i18n "trending" | default "Trending" }}</span>
+            <span aria-hidden="true">🔥</span>
+          </div>
+        {{ end }}
+      {{ end }}
       {{ with $resource }}
-        {{ $original_image := .Fill (printf "655x655 %s" $anchor) }}
-        {{ $responsive := partial "functions/process_responsive_image.html" (dict 
-            "image" $original_image 
-            "mode" "responsive"
-            "sizes" (slice 192 384 480 655)
-        ) }}
-        
-        <img class="h-48 w-full object-cover md:w-48 hover:scale-125 transition duration-500 cursor-pointer object-cover" 
-             srcset="{{ $responsive.srcset }}"
-             sizes="(max-width: 768px) 100vw, 192px"
-             src="{{ $responsive.fallback.RelPermalink }}" 
-             width="{{ $original_image.Width }}" 
-             height="{{ $original_image.Height }}"
-             loading="lazy" 
-             alt="{{ $item.Title | plainify }}">
+        {{ if ne .MediaType.SubType "gif" }}
+          {{ $original_image := "" }}
+          {{ if $fill_image }}
+            {{ $original_image = .Fill (printf "800x450 %s" $anchor) }}
+          {{ else }}
+            {{ $original_image = .Fit (printf "800x450 %s" $anchor) }}
+          {{ end }}
+          {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+              "image" $original_image 
+              "mode" "responsive"
+              "sizes" (slice 400 600 800)
+              "formats" (slice "avif" "webp" "jpg")
+          ) }}
+          <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block">
+            <img class="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105 {{ if $fill_image }}object-fill{{ else }}object-contain{{ end }}" 
+                 srcset="{{ $responsive.srcset }}"
+                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                 src="{{ $responsive.fallback.RelPermalink }}" 
+                 width="{{ $original_image.Width }}" 
+                 height="{{ $original_image.Height }}"
+                 loading="lazy" 
+                 decoding="async"
+                 {{ if eq $index 0 }}fetchpriority="high"{{ end }}
+                 style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                 alt="{{ $item.Title | plainify }} featured image">
+          </a>
+        {{ else }}
+          <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block">
+            <img class="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105 {{ if $fill_image }}object-fill{{ else }}object-contain{{ end }}"
+                 src="{{ .RelPermalink }}"
+                 width="{{ .Width }}"
+                 height="{{ .Height }}"
+                 loading="lazy"
+                 decoding="async"
+                 style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                 alt="{{ $item.Title | plainify }} featured image">
+          </a>
+        {{ end }}
+      {{ else }}
+        <!-- Fallback gradient with subtle pattern -->
+        <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+          <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+            <svg class="w-8 h-8 text-white/60" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+        </div>
       {{end}}
+      
+      <!-- Subtle overlay for better text contrast (allow clicks to pass through) -->
+      <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
-    <div class="p-8">
-      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">{{ $item.Title }}</div>
-      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
-        {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | chomp -}}
+
+    <!-- Content Section -->
+    <div class="p-8 space-y-4">
+      {{ with $item.Params.content_meta }}
+        {{ if or .content_type .difficulty }}
+        <div class="flex items-center gap-x-4">
+          {{ with .content_type }}
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+            {{ . }}
+          </span>
+          {{ end }}
+          {{ with .difficulty }}
+          <span class="text-sm font-medium text-zinc-600 dark:text-zinc-400">{{ i18n "difficulty" }}: {{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+      {{ end }}
+
+      {{ if and $item.Params.tags (gt (len $item.Params.tags) 0) }}
+      <div class="flex items-center gap-2">
+        {{ with index ($item.GetTerms "tags") 0 }}
+        <a href="{{ .RelPermalink }}">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">
+            {{ .Page.LinkTitle }}
+          </span>
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <h3 id="card-title-{{ $item.File.UniqueID }}" class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 leading-tight">
+        <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="hover:underline">
+          {{ $item.Title }}
+          {{ if $item.Params.external_link }}
+            {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-4 w-4 ml-1 align-text-top\"") }}
+          {{ end }}
+        </a>
+      </h3>
+      
+      <p class="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed line-clamp-3">
+        {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | truncate 180 }}
       </p>
-      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">
-        {{- $item.Date | time.Format (site.Params.locale.date_format | default ":date_long") -}}
-      </p>
+
+      {{ with $item.Params.content_meta.prerequisites }}
+        {{ $max := 2 }}
+        {{ $count := len . }}
+        <div class="flex items-center gap-2 pt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          <span class="opacity-80">{{ i18n "prerequisites" }}:</span>
+          {{ range (first $max .) }}
+            <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">{{ . }}</span>
+          {{ end }}
+          {{ if gt $count $max }}
+            <span class="text-[11px] opacity-70">+{{ sub $count $max }}</span>
+          {{ end }}
+        </div>
+      {{ end }}
+
+      <!-- Metadata section -->
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center justify-between pt-3 {{ if $hasMeta }}border-t border-zinc-100 dark:border-zinc-800{{ end }}">
+        <div class="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-500 flex-wrap">
+          {{ if $item.Params.authors }}
+          <div class="flex items-center gap-2 min-w-0">
+            {{ with index ($item.GetTerms "authors") 0 }}
+            <div class="relative h-6 w-6 flex-shrink-0">
+              {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+              {{ if $avatar }}
+                {{ $avatar_48 := $avatar.Process "Fill 48x48 Center webp" }}
+                <img alt="avatar" class="rounded-full object-cover" src="{{$avatar_48.RelPermalink}}" width="24" height="24" loading="lazy" decoding="async" />
+              {{ end }}
+            </div>
+            <span class="truncate max-w-[9rem] text-sm">{{ .Page.LinkTitle }}</span>
+            {{ end }}
+          </div>
+          <span class="opacity-40">•</span>
+          {{ end }}
+          {{ if $showDate }}
+            <time class="hidden sm:inline whitespace-nowrap" datetime="{{ $item.Date.Format "2006-01-02" }}">
+              {{ $item.Date | time.Format (site.Params.locale.date_format | default "Jan 2, 2006") }}
+            </time>
+          {{ end }}
+          {{ if and $showDate $showReadTime }}
+            <span class="hidden sm:inline opacity-40">•</span>
+          {{ end }}
+          {{ if $showReadTime }}
+            {{ $content := $item.Content | plainify }}
+            {{ $words := len (split $content " ") }}
+            {{ $readTime := div $words 200 }}
+            {{ if lt $readTime 1 }}{{ $readTime = 1 }}{{ end }}
+            <span class="hidden sm:inline whitespace-nowrap">{{ $readTime }} {{ i18n "minute_read" }}</span>
+          {{ end }}
+        </div>
+        
+        <!-- Read More with arrow - always visible for accessibility -->
+        {{ if $showReadMore }}
+          <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium text-sm opacity-70 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300 self-start sm:self-auto sm:ml-0">
+            <span>{{ i18n "read_more" }}</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        {{ end }}
+      </div>
+      
+      <!-- Optional AI metadata -->
+      {{ if $item.Params.ai_insights }}
+        <div class="flex items-center gap-2 pt-2 text-xs text-blue-500 bg-blue-50 dark:bg-blue-950/30 rounded-lg px-3 py-2">
+          <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span class="font-medium">{{ i18n "ai_insight" }}:</span>
+          <span class="text-zinc-600 dark:text-zinc-400">{{ $item.Params.ai_insights }}</span>
+        </div>
+      {{ end }}
     </div>
-  </div>
-</a>
+</div>
