@@ -17,7 +17,7 @@
 <script src="{{ $pf_js.RelPermalink }}" integrity="{{ $pf_js.Data.Integrity }}"></script>
 
 {{ $search_config := dict "baseUrl" (relURL "") }}
-{{ printf "<script>window.hbb.pagefind = %s;</script>" ($search_config | jsonify) | safeHTML }}
+<script id="search-config" type="application/json">{{ $search_config | jsonify | safeJS }}</script>
 
 <style>
   html.dark {
@@ -35,62 +35,11 @@
   }
 </style>
 
-<script>
-  // Initialize search wrapper element globally
-  let searchWrapper = null;
-
-  window.addEventListener('DOMContentLoaded', (event) => {
-    // Initialize PagefindUI
-    new PagefindUI({
-      element: "#search",
-      showSubResults: true,
-      baseUrl: window.hbb.pagefind.baseUrl,
-      bundlePath: window.hbb.pagefind.baseUrl + "pagefind/",
-    });
-
-    // Get search wrapper element
-    searchWrapper = document.getElementById('search-wrapper');
-
-    // Add click handlers to triggers
-    let triggers = document.querySelectorAll('[data-search-toggle]');
-    triggers.forEach(trigger =>
-      trigger.addEventListener('click', handleSearchToggle)
-    );
-  });
-
-  function handleSearchToggle(event) {
-    if (!searchWrapper) return;
-
-    const isHidden = searchWrapper.classList.contains('hidden');
-    searchWrapper.classList.toggle('hidden');
-    document.body.style.overflow = isHidden ? 'hidden' : '';
-
-    const searchInput = searchWrapper.querySelector("input");
-    if (searchInput) {
-      searchInput.value = "";
-      searchInput.focus();
-    }
-
-    if (!searchWrapper.classList.contains('hidden')) {
-      let clearTrigger = document.querySelector('.pagefind-ui__search-clear');
-
-      if (clearTrigger && !clearTrigger.hasAttribute('listenerOnClick')) {
-        clearTrigger.setAttribute('listenerOnClick', 'true');
-
-        clearTrigger.addEventListener('click', () => {
-          searchInput.focus();
-        });
-      }
-    }
-  }
-
-  // Add keyboard shortcut to close search modal with Escape key
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && searchWrapper && !searchWrapper.classList.contains('hidden')) {
-      searchWrapper.classList.add('hidden');
-    }
-  });
-</script>
+{{ $search_js := resources.Get "js/hb-search.js" | resources.Minify }}
+{{- if hugo.IsProduction -}}
+  {{ $search_js = $search_js | fingerprint "sha256" }}
+{{- end -}}
+<script defer src="{{ $search_js.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $search_js.Data.Integrity }}" crossorigin="anonymous"{{ end }}></script>
 {{ end }}
 
 {{/* Mermaid */}}

@@ -70,7 +70,7 @@
 }
 
 .dark .hb-docs-link:hover {
-  background-color: rgb(var(--color-primary-100) / 0.05);
+  background-color: rgb(var(--color-primary-100) / 5%);
 }
 
 .hb-sidebar-mobile-menu {

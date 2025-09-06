@@ -20,7 +20,7 @@
 /* Ensure interactive controls show hand cursor */
 .theme-toggle,
 [data-search-toggle],
-#search_toggle,
+#search-toggle,
 [data-te-collapse-init],
 .nav-dropdown > .nav-link[role='button'] {
   @apply cursor-pointer;

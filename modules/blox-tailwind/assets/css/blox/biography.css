@@ -15,8 +15,7 @@
 
   .network-icon {
     display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     justify-content: center;
     list-style: none;
     padding: 0;
@@ -51,18 +50,18 @@
     font-size: 0.9rem;
   }
 
- /* .ul-edu { */
- /*   list-style: none; */
- /* } */
+  /* .ul-edu { */
+  /*   list-style: none; */
+  /* } */
 
- /* .ul-edu li { */
- /*   position: relative; */
- /*   padding: 0 15px 4px 3px; */
- /* } */
+  /* .ul-edu li { */
+  /*   position: relative; */
+  /*   padding: 0 15px 4px 3px; */
+  /* } */
 
- /* .ul-edu li .description p { */
- /*   margin: 0; */
- /* } */
+  /* .ul-edu li .description p { */
+  /*   margin: 0; */
+  /* } */
 
   .ul-edu li .description p.course {
     font-size: 0.9rem;
@@ -114,7 +113,6 @@
   color: #000; /* override parent alpha */
   box-shadow: 0 10px 20px rgb(0 0 0 / 4%), 0 2px 6px rgb(0 0 0 / 4%), 0 0 1px rgb(0 0 0 / 4%);
 }
-
 
 .dark .avatar-emoji {
   background-color: #000;

@@ -12,10 +12,10 @@ rules:
   property-no-vendor-prefix: null # Necessary unless postcss prefix
   value-no-vendor-prefix: null # Necessary unless postcss prefix
   at-rule-no-unknown: null # Use PostCSS "at" rules
+  no-descending-specificity: null # Allow nested and grouped rules without false positives
 # PREVIOUS RULES - no longer needed now porting from Bootstrap to Tailwind
 #  at-rule-no-unknown: null # Use SCSS "at" rules
 #  scss/at-rule-no-unknown: true # Use SCSS "at" rules
-#  no-descending-specificity: null # Todo: remove once investigated/resolved
 #  color-function-notation: null # Todo: refactor code
 #  alpha-value-notation: null # Todo: refactor code
 #  number-max-precision: null # Todo: refactor code

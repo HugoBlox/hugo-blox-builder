@@ -1,5 +1,6 @@
 .hb-attachment-link {
   @apply inline-block font-semibold uppercase outline-none mr-4 mb-1.5 transition-all text-sm tracking-wide focus:outline-none;
+
   color: rgb(var(--color-primary-600));
 }
 

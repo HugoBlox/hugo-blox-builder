@@ -1,9 +1,5 @@
-**/*.min.css
-**/vendor/
-**/_vendor/
-**/libs/
-**/dist/
-public/
-
-blox-bootstrap/assets/scss/main.scss
-blox-bootstrap/assets/css/reveal_custom.css
+**/public/**
+**/dist/**
+**/libs/**
+modules/blox-tailwind/assets/css/color-utilities.css
+starters/**/static/**
