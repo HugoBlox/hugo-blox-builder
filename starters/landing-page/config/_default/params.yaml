@@ -30,17 +30,17 @@ marketing:
 header:
   navbar:
     enable: true
-    blox: "navbar"
-    align: "center"
+    block: 'navbar'
+    align: 'center'
     fixed_to_top: true
     logo:
-      text: ""
+      text: ''
       # Logo filename in `assets/media/` folder
-      filename: "logo.svg"
+      filename: 'logo.svg'
     button:
       enable: true
-      text: "Get Started"
-      url: "https://hugoblox.com/templates/"
+      text: 'Get Started'
+      url: 'https://hugoblox.com/templates/'
     show_search: true
     show_theme_chooser: true
 

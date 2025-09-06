@@ -81,7 +81,7 @@
   {{- if hugo.IsProduction -}}
     {{- $hb_head = $hb_head | fingerprint "sha256" -}}
   {{- end -}}
-  <script defer src="{{ $hb_head.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $hb_head.Data.Integrity }}" crossorigin="anonymous"{{ end }}></script>
+  <script src="{{ $hb_head.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $hb_head.Data.Integrity }}" crossorigin="anonymous"{{ end }}></script>
 
   {{/* Analytics & Verification */}}
   {{/* !CACHED! All analytics and verification code is at site level */}}

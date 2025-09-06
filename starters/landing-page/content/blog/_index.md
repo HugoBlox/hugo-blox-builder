@@ -1,3 +1,4 @@
 ---
 title: Blog
+view: card
 ---

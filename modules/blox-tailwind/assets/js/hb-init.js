@@ -2,8 +2,14 @@
 export function initTheme() {
   const root = document.documentElement;
   const defaultTheme = root.dataset.wcThemeDefault;
-  const setDark = () => { root.classList.add('dark'); root.style.colorScheme = 'dark'; };
-  const setLight = () => { root.classList.remove('dark'); root.style.colorScheme = 'light'; };
+  const setDark = () => {
+    root.classList.add('dark');
+    root.style.colorScheme = 'dark';
+  };
+  const setLight = () => {
+    root.classList.remove('dark');
+    root.style.colorScheme = 'light';
+  };
 
   if ('wc-color-theme' in localStorage) {
     localStorage.getItem('wc-color-theme') === 'dark' ? setDark() : setLight();
@@ -39,6 +45,3 @@ export function applyHugoStyleFixes() {
     });
   });
 }
-
-
-
