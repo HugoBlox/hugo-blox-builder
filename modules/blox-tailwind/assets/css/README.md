@@ -1,70 +1,99 @@
-# Hugo Blox Tailwind CSS v4 Structure
+# Hugo Blox Tailwind CSS v4 Color System
 
-## Overview
+## Architecture Overview
 
-The CSS architecture is modularized for maintainability and organization. The entry point is `main.css` which orchestrates all imports.
+This system leverages Tailwind CSS v4's automatic utility generation to provide a comprehensive color system with minimal code.
 
-## Directory Structure
+### How It Works
 
+1. **Theme Configuration** (`config/theme.css`)
+
+   - Colors defined in `@theme` block automatically generate ALL utilities
+   - Includes standard Tailwind colors: gray, slate, zinc, neutral, stone
+   - Includes themeable colors: primary, secondary
+
+2. **Theme Files** (`themes/*.css`)
+
+   - Small files that override `--color-primary-*` and `--color-secondary-*` variables
+   - Users switch themes by loading different theme CSS files
+   - No utilities redefined - just color values changed
+
+3. **Custom Utilities** (`color-utilities.css`)
+   - Only 42 lines vs previous 1,228 lines!
+   - Contains only custom colors not auto-generated (like `hb-dark`)
+
+### Available Colors
+
+**Standard Colors (always available):**
+
+- `gray-*` - Neutral grays
+- `slate-*` - Cool grays
+- `zinc-*` - True grays
+- `neutral-*` - Pure grays
+- `stone-*` - Warm grays
+
+**Themeable Colors (vary by theme):**
+
+- `primary-*` - Main theme color
+- `secondary-*` - Accent theme color
+
+**Custom Colors:**
+
+- `hb-dark` - Hugo Blox brand dark color
+
+### Auto-Generated Utilities
+
+For every color defined in `@theme`, Tailwind automatically creates:
+
+- Background: `bg-{color}-{shade}`
+- Text: `text-{color}-{shade}`
+- Border: `border-{color}-{shade}`
+- Hover: `hover:bg-{color}-{shade}`, `hover:text-{color}-{shade}`
+- Dark mode: `dark:bg-{color}-{shade}`, `dark:text-{color}-{shade}`
+- Gradients: `from-{color}-{shade}`, `to-{color}-{shade}`
+- Focus rings: `focus:ring-{color}-{shade}`
+- All other Tailwind color variants
+
+### Shades Available
+
+All colors include 11 shades: `50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950`
+
+### Usage Examples
+
+```html
+<!-- Standard colors (always available) -->
+<div class="bg-gray-100 dark:bg-gray-800">...</div>
+<div class="text-slate-700 hover:text-slate-900">...</div>
+
+<!-- Themeable colors (change with theme) -->
+<div class="bg-primary-500 hover:bg-primary-600">...</div>
+<div class="bg-gradient-to-r from-primary-600 to-secondary-600">...</div>
+
+<!-- Custom colors -->
+<div class="bg-hb-dark text-white">...</div>
 ```
-css/
-├── main.css                 # Main entry point
-├── color-utilities.css      # HB Theme Engine
-├── config/                  # Tailwind configuration
-│   ├── tailwind.css        # Tailwind v4 directives (@source, @custom-variant)
-│   ├── theme.css           # HB Theme variables (@theme block)
-│   └── safelist.css        # Dynamic classes safelist
-├── framework/              # Hugo Blox framework styles
-│   ├── base.css           # Base styles and typography
-│   └── components.css     # Framework components
-├── components/            # Hugo Blox module components
-│   └── all.css           # Imports all component files
-├── blox/                 # Block-specific styles
-│   └── all.css          # Imports all block styles
-└── views/               # Listing view styles
-    └── all.css         # Imports all listing view styles
-```
 
-## Key Files
+### Benefits
 
-### main.css
-The orchestrator that imports everything in the correct order:
-1. Tailwind base
-2. Configuration
-3. Base styles
-4. Hugo Blox theme engine
-5. Components
-6. Safelist
+1. **Dramatically Reduced File Size**: 1,228 lines → 42 lines (97% reduction!)
+2. **Automatic Generation**: No manual utility definitions needed
+3. **Maintainable**: Add new colors just by defining them in `@theme`
+4. **Consistent**: All Tailwind variants automatically available
+5. **Themeable**: Easy theme switching via CSS variable overrides
 
-### config/tailwind.css
-Contains Tailwind v4-specific directives:
-- `@source` - Where to scan for classes
-- `@custom-variant` - Custom variants (dark, hover)
-- `@plugin` - Plugin imports
+### Adding New Colors
 
-### config/theme.css
-Defines the theme using `@theme` block:
-- Color palettes (primary, secondary, neutral)
-- Font families and sizes
-- Custom properties
+To add a new color scale:
 
-### color-utilities.css
-Hugo Blox theme engine with color utility classes:
-- All color shades (50-950)
-- All variants (hover, dark, focus)
-- Gradient utilities
+1. Define in `config/theme.css`:
 
-## Tailwind v4 Notes
+   ```css
+   --color-brand-500: 59 130 246;
+   --color-brand-600: 37 99 235;
+   /* etc. */
+   ```
 
-- `@source`, `@theme`, `@plugin` are new v4 directives
-- Linters may show warnings for these - they can be ignored
-- Hugo's `css.TailwindCSS` function processes this automatically
-- No PostCSS configuration needed anymore
+2. Tailwind automatically generates all utilities:
+   - `bg-brand-500`, `text-brand-600`, `hover:bg-brand-500`, etc.
 
-## Maintenance
-
-When adding new styles:
-1. Framework classes → `framework/components.css`
-2. Theme variables → `config/theme.css`
-3. Component styles → `components/[file].css`
-4. Dynamic classes → Add to `config/safelist.css`
+No manual utility definitions required!

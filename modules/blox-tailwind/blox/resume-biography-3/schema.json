@@ -26,6 +26,24 @@
               "type": "string",
               "description": "Biography text override (supports Markdown). If not provided, uses author page content."
             },
+            "headings": {
+              "type": "object",
+              "description": "Optional custom headings for sections",
+              "properties": {
+                "about": {
+                  "type": "string",
+                  "description": "Heading for biography section (default: Professional Summary)"
+                },
+                "education": {
+                  "type": "string",
+                  "description": "Heading for education section (default: from i18n 'education')"
+                },
+                "interests": {
+                  "type": "string",
+                  "description": "Heading for interests section (default: from i18n 'interests')"
+                }
+              }
+            },
             "button": {
               "type": "object",
               "description": "Optional call-to-action button",
@@ -97,4 +115,3 @@
     }
   ]
 }
-

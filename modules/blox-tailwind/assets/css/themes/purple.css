@@ -1,14 +1,27 @@
 /* Hugo Blox color theme: PURPLE */
 :root {
-  --color-primary-50: 250 245 255;
-  --color-primary-100: 243 232 255;
-  --color-primary-200: 233 213 255;
-  --color-primary-300: 216 180 254;
-  --color-primary-400: 192 132 252;
-  --color-primary-500: 168 85 247;
-  --color-primary-600: 147 51 234;
-  --color-primary-700: 126 34 206;
-  --color-primary-800: 107 33 168;
-  --color-primary-900: 88 28 135;
-  --color-primary-950: 59 7 100;
+  /* Purple Primary Palette */
+  --hb-primary-50-rgb: 250 245 255;
+  --hb-primary-100-rgb: 243 232 255;
+  --hb-primary-200-rgb: 233 213 255;
+  --hb-primary-300-rgb: 216 180 254;
+  --hb-primary-400-rgb: 192 132 252;
+  --hb-primary-500-rgb: 168 85 247;
+  --hb-primary-600-rgb: 147 51 234;
+  --hb-primary-700-rgb: 126 34 206;
+  --hb-primary-800-rgb: 107 33 168;
+  --hb-primary-900-rgb: 88 28 135;
+  --hb-primary-950-rgb: 59 7 100;
+  /* Violet Secondary Palette */
+  --hb-secondary-50-rgb: 245 243 255;
+  --hb-secondary-100-rgb: 237 233 254;
+  --hb-secondary-200-rgb: 221 214 254;
+  --hb-secondary-300-rgb: 196 181 253;
+  --hb-secondary-400-rgb: 167 139 250;
+  --hb-secondary-500-rgb: 139 92 246;
+  --hb-secondary-600-rgb: 124 58 237;
+  --hb-secondary-700-rgb: 109 40 217;
+  --hb-secondary-800-rgb: 91 33 182;
+  --hb-secondary-900-rgb: 76 29 149;
+  --hb-secondary-950-rgb: 46 16 101;
 }

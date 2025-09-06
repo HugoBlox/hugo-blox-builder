@@ -1,0 +1,27 @@
+/* Hugo Blox color theme: STONE */
+:root {
+  /* Stone Primary Palette */
+  --hb-primary-50-rgb: 250 250 249;
+  --hb-primary-100-rgb: 245 245 244;
+  --hb-primary-200-rgb: 231 229 228;
+  --hb-primary-300-rgb: 214 211 209;
+  --hb-primary-400-rgb: 168 162 158;
+  --hb-primary-500-rgb: 120 113 108;
+  --hb-primary-600-rgb: 87 83 78;
+  --hb-primary-700-rgb: 68 64 60;
+  --hb-primary-800-rgb: 41 37 36;
+  --hb-primary-900-rgb: 28 25 23;
+  --hb-primary-950-rgb: 12 10 9;
+  /* Slate Secondary Palette */
+  --hb-secondary-50-rgb: 248 250 252;
+  --hb-secondary-100-rgb: 241 245 249;
+  --hb-secondary-200-rgb: 226 232 240;
+  --hb-secondary-300-rgb: 203 213 225;
+  --hb-secondary-400-rgb: 148 163 184;
+  --hb-secondary-500-rgb: 100 116 139;
+  --hb-secondary-600-rgb: 71 85 105;
+  --hb-secondary-700-rgb: 51 65 85;
+  --hb-secondary-800-rgb: 30 41 59;
+  --hb-secondary-900-rgb: 15 23 42;
+  --hb-secondary-950-rgb: 2 6 23;
+}

@@ -6,7 +6,6 @@
   }
 
   /* Custom avatar size on homepage - size controlled by template params */
-
   .avatar {
     width: auto;
     height: auto;
@@ -15,7 +14,8 @@
 
   .network-icon {
     display: inline-flex;
-    flex-flow: row wrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     list-style: none;
     padding: 0;
@@ -50,45 +50,86 @@
     font-size: 0.9rem;
   }
 
-  /* .ul-edu { */
-  /*   list-style: none; */
-  /* } */
-
-  /* .ul-edu li { */
-  /*   position: relative; */
-  /*   padding: 0 15px 4px 3px; */
-  /* } */
-
-  /* .ul-edu li .description p { */
-  /*   margin: 0; */
-  /* } */
-
   .ul-edu li .description p.course {
     font-size: 0.9rem;
   }
 
   .ul-edu li .description p.institution {
     font-size: 0.75rem;
-
-    /* color: rgba(0, 0, 0, 0.6); */
   }
 
   .network-icon .big-icon {
     font-size: 1.5rem;
   }
 
-  /* .dark .portrait-title h3 { */
-  /*  color: rgb(255 255 255 / 90%); */
-  /*  font-weight: bold; */
-  /* } */
-
-  /* .dark .portrait-title h2 { */
-  /*  color: #fff; */
-  /*  font-weight: bold; */
-  /* } */
-
   .bio-text {
     max-width: 680px;
+  }
+}
+
+/* Modern Biography Block Enhancements */
+.resume-biography-modern {
+  /* Ensure proper stacking context for gradients and effects */
+  position: relative;
+  z-index: 1;
+}
+
+/* Ruby pronunciation styling for modern look */
+.ruby-modern {
+  ruby-position: over;
+}
+
+.ruby-modern rt {
+  font-size: 0.7em;
+  opacity: 0.8;
+  letter-spacing: 0.05em;
+}
+
+/* Enhanced backdrop blur support */
+@supports (backdrop-filter: blur(10px)) {
+  .resume-biography-modern [class*='backdrop-blur'] {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Smooth animations for all interactive elements */
+.resume-biography-modern * {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced focus states for accessibility */
+.resume-biography-modern a:focus-visible {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* Improved text selection styling */
+.resume-biography-modern ::selection {
+  background-color: rgb(var(--color-primary-200) / 0.3);
+  color: rgb(var(--color-primary-900));
+}
+
+.dark .resume-biography-modern ::selection {
+  background-color: rgb(var(--color-primary-800) / 0.3);
+  color: rgb(var(--color-primary-100));
+}
+
+/* Enhanced gradient text support */
+.resume-biography-modern .bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Ensure text remains readable on fallback */
+@supports not (background-clip: text) {
+  .resume-biography-modern .bg-clip-text {
+    color: rgb(var(--color-neutral-900));
+  }
+
+  .dark .resume-biography-modern .bg-clip-text {
+    color: rgb(var(--color-neutral-100));
   }
 }
 
@@ -117,4 +158,40 @@
 .dark .avatar-emoji {
   background-color: #000;
   box-shadow: 0 10px 20px rgb(0 0 0 / 4%), 0 2px 6px rgb(0 0 0 / 4%), 0 0 1px rgb(255 255 255 / 96%);
+}
+
+/* Biography Block */
+
+.hbx-bg-gradient {
+  position: relative;
+  isolation: isolate;
+}
+
+.hbx-bg-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-attachment: fixed;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+/* Light Mode Gradient */
+.hbx-bg-gradient::before {
+  background-image: radial-gradient(at 20% 25%, hsla(212, 80%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 75% 30%, hsla(160, 80%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 25% 80%, hsla(280, 80%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 75% 85%, hsla(30, 80%, 95%, 1) 0px, transparent 50%);
+}
+
+/* Dark Mode Gradient */
+.dark .hbx-bg-gradient::before {
+  background-image: radial-gradient(at 20% 25%, hsla(212, 35%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 75% 30%, hsla(160, 35%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 25% 80%, hsla(280, 35%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 75% 85%, hsla(30, 35%, 15%, 1) 0px, transparent 50%);
 }

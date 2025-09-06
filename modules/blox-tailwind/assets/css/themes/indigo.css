@@ -1,14 +1,27 @@
 /* Hugo Blox color theme: INDIGO */
 :root {
-  --color-primary-50: 238 242 255;
-  --color-primary-100: 224 231 255;
-  --color-primary-200: 199 210 254;
-  --color-primary-300: 165 180 252;
-  --color-primary-400: 129 140 248;
-  --color-primary-500: 99 102 241;
-  --color-primary-600: 79 70 229;
-  --color-primary-700: 67 56 202;
-  --color-primary-800: 55 48 163;
-  --color-primary-900: 49 46 129;
-  --color-primary-950: 30 27 75;
+  /* Indigo Primary Palette */
+  --hb-primary-50-rgb: 238 242 255;
+  --hb-primary-100-rgb: 224 231 255;
+  --hb-primary-200-rgb: 199 210 254;
+  --hb-primary-300-rgb: 165 180 252;
+  --hb-primary-400-rgb: 129 140 248;
+  --hb-primary-500-rgb: 99 102 241;
+  --hb-primary-600-rgb: 79 70 229;
+  --hb-primary-700-rgb: 67 56 202;
+  --hb-primary-800-rgb: 55 48 163;
+  --hb-primary-900-rgb: 49 46 129;
+  --hb-primary-950-rgb: 30 27 75;
+  /* Blue Secondary Palette */
+  --hb-secondary-50-rgb: 239 246 255;
+  --hb-secondary-100-rgb: 219 234 254;
+  --hb-secondary-200-rgb: 191 219 254;
+  --hb-secondary-300-rgb: 147 197 253;
+  --hb-secondary-400-rgb: 96 165 250;
+  --hb-secondary-500-rgb: 59 130 246;
+  --hb-secondary-600-rgb: 37 99 235;
+  --hb-secondary-700-rgb: 29 78 216;
+  --hb-secondary-800-rgb: 30 64 175;
+  --hb-secondary-900-rgb: 30 58 138;
+  --hb-secondary-950-rgb: 23 37 84;
 }

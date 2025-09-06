@@ -1,0 +1,27 @@
+/* Hugo Blox color theme: LIME */
+:root {
+  /* Lime Primary Palette */
+  --hb-primary-50-rgb: 247 254 231;
+  --hb-primary-100-rgb: 236 252 203;
+  --hb-primary-200-rgb: 217 249 157;
+  --hb-primary-300-rgb: 190 242 100;
+  --hb-primary-400-rgb: 163 230 53;
+  --hb-primary-500-rgb: 132 204 22;
+  --hb-primary-600-rgb: 101 163 13;
+  --hb-primary-700-rgb: 77 124 15;
+  --hb-primary-800-rgb: 63 98 18;
+  --hb-primary-900-rgb: 54 83 20;
+  --hb-primary-950-rgb: 26 46 5;
+  /* Yellow Secondary Palette */
+  --hb-secondary-50-rgb: 254 252 232;
+  --hb-secondary-100-rgb: 254 249 195;
+  --hb-secondary-200-rgb: 254 240 138;
+  --hb-secondary-300-rgb: 253 224 71;
+  --hb-secondary-400-rgb: 250 204 21;
+  --hb-secondary-500-rgb: 234 179 8;
+  --hb-secondary-600-rgb: 202 138 4;
+  --hb-secondary-700-rgb: 161 98 7;
+  --hb-secondary-800-rgb: 133 77 14;
+  --hb-secondary-900-rgb: 113 63 18;
+  --hb-secondary-950-rgb: 66 32 6;
+}

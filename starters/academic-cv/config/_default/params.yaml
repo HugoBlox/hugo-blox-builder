@@ -6,7 +6,7 @@
 # Appearance
 appearance:
   mode: system
-  color: emerald
+  color: indigo
 
 # SEO
 marketing:
@@ -30,12 +30,12 @@ marketing:
 header:
   navbar:
     enable: true
-    blox: "navbar"
+    block: 'navbar'
     fixed_to_top: true
     show_search: true
     show_theme_chooser: true
     logo:
-      text: "Your Name"
+      text: 'Your Name'
 
 # Site footer
 footer:

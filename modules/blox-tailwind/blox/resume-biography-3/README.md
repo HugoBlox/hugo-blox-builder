@@ -4,6 +4,24 @@
 
 Present a complete professional picture with the Resume Biography 3 block - an expanded biography layout that combines personal information, social presence, education history, and interests in one cohesive, horizontally-oriented section.
 
+## 🛠️ Customization
+
+- **Section heading overrides**: Customize any of the three main section headings using `content.headings`:
+  - `about`: Biography section heading (default: "Professional Summary" from i18n `about_me`)
+  - `education`: Education section heading (default: from i18n `education`)
+  - `interests`: Interests section heading (default: from i18n `interests`)
+
+Example front matter:
+
+```yaml
+block: resume-biography-3
+content:
+  headings:
+    about: Research Profile
+    education: Academic Background
+    interests: Research Areas
+```
+
 ## ✨ Key Features
 
 - **Horizontal Layout**: Desktop-optimized side-by-side arrangement for better space utilization
@@ -57,4 +75,3 @@ Present a complete professional picture with the Resume Biography 3 block - an e
 Perfect for academics, researchers, consultants, and professionals who want to present a complete picture of their background, education, and interests in one comprehensive, beautifully designed section.
 
 Create a professional profile that tells your complete story and opens doors to new opportunities.
-

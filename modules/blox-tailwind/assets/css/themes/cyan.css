@@ -1,14 +1,27 @@
 /* Hugo Blox color theme: CYAN */
 :root {
-  --color-primary-50: 236 254 255;
-  --color-primary-100: 207 250 254;
-  --color-primary-200: 165 243 252;
-  --color-primary-300: 103 232 249;
-  --color-primary-400: 34 211 238;
-  --color-primary-500: 6 182 212;
-  --color-primary-600: 8 145 178;
-  --color-primary-700: 14 116 144;
-  --color-primary-800: 21 94 117;
-  --color-primary-900: 22 78 99;
-  --color-primary-950: 8 51 68;
+  /* Cyan Primary Palette */
+  --hb-primary-50-rgb: 236 254 255;
+  --hb-primary-100-rgb: 207 250 254;
+  --hb-primary-200-rgb: 165 243 252;
+  --hb-primary-300-rgb: 103 232 249;
+  --hb-primary-400-rgb: 34 211 238;
+  --hb-primary-500-rgb: 6 182 212;
+  --hb-primary-600-rgb: 8 145 178;
+  --hb-primary-700-rgb: 14 116 144;
+  --hb-primary-800-rgb: 21 94 117;
+  --hb-primary-900-rgb: 22 78 99;
+  --hb-primary-950-rgb: 8 51 68;
+  /* Sky Secondary Palette */
+  --hb-secondary-50-rgb: 240 249 255;
+  --hb-secondary-100-rgb: 224 242 254;
+  --hb-secondary-200-rgb: 186 230 253;
+  --hb-secondary-300-rgb: 125 211 252;
+  --hb-secondary-400-rgb: 56 189 248;
+  --hb-secondary-500-rgb: 14 165 233;
+  --hb-secondary-600-rgb: 2 132 199;
+  --hb-secondary-700-rgb: 3 105 161;
+  --hb-secondary-800-rgb: 7 89 133;
+  --hb-secondary-900-rgb: 12 74 110;
+  --hb-secondary-950-rgb: 8 47 73;
 }

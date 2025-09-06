@@ -1,0 +1,27 @@
+/* Hugo Blox color theme: VIOLET */
+:root {
+  /* Violet Primary Palette */
+  --hb-primary-50-rgb: 245 243 255;
+  --hb-primary-100-rgb: 237 233 254;
+  --hb-primary-200-rgb: 221 214 254;
+  --hb-primary-300-rgb: 196 181 253;
+  --hb-primary-400-rgb: 167 139 250;
+  --hb-primary-500-rgb: 139 92 246;
+  --hb-primary-600-rgb: 124 58 237;
+  --hb-primary-700-rgb: 109 40 217;
+  --hb-primary-800-rgb: 91 33 182;
+  --hb-primary-900-rgb: 76 29 149;
+  --hb-primary-950-rgb: 46 16 101;
+  /* Fuchsia Secondary Palette */
+  --hb-secondary-50-rgb: 253 244 255;
+  --hb-secondary-100-rgb: 250 232 255;
+  --hb-secondary-200-rgb: 245 208 254;
+  --hb-secondary-300-rgb: 240 171 252;
+  --hb-secondary-400-rgb: 232 121 249;
+  --hb-secondary-500-rgb: 217 70 239;
+  --hb-secondary-600-rgb: 192 38 211;
+  --hb-secondary-700-rgb: 162 28 175;
+  --hb-secondary-800-rgb: 134 25 143;
+  --hb-secondary-900-rgb: 112 26 117;
+  --hb-secondary-950-rgb: 74 4 78;
+}

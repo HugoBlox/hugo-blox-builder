@@ -4,49 +4,325 @@
 @theme {
   /* Custom Colors */
   --color-hb-dark: 23 24 28;
-  
-  /* Neutral Colors - Space-separated RGB values (for use with rgb() function) */
-  --color-neutral-50: 250 250 250;
-  --color-neutral-100: 245 245 245;
-  --color-neutral-200: 229 229 229;
-  --color-neutral-300: 212 212 212;
-  --color-neutral-400: 163 163 163;
-  --color-neutral-500: 115 115 115;
-  --color-neutral-600: 82 82 82;
-  --color-neutral-700: 64 64 64;
-  --color-neutral-800: 38 38 38;
-  --color-neutral-900: 23 23 23;
-  --color-neutral-950: 10 10 10;
-  
-  /* Primary Colors - Space-separated RGB values (Blue defaults) */
-  --color-primary-50: 239 246 255;
-  --color-primary-100: 219 234 254;
-  --color-primary-200: 191 219 254;
-  --color-primary-300: 147 197 253;
-  --color-primary-400: 96 165 250;
-  --color-primary-500: 59 130 246;
-  --color-primary-600: 37 99 235;
-  --color-primary-700: 29 78 216;
-  --color-primary-800: 30 64 175;
-  --color-primary-900: 30 58 138;
-  --color-primary-950: 23 37 84;
-  
-  /* Secondary Colors - Space-separated RGB values (Cyan defaults) */
-  --color-secondary-50: 236 254 255;
-  --color-secondary-100: 207 250 254;
-  --color-secondary-200: 165 243 252;
-  --color-secondary-300: 103 232 249;
-  --color-secondary-400: 34 211 238;
-  --color-secondary-500: 6 182 212;
-  --color-secondary-600: 8 145 178;
-  --color-secondary-700: 14 116 144;
-  --color-secondary-800: 21 94 117;
-  --color-secondary-900: 22 78 99;
-  --color-secondary-950: 8 51 68;
-  
+
+  /* Standard Tailwind Color Scales - Provide variables as valid CSS colors */
+  /* Gray */
+  --color-gray-50: rgb(249 250 251);
+  --color-gray-100: rgb(243 244 246);
+  --color-gray-200: rgb(229 231 235);
+  --color-gray-300: rgb(209 213 219);
+  --color-gray-400: rgb(156 163 175);
+  --color-gray-500: rgb(107 114 128);
+  --color-gray-600: rgb(75 85 99);
+  --color-gray-700: rgb(55 65 81);
+  --color-gray-800: rgb(31 41 55);
+  --color-gray-900: rgb(17 24 39);
+  --color-gray-950: rgb(3 7 18);
+
+  /* Slate */
+  --color-slate-50: rgb(248 250 252);
+  --color-slate-100: rgb(241 245 249);
+  --color-slate-200: rgb(226 232 240);
+  --color-slate-300: rgb(203 213 225);
+  --color-slate-400: rgb(148 163 184);
+  --color-slate-500: rgb(100 116 139);
+  --color-slate-600: rgb(71 85 105);
+  --color-slate-700: rgb(51 65 85);
+  --color-slate-800: rgb(30 41 59);
+  --color-slate-900: rgb(15 23 42);
+  --color-slate-950: rgb(2 6 23);
+
+  /* Zinc */
+  --color-zinc-50: rgb(250 250 250);
+  --color-zinc-100: rgb(244 244 245);
+  --color-zinc-200: rgb(228 228 231);
+  --color-zinc-300: rgb(212 212 216);
+  --color-zinc-400: rgb(161 161 170);
+  --color-zinc-500: rgb(113 113 122);
+  --color-zinc-600: rgb(82 82 91);
+  --color-zinc-700: rgb(63 63 70);
+  --color-zinc-800: rgb(39 39 42);
+  --color-zinc-900: rgb(24 24 27);
+  --color-zinc-950: rgb(9 9 11);
+
+  /* Neutral */
+  --color-neutral-50: rgb(250 250 250);
+  --color-neutral-100: rgb(245 245 245);
+  --color-neutral-200: rgb(229 229 229);
+  --color-neutral-300: rgb(212 212 212);
+  --color-neutral-400: rgb(163 163 163);
+  --color-neutral-500: rgb(115 115 115);
+  --color-neutral-600: rgb(82 82 82);
+  --color-neutral-700: rgb(64 64 64);
+  --color-neutral-800: rgb(38 38 38);
+  --color-neutral-900: rgb(23 23 23);
+  --color-neutral-950: rgb(10 10 10);
+
+  /* Stone */
+  --color-stone-50: rgb(250 250 249);
+  --color-stone-100: rgb(245 245 244);
+  --color-stone-200: rgb(231 229 228);
+  --color-stone-300: rgb(214 211 209);
+  --color-stone-400: rgb(168 162 158);
+  --color-stone-500: rgb(120 113 108);
+  --color-stone-600: rgb(87 83 78);
+  --color-stone-700: rgb(68 64 60);
+  --color-stone-800: rgb(41 37 36);
+  --color-stone-900: rgb(28 25 23);
+  --color-stone-950: rgb(12 10 9);
+
+  /* Red */
+  --color-red-50: rgb(254 242 242);
+  --color-red-100: rgb(254 226 226);
+  --color-red-200: rgb(254 202 202);
+  --color-red-300: rgb(252 165 165);
+  --color-red-400: rgb(248 113 113);
+  --color-red-500: rgb(239 68 68);
+  --color-red-600: rgb(220 38 38);
+  --color-red-700: rgb(185 28 28);
+  --color-red-800: rgb(153 27 27);
+  --color-red-900: rgb(127 29 29);
+  --color-red-950: rgb(69 10 10);
+
+  /* Orange */
+  --color-orange-50: rgb(255 247 237);
+  --color-orange-100: rgb(255 237 213);
+  --color-orange-200: rgb(254 215 170);
+  --color-orange-300: rgb(253 186 116);
+  --color-orange-400: rgb(251 146 60);
+  --color-orange-500: rgb(249 115 22);
+  --color-orange-600: rgb(234 88 12);
+  --color-orange-700: rgb(194 65 12);
+  --color-orange-800: rgb(154 52 18);
+  --color-orange-900: rgb(124 45 18);
+  --color-orange-950: rgb(67 20 7);
+
+  /* Amber */
+  --color-amber-50: rgb(255 251 235);
+  --color-amber-100: rgb(254 243 199);
+  --color-amber-200: rgb(253 230 138);
+  --color-amber-300: rgb(252 211 77);
+  --color-amber-400: rgb(251 191 36);
+  --color-amber-500: rgb(245 158 11);
+  --color-amber-600: rgb(217 119 6);
+  --color-amber-700: rgb(180 83 9);
+  --color-amber-800: rgb(146 64 14);
+  --color-amber-900: rgb(120 53 15);
+  --color-amber-950: rgb(69 26 3);
+
+  /* Yellow */
+  --color-yellow-50: rgb(254 252 232);
+  --color-yellow-100: rgb(254 249 195);
+  --color-yellow-200: rgb(254 240 138);
+  --color-yellow-300: rgb(253 224 71);
+  --color-yellow-400: rgb(250 204 21);
+  --color-yellow-500: rgb(234 179 8);
+  --color-yellow-600: rgb(202 138 4);
+  --color-yellow-700: rgb(161 98 7);
+  --color-yellow-800: rgb(133 77 14);
+  --color-yellow-900: rgb(113 63 18);
+  --color-yellow-950: rgb(66 32 6);
+
+  /* Lime */
+  --color-lime-50: rgb(247 254 231);
+  --color-lime-100: rgb(236 252 203);
+  --color-lime-200: rgb(217 249 157);
+  --color-lime-300: rgb(190 242 100);
+  --color-lime-400: rgb(163 230 53);
+  --color-lime-500: rgb(132 204 22);
+  --color-lime-600: rgb(101 163 13);
+  --color-lime-700: rgb(77 124 15);
+  --color-lime-800: rgb(63 98 18);
+  --color-lime-900: rgb(54 83 20);
+  --color-lime-950: rgb(26 46 5);
+
+  /* Green */
+  --color-green-50: rgb(240 253 244);
+  --color-green-100: rgb(220 252 231);
+  --color-green-200: rgb(187 247 208);
+  --color-green-300: rgb(134 239 172);
+  --color-green-400: rgb(74 222 128);
+  --color-green-500: rgb(34 197 94);
+  --color-green-600: rgb(22 163 74);
+  --color-green-700: rgb(21 128 61);
+  --color-green-800: rgb(22 101 52);
+  --color-green-900: rgb(20 83 45);
+  --color-green-950: rgb(5 46 22);
+
+  /* Emerald */
+  --color-emerald-50: rgb(236 253 245);
+  --color-emerald-100: rgb(209 250 229);
+  --color-emerald-200: rgb(167 243 208);
+  --color-emerald-300: rgb(110 231 183);
+  --color-emerald-400: rgb(52 211 153);
+  --color-emerald-500: rgb(16 185 129);
+  --color-emerald-600: rgb(5 150 105);
+  --color-emerald-700: rgb(4 120 87);
+  --color-emerald-800: rgb(6 95 70);
+  --color-emerald-900: rgb(6 78 59);
+  --color-emerald-950: rgb(2 44 34);
+
+  /* Teal */
+  --color-teal-50: rgb(240 253 250);
+  --color-teal-100: rgb(204 251 241);
+  --color-teal-200: rgb(153 246 228);
+  --color-teal-300: rgb(94 234 212);
+  --color-teal-400: rgb(45 212 191);
+  --color-teal-500: rgb(20 184 166);
+  --color-teal-600: rgb(13 148 136);
+  --color-teal-700: rgb(15 118 110);
+  --color-teal-800: rgb(17 94 89);
+  --color-teal-900: rgb(19 78 74);
+  --color-teal-950: rgb(4 47 46);
+
+  /* Cyan */
+  --color-cyan-50: rgb(236 254 255);
+  --color-cyan-100: rgb(207 250 254);
+  --color-cyan-200: rgb(165 243 252);
+  --color-cyan-300: rgb(103 232 249);
+  --color-cyan-400: rgb(34 211 238);
+  --color-cyan-500: rgb(6 182 212);
+  --color-cyan-600: rgb(8 145 178);
+  --color-cyan-700: rgb(14 116 144);
+  --color-cyan-800: rgb(21 94 117);
+  --color-cyan-900: rgb(22 78 99);
+  --color-cyan-950: rgb(8 51 68);
+
+  /* Sky */
+  --color-sky-50: rgb(240 249 255);
+  --color-sky-100: rgb(224 242 254);
+  --color-sky-200: rgb(186 230 253);
+  --color-sky-300: rgb(125 211 252);
+  --color-sky-400: rgb(56 189 248);
+  --color-sky-500: rgb(14 165 233);
+  --color-sky-600: rgb(2 132 199);
+  --color-sky-700: rgb(3 105 161);
+  --color-sky-800: rgb(7 89 133);
+  --color-sky-900: rgb(12 74 110);
+  --color-sky-950: rgb(8 47 73);
+
+  /* Blue */
+  --color-blue-50: rgb(239 246 255);
+  --color-blue-100: rgb(219 234 254);
+  --color-blue-200: rgb(191 219 254);
+  --color-blue-300: rgb(147 197 253);
+  --color-blue-400: rgb(96 165 250);
+  --color-blue-500: rgb(59 130 246);
+  --color-blue-600: rgb(37 99 235);
+  --color-blue-700: rgb(29 78 216);
+  --color-blue-800: rgb(30 64 175);
+  --color-blue-900: rgb(30 58 138);
+  --color-blue-950: rgb(23 37 84);
+
+  /* Indigo */
+  --color-indigo-50: rgb(238 242 255);
+  --color-indigo-100: rgb(224 231 255);
+  --color-indigo-200: rgb(199 210 254);
+  --color-indigo-300: rgb(165 180 252);
+  --color-indigo-400: rgb(129 140 248);
+  --color-indigo-500: rgb(99 102 241);
+  --color-indigo-600: rgb(79 70 229);
+  --color-indigo-700: rgb(67 56 202);
+  --color-indigo-800: rgb(55 48 163);
+  --color-indigo-900: rgb(49 46 129);
+  --color-indigo-950: rgb(30 27 75);
+
+  /* Violet */
+  --color-violet-50: rgb(245 243 255);
+  --color-violet-100: rgb(237 233 254);
+  --color-violet-200: rgb(221 214 254);
+  --color-violet-300: rgb(196 181 253);
+  --color-violet-400: rgb(167 139 250);
+  --color-violet-500: rgb(139 92 246);
+  --color-violet-600: rgb(124 58 237);
+  --color-violet-700: rgb(109 40 217);
+  --color-violet-800: rgb(91 33 182);
+  --color-violet-900: rgb(76 29 149);
+  --color-violet-950: rgb(46 16 101);
+
+  /* Purple */
+  --color-purple-50: rgb(250 245 255);
+  --color-purple-100: rgb(243 232 255);
+  --color-purple-200: rgb(233 213 255);
+  --color-purple-300: rgb(216 180 254);
+  --color-purple-400: rgb(192 132 252);
+  --color-purple-500: rgb(168 85 247);
+  --color-purple-600: rgb(147 51 234);
+  --color-purple-700: rgb(126 34 206);
+  --color-purple-800: rgb(107 33 168);
+  --color-purple-900: rgb(88 28 135);
+  --color-purple-950: rgb(59 7 100);
+
+  /* Fuchsia */
+  --color-fuchsia-50: rgb(253 244 255);
+  --color-fuchsia-100: rgb(250 232 255);
+  --color-fuchsia-200: rgb(245 208 254);
+  --color-fuchsia-300: rgb(240 171 252);
+  --color-fuchsia-400: rgb(232 121 249);
+  --color-fuchsia-500: rgb(217 70 239);
+  --color-fuchsia-600: rgb(192 38 211);
+  --color-fuchsia-700: rgb(162 28 175);
+  --color-fuchsia-800: rgb(134 25 143);
+  --color-fuchsia-900: rgb(112 26 117);
+  --color-fuchsia-950: rgb(74 4 78);
+
+  /* Pink */
+  --color-pink-50: rgb(253 242 248);
+  --color-pink-100: rgb(252 231 243);
+  --color-pink-200: rgb(251 207 232);
+  --color-pink-300: rgb(249 168 212);
+  --color-pink-400: rgb(244 114 182);
+  --color-pink-500: rgb(236 72 153);
+  --color-pink-600: rgb(219 39 119);
+  --color-pink-700: rgb(190 24 93);
+  --color-pink-800: rgb(157 23 77);
+  --color-pink-900: rgb(131 24 67);
+  --color-pink-950: rgb(80 7 36);
+
+  /* Rose */
+  --color-rose-50: rgb(255 241 242);
+  --color-rose-100: rgb(255 228 230);
+  --color-rose-200: rgb(254 205 211);
+  --color-rose-300: rgb(253 164 175);
+  --color-rose-400: rgb(251 113 133);
+  --color-rose-500: rgb(244 63 94);
+  --color-rose-600: rgb(225 29 72);
+  --color-rose-700: rgb(190 18 60);
+  --color-rose-800: rgb(159 18 57);
+  --color-rose-900: rgb(136 19 55);
+  --color-rose-950: rgb(76 5 25);
+
+  /* Themeable Colors */
+  --color-primary-50: rgb(var(--hb-primary-50-rgb, 239 246 255));
+  --color-primary-100: rgb(var(--hb-primary-100-rgb, 219 234 254));
+  --color-primary-200: rgb(var(--hb-primary-200-rgb, 191 219 254));
+  --color-primary-300: rgb(var(--hb-primary-300-rgb, 147 197 253));
+  --color-primary-400: rgb(var(--hb-primary-400-rgb, 96 165 250));
+  --color-primary-500: rgb(var(--hb-primary-500-rgb, 59 130 246));
+  --color-primary-600: rgb(var(--hb-primary-600-rgb, 37 99 235));
+  --color-primary-700: rgb(var(--hb-primary-700-rgb, 29 78 216));
+  --color-primary-800: rgb(var(--hb-primary-800-rgb, 30 64 175));
+  --color-primary-900: rgb(var(--hb-primary-900-rgb, 30 58 138));
+  --color-primary-950: rgb(var(--hb-primary-950-rgb, 23 37 84));
+
+  --color-secondary-50: rgb(var(--hb-secondary-50-rgb, 236 254 255));
+  --color-secondary-100: rgb(var(--hb-secondary-100-rgb, 207 250 254));
+  --color-secondary-200: rgb(var(--hb-secondary-200-rgb, 165 243 252));
+  --color-secondary-300: rgb(var(--hb-secondary-300-rgb, 103 232 249));
+  --color-secondary-400: rgb(var(--hb-secondary-400-rgb, 34 211 238));
+  --color-secondary-500: rgb(var(--hb-secondary-500-rgb, 6 182 212));
+  --color-secondary-600: rgb(var(--hb-secondary-600-rgb, 8 145 178));
+  --color-secondary-700: rgb(var(--hb-secondary-700-rgb, 14 116 144));
+  --color-secondary-800: rgb(var(--hb-secondary-800-rgb, 21 94 117));
+  --color-secondary-900: rgb(var(--hb-secondary-900-rgb, 22 78 99));
+  --color-secondary-950: rgb(var(--hb-secondary-950-rgb, 8 51 68));
+
+  /* Note: Providing these palettes in @theme ensures theme-pack mappings like var(--color-rose-600) always resolve */
+
   /* Font family */
-  --font-family-sans: inter var, ui-sans-serif, system-ui, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
-  
+  --font-family-sans: inter var, ui-sans-serif, system-ui, sans-serif, apple color emoji, segoe ui emoji,
+    segoe ui symbol, noto color emoji;
+
   /* Font sizes */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;

@@ -1,14 +1,27 @@
 /* Hugo Blox color theme: EMERALD */
 :root {
-  --color-primary-50: 236 253 245;
-  --color-primary-100: 209 250 229;
-  --color-primary-200: 167 243 208;
-  --color-primary-300: 110 231 183;
-  --color-primary-400: 52 211 153;
-  --color-primary-500: 16 185 129;
-  --color-primary-600: 5 150 105;
-  --color-primary-700: 4 120 87;
-  --color-primary-800: 6 95 70;
-  --color-primary-900: 6 78 59;
-  --color-primary-950: 2 44 34;
+  /* Emerald Primary Palette */
+  --hb-primary-50-rgb: 236 253 245;
+  --hb-primary-100-rgb: 209 250 229;
+  --hb-primary-200-rgb: 167 243 208;
+  --hb-primary-300-rgb: 110 231 183;
+  --hb-primary-400-rgb: 52 211 153;
+  --hb-primary-500-rgb: 16 185 129;
+  --hb-primary-600-rgb: 5 150 105;
+  --hb-primary-700-rgb: 4 120 87;
+  --hb-primary-800-rgb: 6 95 70;
+  --hb-primary-900-rgb: 6 78 59;
+  --hb-primary-950-rgb: 2 44 34;
+  /* Green Secondary Palette */
+  --hb-secondary-50-rgb: 240 253 244;
+  --hb-secondary-100-rgb: 220 252 231;
+  --hb-secondary-200-rgb: 187 247 208;
+  --hb-secondary-300-rgb: 134 239 172;
+  --hb-secondary-400-rgb: 74 222 128;
+  --hb-secondary-500-rgb: 34 197 94;
+  --hb-secondary-600-rgb: 22 163 74;
+  --hb-secondary-700-rgb: 21 128 61;
+  --hb-secondary-800-rgb: 22 101 52;
+  --hb-secondary-900-rgb: 20 83 45;
+  --hb-secondary-950-rgb: 5 46 22;
 }

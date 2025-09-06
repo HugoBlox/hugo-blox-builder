@@ -1,39 +1,59 @@
 ---
 # Leave the homepage title empty to use the site title
-title: ""
+title: ''
 date: 2022-10-24
 type: landing
 
 design:
   # Default section spacing
-  spacing: "6rem"
+  spacing: '6rem'
 
 sections:
   - block: resume-biography-3
     content:
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: admin
-      text: ""
+      text: ''
       # Show a call-to-action button under your biography? (optional)
       button:
         text: Download CV
         url: uploads/resume.pdf
+      headings:
+        about: ''
+        education: ''
+        interests: ''
     design:
-      css_class: dark
+      css_class: hbx-bg-gradient
       # Avatar customization
       avatar:
-        size: medium  # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
+        size: medium # Options: small (150px), medium (200px, default), large (320px), xl (400px), xxl (500px)
         shape: circle # Options: circle (default), square, rounded
       background:
-        color: black
-        image:
-          # Add your image background to `assets/media/`.
-          filename: stacked-peaks.svg
-          filters:
-            brightness: 1.0
-          size: cover
-          position: center
-          parallax: false
+        #color: black
+        #image:
+        # RECOMMENDED: Modern gradient mesh backgrounds
+        # Option 1: Abstract neural network visualization (perfect for AI researchers)
+        # filename: https://images.unsplash.com/photo-1635070041078-e363dbe005cb
+
+        # Option 2: Dark gradient mesh (sophisticated and modern)
+        # filename: https://images.unsplash.com/photo-1557683316-973673baf926
+
+        # Option 3: Subtle tech pattern (professional)
+        # filename: https://images.unsplash.com/photo-1451187580459-43490279c0fa
+
+        # Current: Generic geometric pattern (consider upgrading)
+        #filename: stacked-peaks.svg
+
+        # For best 2025 results, consider:
+        # 1. Using a CSS gradient instead (remove image section)
+        # 2. Implementing particle.js for interactive background
+        # 3. Using a subtle video background with neural network visualization
+
+        #filters:
+        #brightness: 0.7 # Darkened for better text contrast
+        size: cover
+        position: center
+        parallax: false
   - block: markdown
     content:
       title: '📚 My Research'
@@ -42,7 +62,7 @@ sections:
         Use this area to speak to your mission. I'm a research scientist in the Moonshot team at DeepMind. I blog about machine learning, deep learning, and moonshots.
 
         I apply a range of qualitative and quantitative methods to comprehensively investigate the role of science and technology in the economy.
-        
+
         Please reach out to collaborate 😃
     design:
       columns: '1'
@@ -60,7 +80,7 @@ sections:
   - block: collection
     content:
       title: Recent Publications
-      text: ""
+      text: ''
       filters:
         folders:
           - publication
@@ -89,13 +109,13 @@ sections:
       count: 5
       # Filter on criteria
       filters:
-        author: ""
-        category: ""
-        tag: ""
+        author: ''
+        category: ''
+        tag: ''
         exclude_featured: false
         exclude_future: false
         exclude_past: false
-        publication_type: ""
+        publication_type: ''
       # Choose how many pages you would like to offset by
       offset: 0
       # Page order: descending (desc) or ascending (asc) date.
@@ -116,7 +136,7 @@ sections:
         <a class="github-button" href="https://github.com/HugoBlox/hugo-blox-builder" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star HugoBlox/hugo-blox-builder on GitHub">Star</a>
 
         Easily build anything with blocks - no-code required!
-        
+
         From landing pages, second brains, and courses to academic resumés, conferences, and tech blogs.
       button:
         text: Get Started
@@ -124,6 +144,6 @@ sections:
     design:
       card:
         # Card background color (CSS class)
-        css_class: "bg-primary-700"
-        css_style: ""
+        css_class: 'bg-primary-700'
+        css_style: ''
 ---
