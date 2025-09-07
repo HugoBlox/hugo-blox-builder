@@ -1,16 +1,17 @@
 [build]
   command = """
     set -e
-    echo "=== Starting Documentation build process ==="
+    echo "=== Starting Blog build process ==="
     echo "Node version: $(node --version)"
     echo "pnpm version: $(pnpm --version)"
     echo "Hugo version: $(hugo version)"
+    echo "Go version: $(go version || echo 'Go not available')"
     
     echo "=== Installing dependencies ==="
     pnpm install --verbose
     
     echo "=== Running Hugo build ==="
-    hugo --gc --minify -b $URL --logLevel debug --printI18nWarnings --printPathWarnings --printUnusedTemplates
+    hugo --gc --minify -b $URL --logLevel debug --printI18nWarnings --printPathWarnings
     
     echo "=== Running Pagefind indexing ==="
     pnpm dlx pagefind --source 'public' --verbose
@@ -21,7 +22,8 @@
 
 [build.environment]
   HUGO_VERSION = "0.149.1"
-  NODE_VERSION = "20.0.0"
+  GO_VERSION = "1.21.5"
+  NODE_VERSION = "22"
   HUGO_ENABLEGITINFO = "true"
   HUGO_LOG_I18N_WARNINGS = "true"
   HUGO_LOG_WARNINGS = "true"

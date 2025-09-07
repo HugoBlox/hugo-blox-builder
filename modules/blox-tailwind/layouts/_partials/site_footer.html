@@ -36,7 +36,14 @@
     {{- $h := md5 $seed -}}
     {{- $digits := replaceRE "[^0-9]" "" $h -}}
     {{- if lt (len $digits) 6 }}{{- $digits = printf "%s123456" $digits -}}{{- end -}}
-    {{- $n := int (substr $digits 0 6) -}}
+    {{- $first6 := substr $digits 0 6 -}}
+    {{/* Fix for Hugo's int() function treating leading zeros as octal numbers.
+         Strings like "095186" fail because 8 and 9 aren't valid octal digits.
+         Replace leading zero with 1 to ensure valid decimal parsing. */}}
+    {{- if eq (substr $first6 0 1) "0" -}}
+      {{- $first6 = printf "1%s" (substr $first6 1 5) -}}
+    {{- end -}}
+    {{- $n := int $first6 -}}
   
     {{- $brandText := index $brandOptions (mod $n (len $brandOptions)) -}}
     {{- $ctaText   := cond (ne $tid "")
