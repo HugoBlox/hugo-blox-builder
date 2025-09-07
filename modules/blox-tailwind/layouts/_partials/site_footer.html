@@ -36,8 +36,8 @@
     {{- $h := md5 $seed -}}
     {{- $digits := replaceRE "[^0-9]" "" $h -}}
     {{- if lt (len $digits) 6 }}{{- $digits = printf "%s123456" $digits -}}{{- end -}}
-    {{- $n := int (substr $digits 0 6) -}}
-  
+    {{- $n := int (strings.TrimPrefix (substr $digits 0 6) "0") -}}
+
     {{- $brandText := index $brandOptions (mod $n (len $brandOptions)) -}}
     {{- $ctaText   := cond (ne $tid "")
           (index $ctaWhenTemplate (mod $n (len $ctaWhenTemplate)))
