@@ -1,6 +1,6 @@
 # [The Academic CV That Gets You Hired](https://github.com/HugoBlox/theme-academic-cv)
 
-[![Screenshot](.github/preview.webp)](https://hugoblox.com/templates/academic-cv/)
+[![Screenshot](.github/preview.webp)](https://hugoblox.com/templates/academic-cv/start/?utm_source=github&utm_medium=readme)
 
 <h1 align="center">Build an Academic CV and Resumé That Stands Out</h1>
 
@@ -112,7 +112,7 @@ For more guides, visit our documentation at **https://docs.hugoblox.com/**.
 Join thousands of creators in our vibrant community to ask questions, share your work, and help us improve.
 
 - 💬 <a href="https://discord.gg/z8wNYzb">Discord</a>
-- 📚 <a href="https://docs.hugoblox.com/">Docs & Guides</a>
+- 📚 <a href="https://docs.hugoblox.com/?utm_source=github&utm_medium=readme">Docs & Guides</a>
 - 🐦 <a href="https://twitter.com/GetResearchDev">X / Twitter</a>
 - ⭐ <a href="https://github.com/HugoBlox/hugo-blox-builder">Star on GitHub</a>
 
