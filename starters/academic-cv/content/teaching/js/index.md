@@ -8,6 +8,11 @@ tags:
   - JavaScript
 image:
   caption: 'Embed rich media such as videos and LaTeX math'
+content_meta:
+  content_type: 'Tutorial'
+  difficulty: 'Beginner'
+  prerequisites: ['HTML']
+  trending: true
 ---
 
 [Hugo Blox Builder](https://hugoblox.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.
@@ -111,7 +116,6 @@ $$
 ## Code
 
 Hugo Blox Builder utilises Hugo's Markdown extension for highlighting code syntax. The code theme can be selected in the `config/_default/params.yaml` file.
-
 
     ```python
     import pandas as pd

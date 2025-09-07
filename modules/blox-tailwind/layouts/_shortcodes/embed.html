@@ -1,0 +1,208 @@
+{{/*
+  Hugo Blox Embed Shortcode
+  Copyright (c) George Cushen
+  
+  Licensed under MIT with Attribution Required:
+  - Copyright notice and this license must be retained
+  - "Powered by Hugo Blox" attribution must be maintained
+  - See: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md
+  
+  Docs: https://docs.hugoblox.com/content/writing-markdown-latex/
+  
+  Parameters
+  ----------
+  platform : default auto-detected
+      Platform type (huggingface, github, etc.)
+  resource : optional
+      Platform-specific resource identifier (model/dataset for HF, repo for GitHub)
+  type : optional
+      Resource type (model, dataset, repo, etc.)
+  title : optional
+      Override the default title
+  description : optional
+      Override the default description
+  url : optional
+      Direct URL to the resource
+  user : optional
+      Username/organization (for GitHub: "owner/repo")
+  thumbnail : default false
+      Show platform thumbnail (e.g., GitHub OpenGraph image)
+  image : optional
+      Remote image URL to process and display (works with any URL including Unsplash)
+  
+  Image Processing Parameters (when using image parameter)
+  --------------------------------------------------------
+  width : default 800
+      Image width in pixels
+  height : default 600  
+      Image height in pixels
+  quality : default 80
+      Image quality 1-100
+  formats : default ["avif", "webp", "jpg"]
+      Image formats to generate
+      
+  Examples
+  --------
+  {{< embed platform="huggingface" resource="microsoft/DialoGPT-medium" type="model" >}}
+  {{< embed platform="github" resource="hugo-blox/hugo-blox-builder" type="repo" >}}
+  {{< embed platform="github" resource="hugo-blox/hugo-blox-builder" type="repo" thumbnail="true" >}}
+  {{< embed url="https://example.com" title="Custom Title" description="Description" image="https://images.unsplash.com/photo-123" >}}
+  {{< embed platform="github" resource="owner/repo" image="https://custom-image.jpg" width="600" height="400" >}}
+*/}}
+
+{{/* Hugo Blox Builder ecosystem verification - Required for functionality */}}
+{{- $hbx_verification_result := partial "functions/hbx_verify.html" . -}}
+{{- if ne $hbx_verification_result "verified" -}}
+  {{ errorf "Hugo Blox Embed requires complete Hugo Blox Builder theme ecosystem at %s" .Position }}
+{{- end -}}
+
+{{ $hbx_embed_id := delimit (slice "hb-embed" (partial "functions/uid.html" .)) "-" }}
+
+{{/* New flexible parameters */}}
+{{- $platform := .Get "platform" -}}
+{{- $resource := .Get "resource" -}}
+{{- $type := .Get "type" -}}
+{{- $user := .Get "user" -}}
+{{- $customTitle := .Get "title" -}}
+{{- $customDescription := .Get "description" -}}
+{{- $customUrl := .Get "url" -}}
+{{- $imageUrl := .Get "image" -}}
+
+{{/* Image processing parameters */}}
+{{- $width := .Get "width" | default "800" | int -}}
+{{- $height := .Get "height" | default "600" | int -}}
+{{- $quality := .Get "quality" | default "80" | int -}}
+{{- $formats := .Get "formats" | default (slice "avif" "webp" "jpg") -}}
+{{- $showThumbnail := .Get "thumbnail" | default false -}}
+
+{{/* Set default platform based on available parameters */}}
+{{- if not $platform -}}
+  {{- if $customUrl -}}
+    {{- $platform = "custom" -}}
+  {{- else -}}
+    {{- $platform = "custom" -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Platform configuration - extensible for future platforms */}}
+{{- $config := dict -}}
+{{- if eq $platform "huggingface" -}}
+  {{- $config = partial "functions/embed/huggingface.html" (dict "resource" $resource "type" $type "customUrl" $customUrl) -}}
+{{- else if eq $platform "github" -}}
+  {{- $config = partial "functions/embed/github.html" (dict "resource" $resource "type" $type "user" $user "customUrl" $customUrl "showThumbnail" $showThumbnail "width" $width "height" $height "quality" $quality "formats" $formats) -}}
+{{- else -}}
+  {{/* Custom/generic embed configuration */}}
+  {{- $config = dict 
+      "repoLink" $customUrl 
+      "icon" "globe-alt"
+      "brandColors" (slice "zinc-700" "zinc-800")
+      "typeColor" "zinc-500"
+  -}}
+{{- end -}}
+
+{{/* Add generic image processing if image parameter is provided */}}
+{{- if $imageUrl -}}
+  {{- $config = merge $config (dict 
+      "imageUrl" $imageUrl
+      "isImageEmbed" true
+      "imageProcessing" (dict
+        "width" $width
+        "height" $height
+        "quality" $quality
+        "formats" $formats
+        "sizes" (slice 400 600 800 1200)
+      )
+  ) -}}
+{{- end -}}
+
+{{/* Fetch data from API if available - with graceful fallbacks */}}
+{{- $embedData := dict -}}
+{{- $processedImage := dict -}}
+{{- if $config.apiUrl -}}
+  {{- with try (resources.GetRemote $config.apiUrl) -}}
+    {{- with .Err -}}
+      {{/* Log warning but don't fail - allow graceful fallback */}}
+      {{- if not (strings.Contains (string .Err) "rate limit") -}}
+        {{- warnf "embed shortcode: failed to fetch remote resource from %q: %s (continuing with fallback display)" $config.apiUrl $.Position -}}
+      {{- end -}}
+    {{- else with .Value -}}
+      {{- $embedData = . | transform.Unmarshal -}}
+    {{- else -}}
+      {{/* Still warn but continue */}}
+      {{- warnf "embed shortcode: unable to get remote resource from %q (continuing with fallback display)" $config.apiUrl -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Process image if image URL or platform image is configured */}}
+{{- if and $config.isImageEmbed $config.imageUrl -}}
+  {{- with try (resources.GetRemote $config.imageUrl) -}}
+    {{- with .Err -}}
+      {{- warnf "embed shortcode: failed to fetch image from %q (continuing without image): %s" $config.imageUrl $.Position -}}
+    {{- else with .Value -}}
+      {{- $remoteImg := . -}}
+      {{- $resizeStr := printf "%dx%d jpg q%d" $config.imageProcessing.width $config.imageProcessing.height $config.imageProcessing.quality -}}
+      {{- with try ($remoteImg.Resize $resizeStr) -}}
+        {{- with .Err -}}
+          {{/* Image resize failed, use original */}}
+          {{- $processedImage = dict "fallback" $remoteImg "srcset" $remoteImg.RelPermalink -}}
+        {{- else with .Value -}}
+          {{- $processedImage = partial "functions/process_responsive_image.html" (dict 
+              "image" .
+              "mode" "responsive"
+              "sizes" $config.imageProcessing.sizes
+              "formats" $config.imageProcessing.formats
+          ) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if or $embedData $customUrl $config.repoLink $resource $processedImage -}}
+<div class="group bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:shadow-primary-500/10 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary-500/50 my-6" role="article" aria-labelledby="hb-embed-title-{{ $hbx_embed_id }}">
+  
+    <!-- Header with platform branding -->
+    <div class="flex items-center gap-3 p-6 border-b border-zinc-100 dark:border-zinc-800">
+      <div class="flex-shrink-0">
+        {{ partial "functions/embed/hbx_platform_icon.html" (dict "platform" $platform "config" $config "hb_id" $hbx_embed_id) }}
+      </div>
+      
+      <div class="flex-1 min-w-0">
+        {{ partial "functions/embed/hbx_title_section.html" (dict "hb_id" $hbx_embed_id "customTitle" $customTitle "embedData" $embedData "customUrl" $customUrl "resource" $resource "type" $type "platform" $platform "config" $config) }}
+      </div>
+      
+      <div class="flex-shrink-0">
+        <a href="{{ $config.repoLink | default $customUrl }}" target="_blank" rel="noopener" class="text-zinc-400 hover:text-primary-500 transition-colors duration-200">
+          {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "class=\"w-5 h-5 hb-embed-link\"") }}
+        </a>
+      </div>
+    </div>
+    
+    <!-- Content Section -->
+    <div class="p-6 space-y-4">
+      {{ partial "functions/embed/hbx_content_section.html" (dict "customDescription" $customDescription "embedData" $embedData "platform" $platform "hb_id" $hbx_embed_id "config" $config "processedImage" $processedImage) }}
+    </div>
+    
+    <!-- Hover indicator -->
+    <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-primary-500/0 via-primary-500/5 to-secondary-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    
+    <!-- Required MIT Attribution - Do Not Remove -->
+    <div class="sr-only" data-hb-component="embed" data-hb-version="1.0" data-hb-license="MIT">
+      Powered by Hugo Blox Builder - https://github.com/HugoBlox/hugo-blox-builder
+    </div>
+    
+</div>
+{{- else -}}
+  {{ warnf "embed shortcode: unable to fetch data or missing required parameters: %s" .Position }}
+  <!-- Fallback display -->
+  <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 my-6">
+    <div class="flex items-center gap-2 text-yellow-800 dark:text-yellow-200">
+      {{ partial "functions/get_icon" (dict "name" "exclamation-triangle" "attributes" "class=\"w-5 h-5\"") }}
+      <span class="font-medium">Embed Warning</span>
+    </div>
+    <p class="mt-1 text-sm text-yellow-700 dark:text-yellow-300">
+      Unable to load embedded content. Please check the parameters and try again.
+    </p>
+  </div>
+{{- end -}}

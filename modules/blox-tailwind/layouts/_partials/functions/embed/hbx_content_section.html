@@ -1,0 +1,107 @@
+{{/*
+  Content section rendering for embed cards
+  
+  Parameters:
+  - customDescription: user-provided description override
+  - embedData: data fetched from API
+  - platform: platform name
+  - hb_id: Hugo Blox unique identifier
+  - config: platform configuration
+  - processedImage: processed image data (for image embeds)
+*/}}
+
+{{- $customDescription := .customDescription -}}
+{{- $embedData := .embedData -}}
+{{- $platform := .platform -}}
+{{- $hb_id := .hb_id -}}
+{{- $config := .config -}}
+{{- $processedImage := .processedImage -}}
+
+{{/* Display processed image if available */}}
+{{- if $processedImage -}}
+  <div class="mb-4 overflow-hidden rounded-lg">
+    <img class="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105" 
+         srcset="{{ $processedImage.srcset }}"
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+         src="{{ $processedImage.fallback.RelPermalink }}" 
+         width="{{ $processedImage.fallback.Width }}" 
+         height="{{ $processedImage.fallback.Height }}"
+         loading="lazy" 
+         decoding="async"
+         alt="{{ if $customDescription }}{{ $customDescription }}{{ else if and $embedData $config.titleField }}{{ index $embedData $config.titleField }}{{ else }}Embedded image{{ end }}"
+         style="aspect-ratio: {{ $processedImage.fallback.Width }}/{{ $processedImage.fallback.Height }};">
+  </div>
+{{- end -}}
+
+{{/* Description handling */}}
+{{- $description := $customDescription -}}
+{{- if and (not $description) $embedData $config.descriptionField -}}
+  {{- $description = index $embedData $config.descriptionField -}}
+  {{/* Apply platform-specific cleanup */}}
+  {{- if $config.descriptionCleanup -}}
+    {{- $description = $description | replaceRE $config.descriptionCleanup "" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $description -}}
+  <p class="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed line-clamp-3">
+    {{ $description | plainify | htmlUnescape | truncate 200 | emojify }}
+  </p>
+{{- end -}}
+
+{{/* Platform-specific stats section */}}
+{{- if and $embedData $config.statsConfig -}}
+  <div class="flex items-center gap-6 pt-2">
+    {{- range $statKey, $statConfig := $config.statsConfig -}}
+      {{- $statValue := index $embedData $statConfig.field -}}
+      {{- if $statValue -}}
+        <div class="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+          {{ partial "functions/get_icon" (dict "name" $statConfig.icon "attributes" (printf "class=\"w-4 h-4 text-%s\"" $statConfig.color)) }}
+          {{- if and (eq $platform "github") (eq $statKey "issues") -}}
+            {{/* Make issues count clickable for GitHub */}}
+            <a href="{{ $config.repoLink }}/issues" target="_blank" rel="noopener" class="font-medium hover:text-primary-600 dark:hover:text-primary-400 hover:underline transition-colors duration-200" id="hb-{{ $hb_id }}-{{ $statKey }}">
+              {{- if gt $statValue 999 -}}
+                {{- if gt $statValue 999999 -}}
+                  {{ div $statValue 1000000 }}M
+                {{- else -}}
+                  {{ div $statValue 1000 }}k
+                {{- end -}}
+              {{- else -}}
+                {{ $statValue }}
+              {{- end -}}
+            </a>
+          {{- else -}}
+            <span id="hb-{{ $hb_id }}-{{ $statKey }}">
+              {{- if gt $statValue 999 -}}
+                {{- if gt $statValue 999999 -}}
+                  {{ div $statValue 1000000 }}M
+                {{- else -}}
+                  {{ div $statValue 1000 }}k
+                {{- end -}}
+              {{- else -}}
+                {{ $statValue }}
+              {{- end -}}
+            </span>
+          {{- end -}}
+        </div>
+      {{- end -}}
+    {{- end -}}
+  </div>
+{{- end -}}
+
+{{/* Additional platform-specific content */}}
+{{- if eq $platform "github" -}}
+  {{/* Show additional GitHub-specific info if available */}}
+  {{- if and $embedData $embedData.topics -}}
+    <div class="flex flex-wrap gap-1 pt-2">
+      {{- range first 3 $embedData.topics -}}
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">
+          {{ . | emojify }}
+        </span>
+      {{- end -}}
+      {{- if gt (len $embedData.topics) 3 -}}
+        <span class="text-xs text-zinc-500 dark:text-zinc-500">+{{ sub (len $embedData.topics) 3 }}</span>
+      {{- end -}}
+    </div>
+  {{- end -}}
+{{- end -}}

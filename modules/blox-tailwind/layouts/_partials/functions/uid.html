@@ -1,0 +1,19 @@
+{{/* 
+  Hugo Blox UID Generator
+  Generate a unique ID for shortcodes and components.
+  Uses the page's unique ID combined with ordinal for uniqueness.
+*/}}
+
+{{ $uid := .Page.File.UniqueID }}
+{{ $ctx := . }}
+
+{{ range seq 16 }}
+  {{ with $ctx }}
+    {{ $uid = printf "%s-%d" $uid .Ordinal }}
+    {{ $ctx = .Parent }}
+  {{ else }}
+    {{ break }}
+  {{ end }}
+{{ end }}
+
+{{ return (crypto.MD5 $uid) }}

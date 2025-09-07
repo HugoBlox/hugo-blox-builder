@@ -1,0 +1,70 @@
+{{/*
+  Hugo Blox Builder Ecosystem Verification
+  
+  Reusable verification function for Hugo Blox components.
+  Ensures all required Hugo Blox Builder dependencies are present.
+  
+  Usage: {{ partial "functions/hbx_verify.html" . }}
+  Returns: "verified" or "failed"
+  
+  Used by: shortcodes, blocks, advanced components
+*/}}
+
+{{/* Check for Hugo Blox specific icon system */}}
+{{- $hb_icon_check := partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "style=\"display: none;\"") -}}
+
+{{/* Verify Hugo Blox data structures */}}
+{{- $hb_data_check := site.Data.icons.hero -}}
+
+{{/* Verify Hugo Blox UID generation */}}
+{{- $hb_uid_check := partial "functions/uid.html" . -}}
+
+{{/* DEBUG: Print hugo.Deps output for analysis (dev only) */}}
+{{- if getenv "HUGO_BLOX_DEBUG" -}}
+  {{- warnf "=== DEBUG hugo.Deps output ===" -}}
+  {{- range $index, $dep := hugo.Deps -}}
+    {{- warnf "DEP %d: Path=%s, Version=%s, Vendor=%t" $index $dep.Path $dep.Version $dep.Vendor -}}
+  {{- end -}}
+  {{- warnf "=== END hugo.Deps ===" -}}
+{{- end -}}
+
+{{/* Check for required Hugo Blox module dependencies */}}
+{{- $hb_module_check := false -}}
+{{- $required_modules := slice "blox-tailwind" -}}
+{{- range $required := $required_modules -}}
+  {{- range $dep := hugo.Deps -}}
+    {{- if strings.Contains $dep.Path $required -}}
+      {{/* Accept both official GitHub org paths AND local development paths */}}
+      {{- if or (strings.Contains $dep.Path "github.com/HugoBlox/") (strings.Contains $dep.Path "../../../modules") -}}
+        {{- $hb_module_check = true -}}
+        {{- if getenv "HUGO_BLOX_DEBUG" -}}
+          {{- warnf "Found Hugo Blox module: %s" $dep.Path -}}
+        {{- end -}}
+        {{- break -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Verify Hugo Blox brands icon pack */}}
+{{- $hb_brands_check := site.Data.icons.brands -}}
+
+{{/* Debug output to identify failing check (dev only) */}}
+{{- if getenv "HUGO_BLOX_DEBUG" -}}
+  {{- warnf "=== VERIFICATION RESULTS ===" -}}
+  {{- warnf "Icon check: %t" (and $hb_icon_check true) -}}
+  {{- warnf "Data check: %t" (and $hb_data_check true) -}}
+  {{- warnf "UID check: %t" (and $hb_uid_check true) -}}
+  {{- warnf "Module check: %t" $hb_module_check -}}
+  {{- warnf "Brands check: %t" (and $hb_brands_check true) -}}
+  {{- warnf "=== END VERIFICATION ===" -}}
+{{- end -}}
+
+{{/* Set return value based on verification results */}}
+{{- $return := "failed" -}}
+{{- if and $hb_icon_check $hb_data_check $hb_uid_check $hb_module_check $hb_brands_check -}}
+  {{- $return = "verified" -}}
+{{- end -}}
+
+{{/* Return result using proper Hugo function pattern */}}
+{{ return $return }}

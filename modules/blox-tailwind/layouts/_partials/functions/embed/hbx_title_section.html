@@ -1,0 +1,162 @@
+{{/*
+  Title section rendering for embed cards
+  
+  Parameters:
+  - hb_id: Hugo Blox unique identifier
+  - customTitle: user-provided title override
+  - embedData: data fetched from API
+  - customUrl: custom URL if provided
+  - resource: platform resource identifier
+  - type: resource type
+  - platform: platform name
+  - config: platform configuration
+*/}}
+
+{{- $hb_id := .hb_id -}}
+{{- $customTitle := .customTitle -}}
+{{- $embedData := .embedData -}}
+{{- $customUrl := .customUrl -}}
+{{- $resource := .resource -}}
+{{- $type := .type -}}
+{{- $platform := .platform -}}
+{{- $config := .config -}}
+
+<h3 id="hb-embed-title-{{ $hb_id }}" class="text-xl font-bold tracking-tight leading-tight truncate">
+  <a href="{{ $config.repoLink | default $customUrl }}" target="_blank" rel="noopener" class="text-zinc-900 dark:text-zinc-100 hover:text-primary-600 dark:hover:text-primary-400 hover:underline transition-colors duration-200">
+    {{- if $customTitle -}}
+      {{ $customTitle | emojify }}
+    {{- else if and $embedData $config.titleField -}}
+      {{ index $embedData $config.titleField | emojify }}
+    {{- else if and $embedData $embedData.name -}}
+      {{ $embedData.name | emojify }}
+    {{- else if and $embedData $embedData.id -}}
+      {{ $embedData.id | emojify }}
+    {{- else if $customUrl -}}
+      {{- $parsed := urls.Parse $customUrl -}}
+      {{ $parsed.Host | emojify }}
+    {{- else if $resource -}}
+      {{- if eq $platform "github" -}}
+        {{/* For GitHub, show just the repo name, not the full "owner/repo" */}}
+        {{- $parts := split $resource "/" -}}
+        {{- if gt (len $parts) 1 -}}
+          {{ index $parts 1 | emojify }}
+        {{- else -}}
+          {{ $resource | emojify }}
+        {{- end -}}
+      {{- else -}}
+        {{ $resource | emojify }}
+      {{- end -}}
+    {{- else -}}
+      Embedded Resource
+    {{- end -}}
+  </a>
+</h3>
+
+{{/* Resource type and subtype indicator */}}
+{{- $showTypeIndicator := false -}}
+{{- $typeText := "" -}}
+{{- $typeColor := $config.typeColor | default "zinc-500" -}}
+
+{{/* Always show type indicator for GitHub repos with data */}}
+{{- if and (eq $platform "github") $embedData $config.ownerField -}}
+  {{- $showTypeIndicator = true -}}
+{{- end -}}
+
+{{/* Force metadata line for custom embeds to ensure proper alignment */}}
+{{- if eq $platform "custom" -}}
+  {{- $showTypeIndicator = true -}}
+{{- end -}}
+
+{{- if $type -}}
+  {{- $showTypeIndicator = true -}}
+  {{- if and $embedData $config.subtypeField -}}
+    {{- if $config.subtypeIndex -}}
+      {{- $subtypes := index $embedData $config.subtypeField -}}
+      {{- if $subtypes -}}
+        {{- $typeText = index $subtypes $config.subtypeIndex -}}
+      {{- else -}}
+        {{- $typeText = $type -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $typeText = index $embedData $config.subtypeField | default $type -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $typeText = $type -}}
+  {{- end -}}
+{{- else if and $embedData $config.subtypeField -}}
+  {{- $showTypeIndicator = true -}}
+  {{- if $config.subtypeIndex -}}
+    {{- $subtypes := index $embedData $config.subtypeField -}}
+    {{- if $subtypes -}}
+      {{- $typeText = index $subtypes $config.subtypeIndex -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $typeText = index $embedData $config.subtypeField -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $showTypeIndicator -}}
+<div class="flex items-center gap-2 mt-1">
+  {{/* GitHub repos: Show owner prominently, then language */}}
+  {{- if eq $platform "github" -}}
+    {{- $owner := "" -}}
+    {{/* Get owner from API data if available */}}
+    {{- if $embedData -}}
+      {{- if eq $config.ownerField "owner.login" -}}
+        {{/* Handle nested GitHub API structure: embedData.owner.login */}}
+        {{- $ownerObj := index $embedData "owner" -}}
+        {{- if $ownerObj -}}
+          {{- $owner = index $ownerObj "login" -}}
+        {{- end -}}
+      {{- else if $config.ownerField -}}
+        {{/* Handle simple field access */}}
+        {{- $owner = index $embedData $config.ownerField -}}
+      {{- end -}}
+    {{- end -}}
+    
+    {{/* Fallback: extract owner from resource string (e.g., "HugoBlox/hugo-blox-builder" -> "HugoBlox") */}}
+    {{- if and (not $owner) $resource -}}
+      {{- $parts := split $resource "/" -}}
+      {{- if gt (len $parts) 0 -}}
+        {{- $owner = index $parts 0 -}}
+      {{- end -}}
+    {{- end -}}
+    
+    {{- if $owner -}}
+      <span class="text-sm text-zinc-600 dark:text-zinc-400">by 
+        <a href="https://github.com/{{ $owner }}" target="_blank" rel="noopener" class="font-medium hover:text-primary-600 dark:hover:text-primary-400 hover:underline transition-colors duration-200">{{ $owner | emojify }}</a>
+      </span>
+      {{- if $typeText -}}
+        <span class="text-sm text-zinc-500 dark:text-zinc-500">•</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-{{ $typeColor }}"></span>
+        <span class="text-sm text-zinc-500 dark:text-zinc-500 capitalize">{{ $typeText | emojify }}</span>
+      {{- end -}}
+    {{- else if $typeText -}}
+      {{/* No owner, just show type */}}
+      <span class="inline-block w-2 h-2 rounded-full bg-{{ $typeColor }}"></span>
+      <span class="text-sm text-zinc-600 dark:text-zinc-400 capitalize">{{ $typeText | emojify }}</span>
+    {{- end -}}
+  {{- else if eq $platform "custom" -}}
+    {{/* Custom embeds: Show domain or minimal placeholder for consistent alignment */}}
+    {{- if $customUrl -}}
+      {{- $parsed := urls.Parse $customUrl -}}
+      {{- $domain := $parsed.Host -}}
+      <span class="text-sm text-zinc-500 dark:text-zinc-500">{{ $domain | emojify }}</span>
+    {{- else -}}
+      {{/* Minimal placeholder to maintain visual spacing */}}
+      <span class="text-sm text-zinc-500 dark:text-zinc-500 opacity-0">external resource</span>
+    {{- end -}}
+  {{- else -}}
+    {{/* Other platforms: Show type with indicator */}}
+    {{- if $typeText -}}
+      <span class="inline-block w-2 h-2 rounded-full bg-{{ $typeColor }}"></span>
+      <span class="text-sm text-zinc-600 dark:text-zinc-400 capitalize">
+        {{ $typeText | emojify }}
+      </span>
+    {{- else -}}
+      {{/* Minimal placeholder for consistent spacing */}}
+      <span class="text-sm text-zinc-500 dark:text-zinc-500 opacity-0">platform resource</span>
+    {{- end -}}
+  {{- end -}}
+</div>
+{{- end -}}

@@ -1,0 +1,67 @@
+{{/*
+  HuggingFace platform configuration
+  
+  Parameters:
+  - resource: model or dataset identifier
+  - type: "model" or "dataset" 
+  - customUrl: optional override URL
+*/}}
+
+{{- $resource := .resource -}}
+{{- $type := .type -}}
+{{- $customUrl := .customUrl -}}
+
+{{- $config := dict -}}
+
+{{- if $resource -}}
+  {{- if eq $type "model" -}}
+    {{- $config = dict 
+        "apiUrl" (print "https://huggingface.co/api/models/" $resource)
+        "repoLink" (print "https://huggingface.co/" $resource)
+        "icon" "cpu-chip"
+        "brandColors" (slice "yellow-400" "orange-500")
+        "typeColor" "secondary-500"
+        "statsConfig" (dict 
+          "likes" (dict "icon" "heart" "color" "secondary-500" "field" "likes")
+          "downloads" (dict "icon" "arrow-down-tray" "color" "primary-500" "field" "downloads")
+        )
+        "titleField" "id"
+        "descriptionField" "description"
+        "descriptionCleanup" `Dataset Card for .+\s+Dataset Summary\s+`
+        "subtypeField" "pipeline_tag"
+    -}}
+  {{- else if eq $type "dataset" -}}
+    {{- $config = dict 
+        "apiUrl" (print "https://huggingface.co/api/datasets/" $resource)
+        "repoLink" (print "https://huggingface.co/datasets/" $resource)
+        "icon" "circle-stack"
+        "brandColors" (slice "yellow-400" "orange-500")
+        "typeColor" "primary-500"
+        "statsConfig" (dict 
+          "likes" (dict "icon" "heart" "color" "secondary-500" "field" "likes")
+          "downloads" (dict "icon" "arrow-down-tray" "color" "primary-500" "field" "downloads")
+        )
+        "titleField" "id"
+        "descriptionField" "description"
+        "descriptionCleanup" `Dataset Card for .+\s+Dataset Summary\s+`
+        "subtypeField" "task_categories"
+        "subtypeIndex" 0
+    -}}
+  {{- else -}}
+    {{- $config = dict 
+        "repoLink" (print "https://huggingface.co/" $resource)
+        "icon" "link"
+        "brandColors" (slice "yellow-400" "orange-500")
+        "typeColor" "zinc-500"
+    -}}
+  {{- end -}}
+{{- else if $customUrl -}}
+  {{- $config = dict 
+      "repoLink" $customUrl
+      "icon" "link"
+      "brandColors" (slice "yellow-400" "orange-500")
+      "typeColor" "zinc-500"
+  -}}
+{{- end -}}
+
+{{ return $config }}

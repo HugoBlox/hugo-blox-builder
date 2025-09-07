@@ -1,0 +1,28 @@
+{{/*
+  Platform icon rendering
+  
+  Parameters:
+  - platform: platform name (huggingface, github, etc.)
+  - config: platform configuration dict
+  - hb_id: Hugo Blox unique identifier for the embed
+*/}}
+
+{{- $platform := .platform -}}
+{{- $config := .config -}}
+{{- $hb_id := .hb_id -}}
+
+{{- if eq $platform "huggingface" -}}
+  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-{{ index $config.brandColors 0 }} to-{{ index $config.brandColors 1 }} flex items-center justify-center">
+    {{ partial "functions/get_icon" (dict "name" "brands/huggingface" "attributes" "class=\"w-6 h-6 text-white\"") }}
+  </div>
+{{- else if eq $platform "github" -}}
+  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-{{ index $config.brandColors 0 }} to-{{ index $config.brandColors 1 }} flex items-center justify-center">
+    {{ partial "functions/get_icon" (dict "name" "brands/github" "attributes" "class=\"w-6 h-6 text-white\"") }}
+  </div>
+{{- else -}}
+  {{/* Custom/generic embeds use neutral styling */}}
+  <div class="w-10 h-10 rounded-full bg-gradient-to-br from-{{ index $config.brandColors 0 }} to-{{ index $config.brandColors 1 }} flex items-center justify-center">
+    {{ partial "functions/get_icon" (dict "name" ($config.icon | default "globe-alt") "attributes" "class=\"w-5 h-5 text-white\"") }}
+  </div>
+{{- end -}}
+

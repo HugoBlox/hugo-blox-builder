@@ -1,0 +1,97 @@
+{{/*
+  Hugo Blox GitHub Platform Configuration
+  Part of Hugo Blox embed system
+  
+  Parameters:
+  - resource: repository identifier (e.g., "owner/repo")
+  - type: "repo", "gist", etc.
+  - user: username/organization
+  - customUrl: optional override URL
+*/}}
+
+{{- $resource := .resource -}}
+{{- $type := .type | default "repo" -}}
+{{- $user := .user -}}
+{{- $customUrl := .customUrl -}}
+{{- $showThumbnail := .showThumbnail | default false -}}
+{{- $width := .width | default 600 -}}
+{{- $height := .height | default 315 -}}
+{{- $quality := .quality | default 85 -}}
+{{- $formats := .formats | default (slice "avif" "webp" "jpg") -}}
+
+{{- $config := dict -}}
+
+{{- if $resource -}}
+  {{- if eq $type "repo" -}}
+    {{- if $showThumbnail -}}
+      {{- $config = dict 
+          "apiUrl" (print "https://api.github.com/repos/" $resource)
+          "repoLink" (print "https://github.com/" $resource)
+          "imageUrl" (print "https://opengraph.githubassets.com/0/" $resource)
+          "icon" "code-bracket"
+          "brandColors" (slice "slate-800" "slate-900")
+          "typeColor" "primary-500"
+          "isImageEmbed" true
+          "imageProcessing" (dict
+            "width" $width
+            "height" $height
+            "quality" $quality
+            "formats" $formats
+            "sizes" (slice 400 600 800)
+          )
+          "statsConfig" (dict 
+            "stars" (dict "icon" "star" "color" "yellow-500" "field" "stargazers_count")
+            "forks" (dict "icon" "git-fork" "color" "primary-500" "field" "forks_count")
+            "issues" (dict "icon" "exclamation-circle" "color" "red-500" "field" "open_issues_count")
+          )
+          "titleField" "name"
+          "descriptionField" "description"
+          "subtypeField" "language"
+          "ownerField" "owner.login"
+      -}}
+    {{- else -}}
+      {{- $config = dict 
+          "apiUrl" (print "https://api.github.com/repos/" $resource)
+          "repoLink" (print "https://github.com/" $resource)
+          "icon" "code-bracket"
+          "brandColors" (slice "slate-800" "slate-900")
+          "typeColor" "primary-500"
+          "statsConfig" (dict 
+            "stars" (dict "icon" "star" "color" "yellow-500" "field" "stargazers_count")
+            "forks" (dict "icon" "git-fork" "color" "primary-500" "field" "forks_count")
+            "issues" (dict "icon" "exclamation-circle" "color" "red-500" "field" "open_issues_count")
+          )
+          "titleField" "name"
+          "descriptionField" "description"
+          "subtypeField" "language"
+          "ownerField" "owner.login"
+      -}}
+    {{- end -}}
+  {{- else if eq $type "gist" -}}
+    {{- $config = dict 
+        "apiUrl" (print "https://api.github.com/gists/" $resource)
+        "repoLink" (print "https://gist.github.com/" $resource)
+        "icon" "document-text"
+        "brandColors" (slice "slate-800" "slate-900")
+        "typeColor" "secondary-500"
+        "titleField" "description"
+        "descriptionField" "description"
+    -}}
+  {{- else -}}
+    {{- $config = dict 
+        "repoLink" (print "https://github.com/" $resource)
+        "icon" "link"
+        "brandColors" (slice "slate-800" "slate-900")
+        "typeColor" "zinc-500"
+    -}}
+  {{- end -}}
+{{- else if $customUrl -}}
+  {{- $config = dict 
+      "repoLink" $customUrl
+      "icon" "link"
+      "brandColors" (slice "slate-800" "slate-900")
+      "typeColor" "zinc-500"
+  -}}
+{{- end -}}
+
+{{ return $config }}

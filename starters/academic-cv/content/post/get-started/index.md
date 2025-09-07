@@ -18,9 +18,6 @@ tags:
   - Markdown
 
 content_meta:
-  # content_type: 'Tutorial'
-  # difficulty: 'Beginner'
-  prerequisites: ['Markdown']
   trending: true
 ---
 
