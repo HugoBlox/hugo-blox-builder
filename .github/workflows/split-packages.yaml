@@ -4,12 +4,21 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+  # IMPORTANT: workflows below must match the upstream workflow's `name:` exactly
+  workflow_run:
+    workflows:
+      - Release HugoBlox Modules
+    types:
+      - completed
 
 env:
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
 jobs:
   packages_split:
+    # Run normally for push/workflow_dispatch; for workflow_run only run on success
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     strategy:
