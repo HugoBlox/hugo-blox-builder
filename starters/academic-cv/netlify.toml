@@ -1,20 +1,55 @@
 [build]
-  command = "pnpm install && hugo --gc --minify -b $URL && pnpm dlx pagefind --source 'public'"
+  command = """
+    set -e
+    echo "=== Starting Academic CV build process ==="
+    echo "Node version: $(node --version)"
+    echo "pnpm version: $(pnpm --version)"
+    echo "Hugo version: $(hugo version)"
+    
+    echo "=== Installing dependencies ==="
+    pnpm install --verbose
+    
+    echo "=== Running Hugo build ==="
+    hugo --gc --minify -b $URL --verbose --debug --logLevel info
+    
+    echo "=== Running Pagefind indexing ==="
+    pnpm dlx pagefind --source 'public' --verbose
+    
+    echo "=== Build completed successfully ==="
+  """
   publish = "public"
 
 [build.environment]
   HUGO_VERSION = "0.149.1"
   NODE_VERSION = "20.0.0"
   HUGO_ENABLEGITINFO = "true"
+  HUGO_LOG_I18N_WARNINGS = "true"
+  HUGO_LOG_WARNINGS = "true"
+  FORCE_COLOR = "1"
+  PNPM_LOG_LEVEL = "debug"
 
 [context.production.environment]
   HUGO_ENV = "production"
 
 [context.deploy-preview]
-  command = "pnpm install && hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL && pnpm dlx pagefind --source 'public'"
+  command = """
+    set -e
+    echo "=== Deploy Preview Build ==="
+    echo "Deploy URL: $DEPLOY_PRIME_URL"
+    pnpm install --verbose
+    hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL --verbose --debug --logLevel info
+    pnpm dlx pagefind --source 'public' --verbose
+  """
 
 [context.branch-deploy]
-  command = "pnpm install && hugo --gc --minify -b $DEPLOY_PRIME_URL && pnpm dlx pagefind --source 'public'"
+  command = """
+    set -e
+    echo "=== Branch Deploy Build ==="
+    echo "Deploy URL: $DEPLOY_PRIME_URL"
+    pnpm install --verbose
+    hugo --gc --minify -b $DEPLOY_PRIME_URL --verbose --debug --logLevel info
+    pnpm dlx pagefind --source 'public' --verbose
+  """
 
 [[plugins]]
   package = "netlify-plugin-hugo-cache-resources"
