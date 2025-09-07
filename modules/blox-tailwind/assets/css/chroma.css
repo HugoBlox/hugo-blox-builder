@@ -16,3 +16,11 @@
   color: white;
   background-color: rgb(71 85 105); /* slate-700 equivalent */
 }
+
+/* Fix LaTeX/TeX math rendering in code blocks - prevent inheriting italic from Chroma in dark mode */
+.chroma .language-latex,
+.chroma .language-latex *,
+.chroma .language-tex,
+.chroma .language-tex * {
+  font-style: normal !important;
+}
