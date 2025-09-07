@@ -10,7 +10,7 @@
     pnpm install --verbose
     
     echo "=== Running Hugo build ==="
-    hugo --gc --minify -b $URL --verbose --debug --logLevel info
+    hugo --gc --minify -b $URL --logLevel debug --printI18nWarnings --printPathWarnings --printUnusedTemplates
     
     echo "=== Build completed successfully ==="
   """
@@ -34,7 +34,7 @@
     echo "=== Deploy Preview Build ==="
     echo "Deploy URL: $DEPLOY_PRIME_URL"
     pnpm install --verbose
-    hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL --verbose --debug --logLevel info
+    hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL --logLevel debug --printI18nWarnings --printPathWarnings
   """
 
 [context.branch-deploy]
@@ -43,7 +43,7 @@
     echo "=== Branch Deploy Build ==="
     echo "Deploy URL: $DEPLOY_PRIME_URL"
     pnpm install --verbose
-    hugo --gc --minify -b $DEPLOY_PRIME_URL --verbose --debug --logLevel info
+    hugo --gc --minify -b $DEPLOY_PRIME_URL --logLevel debug --printI18nWarnings --printPathWarnings
   """
 
 [[plugins]]
