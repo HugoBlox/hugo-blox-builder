@@ -76,13 +76,18 @@
   {{ $style_bg = printf "%sfilter: brightness(%s);" $style_bg (string .) }}
 {{ end }}
 
-{{ with $block.design.spacing.padding }}
-  {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
-  {{ $style = print $style $style_pad }}
-{{ else }}
-  {{ with $page.Params.design.spacing }}
-    {{/* Fallback to default section spacing setting */}}
-    {{ $style_pad := printf "padding: %s 0 %s 0;" . . }}
+{{/* Determine spacing source: block-level or fallback to page-level */}}
+{{ $block_spacing := or $block.design.spacing $page.Params.design.spacing }}
+{{ if $block_spacing }}
+  {{/* Apply unified spacing logic to either block or page spacing */}}
+  {{ if and (reflect.IsMap $block_spacing) (index $block_spacing "padding") }}
+    {{/* Handle nested array format: spacing: { padding: ["2rem", "0", "0", "0"] } */}}
+    {{ $padding_values := index $block_spacing "padding" }}
+    {{ $style_pad := printf "padding: %s;" (delimit $padding_values " ") }}
+    {{ $style = print $style $style_pad }}
+  {{ else }}
+    {{/* Handle string formats: spacing: "2rem" (symmetric) OR spacing: "2rem 0 0 0" (per-side) */}}
+    {{ $style_pad := printf "padding: %s;" $block_spacing }}
     {{ $style = print $style $style_pad }}
   {{ end }}
 {{ end }}
