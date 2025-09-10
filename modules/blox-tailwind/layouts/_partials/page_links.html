@@ -72,3 +72,12 @@
     {{ end }}
   {{ end }}
 {{ end }}
+
+{{/* Add badges on single pages only */}}
+{{ if not $is_list }}
+  <div class="mt-2 flex flex-wrap items-center gap-2">
+    {{ partial "badges/altmetric" (dict "page" $page "is_list" $is_list) }}
+    {{ partial "badges/dimensions" (dict "page" $page "is_list" $is_list) }}
+    {{ partial "badges/inspire" (dict "page" $page "is_list" $is_list) }}
+  </div>
+{{ end }}
