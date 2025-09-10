@@ -1,0 +1,106 @@
+{{/*
+  InspireHEP citation count link
+
+  Usage:
+    {{ partial "badges/inspire" (dict "page" $page "is_list" $is_list) }}
+
+  Controlled by site param:
+    params.features.inspirehep.enable: true|false
+*/}}
+
+{{ $enabled := site.Params.features.inspirehep.enable | default false }}
+{{ if $enabled }}
+
+  {{ $page := .page }}
+  {{ $doi := $page.Params.doi | default "" }}
+  {{ $arxiv := $page.Params.arxiv_number | default "" }}
+  {{ $inspire_id := $page.Params.inspirehep_id | default "" }}
+  {{/* Support new HugoBlox IDs schema if present */}}
+  {{ $hb_ids := index $page.Params "hugoblox" "ids" }}
+  {{ with $hb_ids }}
+    {{ if and (not $doi) (index . "doi") }}
+      {{ $doi = index . "doi" }}
+    {{ end }}
+    {{ if and (not $arxiv) (index . "arxiv") }}
+      {{ $arxiv = index . "arxiv" }}
+    {{ end }}
+    {{ if and (not $inspire_id) (or (index . "inspirehep") (index . "inspirehep_id") (index . "inspire")) }}
+      {{ $inspire_id = (or (index . "inspirehep") (index . "inspirehep_id") (index . "inspire")) }}
+    {{ end }}
+  {{ end }}
+
+  {{ $q := "" }}
+  {{ if and $inspire_id (ne (printf "%v" $inspire_id) "") }}
+    {{/* Use explicit Inspire control number if provided */}}
+  {{ else if $doi }}
+    {{/* Prefer DOI when available */}}
+    {{ $q = printf "doi:%s" $doi }}
+  {{ else if $arxiv }}
+    {{ $q = printf "arxiv_eprints.value:%s" $arxiv }}
+  {{ end }}
+
+  {{ if and $inspire_id (ne (printf "%v" $inspire_id) "") }}
+    {{ $api := printf "https://inspirehep.net/api/literature/%v?fields=citation_count,control_number" $inspire_id }}
+    {{ $data := dict }}
+    {{ with (resources.GetRemote $api) }}
+      {{ with ( . | transform.Unmarshal ) }}
+        {{ $data = . }}
+      {{ end }}
+    {{ end }}
+    {{ $meta := index $data "metadata" }}
+    {{ $count := index $meta "citation_count" }}
+    {{ $count_num := or $count 0 }}
+    {{ $count_str := printf "%d" (int $count_num) }}
+    {{/* Use the provided ID for the link to avoid float formatting */}}
+    {{ $cn_str := printf "%v" $inspire_id }}
+    {{ if $cn_str }}
+      {{ $inspire_url := printf "https://inspirehep.net/literature/%s" $cn_str }}
+      {{ $badge := site.Params.features.inspirehep.badge | default true }}
+      {{ if $badge }}
+        <a class="inline-flex items-center align-middle whitespace-nowrap leading-none" href="{{ $inspire_url }}" aria-label="InspireHEP link" target="_blank" rel="noopener" role="button" style="vertical-align: middle;">
+          <img src="https://img.shields.io/badge/inspire-{{ $count_str }}-001628?logo=inspire&logoColor=001628&labelColor=beige" alt="{{ $count_str }} InspireHEP citations">
+        </a>
+      {{ else }}
+        <a class="hb-attachment-link {{ if .is_list }}hb-attachment-small{{else}}hb-attachment-large{{end}}" href="{{ $inspire_url }}" target="_blank" rel="noopener">
+          {{ partial "functions/get_icon" (dict "name" "link" "attributes" "style=\"height: 1em\" class='inline-block'") }}
+          Inspire citations: {{ $count_str }}
+          {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-4 w-4 ml-1 align-text-top\"") }}
+        </a>
+      {{ end }}
+    {{ end }}
+  {{ else if $q }}
+    {{ $api := printf "https://inspirehep.net/api/literature?q=%s&size=1&fields=control_number,citation_count" ($q | urlquery) }}
+    {{ $data := dict }}
+    {{ with (resources.GetRemote $api) }}
+      {{ with ( . | transform.Unmarshal ) }}
+        {{ $data = . }}
+      {{ end }}
+    {{ end }}
+
+    {{ $hits := index $data "hits" "hits" }}
+    {{ if and $hits (gt (len $hits) 0) }}
+      {{ $meta := index $hits 0 "metadata" }}
+      {{ $count := index $meta "citation_count" }}
+      {{ $count_num := or $count 0 }}
+      {{ $count_str := printf "%d" (int $count_num) }}
+      {{ $cn := index $meta "control_number" }}
+      {{ $cn_str := printf "%d" (int $cn) }}
+      {{ if $cn_str }}
+        {{ $inspire_url := printf "https://inspirehep.net/literature/%s" $cn_str }}
+        {{ $badge := site.Params.features.inspirehep.badge | default true }}
+        {{ if $badge }}
+          <a class="inline-flex items-center align-middle whitespace-nowrap leading-none" href="{{ $inspire_url }}" aria-label="InspireHEP link" target="_blank" rel="noopener" role="button" style="vertical-align: middle;">
+            <img src="https://img.shields.io/badge/inspire-{{ $count_str }}-001628?logo=inspire&logoColor=001628&labelColor=beige" alt="{{ $count_str }} InspireHEP citations">
+          </a>
+        {{ else }}
+          <a class="hb-attachment-link {{ if .is_list }}hb-attachment-small{{else}}hb-attachment-large{{end}}" href="{{ $inspire_url }}" target="_blank" rel="noopener">
+            {{ partial "functions/get_icon" (dict "name" "link" "attributes" "style=\"height: 1em\" class='inline-block'") }}
+            Inspire citations: {{ $count_str }}
+            {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-4 w-4 ml-1 align-text-top\"") }}
+          </a>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+{{ end }}
