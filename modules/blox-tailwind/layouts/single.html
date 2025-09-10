@@ -159,16 +159,20 @@
         ) }}
         
         {{/* Featured image - use fitted image dimensions for container, responsive for srcset */}}
+        {{/* Also wrap in link to open the original (max quality), matching gallery behavior */}}
+        {{ $full_image_href := $featured.RelPermalink }}
         <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$fitted_image.Width}}px; max-height: {{$fitted_image.Height}}px;">
-          <div style="position: relative">
+          <div class="group w-full leading-none backdrop-blur-sm bg-gray-100 dark:bg-zinc-800 rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50" style="position: relative">
+            <a href="{{ $full_image_href }}" class="relative block w-full leading-none" aria-label="Open image">
             <img srcset="{{ $responsive.srcset }}"
                  sizes="{{ $sizes_attr }}"
                  src="{{ $responsive.fallback.RelPermalink }}" 
                  width="{{ $fitted_image.Width }}" 
                  height="{{ $fitted_image.Height }}" 
                  alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
-                 class="featured-image"
+                   class="featured-image block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105"
                  fetchpriority="high">
+            </a>
             {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
           </div>
         </div>
@@ -183,13 +187,15 @@
           {{ $image = $featured.Fit "720x2500" }}
         {{end}}
         <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$image.Width}}px; max-height: {{$image.Height}}px;">
-          <div style="position: relative">
+          <div class="group w-full leading-none backdrop-blur-sm bg-gray-100 dark:bg-zinc-800 rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50" style="position: relative">
+            <a href="{{ $featured.RelPermalink }}" class="relative block w-full leading-none" aria-label="Open image">
             <img src="{{ $image.RelPermalink }}" 
                  width="{{ $image.Width }}" 
                  height="{{ $image.Height }}" 
                  alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
-                 class="featured-image"
+                   class="featured-image block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105"
                  fetchpriority="high">
+            </a>
             {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
           </div>
         </div>
