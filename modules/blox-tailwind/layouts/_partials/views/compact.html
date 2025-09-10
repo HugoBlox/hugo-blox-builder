@@ -1,0 +1,147 @@
+{{ $item := .item }}
+
+
+{{ $show_authors_only := false }}
+{{ $link := $item.RelPermalink }}
+
+{{ $target := "" }}
+{{ if $item.Params.external_link }}
+  {{ $link = $item.Params.external_link }}
+  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+{{ end }}
+{{ if or (eq $item.Type "event") (eq $item.Type "publication") (eq $item.Type "project") }}
+  {{ $show_authors_only = true }}
+{{ end }}
+
+{{ $has_attachments := partial "functions/has_attachments" $item }}
+
+{{ $summary := "" }}
+{{ if $item.Params.summary }}
+  {{ $summary = $item.Params.summary | markdownify | emojify }}
+{{ else if $item.Params.abstract }}
+  {{ $summary = $item.Params.abstract | markdownify | emojify | truncate (site.Params.abstract_length | default 300) }}
+{{ else if $item.Summary }}
+  {{ $summary = $item.Summary }}
+{{ end }}
+
+<article class="group bg-white/90 dark:bg-zinc-900/90 w-full">
+  <div class="grid grid-cols-1 md:grid-cols-5 items-start gap-4 md:gap-6 py-4 border-b border-gray-200 dark:border-gray-700">
+    <div class="order-2 md:order-1 md:col-span-3">
+        {{ if and $item.Params.tags (gt (len $item.Params.tags) 0) }}
+        <div class="flex items-center gap-2 py-2">
+          {{ with index ($item.GetTerms "tags") 0 }}
+          <a href="{{ .RelPermalink }}">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">
+              {{ .Page.LinkTitle }}
+            </span>
+          </a>
+          {{ end }}
+          {{ with $item.Params.event_type }}
+              {{ $vals := cond (reflect.IsSlice .) . (slice .) }}
+              {{ range $vals }}
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">{{ . }}</span>
+              {{ end }}
+          {{ end }}
+          {{ with $item.Params.publication_short }}
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+        
+      <!-- <h2 class="font-semibold text-xl leading-snug tracking-tight text-gray-900 dark:text-white mb-2 mt-0"> -->
+      <h2 id="card-title-{{ $item.File.UniqueID }}" class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 leading-tight">
+        <a  href="{{$link}}" {{ $target | safeHTMLAttr }} class="hover:underline">
+          {{ $item.Title }}
+        </a>
+      </h2>
+
+      {{ with $summary }}
+      <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block mt-1 text-base text-gray-500 dark:text-gray-400 line-clamp-2">
+        <div class="prose prose-base dark:prose-invert max-w-none">
+          <span class="inline">{{ . }}</span>
+          <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium text-base opacity-70 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300 self-start sm:self-auto sm:ml-0">
+            {{ i18n "read_more" }}
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+      {{ end }}
+
+      <div class="flex flex-wrap items-center text-base text-gray-500 dark:text-gray-400 mt-2 gap-x-2 gap-y-1 gap-1">
+        {{ if eq $item.Type "event" }}
+          <div>
+            <span>
+              {{ partial "functions/get_event_dates" $item }}
+            </span>
+            {{ with $item.Params.location }}
+            <span class="mx-2 text-gray-300 dark:text-gray-600">•</span>
+            <span>{{ . }}</span>
+            {{ end }}
+          </div>
+        {{ end }}
+        {{ if eq $item.Type "publication" }}
+          <div>
+            <span>
+              {{ partial "functions/get_event_dates" $item }}
+            </span>
+            {{ with $item.Params.publication }}
+            <span class="mx-2 text-gray-300 dark:text-gray-600">•</span>
+            <span>{{ . | plainify}}</span>
+            {{ end }}
+          </div>
+        {{ end }}
+        
+        {{ if and $show_authors_only (ne $item.Type "event") $item.Params.authors }}
+          <div>
+            {{ partial "page_metadata_authors" $item }}
+          </div>
+        {{ else if not $show_authors_only }}
+          {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
+        {{ end }}
+      </div>
+
+      {{ if $has_attachments }}
+      <div class="mt-2">
+        {{ partial "page_links" (dict "page" $item "is_list" 1) }}
+      </div>
+      {{ end }}
+
+      {{/* Publication badges below summary, above meta line */}}
+      {{ if eq $item.Type "publication" }}
+      <div class="mt-2 flex flex-wrap items-center gap-2">
+        {{ partial "badges/altmetric" (dict "page" $item "is_list" 1) }}
+        {{ partial "badges/dimensions" (dict "page" $item "is_list" 1) }}
+        {{ partial "badges/inspire" (dict "page" $item "is_list" 1) }}
+      </div>
+      {{ end }}
+
+    </div>
+      <div class="order-1 md:order-2 md:col-span-2 w-full overflow-hidden rounded-md bg-gray-100 
+      backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden
+      transition-all  duration-300 ease-out hover:shadow-xl hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50">
+      {{ $resource := partial "functions/get_featured_image.html" $item }}
+      {{ with $resource }}
+        {{ $image := .Resize "300x" }}
+        {{ if ne $image.MediaType.SubType "gif" }}{{ $image = $image.Process "webp" }}{{ end }}
+        <a 
+          class="relative block w-full"
+          href="{{$link}}" {{ $target | safeHTMLAttr }}>
+
+          <img class="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
+              src="{{ $image.RelPermalink }}" 
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              width="{{ $image.Width }}"
+              height="{{ $image.Height }}" 
+              loading="lazy" 
+              decoding="async"
+              alt="{{ $item.Title | plainify }} featured image" 
+              data-nimg="fill"
+              fetchpriority="high" 
+            >
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</article>
