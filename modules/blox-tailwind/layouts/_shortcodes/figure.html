@@ -1,0 +1,129 @@
+{{/* Figure Shortcode (Tailwind version) */}}
+{{/* Load image from page dir falling back to media library at `assets/media/` and then to remote URI. */}}
+
+{{/*
+    Docs: https://docs.hugoblox.com/content/writing-markdown-latex/#single-image
+
+    Parameters
+    ----------
+    src :
+        Path to file or url for the image.
+        If a local file, first it is searched in the page directory, and then in `assets/media/` .
+    caption : optional
+        Caption to add to the figure.
+    title : optional
+        DEPRECATED. Legacy alias for 'caption'.
+    lightbox : default "true"
+        If 'lightbox' is "true" and no 'link' is specified, clicking opens the full image.
+    link : optional
+        Link to open on click instead of lightbox behavior.
+    id : optional
+        Custom id "figure-{id}" to associate to the <figure> tag.
+        The id defaults to the caption if unset.
+    alt : optional
+        Screen reader text. Defaults to the caption if unset.
+    theme : optional
+        One of ["light", "dark"]. Adds ["img-light", "img-dark"] to the image.
+    class : optional
+        Optional additional class for <figure>.
+    max_width : optional
+        Max width for the inner container (e.g. "fit-content" or "48rem").
+    width, height : optional
+        Explicit width/height attributes for <img>.
+    numbered : default "false"
+        If "true", the caption is numbered.
+    card : default "true"
+        If "false", remove the card background while keeping ring/hover.
+*/}}
+
+{{- $destination := .Get "src" -}}
+{{- $is_remote := strings.HasPrefix $destination "http" -}}
+{{- $caption := .Get "caption" | default (.Get "title") | default "" -}}
+{{- $lightbox := eq (.Get "lightbox" | default "true") "true" -}}
+{{- $id := anchorize (.Get "id" | default ($caption | plainify)) -}}
+{{- $alt := .Get "alt" | default ($caption | plainify) -}}
+{{- $link := .Get "link" -}}
+{{- $imgClass := "" -}}
+{{- if eq (.Get "theme" | lower) "light" }}{{ $imgClass = printf "%s img-light" $imgClass }}{{ end -}}
+{{- if eq (.Get "theme" | lower) "dark" }}{{ $imgClass = printf "%s img-dark" $imgClass }}{{ end -}}
+{{- $loading := (default "lazy" (.Get "loading")) -}}
+{{- $card := (cond (isset .Params "card") (eq (printf "%v" (.Get "card")) "true") true) -}}
+{{- $containerBase := "group w-full overflow-hidden rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50 leading-none" -}}
+{{- $containerBg := (cond $card " bg-gray-100 dark:bg-zinc-800 backdrop-blur-sm" " bg-transparent") -}}
+
+{{/* Resolve image resource if local */}}
+{{- $img := "" -}}
+{{- if not $is_remote -}}
+  {{- $img = (.Page.Resources.ByType "image").GetMatch $destination -}}
+  {{- if not $img -}}
+    {{- $img = resources.Get (path.Join "media" $destination) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Prepare responsive variants when possible */ -}}
+{{- $src := $destination -}}
+{{- $full := $destination -}}
+{{- $width := .Get "width" -}}
+{{- $height := .Get "height" -}}
+{{- $isSVG := false -}}
+{{- $isGIF := false -}}
+{{- if $img -}}
+  {{- $isSVG = eq $img.MediaType.SubType "svg" -}}
+  {{- $isGIF = eq $img.MediaType.SubType "gif" -}}
+  {{- if or $isSVG $isGIF -}}
+    {{- $src = $img.RelPermalink -}}
+    {{- $full = $img.RelPermalink -}}
+    {{- if not $width }}{{- $width = $img.Width -}}{{- end -}}
+    {{- if not $height }}{{- $height = $img.Height -}}{{- end -}}
+  {{- else -}}
+    {{- $imgLg := $img.Resize "1600x q75" -}}
+    {{- $imgMd := $img.Resize "1200x q75" -}}
+    {{- $imgSm := $img.Resize "760x q75" -}}
+    {{- $src = $imgSm.RelPermalink -}}
+    {{- $full = $imgLg.RelPermalink -}}
+    {{- if not $width }}{{- $width = $imgMd.Width -}}{{- end -}}
+    {{- if not $height }}{{- $height = $imgMd.Height -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<figure class="shortcode-figure mt-3 {{ .Get "class" }}" {{ with $id }}id="figure-{{ . }}"{{ end }}>
+  <div class="w-full mx-auto" {{ with .Get "max_width" }}style="max-width: {{.}}"{{ end }}>
+    <div class="{{ $containerBase }}{{ $containerBg }}">
+      {{- $href := $link -}}
+      {{- if and (not $href) $lightbox -}}
+        {{- $href = $full -}}
+      {{- end -}}
+      {{- if $href -}}
+        <a href="{{ $href }}" class="relative block w-full leading-none" {{ if strings.HasPrefix $href "http" }}target="_blank" rel="noopener"{{ end }} aria-label="Open image">
+          <img
+            src="{{ $src }}"
+            alt="{{ $alt }}"
+            loading="{{ $loading }}"
+            {{ with $width }}width="{{ . }}"{{ end }}
+            {{ with $height }}height="{{ . }}"{{ end }}
+            class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105{{ with $imgClass }} {{ . }}{{ end }}"
+          />
+        </a>
+      {{- else -}}
+        <img
+          src="{{ $src }}"
+          alt="{{ $alt }}"
+          loading="{{ $loading }}"
+          {{ with $width }}width="{{ . }}"{{ end }}
+          {{ with $height }}height="{{ . }}"{{ end }}
+          class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105{{ with $imgClass }} {{ . }}{{ end }}"
+        />
+      {{- end -}}
+    </div>
+  </div>
+
+  {{- if $caption -}}
+    {{- $figure := split (i18n "figure" | default "Figure %d:") "%d" -}}
+    {{- $numbered := eq (.Get "numbered") "true" -}}
+    {{- if $numbered -}}
+      <figcaption data-pre="{{- trim (index $figure 0) " " -}}&nbsp;" data-post="{{ index $figure 1 }}&nbsp;" class="numbered mt-2 text-center text-sm text-gray-500 dark:text-gray-400">{{ $caption | markdownify | emojify }}</figcaption>
+    {{- else -}}
+      <figcaption class="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">{{ $caption | markdownify | emojify }}</figcaption>
+    {{- end -}}
+  {{- end -}}
+</figure>
