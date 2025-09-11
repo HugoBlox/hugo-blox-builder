@@ -5,15 +5,21 @@
 {{ $loaded := false }}
 {{ $partial_dir := printf "hooks/%s/" .hook }}
 {{ $context := .context }}
-{{ $hook_dir_path := path.Join "layouts/_partials" $partial_dir }}
-{{ if fileExists $hook_dir_path }}
-  {{ range os.ReadDir $hook_dir_path }}
-    {{ if not .IsDir }}
-      {{ $partial_path := path.Join $partial_dir .Name }}
-      {{ partial $partial_path $context }}
-      {{ $loaded = true }}
+
+{{/* Check both _partials and partials directories for hooks */}}
+{{ $hook_dirs := slice "layouts/_partials" "layouts/partials" }}
+{{ range $hook_dirs }}
+  {{ $hook_dir_path := path.Join . $partial_dir }}
+  {{ if fileExists $hook_dir_path }}
+    {{ range os.ReadDir $hook_dir_path }}
+      {{ if not .IsDir }}
+        {{ $partial_path := path.Join $partial_dir .Name }}
+        {{ partial $partial_path $context }}
+        {{ $loaded = true }}
+      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
+
 {{/* The return statement below is for debug purposes only and prevents the above partial(s) being included in the page */}}
 {{/* return $loaded */}}
