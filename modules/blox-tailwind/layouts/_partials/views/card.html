@@ -107,6 +107,9 @@
           </span>
         </a>
         {{ end }}
+        {{ with $item.Params.publication_short }}
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">{{ . }}</span>
+        {{ end }}
       </div>
       {{ end }}
 
@@ -119,9 +122,16 @@
         </a>
       </h3>
       
+      {{/* Choose abstract for publications (fallback to summary), else summary */}}
+      {{ $desc := ($item.Params.summary | default $item.Summary) }}
+      {{ if eq $item.Type "publication" }}
+        {{ $desc = ($item.Params.abstract | default $desc) }}
+      {{ end }}
+      {{ with $desc }}
       <p class="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed line-clamp-3">
-        {{ ($item.Params.summary | default $item.Summary) | plainify | htmlUnescape | truncate 180 }}
+        {{ . | plainify | htmlUnescape | truncate 300 }}
       </p>
+      {{ end }}
 
       {{ with $item.Params.content_meta.prerequisites }}
         {{ $max := 2 }}
@@ -137,6 +147,14 @@
         </div>
       {{ end }}
 
+    {{/* Publication badges below summary, above meta line */}}
+      {{ if eq $item.Type "publication" }}
+      <div class="mt-2 flex flex-wrap items-center gap-2">
+        {{ partial "badges/altmetric" (dict "page" $item "is_list" 1) }}
+        {{ partial "badges/dimensions" (dict "page" $item "is_list" 1) }}
+        {{ partial "badges/inspire" (dict "page" $item "is_list" 1) }}
+      </div>
+      {{ end }}
       <!-- Metadata section -->
       <div class="flex flex-col gap-2 sm:flex-row sm:items-center justify-between pt-3 {{ if $hasMeta }}border-t border-zinc-100 dark:border-zinc-800{{ end }}">
         <div class="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-500 flex-wrap">

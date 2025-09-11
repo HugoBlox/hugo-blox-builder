@@ -1,0 +1,65 @@
+{{/*
+  Dimensions badge embed
+
+  Usage:
+    {{ partial "badges/dimensions" (dict "page" $page "is_list" $is_list) }}
+
+  Config flags:
+    params.features.dimensions.enable: true|false
+
+  Front matter options:
+    dimensions: true | "<dimensions_id>"
+    doi / hugoblox.ids.doi (fallback)
+    pmid / hugoblox.ids.pmid (fallback)
+*/}}
+
+{{ $enabled := site.Params.features.dimensions.enable | default true }}
+{{ if not $enabled }}{{- return -}}{{ end }}
+
+{{ $page := .page }}
+
+{{ $dim_val := $page.Params.dimensions }}
+{{ $dim_str := printf "%v" $dim_val }}
+{{ $has_explicit_dim_id := and $dim_val (ne (lower $dim_str) "true") (ne (lower $dim_str) "false") }}
+
+{{ $doi := $page.Params.doi | default "" }}
+{{ $pmid := $page.Params.pmid | default "" }}
+
+{{/* Support new HugoBlox IDs schema if present */}}
+{{ $hb_ids := index $page.Params "hugoblox" "ids" }}
+{{ with $hb_ids }}
+  {{ if and (not $doi) (index . "doi") }}
+    {{ $doi = index . "doi" }}
+  {{ end }}
+  {{ if and (not $pmid) (index . "pmid") }}
+    {{ $pmid = index . "pmid" }}
+  {{ end }}
+{{ end }}
+
+{{/* Determine explicit off switch */}}
+{{ $has_param := isset $page.Params "dimensions" }}
+{{ $is_disabled := and $has_param (or (eq (lower $dim_str) "false") (eq $dim_val false)) }}
+
+{{/* Render if: not disabled AND (explicit id OR enabled via param OR DOI/PMID available) */}}
+{{ $enabled_by_param := or (eq (lower $dim_str) "true") (eq $dim_val true) }}
+{{ if and (not $is_disabled) (or $has_explicit_dim_id (or $enabled_by_param (or $doi $pmid))) }}
+  <span class="inline-flex items-center align-middle whitespace-nowrap leading-none" style="vertical-align: middle;">
+    <span class="__dimensions_badge_embed__"
+      {{ if $has_explicit_dim_id }}data-id="{{ $dim_str }}"{{ else }}
+        {{ if $doi }}data-doi="{{ $doi }}"{{ else if $pmid }}data-pmid="{{ $pmid }}"{{ end }}
+      {{ end }}
+      data-style="small_rectangle" data-legend="hover-bottom" style="margin-bottom: 3px;">
+    </span>
+    <script>
+      if (!window.__dimensions_embed_script_loaded__) {
+        var s = document.createElement('script');
+        s.src = 'https://badge.dimensions.ai/badge.js';
+        s.async = true;
+        s.setAttribute('charset', 'utf-8');
+        document.head.appendChild(s);
+        window.__dimensions_embed_script_loaded__ = true;
+      }
+    </script>
+  </span>
+  
+{{ end }}
