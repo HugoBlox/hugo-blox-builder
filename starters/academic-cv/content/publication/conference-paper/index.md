@@ -42,9 +42,8 @@ featured: true
 hugoblox:
   ids:
     doi: 10.5555/123456
-
-inspirehep_id: 123456
-altmetric: 123456
+    inspirehep_id: 123456
+    altmetric: 123456
 
 # Custom links
 links:

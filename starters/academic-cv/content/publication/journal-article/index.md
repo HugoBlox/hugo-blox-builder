@@ -32,6 +32,8 @@ featured: false
 hugoblox:
   ids:
     arxiv: 1512.04133v1
+    inspirehep_id: 123456
+    altmetric: 123456
 
 links:
   - type: pdf
