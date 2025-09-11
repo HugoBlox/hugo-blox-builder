@@ -1,13 +1,57 @@
 {{/* HB Tailwind CSS v4 Processing with Hugo's Native Function */}}
 {{ with resources.Get "css/main.css" }}
-  {{ $opts := dict "minify" (not hugo.IsDevelopment) }}
+  {{ $css_files := slice }}
+
+  {{/* 1. Tailwind CSS with JIT processing */}}
+  {{ $opts := dict "minify" false}}
   {{ with . | css.TailwindCSS $opts }}
-    {{ if hugo.IsDevelopment }}
-      <link rel="stylesheet" href="{{ .RelPermalink }}">
-    {{ else }}
-      {{ with . | fingerprint }}
-        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-      {{ end }}
+    {{ $css_files = $css_files | append . }}
+  {{ end }}
+
+  {{/* 2. Hugo Blox Color Theme */}}
+  {{ $theme_name := (lower site.Params.appearance.color) | default "blue" }}
+  {{ $theme_path := printf "css/themes/%s.css" $theme_name }}
+  {{ if not (fileExists (printf "assets/%s" $theme_path)) }}
+    {{ errorf "The specified color theme `%s.css` was not found in `assets/css/themes/`. Either install your custom color theme in the folder or set the `color` theme value in `params.yaml` to an existing theme such as `blue`." $theme_name }}
+  {{ else }}
+    {{ $theme_css := resources.Get $theme_path }}
+    {{ $css_files = $css_files | append $theme_css }}
+  {{ end }}
+
+  {{/* 3. Community blox styles */}}
+  {{ $hb_community_styles := resources.Match "dist/community/blox/**.css" }}
+  {{ with $hb_community_styles }}
+    {{ range $hb_community_styles }}
+      {{ $css_files = $css_files | append . }}
     {{ end }}
+  {{ end }}
+
+  {{/* 4. Custom CSS with Tailwind processing */}}
+  {{ if fileExists "assets/css/custom.css" }}
+    {{ $custom_css := resources.Get "css/custom.css" }}
+
+    {{/* The css.TailwindCSS pipeline supports @import, theme() resolution,
+    and all Tailwind directives. It is executed after main.css,
+    ensuring that custom styles can extend or override
+    the base Tailwind stylesheet. It allows direct use of
+    Tailwind utility classes without requiring additional imports. */}}
+    {{ with $custom_css | css.TailwindCSS $opts }}
+      {{ $css_files = $css_files | append . }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Single unified CSS bundle with Tailwind JIT */}}
+  {{ $css_bundle := $css_files | resources.Concat "css/styles.css" }}
+
+  {{ if hugo.IsDevelopment }}
+    <link rel="stylesheet" href="{{ $css_bundle.RelPermalink }}">
+  {{ else }}
+    {{- $css_bundle = $css_bundle | minify | fingerprint "sha256" -}}
+    
+    {{/* Preload CSS to eliminate render blocking while maintaining bundling benefits */}}
+    <link rel="preload" href="{{ $css_bundle.RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" as="style" onload="this.onload=null;this.rel='stylesheet'"> 
+
+    <link rel="stylesheet" href="{{ $css_bundle.RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    <noscript><link rel="stylesheet" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" href="{{ $css_bundle.RelPermalink }}"></noscript> 
   {{ end }}
 {{ end }}

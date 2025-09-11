@@ -45,35 +45,14 @@
   {{ end }}
   <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
 
-  {{/* Hugo Blox Color Theme Initialization */}}
-  {{ $theme_name := (lower site.Params.appearance.color) | default "blue" }}
-  {{ $theme_path := printf "css/themes/%s.css" $theme_name }}
-  {{ if not (fileExists (printf "assets/%s" $theme_path)) }}
-    {{ errorf "The specified color theme `%s.css` was not found in `assets/css/themes/`. Either install your custom color theme in the folder or set the `color` theme value in `params.yaml` to an existing theme such as `blue`." $theme_name }}
-  {{ else }}
-    {{ $theme_css := resources.Get $theme_path | minify }}
-    <link rel="stylesheet" href="{{ $theme_css.RelPermalink }}" />
-  {{ end }}
-
-  {{/* Tailwind CSS v4 Processing */}}
-  {{/* Use templates.Defer to process CSS after all content is analyzed */}}
+  {{/* Single CSS Bundle */}}
+  {{/*
+    Deferred Tailwind CSS v4 Processing for optimal bundling.
+    All CSS (Tailwind, theme, community, custom) is handled in css.html
+    after content analysis to maximize optimization.
+  */}}
   {{ with (templates.Defer (dict "key" "tailwind-css")) }}
     {{ partial "css.html" . }}
-  {{ end }}
-
-  {{/* Load community blox styles */}}
-  {{ $hb_community_styles := resources.Match "dist/community/blox/**.css" }}
-  {{ with $hb_community_styles }}
-    {{ $hb_community_styles = $hb_community_styles | resources.Concat "css/community-hugo-blox.css" }}
-    {{- if hugo.IsProduction -}}
-      {{- $hb_community_styles = $hb_community_styles | minify | fingerprint "sha256" -}}
-    {{- end -}}
-    <link href="{{ $hb_community_styles.RelPermalink }}" rel="stylesheet" />
-  {{ end }}
-
-  {{ if fileExists "assets/css/custom.css" }}
-    {{ $styles := resources.Get "css/custom.css" | minify | fingerprint "sha256" }}
-    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
   {{ end }}
 
   {{/* Externalized init scripts for CSP-friendly head */}}
