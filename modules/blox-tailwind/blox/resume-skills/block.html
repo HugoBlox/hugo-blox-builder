@@ -24,12 +24,13 @@
   {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
 </div>
 
-<div class="flex flex-col lg:flex-row items-start max-w-prose mx-auto gap-3 px-6 md:px-0">
+{{ $columns := $block.design.columns | default 2 }}
+<div class="grid grid-cols-1 {{ if ge $columns 2 }}md:grid-cols-2{{ end }} {{ if ge $columns 3 }}lg:grid-cols-3{{ end }} {{ if ge $columns 4 }}xl:grid-cols-4{{ end }} {{ if ge $columns 5 }}2xl:grid-cols-5{{ end }} items-start max-w-prose mx-auto gap-3 px-6 md:px-0">
 
   {{ range $skills }}
   {{ $color := .color | default "" }}
   {{ $color_border := .color_border | default "" }}
-  <div class="w-full lg:w-1/2">
+  <div class="w-full">
     <div class="mb-5 text-xl font-bold text-gray-900 dark:text-white">
       {{ .name | markdownify | emojify }}
       {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
