@@ -22,8 +22,6 @@
       {{/* Store the block type in the page store for asset bundling */}}
       {{ $current_blocks := $page.Store.Get "block_types" | default (slice) }}
       {{ $page.Store.Set "block_types" ($current_blocks | append $block_type) }}
-
-      {{/* Gallery block is now pure CSS - no Alpine.js needed */}}
       
       {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
       {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}

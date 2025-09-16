@@ -10,7 +10,7 @@
   6. Safelist for dynamic classes
 */
 
-/* Tailwind CSS v4 - This single import handles base, components, and utilities */
+/* Tailwind CSS v4 Base */
 @import 'tailwindcss';
 
 /* Configuration */
