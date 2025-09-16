@@ -1,0 +1,19 @@
+{{/*
+  Get Block Scripts
+  Discovers and returns a slice of JavaScript files for blocks used on the current page.
+*/}}
+{{ $block_scripts := slice }}
+{{ if .IsPage }}
+  {{/* Get the list of unique block types used on this page from the Page Store */}}
+  {{ $block_types := .Page.Store.Get "block_types" | default (slice) | uniq }}
+  
+  {{ range $block_type := $block_types }}
+    {{/* Check if a JS file exists for this block type */}}
+    {{ $script_path := printf "js/hbx/blocks/%s/%s.js" $block_type $block_type }}
+    {{ with resources.Get $script_path }}
+      {{ $block_scripts = $block_scripts | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $block_scripts }}
+

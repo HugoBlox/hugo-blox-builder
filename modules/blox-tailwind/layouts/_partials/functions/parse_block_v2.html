@@ -33,12 +33,176 @@
 {{ $style_bg := "" }}
 
 {{ if $bg.color }}
-  {{ $style_bg = printf "background-color: %s;" ($bg.color | default "transparent") }}
+  {{/* Check if color is a map/dict (light/dark structure) or a simple string */}}
+  {{ $color_type := printf "%T" $bg.color }}
+  {{ if eq $color_type "map[string]interface {}" }}
+    {{/* New nested light/dark structure */}}
+    {{ if and $bg.color.light $bg.color.dark }}
+      {{ $light_color := $bg.color.light }}
+      {{ $dark_color := $bg.color.dark }}
+      
+      {{/* Convert light color */}}
+      {{ if not (or (hasPrefix $light_color "var(") (hasPrefix $light_color "rgb(") (hasPrefix $light_color "#") (eq $light_color "transparent")) }}
+        {{ if hasPrefix $light_color "primary-" }}
+          {{ $shade := strings.TrimPrefix "primary-" $light_color }}
+          {{ $light_color = printf "var(--color-primary-%s)" $shade }}
+        {{ else if hasPrefix $light_color "secondary-" }}
+          {{ $shade := strings.TrimPrefix "secondary-" $light_color }}
+          {{ $light_color = printf "var(--color-secondary-%s)" $shade }}
+        {{ else if strings.Contains $light_color "-" }}
+          {{ $parts := split $light_color "-" }}
+          {{ if eq (len $parts) 2 }}
+            {{ $color := index $parts 0 }}
+            {{ $shade := index $parts 1 }}
+            {{ $light_color = printf "var(--color-%s-%s)" $color $shade }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      
+      {{/* Convert dark color */}}
+      {{ if not (or (hasPrefix $dark_color "var(") (hasPrefix $dark_color "rgb(") (hasPrefix $dark_color "#") (eq $dark_color "transparent")) }}
+        {{ if hasPrefix $dark_color "primary-" }}
+          {{ $shade := strings.TrimPrefix "primary-" $dark_color }}
+          {{ $dark_color = printf "var(--color-primary-%s)" $shade }}
+        {{ else if hasPrefix $dark_color "secondary-" }}
+          {{ $shade := strings.TrimPrefix "secondary-" $dark_color }}
+          {{ $dark_color = printf "var(--color-secondary-%s)" $shade }}
+        {{ else if strings.Contains $dark_color "-" }}
+          {{ $parts := split $dark_color "-" }}
+          {{ if eq (len $parts) 2 }}
+            {{ $color := index $parts 0 }}
+            {{ $shade := index $parts 1 }}
+            {{ $dark_color = printf "var(--color-%s-%s)" $color $shade }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      
+      {{ $style_bg = printf "background-color: %s;" $light_color }}
+      {{ $style_bg = printf "%s--dark-bg-color: %s;" $style_bg $dark_color }}
+    {{ else if $bg.color.light }}
+      {{ $light_color := $bg.color.light }}
+      
+      {{/* Convert light color */}}
+      {{ if not (or (hasPrefix $light_color "var(") (hasPrefix $light_color "rgb(") (hasPrefix $light_color "#") (eq $light_color "transparent")) }}
+        {{ if hasPrefix $light_color "primary-" }}
+          {{ $shade := strings.TrimPrefix "primary-" $light_color }}
+          {{ $light_color = printf "var(--color-primary-%s)" $shade }}
+        {{ else if hasPrefix $light_color "secondary-" }}
+          {{ $shade := strings.TrimPrefix "secondary-" $light_color }}
+          {{ $light_color = printf "var(--color-secondary-%s)" $shade }}
+        {{ else if strings.Contains $light_color "-" }}
+          {{ $parts := split $light_color "-" }}
+          {{ if eq (len $parts) 2 }}
+            {{ $color := index $parts 0 }}
+            {{ $shade := index $parts 1 }}
+            {{ $light_color = printf "var(--color-%s-%s)" $color $shade }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      
+      {{ $style_bg = printf "background-color: %s;" $light_color }}
+    {{ else if $bg.color.dark }}
+      {{ $dark_color := $bg.color.dark }}
+      
+      {{/* Convert dark color */}}
+      {{ if not (or (hasPrefix $dark_color "var(") (hasPrefix $dark_color "rgb(") (hasPrefix $dark_color "#") (eq $dark_color "transparent")) }}
+        {{ if hasPrefix $dark_color "primary-" }}
+          {{ $shade := strings.TrimPrefix "primary-" $dark_color }}
+          {{ $dark_color = printf "var(--color-primary-%s)" $shade }}
+        {{ else if hasPrefix $dark_color "secondary-" }}
+          {{ $shade := strings.TrimPrefix "secondary-" $dark_color }}
+          {{ $dark_color = printf "var(--color-secondary-%s)" $shade }}
+        {{ else if strings.Contains $dark_color "-" }}
+          {{ $parts := split $dark_color "-" }}
+          {{ if eq (len $parts) 2 }}
+            {{ $color := index $parts 0 }}
+            {{ $shade := index $parts 1 }}
+            {{ $dark_color = printf "var(--color-%s-%s)" $color $shade }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      
+      {{ $style_bg = printf "--dark-bg-color: %s; background-color: var(--dark-bg-color);" $dark_color }}
+    {{ end }}
+  {{ else }}
+    {{/* Legacy single color support - backwards compatible */}}
+    {{ $bg_color := $bg.color }}
+    
+    {{/* Convert single color */}}
+    {{ if not (or (hasPrefix $bg_color "var(") (hasPrefix $bg_color "rgb(") (hasPrefix $bg_color "#") (eq $bg_color "transparent")) }}
+      {{ if hasPrefix $bg_color "primary-" }}
+        {{ $shade := strings.TrimPrefix "primary-" $bg_color }}
+        {{ $bg_color = printf "var(--color-primary-%s)" $shade }}
+      {{ else if hasPrefix $bg_color "secondary-" }}
+        {{ $shade := strings.TrimPrefix "secondary-" $bg_color }}
+        {{ $bg_color = printf "var(--color-secondary-%s)" $shade }}
+      {{ else if strings.Contains $bg_color "-" }}
+        {{ $parts := split $bg_color "-" }}
+        {{ if eq (len $parts) 2 }}
+          {{ $color := index $parts 0 }}
+          {{ $shade := index $parts 1 }}
+          {{ $bg_color = printf "var(--color-%s-%s)" $color $shade }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    
+    {{ $style_bg = printf "background-color: %s;" $bg_color }}
+  {{ end }}
 {{ end }}
 
+{{/* Modern layered background support for 2025 glassmorphism */}}
+{{ $background_layers := slice }}
+{{ $gradient_layer := "" }}
+
+{{/* Process gradients first but don't add to layers yet */}}
+{{/* Support legacy gradient syntax */}}
 {{ if and $bg.gradient_start $bg.gradient_end }}
   {{ $angle := string $bg.gradient_angle | default "90" }}
-  {{ $style_bg = printf "%sbackground-image: linear-gradient(%sdeg, %s, %s);" $style_bg $angle $bg.gradient_start $bg.gradient_end }}
+  {{ $gradient_layer = printf "linear-gradient(%sdeg, %s, %s)" $angle $bg.gradient_start $bg.gradient_end }}
+{{ end }}
+
+{{/* Support modern gradient syntax for 2025 */}}
+{{ if and $bg.gradient.start $bg.gradient.end }}
+  {{ $angle := string $bg.gradient.direction | default "135" }}
+  {{ $start_color := $bg.gradient.start }}
+  {{ $end_color := $bg.gradient.end }}
+  
+  {{/* Convert Tailwind color names to CSS custom properties */}}
+  {{ if not (or (hasPrefix $start_color "var(") (hasPrefix $start_color "rgb(") (hasPrefix $start_color "#")) }}
+    {{ if hasPrefix $start_color "primary-" }}
+      {{ $shade := strings.TrimPrefix "primary-" $start_color }}
+      {{ $start_color = printf "var(--color-primary-%s)" $shade }}
+    {{ else if hasPrefix $start_color "secondary-" }}
+      {{ $shade := strings.TrimPrefix "secondary-" $start_color }}
+      {{ $start_color = printf "var(--color-secondary-%s)" $shade }}
+    {{ else if strings.Contains $start_color "-" }}
+      {{ $parts := split $start_color "-" }}
+      {{ if eq (len $parts) 2 }}
+        {{ $color := index $parts 0 }}
+        {{ $shade := index $parts 1 }}
+        {{ $start_color = printf "var(--color-%s-%s)" $color $shade }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{ if not (or (hasPrefix $end_color "var(") (hasPrefix $end_color "rgb(") (hasPrefix $end_color "#")) }}
+    {{ if hasPrefix $end_color "primary-" }}
+      {{ $shade := strings.TrimPrefix "primary-" $end_color }}
+      {{ $end_color = printf "var(--color-primary-%s)" $shade }}
+    {{ else if hasPrefix $end_color "secondary-" }}
+      {{ $shade := strings.TrimPrefix "secondary-" $end_color }}
+      {{ $end_color = printf "var(--color-secondary-%s)" $shade }}
+    {{ else if strings.Contains $end_color "-" }}
+      {{ $parts := split $end_color "-" }}
+      {{ if eq (len $parts) 2 }}
+        {{ $color := index $parts 0 }}
+        {{ $shade := index $parts 1 }}
+        {{ $end_color = printf "var(--color-%s-%s)" $color $shade }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{ $gradient_layer = printf "linear-gradient(%sdeg, %s, %s)" $angle $start_color $end_color }}
 {{ end }}
 
 {{ $bg_video := "" }}
@@ -58,17 +222,64 @@
     {{ if ne $bg_img.MediaType.SubType "svg" }}
       {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
     {{ end }}
-    {{ $style_bg = printf "%sbackground-image: url('%s');" $style_bg $bg_img.Permalink }}
+    
+    {{/* Add image layer to background layers for glassmorphism support */}}
+    {{ $image_layer := printf "url('%s')" $bg_img.Permalink }}
+    {{ $background_layers = $background_layers | append $image_layer }}
+    
+    {{/* Background properties will be set in the multi-layer section below */}}
   {{ else }}
     {{ errorf "Couldn't find `%s` in the `assets/media/` folder - please add it." $bg.image.filename }}
   {{ end }}
-  {{ with $bg.image.size }}
-    {{/* Allow sizes: actual, cover, and contain. */}}
-    {{ $style_bg = printf "%sbackground-size: %s;" $style_bg (replace . "actual" "auto") }}
+{{ end }}
+
+{{/* Combine all background layers for 2025 glassmorphism effects */}}
+{{/* Layer order: image (top) comes first, then gradient (bottom) */}}
+{{ if or $background_layers $gradient_layer }}
+  {{ $all_layers := $background_layers }}
+  {{ if $gradient_layer }}
+    {{ $all_layers = $all_layers | append $gradient_layer }}
   {{ end }}
-  {{ with $bg.image.position }}
-    {{/* Allow valid CSS positions including left, center, and right. */}}
-    {{ $style_bg = printf "%sbackground-position: %s;" $style_bg . }}
+  {{ if $all_layers }}
+    {{ $combined_backgrounds := delimit $all_layers ", " }}
+    {{ $style_bg = printf "%sbackground-image: %s;" $style_bg $combined_backgrounds }}
+    
+    {{/* Build multi-layer background properties */}}
+    {{ $layer_count := len $all_layers }}
+    
+    {{/* Generate properties for each layer */}}
+    {{ if gt $layer_count 1 }}
+      {{/* Multiple layers: image + gradient */}}
+      {{ $img_size := $bg.image.size | default "100px" }}
+      {{ $img_position := $bg.image.position | default "center" }}
+      {{ $img_repeat := $bg.image.repeat | default "repeat" }}
+      
+      {{/* Handle 'repeat' in position */}}
+      {{ if eq $img_position "repeat" }}
+        {{ $img_repeat = "repeat" }}
+        {{ $img_position = "center" }}
+      {{ end }}
+      
+      {{/* Combine properties for both layers */}}
+      {{ $style_bg = printf "%sbackground-size: %s, cover !important;" $style_bg $img_size }}
+      {{ $style_bg = printf "%sbackground-position: %s, center !important;" $style_bg $img_position }}
+      {{ $style_bg = printf "%sbackground-repeat: %s, no-repeat !important;" $style_bg $img_repeat }}
+    {{ else }}
+      {{/* Single layer: apply properties normally */}}
+      {{ if $background_layers }}
+        {{ with $bg.image.size }}
+          {{ $style_bg = printf "%sbackground-size: %s !important;" $style_bg . }}
+        {{ end }}
+        {{ with $bg.image.position }}
+          {{ if eq . "repeat" }}
+            {{ $style_bg = printf "%sbackground-position: center !important;" $style_bg }}
+            {{ $style_bg = printf "%sbackground-repeat: repeat !important;" $style_bg }}
+          {{ else }}
+            {{ $style_bg = printf "%sbackground-position: %s !important;" $style_bg . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
@@ -129,9 +340,12 @@
   {{end}}
 */}}
 
+{{/* Extract background-specific CSS classes */}}
+{{ $bg_css_classes := $bg.css_class | default "" }}
+
 {{/* Dedicated child div for bg prevents parallax 100% height issue within new CSS grid page wrapper. */}}
 <section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}} {{print $extra_attributes | safeHTMLAttr}}>
- <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
+ <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}{{with $bg_css_classes}} {{.}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
    {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
  </div>
   {{if $use_container}}<div class="container mx-auto">{{end}}

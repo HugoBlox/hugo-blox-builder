@@ -211,9 +211,6 @@
   {{/* !CACHED! Initialized once at site level and then cached for each page */}}
   {{- partialCached "init.html" . "hb_init_once" -}}
 
-  {{/* Load Third-Party Libraries */}}
-  {{ partial "libraries.html" . }}
-
   {{ $js_license := printf "/*! Hugo Blox Builder Tailwind UI v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
   {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
   {{ $js_license := $js_license | printf "%s/*! License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */\n" }}
@@ -229,7 +226,16 @@
   {{- $js_notifier := resources.Get "js/hb-notifier.js" | js.Build (dict "targetPath" (printf "js/hb-notifier-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
   {{- $js_clipboard := resources.Get "js/hb-clipboard.js" | js.Build (dict "targetPath" (printf "js/hb-clipboard-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
   {{- $js_citation := resources.Get "js/hb-citation.js" | js.Build (dict "targetPath" (printf "js/hb-citation-%s.js" .Lang ) "params" $js_params) | resources.Minify -}}
-  {{ $js_bundle := slice $js_bundle_head $js_hugoblox $js_theme $js_lang $js_nav $js_sidebar $js_notifier $js_clipboard $js_citation | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
+  
+  {{/* Start with the core scripts */}}
+  {{ $js_bundle_contents := slice $js_bundle_head $js_hugoblox $js_theme $js_lang $js_nav $js_sidebar $js_notifier $js_clipboard $js_citation }}
+
+  {{/* Discover and include block-specific JavaScript */}}
+  {{- with partial "functions/get-block-scripts.html" . -}}
+    {{ $js_bundle_contents = $js_bundle_contents | append . }}
+  {{- end -}}
+  
+  {{ $js_bundle := $js_bundle_contents | resources.Concat (printf "js/hugo-blox-%s.min.js" .Lang) }}
   {{- if hugo.IsProduction -}}
     {{ $js_bundle = $js_bundle | fingerprint "sha256" }}
   {{- end -}}
@@ -238,6 +244,9 @@
     src="{{ $js_bundle.RelPermalink }}"
     integrity="{{ $js_bundle.Data.Integrity }}"
   ></script>
+
+  {{/* Load Third-Party Libraries */}}
+  {{ partial "libraries.html" . }}
 
   {{/* EXTENSIBILITY HOOK: HEAD-END */}}
   {{ partial "functions/get_hook" (dict "hook" "head-end" "context" .) }}
