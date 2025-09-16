@@ -11,20 +11,95 @@
 {{ $card_class := $block.design.card.css_class }}
 {{ $card_style := $block.design.card.css_style }}
 
+{{/* Contrast and accessibility controls */}}
+{{ $text_color_mode := $block.design.card.text_color | default "auto" }}
+{{ $overlay_opacity := $block.design.card.overlay_opacity | default 0.15 }}
 
-<div class="{{with $card_class}}{{.}}{{else}}bg-black{{end}} p-8 md:px-20 md:py-20 mx-auto max-w-5xl rounded-lg flex flex-col items-center text-center"
-     {{with $card_style}}style="{{. | safeCSS}}"{{end}}>
-  <h2 class="text-white text-4xl md:text-6xl tracking-tight">
-    {{ $title }}
-  </h2>
-  <div class="text-gray-100 mt-4 text-lg md:text-xl prose">
-    {{ $text }}
-  </div>
-  {{ with $block.content.button }}
-  <div class="flex mt-5">
-    <a href="{{.url}}" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-white hover:bg-gray-300 text-black border-2 border-transparent">
-      {{.text}}
-    </a>
-  </div>
+{{/* Auto-detect text color based on background */}}
+{{ $text_classes := "" }}
+{{ $button_classes := "" }}
+{{ if eq $text_color_mode "light" }}
+  {{ $text_classes = "text-white" }}
+  {{ $button_classes = "text-gray-900" }}
+{{ else if eq $text_color_mode "dark" }}
+  {{ $text_classes = "text-gray-900" }}
+  {{ $button_classes = "text-gray-900" }}
+{{ else }}
+  {{/* Auto mode - detect based on gradient colors */}}
+  {{ $is_dark_bg := false }}
+  {{ with $block.design.background.gradient.start }}
+    {{ if or (hasPrefix . "primary-7") (hasPrefix . "primary-8") (hasPrefix . "primary-9") (hasPrefix . "secondary-7") (hasPrefix . "secondary-8") (hasPrefix . "secondary-9") }}
+      {{ $is_dark_bg = true }}
+    {{ end }}
   {{ end }}
+  {{ if $is_dark_bg }}
+    {{ $text_classes = "text-white" }}
+    {{ $button_classes = "text-gray-900" }}
+  {{ else }}
+    {{ $text_classes = "text-gray-900 dark:text-white" }}
+    {{ $button_classes = "text-gray-900 dark:text-gray-100" }}
+  {{ end }}
+{{ end }}
+
+
+{{/* Modern 2025 CTA Card - Background controlled via design.background in front matter */}}
+{{ $custom_style := printf "--glassmorphism-opacity: %s;" (string $overlay_opacity) }}
+{{ if $card_style }}
+  {{ $custom_style = printf "%s%s" $custom_style $card_style }}
+{{ end }}
+
+<div class="relative overflow-hidden {{with $card_class}}{{.}}{{else}}bg-gradient-to-br from-primary-500/90 via-primary-600/95 to-primary-700/90{{end}} p-8 sm:p-12 lg:p-16 xl:p-20 mx-auto max-w-6xl rounded-3xl shadow-2xl flex flex-col items-center text-center"
+     style="{{ $custom_style | safeCSS }}">
+    
+    {{/* Modern Typography Hierarchy - Responsive text colors */}}
+    <h2 class="{{ $text_classes }} text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
+      {{ $title }}
+    </h2>
+    
+    {{/* Enhanced Text with Better Spacing - Responsive colors */}}
+    <div class="{{ $text_classes }}/80 mt-6 text-lg sm:text-xl lg:text-2xl max-w-3xl leading-relaxed font-light">
+      {{ $text }}
+    </div>
+    
+    {{ with $block.content.button }}
+    {{/* Modern 2025 Button Container */}}
+    <div class="flex mt-10">
+      {{ $button_link := .url }}
+      {{ $button_scheme := (urls.Parse $button_link).Scheme }}
+      {{ $button_target := "" }}
+      {{ if not $button_scheme }}
+        {{/* Check if it's a hash fragment (page anchor) */}}
+        {{ if hasPrefix $button_link "#" }}
+          {{/* Keep hash fragments as-is */}}
+          {{ $button_link = $button_link }}
+        {{ else }}
+          {{/* Apply relLangURL for relative paths */}}
+          {{ $button_link = $button_link | relLangURL }}
+        {{ end }}
+      {{ else if in (slice "http" "https") $button_scheme }}
+        {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      
+      {{/* 2025 Glassmorphism Button */}}
+      <a href="{{ $button_link | safeURL }}" 
+         {{ $button_target | safeHTMLAttr }} 
+         class="group relative inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold {{ $button_classes }} transition-all duration-300 ease-out hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500/50 dark:focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent">
+        
+        {{/* Button Background with Glassmorphism */}}
+        <div class="absolute inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl ring-1 ring-gray-200/30 dark:ring-white/30 shadow-lg group-hover:bg-white dark:group-hover:bg-gray-800 group-hover:ring-gray-300/50 dark:group-hover:ring-white/50 group-hover:shadow-2xl transition-all duration-300"></div>
+        
+        {{/* Button Content */}}
+        <span class="relative z-10">{{ .text }}</span>
+        {{ with .icon }}
+          <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+            {{ partial "functions/get_icon" (dict "name" . "attributes" "style=\"height: 1.25em\" class='inline-block'") }}
+          </span>
+        {{ end }}
+        
+        {{/* Subtle glow effect */}}
+        <div class="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+      </a>
+    </div>
+    {{ end }}
+    
 </div>

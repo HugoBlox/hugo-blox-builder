@@ -1,0 +1,223 @@
+/**
+ * 2025 Hugo Blox Glassmorphism Utility Classes
+ * 
+ * Modern glassmorphism effects for Hugo Blox CTA cards and other components
+ */
+
+/* ==========================================================================
+   Glassmorphism Base Classes
+   ========================================================================== */
+
+.glassmorphism-primary {
+  @apply relative overflow-hidden;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--color-primary-500) / 0.9),
+    rgb(var(--color-primary-600) / 0.95),
+    rgb(var(--color-primary-700) / 0.9)
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glassmorphism-primary::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.1), transparent, rgb(255 255 255 / 0.1));
+  mix-blend-mode: overlay;
+}
+
+.glassmorphism-secondary {
+  @apply relative overflow-hidden;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--color-secondary-500) / 0.9),
+    rgb(var(--color-secondary-600) / 0.95),
+    rgb(var(--color-secondary-700) / 0.9)
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glassmorphism-secondary::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.1), transparent, rgb(255 255 255 / 0.1));
+  mix-blend-mode: overlay;
+}
+
+.glassmorphism-dark {
+  @apply relative overflow-hidden;
+  background: linear-gradient(135deg, rgb(0 0 0 / 0.7), rgb(31 41 55 / 0.8), rgb(0 0 0 / 0.9));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glassmorphism-dark::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(45deg, rgb(255 255 255 / 0.05), transparent, rgb(255 255 255 / 0.1));
+  mix-blend-mode: overlay;
+}
+
+.glassmorphism-light {
+  @apply relative overflow-hidden;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(248 250 252 / 0.95), rgb(241 245 249 / 0.9));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glassmorphism-light::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.02), transparent, rgb(255 255 255 / 0.05));
+  mix-blend-mode: overlay;
+}
+
+/* ==========================================================================
+   Noise Texture Classes (when used as background image)
+   ========================================================================== */
+
+.noise-texture {
+  position: relative;
+}
+
+.noise-texture::after {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background-image: url('/media/textures/noise-pattern.svg');
+  background-size: 100px 100px;
+  background-repeat: repeat;
+  opacity: 0.03;
+  mix-blend-mode: multiply;
+}
+
+.dark .noise-texture::after {
+  mix-blend-mode: screen;
+  opacity: 0.02;
+}
+
+/* ==========================================================================
+   Enhanced Ring Classes for 2025 Design
+   ========================================================================== */
+
+.glass-ring {
+  @apply ring-1 ring-white/20 hover:ring-white/40 dark:ring-gray-700/50 dark:hover:ring-gray-600/70;
+}
+
+.glass-shadow {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25), 0 0 0 1px rgb(255 255 255 / 0.1),
+    inset 0 1px 0 rgb(255 255 255 / 0.1);
+}
+
+.dark .glass-shadow {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.05),
+    inset 0 1px 0 rgb(255 255 255 / 0.05);
+}
+
+/* ==========================================================================
+   CTA Card Glassmorphism Overlay (works with section backgrounds)
+   ========================================================================== */
+
+.cta-glassmorphism {
+  @apply relative;
+
+  /* Dynamic overlay opacity control */
+  --glassmorphism-opacity: 0.15;
+
+  /* Subtle overlay tint that works with any background */
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / var(--glassmorphism-opacity)) 0%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.5)) 50%,
+    rgb(255 255 255 / var(--glassmorphism-opacity)) 100%
+  );
+
+  /* Enhanced glassmorphism effects */
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+
+  /* Modern border and shadow for light mode */
+  border: 1px solid rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.1));
+  box-shadow: 0 32px 64px -12px rgb(0 0 0 / 0.25),
+    inset 0 1px 0 rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.05));
+}
+
+.cta-glassmorphism:hover {
+  /* Enhanced hover state */
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.05)) 0%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.7)) 50%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.05)) 100%
+  );
+
+  border: 1px solid rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.2));
+  box-shadow: 0 40px 80px -16px rgb(0 0 0 / 0.3),
+    inset 0 1px 0 rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.1));
+}
+
+/* Dark mode adjustments for CTA glassmorphism */
+.dark .cta-glassmorphism {
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.5)) 0%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.25)) 50%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.5)) 100%
+  );
+
+  border: 1px solid rgb(255 255 255 / var(--glassmorphism-opacity));
+  box-shadow: 0 32px 64px -12px rgb(0 0 0 / 0.4),
+    inset 0 1px 0 rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.5));
+}
+
+.dark .cta-glassmorphism:hover {
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.75)) 0%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.4)) 50%,
+    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.75)) 100%
+  );
+
+  border: 1px solid rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.05));
+}
+
+/* ==========================================================================
+   CTA Button Glassmorphism (nested within CTA cards)
+   ========================================================================== */
+
+.cta-glassmorphism .group {
+  /* Ensure proper text contrast in light mode */
+  color: rgb(var(--color-gray-900));
+}
+
+.dark .cta-glassmorphism .group {
+  /* Maintain white text in dark mode */
+  color: rgb(var(--color-gray-100));
+}
+
+/* Enhanced button glassmorphism for light mode visibility */
+.cta-glassmorphism .group > div:first-child {
+  /* Light mode button background */
+  background: rgb(255 255 255 / 0.9);
+  border: 1px solid rgb(0 0 0 / 0.1);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.3);
+}
+
+.dark .cta-glassmorphism .group > div:first-child {
+  /* Dark mode button background */
+  background: rgb(0 0 0 / 0.4);
+  border: 1px solid rgb(255 255 255 / 0.2);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.3), 0 4px 6px -2px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.1);
+}
+
+.cta-glassmorphism .group:hover > div:first-child {
+  background: rgb(255 255 255);
+  border: 1px solid rgb(0 0 0 / 0.15);
+  box-shadow: 0 20px 40px -8px rgb(0 0 0 / 0.15), 0 8px 12px -4px rgb(0 0 0 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.4);
+}
+
+.dark .cta-glassmorphism .group:hover > div:first-child {
+  background: rgb(0 0 0 / 0.6);
+  border: 1px solid rgb(255 255 255 / 0.3);
+}

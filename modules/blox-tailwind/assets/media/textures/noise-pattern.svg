@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+  <defs>
+    <!-- Define a noise filter -->
+    <filter id="glassmorphism-noise-filter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/> <!-- make grayscale -->
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.05"/> <!-- opacity of noise -->
+      </feComponentTransfer>
+    </filter>
+
+    <!-- Define pattern -->
+    <pattern id="glassmorphism-noise" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" filter="url(#glassmorphism-noise-filter)" />
+    </pattern>
+  </defs>
+
+  <!-- Apply noise pattern -->
+  <rect width="32" height="32" fill="url(#glassmorphism-noise)" />
+</svg>

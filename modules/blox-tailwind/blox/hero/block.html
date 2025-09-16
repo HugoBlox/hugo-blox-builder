@@ -13,7 +13,24 @@
     {{ $announcement := $block.content.announcement }}
     <div class="hidden sm:mb-8 sm:flex sm:justify-center">
       <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 dark:text-gray-300 ring-1 ring-gray-900/10 dark:ring-gray-300 hover:ring-gray-900/20 dark:hover:ring-gray-400">
-        {{$announcement.text | markdownify}} {{if $announcement.link.text}}<a href="{{$announcement.link.url}}" class="font-semibold text-primary-600 dark:text-primary-300"><span class="absolute inset-0" aria-hidden="true"></span>{{$announcement.link.text}} <span aria-hidden="true">&rarr;</span></a>{{end}}
+        {{$announcement.text | markdownify}} 
+        {{if $announcement.link.text}}
+          {{ $announcement_link := $announcement.link.url }}
+          {{ $announcement_scheme := (urls.Parse $announcement_link).Scheme }}
+          {{ if not $announcement_scheme }}
+            {{/* Check if it's a hash fragment (page anchor) */}}
+            {{ if hasPrefix $announcement_link "#" }}
+              {{/* Keep hash fragments as-is */}}
+              {{ $announcement_link = $announcement_link }}
+            {{ else }}
+              {{/* Apply relLangURL for relative paths */}}
+              {{ $announcement_link = $announcement_link | relLangURL }}
+            {{ end }}
+          {{ end }}
+          <a href="{{$announcement_link | safeURL}}" class="font-semibold text-primary-600 dark:text-primary-300">
+            <span class="absolute inset-0" aria-hidden="true"></span>{{$announcement.link.text}} <span aria-hidden="true">&rarr;</span>
+          </a>
+        {{end}}
       </div>
     </div>
     {{end}}
@@ -27,7 +44,14 @@
         {{ $scheme := (urls.Parse $link).Scheme }}
         {{ $target := "" }}
         {{ if not $scheme }}
-          {{ $link = $link | relLangURL }}
+          {{/* Check if it's a hash fragment (page anchor) */}}
+          {{ if hasPrefix $link "#" }}
+            {{/* Keep hash fragments as-is */}}
+            {{ $link = $link }}
+          {{ else }}
+            {{/* Apply relLangURL for relative paths */}}
+            {{ $link = $link | relLangURL }}
+          {{ end }}
         {{ else if in (slice "http" "https") $scheme }}
           {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
@@ -45,7 +69,14 @@
           {{ $scheme_alt := (urls.Parse $link_alt).Scheme }}
           {{ $target_alt := "" }}
           {{ if not $scheme_alt }}
-            {{ $link_alt = $link_alt | relLangURL }}
+            {{/* Check if it's a hash fragment (page anchor) */}}
+            {{ if hasPrefix $link_alt "#" }}
+              {{/* Keep hash fragments as-is */}}
+              {{ $link_alt = $link_alt }}
+            {{ else }}
+              {{/* Apply relLangURL for relative paths */}}
+              {{ $link_alt = $link_alt | relLangURL }}
+            {{ end }}
           {{ else if in (slice "http" "https") $scheme_alt }}
             {{ $target_alt = "target=\"_blank\" rel=\"noopener\"" }}
           {{ end }}

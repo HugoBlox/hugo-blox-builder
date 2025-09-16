@@ -31,14 +31,125 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "description": "Button URL"
+                  "description": "Button URL (supports hash fragments, relative paths, and absolute URLs)"
                 },
                 "text": {
                   "type": "string",
                   "description": "Button text"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Optional button icon (icon pack format: pack/icon-name)"
                 }
               },
               "required": ["url", "text"]
+            }
+          }
+        },
+        "design": {
+          "type": "object",
+          "description": "Design and styling options",
+          "properties": {
+            "card": {
+              "type": "object",
+              "description": "Card-specific styling",
+              "properties": {
+                "css_class": {
+                  "type": "string",
+                  "description": "CSS classes to apply to the card (supports glassmorphism classes: glassmorphism-primary, glassmorphism-dark, glass-ring, glass-shadow, noise-texture)"
+                },
+                "text_color": {
+                  "type": "string",
+                  "enum": ["auto", "light", "dark"],
+                  "description": "Text color mode for optimal contrast (auto detects based on background)",
+                  "default": "auto"
+                },
+                "overlay_opacity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "description": "Glassmorphism overlay opacity for fine-tuning contrast",
+                  "default": 0.15
+                },
+                "css_style": {
+                  "type": "string",
+                  "description": "Custom CSS styles to apply to the card"
+                }
+              }
+            },
+            "background": {
+              "type": "object",
+              "description": "Modern background options supporting layered effects",
+              "properties": {
+                "color": {
+                  "type": "string",
+                  "description": "Background color"
+                },
+                "gradient": {
+                  "type": "object",
+                  "description": "Modern gradient syntax for 2025 glassmorphism",
+                  "properties": {
+                    "start": {
+                      "type": "string",
+                      "description": "Gradient start color (e.g., 'primary-500', 'blue-600')"
+                    },
+                    "end": {
+                      "type": "string",
+                      "description": "Gradient end color (e.g., 'primary-700', 'blue-800')"
+                    },
+                    "direction": {
+                      "type": "number",
+                      "description": "Gradient angle in degrees (default: 90)",
+                      "default": 90
+                    }
+                  }
+                },
+                "image": {
+                  "type": "object",
+                  "description": "Background image (layers with gradient for glassmorphism)",
+                  "properties": {
+                    "filename": {
+                      "type": "string",
+                      "description": "Image filename in assets/media/"
+                    },
+                    "size": {
+                      "type": "string",
+                      "enum": ["cover", "contain", "auto", "100px", "50%"],
+                      "description": "Background size",
+                      "default": "cover"
+                    },
+                    "position": {
+                      "type": "string",
+                      "enum": [
+                        "center",
+                        "top",
+                        "bottom",
+                        "left",
+                        "right",
+                        "repeat",
+                        "top left",
+                        "top right",
+                        "bottom left",
+                        "bottom right"
+                      ],
+                      "description": "Background position (use 'repeat' for tiling textures)",
+                      "default": "center"
+                    },
+                    "repeat": {
+                      "type": "string",
+                      "enum": ["repeat", "repeat-x", "repeat-y", "no-repeat"],
+                      "description": "Explicit background-repeat control",
+                      "default": "no-repeat"
+                    },
+                    "opacity": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1,
+                      "description": "Image opacity for subtle textures"
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -46,4 +157,3 @@
     }
   ]
 }
-
