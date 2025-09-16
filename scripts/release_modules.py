@@ -30,6 +30,7 @@ import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
+from datetime import datetime
 import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
@@ -70,6 +71,42 @@ def get_latest_hugo_version() -> Optional[str]:
   except Exception:
     pass
   return None
+
+
+def get_module_latest_commit_info(module: Module) -> Optional[Tuple[str, datetime]]:
+  """Get the latest commit hash and timestamp for a module."""
+  try:
+    # Get latest commit hash for the module directory
+    res = run_cmd(["git", "log", "-1", "--format=%H %ct", "--", str(module.rel_dir)], cwd=REPO_ROOT)
+    if not res.stdout.strip():
+      return None
+    
+    parts = res.stdout.strip().split()
+    if len(parts) != 2:
+      return None
+    
+    commit_hash = parts[0]
+    timestamp = datetime.fromtimestamp(int(parts[1]))
+    return commit_hash, timestamp
+  except Exception as e:
+    logging.warning("Failed to get commit info for %s: %s", module.name, e)
+    return None
+
+
+def format_pseudo_version(commit_hash: str, timestamp: datetime, base_version: str = "v0.0.0") -> str:
+  """Format a commit hash and timestamp as a Go pseudo-version."""
+  # Format: v0.0.0-20060102150405-abcdefabcdef
+  time_str = timestamp.strftime("%Y%m%d%H%M%S")
+  short_hash = commit_hash[:12]
+  return f"{base_version}-{time_str}-{short_hash}"
+
+
+def update_go_mod_require_pseudo_version(go_mod_text: str, dep_module_path: str, pseudo_version: str) -> str:
+  """Replace exact require line with pseudo-version format."""
+  # This handles both versioned requires (v1.2.3) and existing pseudo-versions
+  pattern_line = rf"(?m)^(\s*{re.escape(dep_module_path)}\s+)(?:v\d+[^\s]*|v\d+\.\d+\.\d+-\d+-[a-f0-9]+)$"
+  replacement_line = rf"\g<1>{pseudo_version}"
+  return re.sub(pattern_line, replacement_line, go_mod_text)
 
 
 @dataclass
@@ -439,8 +476,8 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
           updated_paths.append(netlify)
           logging.info("starter %s: netlify.toml HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
-    # bump publish.yaml env WC_HUGO_VERSION
-    workflow = starter_dir / ".github" / "workflows" / "publish.yaml"
+    # bump deploy.yml env WC_HUGO_VERSION
+    workflow = starter_dir / ".github" / "workflows" / "deploy.yml"
     if latest_hugo and workflow.exists():
       with workflow.open("r", encoding="utf-8") as f:
         wf = yaml.load(f) or {}
@@ -449,10 +486,90 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
         with workflow.open("w", encoding="utf-8") as f:
           yaml.dump(wf, f)
         updated_paths.append(workflow)
-        logging.info("starter %s: publish.yaml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
+        logging.info("starter %s: deploy.yml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
   if updated_paths:
     stage_and_maybe_commit(updated_paths, "chore(starters): bump modules and Hugo", commit, push)
+
+
+def update_starters_to_commits(modules: Dict[str, Module], commit: bool, push: bool) -> None:
+  """Update starters to use latest commit hashes of modules instead of tagged versions."""
+  updated_paths: List[Path] = []
+  latest_hugo = get_latest_hugo_version()
+  yaml = YAML()
+  yaml.preserve_quotes = True
+
+  # Get commit info for all modules first
+  module_commit_info: Dict[str, Tuple[str, str]] = {}  # module_path -> (pseudo_version, short_description)
+  for module in modules.values():
+    commit_info = get_module_latest_commit_info(module)
+    if commit_info:
+      commit_hash, timestamp = commit_info
+      pseudo_version = format_pseudo_version(commit_hash, timestamp)
+      short_desc = f"{commit_hash[:7]} ({timestamp.strftime('%Y-%m-%d %H:%M:%S')})"
+      module_commit_info[module.module_path] = (pseudo_version, short_desc)
+      logging.info("module %s -> %s (%s)", module.name, pseudo_version, short_desc)
+
+  for starter_dir in sorted([p for p in STARTERS_DIR.glob("*") if p.is_dir()]):
+    # Update go.mod with commit-based pseudo-versions
+    go_mod = starter_dir / "go.mod"
+    if go_mod.exists():
+      text = go_mod.read_text(encoding="utf-8")
+      new_text = text
+      referenced = _extract_requires_from_go_mod(text)
+      
+      for module_path in referenced:
+        if module_path in modules and module_path in module_commit_info:
+          pseudo_version, short_desc = module_commit_info[module_path]
+          new_text = update_go_mod_require_pseudo_version(new_text, module_path, pseudo_version)
+          logging.info("starter %s: %s -> %s", starter_dir.name, modules[module_path].name, short_desc)
+      
+      if new_text != text:
+        go_mod.write_text(new_text, encoding="utf-8")
+        updated_paths.append(go_mod)
+        logging.info("starter %s: updated go.mod to use commit versions", starter_dir.name)
+
+    # bump hugo version in hugoblox.yaml (same as regular update_starters)
+    hb_yaml = starter_dir / "hugoblox.yaml"
+    if latest_hugo and hb_yaml.exists():
+      with hb_yaml.open("r", encoding="utf-8") as f:
+        data = yaml.load(f) or {}
+      if "build" not in data:
+        data["build"] = {}
+      if data["build"].get("hugo_version") != latest_hugo:
+        data["build"]["hugo_version"] = SingleQuotedScalarString(latest_hugo)
+        with hb_yaml.open("w", encoding="utf-8") as f:
+          yaml.dump(data, f)
+        updated_paths.append(hb_yaml)
+        logging.info("starter %s: hugoblox.yaml hugo_version -> %s", starter_dir.name, latest_hugo)
+
+    # bump netlify.toml HUGO_VERSION (same as regular update_starters)
+    netlify = starter_dir / "netlify.toml"
+    if latest_hugo and netlify.exists():
+      parsed = tomlkit.parse(netlify.read_text(encoding="utf-8"))
+      if "build" in parsed and "environment" in parsed["build"]:
+        env = parsed["build"]["environment"]
+        if env.get("HUGO_VERSION") != latest_hugo:
+          env["HUGO_VERSION"] = latest_hugo
+          netlify.write_text(tomlkit.dumps(parsed), encoding="utf-8")
+          updated_paths.append(netlify)
+          logging.info("starter %s: netlify.toml HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
+
+    # bump deploy.yml env WC_HUGO_VERSION (same as regular update_starters)
+    workflow = starter_dir / ".github" / "workflows" / "deploy.yml"
+    if latest_hugo and workflow.exists():
+      with workflow.open("r", encoding="utf-8") as f:
+        wf = yaml.load(f) or {}
+      if "env" in wf and wf["env"].get("WC_HUGO_VERSION") != latest_hugo:
+        wf["env"]["WC_HUGO_VERSION"] = latest_hugo
+        with workflow.open("w", encoding="utf-8") as f:
+          yaml.dump(wf, f)
+        updated_paths.append(workflow)
+        logging.info("starter %s: deploy.yml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
+
+  if updated_paths:
+    stage_and_maybe_commit(updated_paths, "chore(starters): update modules to latest commits", commit, push)
+    logging.info("Updated %d starter files to use latest module commits", len(updated_paths))
 
 
 def ensure_clean_worktree() -> None:
@@ -471,6 +588,7 @@ def main() -> None:
   parser.add_argument("--no-propagate", dest="propagate", action="store_false", help="Do not bump dependents purely for dependency updates.")
   parser.add_argument("--allow-major", action="store_true", help="Allow major version bumps when inferred from commits. By default majors are downgraded to minor to avoid Go module path changes.")
   parser.add_argument("--print-plan", action="store_true", help="Print the planned releases as JSON.")
+  parser.add_argument("--update-starters-to-commits", action="store_true", help="Update starters to use latest module commits instead of releasing new tags. This is a standalone operation that doesn't create releases.")
   parser.add_argument("--log-level", default=os.getenv("LOG_LEVEL", "INFO"), help="Logging level: DEBUG, INFO, WARNING, ERROR")
   args = parser.parse_args()
 
@@ -484,6 +602,15 @@ def main() -> None:
 
   modules = discover_modules()
   order = topological_order(modules)
+
+  # Handle the standalone --update-starters-to-commits option
+  if args.update_starters_to_commits:
+    if yes:
+      ensure_clean_worktree()
+    logging.info("Updating starters to use latest module commits...")
+    update_starters_to_commits(modules, commit=yes, push=yes)
+    logging.info("Starter update to commits complete")
+    return
 
   if yes:
     ensure_clean_worktree()
