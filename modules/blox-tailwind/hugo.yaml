@@ -2,7 +2,7 @@ build:
   buildStats:
     enable: true
   cachebusters:
-    - source: assets/notwatching/hugo_stats\.json
+    - source: assets/hugo_stats\.json
       target: css
     - source: (postcss|tailwind)\.config\.js
       target: css
@@ -112,7 +112,7 @@ module:
       target: archetypes
     - disableWatch: true
       source: hugo_stats.json
-      target: assets/notwatching/hugo_stats.json
+      target: assets/hugo_stats.json
 
     # BLOX A) Server-rendered block templates (Go HTML)
     - source: blox

@@ -10,27 +10,27 @@
   6. Safelist for dynamic classes
 */
 
-/* Tailwind CSS v4 Base */
-@import "tailwindcss";
+/* Tailwind CSS v4 - This single import handles base, components, and utilities */
+@import 'tailwindcss';
 
 /* Configuration */
-@import "./config/tailwind.css";
-@import "./config/theme.css";
+@import 'config/tailwind.css';
+@import 'config/theme.css';
 
 /* Base styles and utilities */
-@import "./framework/base.css";
+@import 'framework/base.css';
 
 /* Hugo Blox theme system (color utilities) */
-@import "./color-utilities.css";
+@import 'color-utilities.css';
 
 /* Hugo Blox framework components */
-@import "./framework/components.css";
+@import 'framework/components.css';
 
 /* Hugo Blox module components */
-@import "./components/all.css";
-@import "./blox/all.css";
-@import "./views/attachments.css";
-@import "chroma.css";
+@import 'components/all.css';
+@import 'blox/all.css';
+@import 'views/all.css';
+@import 'chroma.css';
 
 /* Safelist for dynamic classes */
-@import "./config/safelist.css";
+@import 'config/safelist.css';

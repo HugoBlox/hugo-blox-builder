@@ -6,9 +6,8 @@
 
 /* Content detection sources */
 /* Note: @source is a Tailwind v4 directive - linters may show warnings that can be ignored */
+/* Hugo stats file contains all detected classes from templates */
 @source "hugo_stats.json";
-@source "../../layouts/**/*.html";
-@source "../../assets/**/*.{js,css}";
 
 /* Custom Variants Configuration */
 /* Configure dark mode to use class strategy */
