@@ -12,8 +12,9 @@ trap cleanup EXIT INT TERM
 usage() {
     echo "View a starter template with local development modules and debug features."
     echo ""
-    echo "Usage: ./scripts/view-starter-dev.sh <starter-name> [--debug] [--no-pagefind]"
+    echo "Usage: ./scripts/view-starter-dev.sh [<starter-name>] [--debug] [--no-pagefind]"
     echo "Example: ./scripts/view-starter-dev.sh blog --debug"
+    echo "Default starter: academic-cv (if no starter-name provided)"
     echo ""
     echo "This script uses:"
     echo "  • Local development modules (via HUGO_MODULE_REPLACEMENTS)"
@@ -21,12 +22,7 @@ usage() {
     echo "  • Optional Pagefind search indexing and enhanced debugging"
 }
 
-if [ $# -lt 1 ]; then
-    usage
-    exit 1
-fi
-
-STARTER=""
+STARTER="academic-cv"  # Default starter if none provided
 DEBUG_MODE=false
 PAGEFIND=true
 
@@ -56,10 +52,6 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-if [ -z "$STARTER" ]; then
-    usage
-    exit 1
-fi
 
 # Run Hugo from the site dir so Tailwind CLI is discoverable
 cd "starters/$STARTER"

@@ -11,8 +11,9 @@ trap "exitfn" INT
 usage() {
     echo "View a starter template with published production modules."
     echo ""
-    echo "Usage: ./scripts/view-starter-prod.sh <starter-name>"
+    echo "Usage: ./scripts/view-starter-prod.sh [<starter-name>]"
     echo "Example: ./scripts/view-starter-prod.sh blog"
+    echo "Default starter: academic-cv (if no starter-name provided)"
     echo ""
     echo "This script uses:"
     echo "  • Published/released modules (no local overrides)"
@@ -20,15 +21,11 @@ usage() {
     echo "  • Minimal configuration for testing published versions"
 }
 
-if [ -z "$1" ]; then
-    usage
-    exit 1
-fi
-
+STARTER="${1:-academic-cv}"  # Default to academic-cv if no argument provided
 INITIAL_DIR=$(pwd)
 
 # Run Hugo from the starter directory so Tailwind v4 CLI is discoverable by Hugo
-cd "starters/$1"
+cd "starters/$STARTER"
 
 # Ensure Tailwind CLI is available for Hugo
 if [ -f "package.json" ]; then
