@@ -27,29 +27,41 @@
     "workbench.editor.labelFormat": "medium",
     "breadcrumbs.enabled": true,
     "npm.packageManager": "pnpm",
-
+    "editor.detectIndentation": false,
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit",
       "source.fixAll.stylelint": "explicit"
     },
 
-    "[javascript]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
-    "[typescript]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
-    "[json]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
-    "[css]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
-    "[html]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
-    "[markdown]": {"editor.defaultFormatter": "esbenp.prettier-vscode"},
+    "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
+    "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
+    "[json]": { "editor.defaultFormatter": "biomejs.biome" },
+    "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "files.trimTrailingWhitespace": false
+    },
+    "[python]": {
+      "editor.tabSize": 4,
+      "editor.insertSpaces": true
+    },
 
-    "eslint.workingDirectories": [{"mode": "auto"}],
-    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
 
     "stylelint.validate": ["css"],
 
     "tailwindCSS.emmetCompletions": true,
 
-    "yaml.validate": true
+    "yaml.validate": true,
+    "prettier.useEditorConfig": true
   },
   "extensions": {
     "recommendations": [
@@ -65,7 +77,12 @@
       "streetsidesoftware.code-spell-checker",
       "mikestead.dotenv",
       "eamodio.gitlens",
-      "bierner.markdown-mermaid"
+      "bierner.markdown-mermaid",
+      "EditorConfig.EditorConfig",
+      "biomejs.biome",
+      "github.vscode-github-actions",
+      "timonwong.shellcheck",
+      "budparr.language-hugo-vscode"
     ]
   }
 }

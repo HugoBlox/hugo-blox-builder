@@ -1,4 +1,5 @@
-name: Welcome New Contributor
+name: Community - Welcome New Contributor
+run-name: ${{ github.workflow }} - ${{ github.ref_name }}
 
 on:
   pull_request_target:

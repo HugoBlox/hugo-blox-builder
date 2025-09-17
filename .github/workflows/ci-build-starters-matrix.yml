@@ -1,4 +1,5 @@
 name: CI - Build Starters Matrix
+run-name: ${{ github.workflow }} - ${{ github.ref_name }}
 
 on:
   schedule:
@@ -73,14 +74,14 @@ jobs:
             exit 1
           fi
 
+      - name: Enable Corepack (for pnpm cache)
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "${{ env.NODE_VERSION }}"
           cache: "pnpm"
-
-      - name: Enable Corepack (use pnpm from package.json)
-        run: corepack enable
 
       - name: Activate pnpm from root package.json
         run: pnpm --version

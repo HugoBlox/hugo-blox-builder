@@ -1,7 +1,8 @@
-name: 'Close stale issues and PRs'
+name: "Maintenance - Close Stale Issues and PRs"
+run-name: ${{ github.workflow }} - ${{ github.ref_name }}
 on:
   schedule:
-    - cron: '30 1 * * *'
+    - cron: "30 1 * * *"
 
 permissions:
   contents: write # only for delete-branch option
@@ -35,5 +36,5 @@ jobs:
           days-before-close: 5
           stale-issue-label: stale
           stale-pr-label: stale
-          exempt-issue-labels: 'keep,enhancement,bug,documentation'
-          exempt-pr-labels: 'keep,enhancement,bug,documentation'
+          exempt-issue-labels: "keep,enhancement,bug,documentation"
+          exempt-pr-labels: "keep,enhancement,bug,documentation"
