@@ -1,0 +1,69 @@
+{{/*
+  Altmetric badge embed
+
+  Usage:
+    {{ partial "badges/altmetric" (dict "page" $page "is_list" $is_list) }}
+
+  Config flags:
+    params.features.altmetric.enable: true|false
+
+  Front matter options (any of following):
+    altmetric: true | "<altmetric_id>" | hugoblox.ids.altmetric
+    doi / hugoblox.ids.doi
+    arxiv_number | arxiv | eprint | hugoblox.ids.arxiv
+    pmid | isbn
+*/}}
+
+{{ $enabled := site.Params.features.altmetric.enable | default true }}
+{{ if not $enabled }}{{- return -}}{{ end }}
+
+{{ $page := .page }}
+
+{{/* Gather identifiers */}}
+{{ $alt_val := $page.Params.altmetric }}
+{{ $alt_str := printf "%v" $alt_val }}
+{{ $has_explicit_alt_id := and $alt_val (ne (lower $alt_str) "true") }}
+{{ $enabled_by_param := or (eq (lower $alt_str) "true") (eq $alt_val true) }}
+
+{{ $doi := $page.Params.doi | default "" }}
+{{ $arxiv := or ($page.Params.arxiv_number | default "") ($page.Params.arxiv | default "") ($page.Params.eprint | default "") }}
+{{ $pmid := $page.Params.pmid | default "" }}
+{{ $isbn := $page.Params.isbn | default "" }}
+
+{{/* Support new HugoBlox IDs schema if present */}}
+{{ $hb_ids := index $page.Params "hugoblox" "ids" }}
+{{ with $hb_ids }}
+  {{ if and (not $doi) (index . "doi") }}
+    {{ $doi = index . "doi" }}
+  {{ end }}
+  {{ if and (not $arxiv) (index . "arxiv") }}
+    {{ $arxiv = index . "arxiv" }}
+  {{ end }}
+  {{ if and (not $pmid) (index . "pmid") }}
+    {{ $pmid = index . "pmid" }}
+  {{ end }}
+  {{ if and (not $isbn) (index . "isbn") }}
+    {{ $isbn = index . "isbn" }}
+  {{ end }}
+{{ end }}
+
+{{/* Render only if enabled via altmetric param (true or explicit id) */}}
+{{ if or $has_explicit_alt_id $enabled_by_param }}
+  <span class="inline-flex items-center align-middle whitespace-nowrap leading-none" style="vertical-align: middle;">
+    <span class="altmetric-embed" data-badge-type="2" data-badge-popover="bottom"
+      {{ if $has_explicit_alt_id }}data-altmetric-id="{{ $alt_str }}"{{ else }}
+        {{ if $arxiv }}data-arxiv-id="{{ $arxiv }}"{{ else if $doi }}data-doi="{{ $doi }}"{{ else if $pmid }}data-pmid="{{ $pmid }}"{{ else if $isbn }}data-isbn="{{ $isbn }}"{{ end }}
+      {{ end }}
+    ></span>
+    <script>
+      if (!window._altmetric_embed_loaded) {
+        var s = document.createElement('script');
+        s.src = 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js';
+        s.async = true;
+        document.head.appendChild(s);
+        window._altmetric_embed_loaded = true;
+      }
+    </script>
+  </span>
+  
+{{ end }}
