@@ -1,19 +1,21 @@
 name: Welcome New Contributor
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
   issues:
     types:
       - opened
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
 jobs:
   greeting:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
       - uses: actions/first-interaction@v3
         with:
@@ -31,6 +33,9 @@ jobs:
 
 
             Thank you for this contribution to open source and open research. It makes a huge impact for the thousands of innovators building with Hugo Blox.
+
+
+            If you're wondering about next steps, please read our [Contributor Guide](https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md) for coding standards, how to run the project locally, and how to get help.
 
 
             We hope this is just the start of your journey with us. Let's build the future together! Join us on [Discord](https://discord.gg/z8wNYzb) to connect with the team and community.

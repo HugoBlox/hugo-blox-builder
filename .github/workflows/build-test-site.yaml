@@ -1,12 +1,39 @@
-name: Continuous Integration
+name: CI - Build Test Site
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - "modules/**"
+      - "test/**"
+      - "scripts/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "biome.json"
+      - ".stylelintrc.yaml"
+      - "vite.config.js"
   pull_request:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - "modules/**"
+      - "test/**"
+      - "scripts/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "biome.json"
+      - ".stylelintrc.yaml"
+      - "vite.config.js"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  HUGO_VERSION: "0.150.0"
 
 jobs:
   build:
@@ -15,7 +42,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-    #        node-version: [18.x]
+    #        node-version: [22.x]
 
     steps:
       - uses: actions/checkout@v5
@@ -23,16 +50,28 @@ jobs:
           submodules: true # Fetch any Git submodules (true OR recursive)
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
-      #      - name: Use Node.js ${{ matrix.node-version }}
-      #        uses: actions/setup-node@v3
-      #        with:
-      #          node-version: ${{ matrix.node-version }}
+      - name: Validate Hugo version consistency
+        run: |
+          set -euo pipefail
+          EXPECTED=$(grep -E "^\s*hugo_version:\s*['\"]?" starters/academic-cv/hugoblox.yaml | sed -E "s/.*hugo_version:\s*['\"]?([^'\"]+)['\"]?.*/\1/")
+          echo "Expected Hugo from starter: $EXPECTED"
+          echo "Hugo in CI: $HUGO_VERSION"
+          if [ "$EXPECTED" != "$HUGO_VERSION" ]; then
+            echo "::error::HUGO_VERSION ($HUGO_VERSION) does not match starters/academic-cv/hugoblox.yaml ($EXPECTED). Update .github/workflows env or starter version."
+            exit 1
+          fi
 
-      - uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          run_install: |
-            - recursive: false
-              args: [--frozen-lockfile]
+          node-version: "${{ env.NODE_VERSION }}"
+          cache: "pnpm"
+
+      - name: Enable Corepack (use pnpm from package.json)
+        run: corepack enable
+
+      - name: Install root dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Install Tailwind v4 dependencies for test site
         run: |
@@ -40,33 +79,20 @@ jobs:
           pnpm install --frozen-lockfile
           cd ..
 
-      - name: Check for linting errors
-        run: pnpm run lint:js # TODO: also lint styles again once new rule errors resolved
+      - name: Cache Hugo resources (test)
+        uses: actions/cache@v4
+        with:
+          path: test/resources/
+          key: ${{ runner.os }}-hugo-resources-test-${{ hashFiles('test/assets/**/*', 'test/config/**/*', 'test/hugo.yaml', 'test/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-resources-test-
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.148.2'
+          hugo-version: "${{ env.HUGO_VERSION }}"
           extended: true
 
       - name: Build
-        run: hugo --minify --templateMetrics --templateMetricsHints
+        run: hugo --minify --panicOnWarning --templateMetrics --templateMetricsHints
         working-directory: test
-#  format:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          # Make sure the actual branch is checked out when running on pull requests
-#          ref: ${{ github.head_ref }}
-#
-#      - name: Prettify code
-#        uses: creyD/prettier_action@v3.1
-#        with:
-#          prettier_options: '--write blox-tailwind/*.{css,js,json,md,scss} blox-tailwind/**/*.{css,js,json,md,scss}' # Match package.json
-#          prettier_version: '2.2.1' # Match package.json
-#          commit_message: 'refactor: format code'
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

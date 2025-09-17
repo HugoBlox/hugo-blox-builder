@@ -26,12 +26,8 @@
     "vite-plugin-static-copy": "^3.1.1"
   },
   "devDependencies": {
-    "eslint": "~8.15.0",
-    "eslint-config-prettier": "~8.5.0",
-    "prettier": "~2.6.2",
-    "prettier-plugin-go-template": "~0.0.12",
+    "@biomejs/biome": "^1.9.4",
     "stylelint": "14.8.2",
-    "stylelint-config-prettier": "~9.0.3",
     "stylelint-config-standard": "~25.0.0",
     "stylelint-scss": "~4.2.0"
   },
@@ -39,13 +35,12 @@
     "prod": "scripts/view-starter-prod.sh",
     "dev": "scripts/view-starter-dev.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "pnpm run lint:js && pnpm run lint:style",
-    "lint:js": "eslint '*/**/*.{js,ts,tsx}'",
-    "lint:js:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "lint": "pnpm run lint:code && pnpm run lint:style",
+    "lint:code": "biome check --reporter=summary .",
+    "lint:code:fix": "biome check --write .",
     "lint:style": "stylelint '**/*.css'",
     "lint:style:fix": "stylelint '**/*.css' --fix",
-    "format": "prettier --write \"*.{css,js,json,md}\" \"./**/*.{css,js,json,md}\"",
-    "stylelint-conflict-check": "stylelint-config-prettier-check",
+    "format": "pnpm run lint:code:fix && pnpm run lint:style:fix",
     "update:starters": "poetry run python ./scripts/update.py",
     "vendor:libs": "vite build --config vite.config.js",
     "vendor:libs:watch": "vite build --config vite.config.js --watch"

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "ignore": [
+      "node_modules/**",
+      "public/**",
+      "resources/**",
+      "**/_gen/**",
+      "**/assets/dist/**",
+      "**/*.min.js",
+      "**/pagefind/**",
+      "**/_vendor/**",
+      "**/vendor/**",
+      "**/*.html",
+      "**/*.webmanifest",
+      "**/*.backlinks.json",
+      "**/hugo_stats.json",
+      "**/*.code-workspace",
+      "modules/blox-tailwind/data/icons/devicon.json",
+      "starters/**",
+      "test/**",
+      "modules/**/package.json",
+      "**/assets/jsconfig.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": { "all": false },
+      "complexity": { "all": false },
+      "suspicious": {
+        "noEmptyBlock": "off"
+      }
+    }
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "javascript": {
+    "globals": ["PagefindUI"]
+  }
+}

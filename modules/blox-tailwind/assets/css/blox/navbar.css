@@ -22,7 +22,7 @@
 [data-search-toggle],
 #search-toggle,
 [data-te-collapse-init],
-.nav-dropdown > .nav-link[role='button'] {
+.nav-dropdown > .nav-link[role="button"] {
   @apply cursor-pointer;
 }
 

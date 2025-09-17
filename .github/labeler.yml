@@ -1,0 +1,14 @@
+documentation:
+  - "**/*.md"
+ci:
+  - ".github/workflows/**"
+modules:
+  - "modules/**"
+starters:
+  - "starters/**"
+config:
+  - "package.json"
+  - "pnpm-lock.yaml"
+  - "biome.json"
+  - ".stylelintrc.yaml"
+  - "vite.config.js"

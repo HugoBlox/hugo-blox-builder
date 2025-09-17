@@ -1,0 +1,12 @@
+# CODEOWNERS helps route reviews automatically.
+# Update these owners to the correct team(s) as needed.
+
+* @gcushen
+
+# Core theme and modules
+modules/** @gcushen
+
+# Starters
+starters/** @gcushen
+
+

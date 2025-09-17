@@ -13,15 +13,8 @@
       "spdx": "MIT",
       "url": "https://github.com/tailwindlabs/heroicons/blob/master/LICENSE"
     },
-    "samples": [
-      "camera",
-      "building-library",
-      "receipt-refund"
-    ],
-    "height": [
-      24,
-      20
-    ],
+    "samples": ["camera", "building-library", "receipt-refund"],
+    "height": [24, 20],
     "category": "General",
     "palette": false
   },

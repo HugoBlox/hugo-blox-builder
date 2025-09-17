@@ -35,7 +35,7 @@
   .author-notes {
     display: none;
   }
-  
+
   /* Show author notes as superscript numbers in print */
   .author-notes::after {
     display: inline;

@@ -291,4 +291,4 @@ Every contribution matters — whether it's fixing a typo, adding a translation,
 
 _Questions? Join our [Discord](https://discord.gg/z8wNYzb) or start a [Discussion](https://github.com/HugoBlox/hugo-blox-builder/discussions)._
 
-_This project follows the [Contributor Covenant Code of Conduct](.github/CODE_OF_CONDUCT.md)._
+_This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)._

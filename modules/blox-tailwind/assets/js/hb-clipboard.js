@@ -3,10 +3,10 @@
  * Provides cross-browser clipboard functionality
  */
 
-import { hugoEnvironment } from '@params';
+import { hugoEnvironment } from "@params";
 
 // Debug mode based on environment
-const isDebugMode = hugoEnvironment === 'development';
+const isDebugMode = hugoEnvironment === "development";
 
 /**
  * Copy text to clipboard with multiple fallback methods
@@ -19,16 +19,16 @@ export async function copyToClipboard(text) {
     try {
       await navigator.clipboard.writeText(text);
       if (isDebugMode) {
-        console.log('Copied using Clipboard API');
+        console.log("Copied using Clipboard API");
       }
       return true;
     } catch (err) {
       if (isDebugMode) {
-        console.warn('Clipboard API failed:', err);
+        console.warn("Clipboard API failed:", err);
       }
     }
   }
-  
+
   // Method 2: execCommand fallback
   return copyUsingExecCommand(text);
 }
@@ -42,16 +42,17 @@ export function copyToClipboardSync(text) {
   return new Promise((resolve) => {
     // Try modern clipboard API first
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text)
+      navigator.clipboard
+        .writeText(text)
         .then(() => {
           if (isDebugMode) {
-            console.log('Copied using Clipboard API (sync)');
+            console.log("Copied using Clipboard API (sync)");
           }
           resolve(true);
         })
-        .catch(err => {
+        .catch((err) => {
           if (isDebugMode) {
-            console.warn('Clipboard API failed:', err);
+            console.warn("Clipboard API failed:", err);
           }
           // Fallback to execCommand
           resolve(copyUsingExecCommand(text));
@@ -69,30 +70,30 @@ export function copyToClipboardSync(text) {
  * @returns {boolean} - Success status
  */
 export function copyUsingExecCommand(text) {
-  const textarea = document.createElement('textarea');
+  const textarea = document.createElement("textarea");
   textarea.value = text;
-  
+
   // Make it invisible but copyable
   Object.assign(textarea.style, {
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    width: '2em',
-    height: '2em',
-    padding: '0',
-    border: 'none',
-    outline: 'none',
-    boxShadow: 'none',
-    background: 'transparent',
-    fontSize: '16px', // Prevent zoom on iOS
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "2em",
+    height: "2em",
+    padding: "0",
+    border: "none",
+    outline: "none",
+    boxShadow: "none",
+    background: "transparent",
+    fontSize: "16px", // Prevent zoom on iOS
   });
-  
+
   document.body.appendChild(textarea);
-  
+
   // Select the text
   textarea.focus();
   textarea.select();
-  
+
   // For iOS
   if (navigator.userAgent.match(/ipad|iphone/i)) {
     const range = document.createRange();
@@ -102,19 +103,19 @@ export function copyUsingExecCommand(text) {
     selection.addRange(range);
     textarea.setSelectionRange(0, 999999);
   }
-  
+
   let success = false;
   try {
-    success = document.execCommand('copy');
+    success = document.execCommand("copy");
     if (isDebugMode) {
-      console.log(`execCommand copy ${success ? 'succeeded' : 'failed'}`);
+      console.log(`execCommand copy ${success ? "succeeded" : "failed"}`);
     }
   } catch (err) {
     if (isDebugMode) {
-      console.error('execCommand failed:', err);
+      console.error("execCommand failed:", err);
     }
   }
-  
+
   document.body.removeChild(textarea);
   return success;
 }
@@ -135,7 +136,7 @@ export class ClipboardCache {
   constructor() {
     this.cache = new Map();
   }
-  
+
   /**
    * Add content to cache
    * @param {string} key - Cache key
@@ -147,7 +148,7 @@ export class ClipboardCache {
       console.log(`Cached clipboard content for: ${key}`);
     }
   }
-  
+
   /**
    * Get content from cache
    * @param {string} key - Cache key
@@ -156,7 +157,7 @@ export class ClipboardCache {
   get(key) {
     return this.cache.get(key) || null;
   }
-  
+
   /**
    * Check if content is cached
    * @param {string} key - Cache key
@@ -165,14 +166,14 @@ export class ClipboardCache {
   has(key) {
     return this.cache.has(key);
   }
-  
+
   /**
    * Clear the cache
    */
   clear() {
     this.cache.clear();
   }
-  
+
   /**
    * Get cache size
    * @returns {number} - Number of cached items

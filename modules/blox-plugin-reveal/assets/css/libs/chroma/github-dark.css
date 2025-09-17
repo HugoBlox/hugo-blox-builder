@@ -29,7 +29,7 @@
 .chroma .hl {
   width: 100%;
   display: block;
-  background-color: rgba(110,118,129,0.1);
+  background-color: rgba(110, 118, 129, 0.1);
 }
 .chroma .lnt {
   color: #8b949e;

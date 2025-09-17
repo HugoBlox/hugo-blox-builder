@@ -181,4 +181,3 @@
   "required": ["block"],
   "additionalProperties": true
 }
-

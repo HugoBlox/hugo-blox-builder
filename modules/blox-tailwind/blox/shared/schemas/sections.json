@@ -6,22 +6,21 @@
   "type": "array",
   "items": {
     "oneOf": [
-      {"$ref": "../hero/schema.json"},
-      {"$ref": "../features/schema.json"},
-      {"$ref": "../collection/schema.json"},
-      {"$ref": "../markdown/schema.json"},
-      {"$ref": "../stats/schema.json"},
-      {"$ref": "../testimonials/schema.json"},
-      {"$ref": "../cta-button-list/schema.json"},
-      {"$ref": "../cta-card/schema.json"},
-      {"$ref": "../cta-image-paragraph/schema.json"},
-      {"$ref": "../resume-experience/schema.json"},
-      {"$ref": "../resume-biography/schema.json"},
-      {"$ref": "../resume-biography-3/schema.json"},
-      {"$ref": "../resume-skills/schema.json"},
-      {"$ref": "../resume-awards/schema.json"},
-      {"$ref": "../resume-languages/schema.json"}
+      { "$ref": "../hero/schema.json" },
+      { "$ref": "../features/schema.json" },
+      { "$ref": "../collection/schema.json" },
+      { "$ref": "../markdown/schema.json" },
+      { "$ref": "../stats/schema.json" },
+      { "$ref": "../testimonials/schema.json" },
+      { "$ref": "../cta-button-list/schema.json" },
+      { "$ref": "../cta-card/schema.json" },
+      { "$ref": "../cta-image-paragraph/schema.json" },
+      { "$ref": "../resume-experience/schema.json" },
+      { "$ref": "../resume-biography/schema.json" },
+      { "$ref": "../resume-biography-3/schema.json" },
+      { "$ref": "../resume-skills/schema.json" },
+      { "$ref": "../resume-awards/schema.json" },
+      { "$ref": "../resume-languages/schema.json" }
     ]
   }
 }
-

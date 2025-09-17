@@ -7,11 +7,11 @@ ul.task-list {
   list-style: none;
 }
 
-ul.task-list li input[type='checkbox'] {
+ul.task-list li input[type="checkbox"] {
   margin-right: 0.5rem;
 }
 
-ul.task-list input[type='checkbox']:checked {
+ul.task-list input[type="checkbox"]:checked {
   appearance: none;
   width: 1em;
   height: 1em;
@@ -20,11 +20,11 @@ ul.task-list input[type='checkbox']:checked {
   position: relative;
 }
 
-ul.task-list input[type='checkbox']:not(:checked) {
+ul.task-list input[type="checkbox"]:not(:checked) {
   width: 0.9em;
   height: 0.9em;
 }
 
-ul.task-list input[type='checkbox']:checked::after {
-  content: '✅';
+ul.task-list input[type="checkbox"]:checked::after {
+  content: "✅";
 }

@@ -2,9 +2,11 @@
   --hb-cols: 2;
 }
 
-
 .hb-cards {
-  grid-template-columns: repeat(auto-fill, minmax(max(250px, calc((100% - 1rem * 2) / var(--hb-cols))), 1fr));
+  grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(250px, calc((100% - 1rem * 2) / var(--hb-cols))), 1fr)
+    );
 }
 
 .hb-card {

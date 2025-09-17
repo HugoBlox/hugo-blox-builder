@@ -1,0 +1,97 @@
+name: CI - Build Starters Matrix
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "modules/**"
+      - "starters/**"
+  pull_request:
+    paths:
+      - "modules/**"
+      - "starters/**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: starters-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  HUGO_VERSION: "0.150.0"
+
+jobs:
+  build-starters:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        starter:
+          - name: academic-cv
+            path: starters/academic-cv
+          - name: landing-page
+            path: starters/landing-page
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Compute resources cache key
+        id: reskey
+        run: |
+          set -euo pipefail
+          P=${{ matrix.starter.path }}
+          # Hash tracked files under assets/config and key files for invalidation
+          HASH=$(git ls-files -s "$P/assets" "$P/config" "$P/hugo.yaml" "$P/package.json" 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
+          if [ -z "$HASH" ]; then HASH="nohash"; fi
+          echo "key=${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-$HASH" >> $GITHUB_OUTPUT
+
+      - name: Cache Hugo resources (starter)
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.starter.path }}/resources/
+          key: ${{ steps.reskey.outputs.key }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-
+
+      - name: Validate Hugo version consistency
+        run: |
+          set -euo pipefail
+          EXPECTED=$(grep -E "^\s*hugo_version:\s*['\"]?" starters/academic-cv/hugoblox.yaml | sed -E "s/.*hugo_version:\s*['\"]?([^'\"]+)['\"]?.*/\1/")
+          echo "Expected Hugo from starter: $EXPECTED"
+          echo "Hugo in CI: $HUGO_VERSION"
+          if [ "$EXPECTED" != "$HUGO_VERSION" ]; then
+            echo "::error::HUGO_VERSION ($HUGO_VERSION) does not match starters/academic-cv/hugoblox.yaml ($EXPECTED). Update .github/workflows env or starter version."
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "${{ env.NODE_VERSION }}"
+          cache: "pnpm"
+
+      - name: Enable Corepack (use pnpm from package.json)
+        run: corepack enable
+
+      - name: Install starter dependencies
+        working-directory: ${{ matrix.starter.path }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "${{ env.HUGO_VERSION }}"
+          extended: true
+
+      - name: Build ${{ matrix.starter.name }}
+        working-directory: ${{ matrix.starter.path }}
+        run: hugo --minify --panicOnWarning

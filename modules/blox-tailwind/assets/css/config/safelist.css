@@ -220,11 +220,11 @@
 
 /* Support for dual light/dark background colors in parse_block_v2.html */
 @media (prefers-color-scheme: dark) {
-  .home-section-bg[style*='--dark-bg-color'] {
+  .home-section-bg[style*="--dark-bg-color"] {
     background-color: var(--dark-bg-color) !important;
   }
 }
 
-.dark .home-section-bg[style*='--dark-bg-color'] {
+.dark .home-section-bg[style*="--dark-bg-color"] {
   background-color: var(--dark-bg-color) !important;
 }

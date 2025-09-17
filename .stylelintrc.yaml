@@ -1,25 +1,37 @@
-# PREVIOUS PLUGINS - no longer needed now porting from Bootstrap to Tailwind
-#plugins:
-#  - stylelint-scss
 extends:
   - stylelint-config-standard
-  - stylelint-config-prettier
-# PREVIOUS EXTENDS - no longer needed now porting from Bootstrap to Tailwind
-#  - stylelint-config-standard-scss
-#  - stylelint-config-prettier-scss
 rules:
-  comment-empty-line-before: null # Allow more compact comments
-  property-no-vendor-prefix: null # Necessary unless postcss prefix
-  value-no-vendor-prefix: null # Necessary unless postcss prefix
-  at-rule-no-unknown: null # Use PostCSS "at" rules
-  no-descending-specificity: null # Allow nested and grouped rules without false positives
-# PREVIOUS RULES - no longer needed now porting from Bootstrap to Tailwind
-#  at-rule-no-unknown: null # Use SCSS "at" rules
-#  scss/at-rule-no-unknown: true # Use SCSS "at" rules
-#  color-function-notation: null # Todo: refactor code
-#  alpha-value-notation: null # Todo: refactor code
-#  number-max-precision: null # Todo: refactor code
-#  font-family-no-missing-generic-family-keyword:
-#    - true
-#    - ignoreFontFamilies:
-#        - Font Awesome 5 Free
+  at-rule-no-unknown:
+    - true
+    - ignoreAtRules:
+        - tailwind
+        - apply
+        - layer
+        - screen
+        - responsive
+        - variants
+        - theme
+        - utility
+        - plugin
+        - source
+        - custom-variant
+  no-descending-specificity: null
+  comment-empty-line-before: null
+  property-no-vendor-prefix: null
+  value-no-vendor-prefix: null
+  string-quotes: null
+  max-empty-lines: null
+  indentation: null
+  max-line-length: null
+  no-eol-whitespace: null
+  declaration-empty-line-before: null
+  declaration-colon-newline-after: null
+  value-list-comma-newline-after: null
+  alpha-value-notation: null
+  hue-degree-notation: null
+  length-zero-no-unit: null
+  custom-property-empty-line-before: null
+  at-rule-empty-line-before: null
+  declaration-block-no-redundant-longhand-properties: null
+  no-duplicate-selectors: null
+  color-function-notation: null

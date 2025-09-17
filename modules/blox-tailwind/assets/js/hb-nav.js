@@ -1,11 +1,12 @@
 // Navigation
 
 const applyScrollPadding = () => {
-  const header = document.querySelector('.page-header');
+  const header = document.querySelector(".page-header");
   let position = header.getBoundingClientRect();
-  document.documentElement.style.scrollPaddingTop = position.height.toString() + 'px';
-  const r = document.querySelector(':root');
-  r.style.setProperty('--navbar-height', position.height.toString() + 'px');
+  document.documentElement.style.scrollPaddingTop =
+    position.height.toString() + "px";
+  const r = document.querySelector(":root");
+  r.style.setProperty("--navbar-height", position.height.toString() + "px");
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -40,5 +41,5 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  applyScrollPadding()
+  applyScrollPadding();
 });

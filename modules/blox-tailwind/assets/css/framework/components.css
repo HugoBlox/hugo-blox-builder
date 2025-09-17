@@ -28,7 +28,7 @@
   }
 
   /* 2025 Glassmorphism texture support - disable conflicting defaults */
-  .home-section-bg.bg-image[style*='background-size'][style*='background-repeat'] {
+  .home-section-bg.bg-image[style*="background-size"][style*="background-repeat"] {
     background-size: revert !important;
     background-repeat: revert !important;
     background-position: revert !important;

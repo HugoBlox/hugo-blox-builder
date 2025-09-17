@@ -320,7 +320,8 @@
   /* Note: Providing these palettes in @theme ensures theme-pack mappings like var(--color-rose-600) always resolve */
 
   /* Font family */
-  --font-family-sans: inter var, ui-sans-serif, system-ui, sans-serif, apple color emoji, segoe ui emoji,
+  --font-family-sans:
+    inter var, ui-sans-serif, system-ui, sans-serif, apple color emoji, segoe ui emoji,
     segoe ui symbol, noto color emoji;
 
   /* Font sizes */

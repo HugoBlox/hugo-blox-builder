@@ -1,4 +1,5 @@
 [**中文**](./README.zh.md)
+
 <p align="center">
   <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme">
     <img src="./.github/media/hero.png" alt="Build world-class sites with Hugo Blox" width="100%">
@@ -15,7 +16,7 @@
 <p align="center">
   <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 Get Started Free</b></a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/all-access?utm_source=github&utm_medium=readme">Explore All Access</a>
+  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme">Go Pro</a>
   <!-- &nbsp;•&nbsp;
   <a href="https://discord.gg/z8wNYzb">Join Discord</a> -->
 </p>
@@ -54,7 +55,7 @@
 ## Get started
 
 **Recommended (fastest, no install):**  
-👉 <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>Start free in your browser</b></a> — pick a template, customize blocks, and publish to GitHub Pages.
+👉 [**Start free in your browser**](https://hugoblox.com/start?utm_source=github&utm_medium=readme) — pick a template, customize blocks, and publish to GitHub Pages.
 
 **Prefer the CLI?**  
 Use the local quickstart:
@@ -70,20 +71,20 @@ cd my-site
 pnpm install && hugo server -D
 ```
 
-For more guides, visit our documentation at **https://docs.hugoblox.com/**.
+For more guides, visit our documentation at [**https://docs.hugoblox.com/**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme).
 
 ---
 
-## Free vs. All Access
+## Free vs. Pro
 
-Hugo Blox ships with a library of **free blocks** for heroes, features, testimonials, FAQs, and more. **All Access** is a one-time donation that adds **exclusive, professionally designed blocks** and full site templates to help you launch even faster.
+Hugo Blox ships with a library of **free blocks** for heroes, features, testimonials, FAQs, and more. **Pro** is a one-time donation that adds **exclusive, professionally designed blocks** and full site templates to help you launch even faster.
 
 <!-- <p align="center">
   <img src="./.github/media/blocks-strip.png" alt="Premium blocks preview" width="900">
 </p> -->
 
-- Free templates & blocks: <a href="https://hugoblox.com/templates?utm_source=github&utm_medium=readme"><b>Templates Catalog</b></a>
-- Premium catalog & lifetime updates: <a href="https://hugoblox.com/all-access?utm_source=github&utm_medium=readme"><b>All Access Pass</b></a>
+- Free templates & blocks: [**Templates Catalog**](https://hugoblox.com/templates?utm_source=github&utm_medium=readme)
+- Pro catalog & lifetime updates: [**Go Pro**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 ---
 
@@ -99,14 +100,14 @@ Hugo Blox ships with a library of **free blocks** for heroes, features, testimon
 
 ## Support the Project
 
-- 💎 **All Access (one-time donation)** — Get lifetime access to all premium templates, blocks, and updates.
-  <br/><a href="https://hugoblox.com/all-access?utm_source=github&utm_medium=readme"><b>Get All Access →</b></a>
+- 💎 **Pro (one-time donation)** — Get lifetime access to all premium templates, blocks, and updates.
+  <br/>[**Go Pro →**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 - ☕️ **Donate a Coffee** — Support open source and open research.
-  <br/><a href="https://github.com/sponsors/gcushen"><b>Sponsor on GitHub →</b></a>
+  <br/>[**Sponsor on GitHub →**](https://github.com/sponsors/gcushen)
 
 - 🤝 **Corporate Sponsors** — Reach thousands of developers and researchers. Get your logo and link in this README.
-  <br/><a href="https://github.com/sponsors/gcushen"><b>Become a Partner →</b></a>
+  <br/>[**Become a Partner →**](https://github.com/sponsors/gcushen)
 
 ---
 
@@ -114,16 +115,16 @@ Hugo Blox ships with a library of **free blocks** for heroes, features, testimon
 
 Join the community to ask questions, share your work, and help us improve.
 
-- 💬 <a href="https://discord.gg/z8wNYzb">Discord</a>
-- 📚 <a href="https://docs.hugoblox.com/">Docs & Guides</a>
-- 🐦 <a href="https://twitter.com/GetResearchDev">X / Twitter</a>
-- ⭐ <a href="https://github.com/HugoBlox/hugo-blox-builder">Star on GitHub</a>
+- 💬 [Discord](https://discord.gg/z8wNYzb)
+- 📚 [Docs & Guides](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
+- 🐦 [X / Twitter](https://twitter.com/GetResearchDev)
+- ⭐ [Star on GitHub](https://github.com/HugoBlox/hugo-blox-builder)
 
 ---
 
 ## License
 
-MIT © 2016–Present <a href="https://georgecushen.com">George Cushen</a> — <a href="./LICENSE.md">License Details</a>
+MIT © 2016–Present [George Cushen](https://georgecushen.com/?utm_source=github&utm_medium=hbb-readme) — [License Details](./LICENSE.md)
 
 <p align="center">
   <sub>No tracking. No lock-in. Your content stays yours.</sub>

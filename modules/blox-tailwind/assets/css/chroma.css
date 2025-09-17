@@ -1,5 +1,5 @@
-@import './libs/chroma/light.css';
-@import './libs/chroma/dark.css';
+@import "./libs/chroma/light.css";
+@import "./libs/chroma/dark.css";
 
 /* Code Blocks: Apply theme background */
 /* Requires relative position for Code Copy button */

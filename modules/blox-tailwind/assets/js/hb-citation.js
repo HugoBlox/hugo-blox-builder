@@ -3,31 +3,31 @@
  * Copies BibTeX citation to clipboard when cite button is clicked
  */
 
-import { hugoEnvironment, i18n } from '@params';
-import { showNotification } from './hb-notifier.js';
-import { copyToClipboardSync, ClipboardCache } from './hb-clipboard.js';
+import { hugoEnvironment, i18n } from "@params";
+import { ClipboardCache, copyToClipboardSync } from "./hb-clipboard.js";
+import { showNotification } from "./hb-notifier.js";
 
 // Debug mode based on environment
-const isDebugMode = hugoEnvironment === 'development';
+const isDebugMode = hugoEnvironment === "development";
 
 // Cache for citation content
 const citationCache = new ClipboardCache();
 
 // Initialize citation handlers when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeCitation);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeCitation);
 } else {
   initializeCitation();
 }
 
 function initializeCitation() {
   // Handle citation button clicks using event delegation
-  document.addEventListener('click', handleCiteClick);
-  
+  document.addEventListener("click", handleCiteClick);
+
   // Prefetch citations on hover/focus for better UX and Safari compatibility
-  document.addEventListener('mouseover', prefetchOnHover);
-  document.addEventListener('focusin', prefetchOnHover);
-  
+  document.addEventListener("mouseover", prefetchOnHover);
+  document.addEventListener("focusin", prefetchOnHover);
+
   // Prefetch all citations on page load
   prefetchAllCitations();
 }
@@ -36,9 +36,11 @@ function initializeCitation() {
  * Prefetch all citations on page load
  */
 function prefetchAllCitations() {
-  const citeButtons = document.querySelectorAll('.js-cite-clipboard[data-filename]');
-  citeButtons.forEach(button => {
-    const filename = button.getAttribute('data-filename');
+  const citeButtons = document.querySelectorAll(
+    ".js-cite-clipboard[data-filename]",
+  );
+  citeButtons.forEach((button) => {
+    const filename = button.getAttribute("data-filename");
     if (filename && !citationCache.has(filename)) {
       // Fetch in background, don't await
       fetchAndCacheCitation(filename);
@@ -51,10 +53,10 @@ function prefetchAllCitations() {
  * @param {Event} e - Hover or focus event
  */
 function prefetchOnHover(e) {
-  const citeButton = e.target.closest('.js-cite-clipboard');
+  const citeButton = e.target.closest(".js-cite-clipboard");
   if (!citeButton) return;
-  
-  const filename = citeButton.getAttribute('data-filename');
+
+  const filename = citeButton.getAttribute("data-filename");
   if (filename && !citationCache.has(filename)) {
     // Fetch in background, don't await
     fetchAndCacheCitation(filename);
@@ -89,32 +91,32 @@ async function fetchAndCacheCitation(filename) {
  */
 function handleCiteClick(e) {
   // Check if clicked element or its parent is a cite button
-  const citeButton = e.target.closest('.js-cite-clipboard');
+  const citeButton = e.target.closest(".js-cite-clipboard");
   if (!citeButton) return;
-  
+
   e.preventDefault();
   e.stopPropagation();
-  
-  const filename = citeButton.getAttribute('data-filename');
+
+  const filename = citeButton.getAttribute("data-filename");
   if (!filename) {
     if (isDebugMode) {
-      console.error('No filename specified for citation');
+      console.error("No filename specified for citation");
     }
-    showNotification('Citation file not found', 'error');
+    showNotification("Citation file not found", "error");
     return;
   }
-  
+
   // Check if citation is cached
   const cachedCitation = citationCache.get(filename);
-  
+
   if (cachedCitation) {
     // Citation is cached, copy immediately (synchronous for Safari)
-    copyToClipboardSync(cachedCitation).then(success => {
+    copyToClipboardSync(cachedCitation).then((success) => {
       if (success) {
-        showNotification(i18n?.copied || 'Citation copied!', 'success');
+        showNotification(i18n?.copied || "Citation copied!", "success");
         updateButtonText(citeButton);
       } else {
-        showNotification('Failed to copy citation', 'error');
+        showNotification("Failed to copy citation", "error");
       }
     });
   } else {
@@ -135,23 +137,26 @@ async function fetchAndCopyWithFallback(filename, button) {
       // Try to copy (might fail in Safari due to lost user activation)
       const success = await copyToClipboardSync(citation);
       if (success) {
-        showNotification(i18n?.copied || 'Citation copied!', 'success');
+        showNotification(i18n?.copied || "Citation copied!", "success");
         updateButtonText(button);
       } else {
-        showNotification('Failed to copy citation', 'error');
+        showNotification("Failed to copy citation", "error");
       }
     } else {
-      showNotification('Failed to load citation', 'error');
+      showNotification("Failed to load citation", "error");
     }
   } catch (error) {
     if (isDebugMode) {
-      console.error('Failed to copy citation:', error);
+      console.error("Failed to copy citation:", error);
     }
     // If it's a NotAllowedError, suggest hovering first
-    if (error.name === 'NotAllowedError') {
-      showNotification('Please hover over the button first, then click', 'info');
+    if (error.name === "NotAllowedError") {
+      showNotification(
+        "Please hover over the button first, then click",
+        "info",
+      );
     } else {
-      showNotification('Failed to copy citation', 'error');
+      showNotification("Failed to copy citation", "error");
     }
   }
 }
@@ -161,27 +166,27 @@ async function fetchAndCopyWithFallback(filename, button) {
  * @param {HTMLElement} button - The cite button element
  */
 function updateButtonText(button) {
-  const copiedText = i18n?.copied || 'Copied!';
-  
+  const copiedText = i18n?.copied || "Copied!";
+
   // Find text element to update (skip icon)
-  const textElement = button.querySelector('span');
+  const textElement = button.querySelector("span");
   if (!textElement) {
     if (isDebugMode) {
-      console.warn('Could not find text element in cite button');
+      console.warn("Could not find text element in cite button");
     }
     return;
   }
-  
+
   const originalText = textElement.textContent;
   textElement.textContent = copiedText;
-  
+
   // Add visual feedback
-  button.classList.add('opacity-70');
-  
+  button.classList.add("opacity-70");
+
   // Revert after 2 seconds
   setTimeout(() => {
     textElement.textContent = originalText;
-    button.classList.remove('opacity-70');
+    button.classList.remove("opacity-70");
   }, 2000);
 }
 

@@ -100,4 +100,3 @@
   "required": ["type", "sections"],
   "additionalProperties": true
 }
-
