@@ -70,6 +70,9 @@ jobs:
       - name: Enable Corepack (use pnpm from package.json)
         run: corepack enable
 
+      - name: Activate pnpm from root package.json
+        run: pnpm --version
+
       - name: Install root dependencies
         run: pnpm install --frozen-lockfile
 
