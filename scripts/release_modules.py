@@ -30,7 +30,7 @@ import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
@@ -86,7 +86,8 @@ def get_module_latest_commit_info(module: Module) -> Optional[Tuple[str, datetim
       return None
     
     commit_hash = parts[0]
-    timestamp = datetime.fromtimestamp(int(parts[1]))
+    # Use UTC timestamp as required by Go module versioning
+    timestamp = datetime.fromtimestamp(int(parts[1]), tz=timezone.utc)
     return commit_hash, timestamp
   except Exception as e:
     logging.warning("Failed to get commit info for %s: %s", module.name, e)
@@ -96,6 +97,9 @@ def get_module_latest_commit_info(module: Module) -> Optional[Tuple[str, datetim
 def format_pseudo_version(commit_hash: str, timestamp: datetime, base_version: str = "v0.0.0") -> str:
   """Format a commit hash and timestamp as a Go pseudo-version."""
   # Format: v0.0.0-20060102150405-abcdefabcdef
+  # Ensure timestamp is in UTC as required by Go module versioning
+  if timestamp.tzinfo is None:
+    timestamp = timestamp.replace(tzinfo=timezone.utc)
   time_str = timestamp.strftime("%Y%m%d%H%M%S")
   short_hash = commit_hash[:12]
   return f"{base_version}-{time_str}-{short_hash}"
