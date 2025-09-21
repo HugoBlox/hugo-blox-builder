@@ -88,7 +88,9 @@ jobs:
 
       - name: Install starter dependencies
         working-directory: ${{ matrix.starter.path }}
-        run: pnpm install --frozen-lockfile
+        # Don't use --frozen-lockfile as starters have auto-generated package.json with simple deps (Tailwind CLI)
+        # and may not have lock files checked into the repo
+        run: pnpm install
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
