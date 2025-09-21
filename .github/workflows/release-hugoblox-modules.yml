@@ -12,6 +12,10 @@ on:
         description: "Propagate dependency bumps to dependents"
         type: boolean
         default: true
+      update_starters_to_commits:
+        description: "Update starters to use latest module commits instead of tagged versions"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -53,13 +57,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+      # Skip plan display when updating starters to commits as it's not relevant for that operation
       - name: Show plan (dry run)
-        if: ${{ inputs.dry_run }}
+        if: ${{ inputs.dry_run && !inputs.update_starters_to_commits }}
         run: |
           poetry run python scripts/release_modules.py --print-plan --log-level $LOG_LEVEL
 
+      # Dedicated step for updating starters to use latest commits instead of tagged versions
+      # Only runs when specifically requested and not in dry run mode
+      - name: Update starters to commits
+        if: ${{ inputs.update_starters_to_commits && !inputs.dry_run }}
+        run: |
+          poetry run python scripts/release_modules.py --yes --update-starters-to-commits --log-level $LOG_LEVEL
+
+      # Standard release process - only runs when not in dry run mode and not updating starters to commits
+      # These operations are mutually exclusive - we either do a normal release or update starters to commits
       - name: Release (commit, tag, push)
-        if: ${{ !inputs.dry_run }}
+        if: ${{ !inputs.dry_run && !inputs.update_starters_to_commits }}
         run: |
           if [ "${{ inputs.propagate }}" = "true" ]; then
             poetry run python scripts/release_modules.py --yes --propagate --log-level $LOG_LEVEL
