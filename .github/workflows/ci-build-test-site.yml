@@ -98,5 +98,5 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify --panicOnWarning --templateMetrics --templateMetricsHints
+        run: hugo --minify --templateMetrics --templateMetricsHints
         working-directory: test

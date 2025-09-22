@@ -5,7 +5,7 @@
    - adapter: optional bool to force adapter-safe mode (e.g., from _content.gotmpl)
 */}}
 {{- $level := lower (.level | default "warn") -}}
-{{- $msg := (.message | default "" | string) -}}
+{{- $msg := .message | default "" -}}
 {{- $page := .page | default . -}}
 {{- $forceAdapter := .adapter | default false -}}
 {{- $isDev := or hugo.IsServer (eq hugo.Environment "development") -}}
@@ -35,31 +35,17 @@
   <script>console.log('[HBX:{{ $level }}]', {{ $msg | jsonify }});</script>
 {{- end -}}
 
-{{/* Ensure message is safely converted to string */}}
-{{- $safeMsg := "" -}}
-{{- if $msg -}}
-  {{- $safeMsg = ($msg | string | replaceRE "%" "%%" | replaceRE "\n" " " | replaceRE "\t" " ") -}}
-{{- end -}}
-
 {{- if eq $level "error" -}}
   {{- if not $isAdapter -}}
-    {{- if $safeMsg -}}
-      {{- errorf $safeMsg -}}
-    {{- else -}}
-      {{- errorf "HBX: Empty error message" -}}
-    {{- end -}}
+    {{- errorf "%s" $msg -}}
   {{- else -}}
-    {{- if $isDev -}}<!-- HBX log:error: {{ $safeMsg }} -->{{- end -}}
+    {{- if $isDev -}}<!-- HBX log:error: {{ $msg }} -->{{- end -}}
   {{- end -}}
 {{- else -}}
   {{- if not $isAdapter -}}
-    {{- if $safeMsg -}}
-      {{- warnf $safeMsg -}}
-    {{- else -}}
-      {{- warnf "HBX: Empty warning message" -}}
-    {{- end -}}
+    {{- warnf "%s" $msg -}}
   {{- else -}}
-    {{- if $isDev -}}<!-- HBX log:warn: {{ $safeMsg }} -->{{- end -}}
+    {{- if $isDev -}}<!-- HBX log:warn: {{ $msg }} -->{{- end -}}
   {{- end -}}
 {{- end -}}
 {{- "" -}}
