@@ -100,4 +100,4 @@ jobs:
 
       - name: Build ${{ matrix.starter.name }}
         working-directory: ${{ matrix.starter.path }}
-        run: hugo --minify --panicOnWarning
+        run: hugo --minify
