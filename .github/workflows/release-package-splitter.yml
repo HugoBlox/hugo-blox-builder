@@ -31,7 +31,7 @@ jobs:
       - id: changed
         # Only run change detection for push events
         if: ${{ github.event_name == 'push' }}
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v47
         with:
           files: |
             starters/academic-cv/**
