@@ -33,8 +33,5 @@
 
     {{/* EXTENSIBILITY HOOK: BODY-END */}}
     {{ partial "functions/get_hook" (dict "hook" "body-end" "context" .) }}
-    
-    {{/* Hugo Blox Debug Export (dev only) */}}
-    {{ partial "hooks/body-end/hbx-debug-export" . }}
   </body>
 </html>

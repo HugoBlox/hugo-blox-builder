@@ -197,7 +197,7 @@
       {{end}}
 
       {{/* EVENT / PUBLICATION METADATA */}}
-      {{ if .Params.abstract | or (eq .Type "publication") | or (eq .Type "event") }}
+      {{ if .Params.abstract | or (eq .Type "publications") | or (eq .Type "events") }}
         <div class="max-w-prose grid grid-cols-1 md:grid-cols-[200px_auto] gap-4 my-6">
 
         {{ if .Params.abstract }}
@@ -222,7 +222,7 @@
           <div>{{ .Params.publication | markdownify }}</div>
         {{ end }}
 
-        {{ if eq .Type "event" }}
+        {{ if eq .Type "events" }}
           <div class="font-bold text-2xl">{{ i18n "date" }}</div>
           <div>
             {{ partial "functions/get_event_dates" . }}

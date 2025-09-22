@@ -268,13 +268,13 @@
 
 # Content types for default archive page titles and search results
 
-- id: posts
-  translation: Posts
+- id: blog
+  translation: Blog
 
 - id: publications
   translation: Publications
 
-- id: talks
+- id: events
   translation: Events
 
 - id: projects

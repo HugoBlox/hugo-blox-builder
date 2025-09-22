@@ -225,14 +225,14 @@
 
 # Content types for default archive page titles and search results
 
-- id: posts
+- id: blog
   translation: Blog
 
 - id: publications
   translation: Publikationen
 
-- id: talks
-  translation: Vorträge
+- id: events
+  translation: Veranstaltungen
 
 - id: projects
   translation: Projekte

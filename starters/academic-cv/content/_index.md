@@ -47,7 +47,7 @@ sections:
       title: Featured Publications
       filters:
         folders:
-          - publication
+          - publications
         featured_only: true
     design:
       view: article-grid
@@ -58,7 +58,7 @@ sections:
       text: ''
       filters:
         folders:
-          - publication
+          - publications
         exclude_featured: false
     design:
       view: citation
@@ -68,7 +68,7 @@ sections:
       title: Recent & Upcoming Talks
       filters:
         folders:
-          - event
+          - events
     design:
       view: card
   - block: collection
@@ -78,7 +78,7 @@ sections:
       subtitle: ''
       text: ''
       # Page type to display. E.g. post, talk, publication...
-      page_type: post
+      page_type: blog
       # Choose how many pages you would like to display (0 = all pages)
       count: 5
       # Filter on criteria

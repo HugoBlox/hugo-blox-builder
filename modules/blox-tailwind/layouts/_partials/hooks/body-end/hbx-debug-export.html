@@ -22,7 +22,18 @@
         console.groupCollapsed('[HBX] Build completed with {{ len $all_logs }} log entries');
         console.log('Debug data available at:', '/hbx-debug.json');
         {{ range $all_logs }}
-        console.log('[HBX:{{ .level }}]', {{ .message | jsonify }}, 'page:', {{ .page | jsonify }});
+          {{ if . }}
+            {{ if reflect.IsMap . }}
+              console.log(
+                '[HBX:{{ if .level }}{{ .level }}{{ else }}info{{ end }}]',
+                {{ if .message }}{{ .message | jsonify }}{{ else }}"No message"{{ end }},
+                'page:',
+                {{ if .page }}{{ .page | jsonify }}{{ else }}"unknown"{{ end }}
+              );
+            {{ else }}
+              console.log('[HBX:info]', "Log entry with unexpected format", {{ . | jsonify }});
+            {{ end }}
+          {{ end }}
         {{ end }}
         console.groupEnd();
       }

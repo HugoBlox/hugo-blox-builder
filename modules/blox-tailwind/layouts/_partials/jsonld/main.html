@@ -12,11 +12,11 @@
 
 {{- else if $page.IsPage -}}
 
-  {{ if (eq $page.Type "blog") | or (eq $page.Type "publication") | or (eq $page.Type "project") }}
+  {{ if (eq $page.Type "blog") | or (eq $page.Type "publications") | or (eq $page.Type "projects") }}
     {{ partial "jsonld/article.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 
-  {{ if eq $page.Type "event" }}
+  {{ if eq $page.Type "events" }}
     {{ partial "jsonld/event.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 

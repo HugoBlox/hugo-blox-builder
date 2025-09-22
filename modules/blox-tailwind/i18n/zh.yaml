@@ -211,14 +211,14 @@
 
 # Content types for default archive page titles and search results
 
-- id: posts
-  translation: 文章
+- id: blog
+  translation: 博客
 
 - id: publications
   translation: 出版物
 
-- id: talks
-  translation: 演讲
+- id: events
+  translation: 活动
 
 - id: projects
   translation: 项目

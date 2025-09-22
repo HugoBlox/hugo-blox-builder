@@ -205,14 +205,14 @@
 
 # Content types for default archive page titles and search results
 
-- id: posts
-  translation: 文章
+- id: blog
+  translation: 博客
 
 - id: publications
   translation: 出版物
 
-- id: talks
-  translation: 演講
+- id: events
+  translation: 活動
 
 - id: projects
   translation: 專案
