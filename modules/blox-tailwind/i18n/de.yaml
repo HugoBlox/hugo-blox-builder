@@ -26,6 +26,22 @@
 - id: related
   translation: Ähnliches
 
+# Callouts
+- id: callout_note
+  translation: Hinweis
+
+- id: callout_tip
+  translation: Tipp
+
+- id: callout_important
+  translation: Wichtig
+
+- id: callout_warning
+  translation: Warnung
+
+- id: callout_caution
+  translation: Vorsicht
+
 - id: backlinks
   translation: Backlinks
 

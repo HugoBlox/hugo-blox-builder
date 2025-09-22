@@ -20,7 +20,7 @@ markup:
     parser:
       # Support Latex math(?)
       attribute:
-        block: true
+        block: true  # For callouts as quote blocks
         title: true
     extensions:
       # Support Latex math

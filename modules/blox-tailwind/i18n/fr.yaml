@@ -26,6 +26,22 @@
 - id: related
   translation: Sur le même sujet
 
+# Callouts
+- id: callout_note
+  translation: Note
+
+- id: callout_tip
+  translation: Conseil
+
+- id: callout_important
+  translation: Important
+
+- id: callout_warning
+  translation: Attention
+
+- id: callout_caution
+  translation: Prudence
+
 - id: minute_read
   translation: min. de lecture
 

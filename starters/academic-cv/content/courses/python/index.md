@@ -71,9 +71,8 @@ Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enabl
 
 To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively.
 
-{{% callout note %}}
-We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown.
-{{% /callout %}}
+> [!NOTE]
+> We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown. This callout now uses the standard Markdown alert syntax!
 
 Example **math block**:
 
@@ -140,5 +139,100 @@ data.head()
 renders as
 
 {{< icon name="python" >}} Python
+
+## Callouts & Alerts
+
+Hugo Blox Builder now supports GitHub and Obsidian-style Markdown alerts for better content portability! These replace the old `callout` shortcode.
+
+### Basic Callout Types
+
+**Note** - For general information:
+
+```markdown
+> [!NOTE]
+> This is a note callout with important information that users should know.
+```
+
+> [!NOTE] 
+> This is a note callout with important information that users should know.
+
+**Tip** - For helpful advice:
+
+```markdown
+> [!TIP]
+> Here's a helpful tip to make your workflow more efficient!
+```
+
+> [!TIP]
+> Here's a helpful tip to make your workflow more efficient!
+
+**Important** - For critical information:
+
+```markdown  
+> [!IMPORTANT]
+> This is critical information that users must understand to proceed.
+```
+
+> [!IMPORTANT]
+> This is critical information that users must understand to proceed.
+
+**Warning** - For potential issues:
+
+```markdown
+> [!WARNING]
+> Be careful! This action might have unexpected consequences.
+```
+
+> [!WARNING]
+> Be careful! This action might have unexpected consequences.
+
+**Caution** - For dangerous actions:
+
+```markdown
+> [!CAUTION]  
+> Danger! This operation is irreversible and could cause data loss.
+```
+
+> [!CAUTION]
+> Danger! This operation is irreversible and could cause data loss.
+
+### Custom Titles
+
+You can customize the title of any callout:
+
+```markdown
+> [!WARNING]+ Custom Warning Title
+> This warning has a custom title instead of just "Warning".
+```
+
+> [!WARNING]+ Custom Warning Title  
+> This warning has a custom title instead of just "Warning".
+
+### Legacy Syntax (Deprecated)
+
+The old shortcode syntax still works but shows a deprecation warning:
+
+```markdown
+{{</* callout note */>}}
+This still works but is deprecated. Use the Markdown syntax above!
+{{</* /callout */>}}
+```
+
+{{% callout note %}}
+This still works but is deprecated. Use the Markdown syntax above!
+{{% /callout %}}
+
+### Benefits of the New Syntax
+
+- **Portable**: Works with GitHub, Obsidian, and other Markdown processors
+- **Standard**: Uses widely-adopted Markdown alert syntax
+- **Clean**: No Hugo-specific shortcodes needed
+- **Future-proof**: Supported by the latest Hugo versions (0.132.0+)
+- **Multilingual**: Callout titles are automatically translated based on your site's language
+  - English: "Note", "Tip", "Important", "Warning", "Caution"
+  - Spanish: "Nota", "Consejo", "Importante", "Advertencia", "Precaución"
+  - French: "Note", "Conseil", "Important", "Attention", "Prudence"
+  - German: "Hinweis", "Tipp", "Wichtig", "Warnung", "Vorsicht"
+  - Chinese: "注意", "提示", "重要", "警告", "小心"
 
 ## Did you find this page helpful? Consider sharing it 🙌

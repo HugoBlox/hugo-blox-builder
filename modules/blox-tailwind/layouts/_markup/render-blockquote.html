@@ -1,0 +1,31 @@
+{{/*
+  Hugo Blox Builder Blockquote Render Hook
+  
+  Renders standard blockquotes and GitHub/Obsidian-style alerts (callouts).
+  
+  Supports alert types: note, tip, important, warning, caution
+  Syntax examples:
+  - > [!NOTE]
+    > This is a note callout.
+  
+  - > [!WARNING]+ Custom Title
+    > This is a warning with custom title.
+*/}}
+
+{{ if eq .Type "alert" }}
+  {{/* Use custom title if provided, otherwise let render_callout handle default */}}
+  {{ $title := .AlertTitle }}
+  
+  {{/* Use shared callout renderer */}}
+  {{ partial "functions/render_callout" (dict 
+    "type" .AlertType
+    "content" .Text
+    "title" $title
+    "source" "renderhook"
+  ) }}
+{{ else }}
+  {{/* Render regular blockquotes */}}
+  <blockquote class="border-l-4 border-neutral-300 dark:border-neutral-600 pl-4 italic text-neutral-600 dark:text-neutral-400 my-6">
+    {{ .Text }}
+  </blockquote>
+{{ end }}

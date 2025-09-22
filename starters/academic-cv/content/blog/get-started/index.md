@@ -35,12 +35,18 @@ Welcome 👋
 
 ### Get Started
 
+> [!TIP]+ Quick Start Guide
+> New to Hugo Blox? Follow these steps to get your site up and running in minutes!
+
 - 👉 [**Create a new site**](https://hugoblox.com/templates/)
 - 📚 [**Personalize your site**](https://docs.hugoblox.com/)
 - 💬 [Chat with the **Hugo Blox community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
 - 🐦 Twitter: [@GetResearchDev](https://twitter.com/GetResearchDev) [@GeorgeCushen](https://twitter.com/GeorgeCushen) #MadeWithHugoBlox
 - 💡 [Request a **feature** or report a **bug** for _Hugo Blox_](https://github.com/HugoBlox/hugo-blox-builder/issues)
 - ⬆️ **Updating Hugo Blox?** View the [Update Guide](https://docs.hugoblox.com/reference/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
+
+> [!IMPORTANT]
+> Remember to backup your site before making major updates!
 
 ## Crowd-funded open-source software
 
@@ -60,6 +66,9 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 
 ## Features
 
+> [!NOTE]+ Enhanced Markdown Support  
+> Hugo Blox now supports GitHub and Obsidian-style callouts! Use standard Markdown alert syntax like `> [!NOTE]` for better portability.
+
 - **Page builder** - Create _anything_ with no-code [**blocks**](https://hugoblox.com/blocks/) and [**elements**](https://docs.hugoblox.com/reference/markdown/)
 - **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
 - **Create content** in [**Markdown**](https://docs.hugoblox.com/reference/markdown/), [**Jupyter**](https://docs.hugoblox.com/getting-started/cms/), or [**RStudio**](https://docs.hugoblox.com/getting-started/cms/)
@@ -75,6 +84,9 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 - **Privacy Pack** - Assists with GDPR
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
 - **One-Click Deployment** - No servers. No databases. Only files.
+
+> [!WARNING]+ Version Requirements  
+> The new Markdown alert syntax requires Hugo v0.132.0 or later. Make sure you're using a compatible version!
 
 ## Themes
 

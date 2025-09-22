@@ -26,6 +26,22 @@
 - id: related
   translation: 相关
 
+# Callouts
+- id: callout_note
+  translation: 注意
+
+- id: callout_tip
+  translation: 提示
+
+- id: callout_important
+  translation: 重要
+
+- id: callout_warning
+  translation: 警告
+
+- id: callout_caution
+  translation: 小心
+
 - id: minute_read
   translation: 分钟阅读时长
 
