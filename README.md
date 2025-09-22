@@ -28,8 +28,8 @@
   <a href="https://github.com/HugoBlox/hugo-blox-builder">
     <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=Star%20Hugo%20Blox&style=social" alt="GitHub Stars">
   </a>
-  <a href="https://github.com/gcushen">
-    <img src="https://img.shields.io/github/followers/gcushen?label=Follow&style=social" alt="Follow on GitHub">
+  <a href="https://x.com/BuildLore">
+    <img src="https://img.shields.io/twitter/follow/BuildLore?label=Follow&style=social" alt="Follow on X">
   </a>
 </p>
 
@@ -117,7 +117,7 @@ Join the community to ask questions, share your work, and help us improve.
 
 - 💬 [Discord](https://discord.gg/z8wNYzb)
 - 📚 [Docs & Guides](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
-- 🐦 [X / Twitter](https://twitter.com/GetResearchDev)
+- 🐦 [X / Twitter](https://x.com/BuildLore)
 - ⭐ [Star on GitHub](https://github.com/HugoBlox/hugo-blox-builder)
 
 ---

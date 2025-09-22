@@ -34,7 +34,7 @@ profiles:
     url: 'mailto:your-email@example.com'
     label: E-mail Me
   - icon: brands/x
-    url: https://twitter.com/GetResearchDev
+    url: https://x.com/BuildLore
   - icon: brands/github
     url: https://github.com/gcushen
   - icon: brands/linkedin

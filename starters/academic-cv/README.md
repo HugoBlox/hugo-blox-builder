@@ -113,7 +113,7 @@ Join thousands of creators in our vibrant community to ask questions, share your
 
 - 💬 <a href="https://discord.gg/z8wNYzb">Discord</a>
 - 📚 <a href="https://docs.hugoblox.com/?utm_source=github&utm_medium=readme">Docs & Guides</a>
-- 🐦 <a href="https://twitter.com/GetResearchDev">X / Twitter</a>
+- 🐦 <a href="https://x.com/BuildLore">X / Twitter</a>
 - ⭐ <a href="https://github.com/HugoBlox/hugo-blox-builder">Star on GitHub</a>
 
 ---

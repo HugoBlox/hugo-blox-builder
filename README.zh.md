@@ -113,7 +113,7 @@ Hugo Blox 自带一套用于 Hero、Features、Testimonials、FAQs 等的**免�
 
 - 💬 [Discord](https://discord.gg/z8wNYzb)
 - 📚 [文档与指南](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
-- 🐦 [X / Twitter](https://twitter.com/GetResearchDev)
+- 🐦 [X / Twitter](https://x.com/BuildLore)
 - ⭐ [为 Hugo Blox 加星](https://github.com/HugoBlox/hugo-blox-builder)
 
 ---

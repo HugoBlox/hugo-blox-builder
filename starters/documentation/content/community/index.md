@@ -28,7 +28,7 @@ For new feature requests, create a post on our [GitHub Issues](https://github.co
 Follow us so you are the first to know when new features and templates are launched:
 
 - [Subscribe to the _#announcement_ channel on Discord](https://discord.gg/z8wNYzb)
-- [Follow us on Twitter](https://twitter.com/GetResearchDev)
+- [Follow us on Twitter](https://x.com/BuildLore)
 - [Subscribe to the Hugo Blox blog](https://hugoblox.com/blog/)
 
 ## Further Resources
