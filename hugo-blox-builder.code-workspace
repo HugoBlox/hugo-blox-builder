@@ -38,7 +38,10 @@
     "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
     "[json]": { "editor.defaultFormatter": "biomejs.biome" },
     "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-    "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[html]": { 
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true 
+    },
     "[markdown]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
       "files.trimTrailingWhitespace": false
@@ -46,6 +49,12 @@
     "[python]": {
       "editor.tabSize": 4,
       "editor.insertSpaces": true
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[toml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
 
     "eslint.workingDirectories": [{ "mode": "auto" }],

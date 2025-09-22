@@ -80,6 +80,21 @@ export default defineConfig({
           src: "node_modules/alpinejs/dist/cdn.min.js",
           dest: "alpinejs/",
         },
+
+        // Preact for interactive components
+        {
+          src: "node_modules/preact/dist/preact.min.js",
+          dest: "preact/",
+        },
+        {
+          src: "node_modules/preact/dist/preact.min.js.map",
+          dest: "preact/",
+        },
+        {
+          src: "node_modules/preact/hooks/dist/hooks.umd.js",
+          dest: "preact/",
+          rename: "hooks.min.js",
+        },
       ],
     }),
 

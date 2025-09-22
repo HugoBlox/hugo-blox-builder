@@ -1,3 +1,46 @@
+{{/* Load Preact for component-based blocks */}}
+{{/* Check if any blocks on this page use Preact (set by init.html) */}}
+{{ if .Page.Store.Get "needs_preact" }}
+  {{ $preact_blocks := .Page.Store.Get "preact_blocks" | default slice }}
+  
+  {{/* Load Preact core library */}}
+  {{ $preact_core := resources.Get "dist/lib/preact/preact.min.js" }}
+  {{ if $preact_core }}
+    {{ $preact_core = $preact_core | resources.Fingerprint "sha256" }}
+    <script src="{{ $preact_core.RelPermalink }}" integrity="{{ $preact_core.Data.Integrity }}"></script>
+    
+    {{/* Publish the source map so the browser can load it at the expected path */}}
+    {{ $preact_map := resources.Get "dist/lib/preact/preact.min.js.map" }}
+    {{ if $preact_map }}
+      {{ $preact_map.Publish }}
+    {{ end }}
+    
+  {{ end }}
+  
+  {{/* Build and load each Preact block's client script */}}
+  {{ range $block_type := $preact_blocks }}
+    {{ $client_path := printf "js/hbx/blocks/%s/client.jsx" $block_type }}
+    {{ $client_jsx := resources.Get $client_path }}
+    
+    {{ if $client_jsx }}
+      {{/* Build the client-side JSX using Hugo's official integration */}}
+      {{ $jsx_opts := dict 
+        "targetPath" (printf "js/%s-preact.js" $block_type)
+        "JSX" "automatic"
+        "JSXImportSource" "preact"
+        "format" "iife"
+        "minify" hugo.IsProduction
+        "sourceMap" (cond hugo.IsDevelopment "external" "")
+      }}
+      {{ $built_jsx := $client_jsx | js.Build $jsx_opts }}
+      {{ if hugo.IsProduction }}
+        {{ $built_jsx = $built_jsx | fingerprint "sha256" }}
+      {{ end }}
+      <script defer src="{{ $built_jsx.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $built_jsx.Data.Integrity }}"{{ end }}></script>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 {{/* Load Alpine JS extension? */}}
 {{ if (.Page.Store.Get "has_alpine") }}
   <script>console.log('✓ Alpine.js loading on demand');</script>

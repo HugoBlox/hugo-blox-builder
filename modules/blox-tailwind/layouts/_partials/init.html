@@ -10,7 +10,79 @@
 {{/* Preload block configs for landing pages */}}
 {{- range where .Site.Pages "Type" "landing" -}}
   {{ $page := . }}
-  {{ range $index, $block := .Params.sections }}
+  {{/* Resolve sections: front matter, sections_source, fallback to data/pages */}}
+  {{ $sections := $page.Params.sections }}
+
+  {{/* Linked-data: sections_source support */}}
+  {{ with $page.Params.sections_source }}
+    {{ $key := . }}
+    {{ if hasPrefix $key "pages/" }}{{ $key = replace $key "pages/" "" }}{{ end }}
+    {{ with index $.Site.Data.pages $key }}
+      {{ $base := .sections }}
+      {{ if $sections }}
+        {{ $merged := slice }}
+        {{ range $i, $b := $base }}
+          {{ $ov := index $sections $i }}
+          {{ if $ov }}
+            {{ $merged = $merged | append (merge $b $ov) }}
+          {{ else }}
+            {{ $merged = $merged | append $b }}
+          {{ end }}
+        {{ end }}
+        {{ if gt (len $sections) (len $base) }}
+          {{ range $i, $ov := $sections }}
+            {{ if ge $i (len $base) }}
+              {{ $merged = $merged | append $ov }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ $sections = $merged }}
+      {{ else }}
+        {{ $sections = $base }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if not $sections }}
+    {{/* Data-driven fallback (home) */}}
+    {{ $p := "home" }}
+    {{ with $page.File }}
+      {{ $basename := .ContentBaseName }}
+      {{ if $basename }}
+        {{ $p = $basename }}
+        {{ if eq $p "_index" }}{{ $p = "home" }}{{ end }}
+      {{ end }}
+    {{ end }}
+    {{ if eq $page.RelPermalink "/" }}{{ $p = "home" }}{{ end }}
+    {{ with index $.Site.Data.pages $p }}
+      {{ $sections = .sections }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Resolve per-section ref from data/blocks/* for block detection */}}
+  {{ if $sections }}
+    {{ $resolved := slice }}
+    {{ range $i, $s := $sections }}
+      {{ $sec := $s }}
+      {{ with $s.ref }}
+        {{ $ref := lower . }}
+        {{ $path := cond (hasPrefix $ref "blocks/") $ref (printf "blocks/%s" $ref) }}
+        {{ $parts := split $path "/" }}
+        {{ $data := $.Site.Data }}
+        {{ range $j, $p := $parts }}
+          {{ if $data }}{{ $data = index $data $p }}{{ end }}
+        {{ end }}
+        {{ if $data }}
+          {{/* Shallow merge so base can provide block type */}}
+          {{ $sec = merge $data $sec }}
+        {{ end }}
+      {{ end }}
+      {{ $resolved = $resolved | append $sec }}
+    {{ end }}
+    {{ $sections = $resolved }}
+  {{ end }}
+
+  {{ range $index, $block := $sections }}
     {{/* Do not show sections intended only for the demo site. */}}
     {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "HUGO_BLOX_DEMO") "true")) }}
       {{- $block_type := partial "hbx/resolve-block-param" (dict "config" $block "context" "content section") | default "markdown" -}}
@@ -23,7 +95,19 @@
       {{ $current_blocks := $page.Store.Get "block_types" | default (slice) }}
       {{ $page.Store.Set "block_types" ($current_blocks | append $block_type) }}
       
-      {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
+      {{/* Check if this is a Preact-enabled block that needs hydration */}}
+      {{ $component_path := printf "js/hbx/blocks/%s/client.jsx" $block_type }}
+      {{ if resources.Get $component_path }}
+        {{ $page.Store.Set "needs_preact" true }}
+        {{/* Store which Preact blocks are used on this page */}}
+        {{ $preact_blocks := $page.Store.Get "preact_blocks" | default slice }}
+        {{ if not (in $preact_blocks $block_type) }}
+          {{ $preact_blocks = $preact_blocks | append $block_type }}
+          {{ $page.Store.Set "preact_blocks" $preact_blocks }}
+        {{ end }}
+      {{ end }}
+      
+      {{ $widget_config_file := printf "blox/%s/config.html" $block_type }}
       {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
         {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
         {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}

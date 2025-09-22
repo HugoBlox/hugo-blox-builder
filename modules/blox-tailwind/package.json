@@ -1,33 +1,22 @@
 {
-  "name": "blox-tailwind",
-  "description": "Hugo Blox Tailwind UI",
-  "version": "0.1.0",
-  "license": "MIT",
-  "packageManager": "pnpm@10.14.0",
+  "name": "@hugoblox/blox-tailwind",
+  "version": "1.0.0",
+  "description": "Hugo Blox Tailwind UI Components",
+  "type": "module",
+  "scripts": {
+    "dev": "hugo server --source=../../test --config=../../test/config.yaml --themesDir=../.. --buildDrafts --buildFuture --disableFastRender",
+    "build": "hugo --source=../../test --config=../../test/config.yaml --themesDir=../.. --minify",
+    "type-check": "tsc --noEmit",
+    "lint": "biome check ."
+  },
   "dependencies": {
-    "tailwindcss": "^4.1.12",
-    "@tailwindcss/cli": "^4.1.12",
-    "@tailwindcss/typography": "^0.5.10",
-    "alpinejs": "^3.13.10",
-    "katex": "^0.16.9",
-    "markmap-autoloader": "^0.15.4",
-    "mermaid": "^10.6.0",
-    "plotly.js": "^2.27.0",
-    "vite": "^7.1.2",
-    "vite-plugin-static-copy": "^3.1.2"
   },
   "devDependencies": {
-    
+    "@preact/preset-vite": "^2.8.1",
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
   },
-  "homepage": "https://hugoblox.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/HugoBlox/hugo-blox-builder.git"
-  },
-  "scripts": {
-    "dev": "hugo server --disableFastRender",
-    "build": "hugo --minify",
-    "assets:dist": "vite build"
-  },
-  "browserslist": "last 2 versions"
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }

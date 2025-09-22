@@ -11,7 +11,8 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "hero"
+          "const": "hero",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
@@ -46,10 +47,12 @@
                       "description": "Link URL"
                     }
                   },
-                  "required": ["text", "url"]
+                  "required": ["text", "url"],
+                  "additionalProperties": false
                 }
               },
-              "required": ["text"]
+              "required": ["text"],
+              "additionalProperties": false
             },
             "primary_action": {
               "type": "object",
@@ -68,7 +71,8 @@
                   "description": "Optional button icon (icon pack format: pack/icon-name)"
                 }
               },
-              "required": ["url", "text"]
+              "required": ["url", "text"],
+              "additionalProperties": false
             },
             "secondary_action": {
               "type": "object",
@@ -83,11 +87,15 @@
                   "description": "Link text (supports Markdown)"
                 }
               },
-              "required": ["url", "text"]
+              "required": ["url", "text"],
+              "additionalProperties": false
             }
-          }
+          },
+          "additionalProperties": false
         }
-      }
+      },
+      "required": ["content"],
+      "additionalProperties": false
     }
   ]
 }

@@ -1,0 +1,54 @@
+{{/* Hugo Blox: Dynamic Tailwind @source generation for Hugo modules */}}
+{{/* Documentation: https://hugoblox.com/docs/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* 
+This partial generates Tailwind CSS @source directives that tell Tailwind where to scan for CSS classes.
+
+CRITICAL: Tailwind scans the actual filesystem (relative to main.css), while Hugo operates on a virtual 
+filesystem with module mounts. This file bridges that gap by translating Hugo's virtual paths to actual 
+filesystem paths that Tailwind can find.
+
+Environments handled:
+1. Test site (HUGO_BLOX_TEST_SITE=true): runs from test/, so ../modules/blox-tailwind/ for theme files
+2. Starter sites (HUGO_BLOX_MONOREPO=true): run from starters/[name]/, so ../../../modules/blox-tailwind/
+3. End-user sites: use virtual mounted paths from Hugo modules (standard content/, layouts/, assets/)
+
+Without this, Tailwind would miss classes from:
+  * Hugo Blox theme templates (layouts/, blox/)  
+  * Preact components (blox/** /*.jsx) - intentional space due to Hugo bug thinking '* /' is commend end
+  * Site content (content/** /*.md) - intentional space due to Hugo bug thinking '* /' is commend end
+  * Generated HTML classes (hugo_stats.json)
+*/}}
+{{ $is_monorepo := eq (os.Getenv "HUGO_BLOX_MONOREPO") "true" }}
+{{ $is_test_site := eq (os.Getenv "HUGO_BLOX_TEST_SITE") "true" }}
+{{ $paths := slice }}
+
+{{/* 1. Always add paths relative to the current site's root (content, layouts, etc.) */}}
+{{ $paths = $paths | append `content/**/*.md` }}
+{{ $paths = $paths | append `layouts/**/*.html` }}
+{{ $paths = $paths | append `assets/js/**/*.js` }}
+{{ $paths = $paths | append `hugo_stats.json` }}
+
+{{/* 2. If in monorepo, add relative paths to the blox-tailwind module source */}}
+{{ if $is_monorepo }}
+  {{ $module_path_prefix := "" }}
+  {{ if $is_test_site }}
+    {{/* Test site is at `test/`, so one level up to repo root */}}
+    {{ $module_path_prefix = "../" }}
+  {{ else }}
+    {{/* Starter sites are at `starters/[name]/`, so three levels up */}}
+    {{ $module_path_prefix = "../../../" }}
+  {{ end }}
+  
+  {{ $module_path := printf "%smodules/blox-tailwind" $module_path_prefix }}
+  {{ $paths = $paths | append (printf `%s/layouts/**/*.html` $module_path) }}
+  {{ $paths = $paths | append (printf `%s/assets/js/**/*.js` $module_path) }}
+  {{ $paths = $paths | append (printf `%s/blox/**/*.html` $module_path) }}
+  {{ $paths = $paths | append (printf `%s/blox/**/*.jsx` $module_path) }}
+{{ end }}
+
+{{/* Generate the @source rules */}}
+{{ range $paths }}
+@source "{{ . }}";
+{{ end }}

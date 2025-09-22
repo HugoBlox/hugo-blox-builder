@@ -1,0 +1,32 @@
+{{/* Hugo Blox: Hero Block - Preact Wrapper */}}
+{{/* Single source of truth - Preact component handles everything */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialize variables */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $block_id := .wcIdentifier | default (printf "hero-%d" (now.Unix)) }}
+
+{{/* Prepare props for the Preact component */}}
+{{ $props := dict 
+  "content" $block.content
+  "design" $block.design
+  "id" $block_id
+}}
+
+{{/* Convert props to JSON for client-side rendering */}}
+{{ $propsJSON := $props | jsonify }}
+
+{{/* Render a container that Preact will populate */}}
+{{/* The component will be rendered immediately on page load */}}
+<div 
+  id="{{ $block_id }}"
+  class="hero-block-container"
+  data-props='{{ $propsJSON | safeHTML }}'
+  data-hero-render="immediate"
+>
+  {{/* Empty - Preact renders everything */}}
+</div>
+
+{{/* Preact script loading is handled by libraries.html */}}

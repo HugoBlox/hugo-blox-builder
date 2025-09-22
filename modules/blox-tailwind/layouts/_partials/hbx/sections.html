@@ -1,11 +1,105 @@
-{{/* Returns sections from front matter or from data. */}}
+{{/* Returns sections from front matter, linked data, or from data. */}}
 {{- $sections := .Params.sections -}}
+{{- $source := "front matter" -}}
+
+{{/* 1) Linked-data: sections_source */}}
+{{- with .Params.sections_source -}}
+  {{- $key := . -}}
+  {{- if hasPrefix $key "pages/" -}}{{- $key = (replace $key "pages/" "") -}}{{- end -}}
+  {{- with index site.Data.pages $key -}}
+    {{- $base := .sections -}}
+    {{- if $sections -}}
+      {{- $merged := slice -}}
+      {{- range $i, $b := $base -}}
+        {{- $ov := index $sections $i -}}
+        {{- if $ov -}}
+          {{- $merged = $merged | append (partial "functions/deep_merge" (dict "a" $b "b" $ov)) -}}
+        {{- else -}}
+          {{- $merged = $merged | append $b -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if gt (len $sections) (len $base) -}}
+        {{- range $i, $ov := $sections -}}
+          {{- if ge $i (len $base) -}}
+            {{- $merged = $merged | append $ov -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $sections = $merged -}}
+    {{- else -}}
+      {{- $sections = $base -}}
+    {{- end -}}
+    {{- $source = printf "data/pages/%s.yaml (sections_source)" $key -}}
+  {{- else -}}
+    {{- partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "HBX: sections_source '%s' not found under data/pages/" $key)) -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* 2) Fallbacks if still no sections */}}
 {{- if not $sections -}}
-  {{/* Data-driven pages. */}}
-  {{- $p := .File.PathBase -}}
+  {{/* Fallback: Legacy data-driven pages */}}
+  {{- $p := "home" -}}{{/* Default to "home" for homepage */}}
+  {{- with .File -}}
+    {{- $basename := .ContentBaseName -}}
+    {{- if $basename -}}
+      {{- $p = $basename -}}
+      {{/* Special case: homepage _index.md should use "home" data file */}}
+      {{- if eq $p "_index" -}}
+        {{- $p = "home" -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{/* Ensure homepage always uses "home" data file */}}
+  {{- if eq $.RelPermalink "/" -}}
+    {{- $p = "home" -}}
+  {{- end -}}
   {{- with index site.Data.pages $p -}}
     {{- $sections = .sections -}}
-    {{- warnf "HBX: Using data-driven sections from data/pages/%s for page %s" $p $.RelPermalink -}}
+    {{- $source = printf "data/pages/%s.yaml" $p -}}
   {{- end -}}
+{{- end -}}
+
+{{/* 3) Per-section ref: load from data/blocks/<slug>.yaml and deep-merge with inline (inline wins) */}}
+{{- if $sections -}}
+  {{- $resolved := slice -}}
+  {{- range $i, $s := $sections -}}
+    {{- $sec := $s -}}
+    {{- with $s.ref -}}
+      {{- $ref := . | lower -}}
+      {{- $path := cond (hasPrefix $ref "blocks/") $ref (printf "blocks/%s" $ref) -}}
+      {{- $parts := split $path "/" -}}
+      {{- $data := site.Data -}}
+      {{- range $j, $p := $parts -}}
+        {{- if $data -}}
+          {{- $data = index $data $p -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if $data -}}
+        {{- /* shallow merge */ -}}
+        {{- $merged := merge $data $sec -}}
+        {{- /* merge 'content' */ -}}
+        {{- $ac := index $data "content" -}}{{- $bc := index $sec "content" -}}
+        {{- if and (reflect.IsMap $ac) (reflect.IsMap $bc) -}}
+          {{- $merged = merge $merged (dict "content" (merge $ac $bc)) -}}
+        {{- end -}}
+        {{- /* merge 'design' */ -}}
+        {{- $ad := index $data "design" -}}{{- $bd := index $sec "design" -}}
+        {{- if and (reflect.IsMap $ad) (reflect.IsMap $bd) -}}
+          {{- $merged = merge $merged (dict "design" (merge $ad $bd)) -}}
+        {{- end -}}
+        {{- $sec = $merged -}}
+      {{- else -}}
+        {{- partial "functions/logger" (dict "page" $ "level" "warn" "message" (printf "HBX: section ref '%s' not found under data/blocks/" $ref)) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $resolved = $resolved | append $sec -}}
+  {{- end -}}
+  {{- $sections = $resolved -}}
+{{- end -}}
+
+{{- if $sections -}}
+  {{- partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "HBX: Using sections from %s for page %s (found %d sections)" $source $.RelPermalink (len $sections))) -}}
+{{- else -}}
+  {{- partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "HBX: No sections found for page %s (checked %s)" $.RelPermalink $source)) -}}
 {{- end -}}
 {{- return $sections -}}

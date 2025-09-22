@@ -1,0 +1,21 @@
+{{/* Pragmatic deep merge for block sections: shallow merge + merge 'content' and 'design' submaps if present. b overrides a. */}}
+{{- $a := .a -}}
+{{- $b := .b -}}
+{{- if and (reflect.IsMap $a) (reflect.IsMap $b) -}}
+  {{- $result := merge $a $b -}}
+  {{- /* merge 'content' submap */ -}}
+  {{- $ac := index $a "content" -}}
+  {{- $bc := index $b "content" -}}
+  {{- if and (reflect.IsMap $ac) (reflect.IsMap $bc) -}}
+    {{- $result = merge $result (dict "content" (merge $ac $bc)) -}}
+  {{- end -}}
+  {{- /* merge 'design' submap */ -}}
+  {{- $ad := index $a "design" -}}
+  {{- $bd := index $b "design" -}}
+  {{- if and (reflect.IsMap $ad) (reflect.IsMap $bd) -}}
+    {{- $result = merge $result (dict "design" (merge $ad $bd)) -}}
+  {{- end -}}
+  {{- return $result -}}
+{{- else -}}
+  {{- return $b -}}
+{{- end -}}

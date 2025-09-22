@@ -32,23 +32,48 @@
           "description": "Background styling options",
           "properties": {
             "color": {
-              "type": "string",
-              "description": "Background color (any valid CSS color)"
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Single color value"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "light": {
+                      "type": "string",
+                      "description": "Light mode color"
+                    },
+                    "dark": {
+                      "type": "string",
+                      "description": "Dark mode color"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ],
+              "description": "Background color (supports Tailwind colors, hex, rgb)"
             },
-            "gradient_start": {
-              "type": "string",
-              "description": "Gradient start color"
-            },
-            "gradient_end": {
-              "type": "string",
-              "description": "Gradient end color"
-            },
-            "gradient_angle": {
-              "type": "number",
-              "description": "Gradient angle in degrees",
-              "minimum": 0,
-              "maximum": 360,
-              "default": 90
+            "gradient": {
+              "type": "object",
+              "description": "Gradient configuration",
+              "properties": {
+                "start": {
+                  "type": "string",
+                  "description": "Gradient start color"
+                },
+                "end": {
+                  "type": "string",
+                  "description": "Gradient end color"
+                },
+                "direction": {
+                  "type": "string",
+                  "description": "Gradient direction in degrees",
+                  "default": "135"
+                }
+              },
+              "required": ["start", "end"],
+              "additionalProperties": false
             },
             "text_color_light": {
               "type": "boolean",

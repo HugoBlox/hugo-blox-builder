@@ -1,0 +1,15 @@
+# Vendor directories
+_vendor/
+vendor/
+
+# Generated directories
+public/
+resources/
+node_modules/
+
+# We use go-template parser for HTML, but still ignore some specific files
+modules/blox-tailwind/assets/dist/
+
+# JSON files with specific formats (although typically Biome now processes JSON)
+modules/blox-tailwind/layouts/index.json
+modules/blox-tailwind/layouts/index.webmanifest

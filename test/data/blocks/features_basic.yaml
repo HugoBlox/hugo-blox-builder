@@ -1,0 +1,17 @@
+# Features block configuration using re-usable blocks approach (data/blocks/features_basic.yaml)
+block: features
+id: features
+content:
+  title: "Why Choose Hugo Blox?"
+  items:
+    - name: "Lightning Fast"
+      description: "Static site generation with Preact hydration"
+      icon: "bolt"
+    - name: "Type Safe"
+      description: "Full TypeScript support for all components"
+      icon: "shield-check"
+    - name: "SEO Optimized"
+      description: "Server-side rendering with progressive enhancement"
+      icon: "magnifying-glass"
+design:
+  columns: "3"

@@ -1,0 +1,46 @@
+{{/* Hugo Blox: Generic Preact Block Wrapper */}}
+{{/* Single wrapper for all Preact-based blocks */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialize variables */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $block_type := .wcBlockType }}
+{{ $block_id := .wcIdentifier | default (printf "%s-%d" $block_type (now.Unix)) }}
+
+{{/* Prepare props for the Preact component */}}
+{{ $props := dict 
+  "content" $block.content
+  "design" $block.design
+  "id" $block_id
+  "type" $block_type
+}}
+
+{{/* If an icon is specified, fetch its SVG data and add it to the props */}}
+{{/* TODO: Generalize this to work with all block icon fields */}}
+{{ with $block.content.primary_action.icon }}
+  {{ $icon_data := partial "functions/get_icon_data" (dict "name" .) }}
+  {{ if $icon_data }}
+    {{ $props = merge $props (dict "icon_svg" $icon_data) }}
+  {{ end }}
+{{ end }}
+
+{{/* Convert props to JSON for client-side rendering */}}
+{{ $propsJSON := $props | jsonify }}
+
+{{/* Render a container that Preact will populate */}}
+<div 
+  id="{{ $block_id }}"
+  class="{{ $block_type }}-block-container preact-block"
+  data-block-type="{{ $block_type }}"
+  data-props='{{ $propsJSON | safeHTML }}'
+  data-preact-render="true"
+>
+  {{/* Empty - Preact renders everything */}}
+  {{/* Could add a loading skeleton here if desired */}}
+</div>
+
+{{/* Preact script loading is handled by libraries.html */}}
+
+

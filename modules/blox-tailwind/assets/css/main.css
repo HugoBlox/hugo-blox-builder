@@ -13,6 +13,9 @@
 /* Tailwind CSS v4 Base */
 @import "tailwindcss";
 
+/* Dynamic sources are injected by the css.html partial */
+/* This handles both monorepo dev and end-user environments */
+
 /* Configuration */
 @import "config/tailwind.css";
 @import "config/theme.css";

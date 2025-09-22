@@ -1,0 +1,125 @@
+{{/* Hugo Blox Parser v3 - Preact Component Support */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{ $page := .page }}
+{{ $block := .block }}
+
+{{- $block_type := partial "hbx/resolve-block-param" (dict "config" $block "context" "content section") | default "markdown" -}}
+{{ $block_type = lower $block_type }}
+
+{{/* Handle block renames/aliases */}}
+{{ range $r := site.Data.blox_aliases.renames }}
+  {{ $block_type = cond (eq $block_type $r.old) $r.new $block_type }}
+{{ end }}
+
+{{/* Check if this is a Preact-enabled block by looking for component file */}}
+{{ $component_path := printf "js/hbx/blocks/%s/component.jsx" $block_type }}
+{{ $is_preact := resources.Get $component_path }}
+
+{{/* Apply styling wrapper for all blocks (both Preact and traditional) */}}
+{{ $bg := $block.design.background }}
+{{ $style := "" }}
+{{ $style_bg := "" }}
+
+{{/* Process background colors */}}
+{{ if $bg.color }}
+  {{ $color_type := printf "%T" $bg.color }}
+  {{ if eq $color_type "map[string]interface {}" }}
+    {{ if and $bg.color.light $bg.color.dark }}
+      {{ $light_color := $bg.color.light }}
+      {{ $dark_color := $bg.color.dark }}
+      
+      {{ $style_bg = printf "background-color: %s;" $light_color }}
+      {{ $style_bg = printf "%s--dark-bg-color: %s;" $style_bg $dark_color }}
+    {{ else if $bg.color.light }}
+      {{ $light_color := $bg.color.light }}
+      {{ $style_bg = printf "background-color: %s;" $light_color }}
+    {{ else if $bg.color.dark }}
+      {{ $dark_color := $bg.color.dark }}
+      {{ $style_bg = printf "--dark-bg-color: %s; background-color: var(--dark-bg-color);" $dark_color }}
+    {{ end }}
+  {{ else }}
+    {{ $bg_color := $bg.color }}
+    {{ $style_bg = printf "background-color: %s;" $bg_color }}
+  {{ end }}
+{{ end }}
+
+{{/* Process gradients and images */}}
+{{ $background_layers := slice }}
+{{ $gradient_layer := "" }}
+
+{{ if and $bg.gradient.start $bg.gradient.end }}
+  {{ $angle := string $bg.gradient.direction | default "135" }}
+  {{ $start_color := $bg.gradient.start }}
+  {{ $end_color := $bg.gradient.end }}
+  {{ $gradient_layer = printf "linear-gradient(%sdeg, %s, %s)" $angle $start_color $end_color }}
+{{ end }}
+
+{{ if $bg.image.filename }}
+  {{ $bg_img := resources.Get (printf "media/%s" $bg.image.filename) }}
+  {{ if $bg_img }}
+    {{ if ne $bg_img.MediaType.SubType "svg" }}
+      {{ $bg_img = $bg_img.Fit "1920x1920 webp" }}
+    {{ end }}
+    {{ $image_layer := printf "url('%s')" $bg_img.Permalink }}
+    {{ $background_layers = $background_layers | append $image_layer }}
+  {{ end }}
+{{ end }}
+
+{{ if or $background_layers $gradient_layer }}
+  {{ $all_layers := $background_layers }}
+  {{ if $gradient_layer }}
+    {{ $all_layers = $all_layers | append $gradient_layer }}
+  {{ end }}
+  {{ if $all_layers }}
+    {{ $combined_backgrounds := delimit $all_layers ", " }}
+    {{ $style_bg = printf "%sbackground-image: %s;" $style_bg $combined_backgrounds }}
+  {{ end }}
+{{ end }}
+
+{{ with $block.design.spacing.padding }}
+  {{ $style_pad := printf "padding: %s;" (delimit . " ") }}
+  {{ $style = print $style $style_pad }}
+{{ end }}
+
+{{ with $block.design.css_style }}
+  {{ $style = print $style . }}
+{{ end }}
+
+{{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
+{{ $css_classes := $block.design.css_class | default "" }}
+{{ $widget_class := printf "blox-%s" (replace (replace $block_type "." "-") "_" "-") }}
+
+{{/* Route to appropriate handler */}}
+{{ if $is_preact }}
+  {{/* Render Preact block with styling wrapper */}}
+  <section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
+    {{/* Use generic Preact wrapper for content */}}
+    {{ partial "blox/preact-wrapper" (dict "wcPage" $page "wcBlock" $block "wcBlockType" $block_type "wcIdentifier" $hash_id) }}
+  </section>
+{{ else }}
+  {{/* Fall back to traditional Go template blocks */}}
+  {{ $block_path := printf "hbx/blocks/%s/block.html" $block_type }}
+  {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
+    {{ errorf "%s uses a `%s` block but the `%s` block was not found at `%s`. Check the name of the block and ensure it exists in the blox/%s/ directory." $page.File.Path $block_type $block_type $block_path $block_type }}
+  {{ end }}
+
+  {{/* Handle legacy block requirements */}}
+  {{ if $block.Page.Store.Get "has_mermaid" }}
+    {{ $page.Page.Store.Set "has_mermaid" true }}
+  {{ end }}
+
+  {{ if (gt (len (findRE `\{\{< gallery` $block.content.text 1)) 0) }}
+    {{ $page.Page.Store.Set "has_gallery" true }}
+  {{ end }}
+
+  {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
+
+  {{/* Render traditional block with wrapper */}}
+  <section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
+    {{ partial $block_path $widget_args }}
+  </section>
+{{ end }}

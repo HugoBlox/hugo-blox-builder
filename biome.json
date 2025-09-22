@@ -12,6 +12,8 @@
       "**/_vendor/**",
       "**/vendor/**",
       "**/*.html",
+      "**/layouts/**/*.html",
+      "**/layouts/**/*.htm",
       "**/*.webmanifest",
       "**/*.backlinks.json",
       "**/hugo_stats.json",
@@ -25,7 +27,22 @@
   },
   "formatter": {
     "enabled": true,
-    "indentStyle": "space"
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 150
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "all",
+      "bracketSpacing": false
+    },
+    "globals": ["PagefindUI"]
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
   },
   "linter": {
     "enabled": true,
@@ -40,8 +57,5 @@
   },
   "organizeImports": {
     "enabled": true
-  },
-  "javascript": {
-    "globals": ["PagefindUI"]
   }
 }

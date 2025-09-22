@@ -1,0 +1,63 @@
+{{/* Hugo Blox: Get Icon Data for Preact Components */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* 
+This partial returns raw SVG content for icons, designed for Preact component integration.
+
+PURPOSE:
+- Provides SVG strings that can be passed as props to Preact components
+- Enables dynamic icon rendering in client-side Preact blocks
+- Mirrors get_icon.html logic but returns raw content instead of safeHTML
+
+DIFFERENCE FROM get_icon.html:
+- get_icon.html: Returns safeHTML for direct template rendering in Go HTML templates
+- get_icon_data.html: Returns raw SVG string for JavaScript/Preact component consumption
+
+USAGE:
+{{ $icon_svg := partial "functions/get_icon_data" (dict "name" "arrow-right" "pack" "hero") }}
+Then pass $icon_svg as a prop to Preact components for client-side rendering.
+
+ICON PACK HANDLING:
+1. Hero pack (heroicons): Assembles <svg> wrapper around "body" content using pack "height"
+2. HB/Brands packs: Returns stored SVG strings as-is  
+3. User assets: Returns content from assets/media/icons/{pack}/{name}.svg
+4. Fallback: Returns Hugo brand icon if not found
+
+PARAMETERS:
+- name: Icon name, optionally with pack prefix (e.g., "arrow-right" or "hero/arrow-right")
+- pack: Icon pack name (defaults to "hero" if not specified in name)
+*/}}
+
+{{/* Return the raw SVG content for a requested icon */}}
+{{- $name := .name | default "" -}}
+{{- $icon_content := "" -}}
+
+{{- if $name -}}
+  {{- $dirFile := path.Split $name -}}
+  {{- $pack := .pack | default (strings.Replace $dirFile.Dir "/" "") | default "hero" -}}
+  {{- $iconName := $dirFile.File -}}
+  {{- $icon_pack := index site.Data.icons $pack -}}
+
+  {{- with index (index $icon_pack "icons") $iconName -}}
+    {{- /* If this pack stores full SVG strings (hb/brands), return as-is. */ -}}
+    {{- if in (slice "hb" "brands") $pack -}}
+      {{- $icon_content = . -}}
+    {{- else -}}
+      {{- $icon_body := index . "body" -}}
+      {{- $icon_size := index $icon_pack "height" -}}
+      {{- $icon_content = printf `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s">%s</svg>` (cast.ToString $icon_size) (cast.ToString $icon_size) $icon_body -}}
+    {{- end -}}
+  {{- else -}}
+    {{- with resources.GetMatch (path.Join "media" "icons" $pack (printf "%s.svg" $iconName)) -}}
+      {{- $icon_content = .Content -}}
+    {{- else -}}
+      {{- /* Fallback to a default icon if not found. */ -}}
+      {{- with index (index site.Data.icons.brands "icons") "hugo" -}}
+        {{- $icon_content = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $icon_content -}}

@@ -14,12 +14,13 @@
     "url": "git+https://github.com/HugoBlox/hugo-blox-builder.git"
   },
   "dependencies": {
-    "katex": "^0.16.9",
+    "alpinejs": "^3.15.0",
+    "katex": "^0.16.22",
+    "markmap-autoloader": "^0.18.12",
     "medium-zoom": "^1.0.8",
-    "mermaid": "^10.6.0",
-    "markmap-autoloader": "^0.15.4",
-    "alpinejs": "^3.13.10",
-    "plotly.js": "^2.27.0",
+    "mermaid": "^11.12.0",
+    "plotly.js": "^3.1.0",
+    "preact": "^10.27.2",
     "rollup-plugin-delete": "^2.0.0",
     "vite": "^7.1.2",
     "vite-hugo-plugin": "^3.1.0",
@@ -34,7 +35,7 @@
   "scripts": {
     "prod": "scripts/view-starter-prod.sh",
     "dev": "scripts/view-starter-dev.sh",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "scripts/view-test.sh",
     "lint": "pnpm run lint:code && pnpm run lint:style",
     "lint:code": "biome check --reporter=summary .",
     "lint:code:fix": "biome check --write .",
@@ -43,7 +44,8 @@
     "format": "pnpm run lint:code:fix && pnpm run lint:style:fix",
     "update:starters": "poetry run python ./scripts/update.py",
     "vendor:libs": "vite build --config vite.config.js",
-    "vendor:libs:watch": "vite build --config vite.config.js --watch"
+    "vendor:libs:watch": "vite build --config vite.config.js --watch",
+    "vendor:update-and-build": "pnpm up katex mermaid markmap-autoloader alpinejs plotly.js preact --latest && pnpm vendor:libs"
   },
   "browserslist": "> 1%"
 }

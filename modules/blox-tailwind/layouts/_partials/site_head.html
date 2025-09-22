@@ -176,7 +176,6 @@
     {{ $font_type = "woff2" }}
   {{end}}
   {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
-  <link rel="preload" href="{{ $font.RelPermalink }}" as="font" type="font/{{ $font_type }}" crossorigin>
   <style>
     @font-face {
       font-family: '{{$font_family}}';

@@ -1,0 +1,38 @@
+{{/* Hugo Blox Logger: centralized logging helper
+   Usage: partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "..." args...))
+   - level: "warn" (default) or "error"
+   - page: optional; current page. Defaults to dot. Used to detect adapter pages
+   - adapter: optional bool to force adapter-safe mode (e.g., from _content.gotmpl)
+*/}}
+{{- $level := lower (.level | default "warn") -}}
+{{- $msg := .message | default "" -}}
+{{- $page := .page | default . -}}
+{{- $forceAdapter := .adapter | default false -}}
+{{- $isDev := or hugo.IsServer (eq hugo.Environment "development") -}}
+
+{{/* Detect adapter-generated pages via explicit flag or page param */}}
+{{- $isAdapter := $forceAdapter -}}
+{{- if not $isAdapter -}}
+  {{- with $page -}}
+    {{- with .Params -}}
+      {{- if or (index . "hb_adapter") (eq (printf "%T" .) "map[string]interface {}" | and (index . "hb_adapter")) -}}
+        {{- $isAdapter = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if eq $level "error" -}}
+  {{- if not $isAdapter -}}
+    {{- errorf "%s" $msg -}}
+  {{- else -}}
+    {{- if $isDev -}}<!-- HBX log:error: {{ $msg }} -->{{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- if not $isAdapter -}}
+    {{- warnf "%s" $msg -}}
+  {{- else -}}
+    {{- if $isDev -}}<!-- HBX log:warn: {{ $msg }} -->{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- "" -}}

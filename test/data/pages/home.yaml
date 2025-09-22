@@ -1,0 +1,61 @@
+# Home page configuration using data-driven approach (data/pages/home.yaml)
+title: Home
+type: landing
+date: 2023-11-01
+
+sections:
+  - block: hero
+    content:
+      title: "**Build Anything** with Hugo Blox"
+      text: |
+        Create stunning websites with our Preact-powered components.
+        Fast, flexible, and future-proof.
+      announcement:
+        text: "🎉 Introducing Preact Components"
+        link:
+          text: "Learn more"
+          url: "/linked"
+      primary_action:
+        text: "Get Started"
+        url: "#features"
+        icon: "hero/arrow-right"
+      secondary_action:
+        text: "View Documentation"
+        url: "/linked"
+    design:
+      css_class: "hero-gradient"
+      background:
+        gradient:
+          start: "primary-600"
+          end: "primary-400"
+          direction: "135"
+
+  - block: features
+    id: features
+    content:
+      title: "Why Choose Hugo Blox?"
+      items:
+        - name: "Lightning Fast"
+          description: "Static site generation with Preact hydration"
+          icon: "bolt"
+        - name: "Type Safe"
+          description: "Full TypeScript support for all components"
+          icon: "shield-check"
+        - name: "SEO Optimized"
+          description: "Server-side rendering with progressive enhancement"
+          icon: "magnifying-glass"
+    design:
+      columns: "3"
+
+  - block: cta-card
+    content:
+      title: "Ready to get started?"
+      text: "Join 250,000+ users building with Hugo Blox"
+      button:
+        text: "Start Building"
+        url: "https://hugoblox.com"
+    design:
+      background:
+        color:
+          light: "gray-50"
+          dark: "gray-900"

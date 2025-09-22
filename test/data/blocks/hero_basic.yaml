@@ -1,0 +1,21 @@
+# Hero block configuration using re-usable blocks approach (data/blocks/hero_basic.yaml)
+block: hero
+content:
+  title: "**Build Anything** with Hugo Blox"
+  text: |
+    Create stunning websites with our Preact-powered components.
+    Fast, flexible, and future-proof.
+  primary_action:
+    text: "Get Started"
+    url: "#features"
+    icon: "arrow-right"
+  secondary_action:
+    text: "View Documentation"
+    url: "/"
+design:
+  css_class: "hero-gradient"
+  background:
+    gradient:
+      start: "primary-600"
+      end: "primary-400"
+      direction: "135"

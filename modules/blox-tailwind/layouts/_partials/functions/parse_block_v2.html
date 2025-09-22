@@ -332,7 +332,7 @@
 
 {{/* Now loaded in `init.html` */}}
 {{/*
-  {{ $widget_config_file := printf "blox/%s--CONFIG.html" $block_type }}
+  {{ $widget_config_file := printf "blox/%s/config.html" $block_type }}
   {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
     {{ $cfg := partial $widget_config_file $widget_args }}
     {{ with $cfg.use_container }}{{ $use_container = . }}{{ end }}

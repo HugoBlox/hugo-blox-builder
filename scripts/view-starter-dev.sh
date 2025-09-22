@@ -70,6 +70,7 @@ fi
 export HUGO_BLOX_DEMO=true
 export HUGO_BLOX_DEBUG=true
 export HUGO_ENVIRONMENT=development
+export HUGO_BLOX_MONOREPO=true
 export HUGOxPARAMSxDECAP_CMSxLOCAL_BACKEND=true
 
 # Link local modules for development (Hugo module replacements)
