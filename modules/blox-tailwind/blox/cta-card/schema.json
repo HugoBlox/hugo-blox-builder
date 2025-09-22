@@ -120,18 +120,7 @@
                     },
                     "position": {
                       "type": "string",
-                      "enum": [
-                        "center",
-                        "top",
-                        "bottom",
-                        "left",
-                        "right",
-                        "repeat",
-                        "top left",
-                        "top right",
-                        "bottom left",
-                        "bottom right"
-                      ],
+                      "enum": ["center", "top", "bottom", "left", "right", "repeat", "top left", "top right", "bottom left", "bottom right"],
                       "description": "Background position (use 'repeat' for tiling textures)",
                       "default": "center"
                     },

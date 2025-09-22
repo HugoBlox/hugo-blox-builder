@@ -10,12 +10,7 @@
 
 .glassmorphism-primary {
   @apply relative overflow-hidden;
-  background: linear-gradient(
-    135deg,
-    rgb(var(--color-primary-500) / 0.9),
-    rgb(var(--color-primary-600) / 0.95),
-    rgb(var(--color-primary-700) / 0.9)
-  );
+  background: linear-gradient(135deg, rgb(var(--color-primary-500) / 0.9), rgb(var(--color-primary-600) / 0.95), rgb(var(--color-primary-700) / 0.9));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -23,12 +18,7 @@
 .glassmorphism-primary::before {
   content: "";
   @apply absolute inset-0 pointer-events-none;
-  background: linear-gradient(
-    45deg,
-    rgb(0 0 0 / 0.1),
-    transparent,
-    rgb(255 255 255 / 0.1)
-  );
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.1), transparent, rgb(255 255 255 / 0.1));
   mix-blend-mode: overlay;
 }
 
@@ -47,23 +37,13 @@
 .glassmorphism-secondary::before {
   content: "";
   @apply absolute inset-0 pointer-events-none;
-  background: linear-gradient(
-    45deg,
-    rgb(0 0 0 / 0.1),
-    transparent,
-    rgb(255 255 255 / 0.1)
-  );
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.1), transparent, rgb(255 255 255 / 0.1));
   mix-blend-mode: overlay;
 }
 
 .glassmorphism-dark {
   @apply relative overflow-hidden;
-  background: linear-gradient(
-    135deg,
-    rgb(0 0 0 / 0.7),
-    rgb(31 41 55 / 0.8),
-    rgb(0 0 0 / 0.9)
-  );
+  background: linear-gradient(135deg, rgb(0 0 0 / 0.7), rgb(31 41 55 / 0.8), rgb(0 0 0 / 0.9));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -71,23 +51,13 @@
 .glassmorphism-dark::before {
   content: "";
   @apply absolute inset-0 pointer-events-none;
-  background: linear-gradient(
-    45deg,
-    rgb(255 255 255 / 0.05),
-    transparent,
-    rgb(255 255 255 / 0.1)
-  );
+  background: linear-gradient(45deg, rgb(255 255 255 / 0.05), transparent, rgb(255 255 255 / 0.1));
   mix-blend-mode: overlay;
 }
 
 .glassmorphism-light {
   @apply relative overflow-hidden;
-  background: linear-gradient(
-    135deg,
-    rgb(255 255 255 / 0.9),
-    rgb(248 250 252 / 0.95),
-    rgb(241 245 249 / 0.9)
-  );
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.9), rgb(248 250 252 / 0.95), rgb(241 245 249 / 0.9));
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -95,12 +65,7 @@
 .glassmorphism-light::before {
   content: "";
   @apply absolute inset-0 pointer-events-none;
-  background: linear-gradient(
-    45deg,
-    rgb(0 0 0 / 0.02),
-    transparent,
-    rgb(255 255 255 / 0.05)
-  );
+  background: linear-gradient(45deg, rgb(0 0 0 / 0.02), transparent, rgb(255 255 255 / 0.05));
   mix-blend-mode: overlay;
 }
 
@@ -136,13 +101,11 @@
 }
 
 .glass-shadow {
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25), 0 0 0 1px
-    rgb(255 255 255 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.1);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25), 0 0 0 1px rgb(255 255 255 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.1);
 }
 
 .dark .glass-shadow {
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5), 0 0 0 1px
-    rgb(255 255 255 / 0.05), inset 0 1px 0 rgb(255 255 255 / 0.05);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(255 255 255 / 0.05), inset 0 1px 0 rgb(255 255 255 / 0.05);
 }
 
 /* ==========================================================================
@@ -169,8 +132,7 @@
 
   /* Modern border and shadow for light mode */
   border: 1px solid rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.1));
-  box-shadow: 0 32px 64px -12px rgb(0 0 0 / 0.25), inset 0 1px 0
-    rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.05));
+  box-shadow: 0 32px 64px -12px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.05));
 }
 
 .cta-glassmorphism:hover {
@@ -183,8 +145,7 @@
   );
 
   border: 1px solid rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.2));
-  box-shadow: 0 40px 80px -16px rgb(0 0 0 / 0.3), inset 0 1px 0
-    rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.1));
+  box-shadow: 0 40px 80px -16px rgb(0 0 0 / 0.3), inset 0 1px 0 rgb(255 255 255 / calc(var(--glassmorphism-opacity) + 0.1));
 }
 
 /* Dark mode adjustments for CTA glassmorphism */
@@ -197,8 +158,7 @@
   );
 
   border: 1px solid rgb(255 255 255 / var(--glassmorphism-opacity));
-  box-shadow: 0 32px 64px -12px rgb(0 0 0 / 0.4), inset 0 1px 0
-    rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.5));
+  box-shadow: 0 32px 64px -12px rgb(0 0 0 / 0.4), inset 0 1px 0 rgb(255 255 255 / calc(var(--glassmorphism-opacity) * 0.5));
 }
 
 .dark .cta-glassmorphism:hover {
@@ -231,23 +191,20 @@
   /* Light mode button background */
   background: rgb(255 255 255 / 0.9);
   border: 1px solid rgb(0 0 0 / 0.1);
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1),
-    inset 0 1px 0 rgb(255 255 255 / 0.3);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.3);
 }
 
 .dark .cta-glassmorphism .group > div:first-child {
   /* Dark mode button background */
   background: rgb(0 0 0 / 0.4);
   border: 1px solid rgb(255 255 255 / 0.2);
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.3), 0 4px 6px -2px rgb(0 0 0 / 0.2),
-    inset 0 1px 0 rgb(255 255 255 / 0.1);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.3), 0 4px 6px -2px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.1);
 }
 
 .cta-glassmorphism .group:hover > div:first-child {
   background: rgb(255 255 255);
   border: 1px solid rgb(0 0 0 / 0.15);
-  box-shadow: 0 20px 40px -8px rgb(0 0 0 / 0.15), 0 8px 12px -4px
-    rgb(0 0 0 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.4);
+  box-shadow: 0 20px 40px -8px rgb(0 0 0 / 0.15), 0 8px 12px -4px rgb(0 0 0 / 0.1), inset 0 1px 0 rgb(255 255 255 / 0.4);
 }
 
 .dark .cta-glassmorphism .group:hover > div:first-child {

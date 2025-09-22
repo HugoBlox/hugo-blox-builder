@@ -152,14 +152,12 @@
   font-size: 20px;
   background-color: #fff;
   color: #000; /* override parent alpha */
-  box-shadow: 0 10px 20px rgb(0 0 0 / 4%), 0 2px 6px rgb(0 0 0 / 4%), 0 0 1px
-    rgb(0 0 0 / 4%);
+  box-shadow: 0 10px 20px rgb(0 0 0 / 4%), 0 2px 6px rgb(0 0 0 / 4%), 0 0 1px rgb(0 0 0 / 4%);
 }
 
 .dark .avatar-emoji {
   background-color: #000;
-  box-shadow: 0 10px 20px rgb(0 0 0 / 4%), 0 2px 6px rgb(0 0 0 / 4%), 0 0 1px
-    rgb(255 255 255 / 96%);
+  box-shadow: 0 10px 20px rgb(0 0 0 / 4%), 0 2px 6px rgb(0 0 0 / 4%), 0 0 1px rgb(255 255 255 / 96%);
 }
 
 /* Biography Block */
@@ -184,22 +182,14 @@
 
 /* Light Mode Gradient */
 .hbx-bg-gradient::before {
-  background-image: radial-gradient(
-      at 20% 25%,
-      hsla(212, 80%, 95%, 1) 0px,
-      transparent 50%
-    ), radial-gradient(at 75% 30%, hsla(160, 80%, 95%, 1) 0px, transparent 50%),
-    radial-gradient(at 25% 80%, hsla(280, 80%, 95%, 1) 0px, transparent 50%),
+  background-image: radial-gradient(at 20% 25%, hsla(212, 80%, 95%, 1) 0px, transparent 50%),
+    radial-gradient(at 75% 30%, hsla(160, 80%, 95%, 1) 0px, transparent 50%), radial-gradient(at 25% 80%, hsla(280, 80%, 95%, 1) 0px, transparent 50%),
     radial-gradient(at 75% 85%, hsla(30, 80%, 95%, 1) 0px, transparent 50%);
 }
 
 /* Dark Mode Gradient */
 .dark .hbx-bg-gradient::before {
-  background-image: radial-gradient(
-      at 20% 25%,
-      hsla(212, 35%, 15%, 1) 0px,
-      transparent 50%
-    ), radial-gradient(at 75% 30%, hsla(160, 35%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 25% 80%, hsla(280, 35%, 15%, 1) 0px, transparent 50%),
+  background-image: radial-gradient(at 20% 25%, hsla(212, 35%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 75% 30%, hsla(160, 35%, 15%, 1) 0px, transparent 50%), radial-gradient(at 25% 80%, hsla(280, 35%, 15%, 1) 0px, transparent 50%),
     radial-gradient(at 75% 85%, hsla(30, 35%, 15%, 1) 0px, transparent 50%);
 }

@@ -3,16 +3,13 @@
 const applyScrollPadding = () => {
   const header = document.querySelector(".page-header");
   let position = header.getBoundingClientRect();
-  document.documentElement.style.scrollPaddingTop =
-    position.height.toString() + "px";
+  document.documentElement.style.scrollPaddingTop = position.height.toString() + "px";
   const r = document.querySelector(":root");
   r.style.setProperty("--navbar-height", position.height.toString() + "px");
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  const dropdownMenus = document.querySelectorAll(
-    ".nav-dropdown > .nav-link[role='button']",
-  );
+  const dropdownMenus = document.querySelectorAll(".nav-dropdown > .nav-link[role='button']");
 
   dropdownMenus.forEach((toggler) => {
     const toggle = (el) => {

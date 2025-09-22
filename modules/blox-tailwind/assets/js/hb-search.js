@@ -11,10 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const searchConfig = JSON.parse(configScript.textContent);
   if (!searchConfig || typeof searchConfig.baseUrl === "undefined") {
-    console.error(
-      "Pagefind search config is missing or invalid.",
-      searchConfig,
-    );
+    console.error("Pagefind search config is missing or invalid.", searchConfig);
     return;
   }
 
@@ -35,9 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Add click handlers to triggers
   let triggers = document.querySelectorAll("[data-search-toggle]");
-  triggers.forEach((trigger) =>
-    trigger.addEventListener("click", handleSearchToggle),
-  );
+  triggers.forEach((trigger) => trigger.addEventListener("click", handleSearchToggle));
 });
 
 function handleSearchToggle() {
@@ -68,11 +63,7 @@ function handleSearchToggle() {
 
 // Add keyboard shortcut to close search modal with Escape key
 document.addEventListener("keydown", (event) => {
-  if (
-    event.key === "Escape" &&
-    searchWrapper &&
-    !searchWrapper.classList.contains("hidden")
-  ) {
+  if (event.key === "Escape" && searchWrapper && !searchWrapper.classList.contains("hidden")) {
     searchWrapper.classList.add("hidden");
   }
 });

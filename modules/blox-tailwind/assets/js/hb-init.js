@@ -17,18 +17,14 @@ export function initTheme() {
     if (defaultTheme === "dark") setDark();
     else if (defaultTheme === "light") setLight();
     else if (defaultTheme === "system") {
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? setDark()
-        : setLight();
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? setDark() : setLight();
     }
   }
 }
 
 export function applyHugoStyleFixes() {
   document.addEventListener("DOMContentLoaded", function () {
-    const checkboxes = document.querySelectorAll(
-      "li input[type='checkbox'][disabled]",
-    );
+    const checkboxes = document.querySelectorAll("li input[type='checkbox'][disabled]");
     checkboxes.forEach((e) => {
       const parent = e.parentElement?.parentElement;
       if (parent) parent.classList.add("task-list");
@@ -36,12 +32,7 @@ export function applyHugoStyleFixes() {
 
     const liNodes = document.querySelectorAll(".task-list li");
     liNodes.forEach((nodes) => {
-      const textNodes = Array.from(nodes.childNodes).filter(
-        (node) =>
-          node.nodeType === 3 &&
-          node.textContent &&
-          node.textContent.trim().length > 1,
-      );
+      const textNodes = Array.from(nodes.childNodes).filter((node) => node.nodeType === 3 && node.textContent && node.textContent.trim().length > 1);
       if (textNodes.length > 0) {
         const span = document.createElement("label");
         textNodes[0].after(span);

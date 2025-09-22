@@ -3,7 +3,7 @@
  * Provides cross-browser clipboard functionality
  */
 
-import { hugoEnvironment } from "@params";
+import {hugoEnvironment} from "@params";
 
 // Debug mode based on environment
 const isDebugMode = hugoEnvironment === "development";

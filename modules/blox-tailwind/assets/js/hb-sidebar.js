@@ -22,13 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Initialize the overlay
-  const overlayClasses = [
-    "fixed",
-    "z-10",
-    "inset-0",
-    "bg-white",
-    "dark:bg-black/80",
-  ];
+  const overlayClasses = ["fixed", "z-10", "inset-0", "bg-white", "dark:bg-black/80"];
   overlay.classList.add("bg-transparent");
   overlay.classList.remove("hidden", ...overlayClasses);
 
@@ -37,9 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // See `hb-nav.js` - it handles the default behavior (irrespective of if sidebar is shown).
 
     // When menu is open, show the navigation sidebar
-    sidebarContainer.classList.toggle(
-      "max-lg:[transform:translate3d(0,-100%,0)]",
-    );
+    sidebarContainer.classList.toggle("max-lg:[transform:translate3d(0,-100%,0)]");
     sidebarContainer.classList.toggle("max-lg:[transform:translate3d(0,0,0)]");
 
     // When menu is open, prevent body from scrolling

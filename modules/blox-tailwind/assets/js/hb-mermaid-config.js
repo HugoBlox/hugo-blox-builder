@@ -1,7 +1,5 @@
 function getCssVar(name) {
-  const value = getComputedStyle(document.documentElement)
-    .getPropertyValue(name)
-    .trim();
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   return value ? "rgb(" + value + ")" : null;
 }
 
@@ -16,9 +14,7 @@ window.mermaid.initialize({
     secondaryBorderColor: getCssVar("--color-secondary-400") || "#22d3ee",
     tertiaryBorderColor: getCssVar("--color-neutral-400") || "#a3a3a3",
     lineColor: getCssVar("--color-neutral-600") || "#525252",
-    fontFamily: getComputedStyle(document.documentElement).getPropertyValue(
-      "font-family",
-    ),
+    fontFamily: getComputedStyle(document.documentElement).getPropertyValue("font-family"),
     fontSize: "16px",
   },
 });

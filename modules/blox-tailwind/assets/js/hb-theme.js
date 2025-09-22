@@ -11,9 +11,7 @@ function addThemeToggleListener() {
   if (
     localStorage.getItem("wc-color-theme") === "dark" ||
     (!("wc-color-theme" in localStorage) &&
-      ((window.matchMedia("(prefers-color-scheme: dark)").matches &&
-        defaultTheme === "system") ||
-        defaultTheme === "dark"))
+      ((window.matchMedia("(prefers-color-scheme: dark)").matches && defaultTheme === "system") || defaultTheme === "dark"))
   ) {
     themeToggleButtons.forEach((el) => {
       el.dataset.theme = "dark";
@@ -45,15 +43,12 @@ function addThemeToggleListener() {
           localStorage.setItem("wc-color-theme", "dark");
         }
       }
-      el.dataset.theme = document.documentElement.classList.contains("dark")
-        ? "dark"
-        : "light";
+      el.dataset.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
 
       // Dispatch `hbThemeChange` event to support themeable user plugins.
       const themeChangeEvent = new CustomEvent("hbThemeChange", {
         detail: {
-          isDarkTheme: () =>
-            document.documentElement.classList.contains("dark"),
+          isDarkTheme: () => document.documentElement.classList.contains("dark"),
         },
       });
       document.dispatchEvent(themeChangeEvent);
@@ -61,15 +56,13 @@ function addThemeToggleListener() {
   });
 
   // Listen for dark mode toggling in OS
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (event) => {
-      if (defaultTheme === "system" && !("wc-color-theme" in localStorage)) {
-        event.matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
-        themeToggleButtons.forEach((el) => {
-          const isDark = document.documentElement.classList.contains("dark");
-          el.dataset.theme = isDark ? "dark" : "light";
-        });
-      }
-    });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+    if (defaultTheme === "system" && !("wc-color-theme" in localStorage)) {
+      event.matches ? window.hbb.setDarkTheme() : window.hbb.setLightTheme();
+      themeToggleButtons.forEach((el) => {
+        const isDark = document.documentElement.classList.contains("dark");
+        el.dataset.theme = isDark ? "dark" : "light";
+      });
+    }
+  });
 }

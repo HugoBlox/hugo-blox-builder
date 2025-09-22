@@ -1,4 +1,4 @@
-import { applyHugoStyleFixes, initTheme } from "./hb-init.js";
+import {applyHugoStyleFixes, initTheme} from "./hb-init.js";
 
 // Initialize Hugo Blox Builder global object
 const root = document.documentElement;

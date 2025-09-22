@@ -1,0 +1,31 @@
+{{/* Hugo Blox: Export Debug Logs for Future Debug Widget */}}
+{{/* This hook collects all HBX logs and exports them to a JSON file for tooling */}}
+
+{{- if hugo.IsServer -}}
+  {{/* Collect all logs from all pages */}}
+  {{- $all_logs := slice -}}
+  {{- range .Site.Pages -}}
+    {{- $page_logs := .Store.Get "hbx_logs" | default slice -}}
+    {{- $all_logs = $all_logs | append $page_logs -}}
+  {{- end -}}
+  
+  {{- if $all_logs -}}
+    {{/* Create debug export as a resource for tooling */}}
+    {{- $debug_data := dict "logs" $all_logs "build_time" now.Unix "hugo_version" hugo.Version -}}
+    {{- $debug_json := $debug_data | jsonify -}}
+    {{- $debug_resource := resources.FromString "hbx-debug.json" $debug_json -}}
+    {{- $debug_resource.Publish -}}
+    
+    {{/* Also emit to console for immediate visibility */}}
+    <script>
+      if (window.console && console.groupCollapsed) {
+        console.groupCollapsed('[HBX] Build completed with {{ len $all_logs }} log entries');
+        console.log('Debug data available at:', '/hbx-debug.json');
+        {{ range $all_logs }}
+        console.log('[HBX:{{ .level }}]', {{ .message | jsonify }}, 'page:', {{ .page | jsonify }});
+        {{ end }}
+        console.groupEnd();
+      }
+    </script>
+  {{- end -}}
+{{- end -}}

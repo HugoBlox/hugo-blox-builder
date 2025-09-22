@@ -22,7 +22,9 @@
       "starters/**",
       "test/**",
       "modules/**/package.json",
-      "**/assets/jsconfig.json"
+      "**/assets/jsconfig.json",
+      "docs-local",
+      "backups/**"
     ]
   },
   "formatter": {
@@ -52,6 +54,9 @@
       "complexity": { "all": false },
       "suspicious": {
         "noEmptyBlock": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
       }
     }
   },

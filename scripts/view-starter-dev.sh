@@ -107,7 +107,6 @@ HUGO_ARGS=(
 if [ "$DEBUG_MODE" = true ]; then
     HUGO_ARGS+=(
         --logLevel debug
-        --panicOnWarning
         --templateMetrics
         --templateMetricsHints
         --ignoreCache

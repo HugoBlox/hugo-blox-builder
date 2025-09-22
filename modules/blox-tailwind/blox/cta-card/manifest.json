@@ -4,15 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "category": "marketing",
-  "tags": [
-    "cta",
-    "card",
-    "conversion",
-    "marketing",
-    "hero",
-    "call-to-action",
-    "banner"
-  ],
+  "tags": ["cta", "card", "conversion", "marketing", "hero", "call-to-action", "banner"],
   "description": "Create high-impact call-to-action cards with bold typography and compelling buttons",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",

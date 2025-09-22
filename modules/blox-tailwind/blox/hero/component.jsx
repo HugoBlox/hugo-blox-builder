@@ -3,7 +3,7 @@
  * Used for both SSR and client-side hydration
  */
 
-import { Icon } from "../../shared/components/Icon.jsx";
+import {Icon} from "../../shared/components/Icon.jsx";
 
 // Simple markdown renderer
 export function renderText(text) {
@@ -16,7 +16,7 @@ export function renderText(text) {
 
 // Process URLs
 export function processUrl(url) {
-  if (!url) return { href: "#" };
+  if (!url) return {href: "#"};
 
   if (url.startsWith("http://") || url.startsWith("https://")) {
     return {
@@ -27,14 +27,14 @@ export function processUrl(url) {
   }
 
   if (url.startsWith("#")) {
-    return { href: url };
+    return {href: url};
   }
 
-  return { href: url };
+  return {href: url};
 }
 
 // Hero Block Component - Single implementation
-export const HeroBlock = ({ content, design, id, icon_svg }) => {
+export const HeroBlock = ({content, design, id, icon_svg}) => {
   const paddingClasses = design?.no_padding ? "" : "py-32 sm:py-48 lg:py-56";
 
   return (
@@ -44,6 +44,7 @@ export const HeroBlock = ({ content, design, id, icon_svg }) => {
         {content.announcement?.text && (
           <div class="hidden sm:mb-8 sm:flex sm:justify-center">
             <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 dark:text-gray-300 ring-1 ring-gray-900/10 dark:ring-gray-300 hover:ring-gray-900/20 dark:hover:ring-gray-400">
+              {/* eslint-disable-next-line lint/security/noDangerouslySetInnerHtml */}
               <span
                 dangerouslySetInnerHTML={{
                   __html: renderText(content.announcement.text),
@@ -59,8 +60,7 @@ export const HeroBlock = ({ content, design, id, icon_svg }) => {
                   class="pl-2 font-semibold text-primary-600 dark:text-primary-300"
                 >
                   <span class="absolute inset-0" aria-hidden="true"></span>
-                  {content.announcement.link.text}{" "}
-                  <span aria-hidden="true">→</span>
+                  {content.announcement.link.text} <span aria-hidden="true">→</span>
                 </a>
               )}
             </div>
@@ -73,16 +73,13 @@ export const HeroBlock = ({ content, design, id, icon_svg }) => {
           {content.title && (
             <h1
               class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl"
-              dangerouslySetInnerHTML={{ __html: renderText(content.title) }}
+              dangerouslySetInnerHTML={{__html: renderText(content.title)}}
             />
           )}
 
           {/* Subtitle/Text */}
           {content.text && (
-            <p
-              class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300"
-              dangerouslySetInnerHTML={{ __html: renderText(content.text) }}
-            />
+            <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={{__html: renderText(content.text)}} />
           )}
 
           {/* Action Buttons */}

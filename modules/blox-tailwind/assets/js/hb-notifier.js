@@ -3,7 +3,7 @@
  * Provides reusable notification functionality
  */
 
-import { hugoEnvironment } from "@params";
+import {hugoEnvironment} from "@params";
 
 // Debug mode based on environment
 const isDebugMode = hugoEnvironment === "development";
@@ -21,10 +21,7 @@ export function showNotification(message, type = "success", duration = 3000) {
 
   // Remove any existing notifications with same message
   const existingNotification = container.querySelector(".hb-notification");
-  if (
-    existingNotification &&
-    existingNotification.textContent.includes(message)
-  ) {
+  if (existingNotification && existingNotification.textContent.includes(message)) {
     existingNotification.remove();
   }
 
@@ -86,10 +83,10 @@ function createNotificationElement(message, type) {
 
   // Define colors for different types
   const colors = {
-    success: { bg: "#10b981", bgClass: "bg-green-500" },
-    error: { bg: "#ef4444", bgClass: "bg-red-500" },
-    info: { bg: "#3b82f6", bgClass: "bg-blue-500" },
-    warning: { bg: "#f59e0b", bgClass: "bg-amber-500" },
+    success: {bg: "#10b981", bgClass: "bg-green-500"},
+    error: {bg: "#ef4444", bgClass: "bg-red-500"},
+    info: {bg: "#3b82f6", bgClass: "bg-blue-500"},
+    warning: {bg: "#f59e0b", bgClass: "bg-amber-500"},
   };
 
   const color = colors[type] || colors.info;

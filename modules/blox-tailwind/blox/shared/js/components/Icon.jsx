@@ -1,11 +1,11 @@
-import { h } from "preact";
+import {h} from "preact";
 
 /**
  * Icon component
  * Renders an SVG icon from a raw SVG string passed from Hugo.
  * Decodes JSON-escaped sequences (\u003c) and HTML entities (&lt;, &quot;, &#34;).
  */
-export const Icon = ({ svg, attributes }) => {
+export const Icon = ({svg, attributes}) => {
   if (!svg) return null;
 
   let decoded = String(svg)
@@ -22,17 +22,13 @@ export const Icon = ({ svg, attributes }) => {
 
   if (hasWrapper) {
     if (/<svg[^>]*class=/i.test(decoded)) {
-      decoded = decoded.replace(
-        /<svg([^>]*?)class=\"([^\"]*)\"([^>]*)>/i,
-        '<svg$1class="$2 inline-block w-4 h-4"$3>'
-      );
+      decoded = decoded.replace(/<svg([^>]*?)class=\"([^\"]*)\"([^>]*)>/i, '<svg$1class="$2 inline-block w-4 h-4"$3>');
     } else {
       decoded = decoded.replace(/<svg\b/i, '<svg class="inline-block w-4 h-4"');
     }
 
-    return (
-      <span class="inline-block" dangerouslySetInnerHTML={{ __html: decoded }} />
-    );
+    // eslint-disable-next-line lint/security/noDangerouslySetInnerHtml
+    return <span class="inline-block" dangerouslySetInnerHTML={{__html: decoded}} />;
   }
 
   const finalAttributes = {
@@ -46,10 +42,6 @@ export const Icon = ({ svg, attributes }) => {
     .map(([k, v]) => `${k}="${String(v)}"`)
     .join(" ");
 
-  return (
-    <span
-      class="inline-block"
-      dangerouslySetInnerHTML={{ __html: `<svg ${attrs}>${decoded}</svg>` }}
-    />
-  );
+  // eslint-disable-next-line lint/security/noDangerouslySetInnerHtml
+  return <span class="inline-block" dangerouslySetInnerHTML={{__html: `<svg ${attrs}>${decoded}</svg>`}} />;
 };

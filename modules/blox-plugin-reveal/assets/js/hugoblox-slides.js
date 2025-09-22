@@ -12,13 +12,7 @@
 import * as params from "@params";
 
 // Enable core slide features.
-var enabledPlugins = [
-  RevealMarkdown,
-  RevealSearch,
-  RevealNotes,
-  RevealMath.KaTeX,
-  RevealZoom,
-];
+var enabledPlugins = [RevealMarkdown, RevealSearch, RevealNotes, RevealMath.KaTeX, RevealZoom];
 
 const isObject = function (o) {
   return o === Object(o) && !isArray(o) && typeof o !== "function";
@@ -97,9 +91,7 @@ if (params.slides.diagram) {
   // Lazily render Mermaid diagrams within Reveal.JS slides
   // See: https://github.com/hakimel/reveal.js/issues/2863#issuecomment-1107444425
   let renderMermaidDiagrams = function renderMermaidDiagrams(event) {
-    let mermaidDivs = event.currentSlide.querySelectorAll(
-      ".mermaid:not(.done)",
-    );
+    let mermaidDivs = event.currentSlide.querySelectorAll(".mermaid:not(.done)");
     let indices = Reveal.getIndices();
     let pageno = `${indices.h}-${indices.v}`;
 
@@ -109,11 +101,7 @@ if (params.slides.diagram) {
         mermaidDiv.classList.add("done");
       };
       let graphDefinition = mermaidDiv.textContent;
-      mermaid.mermaidAPI.render(
-        `mermaid${pageno}-${i}`,
-        graphDefinition,
-        insertSvg,
-      );
+      mermaid.mermaidAPI.render(`mermaid${pageno}-${i}`, graphDefinition, insertSvg);
     });
     Reveal.layout();
   };

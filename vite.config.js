@@ -7,10 +7,10 @@
  * Usage: pnpm run vendor:libs
  */
 
-import { resolve } from "path";
+import {resolve} from "path";
 import del from "rollup-plugin-delete";
-import { defineConfig } from "vite";
-import { viteStaticCopy } from "vite-plugin-static-copy";
+import {defineConfig} from "vite";
+import {viteStaticCopy} from "vite-plugin-static-copy";
 
 const MODULE_DIR = "modules/blox-tailwind";
 const OUTPUT_DIR = resolve(MODULE_DIR, "assets/dist/lib");
@@ -26,13 +26,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // Don't bundle these libraries, just copy them
-      external: [
-        "mermaid",
-        "plotly.js",
-        "katex",
-        "markmap-autoloader",
-        "alpinejs",
-      ],
+      external: ["mermaid", "plotly.js", "katex", "markmap-autoloader", "alpinejs"],
     },
   },
 

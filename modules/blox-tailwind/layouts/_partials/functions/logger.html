@@ -22,6 +22,19 @@
   {{- end -}}
 {{- end -}}
 
+{{/* Store log entry for future debug widget */}}
+{{- with $page -}}
+  {{- $log_entry := dict "level" $level "message" $msg "page" ($.RelPermalink | default "/") "timestamp" now.Unix -}}
+  {{- $current_logs := .Store.Get "hbx_logs" | default slice -}}
+  {{- .Store.Set "hbx_logs" ($current_logs | append $log_entry) -}}
+{{- end -}}
+
+{{/* Multi-tier logging output */}}
+{{- if $isDev -}}
+  {{/* Console logging for immediate dev feedback */}}
+  <script>console.log('[HBX:{{ $level }}]', {{ $msg | jsonify }});</script>
+{{- end -}}
+
 {{- if eq $level "error" -}}
   {{- if not $isAdapter -}}
     {{- errorf "%s" $msg -}}

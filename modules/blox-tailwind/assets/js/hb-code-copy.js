@@ -1,4 +1,4 @@
-import { hugoEnvironment, i18n } from "@params";
+import {hugoEnvironment, i18n} from "@params";
 
 // Constants
 const NOTIFICATION_DURATION = 2000; // milliseconds
@@ -93,10 +93,7 @@ function createCopyButton() {
   const copyBtn = document.createElement("button");
   copyBtn.classList.add("copy-button");
   copyBtn.innerHTML = i18n["copy"];
-  copyBtn.setAttribute(
-    "aria-label",
-    i18n["copyLabel"] || "Copy code to clipboard",
-  );
+  copyBtn.setAttribute("aria-label", i18n["copyLabel"] || "Copy code to clipboard");
   copyBtn.setAttribute("type", "button"); // Explicit button type
   return copyBtn;
 }
@@ -144,18 +141,12 @@ function initializeCodeCopyButtons() {
         const copyBtn = createCopyButton();
 
         // Use debounced version of copy function
-        const debouncedCopy = debounce(
-          () => copyCodeToClipboard(copyBtn, wrapper),
-          DEBOUNCE_DELAY,
-        );
+        const debouncedCopy = debounce(() => copyCodeToClipboard(copyBtn, wrapper), DEBOUNCE_DELAY);
 
         copyBtn.addEventListener("click", debouncedCopy);
         wrapper.appendChild(copyBtn);
       } catch (err) {
-        console.error(
-          `Failed to initialize copy button for code block ${index}:`,
-          err,
-        );
+        console.error(`Failed to initialize copy button for code block ${index}:`, err);
       }
     });
   } catch (err) {

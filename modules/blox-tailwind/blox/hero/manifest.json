@@ -4,15 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "category": "marketing",
-  "tags": [
-    "hero",
-    "landing",
-    "cta",
-    "announcement",
-    "headline",
-    "conversion",
-    "primary"
-  ],
+  "tags": ["hero", "landing", "cta", "announcement", "headline", "conversion", "primary"],
   "description": "Create compelling hero sections with headlines, announcements, and dual call-to-action buttons",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",

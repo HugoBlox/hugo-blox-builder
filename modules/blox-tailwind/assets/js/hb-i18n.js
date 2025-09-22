@@ -1,13 +1,10 @@
 window.addEventListener("DOMContentLoaded", () => {
   // Toggle language chooser sub-menu
-  const languageChoosers = document.querySelectorAll(
-    "[data-hb-language-chooser]",
-  );
+  const languageChoosers = document.querySelectorAll("[data-hb-language-chooser]");
   languageChoosers.forEach((languageChooser) => {
     languageChooser.addEventListener("click", (e) => {
       e.preventDefault();
-      languageChooser.dataset.state =
-        languageChooser.dataset.state === "open" ? "closed" : "open";
+      languageChooser.dataset.state = languageChooser.dataset.state === "open" ? "closed" : "open";
       const languageOptions = languageChooser.nextElementSibling;
       languageOptions.classList.toggle("hidden");
       const languageChooserRect = languageChooser.getBoundingClientRect();

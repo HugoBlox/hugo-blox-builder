@@ -3,15 +3,13 @@
  * Uses the shared component for consistency
  */
 
-import { render } from "preact";
-import { HeroBlock } from "./component.jsx";
+import {render} from "preact";
+import {HeroBlock} from "./component.jsx";
 
 // Render function - immediately renders Hero components
 function renderHeroBlocks() {
   // Find all hero block containers (using both old and new selectors for compatibility)
-  const heroBlocks = document.querySelectorAll(
-    '[data-block-type="hero"], [data-hero-render="immediate"]',
-  );
+  const heroBlocks = document.querySelectorAll('[data-block-type="hero"], [data-hero-render="immediate"]');
 
   heroBlocks.forEach((block) => {
     const propsData = block.dataset.props;

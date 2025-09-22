@@ -3,9 +3,9 @@
  * Copies BibTeX citation to clipboard when cite button is clicked
  */
 
-import { hugoEnvironment, i18n } from "@params";
-import { ClipboardCache, copyToClipboardSync } from "./hb-clipboard.js";
-import { showNotification } from "./hb-notifier.js";
+import {hugoEnvironment, i18n} from "@params";
+import {ClipboardCache, copyToClipboardSync} from "./hb-clipboard.js";
+import {showNotification} from "./hb-notifier.js";
 
 // Debug mode based on environment
 const isDebugMode = hugoEnvironment === "development";
@@ -36,9 +36,7 @@ function initializeCitation() {
  * Prefetch all citations on page load
  */
 function prefetchAllCitations() {
-  const citeButtons = document.querySelectorAll(
-    ".js-cite-clipboard[data-filename]",
-  );
+  const citeButtons = document.querySelectorAll(".js-cite-clipboard[data-filename]");
   citeButtons.forEach((button) => {
     const filename = button.getAttribute("data-filename");
     if (filename && !citationCache.has(filename)) {
@@ -151,10 +149,7 @@ async function fetchAndCopyWithFallback(filename, button) {
     }
     // If it's a NotAllowedError, suggest hovering first
     if (error.name === "NotAllowedError") {
-      showNotification(
-        "Please hover over the button first, then click",
-        "info",
-      );
+      showNotification("Please hover over the button first, then click", "info");
     } else {
       showNotification("Failed to copy citation", "error");
     }
@@ -191,4 +186,4 @@ function updateButtonText(button) {
 }
 
 // Export functions for potential reuse
-export { handleCiteClick, prefetchAllCitations };
+export {handleCiteClick, prefetchAllCitations};
