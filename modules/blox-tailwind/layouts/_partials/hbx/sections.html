@@ -31,7 +31,7 @@
     {{- end -}}
     {{- $source = printf "data/pages/%s.yaml (sections_source)" $key -}}
   {{- else -}}
-    {{- partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "HBX: sections_source '%s' not found under data/pages/" $key)) -}}
+    {{- partial "functions/logger" (dict "page" . "level" "warn" "id" (printf "sections-source-missing-%s" $key) "message" (printf "sections_source '%s' not found under data/pages/" $key) "source" (dict "type" "partial" "name" "hbx/sections")) -}}
   {{- end -}}
 {{- end -}}
 
@@ -89,7 +89,7 @@
         {{- end -}}
         {{- $sec = $merged -}}
       {{- else -}}
-        {{- partial "functions/logger" (dict "page" $ "level" "warn" "message" (printf "HBX: section ref '%s' not found under data/blocks/" $ref)) -}}
+        {{- partial "functions/logger" (dict "page" $ "level" "warn" "id" (printf "section-ref-missing-%s" $ref) "message" (printf "HBX: section ref '%s' not found under data/blocks/" $ref) "source" (dict "type" "partial" "name" "hbx/sections")) -}}
       {{- end -}}
     {{- end -}}
     {{- $resolved = $resolved | append $sec -}}
@@ -98,8 +98,8 @@
 {{- end -}}
 
 {{- if $sections -}}
-  {{- partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "HBX: Using sections from %s for page %s (found %d sections)" $source $.RelPermalink (len $sections))) -}}
+  {{- partial "functions/logger" (dict "page" . "level" "info" "message" (printf "✅  Using sections from %s for page %s (found %d sections)" $source $.RelPermalink (len $sections)) "source" (dict "type" "partial" "name" "hbx/sections")) -}}
 {{- else -}}
-  {{- partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "HBX: No sections found for page %s (checked %s)" $.RelPermalink $source)) -}}
+  {{- partial "functions/logger" (dict "page" . "level" "warn" "id" (printf "sections-none-%s" $.RelPermalink) "message" (printf "HBX: No sections found for page %s (checked %s)" $.RelPermalink $source) "source" (dict "type" "partial" "name" "hbx/sections")) -}}
 {{- end -}}
 {{- return $sections -}}

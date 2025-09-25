@@ -26,18 +26,51 @@
 - id: related
   translation: Relacionado
 
-# Callouts
+# Callouts - All Obsidian-compatible types
 - id: callout_note
   translation: Nota
+
+- id: callout_abstract
+  translation: Resumen
+
+- id: callout_summary
+  translation: Resumen
+
+- id: callout_info
+  translation: Info
+
+- id: callout_todo
+  translation: Pendiente
 
 - id: callout_tip
   translation: Consejo
 
-- id: callout_important
-  translation: Importante
+- id: callout_success
+  translation: Éxito
+
+- id: callout_question
+  translation: Pregunta
 
 - id: callout_warning
   translation: Advertencia
+
+- id: callout_failure
+  translation: Fallo
+
+- id: callout_danger
+  translation: Peligro
+
+- id: callout_bug
+  translation: Error
+
+- id: callout_example
+  translation: Ejemplo
+
+- id: callout_quote
+  translation: Cita
+
+- id: callout_important
+  translation: Importante
 
 - id: callout_caution
   translation: Precaución

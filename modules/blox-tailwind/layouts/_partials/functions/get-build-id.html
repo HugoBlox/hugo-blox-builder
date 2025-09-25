@@ -1,0 +1,5 @@
+{{/*
+  Get Build ID - Returns a consistent build identifier for the current build cycle.
+  This is cached across the entire build to prevent log duplication during dev rebuilds.
+*/}}
+{{- printf "%d" now.Unix -}}

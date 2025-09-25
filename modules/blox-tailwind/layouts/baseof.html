@@ -33,5 +33,9 @@
 
     {{/* EXTENSIBILITY HOOK: BODY-END */}}
     {{ partial "functions/get_hook" (dict "hook" "body-end" "context" .) }}
+
+    {{/* HBX Dev: ensure debug export and HUD are injected in dev */}}
+    {{ partial "hooks/body-end/hbx-debug-export.html" . }}
+    {{ partial "hooks/body-end/hbx-debug-hud.html" . }}
   </body>
 </html>

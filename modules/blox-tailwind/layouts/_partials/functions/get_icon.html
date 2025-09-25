@@ -20,10 +20,33 @@
   {{ with index (index site.Data.icons.hb "icons") $name -}}
     {{ $icon = . }}
   {{ else }}
-    {{ with resources.GetMatch (path.Join "media" "icons" $pack (printf "%s.svg" $name)) }}
+    {{- $prefix := printf "media/icons/%s/" $pack -}}
+    {{- $icon_path := printf "%s%s.svg" $prefix $name -}}
+    {{- if not (fileExists (printf "assets/%s" $icon_path)) -}}
+      {{ $pageRef := "unknown location" }}
+      {{ if .Page }}
+        {{ if .Page.File }}
+          {{ if .Page.File.Path }}
+            {{ $pageRef = .Page.File.Path }}
+          {{ else if .Page.RelPermalink }}
+            {{ $pageRef = .Page.RelPermalink }}
+          {{ end }}
+        {{ else if .Page.RelPermalink }}
+          {{ $pageRef = .Page.RelPermalink }}
+        {{ end }}
+      {{ end }}
+      {{ partial "functions/logger" (dict
+            "page" .Page
+            "level" "warn"
+            "id" (printf "missing-icon-%s-%s" $pack $name)
+            "message" (printf "The icon `%s` was not found in `assets/media/icons/%s/`. Referenced in: %s" $name $pack $pageRef)
+          )
+      }}
+    {{- end -}}
+    {{- $icon := resources.Get $icon_path -}}
+    {{ if $icon }}
       {{ $icon = .Content }}
-    {{else}}
-      {{ partial "functions/logger" (dict "page" $.Page "level" "warn" "message" (printf "The icon `%s.svg` was not found in your `assets/media/icons/%s/` folder" $name $pack)) }}
+    {{ else }}
       {{ $icon = index (index site.Data.icons.brands "icons") "hugo" }}
     {{ end }}
   {{ end }}

@@ -84,6 +84,7 @@ HUGO_ARGS=(
 
 if [ "$DEBUG_MODE" = true ]; then
     HUGO_ARGS+=(
+        --panicOnWarning
         --logLevel debug
         --templateMetrics
         --templateMetricsHints

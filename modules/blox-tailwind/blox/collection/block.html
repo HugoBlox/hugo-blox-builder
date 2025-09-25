@@ -16,10 +16,13 @@
 {{ end }}
 
 {{/* Query */}}
-{{ $query := site.RegularPages }}
+{{ $query := site.Pages }}
 {{ $archive_page := "" }}
 
 {{/* Filters */}}
+{{ $kinds := $block.content.filters.kinds | default (slice "page") }}
+{{ $query = where $query "Kind" "in" $kinds }}
+
 {{ if $block.content.page_type }}
   {{ $query = where $query "Type" $block.content.page_type }}
   {{ $archive_page = site.GetPage "Section" $block.content.page_type }}
@@ -30,6 +33,20 @@
   {{/* Init archive page to main folder */}}
   {{ $main_folder := index $folders 0 }}
   {{ $archive_page = site.GetPage "Section" $main_folder }}
+{{ end }}
+{{ if $block.content.filters.tags }}
+  {{ $tags := $block.content.filters.tags }}
+  {{ $selected := slice }}
+  {{ range $tags }}
+    {{ $tag_page := site.GetPage (printf "tags/%s" (urlize .)) }}
+    {{ if $tag_page }}
+      {{ $selected = $selected | union $tag_page.Pages }}
+    {{ end }}
+  {{ end }}
+  {{ if gt (len $selected) 0 }}
+    {{ $query = $query | intersect $selected }}
+    {{ $archive_page = site.GetPage (printf "tags/%s" (urlize (index $tags 0))) }}
+  {{ end }}
 {{ end }}
 {{ if $block.content.filters.tag }}
   {{ $archive_page = site.GetPage (printf "tags/%s" (urlize $block.content.filters.tag)) }}

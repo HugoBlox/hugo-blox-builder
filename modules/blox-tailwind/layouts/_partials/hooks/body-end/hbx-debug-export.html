@@ -1,42 +1,67 @@
-{{/* Hugo Blox: Export Debug Logs for Future Debug Widget */}}
-{{/* This hook collects all HBX logs and exports them to a JSON file for tooling */}}
-
-{{- if hugo.IsServer -}}
-  {{/* Collect all logs from all pages */}}
-  {{- $all_logs := slice -}}
+{{/* Hugo Blox: Export Debug Logs for Dev HUD (window var) */}}
+{{- if and hugo.IsServer (site.Params.hbx.log.export | default true) -}}
+  {{- /* Collect all logs from all pages (site-wide) */ -}}
+  {{- $entries := slice -}}
   {{- range .Site.Pages -}}
-    {{- $page_logs := .Store.Get "hbx_logs" | default slice -}}
-    {{- $all_logs = $all_logs | append $page_logs -}}
+    {{- with .Store -}}
+      {{- with .Get "hbx_logs" -}}
+        {{- $entries = $entries | append . -}}
+      {{- end -}}
+    {{- end -}}
   {{- end -}}
-  
-  {{- if $all_logs -}}
-    {{/* Create debug export as a resource for tooling */}}
-    {{- $debug_data := dict "logs" $all_logs "build_time" now.Unix "hugo_version" hugo.Version -}}
-    {{- $debug_json := $debug_data | jsonify -}}
-    {{- $debug_resource := resources.FromString "hbx-debug.json" $debug_json -}}
-    {{- $debug_resource.Publish -}}
-    
-    {{/* Also emit to console for immediate visibility */}}
-    <script>
-      if (window.console && console.groupCollapsed) {
-        console.groupCollapsed('[HBX] Build completed with {{ len $all_logs }} log entries');
-        console.log('Debug data available at:', '/hbx-debug.json');
-        {{ range $all_logs }}
-          {{ if . }}
-            {{ if reflect.IsMap . }}
-              console.log(
-                '[HBX:{{ if .level }}{{ .level }}{{ else }}info{{ end }}]',
-                {{ if .message }}{{ .message | jsonify }}{{ else }}"No message"{{ end }},
-                'page:',
-                {{ if .page }}{{ .page | jsonify }}{{ else }}"unknown"{{ end }}
-              );
-            {{ else }}
-              console.log('[HBX:info]', "Log entry with unexpected format", {{ . | jsonify }});
-            {{ end }}
-          {{ end }}
-        {{ end }}
-        console.groupEnd();
-      }
-    </script>
+
+  {{- /* Summarize dependencies */ -}}
+  {{- $deps := slice -}}
+  {{- range $i, $d := hugo.Deps -}}
+    {{- $dep := dict "path" $d.Path "version" $d.Version "vendor" $d.Vendor -}}
+    {{- with $d.Owner -}}
+      {{- $dep = merge $dep (dict "owner_path" .Path) -}}
+    {{- end -}}
+    {{- with $d.Replace -}}
+      {{- $dep = merge $dep (dict "replace_path" .Path) -}}
+    {{- end -}}
+    {{- with $d.Time -}}
+      {{- $dep = merge $dep (dict "time" (printf "%v" .)) -}}
+    {{- end -}}
+    {{- $deps = $deps | append $dep -}}
   {{- end -}}
+
+  {{- /* Detect blox-tailwind module version if present */ -}}
+  {{- $bloxTW := dict -}}
+  {{- range $deps -}}
+    {{- $p := .path -}}
+    {{- if and $p (in $p "blox-tailwind") -}}
+      {{- $bloxTW = dict "path" .path "version" .version -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* Current page information */ -}}
+  {{- $filePath := "" -}}
+  {{- with .File -}}
+    {{- $filePath = .Path -}}
+  {{- end -}}
+  {{- $buildId := partialCached "functions/get-build-id.html" "hbx-build-id" -}}
+  {{- $currentPage := dict 
+    "path" .RelPermalink
+    "type" .Type
+    "layout" (.Layout | default "")
+    "kind" .Kind
+    "section" .Section
+    "title" .Title
+    "file" $filePath
+    "buildId" $buildId
+  -}}
+
+  {{- $payload := dict
+    "version" 1
+    "generatedAt" (now.UTC.Format "2006-01-02T15:04:05Z07:00")
+    "hugo" (dict "version" hugo.Version "goVersion" hugo.GoVersion)
+    "deps" $deps
+    "modules" (dict "bloxTailwind" $bloxTW)
+    "entries" $entries
+    "currentPage" $currentPage
+  -}}
+  <script>
+    window.__HBX_LOGS__ = {{ $payload | jsonify | safeJS }};
+  </script>
 {{- end -}}

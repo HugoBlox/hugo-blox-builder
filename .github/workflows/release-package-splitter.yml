@@ -83,14 +83,25 @@ jobs:
           FIRST=true
           # tj-actions outputs space-separated list
           for DIR in $CHANGED_DIRS; do
+            # Normalize potential trailing slash
+            DIR="${DIR%/}"
+
+            # Collapse to the starter root (first two path segments), e.g. starters/landing-page
+            IFS='/' read -r SEG1 SEG2 _ <<< "$DIR"
+            if [[ -n "$SEG1" && -n "$SEG2" ]]; then
+              ROOT="$SEG1/$SEG2"
+            else
+              ROOT="$DIR"
+            fi
+
             # Only process if it's a known starter
-            if [[ -n "${STARTER_MAP[$DIR]}" ]]; then
+            if [[ -n "${STARTER_MAP[$ROOT]}" ]]; then
               if [ "$FIRST" = true ]; then
                 FIRST=false
               else
-                JSON+=","
+                JSON+="," 
               fi
-              JSON+="{\"local_path\":\"$DIR\",\"split_repository\":\"${STARTER_MAP[$DIR]}\"}"
+              JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
             fi
           done
           JSON+="]"

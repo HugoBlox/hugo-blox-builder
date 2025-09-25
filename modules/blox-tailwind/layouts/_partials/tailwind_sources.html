@@ -2,50 +2,64 @@
 {{/* Documentation: https://hugoblox.com/docs/ */}}
 {{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
 
-{{/* 
+{{/*
 This partial generates Tailwind CSS @source directives that tell Tailwind where to scan for CSS classes.
 
-CRITICAL: Tailwind scans the actual filesystem (relative to main.css), while Hugo operates on a virtual 
-filesystem with module mounts. This file bridges that gap by translating Hugo's virtual paths to actual 
-filesystem paths that Tailwind can find.
-
-Environments handled:
-1. Test site (HUGO_BLOX_TEST_SITE=true): runs from test/, so ../modules/blox-tailwind/ for theme files
-2. Starter sites (HUGO_BLOX_MONOREPO=true): run from starters/[name]/, so ../../../modules/blox-tailwind/
-3. End-user sites: use virtual mounted paths from Hugo modules (standard content/, layouts/, assets/)
-
-Without this, Tailwind would miss classes from:
-  * Hugo Blox theme templates (layouts/, blox/)  
-  * Preact components (blox/** /*.jsx) - intentional space due to Hugo bug thinking '* /' is commend end
-  * Site content (content/** /*.md) - intentional space due to Hugo bug thinking '* /' is commend end
-  * Generated HTML classes (hugo_stats.json)
+It provides a robust bridge between Hugo's virtual filesystem (which includes module mounts)
+and Tailwind's real filesystem scanner.
 */}}
-{{ $is_monorepo := eq (os.Getenv "HUGO_BLOX_MONOREPO") "true" }}
-{{ $is_test_site := eq (os.Getenv "HUGO_BLOX_TEST_SITE") "true" }}
 {{ $paths := slice }}
 
-{{/* 1. Always add paths relative to the current site's root (content, layouts, etc.) */}}
+{{/* 1. Always scan the site's source files. */}}
 {{ $paths = $paths | append `content/**/*.md` }}
 {{ $paths = $paths | append `layouts/**/*.html` }}
 {{ $paths = $paths | append `assets/js/**/*.js` }}
+{{ $paths = $paths | append `assets/js/**/*.jsx` }}
+{{ $paths = $paths | append `assets/js/**/*.tsx` }}
 {{ $paths = $paths | append `hugo_stats.json` }}
 
-{{/* 2. If in monorepo, add relative paths to the blox-tailwind module source */}}
-{{ if $is_monorepo }}
-  {{ $module_path_prefix := "" }}
-  {{ if $is_test_site }}
-    {{/* Test site is at `test/`, so one level up to repo root */}}
-    {{ $module_path_prefix = "../" }}
-  {{ else }}
-    {{/* Starter sites are at `starters/[name]/`, so three levels up */}}
-    {{ $module_path_prefix = "../../../" }}
+{{/*
+2.  Crucially, scan Hugo's generated JS output from Preact components.
+    These files are built by Hugo's `js.Build` into a predictable location within the
+    project's `assets` directory, making them a reliable source for Tailwind to scan.
+    This step happens before Tailwind runs, thanks to `templates.Defer` in `site_head.html`.
+*/}}
+{{ $paths = $paths | append `assets/js/preact-built/**/*.js` }}
+
+{{/*
+3. Inline sources: extract class attributes from Preact JSX/TSX and embed them
+   directly so Tailwind can always see them regardless of FS layout.
+*/}}
+{{ $jsx_files := resources.Match "js/hbx/**/*.jsx" }}
+{{ $tsx_files := resources.Match "js/hbx/**/*.tsx" }}
+
+{{ $extracted_classes := slice }}
+{{ range $f := $jsx_files }}
+  {{ $code := $f.Content }}
+  {{ $matches := findRE `class(?:Name)?\s*=\s*"([^"]+)"` $code }}
+  {{ range $m := $matches }}
+    {{ $cls := replaceRE `^class(?:Name)?\s*=\s*"([^"]+)"$` `$1` $m }}
+    {{ $classes := split $cls " " }}
+    {{ range $class := $classes }}
+      {{ $extracted_classes = $extracted_classes | append $class }}
+    {{ end }}
   {{ end }}
-  
-  {{ $module_path := printf "%smodules/blox-tailwind" $module_path_prefix }}
-  {{ $paths = $paths | append (printf `%s/layouts/**/*.html` $module_path) }}
-  {{ $paths = $paths | append (printf `%s/assets/js/**/*.js` $module_path) }}
-  {{ $paths = $paths | append (printf `%s/blox/**/*.html` $module_path) }}
-  {{ $paths = $paths | append (printf `%s/blox/**/*.jsx` $module_path) }}
+{{ end }}
+{{ range $f := $tsx_files }}
+  {{ $code := $f.Content }}
+  {{ $matches := findRE `class(?:Name)?\s*=\s*"([^"]+)"` $code }}
+  {{ range $m := $matches }}
+    {{ $cls := replaceRE `^class(?:Name)?\s*=\s*"([^"]+)"$` `$1` $m }}
+    {{ $classes := split $cls " " }}
+    {{ range $class := $classes }}
+      {{ $extracted_classes = $extracted_classes | append $class }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $extracted_classes = $extracted_classes | uniq }}
+{{ range $class := $extracted_classes }}
+@source inline("{{ $class }}");
 {{ end }}
 
 {{/* Generate the @source rules */}}

@@ -23,7 +23,19 @@
 */}}
 
 {{/* Log deprecation warning */}}
-{{ partial "functions/logger" (dict "page" .Page "level" "warn" "message" "The callout shortcode is deprecated. Use standard Markdown alert syntax instead: > [!NOTE]") }}
+{{ $src := "/" }}
+{{ with .Page }}
+  {{ with .File }}
+    {{ $src = .Path }}
+  {{ end }}
+{{ end }}
+{{ partial "functions/logger" (dict 
+  "page" .Page 
+  "level" "warn" 
+  "id" "callout-deprecated" 
+  "message" (printf "The `callout` shortcode is deprecated in %s. Use standard Markdown alert syntax instead, such as `> [!NOTE]`." $src)
+  "source" (dict "type" "shortcode" "name" "callout" "docs" "https://docs.hugoblox.com/reference/markdown/#callouts")
+) }}
 
 {{/* Get callout type from parameter */}}
 {{ $type := (.Get 0) | default "note" }}

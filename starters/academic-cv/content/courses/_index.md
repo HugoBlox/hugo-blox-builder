@@ -4,8 +4,9 @@ summary: My courses
 type: landing
 
 cascade:
-  - _target:
-      kind: page
+  - target:
+      path: '{/courses/*/**}'
+    type: docs
     params:
       show_breadcrumb: true
 
@@ -15,9 +16,13 @@ sections:
     content:
       title: Courses
       filters:
-        folders:
-          - courses
+        tag: Course
+        kinds:
+          - section
     design:
       view: article-grid
-      columns: 2
+      show_read_time: false
+      show_date: false
+      show_read_more: false
+      columns: 1
 ---

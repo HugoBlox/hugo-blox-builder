@@ -1,0 +1,298 @@
+{{/* Hugo Blox: Dev HUD (floating button + panel). Dev only. */}}
+{{- if hugo.IsServer -}}
+  <script>
+    (function(){
+      try {
+        const PLACEMENT = {{ (site.Params.hbx.log.placement | default "bottom-left") | jsonify }};
+        const OPACITY = {{ (site.Params.hbx.log.opacity | default 1.0) | jsonify }};
+
+        const root = document.createElement('div');
+        root.id = 'hbx-dev-hud-root';
+        root.style.all = 'initial';
+        root.style.position = 'fixed';
+        root.style.zIndex = '2147483647';
+        root.style.pointerEvents = 'none';
+        root.style.bottom = '16px';
+        if (PLACEMENT === 'bottom-right') root.style.right = '16px';
+        else if (PLACEMENT === 'bottom-center') { root.style.left = '50%'; root.style.transform = 'translateX(-50%)'; }
+        else root.style.left = '16px';
+
+        const shadow = root.attachShadow({ mode: 'open' });
+        const style = document.createElement('style');
+        style.textContent = `
+          :host { all: initial; }
+          .btn { pointer-events: auto; position:relative; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#111418; color:#e6eaf0; border:1px solid #2a2f38; box-shadow: 0 10px 20px rgba(0,0,0,.25); cursor:pointer; }
+          .btn:hover { filter: brightness(1.1); }
+          .badge { position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; padding:0 4px; border-radius:9999px; background:#ef4444; color:white; font: 600 11px/18px system-ui, sans-serif; text-align:center; }
+          .panel { pointer-events:auto; position:fixed; inset:auto auto 72px 16px; width:min(92vw, 1200px); max-height:min(80vh, 800px); background:#0d1117; color:#e6eaf0; border:1px solid #21262d; border-radius:12px; box-shadow: 0 20px 40px rgba(0,0,0,.4); overflow:hidden; display:none; }
+          .panel.open { display:flex; flex-direction:column; }
+          .panel-header { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #21262d; background:#161b22; }
+          .panel-header h2 { margin:0; font: 700 16px system-ui, sans-serif; letter-spacing:-0.01em; color:#f0f6fc; }
+          .panel-header .close-btn { margin-left:auto; width:32px; height:32px; border:none; background:#21262d; color:#8b949e; border-radius:6px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
+          .panel-header .close-btn:hover { background:#30363d; color:#f0f6fc; }
+          .page-info { padding:16px; background:#0d1117; border-bottom:1px solid #21262d; }
+          .page-info h3 { margin:0 0 12px 0; font: 600 14px system-ui, sans-serif; color:#f0f6fc; display:flex; align-items:center; gap:8px; }
+          .page-info h3::before { content:'🔍'; font-size:16px; }
+          .page-meta { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; }
+          .meta-item { display:flex; flex-direction:column; gap:4px; }
+          .meta-label { font: 500 11px system-ui, sans-serif; color:#8b949e; text-transform:uppercase; letter-spacing:0.5px; }
+          .meta-value { font: 600 13px "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace; color:#79c0ff; background:#161b22; padding:6px 8px; border-radius:6px; border:1px solid #21262d; word-break:break-all; }
+          .meta-value.type { color:#a5f3fc; }
+          .meta-value.layout { color:#fbbf24; }
+          .tabs { display:flex; background:#161b22; border-bottom:1px solid #21262d; }
+          .tab { padding:12px 16px; font: 500 14px system-ui, sans-serif; color:#8b949e; cursor:pointer; border-bottom:2px solid transparent; }
+          .tab:hover { color:#f0f6fc; }
+          .tab.active { color:#58a6ff; border-bottom-color:#58a6ff; }
+          .tab-content { flex:1; overflow:auto; }
+          .env-info { padding:12px 16px; font: 500 11px system-ui, sans-serif; color:#8b949e; background:#0d1117; border-bottom:1px solid #21262d; display:flex; align-items:center; gap:16px; }
+          .filters { display:flex; gap:12px; align-items:center; margin-left:auto; }
+          .filters label { display:inline-flex; gap:6px; align-items:center; font: 500 12px system-ui, sans-serif; color:#c9d2e1; cursor:pointer; }
+          .logs-content { overflow:auto; }
+          .entry { display:grid; grid-template-columns:auto 1fr auto; gap:12px; padding:12px 16px; border-bottom:1px solid #21262d; }
+          .entry:hover { background:#161b22; }
+          .entry .lvl { font:700 11px system-ui, sans-serif; text-transform:uppercase; padding:4px 6px; border-radius:4px; }
+          .entry.error .lvl { color:#ffffff; background:#da3633; }
+          .entry.warn .lvl { color:#1f2937; background:#f59e0b; }
+          .entry.info .lvl { color:#ffffff; background:#1f6feb; }
+          .entry .msg { white-space:pre-wrap; word-break:break-word; font: 400 13px system-ui, sans-serif; line-height:1.5; }
+          .entry .meta { color:#8b949e; font: 500 11px "SF Mono", Monaco, monospace; }
+          .page-group-header { padding:12px 16px; font: 600 12px system-ui, sans-serif; color:#58a6ff; border-bottom:1px solid #21262d; background:#0d1117; }
+          @media (prefers-reduced-motion:no-preference) {
+            .panel { transition: all .25s cubic-bezier(0.4, 0, 0.2, 1); transform: translateY(8px) scale(0.95); opacity:0; }
+            .panel.open { transform: translateY(0) scale(1); opacity:1; }
+          }
+        `;
+        shadow.appendChild(style);
+
+        const btnWrap = document.createElement('div');
+        btnWrap.style.position = 'relative';
+        const btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.style.opacity = String(OPACITY);
+        btn.setAttribute('aria-label', 'Hugo Blox Dev HUD');
+        btn.textContent = 'HB';
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.hidden = true;
+        btnWrap.append(btn, badge);
+
+        const panel = document.createElement('div');
+        panel.className = 'panel';
+        
+        // Header
+        const header = document.createElement('div');
+        header.className = 'panel-header';
+        const title = document.createElement('h2'); 
+        title.textContent = 'Hugo Blox – Dev Tools';
+        const close = document.createElement('button'); 
+        close.className = 'close-btn'; 
+        close.textContent = '×'; 
+        close.title = 'Close';
+        header.append(title, close);
+        
+        // Page Info Section
+        const pageInfo = document.createElement('div');
+        pageInfo.className = 'page-info';
+        const pageTitle = document.createElement('h3');
+        pageTitle.textContent = 'Current Page';
+        const pageMeta = document.createElement('div');
+        pageMeta.className = 'page-meta';
+        pageInfo.append(pageTitle, pageMeta);
+        
+        // Environment Info
+        const envInfo = document.createElement('div');
+        envInfo.className = 'env-info';
+        const env = document.createElement('div');
+        env.textContent = '';
+        const filters = document.createElement('div'); 
+        filters.className = 'filters';
+        const chkInfo = document.createElement('input'); 
+        chkInfo.type='checkbox'; 
+        chkInfo.id='hbx-info'; 
+        chkInfo.checked = !!(localStorage.getItem('hbx-show-info')||'');
+        const lblInfo = document.createElement('label'); 
+        lblInfo.htmlFor='hbx-info'; 
+        lblInfo.textContent='Show info';
+        const chkAuto = document.createElement('input');
+        chkAuto.type='checkbox';
+        chkAuto.id='hbx-auto-open';
+        chkAuto.checked = !!(localStorage.getItem('hbx-auto-open')||'');
+        const lblAuto = document.createElement('label');
+        lblAuto.htmlFor='hbx-auto-open';
+        lblAuto.textContent='Auto open';
+        filters.append(lblInfo, chkInfo, lblAuto, chkAuto);
+        envInfo.append(env, filters);
+        
+        // Tabs
+        const tabs = document.createElement('div');
+        tabs.className = 'tabs';
+        const logsTab = document.createElement('div');
+        logsTab.className = 'tab active';
+        logsTab.textContent = 'Logs';
+        logsTab.dataset.tab = 'logs';
+        tabs.append(logsTab);
+        
+        // Tab Content
+        const tabContent = document.createElement('div');
+        tabContent.className = 'tab-content';
+        const logsContent = document.createElement('div');
+        logsContent.className = 'logs-content';
+        tabContent.append(logsContent);
+        
+        panel.append(header, pageInfo, envInfo, tabs, tabContent);
+
+        shadow.append(btnWrap, panel);
+
+        const attach = () => { if (!document.body.contains(root)) document.body.appendChild(root); };
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+        else attach();
+
+        let logs = [];
+        let meta = null;
+        const setLogs = (payload) => { 
+          if (payload) { 
+            logs = Array.isArray(payload.entries) ? payload.entries : []; 
+            meta = payload; 
+          } else { 
+            logs = []; 
+            meta = null; 
+          } 
+        };
+        const shouldShowInfo = () => chkInfo.checked;
+        const createMetaItem = (label, value, className = '') => {
+          const item = document.createElement('div');
+          item.className = 'meta-item';
+          const labelEl = document.createElement('div');
+          labelEl.className = 'meta-label';
+          labelEl.textContent = label;
+          const valueEl = document.createElement('div');
+          valueEl.className = `meta-value ${className}`;
+          valueEl.textContent = value || '(not set)';
+          item.append(labelEl, valueEl);
+          return item;
+        };
+
+        const render = () => {
+          
+          // Update environment info
+          if (meta && meta.hugo) {
+            const hv = meta.hugo.version || '';
+            const gvRaw = meta.hugo.goVersion || '';
+            const gv = gvRaw.replace(/^go/i, '');
+            const tw = meta.modules && meta.modules.bloxTailwind ? meta.modules.bloxTailwind.version : '';
+            env.textContent = `Hugo ${hv} · Go ${gv}${tw ? ` · blox-tailwind ${tw}` : ''}`;
+          }
+
+          // Update page information
+          pageMeta.replaceChildren();
+          if (meta && meta.currentPage) {
+            const page = meta.currentPage;
+            pageMeta.append(
+              createMetaItem('Type', page.type || 'unknown', 'type'),
+              createMetaItem('Layout', page.layout || '(none)', 'layout'),
+              createMetaItem('Kind', page.kind || 'unknown'),
+              createMetaItem('Section', page.section || '(none)'),
+              createMetaItem('Path', page.path || window.location.pathname),
+              createMetaItem('File', page.file || '(virtual page)'),
+              createMetaItem('Build ID', page.buildId || 'unknown')
+            );
+          } else {
+            // Show placeholder data when meta isn't loaded yet
+            pageMeta.append(
+              createMetaItem('Type', 'loading...', 'type'),
+              createMetaItem('Layout', 'loading...', 'layout'),
+              createMetaItem('Kind', 'loading...'),
+              createMetaItem('Section', 'loading...'),
+              createMetaItem('Path', window.location.pathname),
+              createMetaItem('File', 'loading...'),
+              createMetaItem('Build ID', 'loading...')
+            );
+          }
+
+          // Update logs
+          const visible = logs.filter(e => e.level==='error' || e.level==='warn' || (e.level==='info' && shouldShowInfo()));
+          const errs = visible.filter(e => e.level==='error').length;
+          const warns = visible.filter(e => e.level==='warn').length;
+          const total = errs + warns + (shouldShowInfo()? visible.filter(e=>e.level==='info').length : 0);
+          badge.textContent = String(total);
+          badge.hidden = total === 0;
+          
+          // Update tab badge
+          logsTab.textContent = `Logs${total > 0 ? ` (${total})` : ''}`;
+          
+          logsContent.replaceChildren();
+          const groupByPage = new Map();
+          for (const e of visible) {
+            const key = e.page || '/';
+            if (!groupByPage.has(key)) groupByPage.set(key, []);
+            groupByPage.get(key).push(e);
+          }
+          for (const [page, entries] of groupByPage) {
+            const h = document.createElement('div');
+            h.className = 'page-group-header';
+            h.textContent = page;
+            logsContent.appendChild(h);
+            for (const e of entries.sort((a,b)=> (a.level>b.level?-1:1) || (a.timestamp-b.timestamp))) {
+              const row = document.createElement('div');
+              row.className = `entry ${e.level}`;
+              const lvl = document.createElement('div'); 
+              lvl.className='lvl'; 
+              lvl.textContent=e.level;
+              const msg = document.createElement('div'); 
+              msg.className='msg'; 
+              msg.textContent = e.message || '';
+              const metaEl = document.createElement('div'); 
+              metaEl.className='meta'; 
+              metaEl.textContent = new Date(e.timestamp*1000).toLocaleTimeString();
+              row.append(lvl, msg, metaEl);
+              logsContent.appendChild(row);
+            }
+          }
+        };
+
+        const refreshFromWindow = () => { 
+          if (window.__HBX_LOGS__) { 
+            setLogs(window.__HBX_LOGS__); 
+          }
+        };
+        const fetchLogs = async () => {
+          try {
+            const res = await fetch('/hbx-debug.json?cb=' + Date.now());
+            if (res.ok) { const data = await res.json(); setLogs(data); render(); }
+          } catch (e) { /* silent */ }
+        };
+
+        btn.addEventListener('click', () => { 
+          panel.classList.toggle('open'); 
+          if (panel.classList.contains('open')) { 
+            refreshFromWindow(); 
+            render(); // Immediately render current data
+            fetchLogs(); 
+          } 
+        });
+        close.addEventListener('click', () => panel.classList.remove('open'));
+        chkInfo.addEventListener('change', () => { 
+          localStorage.setItem('hbx-show-info', chkInfo.checked ? '1' : ''); 
+          render(); 
+        });
+        chkAuto.addEventListener('change', () => {
+          localStorage.setItem('hbx-auto-open', chkAuto.checked ? '1' : '');
+        });
+
+        // Initial render immediately on load
+        refreshFromWindow();
+        render(); // Force initial render even without data
+
+        // Auto-open panel if user enabled it
+        if (chkAuto.checked) {
+          panel.classList.add('open');
+          render();
+          fetchLogs();
+        }
+
+        // Auto-refresh badge every few seconds in dev
+        setInterval(() => { refreshFromWindow(); }, 3000);
+      } catch(e) { /* ignore */ }
+    })();
+  </script>
+{{- end -}}

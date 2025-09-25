@@ -13,24 +13,20 @@ Callouts are a useful feature to draw attention to important or related content 
 
 ### Notes
 
-{{% callout note %}}
-A Markdown callout is useful for displaying notices, hints, or definitions to your readers.
-{{% /callout %}}
+> [!NOTE]
+> A Markdown callout is useful for displaying notices, hints, or definitions to your readers.
 
 ```markdown
-{{%/* callout note */%}}
-A Markdown callout is useful for displaying notices, hints, or definitions to your readers.
-{{%/* /callout */%}}
+> [!NOTE]
+> A Markdown callout is useful for displaying notices, hints, or definitions to your readers.
 ```
 
 ### Warnings
 
-{{% callout warning %}}
-Here's some important information...
-{{% /callout %}}
+> [!WARNING]
+> Here's some important information...
 
 ```markdown
-{{%/* callout warning */%}}
-Here's some important information...
-{{%/* /callout */%}}
+> [!WARNING]
+> Here's some important information...
 ```

@@ -1,0 +1,155 @@
+{{/*
+  Hugo Blox Builder Shared Callout Renderer
+  
+  Renders callouts with consistent styling for both shortcodes and render hooks.
+  
+  Parameters:
+  - type: The callout type (note, tip, important, warning, caution, or custom icon name)
+  - content: The callout content (HTML)
+  - title: Optional title for the callout
+  - source: "shortcode" or "renderhook" for context
+*/}}
+
+{{ $type := (lower .type) | default "note" }}
+{{ $content := .content }}
+{{ $title := .title }}
+{{ if or (not $title) (eq $title "") }}
+  {{/* Try i18n translation with "callout_" prefix, fall back to title case */}}
+  {{ $i18n_key := printf "callout_%s" $type }}
+  {{ $title = or (i18n $i18n_key) (title $type) }}
+{{ end }}
+{{ $source := .source | default "shortcode" }}
+
+{{/* Define icon and styling mappings for all Obsidian callout types */}}
+{{ $alertConfigs := dict
+  "note" (dict 
+    "icon" "pencil"
+    "class" "bg-blue-100 dark:bg-blue-900"
+    "textClass" "text-blue-600 dark:text-blue-300"
+    "borderClass" "border-blue-500"
+  )
+  "abstract" (dict
+    "icon" "clipboard-document-list"
+    "class" "bg-cyan-100 dark:bg-cyan-900"
+    "textClass" "text-cyan-600 dark:text-cyan-300"
+    "borderClass" "border-cyan-500"
+  )
+  "summary" (dict
+    "icon" "clipboard-document-list"
+    "class" "bg-cyan-100 dark:bg-cyan-900"
+    "textClass" "text-cyan-600 dark:text-cyan-300"
+    "borderClass" "border-cyan-500"
+  )
+  "info" (dict
+    "icon" "information-circle"
+    "class" "bg-blue-100 dark:bg-blue-900"
+    "textClass" "text-blue-600 dark:text-blue-300"
+    "borderClass" "border-blue-500"
+  )
+  "todo" (dict
+    "icon" "check-circle"
+    "class" "bg-blue-100 dark:bg-blue-900"
+    "textClass" "text-blue-600 dark:text-blue-300"
+    "borderClass" "border-blue-500"
+  )
+  "tip" (dict
+    "icon" "light-bulb"
+    "class" "bg-emerald-100 dark:bg-emerald-900"
+    "textClass" "text-emerald-600 dark:text-emerald-300"
+    "borderClass" "border-emerald-500"
+  )
+  "success" (dict
+    "icon" "check-circle"
+    "class" "bg-green-100 dark:bg-green-900"
+    "textClass" "text-green-600 dark:text-green-300"
+    "borderClass" "border-green-500"
+  )
+  "question" (dict
+    "icon" "question-mark-circle"
+    "class" "bg-yellow-100 dark:bg-yellow-900"
+    "textClass" "text-yellow-700 dark:text-yellow-300"
+    "borderClass" "border-yellow-500"
+  )
+  "warning" (dict
+    "icon" "exclamation-triangle"
+    "class" "bg-orange-100 dark:bg-orange-900"
+    "textClass" "text-orange-600 dark:text-orange-300"
+    "borderClass" "border-orange-500"
+  )
+  "failure" (dict
+    "icon" "x-circle"
+    "class" "bg-red-100 dark:bg-red-900"
+    "textClass" "text-red-600 dark:text-red-300"
+    "borderClass" "border-red-500"
+  )
+  "danger" (dict
+    "icon" "exclamation-triangle"
+    "class" "bg-red-100 dark:bg-red-900"
+    "textClass" "text-red-600 dark:text-red-300"
+    "borderClass" "border-red-500"
+  )
+  "bug" (dict
+    "icon" "bug-ant"
+    "class" "bg-red-100 dark:bg-red-900"
+    "textClass" "text-red-600 dark:text-red-300"
+    "borderClass" "border-red-500"
+  )
+  "example" (dict
+    "icon" "beaker"
+    "class" "bg-purple-100 dark:bg-purple-900"
+    "textClass" "text-purple-600 dark:text-purple-300"
+    "borderClass" "border-purple-500"
+  )
+  "quote" (dict
+    "icon" "chat-bubble-left-right"
+    "class" "bg-gray-100 dark:bg-gray-800"
+    "textClass" "text-gray-600 dark:text-gray-300"
+    "borderClass" "border-gray-500"
+  )
+  "important" (dict
+    "icon" "exclamation-circle"
+    "class" "bg-purple-100 dark:bg-purple-900"
+    "textClass" "text-purple-600 dark:text-purple-300"
+    "borderClass" "border-purple-500"
+  )
+  "caution" (dict
+    "icon" "exclamation-triangle"
+    "class" "bg-red-100 dark:bg-red-900"
+    "textClass" "text-red-600 dark:text-red-300"
+    "borderClass" "border-red-500"
+  )
+}}
+
+{{/* Get configuration for this callout type, or use fallback */}}
+{{ $config := index $alertConfigs $type }}
+{{ $icon := $type }}
+{{ $class := "bg-blue-100 dark:bg-blue-900" }}
+{{ $textClass := "text-blue-600 dark:text-blue-300" }}
+{{ $borderClass := "border-blue-500" }}
+
+{{ if $config }}
+  {{ $icon = $config.icon }}
+  {{ $class = $config.class }}
+  {{ $textClass = $config.textClass }}
+  {{ $borderClass = $config.borderClass }}
+{{ end }}
+
+<div class="callout flex px-4 py-3 mb-6 rounded-md border-l-4 {{ $class }} {{ $borderClass }}" 
+     data-callout="{{ $type }}" 
+     data-callout-metadata="">
+  <span class="callout-icon pr-3 pt-1 {{ $textClass }}">
+    {{ partial "functions/get_icon" (dict "name" $icon "attributes" "height=\"24\"") }}
+  </span>
+  <div class="callout-content dark:text-neutral-300">
+    {{/* Display title if provided */}}
+    {{- with $title -}}
+      <div class="callout-title font-semibold mb-1">
+        {{- . -}}
+      </div>
+    {{- end -}}
+    {{/* Display content */}}
+    <div class="callout-body">
+      {{- $content -}}
+    </div>
+  </div>
+</div>

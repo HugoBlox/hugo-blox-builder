@@ -1,18 +1,7 @@
 ---
-title: Learn JavaScript
-summary: Easily learn JavaScript in 10 minutes!
+title: Embed Media
+summary: Easily embed audio and video media in Hugo sites
 date: 2023-10-24
-type: docs
-math: false
-tags:
-  - JavaScript
-image:
-  caption: 'Embed rich media such as videos and LaTeX math'
-content_meta:
-  content_type: 'Tutorial'
-  difficulty: 'Beginner'
-  prerequisites: ['HTML']
-  trending: true
 ---
 
 [Hugo Blox Builder](https://hugoblox.com) is designed to give technical content creators a seamless experience. You can focus on the content and the Hugo Blox Builder which this template is built upon handles the rest.
@@ -71,9 +60,8 @@ Hugo Blox Builder supports a Markdown extension for $\LaTeX$ math. You can enabl
 
 To render _inline_ or _block_ math, wrap your LaTeX math with `{{</* math */>}}$...${{</* /math */>}}` or `{{</* math */>}}$$...$${{</* /math */>}}`, respectively.
 
-{{% callout note %}}
-We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown.
-{{% /callout %}}
+> [!NOTE]
+> We wrap the LaTeX math in the Hugo Blox _math_ shortcode to prevent Hugo rendering our math as Markdown. This callout now uses the standard Markdown alert syntax!
 
 Example **math block**:
 

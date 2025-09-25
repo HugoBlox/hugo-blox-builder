@@ -25,9 +25,9 @@ sections:
           text: "Read more"
           url: "/blog/"
     design:
-      spacing:
-        padding: [0, 0, 0, 0]
-        margin: [0, 0, 0, 0]
+    #   spacing:
+    #     padding: [0, 0, 0, 0]
+    #     margin: [0, 0, 0, 0]
       # For full-screen, add `min-h-screen` below
       css_class: "dark"
       background:
@@ -140,6 +140,6 @@ sections:
     design:
       card:
         # Card background color (CSS class)
-        css_class: "bg-primary-700"
+        css_class: "bg-primary-300"
         css_style: ""
 ---

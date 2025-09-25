@@ -1,51 +1,51 @@
-{{/* Hugo Blox Logger: centralized logging helper
-   Usage: partial "functions/logger" (dict "page" . "level" "warn" "message" (printf "..." args...))
-   - level: "warn" (default) or "error"
-   - page: optional; current page. Defaults to dot. Used to detect adapter pages
-   - adapter: optional bool to force adapter-safe mode (e.g., from _content.gotmpl)
-*/}}
-{{- $level := lower (.level | default "warn") -}}
-{{- $msg := .message | default "" -}}
-{{- $page := .page | default . -}}
-{{- $forceAdapter := .adapter | default false -}}
-{{- $isDev := or hugo.IsServer (eq hugo.Environment "development") -}}
+{{/*
+  Hugo Blox Logger: A pragmatic, centralized logging helper for Hugo.
 
-{{/* Detect adapter-generated pages via explicit flag or page param */}}
-{{- $isAdapter := $forceAdapter -}}
-{{- if not $isAdapter -}}
-  {{- with $page -}}
-    {{- with .Params -}}
-      {{- if or (index . "hb_adapter") (eq (printf "%T" .) "map[string]interface {}" | and (index . "hb_adapter")) -}}
-        {{- $isAdapter = true -}}
-      {{- end -}}
+  This partial is the single source of truth for all build-time logging.
+  Hugo's template logging is limited to WARN and ERROR. INFO is only shown in the Dev HUD/JSON, not the CLI.
+
+  Usage:
+    {{ partial "functions/logger" (dict
+        "page"    .
+        "level"   "info" | "warn" | "error"  (default: "info")
+        "message" "Your log message here."
+        "id"      "a-unique-id" (optional, for suppressible warnings)
+        "source"  (dict "type" "shortcode|partial|template" "name" "callout|sections" ) (optional)
+    ) }}
+*/}}
+{{- $level := lower (.level | default "info") -}}
+{{- $message := .message | default "" -}}
+{{- $id := .id | default "" -}}
+{{- $source := .source | default dict -}}
+{{- $page := .page | default . -}}
+{{- $isDev := hugo.IsServer -}}
+
+{{/* Store log entry for future debug widget/JSON, regardless of environment. */}}
+{{- with $page -}}
+  {{- with .Store -}}
+    {{- $buildId := partialCached "functions/get-build-id.html" "hbx-build-id" -}}
+    {{- $log_entry := dict "level" $level "message" $message "page" ($.RelPermalink | default "/") "timestamp" now.Unix "id" $id "source" $source "buildId" $buildId -}}
+    {{- $current_logs := .Get "hbx_logs" | default slice -}}
+    {{- $currentBuildId := .Get "hbx_build_id" | default "" -}}
+    {{/* Clear logs if this is a new build cycle */}}
+    {{- if ne $currentBuildId $buildId -}}
+      {{- .Set "hbx_build_id" $buildId -}}
+      {{- $current_logs = slice -}}
     {{- end -}}
+    {{- .Set "hbx_logs" ($current_logs | append $log_entry) -}}
   {{- end -}}
 {{- end -}}
 
-{{/* Store log entry for future debug widget */}}
-{{- with $page -}}
-  {{- $log_entry := dict "level" $level "message" $msg "page" ($.RelPermalink | default "/") "timestamp" now.Unix -}}
-  {{- $current_logs := .Store.Get "hbx_logs" | default slice -}}
-  {{- .Store.Set "hbx_logs" ($current_logs | append $log_entry) -}}
-{{- end -}}
-
-{{/* Multi-tier logging output */}}
-{{- if $isDev -}}
-  {{/* Console logging for immediate dev feedback */}}
-  <script>console.log('[HBX:{{ $level }}]', {{ $msg | jsonify }});</script>
-{{- end -}}
-
+{{/* Emit to CLI using fmt with proper severity. Do not print INFO to CLI. */}}
 {{- if eq $level "error" -}}
-  {{- if not $isAdapter -}}
-    {{- errorf "%s" $msg -}}
+  {{- fmt.Errorf "HBX ERROR: %s" $message -}}
+{{- else if eq $level "warn" -}}
+  {{- if $id -}}
+    {{- fmt.Warnidf $id "HBX WARN: %s" $message -}}
   {{- else -}}
-    {{- if $isDev -}}<!-- HBX log:error: {{ $msg }} -->{{- end -}}
+    {{- fmt.Warnf "HBX WARN: %s" $message -}}
   {{- end -}}
 {{- else -}}
-  {{- if not $isAdapter -}}
-    {{- warnf "%s" $msg -}}
-  {{- else -}}
-    {{- if $isDev -}}<!-- HBX log:warn: {{ $msg }} -->{{- end -}}
-  {{- end -}}
+  {{/* info: no CLI output; visible via Dev HUD/JSON only */}}
 {{- end -}}
 {{- "" -}}
