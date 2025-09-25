@@ -3,7 +3,7 @@
  * Uses the shared component for consistency
  */
 
-import {render} from "preact";
+// Use global preact (loaded via script tag) with classic JSX transform
 import {HeroBlock} from "./component.jsx";
 
 // Render function - immediately renders Hero components
@@ -18,7 +18,7 @@ function renderHeroBlocks() {
         const props = JSON.parse(propsData);
 
         // Render the Preact component into the container
-        render(<HeroBlock {...props} />, block);
+        preact.render(<HeroBlock {...props} />, block);
         console.debug(`✓ Hero block "${block.id}" rendered with Preact`);
       } catch (error) {
         console.error(`Failed to render Hero block "${block.id}":`, error);

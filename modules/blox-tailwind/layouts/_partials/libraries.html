@@ -26,8 +26,9 @@
       {{/* Build the client-side JSX using Hugo's official integration */}}
       {{ $jsx_opts := dict 
         "targetPath" (printf "assets/js/preact-built/%s.js" $block_type)
-        "JSX" "automatic"
-        "JSXImportSource" "preact"
+        "JSX" "transform"
+        "JSXFactory" "preact.h"
+        "JSXFragment" "preact.Fragment"
         "format" "iife"
         "minify" hugo.IsProduction
         "sourceMap" (cond hugo.IsDevelopment "external" "")
