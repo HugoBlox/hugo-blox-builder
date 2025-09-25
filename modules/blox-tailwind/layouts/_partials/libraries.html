@@ -3,19 +3,7 @@
 {{ if .Page.Store.Get "needs_preact" }}
   {{ $preact_blocks := .Page.Store.Get "preact_blocks" | default slice }}
   
-  {{/* Load Preact core library */}}
-  {{ $preact_core := resources.Get "dist/lib/preact/preact.min.js" }}
-  {{ if $preact_core }}
-    {{ $preact_core = $preact_core | resources.Fingerprint "sha256" }}
-    <script src="{{ $preact_core.RelPermalink }}" integrity="{{ $preact_core.Data.Integrity }}"></script>
-    
-    {{/* Publish the source map so the browser can load it at the expected path */}}
-    {{ $preact_map := resources.Get "dist/lib/preact/preact.min.js.map" }}
-    {{ if $preact_map }}
-      {{ $preact_map.Publish }}
-    {{ end }}
-    
-  {{ end }}
+  {{/* Preact is now bundled with each template via js.Build and node_modules */}}
   
   {{/* Build and load each Preact block's client script */}}
   {{ range $block_type := $preact_blocks }}
@@ -26,9 +14,8 @@
       {{/* Build the client-side JSX using Hugo's official integration */}}
       {{ $jsx_opts := dict 
         "targetPath" (printf "assets/js/preact-built/%s.js" $block_type)
-        "JSX" "transform"
-        "JSXFactory" "preact.h"
-        "JSXFragment" "preact.Fragment"
+        "JSX" "automatic"
+        "JSXImportSource" "preact"
         "format" "iife"
         "minify" hugo.IsProduction
         "sourceMap" (cond hugo.IsDevelopment "external" "")

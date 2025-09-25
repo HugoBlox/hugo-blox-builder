@@ -1,4 +1,4 @@
-// Use classic JSX transform with global preact; no direct import
+import {h} from "preact";
 
 /**
  * Icon component
