@@ -21,7 +21,7 @@
   publish = "public"
 
 [build.environment]
-  HUGO_VERSION = "0.150.0"
+  HUGO_VERSION = "0.150.1"
   GO_VERSION = "1.21.5"
   NODE_VERSION = "22"
   HUGO_ENABLEGITINFO = "true"
