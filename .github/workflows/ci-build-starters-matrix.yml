@@ -24,7 +24,6 @@ concurrency:
 
 env:
   NODE_VERSION: "22"
-  HUGO_VERSION: "0.150.0"
 
 jobs:
   build-starters:
@@ -51,7 +50,7 @@ jobs:
           set -euo pipefail
           P=${{ matrix.starter.path }}
           # Hash tracked files under assets/config and key files for invalidation
-          HASH=$(git ls-files -s "$P/assets" "$P/config" "$P/hugo.yaml" "$P/package.json" 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
+          HASH=$(git ls-files -s "$P/assets" "$P/config" "$P/hugoblox.yaml" "$P/package.json" 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
           if [ -z "$HASH" ]; then HASH="nohash"; fi
           echo "key=${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-$HASH" >> $GITHUB_OUTPUT
 
@@ -63,16 +62,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-
 
-      - name: Validate Hugo version consistency
-        run: |
-          set -euo pipefail
-          EXPECTED=$(grep -E "^\s*hugo_version:\s*['\"]?" starters/academic-cv/hugoblox.yaml | sed -E "s/.*hugo_version:\s*['\"]?([^'\"]+)['\"]?.*/\1/")
-          echo "Expected Hugo from starter: $EXPECTED"
-          echo "Hugo in CI: $HUGO_VERSION"
-          if [ "$EXPECTED" != "$HUGO_VERSION" ]; then
-            echo "::error::HUGO_VERSION ($HUGO_VERSION) does not match starters/academic-cv/hugoblox.yaml ($EXPECTED). Update .github/workflows env or starter version."
-            exit 1
-          fi
+      
 
       - name: Enable Corepack (for pnpm cache)
         run: corepack enable
@@ -92,10 +82,22 @@ jobs:
         # and may not have lock files checked into the repo
         run: pnpm install
 
+      - name: Read Hugo version from starter
+        id: hugo
+        run: |
+          set -euo pipefail
+          P=${{ matrix.starter.path }}
+          VERSION=$(grep -E "^\s*hugo_version:\s*['\"]?" "$P/hugoblox.yaml" | sed -E "s/.*hugo_version:\s*['\"]?([^'\"]+)['\"]?.*/\1/")
+          if [ -z "$VERSION" ]; then
+            echo "::error::Could not read hugo_version from $P/hugoblox.yaml"
+            exit 1
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "${{ env.HUGO_VERSION }}"
+          hugo-version: "${{ steps.hugo.outputs.version }}"
           extended: true
 
       - name: Build ${{ matrix.starter.name }}
