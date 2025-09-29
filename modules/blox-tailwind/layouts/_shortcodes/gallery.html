@@ -1,0 +1,127 @@
+{{- /*
+  Gallery shortcode (Tailwind)
+
+  Usage examples:
+
+  1) Simple with CSV list of images in the page bundle:
+     {{< gallery images="photo1.jpg, photo2.jpg, photo3.jpg" caption="Some moments" >}}
+
+  2) Or list images on separate lines between the shortcode tags:
+     {{< gallery caption="Some moments" columns="3" >}}
+     photo1.jpg
+     photo2.jpg
+     photo3.jpg
+     {{< /gallery >}}
+
+  Params:
+  - images   : comma-separated list of image paths (relative to page bundle or absolute URL)
+  - columns  : number of columns on md+ screens (default: 3)
+  - gap      : Tailwind gap size (number only, default: 4 -> gap-4)
+  - caption  : optional caption rendered below the grid
+  - lightbox : true/false, wrap images in anchor to full size (default: true)
+  - loading  : loading attribute for <img> (default: lazy)
+  - class    : extra classes applied to the outer wrapper
+
+  Notes:
+  - This shortcode tries to resolve images as Page Resources first, falling back to the given path.
+  - If resolved as Page Resource, thumbnails (~800w) are generated for the grid; the link uses a larger (~1600w) rendition.
+*/ -}}
+
+{{- $cols := (cond (isset .Params "columns") (int (.Get "columns")) 3) -}}
+{{- if lt $cols 1 }}{{- $cols = 1 -}}{{- end -}}
+{{- if gt $cols 6 }}{{- $cols = 6 -}}{{- end -}}
+{{- $gap := (cond (isset .Params "gap") (.Get "gap") "4") -}}
+{{- $caption := .Get "caption" -}}
+{{- $lightbox := (cond (isset .Params "lightbox") (eq (printf "%v" (.Get "lightbox")) "true") true) -}}
+{{- $loading := (default "lazy" (.Get "loading")) -}}
+{{- $extraClass := (default "" (.Get "class")) -}}
+{{- $card := (cond (isset .Params "card") (eq (printf "%v" (.Get "card")) "true") true) -}}
+{{- $containerBase := "group w-full overflow-hidden rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50 leading-none" -}}
+{{- $containerBg := (cond $card " bg-gray-100 dark:bg-zinc-800 backdrop-blur-sm" " bg-transparent") -}}
+
+{{- /* Helpers to iterate images from params and/or inner content without building a slice */ -}}
+{{- $imagesParam := .Get "images" -}}
+{{- $inner := trim .Inner " \t\n\r" -}}
+
+<div class="shortcode-gallery mt-5 mb-5 {{ $extraClass }}">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-{{ $cols }} gap-{{ $gap }}">
+    {{- /* From images param (CSV) */ -}}
+    {{- with $imagesParam -}}
+      {{- range (split . ",") -}}
+        {{- $src := (trim . " \t\n\r") -}}
+        {{- if ne $src "" -}}
+          {{- $res := $.Page.Resources.GetMatch $src -}}
+          {{- $display := $src -}}
+          {{- $target := $src -}}
+          {{- if $res -}}
+            {{- $small := $res -}}
+            {{- $large := $res -}}
+            {{- /* Generate responsive sizes if possible */ -}}
+            {{- $small = $res.Resize "800x q75" -}}
+            {{- $large = $res.Resize "1600x q75" -}}
+            {{- $display = $small.RelPermalink -}}
+            {{- $target = $large.RelPermalink -}}
+          {{- end -}}
+          <div class="{{ $containerBase }}{{ $containerBg }}">
+            {{- if $lightbox -}}
+              <a href="{{ $target }}" class="relative block w-full leading-none" aria-label="Open image">
+                {{- if $res -}}
+                  <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" width="{{ ($res.Resize "800x q75").Width }}" height="{{ ($res.Resize "800x q75").Height }}" />
+                {{- else -}}
+                  <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" />
+                {{- end -}}
+              </a>
+            {{- else -}}
+              {{- if $res -}}
+                <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" width="{{ ($res.Resize "800x q75").Width }}" height="{{ ($res.Resize "800x q75").Height }}" />
+              {{- else -}}
+                <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" />
+              {{- end -}}
+            {{- end -}}
+          </div>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- /* From inner content (newline separated) */ -}}
+    {{- with $inner -}}
+      {{- range (split . "\n") -}}
+        {{- $src := (trim . " \t\n\r") -}}
+        {{- if ne $src "" -}}
+          {{- $res := $.Page.Resources.GetMatch $src -}}
+          {{- $display := $src -}}
+          {{- $target := $src -}}
+          {{- if $res -}}
+            {{- $small := $res -}}
+            {{- $large := $res -}}
+            {{- $small = $res.Resize "800x q75" -}}
+            {{- $large = $res.Resize "1600x q75" -}}
+            {{- $display = $small.RelPermalink -}}
+            {{- $target = $large.RelPermalink -}}
+          {{- end -}}
+          <div class="{{ $containerBase }}{{ $containerBg }}">
+            {{- if $lightbox -}}
+              <a href="{{ $target }}" class="relative block w-full leading-none" aria-label="Open image">
+                {{- if $res -}}
+                  <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" width="{{ ($res.Resize "800x q75").Width }}" height="{{ ($res.Resize "800x q75").Height }}" />
+                {{- else -}}
+                  <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" />
+                {{- end -}}
+              </a>
+            {{- else -}}
+              {{- if $res -}}
+                <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" width="{{ ($res.Resize "800x q75").Width }}" height="{{ ($res.Resize "800x q75").Height }}" />
+              {{- else -}}
+                <img src="{{ $display }}" alt="" loading="{{ $loading }}" class="block w-full h-auto m-0 align-middle transition-transform duration-500 ease-out group-hover:scale-105" />
+              {{- end -}}
+            {{- end -}}
+          </div>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  </div>
+
+  {{- with $caption -}}
+    <div class="mt-3 text-center text-base text-muted-foreground text-gray-500 dark:text-gray-400">{{ . }}</div>
+  {{- end -}}
+</div>
