@@ -137,7 +137,7 @@ jobs:
 
       # step if no tag is pushed
       - if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        uses: "symplify/monorepo-split-github-action@v2.3.0"
+        uses: "symplify/monorepo-split-github-action@v2.4.0"
         with:
           package_directory: "${{ matrix.package.local_path }}"
           repository_organization: "HugoBlox"
