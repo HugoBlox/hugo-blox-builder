@@ -2,104 +2,252 @@ name: CI - Build Starters Matrix
 run-name: ${{ github.workflow }} - ${{ github.ref_name }}
 
 on:
-  schedule:
-    - cron: "0 2 * * *"
-  workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "modules/**"
-      - "starters/**"
-  pull_request:
-    paths:
-      - "modules/**"
-      - "starters/**"
+    schedule:
+        - cron: "0 2 * * *"
+    workflow_dispatch:
+    push:
+        branches: [main]
+        paths:
+            - "modules/**"
+            - "starters/**"
+            - "test/**"
+            - "scripts/**"
+            - "package.json"
+            - "pnpm-lock.yaml"
+            - "biome.json"
+            - ".stylelintrc.yaml"
+            - "vite.config.js"
+    pull_request:
+        paths:
+            - "modules/**"
+            - "starters/**"
+            - "test/**"
+            - "scripts/**"
+            - "package.json"
+            - "pnpm-lock.yaml"
+            - "biome.json"
+            - ".stylelintrc.yaml"
+            - "vite.config.js"
 
 permissions:
-  contents: read
+    contents: read
 
 concurrency:
-  group: starters-${{ github.ref }}
-  cancel-in-progress: true
+    group: starters-${{ github.ref }}
+    cancel-in-progress: true
 
 env:
-  NODE_VERSION: "22"
+    NODE_VERSION: "22"
 
 jobs:
-  build-starters:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        starter:
-          - name: academic-cv
-            path: starters/academic-cv
-          - name: landing-page
-            path: starters/landing-page
+    build-starters:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                starter:
+                    - name: academic-cv
+                      path: starters/academic-cv
+                    - name: landing-page
+                      path: starters/landing-page
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          submodules: true
-          fetch-depth: 0
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+              with:
+                  submodules: true
+                  fetch-depth: 0
 
-      - name: Compute resources cache key
-        id: reskey
-        run: |
-          set -euo pipefail
-          P=${{ matrix.starter.path }}
-          # Hash tracked files under assets/config and key files for invalidation
-          HASH=$(git ls-files -s "$P/assets" "$P/config" "$P/hugoblox.yaml" "$P/package.json" 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
-          if [ -z "$HASH" ]; then HASH="nohash"; fi
-          echo "key=${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-$HASH" >> $GITHUB_OUTPUT
+            - name: Compute resources cache key
+              id: reskey
+              run: |
+                  set -euo pipefail
+                  P=${{ matrix.starter.path }}
+                  # Hash tracked files under assets/config and key files for invalidation
+                  HASH=$(git ls-files -s "$P/assets" "$P/config" "$P/hugoblox.yaml" "$P/package.json" 2>/dev/null | sha256sum | cut -d' ' -f1 || true)
+                  if [ -z "$HASH" ]; then HASH="nohash"; fi
+                  echo "key=${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-$HASH" >> $GITHUB_OUTPUT
 
-      - name: Cache Hugo resources (starter)
-        uses: actions/cache@v4
-        with:
-          path: ${{ matrix.starter.path }}/resources/
-          key: ${{ steps.reskey.outputs.key }}
-          restore-keys: |
-            ${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-
+            - name: Cache Hugo resources (starter)
+              uses: actions/cache@v4
+              with:
+                  path: ${{ matrix.starter.path }}/resources/
+                  key: ${{ steps.reskey.outputs.key }}
+                  restore-keys: |
+                      ${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-
 
-      
+            - name: Enable Corepack (for pnpm cache)
+              run: corepack enable
 
-      - name: Enable Corepack (for pnpm cache)
-        run: corepack enable
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "${{ env.NODE_VERSION }}"
+                  cache: "pnpm"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: "${{ env.NODE_VERSION }}"
-          cache: "pnpm"
+            - name: Activate pnpm from root package.json
+              run: pnpm --version
 
-      - name: Activate pnpm from root package.json
-        run: pnpm --version
+            - name: Install starter dependencies
+              working-directory: ${{ matrix.starter.path }}
+              # Don't use --frozen-lockfile as starters have auto-generated package.json with simple deps (Tailwind CLI)
+              # and may not have lock files checked into the repo
+              run: pnpm install
 
-      - name: Install starter dependencies
-        working-directory: ${{ matrix.starter.path }}
-        # Don't use --frozen-lockfile as starters have auto-generated package.json with simple deps (Tailwind CLI)
-        # and may not have lock files checked into the repo
-        run: pnpm install
+            - name: Read Hugo version from starter
+              id: hugo
+              run: |
+                  set -euo pipefail
+                  P=${{ matrix.starter.path }}
+                  VERSION=$(grep -E "^\s*hugo_version:\s*['\"]?" "$P/hugoblox.yaml" | sed -E "s/.*hugo_version:\s*['\"]?([^'\"]+)['\"]?.*/\1/")
+                  if [ -z "$VERSION" ]; then
+                    echo "::error::Could not read hugo_version from $P/hugoblox.yaml"
+                    exit 1
+                  fi
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Read Hugo version from starter
-        id: hugo
-        run: |
-          set -euo pipefail
-          P=${{ matrix.starter.path }}
-          VERSION=$(grep -E "^\s*hugo_version:\s*['\"]?" "$P/hugoblox.yaml" | sed -E "s/.*hugo_version:\s*['\"]?([^'\"]+)['\"]?.*/\1/")
-          if [ -z "$VERSION" ]; then
-            echo "::error::Could not read hugo_version from $P/hugoblox.yaml"
-            exit 1
-          fi
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+            - name: Setup Hugo
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: "${{ steps.hugo.outputs.version }}"
+                  extended: true
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: "${{ steps.hugo.outputs.version }}"
-          extended: true
+            - name: Build ${{ matrix.starter.name }}
+              working-directory: ${{ matrix.starter.path }}
+              run: hugo --minify --panicOnWarning
 
-      - name: Build ${{ matrix.starter.name }}
-        working-directory: ${{ matrix.starter.path }}
-        run: hugo --minify --panicOnWarning
+    smoke-test-latest:
+        name: Test site on latest Hugo (allowed to fail)
+        runs-on: ubuntu-latest
+        continue-on-error: true
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+              with:
+                  submodules: true
+                  fetch-depth: 0
+
+            - name: Enable Corepack (for pnpm cache)
+              run: corepack enable
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "${{ env.NODE_VERSION }}"
+                  cache: "pnpm"
+
+            - name: Install test dependencies
+              working-directory: test
+              run: pnpm install --frozen-lockfile
+
+            - name: Cache Hugo resources (test)
+              uses: actions/cache@v4
+              with:
+                  path: test/resources/
+                  key: ${{ runner.os }}-hugo-resources-test-${{ hashFiles('test/assets/**/*', 'test/config.yaml', 'test/package.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-hugo-resources-test-
+
+            - name: Setup Hugo (latest)
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: latest
+                  extended: true
+
+            - name: Build test site (latest)
+              working-directory: test
+              run: hugo --minify --panicOnWarning --templateMetrics --templateMetricsHints
+
+    canary-academic-latest:
+        name: academic-cv on latest Hugo (allowed to fail)
+        runs-on: ubuntu-latest
+        continue-on-error: true
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+              with:
+                  submodules: true
+                  fetch-depth: 0
+
+            - name: Enable Corepack (for pnpm cache)
+              run: corepack enable
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "${{ env.NODE_VERSION }}"
+                  cache: "pnpm"
+
+            - name: Install starter dependencies
+              working-directory: starters/academic-cv
+              run: pnpm install
+
+            - name: Cache Hugo resources (starter)
+              uses: actions/cache@v4
+              with:
+                  path: starters/academic-cv/resources/
+                  key: ${{ runner.os }}-hugo-resources-academic-latest-${{ hashFiles('starters/academic-cv/assets/**/*', 'starters/academic-cv/config/**/*', 'starters/academic-cv/hugoblox.yaml', 'starters/academic-cv/package.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-hugo-resources-academic-latest-
+
+            - name: Setup Hugo (latest)
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: latest
+                  extended: true
+
+            - name: Build academic-cv (latest)
+              working-directory: starters/academic-cv
+              run: hugo --minify --panicOnWarning
+
+    smoke-test-min:
+        name: Test site on minimum supported Hugo
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+              with:
+                  submodules: true
+                  fetch-depth: 0
+
+            - name: Enable Corepack (for pnpm cache)
+              run: corepack enable
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "${{ env.NODE_VERSION }}"
+                  cache: "pnpm"
+
+            - name: Install test dependencies
+              working-directory: test
+              run: pnpm install --frozen-lockfile
+
+            - name: Read minimum Hugo version from framework
+              id: min
+              run: |
+                  set -euo pipefail
+                  VERSION=$(grep -E "^[[:space:]]*min:[[:space:]]*['\"]?" modules/blox-tailwind/hugo.yaml | head -n1 | sed -E "s/.*min:[[:space:]]*['\"]?([^'\"#]+).*/\\1/")
+                  if [ -z "$VERSION" ]; then
+                    echo "::error::Could not read module.hugoVersion.min from modules/blox-tailwind/hugo.yaml"
+                    exit 1
+                  fi
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+            - name: Cache Hugo resources (test - min)
+              uses: actions/cache@v4
+              with:
+                  path: test/resources/
+                  key: ${{ runner.os }}-hugo-resources-test-min-${{ steps.min.outputs.version }}-${{ hashFiles('test/assets/**/*', 'test/config.yaml', 'test/package.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-hugo-resources-test-min-
+
+            - name: Setup Hugo (min)
+              uses: peaceiris/actions-hugo@v3
+              with:
+                  hugo-version: "${{ steps.min.outputs.version }}"
+                  extended: true
+
+            - name: Build test site (min)
+              working-directory: test
+              run: hugo --minify --panicOnWarning --templateMetrics --templateMetricsHints
