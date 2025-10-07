@@ -136,6 +136,9 @@ jobs:
                   node-version: "${{ env.NODE_VERSION }}"
                   cache: "pnpm"
 
+            - name: Install root dependencies
+              run: pnpm install --frozen-lockfile
+
             - name: Install test dependencies
               working-directory: test
               run: pnpm install --frozen-lockfile
@@ -218,6 +221,9 @@ jobs:
               with:
                   node-version: "${{ env.NODE_VERSION }}"
                   cache: "pnpm"
+
+            - name: Install root dependencies
+              run: pnpm install --frozen-lockfile
 
             - name: Install test dependencies
               working-directory: test
