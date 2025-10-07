@@ -22,33 +22,33 @@
 @layer components {
   .prose a {
     text-decoration: underline;
-    text-decoration-color: rgb(var(--color-primary-300));
+    text-decoration-color: var(--color-primary-300);
     font-weight: 500;
   }
 
   .prose a:hover {
-    color: rgb(var(--color-primary-600));
+    color: var(--color-primary-600);
     text-decoration: none;
     border-radius: 0.09rem;
   }
 
   .prose mark {
-    color: rgb(var(--color-neutral-900));
-    background-color: rgb(var(--color-primary-200));
+    color: var(--color-neutral-900);
+    background-color: var(--color-primary-200);
     padding: 0.1rem 0.2rem;
     border-radius: 0.25rem;
   }
 
   .dark .prose-invert a {
-    text-decoration-color: rgb(var(--color-neutral-500));
+    text-decoration-color: var(--color-neutral-500);
   }
 
   .dark .prose-invert a:hover {
-    color: rgb(var(--color-primary-300));
+    color: var(--color-primary-300);
   }
 
   .dark .prose-invert mark {
-    background-color: rgb(var(--color-primary-400));
+    background-color: var(--color-primary-400);
     color: black;
   }
 }

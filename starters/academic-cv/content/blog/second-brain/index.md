@@ -70,11 +70,6 @@ Anh here's a more advanced mindmap with formatting, code blocks, and math:
     - multiline
       text
     - `inline code`
-    -
-      ```js
-      console.log('hello');
-      console.log('code block');
-      ```
     - Math: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
 ```
 </code>
@@ -95,11 +90,6 @@ renders as
     - multiline
       text
     - `inline code`
-    -
-      ```js
-      console.log('hello');
-      console.log('code block');
-      ```
     - Math: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
 ```
 

@@ -3,7 +3,7 @@
 /* Theme Configuration */
 @theme {
   /* Custom Colors */
-  --color-hb-dark: 23 24 28;
+  --color-hb-dark: rgb(23 24 28);
 
   /* Standard Tailwind Color Scales - Provide variables as valid CSS colors */
   /* Gray */

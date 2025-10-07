@@ -31,11 +31,11 @@
 }
 
 .hb-sidebar-list::before {
-  background-color: rgb(var(--color-neutral-200));
+  background-color: var(--color-neutral-200);
 }
 
 .dark .hb-sidebar-list::before {
-  background-color: rgb(var(--color-neutral-700));
+  background-color: var(--color-neutral-700);
 }
 
 .hb-scrollbar {
@@ -70,7 +70,7 @@
 }
 
 .dark .hb-docs-link:hover {
-  background-color: rgb(var(--color-primary-100) / 5%);
+  background-color: color-mix(in oklch, var(--color-primary-100) 5%, transparent);
 }
 
 .hb-sidebar-mobile-menu {
@@ -82,11 +82,11 @@
 }
 
 .hb-sidebar-mobile-toc::before {
-  background-color: rgb(var(--color-neutral-200));
+  background-color: var(--color-neutral-200);
 }
 
 .dark .hb-sidebar-mobile-toc::before {
-  background-color: rgb(var(--color-neutral-800));
+  background-color: var(--color-neutral-800);
 }
 
 .hb-sidebar-custom-link {

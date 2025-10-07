@@ -10,7 +10,12 @@
 
 .glassmorphism-primary {
   @apply relative overflow-hidden;
-  background: linear-gradient(135deg, rgb(var(--color-primary-500) / 0.9), rgb(var(--color-primary-600) / 0.95), rgb(var(--color-primary-700) / 0.9));
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--color-primary-500) 90%, transparent),
+    color-mix(in oklch, var(--color-primary-600) 95%, transparent),
+    color-mix(in oklch, var(--color-primary-700) 90%, transparent)
+  );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -26,9 +31,9 @@
   @apply relative overflow-hidden;
   background: linear-gradient(
     135deg,
-    rgb(var(--color-secondary-500) / 0.9),
-    rgb(var(--color-secondary-600) / 0.95),
-    rgb(var(--color-secondary-700) / 0.9)
+    color-mix(in oklch, var(--color-secondary-500) 90%, transparent),
+    color-mix(in oklch, var(--color-secondary-600) 95%, transparent),
+    color-mix(in oklch, var(--color-secondary-700) 90%, transparent)
   );
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -178,12 +183,12 @@
 
 .cta-glassmorphism .group {
   /* Ensure proper text contrast in light mode */
-  color: rgb(var(--color-gray-900));
+  color: var(--color-gray-900);
 }
 
 .dark .cta-glassmorphism .group {
   /* Maintain white text in dark mode */
-  color: rgb(var(--color-gray-100));
+  color: var(--color-gray-100);
 }
 
 /* Enhanced button glassmorphism for light mode visibility */

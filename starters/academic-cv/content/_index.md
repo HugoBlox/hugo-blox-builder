@@ -118,6 +118,6 @@ sections:
     design:
       card:
         # Card background color (CSS class)
-        css_class: 'bg-primary-300'
+        css_class: 'bg-primary-300 dark:bg-primary-700'
         css_style: ''
 ---

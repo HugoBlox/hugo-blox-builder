@@ -10,34 +10,34 @@
   @apply flex flex-col justify-start overflow-hidden rounded-lg border border-gray-200 text-current no-underline dark:shadow-transparent hover:shadow-gray-100 dark:hover:shadow-transparent shadow-gray-100 active:shadow-sm active:shadow-gray-200 transition-all duration-200;
   @apply hover:border-gray-300 bg-transparent shadow-sm hover:bg-slate-50 hover:shadow-md;
 
-  border-color: rgb(var(--color-neutral-700));
+  border-color: var(--color-neutral-700);
 }
 
 .dark .hb-card {
-  border-color: rgb(var(--color-neutral-700));
+  border-color: var(--color-neutral-700);
 }
 
 .dark .hb-card:hover {
-  border-color: rgb(var(--color-neutral-600));
-  background-color: rgb(var(--color-neutral-800));
+  border-color: var(--color-neutral-600);
+  background-color: var(--color-neutral-800);
 }
 
 .hb-card-title {
   @apply flex font-semibold items-start gap-2 text-gray-700 hover:text-gray-900 items-center;
 
-  color: rgb(var(--color-neutral-700));
+  color: var(--color-neutral-700);
 }
 
 .hb-card-title:hover {
-  color: rgb(var(--color-neutral-900));
+  color: var(--color-neutral-900);
 }
 
 .dark .hb-card-title {
-  color: rgb(var(--color-neutral-200));
+  color: var(--color-neutral-200);
 }
 
 .dark .hb-card-title:hover {
-  color: rgb(var(--color-neutral-50));
+  color: var(--color-neutral-50);
 }
 
 .hb-card-subtitle {
@@ -49,7 +49,7 @@
 }
 
 .hb-card svg {
-  color: rgb(var(--color-neutral-700));
+  color: var(--color-neutral-700);
   width: 1.5rem;
   transition: color 0.3s ease;
 }
@@ -59,7 +59,7 @@
 }
 
 .dark .hb-card svg {
-  color: rgb(var(--color-neutral-300));
+  color: var(--color-neutral-300);
 }
 
 .dark .hb-card:hover svg {

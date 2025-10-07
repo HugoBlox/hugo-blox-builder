@@ -89,9 +89,9 @@
 details > summary {
   @apply cursor-pointer font-semibold;
 
-  color: rgb(var(--color-primary-700));
+  color: var(--color-primary-700);
 }
 
 .dark details > summary {
-  color: rgb(var(--color-primary-300));
+  color: var(--color-primary-300);
 }

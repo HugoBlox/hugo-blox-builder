@@ -7,8 +7,8 @@
 .prose pre {
   @apply relative rounded-md;
 
-  color: rgb(var(--color-neutral-700));
-  background-color: rgb(var(--color-neutral-50));
+  color: var(--color-neutral-700);
+  background-color: var(--color-neutral-50);
 }
 
 .dark .prose .chroma,

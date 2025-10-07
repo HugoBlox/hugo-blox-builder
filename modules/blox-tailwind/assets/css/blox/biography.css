@@ -99,20 +99,20 @@
 
 /* Enhanced focus states for accessibility */
 .resume-biography-modern a:focus-visible {
-  outline: 2px solid rgb(var(--color-primary-500));
+  outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
   border-radius: 0.5rem;
 }
 
 /* Improved text selection styling */
 .resume-biography-modern ::selection {
-  background-color: rgb(var(--color-primary-200) / 0.3);
-  color: rgb(var(--color-primary-900));
+  background-color: color-mix(in oklch, var(--color-primary-200) 30%, transparent);
+  color: var(--color-primary-900);
 }
 
 .dark .resume-biography-modern ::selection {
-  background-color: rgb(var(--color-primary-800) / 0.3);
-  color: rgb(var(--color-primary-100));
+  background-color: color-mix(in oklch, var(--color-primary-800) 30%, transparent);
+  color: var(--color-primary-100);
 }
 
 /* Enhanced gradient text support */
@@ -125,11 +125,11 @@
 /* Ensure text remains readable on fallback */
 @supports not (background-clip: text) {
   .resume-biography-modern .bg-clip-text {
-    color: rgb(var(--color-neutral-900));
+    color: var(--color-neutral-900);
   }
 
   .dark .resume-biography-modern .bg-clip-text {
-    color: rgb(var(--color-neutral-100));
+    color: var(--color-neutral-100);
   }
 }
 

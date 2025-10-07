@@ -1,11 +1,11 @@
 .hb-steps {
   @apply ml-4 mb-12 pl-6 border-l border-gray-200 [counter-reset:hb_step];
 
-  border-left-color: rgb(var(--color-neutral-200));
+  border-left-color: var(--color-neutral-200);
 }
 
 .dark .hb-steps {
-  border-left-color: rgb(var(--color-neutral-600));
+  border-left-color: var(--color-neutral-600);
 }
 
 .hb-steps h3 {
@@ -18,11 +18,11 @@
     @apply text-base font-normal text-center -indent-px;
     @apply mt-[3px] ml-[-41px];
 
-    color: rgb(var(--color-neutral-700));
+    color: var(--color-neutral-700);
     content: counter(hb-step);
   }
 }
 
 .dark .hb-steps h3::before {
-  color: rgb(var(--color-neutral-200));
+  color: var(--color-neutral-200);
 }

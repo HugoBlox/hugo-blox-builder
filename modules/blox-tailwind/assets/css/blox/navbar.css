@@ -54,11 +54,11 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-link:hover {
-  color: rgb(var(--color-primary-700));
+  color: var(--color-primary-700);
 }
 
 .dark .nav-link:hover {
-  color: rgb(var(--color-primary-300));
+  color: var(--color-primary-300);
 }
 
 .nav-dropdown {
@@ -92,7 +92,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .dark .nav-dropdown-item:hover {
-  background-color: rgb(var(--color-primary-500));
+  background-color: var(--color-primary-500);
 }
 
 .nav-dropdown-link {
@@ -100,5 +100,5 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-link:hover {
-  color: rgb(var(--color-primary-700));
+  color: var(--color-primary-700);
 }
