@@ -98,7 +98,13 @@
             {{ partial "page_metadata_authors" $item }}
           </div>
         {{ else if not $show_authors_only }}
-          {{ partial "page_metadata" (dict "page" $item "is_list" 1) }}
+          <div>
+            <time class="hidden sm:inline whitespace-nowrap" datetime="{{ $item.Date.Format "2006-01-02" }}">
+              {{ $item.Date | time.Format (site.Params.locale.date_format | default "Jan 2, 2006") }}
+            </time>
+            <span class="hidden sm:inline mx-2 text-gray-300 dark:text-gray-600">•</span>
+            <span class="hidden sm:inline whitespace-nowrap">{{ $item.ReadingTime }} {{ i18n "minute_read" }}</span>
+          </div>
         {{ end }}
       </div>
 
