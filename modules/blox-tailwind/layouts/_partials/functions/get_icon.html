@@ -43,9 +43,9 @@
           )
       }}
     {{- end -}}
-    {{- $icon := resources.Get $icon_path -}}
-    {{ if $icon }}
-      {{ $icon = .Content }}
+    {{- $icon_resource := resources.Get $icon_path -}}
+    {{ if $icon_resource }}
+      {{ $icon = $icon_resource.Content }}
     {{ else }}
       {{ $icon = index (index site.Data.icons.brands "icons") "hugo" }}
     {{ end }}
