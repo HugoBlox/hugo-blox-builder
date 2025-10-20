@@ -56,6 +56,7 @@ interests:
 education:
   - area: PhD Computer Science (AI Focus)
     institution: Stanford University
+    institution_logo: ""
     date_start: 2015-09-01
     date_end: 2019-06-30
     summary: |
@@ -65,6 +66,7 @@ education:
       url: 'https://example.com/thesis.pdf'
   - area: MS Computer Science
     institution: Carnegie Mellon University
+    institution_logo: ""
     date_start: 2013-09-01
     date_end: 2015-05-31
     summary: |
@@ -73,6 +75,7 @@ education:
       Specialized in machine learning and robotics.
   - area: BS Computer Science
     institution: MIT
+    institution_logo: ""
     date_start: 2009-09-01
     date_end: 2013-05-31
     summary: |
