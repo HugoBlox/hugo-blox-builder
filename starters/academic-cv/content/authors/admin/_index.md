@@ -95,7 +95,7 @@ work:
   - position: AI Research Intern
     company_name: OpenAI
     company_url: 'https://openai.com/'
-    company_logo: ''
+    icon: ''
     date_start: 2019-06-01
     date_end: 2019-12-31
     summary: |
