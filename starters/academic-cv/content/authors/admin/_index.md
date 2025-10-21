@@ -87,7 +87,7 @@ work:
   - position: Senior AI Research Scientist
     company_name: Meta AI
     company_url: 'https://ai.meta.com/'
-    company_logo: ''
+    icon: ''
     date_start: 2020-01-01
     date_end: ''
     summary: |2-
