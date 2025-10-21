@@ -66,7 +66,7 @@ education:
       url: 'https://example.com/thesis.pdf'
   - area: MS Computer Science
     institution: Carnegie Mellon University
-    institution_logo: ""
+    icon: ""
     date_start: 2013-09-01
     date_end: 2015-05-31
     summary: |
