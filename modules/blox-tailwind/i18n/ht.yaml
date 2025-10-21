@@ -1,0 +1,411 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: Chanje navigasyon
+
+- id: table_of_contents
+  translation: Tablo kontni
+
+- id: on_this_page
+  translation: Sou paj sa a
+
+- id: back_to_top
+  translation: Tounen anlè paj la
+
+- id: home
+  translation: Akèy
+
+- id: close
+  translation: Fèmen
+
+- id: languages
+  translation: Lang
+
+# General
+
+- id: related
+  translation: Ki gen rapò
+
+# Callouts - All Obsidian-compatible types
+- id: callout_note
+  translation: Nòt
+
+- id: callout_abstract
+  translation: Rezime
+
+- id: callout_summary
+  translation: Rezime
+
+- id: callout_info
+  translation: Enfòmasyon
+
+- id: callout_todo
+  translation: Pou fè
+
+- id: callout_tip
+  translation: Konsèy
+
+- id: callout_success
+  translation: Siksè
+
+- id: callout_question
+  translation: Kesyon
+
+- id: callout_warning
+  translation: Avètisman
+
+- id: callout_failure
+  translation: Echek
+
+- id: callout_danger
+  translation: Danje
+
+- id: callout_bug
+  translation: Pinèz
+
+- id: callout_example
+  translation: Egzanp
+
+- id: callout_quote
+  translation: Sita
+
+- id: callout_important
+  translation: Enpòtan
+
+- id: callout_caution
+  translation: Pridans
+
+- id: backlinks
+  translation: Lyen tounen
+
+- id: minute_read
+  translation: minit lekti
+
+- id: previous
+  translation: Anvan
+
+- id: next
+  translation: Pwochen
+
+- id: figure
+  translation: 'Figur %d:'
+
+- id: edit_page
+  translation: Modifye paj sa a
+
+# Themes
+
+- id: theme_selector
+  translation: Preferans afichaj
+
+- id: theme_light
+  translation: Klè
+
+- id: theme_dark
+  translation: Fènwa
+
+- id: theme_auto
+  translation: Otomatik
+
+# Buttons
+
+- id: btn_preprint
+  translation: Pre-piblikasyon
+
+- id: btn_pdf
+  translation: PDF
+
+- id: btn_cite
+  translation: Site
+
+- id: btn_slides
+  translation: Dias
+
+- id: btn_video
+  translation: Videyo
+
+- id: btn_code
+  translation: Kòd
+
+- id: btn_dataset
+  translation: Done
+
+- id: btn_project
+  translation: Pwojè
+
+- id: btn_poster
+  translation: Afich
+
+- id: btn_source
+  translation: Dokiman sous
+
+# New link types
+- id: btn_doi
+  translation: DOI
+- id: btn_site
+  translation: Sit
+- id: btn_canonical
+  translation: Kanonik
+- id: btn_crosspost
+  translation: Kwoz-piblikasyon
+- id: btn_discussion
+  translation: Diskisyon
+- id: btn_event
+  translation: Evènman
+- id: btn_calendar
+  translation: Kalandriye
+- id: btn_registration
+  translation: Enskripsyon
+- id: btn_demo
+  translation: Demo
+- id: btn_model
+  translation: Modèl
+- id: btn_hal
+  translation: HAL
+- id: btn_dblp
+  translation: DBLP
+- id: btn_isbn
+  translation: ISBN
+- id: btn_osf
+  translation: OSF
+- id: btn_zenodo
+  translation: Zenodo
+- id: btn_kaggle
+  translation: Kaggle
+- id: btn_openalex
+  translation: OpenAlex
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+- id: btn_pwc
+  translation: Papers With Code
+
+- id: btn_copy
+  translation: Kopye
+
+- id: btn_copied
+  translation: Kopiye
+
+- id: btn_download
+  translation: Telechaje
+
+# About widget
+
+- id: interests
+  translation: Enterè
+
+- id: education
+  translation: Edikasyon
+
+- id: about_me
+  translation: Rezime pwofesyonèl
+
+- id: user_profile_latest
+  translation: Dènye
+
+# Countdown widget
+
+- id: days
+  translation: Jou
+- id: hours
+  translation: Èdtan
+- id: minutes
+  translation: Minit
+- id: seconds
+  translation: Segonn
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: Gade sètifika
+
+# Experience widget
+
+- id: experience
+  translation: Eksperyans
+
+- id: present
+  translation: Kounye a
+
+# Pages widget
+
+- id: read_more
+  translation: Li plis
+
+- id: more_pages
+  translation: Gade tout
+
+- id: more_posts
+  translation: Gade tout pòs yo
+
+- id: more_talks
+  translation: Gade tout evènman yo
+
+- id: more_publications
+  translation: Gade tout piblikasyon yo
+
+# Contact widget
+
+- id: contact_name
+  translation: Non
+
+- id: contact_email
+  translation: Imèl
+
+- id: contact_message
+  translation: Mesaj
+
+- id: contact_attachment
+  translation: Atache fichye
+
+- id: contact_send
+  translation: Voye
+
+- id: book_appointment
+  translation: Rezève randevou
+
+# Publication/Event details
+
+- id: abstract
+  translation: Rezime
+
+- id: publication
+  translation: Piblikasyon
+
+- id: publication_type
+  translation: Kalite
+
+- id: date
+  translation: Dat
+
+- id: last_updated
+  translation: Dènye mizajou sou
+
+- id: event
+  translation: Evènman
+
+- id: location
+  translation: Kote
+
+- id: pub_paper_conference
+  translation: Atik konferans
+
+- id: pub_article_journal
+  translation: Atik jounal
+
+- id: pub_article
+  translation: Pre-piblikasyon
+
+- id: pub_report
+  translation: Rapò
+
+- id: pub_book
+  translation: Liv
+
+- id: pub_chapter
+  translation: Chapit liv
+
+- id: pub_thesis
+  translation: Tèz
+
+- id: pub_patent
+  translation: Patant
+
+# Project details
+
+- id: open_project_site
+  translation: Ale sou sit pwojè a
+
+# Content types for default archive page titles and search results
+
+- id: blog
+  translation: Blog
+
+- id: publications
+  translation: Piblikasyon
+
+- id: events
+  translation: Evènman
+
+- id: projects
+  translation: Pwojè
+
+- id: slides
+  translation: Dias
+
+- id: authors
+  translation: Otè
+
+# Search
+
+- id: search
+  translation: Rechèch
+
+- id: search_placeholder
+  translation: Chèche...
+
+- id: search_results
+  translation: rezilta jwenn
+
+- id: search_no_results
+  translation: Pa gen rezilta
+
+- id: search_common_queries
+  translation: Rechèch komen
+
+# Error 404
+
+- id: page_not_found
+  translation: Paj pa jwenn
+
+- id: 404_recommendations
+  translation: Petèt ou t ap chèche youn nan sa yo?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: Sit entènèt sa a itilize bonbon pou asire w jwenn pi bon eksperyans.
+
+- id: cookie_dismiss
+  translation: Mwen konprann!
+
+- id: cookie_learn
+  translation: Aprann plis
+
+# Published with
+
+- id: published_with
+  translation: Fè ak {hugoblox}.
+
+- id: poweredby_button
+  translation: 'Kreye pa w →'
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Fidbak
+
+- id: feedback_widget_question
+  translation: Èske paj sa a te itil ou?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Wi
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Non
+
+# AI Features
+
+- id: ai_insight
+  translation: Analiz AI
+
+# Content Metadata
+- id: content_type
+  translation: Kalite kontni
+- id: difficulty
+  translation: Difikilte
+- id: prerequisites
+  translation: Kondisyon davans
+
+# Card metadata
+- id: trending
+  translation: Popilè
