@@ -189,7 +189,7 @@
               <div class="flex gap-4">
                 <div class="flex-shrink-0 w-12 h-12 bg-primary-200 dark:bg-primary-900/50 rounded-full flex items-center justify-center shadow-md">
                   {{ if .icon }}
-                    {{ partial "functions/get_icon" (dict "name" .institution_logo "attributes" "class='w-6 h-6'") }}
+                    {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-6 h-6'") }}
                   {{else}}
                     {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "class='w-6 h-6 text-white'") }}
                   {{end}}
