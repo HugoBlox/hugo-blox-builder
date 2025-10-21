@@ -187,8 +187,12 @@
             {{ range . }}
             <div class="group h-full flex flex-col bg-gradient-to-br from-white/90 to-primary-50/30 dark:from-gray-800/90 dark:to-primary-900/20 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary-200 dark:hover:border-primary-800 backdrop-blur-md">
               <div class="flex gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center shadow-md">
-                  {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "class='w-6 h-6 text-white'") }}
+                <div class="flex-shrink-0 w-12 h-12 bg-white dark:bg-gray-800 ring-1 ring-gray-200 dark:ring-gray-700 rounded-full flex items-center justify-center shadow-md">
+                  {{ if .icon }}
+                    {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+                  {{else}}
+                    {{ partial "functions/get_icon" (dict "name" "academic-cap" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
+                  {{end}}
                 </div>
                 <div class="flex-1 flex-grow">
                   <p class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">

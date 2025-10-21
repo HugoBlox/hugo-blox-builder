@@ -56,6 +56,7 @@ interests:
 education:
   - area: PhD Computer Science (AI Focus)
     institution: Stanford University
+    icon: ""
     date_start: 2015-09-01
     date_end: 2019-06-30
     summary: |
@@ -65,6 +66,7 @@ education:
       url: 'https://example.com/thesis.pdf'
   - area: MS Computer Science
     institution: Carnegie Mellon University
+    icon: ""
     date_start: 2013-09-01
     date_end: 2015-05-31
     summary: |
@@ -73,6 +75,7 @@ education:
       Specialized in machine learning and robotics.
   - area: BS Computer Science
     institution: MIT
+    icon: ""
     date_start: 2009-09-01
     date_end: 2013-05-31
     summary: |
@@ -84,7 +87,7 @@ work:
   - position: Senior AI Research Scientist
     company_name: Meta AI
     company_url: 'https://ai.meta.com/'
-    company_logo: ''
+    icon: ''
     date_start: 2020-01-01
     date_end: ''
     summary: |2-
@@ -92,7 +95,7 @@ work:
   - position: AI Research Intern
     company_name: OpenAI
     company_url: 'https://openai.com/'
-    company_logo: ''
+    icon: ''
     date_start: 2019-06-01
     date_end: 2019-12-31
     summary: |
