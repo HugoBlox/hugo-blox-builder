@@ -18,6 +18,11 @@ on:
             - ".stylelintrc.yaml"
             - "vite.config.js"
     pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+            - ready_for_review
         paths:
             - "modules/**"
             - "starters/**"
@@ -33,7 +38,7 @@ permissions:
     contents: read
 
 concurrency:
-    group: starters-${{ github.ref }}
+    group: starters-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
     cancel-in-progress: true
 
 env:
