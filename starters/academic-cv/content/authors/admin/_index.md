@@ -75,7 +75,7 @@ education:
       Specialized in machine learning and robotics.
   - area: BS Computer Science
     institution: MIT
-    institution_logo: ""
+    icon: ""
     date_start: 2009-09-01
     date_end: 2013-05-31
     summary: |
