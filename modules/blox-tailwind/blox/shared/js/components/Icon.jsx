@@ -14,9 +14,9 @@ export const Icon = ({svg, attributes}) => {
     .replace(/\\u0026/gi, "&")
     .replace(/&lt;/gi, "<")
     .replace(/&gt;/gi, ">")
-    .replace(/&amp;/gi, "&")
     .replace(/&quot;/gi, '"')
-    .replace(/&#34;/gi, '"');
+    .replace(/&#34;/gi, '"')
+    .replace(/&amp;/gi, "&");
 
   const hasWrapper = /<svg[\s>]/i.test(decoded);
 
