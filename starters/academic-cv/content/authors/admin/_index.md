@@ -56,7 +56,7 @@ interests:
 education:
   - area: PhD Computer Science (AI Focus)
     institution: Stanford University
-    institution_logo: ""
+    icon: ""
     date_start: 2015-09-01
     date_end: 2019-06-30
     summary: |
