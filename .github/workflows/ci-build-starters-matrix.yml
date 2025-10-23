@@ -9,7 +9,7 @@ on:
         branches: [main]
         paths:
             - "modules/**"
-            - "starters/**"
+            - "templates/**"
             - "test/**"
             - "scripts/**"
             - "package.json"
@@ -25,7 +25,7 @@ on:
             - ready_for_review
         paths:
             - "modules/**"
-            - "starters/**"
+            - "templates/**"
             - "test/**"
             - "scripts/**"
             - "package.json"
@@ -38,23 +38,23 @@ permissions:
     contents: read
 
 concurrency:
-    group: starters-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    group: templates-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
     cancel-in-progress: true
 
 env:
     NODE_VERSION: "22"
 
 jobs:
-    build-starters:
+    build-templates:
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
                 starter:
                     - name: academic-cv
-                      path: starters/academic-cv
+                      path: templates/academic-cv
                     - name: landing-page
-                      path: starters/landing-page
+                      path: templates/landing-page
 
         steps:
             - name: Checkout
@@ -93,13 +93,13 @@ jobs:
             - name: Activate pnpm from root package.json
               run: pnpm --version
 
-            - name: Install starter dependencies
+            - name: Install template dependencies
               working-directory: ${{ matrix.starter.path }}
               # Don't use --frozen-lockfile as starters have auto-generated package.json with simple deps (Tailwind CLI)
               # and may not have lock files checked into the repo
               run: pnpm install
 
-            - name: Read Hugo version from starter
+            - name: Read Hugo version from template
               id: hugo
               run: |
                   set -euo pipefail
@@ -186,15 +186,15 @@ jobs:
                   node-version: "${{ env.NODE_VERSION }}"
                   cache: "pnpm"
 
-            - name: Install starter dependencies
-              working-directory: starters/academic-cv
+            - name: Install template dependencies
+              working-directory: templates/academic-cv
               run: pnpm install
 
-            - name: Cache Hugo resources (starter)
+            - name: Cache Hugo resources (template)
               uses: actions/cache@v4
               with:
-                  path: starters/academic-cv/resources/
-                  key: ${{ runner.os }}-hugo-resources-academic-latest-${{ hashFiles('starters/academic-cv/assets/**/*', 'starters/academic-cv/config/**/*', 'starters/academic-cv/hugoblox.yaml', 'starters/academic-cv/package.json') }}
+                  path: templates/academic-cv/resources/
+                  key: ${{ runner.os }}-hugo-resources-academic-latest-${{ hashFiles('templates/academic-cv/assets/**/*', 'templates/academic-cv/config/**/*', 'templates/academic-cv/hugoblox.yaml', 'templates/academic-cv/package.json') }}
                   restore-keys: |
                       ${{ runner.os }}-hugo-resources-academic-latest-
 
@@ -205,7 +205,7 @@ jobs:
                   extended: true
 
             - name: Build academic-cv (latest)
-              working-directory: starters/academic-cv
+              working-directory: templates/academic-cv
               run: hugo --minify --panicOnWarning
 
     smoke-test-min:

@@ -146,14 +146,14 @@ hugo-blox-builder/
 │       ├── layouts/          # HTML templates (easy to edit!)
 │       ├── assets/css/       # Tailwind CSS v4 styles
 │       └── i18n/            # Translations (help translate!)
-├── starters/
+├── templates/
 │   ├── academic-cv/         # CV/Resume template
 │   ├── blog/               # Blog template
 │   └── documentation/      # Docs template
 └── scripts/                # Helper scripts
 ```
 
-**Note**: To contribute an improvement to a starter template, make your changes to the relevant template within the `starters/` folder. **Do not submit PRs to the dedicated template repositories as they are read-only (changes are automatically propagated there from this mono-repository).**
+**Note**: To contribute an improvement to a template, make your changes to the relevant template within the `templates/` folder. **Do not submit PRs to the dedicated template repositories as they are read-only (changes are automatically propagated there from this mono-repository).**
 
 #### What are some good issues to contribute to?
 
@@ -185,7 +185,7 @@ To contribute a **new language pack** or an improvement to a language pack, refe
 
 ### Contribute a template
 
-Consider duplicating a bare-bones template, such as the [Link In Bio](https://github.com/HugoBlox/hugo-blox-builder/tree/main/starters/link-in-bio) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
+Consider duplicating a bare-bones template, such as the [Link In Bio](https://github.com/HugoBlox/hugo-blox-builder/tree/main/templates/link-in-bio) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
 
 ### Contribute to the Publication importer
 

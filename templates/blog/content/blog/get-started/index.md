@@ -16,9 +16,6 @@ tags:
   - Academic
   - Hugo Blox
   - Markdown
-
-content_meta:
-  trending: true
 ---
 
 Welcome 👋
@@ -31,12 +28,9 @@ Welcome 👋
 2. The template can be modified and customised to suit your needs. It's a good platform for anyone looking to take control of their data and online identity whilst having the convenience to start off with a **no-code solution (write in Markdown and customize with YAML parameters)** and having **flexibility to later add even deeper personalization with HTML and CSS**
 3. You can work with all your favourite tools and apps with hundreds of plugins and integrations to speed up your workflows, interact with your readers, and much more
 
-[//]: # '[![The template is mobile first with a responsive design to ensure that your site looks stunning on every device.](https://raw.githubusercontent.com/HugoBlox/hugo-blox-builder/main/starters/academic-cv/preview.png)](https://hugoblox.com)'
+[//]: # '[![The template is mobile first with a responsive design to ensure that your site looks stunning on every device.](https://raw.githubusercontent.com/HugoBlox/hugo-blox-builder/main/templates/academic-cv/preview.png)](https://hugoblox.com)'
 
 ### Get Started
-
-> [!TIP]+ Quick Start Guide
-> New to Hugo Blox? Follow these steps to get your site up and running in minutes!
 
 - 👉 [**Create a new site**](https://hugoblox.com/templates/)
 - 📚 [**Personalize your site**](https://docs.hugoblox.com/)
@@ -44,9 +38,6 @@ Welcome 👋
 - 🐦 Twitter: [@GetResearchDev](https://x.com/BuildLore) [@GeorgeCushen](https://twitter.com/GeorgeCushen) #MadeWithHugoBlox
 - 💡 [Request a **feature** or report a **bug** for _Hugo Blox_](https://github.com/HugoBlox/hugo-blox-builder/issues)
 - ⬆️ **Updating Hugo Blox?** View the [Update Guide](https://docs.hugoblox.com/reference/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
-
-> [!IMPORTANT]
-> Remember to backup your site before making major updates!
 
 ## Crowd-funded open-source software
 
@@ -66,9 +57,6 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 
 ## Features
 
-> [!NOTE]+ Enhanced Markdown Support  
-> Hugo Blox now supports GitHub and Obsidian-style callouts! Use standard Markdown alert syntax like `> [!NOTE]` for better portability.
-
 - **Page builder** - Create _anything_ with no-code [**blocks**](https://hugoblox.com/blocks/) and [**elements**](https://docs.hugoblox.com/reference/markdown/)
 - **Edit any type of content** - Blog posts, publications, talks, slides, projects, and more!
 - **Create content** in [**Markdown**](https://docs.hugoblox.com/reference/markdown/), [**Jupyter**](https://docs.hugoblox.com/getting-started/cms/), or [**RStudio**](https://docs.hugoblox.com/getting-started/cms/)
@@ -84,9 +72,6 @@ As a token of appreciation for sponsoring, you can **unlock [these](https://hugo
 - **Privacy Pack** - Assists with GDPR
 - **Stand Out** - Bring your site to life with animation, parallax backgrounds, and scroll effects
 - **One-Click Deployment** - No servers. No databases. Only files.
-
-> [!WARNING]+ Version Requirements  
-> The new Markdown alert syntax requires Hugo v0.132.0 or later. Make sure you're using a compatible version!
 
 ## Themes
 

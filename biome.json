@@ -19,7 +19,7 @@
       "**/hugo_stats.json",
       "**/*.code-workspace",
       "modules/blox-tailwind/data/icons/devicon.json",
-      "starters/**",
+      "templates/**",
       "test/**",
       "modules/**/package.json",
       "**/assets/jsconfig.json",

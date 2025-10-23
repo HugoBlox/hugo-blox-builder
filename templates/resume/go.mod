@@ -1,4 +1,4 @@
-module github.com/HugoBlox/hugo-blox-builder/starters/blog
+module github.com/HugoBlox/hugo-blox-builder/templates/resume
 
 go 1.19
 

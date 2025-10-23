@@ -25,7 +25,7 @@ STARTER="${1:-academic-cv}"  # Default to academic-cv if no argument provided
 INITIAL_DIR=$(pwd)
 
 # Run Hugo from the starter directory so Tailwind v4 CLI is discoverable by Hugo
-cd "starters/$STARTER"
+cd "templates/$STARTER"
 
 # Ensure Tailwind CLI is available for Hugo
 if [ -f "package.json" ]; then

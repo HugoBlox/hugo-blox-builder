@@ -56,5 +56,5 @@ features:
     enable: false
   repository:
     url: 'https://github.com/HugoBlox/hugo-blox-builder/'
-    content_dir: starters/blog/content
+    content_dir: templates/blog/content
     branch: main

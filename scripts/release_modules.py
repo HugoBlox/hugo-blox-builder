@@ -4,12 +4,12 @@
 Release management for HugoBlox modules.
 
 Features:
-- Detects changes per module since last path-prefixed tag (e.g., modules/blox-tailwind/v0.4.3)
-- Determines next semantic version per module (conventional commits heuristics, default to patch)
-- Updates special module metadata (blox-tailwind data/hugoblox.yaml version)
-- Updates dependent modules' go.mod "require" versions when a dependency is released
-- Tags changed modules with annotated tags and pushes tags
-- Updates starter templates' go.mod to latest released module versions and bumps Hugo version in CI/Netlify config
+ - Detects changes per module since last path-prefixed tag (e.g., modules/blox-tailwind/v0.4.3)
+ - Determines next semantic version per module (conventional commits heuristics, default to patch)
+ - Updates special module metadata (blox-tailwind data/hugoblox.yaml version)
+ - Updates dependent modules' go.mod "require" versions when a dependency is released
+ - Tags changed modules with annotated tags and pushes tags
+ - Updates templates' go.mod to latest released module versions and bumps Hugo version in CI/Netlify config
 
 Usage examples:
   poetry run python scripts/release_modules.py --dry-run --log-level INFO
@@ -43,7 +43,7 @@ from ruamel.yaml.scalarstring import SingleQuotedScalarString
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MODULES_DIR = REPO_ROOT / "modules"
-STARTERS_DIR = REPO_ROOT / "starters"
+STARTERS_DIR = REPO_ROOT / "templates"
 EXCLUDED_MODULE_DIRS = {"blox-bootstrap"}
 
 
@@ -493,7 +493,7 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
         logging.info("starter %s: deploy.yml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
   if updated_paths:
-    stage_and_maybe_commit(updated_paths, "chore(starters): bump modules and Hugo", commit, push)
+    stage_and_maybe_commit(updated_paths, "chore(templates): bump modules and Hugo", commit, push)
 
 
 def update_starters_to_commits(modules: Dict[str, Module], commit: bool, push: bool) -> None:
@@ -572,8 +572,8 @@ def update_starters_to_commits(modules: Dict[str, Module], commit: bool, push: b
         logging.info("starter %s: deploy.yml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
   if updated_paths:
-    stage_and_maybe_commit(updated_paths, "chore(starters): update modules to latest commits", commit, push)
-    logging.info("Updated %d starter files to use latest module commits", len(updated_paths))
+    stage_and_maybe_commit(updated_paths, "chore(templates): update modules to latest commits", commit, push)
+    logging.info("Updated %d template files to use latest module commits", len(updated_paths))
 
 
 def ensure_clean_worktree() -> None:
@@ -611,9 +611,9 @@ def main() -> None:
   if args.update_starters_to_commits:
     if yes:
       ensure_clean_worktree()
-    logging.info("Updating starters to use latest module commits...")
+    logging.info("Updating templates to use latest module commits...")
     update_starters_to_commits(modules, commit=yes, push=yes)
-    logging.info("Starter update to commits complete")
+    logging.info("Template update to commits complete")
     return
 
   if yes:
@@ -715,7 +715,7 @@ def main() -> None:
     if not res.stdout.strip():
       create_and_push_tag(m, next_version, yes=True)
 
-  # 3) Update Starters (excluding starters-bootstrap)
+  # 3) Update Templates
   update_starters(modules, commit=True, push=True)
 
   logging.info("release complete")

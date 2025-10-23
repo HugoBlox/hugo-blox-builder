@@ -69,7 +69,7 @@ features:
     enable: false
   repository:
     url: 'https://github.com/HugoBlox/hugo-blox-builder/'
-    content_dir: 'starters/documentation/content'
+    content_dir: 'templates/documentation/content'
     branch: 'main'
   feedback:
     responses:

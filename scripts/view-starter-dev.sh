@@ -54,7 +54,7 @@ done
 
 
 # Run Hugo from the site dir so Tailwind CLI is discoverable
-cd "starters/$STARTER"
+cd "templates/$STARTER"
 
 # Ensure Tailwind CLI exists in starter (required for Hugo css.TailwindCSS)
 if [ -f "package.json" ] && [ ! -x "node_modules/.bin/tailwindcss" ]; then

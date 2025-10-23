@@ -2,145 +2,145 @@ name: "Release - Package Splitter"
 run-name: ${{ github.workflow }} - ${{ github.ref_name }}
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-  # IMPORTANT: workflows below must match the upstream workflow's `name:` exactly
-  workflow_run:
-    workflows:
-      - Release - HugoBlox Modules
-    types:
-      - completed
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+    # IMPORTANT: workflows below must match the upstream workflow's `name:` exactly
+    workflow_run:
+        workflows:
+            - Release - HugoBlox Modules
+        types:
+            - completed
 
 env:
-  GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
 jobs:
-  determine_changed:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-      has_changes: ${{ steps.set-matrix.outputs.has_changes }}
+    determine_changed:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.set-matrix.outputs.matrix }}
+            has_changes: ${{ steps.set-matrix.outputs.has_changes }}
 
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
 
-      - id: changed
-        # Only run change detection for push events
-        if: ${{ github.event_name == 'push' }}
-        uses: tj-actions/changed-files@v47
-        with:
-          files: |
-            starters/academic-cv/**
-            starters/resume/**
-            starters/blog/**
-            starters/documentation/**
-            starters/link-in-bio/**
-            starters/landing-page/**
-          dir_names: true
-          dir_names_max_depth: 2
-          dir_names_exclude_current_dir: true
+            - id: changed
+              # Only run change detection for push events
+              if: ${{ github.event_name == 'push' }}
+              uses: tj-actions/changed-files@v47
+              with:
+                  files: |
+                      templates/academic-cv/**
+                      templates/resume/**
+                      templates/blog/**
+                      templates/documentation/**
+                      templates/link-in-bio/**
+                      templates/landing-page/**
+                  dir_names: true
+                  dir_names_max_depth: 2
+                  dir_names_exclude_current_dir: true
 
-      # Build dynamic matrix
-      - name: Build dynamic matrix
-        id: set-matrix
-        env:
-          CHANGED_DIRS: ${{ steps.changed.outputs.dir_names || '' }}
-        run: |
-          # Define the full mapping
-          declare -A STARTER_MAP=(
-            ["starters/academic-cv"]="theme-academic-cv"
-            ["starters/resume"]="theme-resume"
-            ["starters/blog"]="theme-blog"
-            ["starters/documentation"]="theme-documentation"
-            ["starters/link-in-bio"]="theme-link-in-bio"
-            ["starters/landing-page"]="theme-landing-page"
-          )
+            # Build dynamic matrix
+            - name: Build dynamic matrix
+              id: set-matrix
+              env:
+                  CHANGED_DIRS: ${{ steps.changed.outputs.dir_names || '' }}
+              run: |
+                  # Define the full mapping
+                  declare -A STARTER_MAP=(
+                    ["templates/academic-cv"]="theme-academic-cv"
+                    ["templates/resume"]="theme-resume"
+                    ["templates/blog"]="theme-blog"
+                    ["templates/documentation"]="theme-documentation"
+                    ["templates/link-in-bio"]="theme-link-in-bio"
+                    ["templates/landing-page"]="theme-landing-page"
+                  )
 
-          # For non-push events, always use full matrix
-          if [ "${{ github.event_name }}" != "push" ]; then
-            echo "Using full matrix for ${{ github.event_name }} event"
-            echo "matrix=[{\"local_path\":\"starters/academic-cv\",\"split_repository\":\"theme-academic-cv\"},{\"local_path\":\"starters/resume\",\"split_repository\":\"theme-resume\"},{\"local_path\":\"starters/blog\",\"split_repository\":\"theme-blog\"},{\"local_path\":\"starters/documentation\",\"split_repository\":\"theme-documentation\"},{\"local_path\":\"starters/link-in-bio\",\"split_repository\":\"theme-link-in-bio\"},{\"local_path\":\"starters/landing-page\",\"split_repository\":\"theme-landing-page\"}]" >> "$GITHUB_OUTPUT"
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+                  # For non-push events, always use full matrix
+                  if [ "${{ github.event_name }}" != "push" ]; then
+                    echo "Using full matrix for ${{ github.event_name }} event"
+                    echo "matrix=[{\"local_path\":\"templates/academic-cv\",\"split_repository\":\"theme-academic-cv\"},{\"local_path\":\"templates/resume\",\"split_repository\":\"theme-resume\"},{\"local_path\":\"templates/blog\",\"split_repository\":\"theme-blog\"},{\"local_path\":\"templates/documentation\",\"split_repository\":\"theme-documentation\"},{\"local_path\":\"templates/link-in-bio\",\"split_repository\":\"theme-link-in-bio\"},{\"local_path\":\"templates/landing-page\",\"split_repository\":\"theme-landing-page\"}]" >> "$GITHUB_OUTPUT"
+                    echo "has_changes=true" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
 
-          echo "Detected starter directories: $CHANGED_DIRS"
+                  echo "Detected template directories: $CHANGED_DIRS"
 
-          # If no changes, set empty matrix
-          if [ -z "$CHANGED_DIRS" ]; then
-            echo "No starters changed"
-            echo "matrix=[]" >> "$GITHUB_OUTPUT"
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+                  # If no changes, set empty matrix
+                  if [ -z "$CHANGED_DIRS" ]; then
+                    echo "No templates changed"
+                    echo "matrix=[]" >> "$GITHUB_OUTPUT"
+                    echo "has_changes=false" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
 
-          # Build JSON array for changed starters
-          JSON="["
-          FIRST=true
-          # tj-actions outputs space-separated list
-          for DIR in $CHANGED_DIRS; do
-            # Normalize potential trailing slash
-            DIR="${DIR%/}"
+                  # Build JSON array for changed templates
+                  JSON="["
+                  FIRST=true
+                  # tj-actions outputs space-separated list
+                  for DIR in $CHANGED_DIRS; do
+                    # Normalize potential trailing slash
+                    DIR="${DIR%/}"
 
-            # Collapse to the starter root (first two path segments), e.g. starters/landing-page
-            IFS='/' read -r SEG1 SEG2 _ <<< "$DIR"
-            if [[ -n "$SEG1" && -n "$SEG2" ]]; then
-              ROOT="$SEG1/$SEG2"
-            else
-              ROOT="$DIR"
-            fi
+                    # Collapse to the template root (first two path segments), e.g. templates/landing-page
+                    IFS='/' read -r SEG1 SEG2 _ <<< "$DIR"
+                    if [[ -n "$SEG1" && -n "$SEG2" ]]; then
+                      ROOT="$SEG1/$SEG2"
+                    else
+                      ROOT="$DIR"
+                    fi
 
-            # Only process if it's a known starter
-            if [[ -n "${STARTER_MAP[$ROOT]}" ]]; then
-              if [ "$FIRST" = true ]; then
-                FIRST=false
-              else
-                JSON+="," 
-              fi
-              JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
-            fi
-          done
-          JSON+="]"
+                    # Only process if it's a known starter
+                    if [[ -n "${STARTER_MAP[$ROOT]}" ]]; then
+                      if [ "$FIRST" = true ]; then
+                        FIRST=false
+                      else
+                        JSON+="," 
+                      fi
+                      JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
+                    fi
+                  done
+                  JSON+="]"
 
-          # Check if we actually added any starters
-          if [ "$JSON" = "[]" ]; then
-            echo "No valid starters found in changed directories"
-            echo "matrix=[]" >> "$GITHUB_OUTPUT"
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "matrix=$JSON" >> "$GITHUB_OUTPUT"
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-          fi
+                  # Check if we actually added any starters
+                  if [ "$JSON" = "[]" ]; then
+                    echo "No valid starters found in changed directories"
+                    echo "matrix=[]" >> "$GITHUB_OUTPUT"
+                    echo "has_changes=false" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "matrix=$JSON" >> "$GITHUB_OUTPUT"
+                    echo "has_changes=true" >> "$GITHUB_OUTPUT"
+                  fi
 
-  packages_split:
-    needs: determine_changed
-    # Run when:
-    #  • Event is not workflow_run OR upstream workflow succeeded.
-    #  • Event is not push OR at least one starter changed.
-    if: ${{ (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && needs.determine_changed.outputs.has_changes == 'true' }}
+    packages_split:
+        needs: determine_changed
+        # Run when:
+        #  • Event is not workflow_run OR upstream workflow succeeded.
+        #  • Event is not push OR at least one starter changed.
+        if: ${{ (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && needs.determine_changed.outputs.has_changes == 'true' }}
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        package: ${{ fromJson(needs.determine_changed.outputs.matrix) }}
+        strategy:
+            fail-fast: false
+            matrix:
+                package: ${{ fromJson(needs.determine_changed.outputs.matrix) }}
 
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
+        steps:
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
 
-      # step if no tag is pushed
-      - if: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        uses: "symplify/monorepo-split-github-action@v2.4.0"
-        with:
-          package_directory: "${{ matrix.package.local_path }}"
-          repository_organization: "HugoBlox"
-          repository_name: "${{ matrix.package.split_repository }}"
-          user_name: "Splitter Bot"
-          user_email: "no.reply@hugoblox.com"
+            # step if no tag is pushed
+            - if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+              uses: "symplify/monorepo-split-github-action@v2.4.0"
+              with:
+                  package_directory: "${{ matrix.package.local_path }}"
+                  repository_organization: "HugoBlox"
+                  repository_name: "${{ matrix.package.split_repository }}"
+                  user_name: "Splitter Bot"
+                  user_email: "no.reply@hugoblox.com"

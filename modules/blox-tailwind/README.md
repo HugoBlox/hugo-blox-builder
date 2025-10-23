@@ -47,8 +47,8 @@ If you're upgrading from Tailwind v3:
 
 1. Install the new dependencies: `pnpm install`
 2. Remove any `assets/dist/wc.min.css` files
-3. Add the `package.json` file from the latest starter templates
-4. Update your deployment scripts to install it with `pnpm install` (refer to the latest `.github` folder in the starters)
+3. Add the `package.json` file from the latest templates
+4. Update your deployment scripts to install it with `pnpm install` (refer to the latest `.github` folder in the templates)
 5. The old `tailwind.config.js` and `postcss.config.js` files are no longer needed
 
 ## Development
