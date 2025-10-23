@@ -58,3 +58,11 @@ features:
     enable: false
   privacy_pack:
     enable: false
+  inspirehep:
+    enable: true
+    badge: true
+    # prefer: doi | arxiv  (currently DOI is preferred automatically when present)
+  altmetric:
+    enable: true
+  dimensions:
+    enable: true
