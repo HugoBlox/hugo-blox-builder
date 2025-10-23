@@ -1,0 +1,130 @@
+{{- define "main" -}}
+
+<div class="mx-auto flex max-w-screen-xl">
+  {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" false) }}
+  <article class="w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] px-6 pt-4 pb-8 md:px-12">
+    <div class="max-w-4xl mx-auto">
+      
+      {{ if (.Params.show_breadcrumb | default true) }}
+      <div class="mb-4">
+        {{ partial "components/breadcrumb.html" . }}
+      </div>
+      {{ end }}
+
+      <div class="prose prose-slate lg:prose-xl dark:prose-invert mb-8">
+        <h1>{{ .Title }}</h1>
+        {{ with .Content }}
+          {{ . }}
+        {{ end }}
+      </div>
+
+      {{/* Search box for Q&A - Integrated with Pagefind */}}
+      {{ if site.Params.features.search.provider }}
+      <div class="mb-8">
+        <button
+          data-search-toggle
+          type="button"
+          class="w-full group cursor-pointer"
+          aria-label="{{ T "search_questions" | default "Search questions" }}">
+          <div class="relative">
+            <div class="w-full px-4 py-3 pl-10 text-left text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer">
+              {{ T "search_questions" | default "Search questions..." }}
+            </div>
+            <svg class="absolute left-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </button>
+      </div>
+      {{ end }}
+
+      {{/* Category filter */}}
+      {{ $categories := .Site.Taxonomies.categories }}
+      {{ if $categories }}
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-3 text-gray-900 dark:text-gray-100">{{ T "browse_by_category" | default "Browse by Category" }}</h2>
+        <div class="flex flex-wrap gap-2">
+          <a href="{{ .RelPermalink }}" class="px-4 py-2 text-sm rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors">
+            {{ T "all" | default "All" }}
+          </a>
+          {{ range $name, $taxonomy := $categories }}
+          <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" class="px-4 py-2 text-sm rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            {{ $name }} ({{ $taxonomy.Count }})
+          </a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      {{/* Q&A List */}}
+      {{ $pages := .Pages }}
+      {{ if .Params.sort_by }}
+        {{ if eq .Params.sort_by "date" }}
+          {{ $pages = .Pages.ByDate.Reverse }}
+        {{ else if eq .Params.sort_by "title" }}
+          {{ $pages = .Pages.ByTitle }}
+        {{ else if eq .Params.sort_by "weight" }}
+          {{ $pages = .Pages.ByWeight }}
+        {{ end }}
+      {{ else }}
+        {{ $pages = .Pages.ByDate.Reverse }}
+      {{ end }}
+
+      <div class="space-y-4">
+        {{ range $pages }}
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-all hover:shadow-md">
+          <a href="{{ .RelPermalink }}" class="block">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 hover:text-primary-600 dark:hover:text-primary-400">
+              {{ .Params.question | default .Title }}
+            </h3>
+            
+            {{ if .Params.answer }}
+            <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+              {{ .Params.answer | plainify | truncate 200 }}
+            </p>
+            {{ else if .Summary }}
+            <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+              {{ .Summary }}
+            </p>
+            {{ end }}
+            
+            <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                {{ .Date.Format "Jan 2, 2006" }}
+              </span>
+              
+              {{ range first 3 .Params.tags }}
+              <span class="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                #{{ . }}
+              </span>
+              {{ end }}
+              
+              {{ if .Params.difficulty }}
+              <span class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                {{ .Params.difficulty }}
+              </span>
+              {{ end }}
+            </div>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+
+      {{ if eq (len $pages) 0 }}
+      <div class="text-center py-12 text-gray-500 dark:text-gray-400">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-lg">{{ T "no_questions_yet" | default "No questions yet. Check back soon!" }}</p>
+      </div>
+      {{ end }}
+
+      {{ partial "components/paginator" . }}
+    </div>
+  </article>
+</div>
+
+{{- end -}}

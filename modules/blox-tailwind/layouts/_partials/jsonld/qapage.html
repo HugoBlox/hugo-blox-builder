@@ -1,0 +1,88 @@
+{{- $page := .page }}
+{{ $summary := .summary }}
+{{ $featured_image := ($page.Resources.ByType "image").GetMatch "*featured*" }}
+
+{{/* Get author and publisher info */}}
+{{ $author := partial "functions/get_author_name" $page }}
+{{ $publisher := site.Params.marketing.seo.org_name | default site.Title }}
+
+{{/* Extract question - prioritize explicit param, fallback to title */}}
+{{ $question := $page.Params.question | default $page.Title }}
+
+{{/* Extract answer - prioritize explicit param, fallback to summary, then content */}}
+{{ $answer := "" }}
+{{ if $page.Params.answer }}
+  {{ $answer = $page.Params.answer }}
+{{ else if $page.Params.summary }}
+  {{ $answer = $page.Params.summary }}
+{{ else }}
+  {{ $answer = $page.Content | plainify | truncate 500 }}
+{{ end }}
+
+{{/* Get upvote/downvote counts if available */}}
+{{ $upvote_count := $page.Params.upvote_count | default 0 }}
+{{ $downvote_count := $page.Params.downvote_count | default 0 }}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "QAPage",
+  "mainEntity": {
+    "@type": "Question",
+    "name": {{ $question | jsonify }},
+    "text": {{ $question | jsonify }},
+    "answerCount": 1,
+    {{ if $upvote_count }}"upvoteCount": {{ $upvote_count }},{{ end }}
+    "dateCreated": {{ $page.Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+    {{- with $author -}}
+    "author": {
+      "@type": "Person",
+      "name": {{ . | jsonify }}
+    },
+    {{- end -}}
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": {{ $answer | plainify | jsonify }},
+      {{ if $upvote_count }}"upvoteCount": {{ $upvote_count }},{{ end }}
+      {{ if $downvote_count }}"downvoteCount": {{ $downvote_count }},{{ end }}
+      "dateCreated": {{ $page.Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+      {{- with $author -}}
+      "author": {
+        "@type": "Person",
+        "name": {{ . | jsonify }}
+      }{{- if or $page.Params.url $featured_image -}},{{- end -}}
+      {{- end -}}
+      {{- with $page.Params.url -}}
+      "url": {{ . | jsonify }}{{ if $featured_image }},{{ end }}
+      {{- end -}}
+      {{ if $featured_image }}
+      "image": {{ $featured_image.Permalink | jsonify }}
+      {{ end }}
+    }{{ if or $page.Params.suggested_answer $page.Params.additional_answers }},{{ end }}
+    {{- with $page.Params.suggested_answer -}}
+    "suggestedAnswer": [
+      {{- range $index, $answer := . -}}
+      {{- if $index }},{{ end -}}
+      {
+        "@type": "Answer",
+        "text": {{ $answer.text | jsonify }},
+        {{- with $answer.author -}}
+        "author": {
+          "@type": "Person",
+          "name": {{ . | jsonify }}
+        }{{ if or $answer.upvote_count $answer.date }},{{ end }}
+        {{- end -}}
+        {{- with $answer.upvote_count -}}
+        "upvoteCount": {{ . }},
+        {{- end -}}
+        {{- with $answer.date -}}
+        "dateCreated": {{ (time .) | time.Format "2006-01-02T15:04:05Z07:00" | jsonify }}
+        {{- end -}}
+      }
+      {{- end -}}
+    ]
+    {{- end -}}
+  }
+}
+</script>
+

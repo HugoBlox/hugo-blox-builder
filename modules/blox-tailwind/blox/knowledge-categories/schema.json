@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Knowledge Categories Block",
+  "description": "Grid of knowledge base category cards",
+  "properties": {
+    "content": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "Category name (e.g., 'Getting Started', 'ChatGPT') - will be auto-slugified for URL"
+              },
+              "title": {
+                "type": "string",
+                "description": "Display title (optional - defaults to category name)"
+              },
+              "description": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "bg_color": {
+                    "type": "string"
+                  },
+                  "text_color": {
+                    "type": "string"
+                  }
+                }
+              },
+              "count": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "view_all": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "type": "object",
+      "properties": {
+        "spacing": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

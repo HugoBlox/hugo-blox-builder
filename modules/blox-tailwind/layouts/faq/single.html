@@ -1,0 +1,141 @@
+{{- define "main" -}}
+
+{{/* Enable Alpine.js for interactive FAQ accordion */}}
+{{ .Page.Store.Set "has_alpine" true }}
+
+{{/* Pagefind metadata for search filtering */}}
+<div data-pagefind-body data-pagefind-meta="title:{{ .Title }}">
+  {{/* Use hidden spans for filter values - best practice per Pagefind docs */}}
+  <span data-pagefind-filter="type" style="display:none;">faq</span>
+  {{ with .Params.categories }}
+  <span data-pagefind-filter="category" style="display:none;">{{ index . 0 }}</span>
+  {{ end }}
+
+<div class="mx-auto flex max-w-screen-xl">
+  {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" false) }}
+  {{ partial "components/toc.html" . }}
+  <article class="flex w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] justify-center break-words pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+    <main class="prose prose-slate lg:prose-xl dark:prose-invert w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+      
+      {{ if (.Params.show_breadcrumb | default true) }}
+      <div class="mb-1">
+        {{ partial "components/breadcrumb.html" . }}
+      </div>
+      {{ end }}
+
+      <h1>{{ .Title }}</h1>
+      
+      {{ with .Content }}
+      <div class="lead mb-8">
+        {{ . }}
+      </div>
+      {{ end }}
+
+      {{/* FAQ Accordion */}}
+      {{ with .Params.faqs }}
+      <div class="faq-container space-y-4 not-prose" x-data="{ openItem: null }">
+        {{ range $index, $item := . }}
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+          <button
+            type="button"
+            class="w-full px-6 py-4 text-left flex items-center justify-between bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+            @click="openItem = openItem === {{ $index }} ? null : {{ $index }}"
+            :aria-expanded="openItem === {{ $index }}"
+          >
+            <span class="font-semibold text-gray-900 dark:text-gray-100 pr-8">
+              {{ $item.question }}
+            </span>
+            <svg
+              class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0"
+              :class="{ 'rotate-180': openItem === {{ $index }} }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div
+            x-show="openItem === {{ $index }}"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform -translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-2"
+            class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+          >
+            <div class="prose prose-slate dark:prose-invert max-w-none">
+              {{ $item.answer | markdownify }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{/* If no explicit FAQs, show child pages as FAQ items */}}
+      {{ if not .Params.faqs }}
+      {{ $child_pages := .Pages }}
+      {{ if $child_pages }}
+      <div class="faq-container space-y-4 not-prose" x-data="{ openItem: null }">
+        {{ range $index, $page := $child_pages }}
+        <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+          <button
+            type="button"
+            class="w-full px-6 py-4 text-left flex items-center justify-between bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+            @click="openItem = openItem === {{ $index }} ? null : {{ $index }}"
+            :aria-expanded="openItem === {{ $index }}"
+          >
+            <span class="font-semibold text-gray-900 dark:text-gray-100 pr-8">
+              {{ $page.Params.question | default $page.Title }}
+            </span>
+            <svg
+              class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0"
+              :class="{ 'rotate-180': openItem === {{ $index }} }"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div
+            x-show="openItem === {{ $index }}"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform -translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-2"
+            class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+          >
+            <div class="prose prose-slate dark:prose-invert max-w-none">
+              {{ if $page.Params.answer }}
+                {{ $page.Params.answer | markdownify }}
+              {{ else }}
+                {{ $page.Content }}
+              {{ end }}
+            </div>
+            {{ if not $page.Params.answer }}
+            <a href="{{ $page.RelPermalink }}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium mt-2 inline-block">
+              {{ T "read_more" | default "Read more" }} →
+            </a>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+      {{ end }}
+
+      {{ partial "components/last-edited.html" . }}
+      {{ partial "components/feedback.html" . }}
+      {{ partial "comments.html" . }}
+    </main>
+  </article>
+</div>
+
+</div>{{/* End Pagefind metadata wrapper */}}
+
+{{- end -}}

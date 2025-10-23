@@ -1,0 +1,151 @@
+{{- define "main" -}}
+
+{{/* Pagefind metadata for search filtering */}}
+<div data-pagefind-body 
+     {{ with .Params.question }}data-pagefind-meta="title:{{ . }}"{{ end }}>
+  {{/* Use hidden spans for filter values - best practice per Pagefind docs */}}
+  <span data-pagefind-filter="type" style="display:none;">questions</span>
+  {{ with .Params.categories }}
+  <span data-pagefind-filter="category" style="display:none;">{{ index . 0 }}</span>
+  {{ end }}
+  {{ with .Params.difficulty }}
+  <span data-pagefind-filter="difficulty" style="display:none;">{{ . }}</span>
+  {{ end }}
+
+<div class="mx-auto flex max-w-screen-xl">
+  {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" false) }}
+  {{ partial "components/toc.html" . }}
+  <article class="flex w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] justify-center break-words pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+    <main class="prose prose-slate lg:prose-xl dark:prose-invert w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+      
+      {{ if (.Params.show_breadcrumb | default true) }}
+      <div class="mb-1">
+        {{ partial "components/breadcrumb.html" . }}
+      </div>
+      {{ end }}
+
+      {{/* Question as title */}}
+      <div class="qa-question mb-6">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+          {{ .Params.question | default .Title }}
+        </h1>
+        
+        {{/* Metadata */}}
+        <div class="text-sm text-gray-600 dark:text-gray-400 flex flex-wrap gap-4 mb-4 not-prose">
+          {{ if .Date }}
+          <div class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <time datetime="{{ .Date.Format "2006-01-02" }}">
+              {{ .Date.Format "January 2, 2006" }}
+            </time>
+          </div>
+          {{ end }}
+          
+          {{ if .Lastmod }}
+          <div class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span>Updated {{ .Lastmod.Format "January 2, 2006" }}</span>
+          </div>
+          {{ end }}
+          
+          {{ with .Params.difficulty }}
+          <span class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+            {{ . }}
+          </span>
+          {{ end }}
+        </div>
+
+        {{/* Tags and Categories */}}
+        <div class="flex flex-wrap gap-2 not-prose">
+          {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="px-3 py-1 text-sm rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            #{{ . }}
+          </a>
+          {{ end }}
+          
+          {{ range .Params.categories }}
+          <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}" class="px-3 py-1 text-sm rounded-full bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors">
+            {{ . }}
+          </a>
+          {{ end }}
+        </div>
+      </div>
+
+      {{/* Accepted Answer */}}
+      <div class="qa-answer">
+        {{ if .Params.answer }}
+          {{/* Explicit answer parameter */}}
+          <div class="mb-4 p-4 bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 rounded">
+            <div class="flex items-center gap-2 mb-2">
+              <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="font-semibold text-green-800 dark:text-green-300 not-prose">{{ T "accepted_answer" | default "Accepted Answer" }}</span>
+            </div>
+            {{ .Params.answer | markdownify }}
+          </div>
+        {{ end }}
+        
+        {{/* Full content */}}
+        <div class="content">
+          {{ .Content }}
+        </div>
+      </div>
+
+      {{/* Suggested/Additional Answers */}}
+      {{ with .Params.suggested_answer }}
+      <div class="mt-8 border-t pt-6">
+        <h2 class="text-2xl font-bold mb-4">{{ T "other_answers" | default "Other Answers" }}</h2>
+        {{ range $index, $answer := . }}
+        <div class="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          {{ with $answer.author }}
+          <div class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            {{ . }}
+            {{ with $answer.date }} · {{ (time .) | time.Format "January 2, 2006" }}{{ end }}
+          </div>
+          {{ end }}
+          <div class="text-gray-800 dark:text-gray-200">
+            {{ $answer.text | markdownify }}
+          </div>
+          {{ with $answer.upvote_count }}
+          <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            👍 {{ . }} {{ T "helpful" | default "helpful" }}
+          </div>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{/* Related Q&As */}}
+      {{ $related := .Site.RegularPages.Related . | first 5 }}
+      {{ with $related }}
+      <div class="mt-8 border-t pt-6">
+        <h2 class="text-2xl font-bold mb-4">{{ T "related_questions" | default "Related Questions" }}</h2>
+        <ul class="space-y-2 not-prose">
+          {{ range . }}
+          <li>
+            <a href="{{ .RelPermalink }}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
+              {{ .Params.question | default .Title }}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+      {{ partial "components/last-edited.html" . }}
+      {{ partial "components/next-in-series.html" . }}
+      {{ partial "components/feedback.html" . }}
+      {{ partial "comments.html" . }}
+    </main>
+  </article>
+</div>
+
+</div>{{/* End Pagefind metadata wrapper */}}
+
+{{- end -}}

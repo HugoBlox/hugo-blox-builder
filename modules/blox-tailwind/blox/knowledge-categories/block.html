@@ -1,0 +1,97 @@
+{{- $wcPage := .wcPage -}}
+{{- $wcBlock := .wcBlock -}}
+{{- $wcIdentifier := .wcIdentifier -}}
+
+{{- $st := $wcBlock.design.spacing | default dict -}}
+{{- $pad := $st.padding | default (slice "4rem" "0" "4rem" "0") -}}
+
+<section id="{{ $wcIdentifier }}" class="relative" style="padding: {{ delimit $pad " " }};">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    
+    {{/* Section header */}}
+    {{ if or $wcBlock.content.title $wcBlock.content.subtitle }}
+    <div class="mx-auto max-w-2xl text-center mb-12">
+      {{ with $wcBlock.content.title }}
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+        {{ . | markdownify }}
+      </h2>
+      {{ end }}
+      {{ with $wcBlock.content.subtitle }}
+      <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
+        {{ . | markdownify }}
+      </p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Categories grid - with dynamic counts from Hugo taxonomy */}}
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+      {{ range $wcBlock.content.categories }}
+      {{ $category_name := .category | default .title }}
+     
+      {{/* Get actual count from Hugo taxonomy - proper Hugo syntax */}}
+      {{ $category_url := "" }}
+      {{ $actual_count := 0 }}
+      {{ with site.Taxonomies.categories.Get $category_name }}
+        {{ $actual_count = .Count }}
+        {{ $category_url = .Page.RelPermalink }}
+      {{ end }}
+      
+      {{/* Only show category if it has content OR if count is explicitly set */}}
+      {{ if or (gt $actual_count 0) (.count) }}
+      <a href="{{ $category_url }}" class="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm ring-1 ring-gray-900/5 transition-all duration-300 hover:shadow-xl hover:ring-primary-500/50 hover:-translate-y-1">
+        
+        {{/* Icon */}}
+        {{ with .icon }}
+        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl {{ .bg_color | default "bg-primary-100 dark:bg-primary-900/50" }} {{ .text_color | default "text-primary-600 dark:text-primary-400" }} group-hover:scale-110 transition-transform">
+          {{ partial "functions/get_icon" (dict "name" .name "attributes" "class=\"h-6 w-6\"") }}
+        </div>
+        {{ end }}
+        
+        {{/* Title */}}
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          {{ .title }}
+        </h3>
+        
+        {{/* Description */}}
+        {{ with .description }}
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          {{ . }}
+        </p>
+        {{ end }}
+        
+        {{/* Stats - use actual count from taxonomy, fallback to manual count */}}
+        <div class="flex items-center justify-between text-sm">
+          {{ $display_count := default .count $actual_count }}
+          {{ if $display_count }}
+          <span class="text-gray-500 dark:text-gray-400">
+            {{ $display_count }} {{ cond (eq $display_count 1) (T "article" | default "article") (T "articles" | default "articles") }}
+          </span>
+          {{ end }}
+          <span class="text-primary-600 dark:text-primary-400 group-hover:translate-x-1 transition-transform">
+            {{ T "browse" | default "Browse" }} →
+          </span>
+        </div>
+        
+        {{/* Hover gradient effect */}}
+        <div class="absolute inset-0 -z-10 bg-gradient-to-br from-primary-500/0 via-primary-500/0 to-primary-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10"></div>
+      </a>
+      {{ end }}
+      {{ end }}
+    </div>
+    
+    {{/* View all link */}}
+    {{ with $wcBlock.content.view_all }}
+    <div class="mt-10 text-center">
+      <a href="{{ .link }}" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+        {{ .text }}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+    </div>
+    {{ end }}
+    
+  </div>
+</section>

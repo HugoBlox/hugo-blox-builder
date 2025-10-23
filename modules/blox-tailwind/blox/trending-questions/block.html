@@ -1,0 +1,165 @@
+{{- $wcPage := .wcPage -}}
+{{- $wcBlock := .wcBlock -}}
+{{- $wcIdentifier := .wcIdentifier -}}
+
+{{- $st := $wcBlock.design.spacing | default dict -}}
+{{- $pad := $st.padding | default (slice "4rem" "0" "4rem" "0") -}}
+
+<section id="{{ $wcIdentifier }}" class="{{ $wcBlock.design.background.color }}" style="padding: {{ delimit $pad " " }};">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        {{ with $wcBlock.content.title }}
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {{ . | markdownify }}
+        </h2>
+        {{ end }}
+        {{ with $wcBlock.content.subtitle }}
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          {{ . | markdownify }}
+        </p>
+        {{ end }}
+      </div>
+      
+      {{ with $wcBlock.content.view_all }}
+      <a href="{{ .link }}" class="hidden sm:flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+        {{ .text }}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+      {{ end }}
+    </div>
+    
+    {{/* Get trending questions dynamically or from static config */}}
+    {{ $questions := slice }}
+    
+    {{/* Method 1: Dynamic - Pull from pages with trending: true */}}
+    {{ $count := $wcBlock.content.count | default 4 }}
+    {{ $trending_pages := where site.RegularPages "Params.trending" true }}
+    {{ $trending_pages = $trending_pages.ByParam "trending_weight" | default ($trending_pages.ByDate.Reverse) }}
+    {{ $trending_pages = first $count $trending_pages }}
+    
+    {{ if $trending_pages }}
+      {{ range $trending_pages }}
+        {{ $question_item := dict }}
+        {{ $question_item = merge $question_item (dict "question" (.Params.question | default .Title)) }}
+        {{ $question_item = merge $question_item (dict "link" .RelPermalink) }}
+        {{ $question_item = merge $question_item (dict "answer_preview" (.Params.answer_preview | default .Params.answer | default .Summary | plainify | truncate 150)) }}
+        
+        {{/* Optional metadata */}}
+        {{ with .Params.author }}
+          {{ $question_item = merge $question_item (dict "author" .) }}
+        {{ end }}
+        {{ with .Params.views }}
+          {{ $question_item = merge $question_item (dict "views" .) }}
+        {{ end }}
+        {{ with .Params.upvote_count }}
+          {{ $question_item = merge $question_item (dict "upvotes" .) }}
+        {{ end }}
+        {{ with .Params.badge }}
+          {{ $question_item = merge $question_item (dict "badge" .) }}
+        {{ else }}
+          {{/* Default badges based on metadata */}}
+          {{ if gt (.Params.upvote_count | default 0) 50 }}
+            {{ $question_item = merge $question_item (dict "badge" (dict "text" "🔥 Popular" "color" "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200")) }}
+          {{ else if .Params.featured }}
+            {{ $question_item = merge $question_item (dict "badge" (dict "text" "⭐ Featured" "color" "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200")) }}
+          {{ else if (time .Date).After (now.AddDate 0 0 -7) }}
+            {{ $question_item = merge $question_item (dict "badge" (dict "text" "✨ New" "color" "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200")) }}
+          {{ else }}
+            {{ $question_item = merge $question_item (dict "badge" (dict "text" "🔥 Trending" "color" "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200")) }}
+          {{ end }}
+        {{ end }}
+        
+        {{ $questions = $questions | append $question_item }}
+      {{ end }}
+    {{ end }}
+    
+    {{/* Method 2: Static fallback - Use config if no trending pages found */}}
+    {{ if not $questions }}
+      {{ $questions = $wcBlock.content.questions }}
+    {{ end }}
+    
+    {{/* Questions list or carousel */}}
+    <div class="grid gap-4 lg:grid-cols-2">
+      {{ range $index, $question := $questions }}
+      <div class="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 transition-all duration-300 hover:border-primary-500 hover:shadow-lg">
+        
+        {{/* Badge */}}
+        {{ with .badge }}
+        <div class="mb-3 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium {{ .color | default "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200" }}">
+          {{ .text }}
+        </div>
+        {{ end }}
+        
+        {{/* Question */}}
+        <h3 class="mb-3 text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+          <a href="{{ .link }}" class="after:absolute after:inset-0">
+            {{ .question }}
+          </a>
+        </h3>
+        
+        {{/* Answer preview */}}
+        {{ with .answer_preview }}
+        <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+          {{ . }}
+        </p>
+        {{ end }}
+        
+        {{/* Meta info */}}
+        <div class="flex items-center justify-between text-sm">
+          <div class="flex items-center gap-4 text-gray-500 dark:text-gray-400">
+            {{ with .author }}
+            <span class="flex items-center gap-1">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+              {{ . }}
+            </span>
+            {{ end }}
+            
+            {{ with .views }}
+            <span class="flex items-center gap-1">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+              {{ . }}
+            </span>
+            {{ end }}
+            
+            {{ with .upvotes }}
+            <span class="flex items-center gap-1">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              {{ . }} helpful
+            </span>
+            {{ end }}
+          </div>
+          
+          <span class="text-primary-600 dark:text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity">
+            Read →
+          </span>
+        </div>
+        
+      </div>
+      {{ end }}
+    </div>
+    
+    {{/* Mobile view all link */}}
+    {{ with $wcBlock.content.view_all }}
+    <div class="mt-6 sm:hidden">
+      <a href="{{ .link }}" class="flex items-center justify-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-white font-medium hover:bg-primary-700 transition-colors">
+        {{ .text }}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+    </div>
+    {{ end }}
+    
+  </div>
+</section>

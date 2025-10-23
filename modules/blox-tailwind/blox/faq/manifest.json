@@ -1,0 +1,9 @@
+{
+  "name": "faq",
+  "version": "1",
+  "title": "FAQ",
+  "description": "Display frequently asked questions in an accordion format with SEO-optimized structured data",
+  "categories": ["content", "interactive"],
+  "preview": "preview.svg"
+}
+

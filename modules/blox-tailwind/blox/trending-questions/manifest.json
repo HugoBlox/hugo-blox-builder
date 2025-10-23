@@ -1,0 +1,8 @@
+{
+  "name": "trending-questions",
+  "version": "1",
+  "title": "Trending Questions",
+  "description": "Display trending or featured questions",
+  "categories": ["content"],
+  "preview": "preview.svg"
+}

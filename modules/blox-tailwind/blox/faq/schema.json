@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "FAQ Block",
+  "description": "Display frequently asked questions in an accordion format with FAQPage structured data",
+  "properties": {
+    "content": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Block title"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Block subtitle"
+        },
+        "text": {
+          "type": "string",
+          "description": "Introductory text (Markdown supported)"
+        },
+        "items": {
+          "type": "array",
+          "description": "FAQ items",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "The question"
+              },
+              "answer": {
+                "type": "string",
+                "description": "The answer (Markdown supported)"
+              }
+            },
+            "required": ["question", "answer"]
+          }
+        },
+        "button": {
+          "type": "object",
+          "description": "Call-to-action button",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Button text"
+            },
+            "url": {
+              "type": "string",
+              "description": "Button URL"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Button icon name"
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "type": "object",
+      "properties": {
+        "spacing": {
+          "type": "object",
+          "properties": {
+            "padding": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Padding [top, right, bottom, left]"
+            },
+            "margin": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Margin [top, right, bottom, left]"
+            }
+          }
+        },
+        "background": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string",
+              "description": "Background color CSS class"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

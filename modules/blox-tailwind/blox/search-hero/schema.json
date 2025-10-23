@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Search Hero Block",
+  "description": "A hero section with prominent search functionality for knowledge bases",
+  "properties": {
+    "content": {
+      "type": "object",
+      "properties": {
+        "badge": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Badge text"
+            },
+            "show_pulse": {
+              "type": "boolean",
+              "description": "Show pulsing dot indicator"
+            }
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "Main title. Use ==text== syntax to apply gradient highlighting to any words or phrases. Example: 'Master ==AI Tools==. ==Boost Your Productivity.=='"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Subtitle text"
+        },
+        "search_placeholder": {
+          "type": "string",
+          "description": "Search input placeholder"
+        },
+        "suggestions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Quick search suggestions"
+        },
+        "stats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "description": "Stat value"
+              },
+              "label": {
+                "type": "string",
+                "description": "Stat label"
+              }
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "type": "object",
+      "properties": {
+        "spacing": {
+          "type": "object"
+        },
+        "background": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string",
+              "description": "Background color (Tailwind class)"
+            },
+            "gradient_mesh": {
+              "type": "object",
+              "description": "Animated gradient mesh background",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Enable animated gradient mesh"
+                },
+                "style": {
+                  "type": "string",
+                  "enum": ["orbs", "waves", "dots", "grid"],
+                  "description": "Visual style of gradient mesh",
+                  "default": "orbs"
+                },
+                "animation": {
+                  "type": "string",
+                  "enum": ["pulse", "float", "rotate", "none"],
+                  "description": "Animation type",
+                  "default": "pulse"
+                },
+                "intensity": {
+                  "type": "string",
+                  "enum": ["subtle", "medium", "bold"],
+                  "description": "Visual intensity",
+                  "default": "subtle"
+                },
+                "colors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Tailwind colors with opacity (e.g., 'primary-500/20')",
+                  "default": ["primary-500/20", "primary-600/20"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

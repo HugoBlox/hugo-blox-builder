@@ -48,7 +48,110 @@
 {{/* Process gradients and images */}}
 {{ $background_layers := slice }}
 {{ $gradient_layer := "" }}
+{{ $has_gradient_mesh := false }}
+{{ $gradient_mesh_html := "" }}
 
+{{/* Enhanced Gradient Mesh System */}}
+{{ $gradient_mesh := $bg.gradient_mesh | default dict }}
+{{ if $gradient_mesh.enable }}
+  {{ $has_gradient_mesh = true }}
+  {{ $mesh_style := $gradient_mesh.style | default "orbs" }}
+  {{ $mesh_animation_raw := $gradient_mesh.animation | default "pulse" }}
+  {{ $mesh_intensity := $gradient_mesh.intensity | default "subtle" }}
+  {{ $mesh_colors := $gradient_mesh.colors | default (slice "primary-500/20" "primary-600/20") }}
+  
+  {{/* Map animation names to CSS classes */}}
+  {{ $mesh_animation := "" }}
+  {{ if eq $mesh_animation_raw "pulse" }}
+    {{ $mesh_animation = "pulse" }}
+  {{ else if eq $mesh_animation_raw "float" }}
+    {{ $mesh_animation = "float" }}
+  {{ else if eq $mesh_animation_raw "rotate" }}
+    {{ $mesh_animation = "rotate-slow" }}
+  {{ else if ne $mesh_animation_raw "none" }}
+    {{ $mesh_animation = "pulse" }} {{/* Default fallback */}}
+  {{ end }}
+  
+  {{/* Build gradient mesh HTML */}}
+  {{ $mesh_html := "<div class=\"absolute inset-0 -z-10\">" }}
+  
+  {{/* Base gradient overlay */}}
+  {{ $base_gradient := printf "<div class=\"absolute inset-0 bg-gradient-to-br from-%s via-transparent to-%s\"></div>" (index $mesh_colors 0) (index $mesh_colors 1) }}
+  {{ $mesh_html = printf "%s%s" $mesh_html $base_gradient }}
+  
+  {{/* Animated elements based on style */}}
+  {{ if eq $mesh_style "orbs" }}
+    {{ $orb_count := $gradient_mesh.orb_count | default 2 }}
+    {{ $orb_positions := $gradient_mesh.positions | default (slice "top-0 left-1/4" "bottom-0 right-1/4") }}
+    {{ $orb_sizes := $gradient_mesh.sizes | default (slice "w-96 h-96" "w-96 h-96") }}
+    
+    {{ range $index, $position := first $orb_count $orb_positions }}
+      {{ $size := index $orb_sizes $index | default "w-96 h-96" }}
+      {{ $color := index $mesh_colors $index | default "primary-500/30" }}
+      {{ $blur_class := cond (eq $mesh_intensity "bold") "blur-2xl" (cond (eq $mesh_intensity "medium") "blur-3xl" "blur-3xl") }}
+      {{ $opacity := cond (eq $mesh_intensity "bold") "40" (cond (eq $mesh_intensity "medium") "30" "30") }}
+      
+      {{/* Extract base color and adjust opacity for orbs */}}
+      {{ $orb_color := $color }}
+      {{ if not (in $color "/") }}
+        {{ $orb_color = printf "%s/%s" $color $opacity }}
+      {{ end }}
+      
+      {{ $animation_delay := "" }}
+      {{ if gt $index 0 }}
+        {{ $animation_delay = printf " style=\"animation-delay: %ds;\"" (mul $index 2) }}
+      {{ end }}
+      
+      {{/* Build orb with or without animation */}}
+      {{ $animate_class := cond (ne $mesh_animation "") (printf "animate-%s" $mesh_animation) "" }}
+      {{ $orb := printf "<div class=\"absolute %s %s bg-%s rounded-full filter %s %s\"%s></div>" $position $size $orb_color $blur_class $animate_class $animation_delay }}
+      {{ $mesh_html = printf "%s%s" $mesh_html $orb }}
+    {{ end }}
+    
+  {{ else if eq $mesh_style "waves" }}
+    {{/* Flowing wave effect - multiple horizontal bands */}}
+    {{ $wave_count := $gradient_mesh.wave_count | default 3 }}
+    {{ $blur_class := cond (eq $mesh_intensity "bold") "blur-2xl" (cond (eq $mesh_intensity "medium") "blur-3xl" "blur-3xl") }}
+    
+    {{ range $index := seq 0 (sub $wave_count 1) }}
+      {{ $color_index := mod $index (len $mesh_colors) }}
+      {{ $color := index $mesh_colors $color_index }}
+      {{ $top_pos := mul $index 33 }}
+      {{ $height := "h-64" }}
+      {{ $anim_delay := printf " style=\"animation-delay: %ds; animation-duration: %ds;\"" (mul $index 1) (add 8 (mul $index 2)) }}
+      
+      {{/* Apply animation if not none */}}
+      {{ $animate_class := cond (ne $mesh_animation "") (printf "animate-%s" $mesh_animation) "" }}
+      {{ $wave := printf "<div class=\"absolute left-0 right-0 %s bg-%s filter %s %s\" style=\"top: %d%%; transform: skewY(-2deg);\"%s></div>" $height $color $blur_class $animate_class $top_pos $anim_delay }}
+      {{ $mesh_html = printf "%s%s" $mesh_html $wave }}
+    {{ end }}
+    
+  {{ else if eq $mesh_style "dots" }}
+    {{/* Dotted grid pattern */}}
+    {{ $dot_size := $gradient_mesh.dot_size | default "w-4 h-4" }}
+    {{ $spacing := $gradient_mesh.spacing | default "16" }}
+    {{ $color := index $mesh_colors 0 | default "primary-500/20" }}
+    
+    {{/* Create a dotted pattern background */}}
+    {{ $dots := printf "<div class=\"absolute inset-0\" style=\"background-image: radial-gradient(circle, rgb(59 130 246 / 0.2) 2px, transparent 2px); background-size: %spx %spx; background-position: 0 0, %spx %spx;\"></div>" $spacing $spacing (div (int $spacing) 2) (div (int $spacing) 2) }}
+    {{ $mesh_html = printf "%s%s" $mesh_html $dots }}
+    
+  {{ else if eq $mesh_style "grid" }}
+    {{/* Grid lines pattern */}}
+    {{ $color := index $mesh_colors 0 | default "primary-500/10" }}
+    {{ $line_width := $gradient_mesh.line_width | default "1" }}
+    {{ $spacing := $gradient_mesh.spacing | default "32" }}
+    
+    {{/* Create grid pattern */}}
+    {{ $grid := printf "<div class=\"absolute inset-0\" style=\"background-image: linear-gradient(rgb(59 130 246 / 0.1) %spx, transparent %spx), linear-gradient(90deg, rgb(59 130 246 / 0.1) %spx, transparent %spx); background-size: %spx %spx;\"></div>" $line_width $line_width $line_width $line_width $spacing $spacing }}
+    {{ $mesh_html = printf "%s%s" $mesh_html $grid }}
+  {{ end }}
+  
+  {{ $mesh_html = printf "%s</div>" $mesh_html }}
+  {{ $gradient_mesh_html = $mesh_html | safeHTML }}
+{{ end }}
+
+{{/* Legacy simple gradient support */}}
 {{ if and $bg.gradient.start $bg.gradient.end }}
   {{ $angle := string $bg.gradient.direction | default "135" }}
   {{ $start_color := $bg.gradient.start }}
@@ -56,6 +159,17 @@
   {{ $gradient_layer = printf "linear-gradient(%sdeg, %s, %s)" $angle $start_color $end_color }}
 {{ end }}
 
+{{/* Process video backgrounds */}}
+{{ $bg_video := "" }}
+{{ $bg_video_class := "" }}
+{{ if $bg.video.filename }}
+  {{ $bg_video = resources.Get (printf "media/%s" $bg.video.filename) }}
+  {{ if $bg.video.flip }}
+    {{ $bg_video_class = "flip" }}
+  {{ end }}
+{{ end }}
+
+{{/* Process image backgrounds */}}
 {{ if $bg.image.filename }}
   {{ $bg_img := resources.Get (printf "media/%s" $bg.image.filename) }}
   {{ if $bg_img }}
@@ -94,8 +208,12 @@
 {{/* Route to appropriate handler */}}
 {{ if $is_preact }}
   {{/* Render Preact block with styling wrapper */}}
-  <section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
-    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
+  <section id="{{$hash_id}}" class="relative {{if $has_gradient_mesh}}overflow-hidden{{end}} hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+    {{/* Gradient Mesh Background */}}
+    {{ if $has_gradient_mesh }}{{ $gradient_mesh_html }}{{ end }}
+    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
+      {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
+    </div>
     {{/* Use generic Preact wrapper for content */}}
     {{ partial "blox/preact-wrapper" (dict "wcPage" $page "wcBlock" $block "wcBlockType" $block_type "wcIdentifier" $hash_id) }}
   </section>
@@ -118,8 +236,12 @@
   {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
 
   {{/* Render traditional block with wrapper */}}
-  <section id="{{$hash_id}}" class="relative hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
-    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}></div>
+  <section id="{{$hash_id}}" class="relative {{if $has_gradient_mesh}}overflow-hidden{{end}} hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+    {{/* Gradient Mesh Background */}}
+    {{ if $has_gradient_mesh }}{{ $gradient_mesh_html }}{{ end }}
+    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
+      {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
+    </div>
     {{ partial $block_path $widget_args }}
   </section>
 {{ end }}

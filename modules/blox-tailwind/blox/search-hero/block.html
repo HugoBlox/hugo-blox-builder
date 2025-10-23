@@ -1,0 +1,98 @@
+{{- $wcPage := .wcPage -}}
+{{- $wcBlock := .wcBlock -}}
+{{- $wcIdentifier := .wcIdentifier -}}
+
+{{/* Enable Alpine.js for interactivity */}}
+{{ $wcPage.Page.Store.Set "has_alpine" true }}
+
+{{/* Background is now handled by parse_block_v3.html gradient_mesh system */}}
+{{/* Content only - wrapper and styling applied by framework */}}
+<div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      
+      {{/* Badge */}}
+      {{ with $wcBlock.content.badge }}
+      <div class="mb-8 inline-flex items-center gap-2 rounded-full bg-primary-100 dark:bg-primary-900/30 px-4 py-2 text-sm font-medium text-primary-800 dark:text-primary-200">
+        {{ with .show_pulse }}
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+        </span>
+        {{ end }}
+        {{ .text | markdownify }}
+      </div>
+      {{ end }}
+      
+      {{/* Title - supports ==highlight== syntax for gradient text */}}
+      {{ $title := $wcBlock.content.title }}
+      {{/* Replace ==text== with gradient-highlighted spans - supports multiple highlights */}}
+      {{ $title = replaceRE "==([^=]+)==" "<span class=\"bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent\">$1</span>" $title }}
+      
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl mb-6">
+        {{ $title | markdownify | emojify | safeHTML }}
+      </h1>
+      
+      {{/* Subtitle */}}
+      {{ with $wcBlock.content.subtitle }}
+      <p class="text-lg leading-8 text-gray-600 dark:text-gray-300 mb-12">
+        {{ . | markdownify | emojify }}
+      </p>
+      {{ end }}
+      
+      {{/* Search Box - Integrates with Pagefind */}}
+      <div class="relative" x-data="{ searchFocus: false }">
+        <button 
+          data-search-toggle
+          type="button"
+          class="w-full group cursor-pointer"
+          aria-label="Open search">
+          <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:ring-2 hover:ring-primary-500 hover:scale-105" 
+               :class="{ 'ring-2 ring-primary-500 scale-105': searchFocus }">
+            <div class="w-full px-6 py-5 pl-14 pr-32 text-left">
+              <span class="text-gray-400 dark:text-gray-500 text-lg">{{ $wcBlock.content.search_placeholder | default "Search for answers..." }}</span>
+            </div>
+            <div class="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <div class="absolute inset-y-2 right-2 flex items-center px-4 py-2 bg-primary-600 group-hover:bg-primary-700 text-white rounded-xl font-medium transition-colors pointer-events-none">
+              Search
+              <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </div>
+          </div>
+        </button>
+        
+        {{/* Quick search suggestions - Now trigger Pagefind with pre-filled query */}}
+        {{ with $wcBlock.content.suggestions }}
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+          <span class="text-gray-500 dark:text-gray-400">Popular:</span>
+          {{ range . }}
+          <button
+            data-search-toggle
+            data-search-query="{{ . }}"
+            type="button" 
+            class="px-3 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer">
+            {{ . }}
+          </button>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+      
+      {{/* Stats */}}
+      {{ if $wcBlock.content.stats }}
+      <div class="mt-16 grid grid-cols-3 gap-8 text-center">
+        {{ range $wcBlock.content.stats }}
+        <div>
+          <div class="text-3xl font-bold text-gray-900 dark:text-white">{{ .value }}</div>
+          <div class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ .label }}</div>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+      
+    </div>
+  </div>

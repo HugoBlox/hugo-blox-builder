@@ -1,0 +1,88 @@
+/* Hugo Blox Search - Custom Pagefind Implementation */
+
+/* Animations */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Search result highlights */
+.search-result mark {
+  background-color: rgb(254 240 138);
+  color: rgb(17 24 39);
+  font-weight: 600;
+  padding: 0.05rem 0.2rem;
+  border-radius: 0.125rem;
+}
+
+.dark .search-result mark {
+  background-color: rgb(133 77 14);
+  color: rgb(254 240 138);
+}
+
+/* Result hover state */
+.search-result:hover mark {
+  background-color: rgb(253 224 71);
+}
+
+.dark .search-result:hover mark {
+  background-color: rgb(161 98 7);
+}
+
+/* Smooth transitions */
+.search-modal-enter {
+  animation: slideInUp 0.2s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Loading skeleton */
+.search-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgb(229 231 235) 25%,
+    rgb(243 244 246) 50%,
+    rgb(229 231 235) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .search-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgb(55 65 81) 25%,
+    rgb(75 85 99) 50%,
+    rgb(55 65 81) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Keyboard navigation highlight - handled by Alpine :class binding */
+/* Smooth transition for selection state */
+.search-result {
+  transition: all 0.15s ease;
+}
+
+/* Additional hover effects for keyboard-selected items */
+.search-result:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: -2px;
+}

@@ -35,5 +35,8 @@
 @import "views/all.css";
 @import "chroma.css";
 
+/* Hugo Blox Search */
+@import "hb-search.css";
+
 /* Safelist for dynamic classes */
 @import "config/safelist.css";

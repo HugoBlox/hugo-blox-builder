@@ -29,48 +29,25 @@
   {{ end }}
 {{ end }}
 
+{{/* Show site search? */}}
+{{ $show_search := site.Params.header.navbar.show_search | default false }}
+
 {{/* Load Alpine JS extension? */}}
-{{ if (.Page.Store.Get "has_alpine") }}
+{{/* Alpine is needed for search modal and other interactive components */}}
+{{ if or (.Page.Store.Get "has_alpine") $show_search }}
   <script>console.log('✓ Alpine.js loading on demand');</script>
   {{ $alpine_js := resources.Get "dist/lib/alpinejs/cdn.min.js" }}
   {{ $alpine_js = $alpine_js | resources.Fingerprint "sha256" }}
   <script src="{{ $alpine_js.RelPermalink }}" integrity="{{ $alpine_js.Data.Integrity }}" defer></script>
 {{ end }}
 
-{{/* Show site search? */}}
-{{ $show_search := site.Params.header.navbar.show_search | default false }}
+{{/* Hugo Blox Search JavaScript (CSS is in main.css) */}}
 {{ if $show_search }}
-{{ $pf_css := resources.Get "dist/pagefind/pagefind-ui.css" }}
-{{ $pf_css = $pf_css | resources.Fingerprint "sha256" }}
-<link type="text/css" rel="stylesheet" href="{{ $pf_css.RelPermalink }}" integrity="{{ $pf_css.Data.Integrity }}" />
-{{ $pf_js := resources.Get "dist/pagefind/pagefind-ui.js" }}
-{{ $pf_js = $pf_js | resources.Fingerprint "sha256" }}
-<script src="{{ $pf_js.RelPermalink }}" integrity="{{ $pf_js.Data.Integrity }}"></script>
-
-{{ $search_config := dict "baseUrl" (relURL "") }}
-<script id="search-config" type="application/json">{{ $search_config | jsonify | safeJS }}</script>
-
-<style>
-  html.dark {
-    --pagefind-ui-primary: #eeeeee;
-    --pagefind-ui-text: #eeeeee;
-    --pagefind-ui-background: #152028;
-    --pagefind-ui-border: #152028;
-    --pagefind-ui-tag: #152028;
-  }
-
-  /* Make search modal close button match size of search input */
-  .search-close > svg {
-    height: calc(64px * var(--pagefind-ui-scale));
-    width: calc(64px * var(--pagefind-ui-scale));
-  }
-</style>
-
 {{ $search_js := resources.Get "js/hb-search.js" | resources.Minify }}
 {{- if hugo.IsProduction -}}
   {{ $search_js = $search_js | fingerprint "sha256" }}
 {{- end -}}
-<script defer src="{{ $search_js.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $search_js.Data.Integrity }}" crossorigin="anonymous"{{ end }}></script>
+<script defer src="{{ $search_js.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $search_js.Data.Integrity }}"{{ end }}></script>
 {{ end }}
 
 {{/* Mermaid */}}

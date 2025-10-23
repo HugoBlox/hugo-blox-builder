@@ -1,0 +1,32 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg)"/>
+  
+  <!-- Title -->
+  <text x="200" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1e293b" text-anchor="middle">FAQ</text>
+  
+  <!-- FAQ Item 1 -->
+  <rect x="50" y="70" width="300" height="50" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="95" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#334155">What is this feature?</text>
+  <path d="M320 93 l5 5 l5 -5" stroke="#64748b" stroke-width="2" fill="none"/>
+  
+  <!-- FAQ Item 2 -->
+  <rect x="50" y="130" width="300" height="50" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="155" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#334155">How does it work?</text>
+  <path d="M320 153 l5 5 l5 -5" stroke="#64748b" stroke-width="2" fill="none"/>
+  
+  <!-- FAQ Item 3 Expanded -->
+  <rect x="50" y="190" width="300" height="80" rx="8" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="70" y="215" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#334155">Where can I learn more?</text>
+  <path d="M320 213 l5 -5 l5 5" stroke="#3b82f6" stroke-width="2" fill="none"/>
+  <text x="70" y="240" font-family="Arial, sans-serif" font-size="12" fill="#64748b">Check our documentation</text>
+  <text x="70" y="255" font-family="Arial, sans-serif" font-size="12" fill="#64748b">for detailed guides...</text>
+</svg>
+

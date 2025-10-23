@@ -1,0 +1,8 @@
+{
+  "name": "search-hero",
+  "version": "1",
+  "title": "Search Hero",
+  "description": "Hero section with prominent search for knowledge bases",
+  "categories": ["hero", "search"],
+  "preview": "preview.svg"
+}

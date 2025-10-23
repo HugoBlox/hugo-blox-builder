@@ -107,6 +107,17 @@
         {{ end }}
       {{ end }}
       
+      {{/* Detect FAQ blocks for JSON-LD structured data (avoid race conditions) */}}
+      {{ if eq $block_type "faq" }}
+        {{ if $block.content.items }}
+          {{ $faq_items := $page.Store.Get "faq_items" | default slice }}
+          {{ range $block.content.items }}
+            {{ $faq_items = $faq_items | append (dict "question" .question "answer" .answer) }}
+          {{ end }}
+          {{ $page.Store.Set "faq_items" $faq_items }}
+        {{ end }}
+      {{ end }}
+      
       {{ $widget_config_file := printf "blox/%s/config.html" $block_type }}
       {{ if templates.Exists (printf "_partials/%s" $widget_config_file) }}
         {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}

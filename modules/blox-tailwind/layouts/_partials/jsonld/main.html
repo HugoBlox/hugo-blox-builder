@@ -20,4 +20,19 @@
     {{ partial "jsonld/event.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 
+  {{/* Q&A Page - individual question/answer page */}}
+  {{ if eq $page.Type "questions" }}
+    {{ partial "jsonld/qapage.html" (dict "page" $page "summary" $summary) }}
+  {{ end }}
+
+  {{/* FAQ Page type */}}
+  {{ if eq $page.Type "faq" }}
+    {{ partial "jsonld/faqpage.html" (dict "page" $page "summary" $summary) }}
+  {{ end }}
+
 {{- end }}
+
+{{/* FAQ content - can appear on any page type including landing pages and homepage */}}
+{{ if or ($page.Params.faq_page) ($page.Params.faqs) }}
+  {{ partial "jsonld/faqpage.html" (dict "page" $page "summary" $summary) }}
+{{ end }}

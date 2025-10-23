@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Trending Questions Block",
+  "description": "Display trending or featured questions",
+  "properties": {
+    "content": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string"
+              },
+              "answer_preview": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              },
+              "badge": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              },
+              "author": {
+                "type": "string"
+              },
+              "views": {
+                "type": "string"
+              },
+              "upvotes": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "view_all": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "link": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "type": "object",
+      "properties": {
+        "spacing": {
+          "type": "object"
+        },
+        "background": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,9 +9,16 @@
       </div>
       {{ end }}
 
-      <div class="content text-base">
+      {{/* Pagefind metadata for search filtering */}}
+      <div class="content" data-pagefind-body data-pagefind-meta="title:{{ .Title }}">
         <h1>{{ .Title }}</h1>
         {{ .Content }}
+
+        {{/* Use hidden spans for filter values - best practice per Pagefind docs */}}
+        <span data-pagefind-filter="type" style="display:none;">docs</span>
+        {{ with .Params.categories }}
+            <span data-pagefind-filter="category" style="display:none;">{{ index . 0 }}</span>
+        {{ end }}
       </div>
 
       {{ partial "components/last-edited.html" . }}

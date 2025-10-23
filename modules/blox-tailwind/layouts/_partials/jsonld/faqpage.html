@@ -1,0 +1,48 @@
+{{- $page := .page }}
+{{ $summary := .summary }}
+
+{{/* Get FAQ items - can be from params.faqs, Page.Store (from init.html), or child pages */}}
+{{ $faq_items := slice }}
+
+{{/* Method 1: FAQ items defined in front matter */}}
+{{ if $page.Params.faqs }}
+  {{ $faq_items = $page.Params.faqs }}
+{{ end }}
+
+{{/* Method 2: Extract from Page.Store (populated by init.html to avoid race conditions) */}}
+{{ if not $faq_items }}
+  {{ with $page.Store.Get "faq_items" }}
+    {{ $faq_items = . }}
+  {{ end }}
+{{ end }}
+
+{{/* Method 3: Auto-generate from child pages in a FAQ section */}}
+{{ if and (not $faq_items) ($page.IsSection) }}
+  {{ range $page.RegularPages }}
+    {{ $faq_items = $faq_items | append (dict "question" (.Params.question | default .Title) "answer" (.Params.answer | default .Summary | default (.Content | plainify))) }}
+  {{ end }}
+{{ end }}
+
+{{/* Only output FAQ schema if we have FAQ items */}}
+{{ if $faq_items }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $index, $item := $faq_items -}}
+    {{- if $index }},{{ end -}}
+    {
+      "@type": "Question",
+      "name": {{ $item.question | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ $item.answer | plainify | jsonify }}
+      }
+    }
+    {{- end -}}
+  ]
+}
+</script>
+{{ end }}
+

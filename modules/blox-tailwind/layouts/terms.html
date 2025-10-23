@@ -1,5 +1,8 @@
 {{ define "main" }}
 
+{{/* Exclude taxonomy term listing pages from search indexing */}}
+<div data-pagefind-ignore>
+
 <div class="max-w-prose mx-auto flex justify-start">
   <article class="prose prose-slate lg:prose-xl dark:prose-invert max-w-none">
     <h1 class="lg:text-6xl !mb-4">{{ .Title }}</h1>
@@ -28,5 +31,7 @@
   </div>
 
 </div>
+
+</div>{{/* End pagefind-ignore wrapper */}}
 
 {{- end -}}

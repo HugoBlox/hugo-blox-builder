@@ -67,14 +67,16 @@
           </a>
         {{ end }}
       {{ else }}
-        <!-- Fallback gradient with subtle pattern -->
-        <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-          <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-            <svg class="w-8 h-8 text-white/60" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
-            </svg>
+        <!-- Fallback gradient with subtle pattern - make clickable for consistency -->
+        <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block w-full h-full">
+          <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center hover:from-blue-500/30 hover:to-purple-500/30 transition-colors duration-300">
+            <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white/60" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
           </div>
-        </div>
+        </a>
       {{end}}
       
       <!-- Subtle overlay for better text contrast (allow clicks to pass through) -->

@@ -335,6 +335,48 @@
 - id: authors
   translation: Authors
 
+- id: qa
+  translation: Q&A
+
+- id: questions
+  translation: Questions
+
+- id: faq
+  translation: FAQ
+
+- id: faqs
+  translation: FAQs
+
+- id: docs
+  translation: Documentation
+
+- id: question
+  translation: Question
+
+- id: answer
+  translation: Answer
+
+- id: accepted_answer
+  translation: Accepted Answer
+
+- id: other_answers
+  translation: Other Answers
+
+- id: related_questions
+  translation: Related Questions
+
+- id: browse_by_category
+  translation: Browse by Category
+
+- id: search_questions
+  translation: Search questions...
+
+- id: no_questions_yet
+  translation: No questions yet. Check back soon!
+
+- id: questions_count
+  translation: questions
+
 # Search
 
 - id: search
@@ -409,3 +451,18 @@
 # Card metadata
 - id: trending
   translation: Trending
+
+- id: article
+  translation: article
+
+- id: articles
+  translation: articles
+
+- id: browse
+  translation: Browse
+
+- id: all
+  translation: All
+
+- id: helpful
+  translation: helpful

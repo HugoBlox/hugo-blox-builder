@@ -1,20 +1,523 @@
+{{/* Modern Search Modal - Custom Pagefind API Implementation */}}
 <div
-  id="search-wrapper"
-  class="hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 flex flex-col overflow-hidden"
+  x-data="searchModal()"
+  x-show="$store.search.open"
+  @keydown.escape.window="$store.search.open = false"
+  @keydown.cmd.k.window.prevent="$store.search.open = !$store.search.open"
+  @keydown.ctrl.k.window.prevent="$store.search.open = !$store.search.open"
+  x-cloak
+  class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm"
+  style="display: none;"
 >
-  <div class="flex justify-end p-3">
+  {{/* Backdrop */}}
+  <div class="absolute inset-0" @click="$store.search.open = false"></div>
+  
+  {{/* Modal Container */}}
+  <div 
+    class="relative mx-auto mt-[10vh] max-w-3xl"
+    x-show="$store.search.open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+    x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+  >
+    <div class="mx-4 overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10">
+      
+      {{/* Search Header */}}
+      <div class="border-b border-gray-200 dark:border-gray-800">
+        <div class="flex items-center gap-3 px-4 py-3">
+          
+          {{/* Search Icon */}}
+          <svg class="h-5 w-5 flex-shrink-0 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          
+          {{/* Search Input */}}
+          <input
+            x-ref="searchInput"
+            x-model="query"
+            @input="loading = query.trim() !== ''"
+            @input.debounce.300ms="search()"
+            type="text"
+            placeholder="Search for answers..."
+            class="flex-1 bg-transparent text-lg outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400"
+            autocomplete="off"
+            autofocus
+          />
+          
+          {{/* Loading Indicator */}}
+          <div x-show="loading" class="flex-shrink-0">
+            <svg class="animate-spin h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </div>
+          
+          {{/* ESC hint */}}
+          <kbd class="hidden sm:block flex-shrink-0 rounded bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-600 dark:bg-gray-800 dark:text-gray-400">ESC</kbd>
+          
+          {{/* Close Button */}}
     <button
-      aria-label="search"
-      class="search-close text-black hover:text-primary dark:text-white"
-      data-search-toggle
+            @click="$store.search.open = false"
+            class="flex-shrink-0 rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300 cursor-pointer"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
   </div>
 
-  <div id="search" class="flex-1 overflow-y-auto p-3">
-    <!-- Search content displayed here -->
+        {{/* Filters - Auto-show when search has results */}}
+        <div x-show="query && availableFilters.length > 0" x-transition class="border-t border-gray-100 dark:border-gray-800 px-4 py-2">
+          <div class="flex flex-wrap gap-2">
+            <button
+              @click="activeFilter = null; search()"
+              :class="activeFilter === null ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400'"
+              class="rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer"
+            >
+              All Results
+            </button>
+            <template x-for="filter in availableFilters" :key="filter.filterKey">
+              <button
+                @click="activeFilter = filter.filterKey; search()"
+                :class="activeFilter === filter.filterKey ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400'"
+                class="rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer"
+                x-text="filter.label + ' (' + filter.count + ')'"
+              ></button>
+            </template>
+          </div>
+        </div>
+      </div>
+      
+      {{/* Results Container */}}
+      <div class="max-h-[60vh] overflow-y-auto">
+        
+        {{/* Empty State - Quick Actions */}}
+        <div x-show="!query && results.length === 0" class="p-6">
+          
+          {{/* Quick Actions - Configurable via site params */}}
+          {{ $quick_actions := site.Params.features.search.quick_actions }}
+          {{ if $quick_actions }}
+          <div class="mb-8">
+            <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              Quick Actions
+            </h3>
+            <div class="grid gap-3 sm:grid-cols-2">
+              {{ range $quick_actions }}
+              <a href="{{ .url }}" {{ if .external }}target="_blank" rel="noopener"{{ end }} class="group flex items-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:border-{{ .color | default "primary" }}-500 hover:bg-{{ .color | default "primary" }}-50 dark:hover:bg-{{ .color | default "primary" }}-900/10 transition-all">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-{{ .color | default "primary" }}-100 text-{{ .color | default "primary" }}-600 dark:bg-{{ .color | default "primary" }}-900 dark:text-{{ .color | default "primary" }}-400">
+                  {{ partial "functions/get_icon" (dict "name" (.icon | default "question-mark-circle") "attributes" "class=\"h-5 w-5\"") }}
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-semibold text-gray-900 dark:text-white truncate">{{ .title }}</div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400 truncate">{{ .description }}</div>
+                </div>
+                {{ if .external }}
+                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+                {{ end }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+          
+          {{/* Trending Searches - Configurable via site params */}}
+          {{ $trending := site.Params.features.search.trending_searches }}
+          {{ if $trending }}
+          <div>
+            <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              Trending Searches
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {{ range $trending }}
+              <button
+                @click="query = '{{ . }}'; search()"
+                class="rounded-full bg-gradient-to-r from-primary-100 to-blue-100 dark:from-primary-900/50 dark:to-blue-900/50 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:from-primary-200 hover:to-blue-200 dark:hover:from-primary-800/50 dark:hover:to-blue-800/50 transition-all cursor-pointer"
+              >
+                {{ . }}
+              </button>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+        
+        {{/* Search Results */}}
+        <div x-show="query && results.length > 0" class="divide-y divide-gray-200 dark:divide-gray-800">
+          <template x-for="(result, index) in results" :key="result.id">
+            <a
+              :href="result.url"
+              @mouseenter="selectedIndex = index"
+              @click="$store.search.open = false"
+              :class="selectedIndex === index ? 'bg-primary-50 dark:bg-primary-900/20 border-l-2 border-primary-600' : ''"
+              class="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group search-result"
+            >
+              {{/* Result Badges */}}
+              <div class="flex items-center gap-2 mb-2 flex-wrap">
+                {{/* Type badge with i18n */}}
+                <span
+                  x-show="result.filters && result.filters.type"
+                  :class="{
+                    'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300': result.filters.type && result.filters.type[0] === 'questions',
+                    'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300': result.filters.type && result.filters.type[0] === 'faq',
+                    'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300': result.filters.type && result.filters.type[0] === 'docs'
+                  }"
+                  class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium"
+                  x-text="result.filters.type ? (typeLabels[result.filters.type[0]] || result.filters.type[0]) : ''"
+                ></span>
+                
+                {{/* Category badge */}}
+                <span 
+                  x-show="result.filters && result.filters.category" 
+                  class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                  x-text="result.filters.category ? result.filters.category[0] : ''"
+                ></span>
+                
+                {{/* Difficulty badge */}}
+                <span 
+                  x-show="result.filters && result.filters.difficulty" 
+                  class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300"
+                  x-text="result.filters.difficulty ? result.filters.difficulty[0] : ''"
+                ></span>
+              </div>
+              
+              {{/* Title */}}
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors mb-2" x-html="result.meta.title || 'Untitled'"></h3>
+              
+              {{/* Excerpt */}}
+              <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" x-html="result.excerpt"></p>
+            </a>
+          </template>
+        </div>
+        
+        {{/* Loading State */}}
+        <div x-show="query && loading" class="px-6 py-16 text-center">
+          <div class="inline-flex items-center gap-3">
+            <svg class="animate-spin h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <div class="text-left">
+              <p class="text-lg font-medium text-gray-900 dark:text-white">Searching...</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400" x-text="'Finding results for &quot;' + query + '&quot;'"></p>
+            </div>
+          </div>
+        </div>
+        
+        {{/* No Results - Only show if search has completed at least once */}}
+        <div x-show="query && results.length === 0 && !loading && hasSearched" class="px-6 py-12 text-center">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">No results found</h3>
+          <p class="mt-2 text-gray-600 dark:text-gray-400" x-text="'No results for &quot;' + query + '&quot;'"></p>
+          <button
+            @click="query = ''; $refs.searchInput.focus()"
+            class="mt-4 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
+          >
+            Clear search
+          </button>
+        </div>
+      </div>
+      
+      {{/* Footer */}}
+      <div class="border-t border-gray-200 dark:border-gray-800 px-4 py-3 bg-gray-50 dark:bg-gray-900/50">
+        <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1">
+              <kbd class="rounded bg-white dark:bg-gray-800 px-1.5 py-0.5 font-mono text-[10px] font-semibold border border-gray-300 dark:border-gray-700">↑↓</kbd>
+              Navigate
+            </span>
+            <span class="flex items-center gap-1">
+              <kbd class="rounded bg-white dark:bg-gray-800 px-1.5 py-0.5 font-mono text-[10px] font-semibold border border-gray-300 dark:border-gray-700">↵</kbd>
+              Select
+            </span>
+            <span x-show="availableFilters.length > 0" class="flex items-center gap-1">
+              <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+              </svg>
+              <span x-text="availableFilters.length + ' filters'"></span>
+            </span>
+          </div>
+          <a href="https://hugoblox.com" target="_blank" rel="noopener" class="flex items-center gap-1 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+            <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Powered by Hugo Blox
+          </a>
+        </div>
+      </div>
+      
+    </div>
   </div>
 </div>
+
+<script>
+  // Alpine.js component for search modal
+  function searchModal() {
+    return {
+      query: '',
+      results: [],
+      loading: false,
+      hasSearched: false,  // Track if at least one search has completed
+      selectedIndex: -1,
+      activeFilter: null,
+      availableFilters: [],
+      trendingSearches: {{ site.Params.features.search.trending_searches | default (slice "Search term 1" "Search term 2") | jsonify }},
+      pagefind: null,
+      
+      // i18n translations for content types
+      typeLabels: {
+        'questions': {{ i18n "questions" | default "Questions" | jsonify }},
+        'faq': {{ i18n "faq" | default "FAQ" | jsonify }},
+        'docs': {{ i18n "docs" | default "Documentation" | jsonify }}
+      },
+      
+      async init() {
+        // Initialize Pagefind
+        try {
+          this.pagefind = await import('/pagefind/pagefind.js');
+          await this.pagefind.init();
+          console.log('✓ Pagefind initialized');
+          
+          // Load available filters
+          await this.loadFilters();
+        } catch (error) {
+          console.error('Failed to initialize Pagefind:', error);
+        }
+        
+        // Keyboard navigation
+        this.$watch('$store.search.open', (open) => {
+          if (open) {
+            this.$nextTick(() => this.$refs.searchInput?.focus());
+            document.body.style.overflow = 'hidden';
+          } else {
+            document.body.style.overflow = '';
+            this.query = '';
+            this.results = [];
+            this.selectedIndex = -1;
+            this.hasSearched = false;  // Reset search state when modal closes
+          }
+        });
+        
+        // Arrow key and Enter navigation
+        window.addEventListener('keydown', (e) => {
+          if (!this.$store.search.open || this.results.length === 0) return;
+          
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            this.selectedIndex = this.selectedIndex < this.results.length - 1 ? this.selectedIndex + 1 : 0;
+            this.scrollToSelected();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            this.selectedIndex = this.selectedIndex > 0 ? this.selectedIndex - 1 : this.results.length - 1;
+            this.scrollToSelected();
+          } else if (e.key === 'Enter' && this.selectedIndex >= 0) {
+            e.preventDefault();
+            const selected = this.results[this.selectedIndex];
+            if (selected) {
+              window.location.href = selected.url;
+              this.$store.search.open = false;
+            }
+          }
+        });
+      },
+      
+      scrollToSelected() {
+        this.$nextTick(() => {
+          const selectedEl = document.querySelector('.search-result:nth-child(' + (this.selectedIndex + 1) + ')');
+          if (selectedEl) {
+            selectedEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+        });
+      },
+      
+      async search() {
+        if (!this.query.trim()) {
+          this.results = [];
+          this.hasSearched = false;
+          return;
+        }
+        
+        this.loading = true;
+        this.hasSearched = false;  // Reset until search completes
+        
+        try {
+          const options = {};
+          
+          // Apply active filter if selected
+          if (this.activeFilter) {
+            const [filterCategory, filterValue] = this.activeFilter.split(':');
+            options.filters = { [filterCategory]: filterValue };
+          }
+          
+          const search = await this.pagefind.search(this.query, options);
+          console.log('Search results:', search);
+          console.log('Search filters:', search.filters);
+          
+          // Process results
+          this.results = await Promise.all(
+            search.results.slice(0, 10).map(async (result) => {
+              const data = await result.data();
+              console.log('Result data:', data);
+              return {
+                id: data.url,
+                url: data.url,
+                meta: data.meta,
+                excerpt: data.excerpt,
+                filters: data.filters || {}
+              };
+            })
+          );
+          
+          // Extract unique filters from results themselves
+          const filterCounts = { type: {}, category: {}, difficulty: {} };
+          
+          this.results.forEach(result => {
+            if (result.filters) {
+              // Count type filters
+              if (result.filters.type) {
+                result.filters.type.forEach(val => {
+                  filterCounts.type[val] = (filterCounts.type[val] || 0) + 1;
+                });
+              }
+              // Count category filters
+              if (result.filters.category) {
+                result.filters.category.forEach(val => {
+                  filterCounts.category[val] = (filterCounts.category[val] || 0) + 1;
+                });
+              }
+              // Count difficulty filters
+              if (result.filters.difficulty) {
+                result.filters.difficulty.forEach(val => {
+                  filterCounts.difficulty[val] = (filterCounts.difficulty[val] || 0) + 1;
+                });
+              }
+            }
+          });
+          
+          console.log('Extracted filter counts from results:', filterCounts);
+          
+          // Build filter list
+          const filters = [];
+          
+          // Add type filters with i18n labels
+          Object.entries(filterCounts.type).forEach(([value, count]) => {
+            filters.push({
+              category: 'type',
+              value,
+              label: this.typeLabels[value] || value.charAt(0).toUpperCase() + value.slice(1),
+              count,
+              filterKey: `type:${value}`
+            });
+          });
+          
+          // Add category filters
+          Object.entries(filterCounts.category).forEach(([value, count]) => {
+            filters.push({
+              category: 'category',
+              value,
+              label: value,
+              count,
+              filterKey: `category:${value}`
+            });
+          });
+          
+          // Add difficulty filters
+          Object.entries(filterCounts.difficulty).forEach(([value, count]) => {
+            filters.push({
+              category: 'difficulty',
+              value,
+              label: value,
+              count,
+              filterKey: `difficulty:${value}`
+            });
+          });
+          
+          this.availableFilters = filters;
+          console.log('Final availableFilters array:', this.availableFilters);
+          
+          // Set first result as selected for keyboard navigation
+          if (this.results.length > 0) {
+            this.selectedIndex = 0;
+          }
+        } catch (error) {
+          console.error('Search error:', error);
+          this.results = [];
+        } finally {
+          this.loading = false;
+          this.hasSearched = true;  // Mark that search has completed
+        }
+      },
+      
+      async loadFilters() {
+        // Pre-load available filters by doing an empty search
+        try {
+          const search = await this.pagefind.search('');
+          console.log('Available Pagefind filters:', search.filters);
+          
+          const filters = [];
+          
+          // Load type filters (questions, faq, docs)
+          if (search.filters && search.filters.type) {
+            Object.entries(search.filters.type).forEach(([value, count]) => {
+              filters.push({
+                category: 'type',
+                value,
+                label: value.charAt(0).toUpperCase() + value.slice(1),
+                count,
+                filterKey: `type:${value}`
+              });
+            });
+          }
+          
+          // Load category filters
+          if (search.filters && search.filters.category) {
+            Object.entries(search.filters.category).forEach(([value, count]) => {
+              filters.push({
+                category: 'category',
+                value,
+                label: value,
+                count,
+                filterKey: `category:${value}`
+              });
+            });
+          }
+          
+          // Load difficulty filters (for questions)
+          if (search.filters && search.filters.difficulty) {
+            Object.entries(search.filters.difficulty).forEach(([value, count]) => {
+              filters.push({
+                category: 'difficulty',
+                value,
+                label: value,
+                count,
+                filterKey: `difficulty:${value}`
+              });
+            });
+          }
+          
+          this.availableFilters = filters;
+          console.log('Processed filters:', this.availableFilters);
+        } catch (error) {
+          console.error('Failed to load filters:', error);
+        }
+      }
+    };
+  }
+  
+  // Alpine store for global search state
+  document.addEventListener('alpine:init', () => {
+    Alpine.store('search', {
+      open: false
+    });
+  });
+</script>
+
+<style>
+  [x-cloak] { display: none !important; }
+</style>

@@ -1,0 +1,65 @@
+{{- define "main" -}}
+
+<div class="mx-auto flex max-w-screen-xl">
+  {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" false) }}
+  <article class="w-full min-w-0 min-h-[calc(100vh-var(--navbar-height))] px-6 pt-4 pb-8 md:px-12">
+    <div class="max-w-4xl mx-auto">
+      
+      {{ if (.Params.show_breadcrumb | default true) }}
+      <div class="mb-4">
+        {{ partial "components/breadcrumb.html" . }}
+      </div>
+      {{ end }}
+
+      <div class="prose prose-slate lg:prose-xl dark:prose-invert mb-8">
+        <h1>{{ .Title }}</h1>
+        {{ with .Content }}
+          {{ . }}
+        {{ end }}
+      </div>
+
+      {{/* List all FAQ pages */}}
+      {{ $pages := .Pages.ByDate.Reverse }}
+      
+      <div class="grid gap-6 md:grid-cols-2">
+        {{ range $pages }}
+        <a href="{{ .RelPermalink }}" class="block p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-all hover:shadow-md">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+            {{ .Title }}
+          </h3>
+          
+          {{ with .Summary }}
+          <p class="text-gray-600 dark:text-gray-400 mb-3">
+            {{ . }}
+          </p>
+          {{ end }}
+          
+          <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+            <span>
+              {{ if .Params.faqs }}
+                {{ len .Params.faqs }} {{ T "questions_count" | default "questions" }}
+              {{ else if .Pages }}
+                {{ len .Pages }} {{ T "questions_count" | default "questions" }}
+              {{ end }}
+            </span>
+            <span class="text-primary-600 dark:text-primary-400 font-medium">
+              {{ T "read_more" | default "View" }} →
+            </span>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+
+      {{ if eq (len $pages) 0 }}
+      <div class="text-center py-12 text-gray-500 dark:text-gray-400">
+        <p class="text-lg">{{ T "no_questions_yet" | default "No FAQ pages available yet." }}</p>
+      </div>
+      {{ end }}
+
+      {{ partial "components/paginator" . }}
+    </div>
+  </article>
+</div>
+
+{{- end -}}
+
