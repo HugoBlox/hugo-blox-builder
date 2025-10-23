@@ -2,7 +2,9 @@
 
 /* Animations */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin {
@@ -34,14 +36,15 @@
 
 /* Smooth transitions */
 .search-modal-enter {
-  animation: slideInUp 0.2s ease-out;
+  animation: slide-in-up 0.2s ease-out;
 }
 
-@keyframes slideInUp {
+@keyframes slide-in-up {
   from {
     opacity: 0;
     transform: translateY(1rem) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -50,29 +53,24 @@
 
 /* Loading skeleton */
 .search-skeleton {
-  background: linear-gradient(
-    90deg,
-    rgb(229 231 235) 25%,
-    rgb(243 244 246) 50%,
-    rgb(229 231 235) 75%
-  );
+  background: linear-gradient(90deg, rgb(229 231 235) 25%, rgb(243 244 246) 50%, rgb(229 231 235) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 .dark .search-skeleton {
-  background: linear-gradient(
-    90deg,
-    rgb(55 65 81) 25%,
-    rgb(75 85 99) 50%,
-    rgb(55 65 81) 75%
-  );
+  background: linear-gradient(90deg, rgb(55 65 81) 25%, rgb(75 85 99) 50%, rgb(55 65 81) 75%);
   background-size: 200% 100%;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Keyboard navigation highlight - handled by Alpine :class binding */
