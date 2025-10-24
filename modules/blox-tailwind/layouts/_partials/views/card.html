@@ -140,19 +140,33 @@
       {{ end }}
 
       <!-- Metadata section -->
-      <div class="flex flex-col gap-2 sm:flex-row sm:items-center justify-between pt-3 {{ if $hasMeta }}border-t border-zinc-100 dark:border-zinc-800{{ end }}">
-        <div class="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-500 flex-wrap">
+      {{ if $hasMeta }}
+      <div class="pt-3 border-t border-zinc-100 dark:border-zinc-800">
+        <div class="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-500 flex-wrap mb-3">
           {{ if $item.Params.authors }}
           <div class="flex items-center gap-2 min-w-0">
-            {{ with index ($item.GetTerms "authors") 0 }}
-            <div class="relative h-6 w-6 flex-shrink-0">
-              {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
-              {{ if $avatar }}
-                {{ $avatar_48 := $avatar.Process "Fill 48x48 Center webp" }}
-                <img alt="avatar" class="rounded-full object-cover" src="{{$avatar_48.RelPermalink}}" width="24" height="24" loading="lazy" decoding="async" />
-              {{ end }}
-            </div>
-            <span class="truncate max-w-[9rem] text-sm">{{ .Page.LinkTitle }}</span>
+            {{ $authorTerm := index ($item.GetTerms "authors") 0 }}
+            {{ if $authorTerm }}
+              {{/* Author page exists - show avatar or default icon */}}
+              <div class="relative h-6 w-6 flex-shrink-0">
+                {{ $avatar := ($authorTerm.Resources.ByType "image").GetMatch "*avatar*" }}
+                {{ if $avatar }}
+                  {{ $avatar_48 := $avatar.Process "Fill 48x48 Center webp" }}
+                  <img alt="avatar" class="rounded-full object-cover" src="{{$avatar_48.RelPermalink}}" width="24" height="24" loading="lazy" decoding="async" />
+                {{ else }}
+                  {{/* Default avatar icon when no image */}}
+                  <div class="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                    {{ partial "functions/get_icon" (dict "name" "hero/user" "attributes" "class=\"w-4 h-4 text-gray-500 dark:text-gray-400\"") }}
+                  </div>
+                {{ end }}
+              </div>
+              <span class="truncate max-w-[9rem] text-sm">{{ $authorTerm.Page.LinkTitle }}</span>
+            {{ else }}
+              {{/* No author page - just show team icon and first author name */}}
+              <div class="w-6 h-6 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center flex-shrink-0">
+                {{ partial "functions/get_icon" (dict "name" "hero/user-group" "attributes" "class=\"w-4 h-4 text-primary-600 dark:text-primary-400\"") }}
+              </div>
+              <span class="truncate max-w-[9rem] text-sm">{{ index $item.Params.authors 0 }}</span>
             {{ end }}
           </div>
           <span class="opacity-40">•</span>
@@ -174,16 +188,19 @@
           {{ end }}
         </div>
         
-        <!-- Read More with arrow - always visible for accessibility -->
+        <!-- Read More with arrow - properly separated -->
         {{ if $showReadMore }}
-          <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium text-sm opacity-70 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300 self-start sm:self-auto sm:ml-0">
-            <span>{{ i18n "read_more" }}</span>
-            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div class="pt-2 border-t border-zinc-200/50 dark:border-zinc-700/50">
+          <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm transition-all duration-300 group/link">
+            <span>{{ i18n "read_more" | default "Read more" }}</span>
+            <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
             </svg>
           </a>
+        </div>
         {{ end }}
       </div>
+      {{ end }}
       
       <!-- Optional AI metadata -->
       {{ if $item.Params.ai_insights }}
