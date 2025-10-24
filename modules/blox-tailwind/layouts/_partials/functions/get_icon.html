@@ -5,14 +5,40 @@
 {{ $pack := .pack | default (strings.Replace $dirFile.Dir "/" "") | default "hero" }}
 {{ $name := $dirFile.File }}
 
-{{- $icon_pack := index site.Data.icons $pack -}}
-{{- $icon := index (index $icon_pack "icons") $name -}}
+{{ $icon := "" }}
 
-{{ if $icon }}
+{{- if eq $pack "emoji" -}}
+  {{/* Handle emoji pack: convert name to :name: format and emojify */}}
+  {{ $wrapped := cond (hasPrefix $name ":") $name (printf ":%s:" $name) }}
+  {{ $emoji := $wrapped | emojify }}
+  {{ $attrs := .attributes | default "" }}
+  {{/* Convert SVG sizing to emoji text sizing with important specificity */}}
+  {{ if in $attrs "w-24" }}{{ $attrs = replaceRE "w-24 h-24" "" $attrs }}{{ $attrs = printf "%s text-8xl leading-none" $attrs }}{{ end }}
+  {{ if in $attrs "w-12" }}{{ $attrs = replaceRE "w-12 h-12" "" $attrs }}{{ $attrs = printf "%s text-5xl leading-none" $attrs }}{{ end }}
+  {{ if in $attrs "w-8" }}{{ $attrs = replaceRE "w-8 h-8" "" $attrs }}{{ $attrs = printf "%s text-4xl leading-none" $attrs }}{{ end }}
+  {{ if in $attrs "w-6" }}{{ $attrs = replaceRE "w-6 h-6" "" $attrs }}{{ $attrs = printf "%s text-2xl leading-none" $attrs }}{{ end }}
+  {{ if in $attrs "w-5" }}{{ $attrs = replaceRE "w-5 h-5" "" $attrs }}{{ $attrs = printf "%s text-xl leading-none" $attrs }}{{ end }}
+  {{ if in $attrs "w-4" }}{{ $attrs = replaceRE "w-4 h-4" "" $attrs }}{{ $attrs = printf "%s text-lg leading-none" $attrs }}{{ end }}
+  {{/* Add inline style for guaranteed sizing */}}
+  {{ $style_attr := "" }}
+  {{ if in $attrs "text-8xl" }}{{ $style_attr = "style=\"font-size: 6rem !important; line-height: 1 !important;\"" }}{{ end }}
+  {{ if in $attrs "text-5xl" }}{{ $style_attr = "style=\"font-size: 3rem !important; line-height: 1 !important;\"" }}{{ end }}
+  {{ if in $attrs "text-4xl" }}{{ $style_attr = "style=\"font-size: 2.25rem !important; line-height: 1 !important;\"" }}{{ end }}
+  {{ if in $attrs "text-2xl" }}{{ $style_attr = "style=\"font-size: 1.5rem !important; line-height: 1 !important;\"" }}{{ end }}
+  {{ if in $attrs "text-xl" }}{{ $style_attr = "style=\"font-size: 1.25rem !important; line-height: 1 !important;\"" }}{{ end }}
+  {{ if in $attrs "text-lg" }}{{ $style_attr = "style=\"font-size: 1.125rem !important; line-height: 1 !important;\"" }}{{ end }}
+  {{ $attrs = printf "%s %s" $attrs $style_attr }}
+  {{ $icon = printf "<span %s>%s</span>" $attrs $emoji }}
+{{- else -}}
+  {{- $icon_pack := index site.Data.icons $pack -}}
+  {{- $pack_icon := index (index $icon_pack "icons") $name -}}
+
+{{ if $pack_icon }}
   {{ if in (slice "hb" "brands") $pack }}
+    {{ $icon = $pack_icon }}
     {{/* Pass */}}
   {{ else }}
-    {{ $icon_body := index $icon "body" }}
+    {{ $icon_body := index $pack_icon "body" }}
     {{ $icon_size := index $icon_pack "height" }}
     {{ $icon = printf `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s">%s</svg>` (cast.ToString $icon_size) (cast.ToString $icon_size) $icon_body }}
   {{ end }}
@@ -51,6 +77,7 @@
     {{ end }}
   {{ end }}
 {{ end }}
+{{- end -}}
 
 {{ if .attributes }}
   {{ $icon = replaceRE "<svg" (printf "<svg %s" .attributes) $icon }}
