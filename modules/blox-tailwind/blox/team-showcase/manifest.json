@@ -1,0 +1,13 @@
+{
+  "id": "team-showcase",
+  "name": "Team Showcase",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["team", "people", "members", "staff", "lab", "research", "organization"],
+  "description": "Display team members with customizable grouping, filtering, and rich profiles",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "static-site", "team", "people", "organization", "research-lab"]
+}

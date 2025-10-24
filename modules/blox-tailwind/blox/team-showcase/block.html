@@ -1,0 +1,177 @@
+{{/* Hugo Blox: Team Showcase */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $show_social := $block.design.show_social | default true }}
+{{ $show_interests := $block.design.show_interests | default false }}
+{{ $show_role := $block.design.show_role | default true }}
+{{ $show_organizations := $block.design.show_organizations | default false }}
+
+{{ $title := $block.content.title | emojify | $page.RenderString }}
+{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
+{{ $text := $block.content.text | emojify | $page.RenderString }}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  
+  {{/* Section Header */}}
+  <div class="flex flex-col items-center text-center mb-12">
+    {{ with $title }}
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
+      {{ . }}
+    </h2>
+    {{ end }}
+    
+    {{ with $subtitle }}
+    <p class="mt-4 text-xl text-gray-600 dark:text-gray-400">
+      {{ . }}
+    </p>
+    {{ end }}
+    
+    {{ with $text }}
+    <div class="mt-6 prose prose-lg lg:prose-xl dark:prose-invert max-w-3xl">
+      {{ . }}
+    </div>
+    {{ end }}
+  </div>
+
+  {{/* Team Grid */}}
+  <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    
+    {{ range $block.content.user_groups }}
+      {{ $group_name := . }}
+      {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
+      
+      {{/* Sort */}}
+      {{ $sort_by := $block.content.sort_by | default "Params.last_name" }}
+      {{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
+      {{ $sort_ascending := $block.content.sort_ascending | default true }}
+      {{ $sort_order := cond $sort_ascending "asc" "desc" }}
+      {{ $query = sort $query $sort_by $sort_order }}
+      
+      {{/* Group Header (if multiple groups) */}}
+      {{ if and $query (gt (len $block.content.user_groups) 1) }}
+      <div class="col-span-full">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">
+          {{ $group_name | markdownify }}
+        </h3>
+      </div>
+      {{ end }}
+      
+      {{/* Team Members */}}
+      {{ range $person := $query }}
+        {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
+        {{ $link := "" }}
+        {{ with site.GetPage (printf "/authors/%s" (path.Base .File.Dir)) }}
+          {{ $link = .RelPermalink }}
+        {{ end }}
+        
+        <div class="group relative">
+          <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            
+            {{/* Avatar */}}
+            {{ if $avatar }}
+            <a href="{{ $link }}" class="block relative h-64 overflow-hidden">
+              {{ $image := $avatar.Fill "400x400 Center webp" }}
+              <img src="{{ $image.RelPermalink }}" 
+                   alt="{{ .Title }}" 
+                   width="{{ $image.Width }}" 
+                   height="{{ $image.Height }}" 
+                   loading="lazy"
+                   class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+              
+              {{/* Gradient Overlay */}}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </a>
+            {{ end }}
+            
+            {{/* Content */}}
+            <div class="p-6">
+              {{/* Name */}}
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  {{ .Title }}
+                </a>
+              </h3>
+              
+              {{/* Role & Organization */}}
+              {{ if $show_role }}
+              <div class="text-gray-600 dark:text-gray-400 mb-3">
+                {{ with .Params.role }}
+                <p class="font-medium">{{ . }}</p>
+                {{ end }}
+                
+                {{ if and $show_organizations .Params.organizations }}
+                  {{ range first 1 .Params.organizations }}
+                  <p class="text-sm mt-1">{{ .name }}</p>
+                  {{ end }}
+                {{ end }}
+              </div>
+              {{ end }}
+              
+              {{/* Bio */}}
+              {{ with .Params.bio }}
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                {{ . }}
+              </p>
+              {{ end }}
+              
+              {{/* Interests */}}
+              {{ if and $show_interests .Params.interests }}
+              <div class="mb-4">
+                <div class="flex flex-wrap gap-1">
+                  {{ range first 3 .Params.interests }}
+                  <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
+                    {{ . }}
+                  </span>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+              
+              {{/* Social Links */}}
+              {{ if $show_social }}
+              <div class="flex gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+                {{ range .Params.social }}
+                {{ $link := .url | default .link }}
+                {{ $scheme := (urls.Parse $link).Scheme }}
+                {{ $target := "" }}
+                {{ if not $scheme }}
+                  {{ $link = (.url | default .link) | relLangURL }}
+                  {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+                {{ else if in (slice "http" "https") $scheme }}
+                  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+                {{ end }}
+                
+                <a href="{{ $link | safeURL }}" 
+                   {{ $target | safeHTMLAttr }} 
+                   aria-label="{{ .icon }}"
+                   {{ with .label }} title="{{ . }}"{{ end }}
+                   class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                  {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
+                </a>
+                {{ end }}
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      {{ end }}
+    {{ end }}
+  </div>
+  
+  {{/* Call to Action */}}
+  {{ with $block.content.cta }}
+  <div class="mt-12 text-center">
+    <a href="{{ .url }}" class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+      {{ .text }}
+      {{ with .icon }}
+      {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"ml-2 w-5 h-5\"") }}
+      {{ end }}
+    </a>
+  </div>
+  {{ end }}
+  
+</div>

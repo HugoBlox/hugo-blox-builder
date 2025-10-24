@@ -38,6 +38,14 @@
                   "description": {
                     "type": "string",
                     "description": "Description of the statistic (supports Markdown)"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Icon identifier (e.g., 'hero/chart-bar', 'hero/user-group')"
+                  },
+                  "sub_metric": {
+                    "type": "string",
+                    "description": "Additional context or sub-metric (supports Markdown)"
                   }
                 },
                 "required": ["statistic", "description"]
@@ -45,6 +53,18 @@
             }
           },
           "required": ["items"]
+        },
+        "design": {
+          "type": "object",
+          "description": "Design options for the stats block",
+          "properties": {
+            "layout": {
+              "type": "string",
+              "enum": ["cards", "compact", "minimal"],
+              "description": "Display layout style",
+              "default": "cards"
+            }
+          }
         }
       }
     }

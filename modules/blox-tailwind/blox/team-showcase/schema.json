@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/team-showcase.json",
+  "title": "Team Showcase Block Schema",
+  "description": "Schema for the Team Showcase block - displays team members with filtering and grouping",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "team-showcase"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the team showcase block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)"
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section subtitle (supports Markdown)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description (supports Markdown)"
+            },
+            "user_groups": {
+              "type": "array",
+              "description": "User groups to display (e.g., 'Principal Investigators', 'PhD Students')",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sort_by": {
+              "type": "string",
+              "description": "Field to sort team members by",
+              "default": "Params.last_name"
+            },
+            "sort_ascending": {
+              "type": "boolean",
+              "description": "Sort in ascending order",
+              "default": true
+            },
+            "cta": {
+              "type": "object",
+              "description": "Call to action button",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Button text"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Button URL"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Optional icon name"
+                }
+              }
+            }
+          }
+        },
+        "design": {
+          "type": "object",
+          "description": "Design options for the team showcase",
+          "properties": {
+            "show_role": {
+              "type": "boolean",
+              "description": "Show team member roles",
+              "default": true
+            },
+            "show_organizations": {
+              "type": "boolean",
+              "description": "Show team member organizations",
+              "default": false
+            },
+            "show_interests": {
+              "type": "boolean",
+              "description": "Show team member interests",
+              "default": false
+            },
+            "show_social": {
+              "type": "boolean",
+              "description": "Show social media links",
+              "default": true
+            }
+          }
+        }
+      }
+    }
+  ]
+}

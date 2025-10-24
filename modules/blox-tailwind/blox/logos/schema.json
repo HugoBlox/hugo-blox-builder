@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/logos.json",
+  "title": "Logos Block Schema",
+  "description": "Schema for the Logos block - displays partner/sponsor logos with various display modes",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "logos"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the logos block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Main section title"
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section subtitle"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description text"
+            },
+            "logos": {
+              "type": "array",
+              "description": "Array of logo items with details",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Partner/sponsor name"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Path to logo image relative to assets/media/"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Link to partner website"
+                  },
+                  "external": {
+                    "type": "boolean",
+                    "description": "Open link in new tab",
+                    "default": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Short description shown on hover"
+                  }
+                }
+              }
+            },
+            "logo_folder": {
+              "type": "string",
+              "description": "Legacy: Folder containing logo images (deprecated, use logos array instead)"
+            },
+            "cta": {
+              "type": "object",
+              "description": "Call to action button",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Button text"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Button URL"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Optional icon name"
+                }
+              }
+            }
+          }
+        },
+        "design": {
+          "type": "object",
+          "description": "Design options for the logos block",
+          "properties": {
+            "display_mode": {
+              "type": "string",
+              "enum": ["grid", "carousel", "marquee"],
+              "description": "How to display the logos",
+              "default": "grid"
+            },
+            "show_pattern": {
+              "type": "boolean",
+              "description": "Show decorative background pattern",
+              "default": false
+            }
+          }
+        }
+      }
+    }
+  ]
+}

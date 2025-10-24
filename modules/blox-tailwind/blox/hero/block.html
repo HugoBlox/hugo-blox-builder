@@ -37,7 +37,7 @@
 
     <div class="text-center">
       {{ with $block.content.title }}<h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">{{ . | markdownify }}</h1>{{end}}
-      {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">{{ . | $page.RenderString | emojify }}</p>{{end}}
+      {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{{ . | $page.RenderString | emojify }}</p>{{end}}
 
       {{ if $block.content.primary_action.url }}
         {{ $link := $block.content.primary_action.url }}

@@ -1,0 +1,13 @@
+{
+  "id": "logos",
+  "name": "Logos",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["logos", "partners", "sponsors", "collaborators", "brands", "clients", "affiliations"],
+  "description": "Display partner, sponsor, or collaborator logos with interactive effects and multiple display modes",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "static-site", "logos", "partners", "sponsors", "carousel", "marquee"]
+}

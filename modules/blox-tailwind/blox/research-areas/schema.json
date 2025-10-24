@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/research-areas.json",
+  "title": "Research Areas Block Schema",
+  "description": "Schema for the Research Areas block - displays research focus areas with rich visuals and metrics",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "research-areas"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the research areas block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title"
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section subtitle"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description text"
+            },
+            "items": {
+              "type": "array",
+              "description": "Array of research area items",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Research area name",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Research area description",
+                    "required": true
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Icon identifier (e.g., 'hero/beaker', 'devicon/python')"
+                  },
+                  "emoji": {
+                    "type": "string",
+                    "description": "Emoji as alternative to icon"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Image path relative to assets/media/"
+                  },
+                  "gradient": {
+                    "type": "string",
+                    "description": "Tailwind gradient classes (e.g., 'from-blue-400 to-purple-400')"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Link to detailed page"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["active", "emerging", "planning"],
+                    "description": "Research area status"
+                  },
+                  "topics": {
+                    "type": "array",
+                    "description": "Key topics/keywords",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "team_size": {
+                    "type": "string",
+                    "description": "Number of team members (e.g., '12 researchers')"
+                  },
+                  "publications": {
+                    "type": "string",
+                    "description": "Number of publications (e.g., '45 papers')"
+                  },
+                  "funding": {
+                    "type": "string",
+                    "description": "Funding amount (e.g., '$2.5M')"
+                  },
+                  "cta": {
+                    "type": "object",
+                    "description": "Call to action for this area",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "cta": {
+              "type": "object",
+              "description": "Global call to action",
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "icon": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "design": {
+          "type": "object",
+          "description": "Design options for the research areas block",
+          "properties": {
+            "layout": {
+              "type": "string",
+              "enum": ["cards", "hexagon", "timeline"],
+              "description": "Layout style for research areas",
+              "default": "cards"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

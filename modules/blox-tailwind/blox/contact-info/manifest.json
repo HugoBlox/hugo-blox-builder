@@ -1,0 +1,13 @@
+{
+  "id": "contact-info",
+  "name": "Contact Info",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["contact", "information", "address", "location", "lab", "research", "organization"],
+  "description": "Display contact information with modern card layout, including address, phone, email, social media, and optional contact form",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "keywords": ["hugo", "static-site", "contact", "information", "address", "research-lab"]
+}

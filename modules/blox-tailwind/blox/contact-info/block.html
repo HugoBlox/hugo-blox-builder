@@ -1,0 +1,184 @@
+{{/* Hugo Blox: Contact Info Block */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{ $title := $block.content.title | default "Contact Us" | emojify | $page.RenderString }}
+{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+  
+  {{/* Section Header */}}
+  <div class="text-center mb-12">
+    {{ with $title }}
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
+      {{ . }}
+    </h2>
+    {{ end }}
+    
+    {{ with $subtitle }}
+    <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+      {{ . }}
+    </p>
+    {{ end }}
+  </div>
+
+  {{/* Contact Cards Grid */}}
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+    
+    {{/* Visit Us Card */}}
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+      <div class="flex items-center mb-6">
+        <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+          {{ partial "functions/get_icon" (dict "name" "hero/map-pin" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
+        </div>
+        <h3 class="ml-4 text-2xl font-bold text-gray-900 dark:text-white">
+          {{ $block.content.visit_title | default "Visit Us" }}
+        </h3>
+      </div>
+      
+      <div class="space-y-4">
+        {{ with $block.content.address }}
+        <div class="text-gray-600 dark:text-gray-300">
+          {{ range .lines }}
+          <p>{{ . }}</p>
+          {{ end }}
+        </div>
+        {{ end }}
+        
+        {{ with $block.content.office_hours }}
+        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+          <h4 class="font-semibold text-gray-900 dark:text-white mb-2">Office Hours</h4>
+          <div class="text-gray-600 dark:text-gray-300 space-y-1">
+            {{ range . }}
+            <p>{{ . }}</p>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+        
+        {{ with $block.content.map_url }}
+        <a href="{{ . }}" target="_blank" rel="noopener" 
+           class="inline-flex items-center mt-4 px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors">
+          {{ partial "functions/get_icon" (dict "name" "hero/map" "attributes" "class=\"w-5 h-5 mr-2\"") }}
+          View on Map
+        </a>
+        {{ end }}
+      </div>
+    </div>
+
+    {{/* Connect Card */}}
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+      <div class="flex items-center mb-6">
+        <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+          {{ partial "functions/get_icon" (dict "name" "hero/chat-bubble-left-right" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
+        </div>
+        <h3 class="ml-4 text-2xl font-bold text-gray-900 dark:text-white">
+          {{ $block.content.connect_title | default "Connect" }}
+        </h3>
+      </div>
+      
+      <div class="space-y-4">
+        {{/* Contact Methods */}}
+        <div class="space-y-3">
+          {{ with $block.content.email }}
+          <div class="flex items-center">
+            {{ partial "functions/get_icon" (dict "name" "hero/envelope" "attributes" "class=\"w-5 h-5 text-gray-500 dark:text-gray-400 mr-3\"") }}
+            <a href="mailto:{{ . }}" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              {{ . }}
+            </a>
+          </div>
+          {{ end }}
+          
+          {{ with $block.content.phone }}
+          <div class="flex items-center">
+            {{ partial "functions/get_icon" (dict "name" "hero/phone" "attributes" "class=\"w-5 h-5 text-gray-500 dark:text-gray-400 mr-3\"") }}
+            <a href="tel:{{ . }}" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              {{ . }}
+            </a>
+          </div>
+          {{ end }}
+          
+          {{/* Social Media */}}
+          {{ with $block.content.social }}
+          <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+            <h4 class="font-semibold text-gray-900 dark:text-white mb-3">Follow Us</h4>
+            <div class="flex gap-3">
+              {{ range . }}
+              <a href="{{ .url }}" target="_blank" rel="noopener"
+                 class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-primary-100 dark:hover:bg-primary-900/50 hover:text-primary-600 dark:hover:text-primary-400 transition-all">
+                {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        </div>
+        
+        {{/* Prospective Members */}}
+        {{ with $block.content.prospective }}
+        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+          <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ .title | default "Prospective Members" }}</h4>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">{{ .text }}</p>
+          {{ with .button }}
+          <a href="{{ .url }}" 
+             class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow hover:shadow-lg transition-all">
+            {{ partial "functions/get_icon" (dict "name" "hero/user-plus" "attributes" "class=\"w-5 h-5 mr-2\"") }}
+            {{ .text }}
+          </a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+
+  {{/* Optional Map Embed */}}
+  {{ with $block.content.map_embed }}
+  <div class="mt-12 rounded-2xl overflow-hidden shadow-xl">
+    <div class="aspect-w-16 aspect-h-9 lg:aspect-h-6">
+      {{ . | safeHTML }}
+    </div>
+  </div>
+  {{ end }}
+  
+  {{/* Contact Form (optional) */}}
+  {{ if $block.content.show_form }}
+  <div class="mt-12 max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+      <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Send us a Message</h3>
+      <form action="{{ $block.content.form_action | default "#" }}" method="POST" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+            <input type="text" id="name" name="name" required
+                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+            <input type="email" id="email" name="email" required
+                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+          </div>
+        </div>
+        <div>
+          <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+          <input type="text" id="subject" name="subject" required
+                 class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+          <textarea id="message" name="message" rows="5" required
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+        </div>
+        <button type="submit"
+                class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow hover:shadow-lg transition-all">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+  {{ end }}
+</div>

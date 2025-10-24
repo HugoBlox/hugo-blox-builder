@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/contact-info.json",
+  "title": "Contact Info Block Schema",
+  "description": "Schema for the Contact Info block - displays lab contact information in a modern card layout",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "contact-info"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the contact info block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Main section title",
+              "default": "Contact Us"
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section subtitle"
+            },
+            "visit_title": {
+              "type": "string",
+              "description": "Title for the visit section",
+              "default": "Visit Us"
+            },
+            "connect_title": {
+              "type": "string",
+              "description": "Title for the connect section",
+              "default": "Connect"
+            },
+            "address": {
+              "type": "object",
+              "description": "Physical address information",
+              "properties": {
+                "lines": {
+                  "type": "array",
+                  "description": "Address lines",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "office_hours": {
+              "type": "array",
+              "description": "Office hours information",
+              "items": {
+                "type": "string"
+              }
+            },
+            "email": {
+              "type": "string",
+              "description": "Contact email address"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Contact phone number"
+            },
+            "social": {
+              "type": "array",
+              "description": "Social media links",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "type": "string",
+                    "description": "Icon name (e.g., 'brands/x', 'brands/linkedin')"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Social media URL"
+                  }
+                }
+              }
+            },
+            "prospective": {
+              "type": "object",
+              "description": "Information for prospective members",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "default": "Prospective Members"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "button": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "map_url": {
+              "type": "string",
+              "description": "URL to external map service"
+            },
+            "map_embed": {
+              "type": "string",
+              "description": "HTML embed code for map (e.g., Google Maps iframe)"
+            },
+            "show_form": {
+              "type": "boolean",
+              "description": "Show contact form",
+              "default": false
+            },
+            "form_action": {
+              "type": "string",
+              "description": "Form submission URL"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
