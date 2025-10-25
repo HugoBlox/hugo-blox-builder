@@ -97,7 +97,7 @@ jobs:
               working-directory: ${{ matrix.starter.path }}
               # Don't use --frozen-lockfile as starters have auto-generated package.json with simple deps (Tailwind CLI)
               # and may not have lock files checked into the repo
-              run: pnpm install
+              run: pnpm install --no-frozen-lockfile
 
             - name: Read Hugo version from template
               id: hugo
@@ -142,11 +142,11 @@ jobs:
                   cache: "pnpm"
 
             - name: Install root dependencies
-              run: pnpm install --frozen-lockfile
+              run: pnpm install --no-frozen-lockfile
 
             - name: Install test dependencies
               working-directory: test
-              run: pnpm install --frozen-lockfile
+              run: pnpm install --no-frozen-lockfile
 
             - name: Cache Hugo resources (test)
               uses: actions/cache@v4
@@ -188,7 +188,7 @@ jobs:
 
             - name: Install template dependencies
               working-directory: templates/academic-cv
-              run: pnpm install
+              run: pnpm install --no-frozen-lockfile
 
             - name: Cache Hugo resources (template)
               uses: actions/cache@v4
@@ -228,11 +228,11 @@ jobs:
                   cache: "pnpm"
 
             - name: Install root dependencies
-              run: pnpm install --frozen-lockfile
+              run: pnpm install --no-frozen-lockfile
 
             - name: Install test dependencies
               working-directory: test
-              run: pnpm install --frozen-lockfile
+              run: pnpm install --no-frozen-lockfile
 
             - name: Read minimum Hugo version from framework
               id: min

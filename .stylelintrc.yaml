@@ -1,5 +1,7 @@
 extends:
   - stylelint-config-standard
+ignoreFiles:
+  - "**/pagefind/**/*.css"
 rules:
   at-rule-no-unknown:
     - true

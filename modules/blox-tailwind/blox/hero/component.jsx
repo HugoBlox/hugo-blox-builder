@@ -79,7 +79,10 @@ export const HeroBlock = ({content, design, id, icon_svg}) => {
 
           {/* Subtitle/Text */}
           {content.text && (
-            <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" dangerouslySetInnerHTML={{__html: renderText(content.text)}} />
+            <p
+              class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+              dangerouslySetInnerHTML={{__html: renderText(content.text)}}
+            />
           )}
 
           {/* Action Buttons */}
