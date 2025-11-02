@@ -27,21 +27,18 @@
     "vite-plugin-static-copy": "^3.1.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "stylelint": "14.8.2",
-    "stylelint-config-standard": "~25.0.0",
-    "stylelint-scss": "~4.2.0"
+    "@biomejs/biome": "^2.3.2"
   },
   "scripts": {
     "prod": "scripts/view-starter-prod.sh",
     "dev": "scripts/view-starter-dev.sh",
     "test": "scripts/view-test.sh",
-    "lint": "pnpm run lint:code && pnpm run lint:style",
-    "lint:code": "biome check --reporter=summary .",
-    "lint:code:fix": "biome check --write .",
-    "lint:style": "stylelint '**/*.css'",
-    "lint:style:fix": "stylelint '**/*.css' --fix",
-    "format": "pnpm run lint:code:fix && pnpm run lint:style:fix",
+    "lint": "biome check --reporter=summary .",
+    "lint:code": "biome check --reporter=summary . --linter-enabled=true --formatter-enabled=false",
+    "lint:code:fix": "biome check --write . --linter-enabled=true --formatter-enabled=false",
+    "lint:style": "biome check --reporter=summary modules/blox-tailwind/assets/css/ modules/blox-plugin-reveal/assets/css/ --linter-enabled=true --formatter-enabled=false",
+    "lint:style:fix": "biome check --write modules/blox-tailwind/assets/css/ modules/blox-plugin-reveal/assets/css/ --linter-enabled=true --formatter-enabled=false",
+    "format": "biome check --write .",
     "update:starters": "poetry run python ./scripts/update.py",
     "vendor:libs": "vite build --config vite.config.js",
     "vendor:libs:watch": "vite build --config vite.config.js --watch",

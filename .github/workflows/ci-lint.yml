@@ -11,7 +11,6 @@ on:
       - "package.json"
       - "pnpm-lock.yaml"
       - "biome.json"
-      - ".stylelintrc.yaml"
       - "vite.config.js"
   pull_request:
     branches: [main]
@@ -22,7 +21,6 @@ on:
       - "package.json"
       - "pnpm-lock.yaml"
       - "biome.json"
-      - ".stylelintrc.yaml"
       - "vite.config.js"
 
 permissions:

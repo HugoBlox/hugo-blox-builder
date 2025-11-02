@@ -15,7 +15,6 @@ on:
             - "package.json"
             - "pnpm-lock.yaml"
             - "biome.json"
-            - ".stylelintrc.yaml"
             - "vite.config.js"
     pull_request:
         types:
@@ -31,7 +30,6 @@ on:
             - "package.json"
             - "pnpm-lock.yaml"
             - "biome.json"
-            - ".stylelintrc.yaml"
             - "vite.config.js"
 
 permissions:

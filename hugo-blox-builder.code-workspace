@@ -31,13 +31,13 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-      "source.fixAll.stylelint": "explicit"
+      "source.fixAll.biome": "explicit"
     },
 
     "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
     "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
     "[json]": { "editor.defaultFormatter": "biomejs.biome" },
-    "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[css]": { "editor.defaultFormatter": "biomejs.biome" },
     "[html]": { 
       "editor.defaultFormatter": "esbenp.prettier-vscode",
       "editor.formatOnSave": true 
@@ -65,7 +65,6 @@
       "typescriptreact"
     ],
 
-    "stylelint.validate": ["css"],
 
     "tailwindCSS.emmetCompletions": true,
 
@@ -76,7 +75,6 @@
     "recommendations": [
       "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode",
-      "stylelint.vscode-stylelint",
       "bradlc.vscode-tailwindcss",
       "redhat.vscode-yaml",
       "tamasfe.even-better-toml",

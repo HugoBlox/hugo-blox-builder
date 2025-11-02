@@ -1,30 +1,32 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
   "files": {
-    "ignore": [
-      "node_modules/**",
-      "public/**",
-      "resources/**",
-      "**/_gen/**",
-      "**/assets/dist/**",
-      "**/*.min.js",
-      "**/pagefind/**",
-      "**/_vendor/**",
-      "**/vendor/**",
-      "**/*.html",
-      "**/layouts/**/*.html",
-      "**/layouts/**/*.htm",
-      "**/*.webmanifest",
-      "**/*.backlinks.json",
-      "**/hugo_stats.json",
-      "**/*.code-workspace",
-      "modules/blox-tailwind/data/icons/devicon.json",
-      "templates/**",
-      "test/**",
-      "modules/**/package.json",
-      "**/assets/jsconfig.json",
-      "docs-local",
-      "backups/**"
+    "includes": [
+      "**",
+      "!**/node_modules/**",
+      "!**/public/**",
+      "!**/resources/**",
+      "!**/_gen/**",
+      "!**/assets/dist/**",
+      "!**/*.min.js",
+      "!**/*.min.css",
+      "!**/pagefind/**",
+      "!**/_vendor/**",
+      "!**/vendor/**",
+      "!**/*.html",
+      "!**/layouts/**/*.html",
+      "!**/layouts/**/*.htm",
+      "!**/*.webmanifest",
+      "!**/*.backlinks.json",
+      "!**/hugo_stats.json",
+      "!**/*.code-workspace",
+      "!**/modules/blox-tailwind/data/icons/devicon.json",
+      "!**/templates/**",
+      "!**/test/**",
+      "!**/modules/**/package.json",
+      "!**/assets/jsconfig.json",
+      "!**/docs-local",
+      "!**/backups/**"
     ]
   },
   "formatter": {
@@ -50,8 +52,8 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "style": { "all": false },
-      "complexity": { "all": false },
+      "style": {},
+      "complexity": {},
       "suspicious": {
         "noEmptyBlock": "off"
       },
@@ -60,7 +62,19 @@
       }
     }
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 150
+    },
+    "linter": {
+      "enabled": true
+    }
   }
 }
