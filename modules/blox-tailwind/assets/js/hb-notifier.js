@@ -21,7 +21,7 @@ export function showNotification(message, type = "success", duration = 3000) {
 
   // Remove any existing notifications with same message
   const existingNotification = container.querySelector(".hb-notification");
-  if (existingNotification && existingNotification.textContent.includes(message)) {
+  if (existingNotification?.textContent?.includes(message)) {
     existingNotification.remove();
   }
 

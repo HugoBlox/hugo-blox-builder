@@ -44,14 +44,14 @@
   @apply line-clamp-3 text-sm font-normal text-gray-500 dark:text-gray-400 px-4 mb-4 mt-2;
 }
 
-.hb-card:hover svg {
-  color: currentcolor;
-}
-
 .hb-card svg {
   color: var(--color-neutral-700);
   width: 1.5rem;
   transition: color 0.3s ease;
+}
+
+.hb-card:hover svg {
+  color: currentcolor;
 }
 
 .hb-card p {

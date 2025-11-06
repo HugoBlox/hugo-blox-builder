@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle search toggle buttons
   const searchButtons = document.querySelectorAll("[data-search-toggle]");
   searchButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
+    button.addEventListener("click", () => {
       const prefilledQuery = button.dataset.searchQuery;
 
       if (window.Alpine && Alpine.store("search")) {

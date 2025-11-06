@@ -22,5 +22,6 @@
 .chroma .language-latex *,
 .chroma .language-tex,
 .chroma .language-tex * {
+  /* biome-ignore lint/complexity/noImportantStyles: Required to override Chroma's default italic for LaTeX/TeX */
   font-style: normal !important;
 }

@@ -1,3 +1,4 @@
+// biome-ignore lint/correctness/noUnusedImports: Classic Preact JSX runtime may require 'h' for JSX transform
 import {h} from "preact";
 
 /**
@@ -22,7 +23,7 @@ export const Icon = ({svg, attributes}) => {
 
   if (hasWrapper) {
     if (/<svg[^>]*class=/i.test(decoded)) {
-      decoded = decoded.replace(/<svg([^>]*?)class=\"([^\"]*)\"([^>]*)>/i, '<svg$1class="$2 inline-block w-4 h-4"$3>');
+      decoded = decoded.replace(/<svg([^>]*?)class="([^"]*)"([^>]*)>/i, '<svg$1class="$2 inline-block w-4 h-4"$3>');
     } else {
       decoded = decoded.replace(/<svg\b/i, '<svg class="inline-block w-4 h-4"');
     }

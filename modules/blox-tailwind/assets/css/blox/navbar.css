@@ -69,15 +69,15 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply pointer-events-none;
 }
 
-.nav-dropdown.active .nav-dropdown-list {
-  @apply block lg:visible lg:opacity-100;
-}
-
 .nav-dropdown-list {
   @apply bg-white dark:bg-slate-900 z-10 min-w-[180px] rounded py-4 shadow hidden lg:invisible lg:absolute lg:block lg:opacity-0;
   /* Ensure dropdown appears above content and under header */
   top: 100%;
   left: 0;
+}
+
+.nav-dropdown.active .nav-dropdown-list {
+  @apply block lg:visible lg:opacity-100;
 }
 
 /* Ensure hover opens dropdown in desktop (CSS-driven) */
@@ -88,7 +88,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-item {
-  @apply px-4  [&:not(:last-child)]:mb-2;
+  @apply px-4 [&:not(:last-child)]:mb-2;
 }
 
 .dark .nav-dropdown-item:hover {
@@ -96,7 +96,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-link {
-  @apply dark:text-white  dark:hover:text-white block py-1 font-semibold transition;
+  @apply dark:text-white dark:hover:text-white block py-1 font-semibold transition;
 }
 
 .nav-dropdown-link:hover {

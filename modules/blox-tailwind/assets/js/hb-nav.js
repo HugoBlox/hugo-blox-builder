@@ -2,7 +2,7 @@
 
 const applyScrollPadding = () => {
   const header = document.querySelector(".page-header");
-  let position = header.getBoundingClientRect();
+  const position = header.getBoundingClientRect();
   document.documentElement.style.scrollPaddingTop = position.height.toString() + "px";
   const r = document.querySelector(":root");
   r.style.setProperty("--navbar-height", position.height.toString() + "px");

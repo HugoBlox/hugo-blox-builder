@@ -29,8 +29,11 @@
 
   /* 2025 Glassmorphism texture support - disable conflicting defaults */
   .home-section-bg.bg-image[style*="background-size"][style*="background-repeat"] {
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override inline background-size for glass textures */
     background-size: revert !important;
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override inline background-repeat for glass textures */
     background-repeat: revert !important;
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override inline background-position for glass textures */
     background-position: revert !important;
   }
 

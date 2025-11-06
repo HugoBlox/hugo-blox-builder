@@ -23,7 +23,7 @@ export function initTheme() {
 }
 
 export function applyHugoStyleFixes() {
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", () => {
     const checkboxes = document.querySelectorAll("li input[type='checkbox'][disabled]");
     checkboxes.forEach((e) => {
       const parent = e.parentElement?.parentElement;

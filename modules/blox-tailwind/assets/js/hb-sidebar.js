@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll("[data-hb-sidebar-toggle]");
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function (e) {
+  buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
       e.preventDefault();
       const parent = button.parentElement.parentElement;
       if (parent) {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Hamburger menu for mobile navigation
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const menu = document.querySelector("#nav-toggle");
   const overlay = document.querySelector(".hb-sidebar-mobile-menu");
   const sidebarContainer = document.querySelector(".hb-sidebar-container");

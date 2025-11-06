@@ -7,7 +7,7 @@
  * Usage: pnpm run vendor:libs
  */
 
-import {resolve} from "path";
+import {resolve} from "node:path";
 import del from "rollup-plugin-delete";
 import {defineConfig} from "vite";
 import {viteStaticCopy} from "vite-plugin-static-copy";

@@ -3,16 +3,16 @@
   "files": {
     "includes": [
       "**",
-      "!**/node_modules/**",
-      "!**/public/**",
-      "!**/resources/**",
-      "!**/_gen/**",
-      "!**/assets/dist/**",
+      "!**/node_modules",
+      "!**/public",
+      "!**/resources",
+      "!**/_gen",
+      "!**/assets/dist",
       "!**/*.min.js",
       "!**/*.min.css",
-      "!**/pagefind/**",
-      "!**/_vendor/**",
-      "!**/vendor/**",
+      "!**/pagefind",
+      "!**/_vendor",
+      "!**/vendor",
       "!**/*.html",
       "!**/layouts/**/*.html",
       "!**/layouts/**/*.htm",
@@ -21,12 +21,13 @@
       "!**/hugo_stats.json",
       "!**/*.code-workspace",
       "!**/modules/blox-tailwind/data/icons/devicon.json",
-      "!**/templates/**",
-      "!**/test/**",
+      "!**/templates",
+      "!**/test",
       "!**/modules/**/package.json",
       "!**/assets/jsconfig.json",
       "!**/docs-local",
-      "!**/backups/**"
+      "!**/backups",
+      "!**/modules/blox-tailwind/assets/css/config/safelist.css"
     ]
   },
   "formatter": {

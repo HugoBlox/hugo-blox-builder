@@ -2,6 +2,7 @@
 
 /* Hide elements with x-cloak until Alpine.js initializes */
 [x-cloak] {
+  /* biome-ignore lint/complexity/noImportantStyles: Required to reliably hide until Alpine initializes */
   display: none !important;
 }
 

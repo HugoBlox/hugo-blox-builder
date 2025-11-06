@@ -1,5 +1,5 @@
 // Hugo Blox Builder Light / Dark theme toggle
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   addThemeToggleListener();
 });
 
@@ -24,7 +24,7 @@ function addThemeToggleListener() {
 
   // Add click event handler to the light/dark buttons
   themeToggleButtons.forEach((el) => {
-    el.addEventListener("click", function () {
+    el.addEventListener("click", () => {
       console.debug("Theme toggled");
       if (localStorage.getItem("wc-color-theme")) {
         if (localStorage.getItem("wc-color-theme") === "light") {
