@@ -292,3 +292,19 @@ Every contribution matters — whether it's fixing a typo, adding a translation,
 _Questions? Join our [Discord](https://discord.gg/z8wNYzb) or start a [Discussion](https://github.com/HugoBlox/hugo-blox-builder/discussions)._
 
 _This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md)._
+
+## ⚖️ Our Contributor License Agreement (CLA)
+
+### Why We Have a CLA
+
+A Contributor License Agreement (CLA) is a standard best practice in professional open-source. It's a simple agreement that protects **you** (our contributor), **our users**, and **the HugoBlox project** itself.
+
+* **It Protects You:** The CLA makes it clear you are entitled to contribute the code and that you are protected from future liability. It's a formal way of saying your contribution is given "as is," without any warranty.
+* **It Protects the Project:** It gives us the clear, permanent legal rights we need to use your contribution as part of the project. This is vital. It allows us to defend the project from legal challenges.
+* **It Enables Our Future:** Having a proper CLA is what allows us to confidently continue to enhance and support the HugoBlox ecosystem.
+
+This agreement doesn't change your ownership of your code; it simply grants us a clear license to use it as part of HugoBlox. We truly appreciate you helping us build a professional, sustainable, and legally secure project for everyone.
+
+### Your Agreement
+
+**By submitting a Pull Request to this repository, you agree to our [Contributor License Agreement (CLA)](/.github/CLA.md). Please ensure you have read and understood it.**
