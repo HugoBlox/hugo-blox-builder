@@ -5,6 +5,10 @@
     }
   ],
   "settings": {
+    "files.trimFinalNewlines": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "yaml.format.enable": false,
+      
     "files.exclude": {
       "**/node_modules/**": true,
       "**/public/**": true,
