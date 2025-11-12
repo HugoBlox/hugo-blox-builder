@@ -116,7 +116,7 @@ module:
 
     # BLOX A) Server-rendered block templates (Go HTML)
     - source: blox
-      target: layouts/partials/hbx/blocks
+      target: layouts/_partials/hbx/blocks
       includeFiles:
         - '**/block.html'
 
