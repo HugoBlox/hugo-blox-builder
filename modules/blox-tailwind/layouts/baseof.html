@@ -3,7 +3,8 @@
 {{ printf "<!-- Last Published: %s -->" (now | time.Format ":date_long") | safeHTML }}
 {{- $language_code := site.LanguageCode | default "en-us" -}}
 <html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{else}}dir="ltr"{{end}}
-      data-wc-theme-default="{{ (lower site.Params.appearance.mode) | default "system" }}">
+      data-wc-theme-default="{{ (lower site.Params.appearance.mode) | default "system" }}"
+      data-hbb-relurl="{{ "" | relURL }}">
   {{ partial "site_head" . }}
   <body class="dark:bg-hb-dark dark:text-white page-wrapper" id="top">
     <div id="page-bg"></div>

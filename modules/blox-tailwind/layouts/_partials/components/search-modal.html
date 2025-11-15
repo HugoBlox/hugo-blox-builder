@@ -269,6 +269,7 @@
       availableFilters: [],
       trendingSearches: {{ site.Params.features.search.trending_searches | default (slice "Search term 1" "Search term 2") | jsonify }},
       pagefind: null,
+      pagefindModulePath: window.hbb?.assetPaths?.pagefind ?? '/pagefind/pagefind.js',
       
       // i18n translations for content types
       typeLabels: {
@@ -280,7 +281,7 @@
       async init() {
         // Initialize Pagefind
         try {
-          this.pagefind = await import('/pagefind/pagefind.js');
+          this.pagefind = await import(this.pagefindModulePath);
           await this.pagefind.init();
           console.log('✓ Pagefind initialized');
           
