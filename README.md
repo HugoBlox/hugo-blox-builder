@@ -6,19 +6,17 @@
   </a>
 </p>
 
-<h1 align="center">The #1 Open Source Toolkit for Technical & Academic Websites</h1>
+<h1 align="center">The Open Source Copilot for Technical & Academic Websites</h1>
 
 <p align="center">
-  <strong>Accelerate Your Impact:</strong> Build blazing-fast, SEO-optimized sites in minutes.<br/>
-  <!-- Trusted by 250,000+ innovators at <strong>Meta, Stanford, Google, MIT, and OpenAI</strong>. -->
+  <strong>Build a "Future-Proof" Brand in the AI Era.</strong><br/>
+  The choice of rockstar researchers and founders at <strong>Meta, Stanford, NVIDIA, and Y Combinator</strong>.
 </p>
 
 <p align="center">
-  <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 Get Started Free</b></a>
+  <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 Launch Copilot (Free)</b></a>
   &nbsp;•&nbsp;
   <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme">Go Pro</a>
-  <!-- &nbsp;•&nbsp;
-  <a href="https://discord.gg/z8wNYzb">Join Discord</a> -->
 </p>
 
 <p align="center">
@@ -35,12 +33,18 @@
 
 ---
 
-## Why Hugo Blox?
+## Why Top Talent Chooses Hugo Blox
 
-- **Launch in Minutes, Not Months:** Pick a template, customize with drag-and-drop blocks, and deploy. Build anything from SaaS landing pages and online courses to academic resumés and lab sites.
-- **Own Your Content & Brand:** You get static files with no vendor lock-in, leading to 100/100 Lighthouse scores. Your content, your rules.
-- **Built for a Technical Workflow:** A modern stack with Hugo and Tailwind CSS. Write in Markdown, Jupyter, or BibTeX. Auto-sync publications.
-- **Open & Extendable:** Start with a generous MIT-licensed core. Upgrade with premium templates and blocks or extend with React "islands" for custom interactivity.
+In the age of AI agents, **Markdown is the new source code**.
+
+Vibe coding tools generate fragile, "black box" React/JS apps that are a nightmare to maintain once the AI disconnects. **Hugo Blox** is different. We combine the speed of an AI builder with the robustness of a static site generator.
+
+- **🔮 Future-Proof & AI Ready:** Your content lives in clean Markdown—the native language of LLMs. It's readable by humans and machines forever. No vendor lock-in.
+- **🧠 The "Copilot" Workflow:**
+  - **Online:** Use our AI-assisted deployer to launch in 60 seconds.
+  - **VS Code (Coming Soon):** Write content and visualize blocks directly in your editor with our upcoming AI extension.
+- **⚡ Performance without Debt:** Get perfect 100/100 Lighthouse scores. Zero "JS bloat". We handle the heavy lifting (Tailwind 4, Hugo Modules) so you focus on your research/startup.
+- **🎓 Research-Grade Features:** Native support for LaTeX math, BibTeX auto-citations, and Jupyter Notebooks. If you publish papers, this is your unfair advantage.
 
 <p align="center">
   <img src="./.github/media/templates.webp" alt="Template previews" width="900">
@@ -52,24 +56,23 @@
 
 ---
 
-## Get started
+## Get Started
 
-**Recommended (fastest, no install):**  
-👉 [**Start free in your browser**](https://hugoblox.com/start?utm_source=github&utm_medium=readme) — pick a template, customize blocks, and publish to GitHub Pages.
+### Option 1: The Online Copilot (Fastest)
 
-**Prefer the CLI?**  
-Use the local quickstart:
+Launch a professional site for your Lab, Startup, or Bio in under 2 minutes.
+
+👉 [**Start Free in Browser**](https://hugoblox.com/start?utm_source=github&utm_medium=readme)
+
+### Option 2: The CLI (For Developers)
+
+Prefer the terminal? Use our local copilot to scaffold your site:
 
 ```bash
-# 1) Install Hugo Extended → https://docs.hugoblox.com/getting-started/install-hugo/#prerequisites
-
-# 2) Clone a starter (example: Academic CV) - see https://hugoblox.com/templates
-git clone https://github.com/HugoBlox/theme-academic-cv my-site
-cd my-site
-
-# 3) Run locally
-pnpm install && hugo server -D
+npx hugoblox create
 ```
+
+*Prerequisites: [Hugo Extended & Node](https://docs.hugoblox.com/getting-started/install-hugo/#prerequisites).
 
 For more guides, visit our documentation at [**https://docs.hugoblox.com/**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme).
 
@@ -77,23 +80,27 @@ For more guides, visit our documentation at [**https://docs.hugoblox.com/**](htt
 
 ## Free vs. Pro
 
-Hugo Blox ships with a library of **free blocks** for heroes, features, testimonials, FAQs, and more. **Pro** is a one-time donation that adds **exclusive, professionally designed blocks** and full site templates to help you launch even faster.
+**Hugo Blox** is open core. You can build a world-class site for free. **Pro** is for those who want to move faster and support the ecosystem.
 
-<!-- <p align="center">
-  <img src="./.github/media/blocks-strip.png" alt="Premium blocks preview" width="900">
-</p> -->
+| Feature | Open Source | **Hugo Blox Pro** |
+| :--- | :---: | :---: |
+| **Core Framework** | ✅ | ✅ |
+| **Standard Blocks** (Hero, Features, etc.) | ✅ | ✅ |
+| **Premium Templates** (SaaS, Course, Lab) | ❌ | **✅ Included** |
+| **Exclusive Pro Blocks** | ❌ | **✅ Included** |
+| **Lifetime Updates** | ❌ | **✅ Included** |
+| **Support the Project** | ❤️ | **🏆 Hero Status** |
 
-- Free templates & blocks: [**Templates Catalog**](https://hugoblox.com/templates?utm_source=github&utm_medium=readme)
-- Pro catalog & lifetime updates: [**Go Pro**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
+👉 [**Upgrade to Pro**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 ---
 
 ## What Creators Say
 
-> “Hugo Blox saved me 40+ hours on my lab site. Bibtex integration auto-updates publications — **our citations are up 3×**.”
+> "Hugo Blox saved me 40+ hours on my lab site. Bibtex integration auto-updates publications — **our citations are up 3×**."
 > — **Dr. Sarah Yang**, AI Researcher
 
-> “We launched our documentation in 10 minutes. The block system is genius; **onboarding time dropped by 60%**.”
+> "We launched our documentation in 10 minutes. The block system is genius; **onboarding time dropped by 60%**."
 > — **Alexandre Rodrigues**, Founder
 
 ---

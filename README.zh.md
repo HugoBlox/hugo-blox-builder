@@ -6,19 +6,17 @@
   </a>
 </p>
 
-<h1 align="center">技术/学术网站的开源王牌工具箱</h1>
+<h1 align="center">技术 / 学术网站的开源 Copilot</h1>
 
 <p align="center">
-  <strong>效率拉满：</strong> 几分钟上线，性能和 SEO 都很能打。<br/>
-  <!-- 受到 250,000+ 创新者青睐（Meta、Stanford、Google、MIT、OpenAI 等）。 -->
+  <strong>在 AI 时代，为你的个人品牌和团队打造一份「面向未来」的数字资产。</strong><br/>
+  被来自 <strong>Meta、Stanford、NVIDIA 以及一线创业公司 / 实验室</strong> 的研究者和创始人青睐。
 </p>
 
 <p align="center">
-  <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 免费开始</b></a>
+  <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 启动 Copilot（免费）</b></a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>立即升级 Pro（终身）</b></a>
-  <!-- &nbsp;•&nbsp;
-  <a href="https://discord.gg/z8wNYzb">加入 Discord</a> -->
+  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>升级 Pro（终身）</b></a>
 </p>
 
 <p align="center">
@@ -35,12 +33,18 @@
 
 ---
 
-## 为什么选 Hugo Blox？
+## 为什么顶尖开发者和研究者选择 Hugo Blox？
 
-- **分钟级上线，不再内耗：** 选模板 → 拖拽积木 → 发布。SaaS 落地页、在线课程、学术简历、实验室主页… 都能一把梭。
-- **完全掌控内容与品牌：** 纯静态输出，无厂商锁定，轻松冲 100/100 Lighthouse 分数。内容归你，你做主。
-- **技术范儿十足：** Hugo + Tailwind CSS 现代栈。支持 Markdown、Jupyter、BibTeX，出版物自动同步，工作流丝滑顺手。
-- **开源且可扩展：** MIT 核心慷慨开源。可用 React “小岛”增强交互，或升级 Pro 解锁更多专业模板与积木。
+在智能体 / Copilot 时代，**Markdown 正在变成新的「源码」**。
+
+市面上各种 vibe coding / 生成式建站工具，会一股脑吐出一大坨难以维护的 React/JS 黑盒代码，一旦离开那个 AI，很快就失控。**Hugo Blox 选的是另一条路：用极简的静态站栈，配上开源 Copilot 体验。**
+
+- **🔮 面向未来的内容资产：** 内容以干净的 Markdown 存储——这是 LLM 和人类都读得懂的格式，迁移简单、长期可用，没有厂商锁定。
+- **🧠 Copilot 工作流：**
+  - **在线 Copilot：** 在浏览器里选模板、拼积木，60 秒内上线到 GitHub Pages。
+  - **VS Code 扩展（即将发布）：** 在编辑器中写内容、可视化区块布局，用 AI 辅助生成和重构网页文案。
+- **⚡ 性能拉满、无技术债：** 静态输出 + 极少 JS，轻松冲击 100/100 Lighthouse 分数，不会拖慢你实验/产品的主战场。
+- **🎓 为学术 & 深度技术场景而生：** 原生支持 LaTeX 数学公式、BibTeX 引用自动导入、Jupyter 集成——从论文到项目页，全链路一站搞定。
 
 <p align="center">
   <img src="./.github/media/templates.webp" alt="模板预览" width="900">
@@ -54,33 +58,38 @@
 
 ## 快速上手
 
-**推荐（最快、零安装）：**  
-👉 [**浏览器里直接开干**](https://hugoblox.com/start?utm_source=github&utm_medium=readme) — 选模板、改积木、发布到 GitHub Pages。
+### 方案一：在线 Copilot（最快、零安装）
 
-**命令行选手？**  
-使用本地快速开始：
+👉 [**浏览器里直接开干**](https://hugoblox.com/start?utm_source=github&utm_medium=readme) — 选模板、拖拽积木、接入 GitHub，一键发布到 GitHub Pages。
+
+### 方案二：命令行 Copilot（本地开发者）
+
+偏爱命令行？用本地 Copilot 快速生成站点骨架：
 
 ```bash
-# 1) 安装 Hugo Extended → https://docs.hugoblox.com/getting-started/install-hugo/#prerequisites
-
-# 2) 克隆一个起步模板（示例：Academic CV）- 更多模板见 https://hugoblox.com/templates
-git clone https://github.com/HugoBlox/theme-academic-cv my-site
-cd my-site
-
-# 3) 本地运行
-pnpm install && hugo server -D
+npx hugoblox create
 ```
 
-更多指南请访问文档 [**https://docs.hugoblox.com/**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)。
+*前置条件：[Hugo Extended & Node](https://docs.hugoblox.com/getting-started/install-hugo/#prerequisites)。*
+
+更多上手指南，请访问文档 [**https://docs.hugoblox.com/**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)。
 
 ---
 
-## Free vs. Pro
+## 开源版 vs Pro 版
 
-Hugo Blox 自带一套用于 Hero、Features、Testimonials、FAQs 等的**免费积木**。**Pro** 为一次性捐赠，解锁**独家、专业设计的高级积木**与整站模板，助你更快更稳地上线。
+Hugo Blox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭建一流站点；如果你希望更快推进项目、同时支持生态发展，可以考虑升级 Pro。
 
-- 免费模板与积木：[**模板目录**](https://hugoblox.com/templates?utm_source=github&utm_medium=readme)
-- Pro 目录与终身更新：[**立即升级 Pro（终身）**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
+| 能力 | 开源版 | **Hugo Blox Pro** |
+| :--- | :---: | :---: |
+| **核心框架** | ✅ | ✅ |
+| **标准积木**（Hero、功能介绍等） | ✅ | ✅ |
+| **高级整站模板**（SaaS、课程、实验室主页等） | ❌ | **✅ 全部解锁** |
+| **独家 Pro 积木** | ❌ | **✅ 全部解锁** |
+| **终身更新** | ❌ | **✅ 包含** |
+| **支持项目 / 赞助开源** | ❤️ | **🏆 真爱用户** |
+
+👉 [**升级 Pro（终身）**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 ---
 
