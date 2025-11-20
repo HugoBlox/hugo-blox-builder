@@ -5,6 +5,17 @@
       try {
         const PLACEMENT = {{ (site.Params.hbx.log.placement | default "bottom-left") | jsonify }};
         const OPACITY = {{ (site.Params.hbx.log.opacity | default 1.0) | jsonify }};
+        const PLACEMENT_KEY = 'hbx-hud-placement';
+        const HIDE_BUTTON_KEY = 'hbx-hide-button';
+        const VALID_PLACEMENTS = ['bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'];
+        const FALLBACK_PLACEMENT = 'bottom-left';
+        const isValidPlacement = (value) => VALID_PLACEMENTS.includes(value);
+        const normalizePlacement = (value) => (typeof value === 'string' ? value.toLowerCase().trim() : '');
+        const storedPlacement = normalizePlacement(localStorage.getItem(PLACEMENT_KEY));
+        const defaultPlacement = normalizePlacement(PLACEMENT);
+        const initialPlacement = isValidPlacement(storedPlacement) ? storedPlacement : (isValidPlacement(defaultPlacement) ? defaultPlacement : FALLBACK_PLACEMENT);
+        let currentPlacement = initialPlacement;
+        const initialHidePref = localStorage.getItem(HIDE_BUTTON_KEY) === '1';
 
         const root = document.createElement('div');
         root.id = 'hbx-dev-hud-root';
@@ -13,9 +24,6 @@
         root.style.zIndex = '2147483647';
         root.style.pointerEvents = 'none';
         root.style.bottom = '16px';
-        if (PLACEMENT === 'bottom-right') root.style.right = '16px';
-        else if (PLACEMENT === 'bottom-center') { root.style.left = '50%'; root.style.transform = 'translateX(-50%)'; }
-        else root.style.left = '16px';
 
         const shadow = root.attachShadow({ mode: 'open' });
         const style = document.createElement('style');
@@ -24,8 +32,8 @@
           .btn { pointer-events: auto; position:relative; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:9999px; background:#111418; color:#e6eaf0; border:1px solid #2a2f38; box-shadow: 0 10px 20px rgba(0,0,0,.25); cursor:pointer; }
           .btn:hover { filter: brightness(1.1); }
           .badge { position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; padding:0 4px; border-radius:9999px; background:#ef4444; color:white; font: 600 11px/18px system-ui, sans-serif; text-align:center; }
-          .panel { pointer-events:auto; position:fixed; inset:auto auto 72px 16px; width:min(92vw, 1200px); max-height:min(80vh, 800px); background:#0d1117; color:#e6eaf0; border:1px solid #21262d; border-radius:12px; box-shadow: 0 20px 40px rgba(0,0,0,.4); overflow:hidden; display:none; }
-          .panel.open { display:flex; flex-direction:column; }
+          .panel { pointer-events:auto; position:fixed; width:min(92vw, 1200px); max-height:min(80vh, 800px); background:#0d1117; color:#e6eaf0; border:1px solid #21262d; border-radius:12px; box-shadow: 0 20px 40px rgba(0,0,0,.4); overflow:hidden; display:none; transform: translateX(var(--hbx-panel-offset-x, 0)) translateY(8px) scale(0.95); opacity:0; }
+          .panel.open { display:flex; flex-direction:column; transform: translateX(var(--hbx-panel-offset-x, 0)) translateY(0) scale(1); opacity:1; }
           .panel-header { display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #21262d; background:#161b22; }
           .panel-header h2 { margin:0; font: 700 16px system-ui, sans-serif; letter-spacing:-0.01em; color:#f0f6fc; }
           .panel-header .close-btn { margin-left:auto; width:32px; height:32px; border:none; background:#21262d; color:#8b949e; border-radius:6px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
@@ -45,8 +53,10 @@
           .tab.active { color:#58a6ff; border-bottom-color:#58a6ff; }
           .tab-content { flex:1; overflow:auto; }
           .env-info { padding:12px 16px; font: 500 11px system-ui, sans-serif; color:#8b949e; background:#0d1117; border-bottom:1px solid #21262d; display:flex; align-items:center; gap:16px; }
-          .filters { display:flex; gap:12px; align-items:center; margin-left:auto; }
+          .filters { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-left:auto; justify-content:flex-end; }
           .filters label { display:inline-flex; gap:6px; align-items:center; font: 500 12px system-ui, sans-serif; color:#c9d2e1; cursor:pointer; }
+          .filters select { appearance:none; background:#111418; border:1px solid #2a2f38; border-radius:6px; color:#e6eaf0; font: 500 12px system-ui, sans-serif; padding:6px 28px 6px 10px; min-width:140px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.2); }
+          .filters select:focus { outline:2px solid #2563eb; outline-offset:1px; }
           .logs-content { overflow:auto; }
           .entry { display:grid; grid-template-columns:auto 1fr auto; gap:12px; padding:12px 16px; border-bottom:1px solid #21262d; }
           .entry:hover { background:#161b22; }
@@ -58,8 +68,7 @@
           .entry .meta { color:#8b949e; font: 500 11px "SF Mono", Monaco, monospace; }
           .page-group-header { padding:12px 16px; font: 600 12px system-ui, sans-serif; color:#58a6ff; border-bottom:1px solid #21262d; background:#0d1117; }
           @media (prefers-reduced-motion:no-preference) {
-            .panel { transition: all .25s cubic-bezier(0.4, 0, 0.2, 1); transform: translateY(8px) scale(0.95); opacity:0; }
-            .panel.open { transform: translateY(0) scale(1); opacity:1; }
+            .panel { transition: all .25s cubic-bezier(0.4, 0, 0.2, 1); }
           }
         `;
         shadow.appendChild(style);
@@ -120,7 +129,35 @@
         const lblAuto = document.createElement('label');
         lblAuto.htmlFor='hbx-auto-open';
         lblAuto.textContent='Auto open';
-        filters.append(lblInfo, chkInfo, lblAuto, chkAuto);
+        const chkHide = document.createElement('input');
+        chkHide.type = 'checkbox';
+        chkHide.id = 'hbx-hide-button';
+        chkHide.checked = initialHidePref;
+        const lblHide = document.createElement('label');
+        lblHide.htmlFor = 'hbx-hide-button';
+        lblHide.textContent = 'Hide button';
+        lblHide.title = 'When hidden, press Cmd/Ctrl + Shift + D to toggle the panel.';
+        const placementLabel = document.createElement('label');
+        placementLabel.htmlFor = 'hbx-placement';
+        placementLabel.textContent = 'Button position';
+        placementLabel.title = 'Choose where the floating button lives.';
+        const placementSelect = document.createElement('select');
+        placementSelect.id = 'hbx-placement';
+        placementSelect.setAttribute('aria-label', 'Dev tools button placement');
+        const appendPlacementOption = (value, text) => {
+          const opt = document.createElement('option');
+          opt.value = value;
+          opt.textContent = text;
+          placementSelect.append(opt);
+        };
+        appendPlacementOption('bottom-left', 'Bottom left');
+        appendPlacementOption('bottom-center', 'Bottom center');
+        appendPlacementOption('bottom-right', 'Bottom right');
+        appendPlacementOption('top-left', 'Top left');
+        appendPlacementOption('top-center', 'Top center');
+        appendPlacementOption('top-right', 'Top right');
+        placementSelect.value = initialPlacement;
+        filters.append(lblInfo, chkInfo, lblAuto, chkAuto, lblHide, chkHide, placementLabel, placementSelect);
         envInfo.append(env, filters);
         
         // Tabs
@@ -140,6 +177,56 @@
         tabContent.append(logsContent);
         
         panel.append(header, pageInfo, envInfo, tabs, tabContent);
+
+        const setPlacement = (placement, persist = true) => {
+          const nextPlacement = isValidPlacement(placement) ? placement : FALLBACK_PLACEMENT;
+          currentPlacement = nextPlacement;
+          root.style.top = '';
+          root.style.bottom = '';
+          root.style.left = '';
+          root.style.right = '';
+          root.style.transform = '';
+          panel.style.top = '';
+          panel.style.bottom = '';
+          panel.style.left = '';
+          panel.style.right = '';
+          panel.style.setProperty('--hbx-panel-offset-x', '0');
+          const isTop = nextPlacement.startsWith('top-');
+          if (isTop) {
+            root.style.top = '16px';
+            panel.style.top = '72px';
+          } else {
+            root.style.bottom = '16px';
+            panel.style.bottom = '72px';
+          }
+          if (nextPlacement.endsWith('left')) {
+            root.style.left = '16px';
+            panel.style.left = '16px';
+          } else if (nextPlacement.endsWith('right')) {
+            root.style.right = '16px';
+            panel.style.right = '16px';
+          } else {
+            root.style.left = '50%';
+            panel.style.left = '50%';
+            root.style.transform = 'translateX(-50%)';
+            panel.style.setProperty('--hbx-panel-offset-x', '-50%');
+          }
+          if (persist) {
+            localStorage.setItem(PLACEMENT_KEY, nextPlacement);
+          }
+          placementSelect.value = nextPlacement;
+        };
+
+        const setButtonVisibility = (hidden, persist = true) => {
+          btnWrap.hidden = hidden;
+          if (persist) {
+            localStorage.setItem(HIDE_BUTTON_KEY, hidden ? '1' : '');
+          }
+          chkHide.checked = hidden;
+        };
+
+        setPlacement(currentPlacement, false);
+        setButtonVisibility(initialHidePref, false);
 
         shadow.append(btnWrap, panel);
 
@@ -262,21 +349,41 @@
           } catch (e) { /* silent */ }
         };
 
-        btn.addEventListener('click', () => { 
-          panel.classList.toggle('open'); 
-          if (panel.classList.contains('open')) { 
-            refreshFromWindow(); 
-            render(); // Immediately render current data
-            fetchLogs(); 
-          } 
-        });
-        close.addEventListener('click', () => panel.classList.remove('open'));
+        const openPanel = () => {
+          panel.classList.add('open');
+          refreshFromWindow();
+          render();
+          fetchLogs();
+        };
+        const closePanel = () => {
+          panel.classList.remove('open');
+        };
+        const togglePanel = () => {
+          if (panel.classList.contains('open')) {
+            closePanel();
+          } else {
+            openPanel();
+          }
+        };
+
+        btn.addEventListener('click', togglePanel);
+        close.addEventListener('click', closePanel);
         chkInfo.addEventListener('change', () => { 
           localStorage.setItem('hbx-show-info', chkInfo.checked ? '1' : ''); 
           render(); 
         });
         chkAuto.addEventListener('change', () => {
           localStorage.setItem('hbx-auto-open', chkAuto.checked ? '1' : '');
+        });
+        chkHide.addEventListener('change', () => {
+          const hideButton = chkHide.checked;
+          setButtonVisibility(hideButton);
+          if (hideButton) {
+            openPanel();
+          }
+        });
+        placementSelect.addEventListener('change', () => {
+          setPlacement(placementSelect.value);
         });
 
         // Initial render immediately on load
@@ -285,10 +392,17 @@
 
         // Auto-open panel if user enabled it
         if (chkAuto.checked) {
-          panel.classList.add('open');
-          render();
-          fetchLogs();
+          openPanel();
         }
+
+        const handleShortcut = (event) => {
+          const key = (event.key || '').toLowerCase();
+          if (key === 'd' && event.shiftKey && (event.metaKey || event.ctrlKey)) {
+            event.preventDefault();
+            togglePanel();
+          }
+        };
+        window.addEventListener('keydown', handleShortcut);
 
         // Auto-refresh badge every few seconds in dev
         setInterval(() => { refreshFromWindow(); }, 3000);
