@@ -1,0 +1,30 @@
+{{- $page := .page -}}
+
+{{- if not $page.IsHome -}}
+  {{- $items := slice -}}
+  {{- $position := 1 -}}
+
+  {{- with site.Home -}}
+    {{- $home_title := .LinkTitle | default site.Title | default "Home" -}}
+    {{- $items = $items | append (dict "position" $position "name" ($home_title | plainify) "item" .Permalink) -}}
+    {{- $position = add $position 1 -}}
+  {{- end -}}
+
+  {{- with $page.Ancestors -}}
+    {{- range .Reverse -}}
+      {{- if not .IsHome -}}
+        {{- $items = $items | append (dict "position" $position "name" (.LinkTitle | plainify) "item" .Permalink) -}}
+        {{- $position = add $position 1 -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $items = $items | append (dict "position" $position "name" ($page.LinkTitle | default $page.Title | plainify) "item" $page.Permalink) -}}
+
+  {{- if gt (len $items) 1 -}}
+    {{- $breadcrumb := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items -}}
+    <script type="application/ld+json">
+    {{ $breadcrumb | jsonify (dict "indent" "  ") | safeJS }}
+    </script>
+  {{- end -}}
+{{- end -}}

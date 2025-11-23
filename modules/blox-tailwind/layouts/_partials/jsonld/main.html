@@ -32,6 +32,10 @@
 
 {{- end }}
 
+{{ if not $page.IsHome }}
+  {{ partial "jsonld/breadcrumbs.html" (dict "page" $page) }}
+{{ end }}
+
 {{/* FAQ content - can appear on any page type including landing pages and homepage */}}
 {{ if or ($page.Params.faq_page) ($page.Params.faqs) }}
   {{ partial "jsonld/faqpage.html" (dict "page" $page "summary" $summary) }}
