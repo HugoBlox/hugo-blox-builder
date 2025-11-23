@@ -1,0 +1,71 @@
+{{- $page := .page -}}
+{{- $summary := .summary -}}
+
+{{- $language := $page.Language.LanguageCode | default site.LanguageCode | default "en" -}}
+{{- $description := $summary | default ($page.Params.summary | default $page.Summary) -}}
+{{- $description = $description | plainify -}}
+
+{{- $listed_pages := $page.Pages -}}
+{{- if $page.IsHome -}}
+  {{- $listed_pages = slice -}}
+{{- else if $listed_pages -}}
+  {{- $listed_pages = $listed_pages.ByDate.Reverse -}}
+{{- else -}}
+  {{- $listed_pages = slice -}}
+{{- end -}}
+
+{{- $items := slice -}}
+{{- $max_items := 10 -}}
+{{- range $index, $item := $listed_pages -}}
+  {{- if ge $index $max_items -}}
+    {{- break -}}
+  {{- end -}}
+  {{- $items = $items | append (dict
+    "@type" "ListItem"
+    "position" (add $index 1)
+    "item" (dict
+      "@type" "WebPage"
+      "@id" $item.Permalink
+      "name" ($item.LinkTitle | default $item.Title | plainify)
+      "url" $item.Permalink
+    )
+  ) -}}
+{{- end -}}
+
+{{- $item_list := dict
+  "@type" "ItemList"
+  "itemListOrder" "Descending"
+  "numberOfItems" (len $items)
+  "itemListElement" $items
+-}}
+
+{{- $collection := dict
+  "@context" "https://schema.org"
+  "@type" "CollectionPage"
+  "@id" $page.Permalink
+  "url" $page.Permalink
+  "name" ($page.LinkTitle | default $page.Title | plainify)
+  "inLanguage" $language
+  "isPartOf" (dict
+    "@type" "WebSite"
+    "@id" site.BaseURL
+    "url" site.BaseURL
+    "name" site.Title
+  )
+-}}
+
+{{- if $description }}
+  {{- $collection = merge $collection (dict "description" $description) -}}
+{{- end -}}
+
+{{- if not $page.Lastmod.IsZero }}
+  {{- $collection = merge $collection (dict "dateModified" ($page.Lastmod.Format "2006-01-02T15:04:05Z07:00")) -}}
+{{- end -}}
+
+{{- if gt (len $items) 0 }}
+  {{- $collection = merge $collection (dict "mainEntity" $item_list) -}}
+{{- end -}}
+
+<script type="application/ld+json">
+{{ $collection | jsonify (dict "indent" "  ") | safeJS }}
+</script>

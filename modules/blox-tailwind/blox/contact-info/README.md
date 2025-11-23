@@ -39,7 +39,7 @@ sections:
       phone: "+1 (555) 123-4567"
       social:
         - icon: brands/x
-          url: https://twitter.com/SmithLabResearch
+          url: https://x.com/SmithLabResearch
         - icon: brands/linkedin
           url: https://linkedin.com/company/smith-lab
         - icon: brands/github

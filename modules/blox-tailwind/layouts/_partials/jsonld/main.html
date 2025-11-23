@@ -30,6 +30,12 @@
     {{ partial "jsonld/faqpage.html" (dict "page" $page "summary" $summary) }}
   {{ end }}
 
+  {{ partial "jsonld/webpage.html" (dict "page" $page "summary" $summary) }}
+
+{{- else -}}
+
+  {{ partial "jsonld/collectionpage.html" (dict "page" $page "summary" $summary) }}
+
 {{- end }}
 
 {{ if not $page.IsHome }}

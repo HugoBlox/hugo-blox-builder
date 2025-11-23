@@ -63,7 +63,7 @@ social:
     link: 'mailto:jane@example.edu'
   - icon: twitter
     icon_pack: fab
-    link: https://twitter.com/janedoe
+    link: https://x.com/janedoe
   - icon: github
     icon_pack: fab
     link: https://github.com/janedoe

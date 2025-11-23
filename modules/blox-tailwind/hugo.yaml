@@ -78,6 +78,18 @@ outputFormats:
     baseName: backlinks
     isPlainText: true
     notAlternative: true
+  LLM:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+    permalinkable: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - LLM
 imaging:
   # High quality defaults for crisp avatar display
   quality: 90

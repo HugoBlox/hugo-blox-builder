@@ -15,7 +15,14 @@ marketing:
     local_business_type: ''
     org_name: ''
     description: 'The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website.'
-    twitter: 'GetResearchDev'
+    twitter: 'BuildLore'
+    llm:
+      allow:
+        - /
+      disallow: []
+      note: 'Guidance for AI crawlers - customize to match your public content.'
+      contact: ''
+      policy_url: ''
   analytics:
     google_analytics: ''
     baidu_tongji: ''

@@ -4,7 +4,7 @@
 
 links:
   - id: x
-    url: 'https://twitter.com/intent/tweet?url={url}&text={title}'
+    url: 'https://x.com/intent/tweet?url={url}&text={title}'
     title: X
     icon: brands/x
     enable: true
