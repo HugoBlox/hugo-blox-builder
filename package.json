@@ -42,7 +42,8 @@
     "update:starters": "poetry run python ./scripts/update.py",
     "vendor:libs": "vite build --config vite.config.js",
     "vendor:libs:watch": "vite build --config vite.config.js --watch",
-    "vendor:update-and-build": "pnpm up katex mermaid markmap-autoloader alpinejs plotly.js preact --latest && pnpm vendor:libs"
+    "vendor:update-and-build": "pnpm up katex mermaid markmap-autoloader alpinejs plotly.js preact --latest && pnpm vendor:libs",
+    "test:releaser": "poetry run python scripts/test_release_modules.py"
   },
   "browserslist": "> 1%"
 }

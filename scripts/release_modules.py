@@ -294,6 +294,38 @@ def write_blox_tailwind_theme_version(module: Module, version: str) -> List[Path
   return updated
 
 
+def update_citation_release_info(module: Module, version: str) -> List[Path]:
+  """Update the public citation metadata to the latest blox-tailwind release."""
+  if module.name != "blox-tailwind":
+    return []
+
+  citation = REPO_ROOT / "CITATION.cff"
+  if not citation.exists():
+    return []
+
+  original = citation.read_text(encoding="utf-8")
+  release_date = datetime.now(timezone.utc).date().isoformat()
+
+  updated = original
+  version_pattern = r'(?m)^(version:\s*)"[^"]+"'
+  if re.search(version_pattern, updated):
+    updated = re.sub(version_pattern, rf'\g<1>"{version}"', updated)
+  else:
+    updated = f'{updated.rstrip()}\nversion: "{version}"\n'
+
+  date_pattern = r'(?m)^(date-released:\s*)(.+)$'
+  if re.search(date_pattern, updated):
+    updated = re.sub(date_pattern, rf"\g<1>{release_date}", updated)
+  else:
+    updated = f"{updated.rstrip()}\ndate-released: {release_date}\n"
+
+  if updated != original:
+    citation.write_text(updated, encoding="utf-8")
+    logging.info("updated CITATION.cff -> version %s, date %s", version, release_date)
+    return [citation]
+  return []
+
+
 def update_go_mod_require_version(go_mod_text: str, dep_module_path: str, new_version: str) -> str:
   # Replace exact require line if present
   # Handles both single-line require and block form
@@ -686,8 +718,9 @@ def main() -> None:
     go_mod_synced = update_module_requirements_to_latest(m, modules, latest_versions)
     if go_mod_synced:
       touched_files.append(go_mod_synced)
-    # Special-case blox-tailwind theme version bump
+    # Special-case blox-tailwind theme version bump and citation metadata
     touched_files.extend(write_blox_tailwind_theme_version(m, next_version))
+    touched_files.extend(update_citation_release_info(m, next_version))
 
     # Stage and commit any pre-release file changes
     if touched_files:
