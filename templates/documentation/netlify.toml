@@ -8,7 +8,7 @@
     echo "Go version: $(go version || echo 'Go not available')"
     
     echo "=== Installing dependencies ==="
-    pnpm install --verbose
+    pnpm install --verbose --no-frozen-lockfile
     
     echo "=== Running Hugo build ==="
     hugo --gc --minify -b $URL --logLevel debug --printI18nWarnings --printPathWarnings
@@ -38,7 +38,7 @@
     set -e
     echo "=== Deploy Preview Build ==="
     echo "Deploy URL: $DEPLOY_PRIME_URL"
-    pnpm install --verbose
+    pnpm install --verbose --no-frozen-lockfile
     hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL --logLevel debug --printI18nWarnings --printPathWarnings
     pnpm dlx pagefind --source 'public' --verbose
   """
@@ -48,7 +48,7 @@
     set -e
     echo "=== Branch Deploy Build ==="
     echo "Deploy URL: $DEPLOY_PRIME_URL"
-    pnpm install --verbose
+    pnpm install --verbose --no-frozen-lockfile
     hugo --gc --minify -b $DEPLOY_PRIME_URL --logLevel debug --printI18nWarnings --printPathWarnings
     pnpm dlx pagefind --source 'public' --verbose
   """

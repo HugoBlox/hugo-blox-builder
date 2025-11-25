@@ -47,7 +47,7 @@ jobs:
         # Install Tailwind CLI if package.json exists
         if [ -f "package.json" ]; then
           echo "Installing Tailwind dependencies..."
-          pnpm install || npm install
+          pnpm install --no-frozen-lockfile || npm install
         fi
 
     - name: Setup Hugo
