@@ -5,7 +5,9 @@
 }
 
 .navbar-brand {
-  @apply text-black dark:text-white text-xl font-semibold;
+  /* @apply text-black dark:text-white text-xl font-semibold; */
+  color: var(--color-header-fg);
+  @apply text-xl font-semibold;
 }
 
 .navbar-brand svg {
@@ -40,7 +42,9 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 #site-header.header {
-  @apply bg-white dark:bg-zinc-800 py-3 shadow;
+  background-color: var(--color-header-bg);
+  color: var(--color-header-fg);
+  @apply py-3 shadow;
 }
 
 /* navbar items */
@@ -50,7 +54,9 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-link {
-  @apply dark:text-white block p-3 font-semibold transition lg:px-2 lg:py-3;
+  /* @apply dark:text-white block p-3 font-semibold transition lg:px-2 lg:py-3; */
+  color: var(--color-header-fg);
+  @apply block p-3 font-semibold transition lg:px-2 lg:py-3;
 }
 
 .nav-link:hover {

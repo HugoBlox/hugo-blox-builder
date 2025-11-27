@@ -305,6 +305,9 @@
   --color-primary-900: rgb(var(--hb-primary-900-rgb, 30 58 138));
   --color-primary-950: rgb(var(--hb-primary-950-rgb, 23 37 84));
 
+  /* Semantic UI Colors - Defined in theme_generator.html */
+  /* Do not redeclare them here to avoid circular references */
+
   --color-secondary-50: rgb(var(--hb-secondary-50-rgb, 236 254 255));
   --color-secondary-100: rgb(var(--hb-secondary-100-rgb, 207 250 254));
   --color-secondary-200: rgb(var(--hb-secondary-200-rgb, 165 243 252));

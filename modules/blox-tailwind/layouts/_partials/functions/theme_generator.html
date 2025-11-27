@@ -1,0 +1,80 @@
+{{/* HugoBlox Theme Engine: Generates CSS Variables for Light and Dark modes */}}
+{{/* Inputs: .light (default 'minimal') and .dark (default 'dark') */}}
+
+{{ $appearance := site.Params.appearance | default dict }}
+{{ $theme_settings := $appearance.theme | default dict }}
+{{ $light_theme_name := $theme_settings.light | default "default" }}
+{{ $dark_theme_name := $theme_settings.dark | default "default" }}
+{{ $global_colors := $theme_settings.colors | default dict }}
+{{ $primary_override := $global_colors.primary | default $appearance.color }}
+{{ $secondary_override := $global_colors.secondary }}
+
+{{/* Load Theme Data */}}
+{{ if not site.Data.themes }}
+  {{ warnf "THEME ENGINE ERROR: site.Data.themes is empty! Check modules/blox-tailwind/data/themes/" }}
+{{ end }}
+
+{{ $light_theme := index site.Data.themes $light_theme_name }}
+{{ $dark_theme := index site.Data.themes $dark_theme_name }}
+
+{{/* Fallback for missing themes */}}
+{{ if not $light_theme }}
+  {{ warnf "THEME ENGINE WARNING: Light theme '%s' not found. Defaulting to 'default'." $light_theme_name }}
+  {{ $light_theme = site.Data.themes.default }}
+{{ end }}
+{{ if not $dark_theme }}
+  {{ warnf "THEME ENGINE WARNING: Dark theme '%s' not found. Defaulting to 'default'." $dark_theme_name }}
+  {{ $dark_theme = site.Data.themes.default }}
+{{ end }}
+
+{{/* Resolve effective light/dark mode objects */}}
+{{ $light_base := $light_theme.light | default $light_theme }}
+{{ $dark_base := $dark_theme.dark | default $dark_theme }}
+
+{{/* Apply global color overrides (palette or hex) */}}
+{{ if or $primary_override $secondary_override }}
+  {{ if $light_base }}
+    {{ $light_colors := merge (dict) ($light_base.colors | default dict) }}
+    {{ if $primary_override }}
+      {{ $light_colors = merge $light_colors (dict "primary" $primary_override) }}
+    {{ end }}
+    {{ if $secondary_override }}
+      {{ $light_colors = merge $light_colors (dict "secondary" $secondary_override) }}
+    {{ end }}
+    {{ $light_base = merge $light_base (dict "colors" $light_colors) }}
+  {{ end }}
+  {{ if $dark_base }}
+    {{ $dark_colors := merge (dict) ($dark_base.colors | default dict) }}
+    {{ if $primary_override }}
+      {{ $dark_colors = merge $dark_colors (dict "primary" $primary_override) }}
+    {{ end }}
+    {{ if $secondary_override }}
+      {{ $dark_colors = merge $dark_colors (dict "secondary" $secondary_override) }}
+    {{ end }}
+    {{ $dark_base = merge $dark_base (dict "colors" $dark_colors) }}
+  {{ end }}
+{{ end }}
+
+<style>
+  /* stylelint-disable */
+  /* 1. Light Mode (Default :root) */
+  :root {
+    {{ if $light_base }}
+      /* Light Theme: {{ $light_theme_name }} */
+      {{ partial "functions/theme_variables" (dict "data" $light_base "is_dark" false) | safeCSS }}
+    {{ else }}
+      /* Failed to load data for {{ $light_theme_name }} */
+    {{ end }}
+  }
+
+  /* 2. Dark Mode (.dark class) */
+  .dark {
+    {{ if $dark_base }}
+      /* Dark Theme: {{ $dark_theme_name }} */
+      {{ partial "functions/theme_variables" (dict "data" $dark_base "is_dark" true) | safeCSS }}
+    {{ else }}
+      /* Failed to load data for {{ $dark_theme_name }} */
+    {{ end }}
+  }
+  /* stylelint-enable */
+</style>

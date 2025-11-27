@@ -1,0 +1,29 @@
+name: "dracula"
+type: "dark"
+
+dark:
+  colors:
+    primary: "#ff79c6" # Dracula Pink
+    secondary: "#bd93f9" # Dracula Purple
+    neutral: "#6272a4" # Dracula Comment (Blue-Gray)
+  ui:
+    background: "#282a36" # Dracula Background
+    foreground: "#f8f8f2" # Dracula Foreground
+    header:
+      background: "#282a36"
+      foreground: "#f8f8f2"
+    footer:
+      background: "#21222c" # Slightly darker selection color
+      foreground: "#f8f8f2"
+
+# Optional light variant (Dracula usually doesn't have one, but we can provide a high contrast or soft variant)
+light:
+  colors:
+    primary: "#ff79c6"
+    secondary: "#bd93f9"
+  ui:
+    background: "#f8f8f2"
+    foreground: "#282a36"
+    header:
+      background: "#ffffff"
+      foreground: "#282a36"

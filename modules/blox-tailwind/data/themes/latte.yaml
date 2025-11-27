@@ -1,0 +1,32 @@
+name: "latte"
+type: "light"
+
+light:
+  colors:
+    primary: "#3b2313" # Mocha/Coffee bean
+    secondary: "#d97706" # Caramel/Amber
+    neutral: "#78716c" # Stone
+  ui:
+    background: "#fffaf5" # Warm cream/milk foam
+    foreground: "#3b2313" # Espresso text
+    header:
+      background: "rgba(255, 250, 245, 0.85)" # Frothy semi-transparent
+      foreground: "#3b2313"
+    footer:
+      background: "#f5efe9" # Slightly darker latte foam
+      foreground: "#5c4033"
+
+dark:
+  # A rich "Espresso Martini" dark mode partner
+  colors:
+    primary: "#d97706" # Caramel highlights
+    secondary: "#f59e0b" # Gold foam
+  ui:
+    background: "#1c1917" # Dark roasted bean
+    foreground: "#e7e5e4" # Steam
+    header:
+      background: "#1c1917"
+      foreground: "#e7e5e4"
+    footer:
+      background: "#292524"
+      foreground: "#a8a29e"

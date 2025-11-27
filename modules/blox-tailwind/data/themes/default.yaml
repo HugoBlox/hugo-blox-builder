@@ -1,0 +1,30 @@
+name: "default"
+type: "dual"
+
+light:
+  colors:
+    primary: "indigo"
+    secondary: "blue"
+  ui:
+    background: "#ffffff"
+    foreground: "#111827"
+    header:
+      background: "#ffffff"
+      foreground: "#0f172a"
+    footer:
+      background: "#f3f4f6"
+      foreground: "#0f172a"
+
+dark:
+  colors:
+    primary: "blue"
+    secondary: "teal"
+  ui:
+    background: "#0f172a"
+    foreground: "#f8fafc"
+    header:
+      background: "#0f172a"
+      foreground: "#f8fafc"
+    footer:
+      background: "#111827"
+      foreground: "#e5e7eb"

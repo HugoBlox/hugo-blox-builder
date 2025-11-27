@@ -1,0 +1,29 @@
+name: "cupcake"
+type: "light"
+
+light:
+  colors:
+    primary: "#e779c1" # Frosting Pink (approximated from oklch(65% 0.241 354.308))
+    secondary: "#d946ef" # Deep Purple/Fuchsia (approximated from oklch(62% 0.265 303.9))
+    neutral: "#5c4033" # Chocolate/Dark Brown (approximated from oklch(40% 0.153 2.432))
+  ui:
+    background: "#faf7f5" # Vanilla/Sugar (approximated from oklch(97% 0.014 343.198))
+    foreground: "#7d1f39" # Berry Jam (approximated from oklch(52% 0.223 3.958))
+    header:
+      background: "#ffffff"
+      foreground: "#7d1f39"
+    footer:
+      background: "#f3e8e8" # Light Pink Foam
+      foreground: "#7d1f39"
+
+dark:
+  # A darker "Red Velvet" variant
+  colors:
+    primary: "#e779c1"
+    secondary: "#d946ef"
+  ui:
+    background: "#2a1b20" # Dark Chocolate
+    foreground: "#f8e7e7" # Pale Pink Cream
+    header:
+      background: "#1f1216"
+      foreground: "#f8e7e7"

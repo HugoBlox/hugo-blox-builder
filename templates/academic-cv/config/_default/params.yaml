@@ -6,7 +6,9 @@
 # Appearance
 appearance:
   mode: system
-  color: indigo
+  theme:
+    light: "default"
+    dark: "default"
 
 # SEO
 marketing:

@@ -9,7 +9,7 @@
   <div class="flex w-full flex-wrap items-center justify-between px-3">
     <!-- Hamburger button for mobile view -->
     <button
-      class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
+      class="block border-0 bg-transparent px-2 text-[var(--color-header-fg)] hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 lg:hidden"
       type="button"
       data-te-collapse-init
       data-te-target="#collapse-main-navbar"
@@ -51,8 +51,8 @@
           class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1"
           data-te-nav-item-ref>
           <a
-            class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
-            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white {{ $activeClass }}"
+            class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
+            [&.active]:font-bold [&.active]:text-primary-500 {{ $activeClass }}"
             aria-current="page"
             href="{{ .URL | relLangURL }}"
             data-te-nav-link-ref
@@ -63,8 +63,8 @@
         {{ if $show_search }}
         <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1">
           <a
-            class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
-            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white"
+            class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
+            [&.active]:font-bold [&.active]:text-primary-500"
             aria-current="page"
             href="#"
             id="search-toggle"
@@ -74,8 +74,8 @@
         {{ end }}
         {{ $show_theme_chooser := site.Params.header.navbar.show_theme_chooser | default true }}
         {{ if $show_theme_chooser }}
-        <li class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
-            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
+        <li class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
+            [&.active]:font-bold [&.active]:text-primary-500">
           <button class="theme-toggle mt-1" accesskey="t" title="">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -100,8 +100,8 @@
         {{ end }}
         {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
         {{ if .IsTranslated | and $show_translations }}
-        <li class="lg:px-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
-            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
+        <li class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
+            [&.active]:font-bold [&.active]:text-primary-500">
           {{- partial "components/language-chooser.html" (dict "page" .) -}}
         </li>
         {{ end }}

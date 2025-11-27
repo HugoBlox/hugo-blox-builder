@@ -46,13 +46,18 @@
   <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
 
   {{/* Hugo Blox Color Theme Initialization */}}
-  {{ $theme_name := (lower site.Params.appearance.color) | default "blue" }}
-  {{ $theme_path := printf "css/themes/%s.css" $theme_name }}
-  {{ if not (fileExists (printf "assets/%s" $theme_path)) }}
-    {{ errorf "The specified color theme `%s.css` was not found in `assets/css/themes/`. Either install your custom color theme in the folder or set the `color` theme value in `params.yaml` to an existing theme such as `blue`." $theme_name }}
+  {{ $legacy_color := (lower site.Params.appearance.color) | default "blue" }}
+  
+  {{/* 1. New Data-Driven System (Mix & Match) */}}
+  {{ if site.Params.appearance.theme }}
+     {{ partial "functions/theme_generator.html" (dict "light" site.Params.appearance.theme.light "dark" site.Params.appearance.theme.dark) }}
+  {{/* 2. Legacy CSS System Fallback */}}
+  {{ else if (fileExists (printf "assets/css/themes/%s.css" $legacy_color)) }}
+     {{ $theme_css := resources.Get (printf "css/themes/%s.css" $legacy_color) | minify }}
+     <link rel="stylesheet" href="{{ $theme_css.RelPermalink }}" />
   {{ else }}
-    {{ $theme_css := resources.Get $theme_path | minify }}
-    <link rel="stylesheet" href="{{ $theme_css.RelPermalink }}" />
+     {{/* 3. Default Fallback */}}
+     {{ partial "functions/theme_generator.html" (dict "light" "default" "dark" "default") }}
   {{ end }}
 
   {{/* Tailwind CSS v4 Processing */}}

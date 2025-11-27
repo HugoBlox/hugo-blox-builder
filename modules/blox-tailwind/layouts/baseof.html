@@ -6,7 +6,7 @@
       data-wc-theme-default="{{ (lower site.Params.appearance.mode) | default "system" }}"
       data-hbb-relurl="{{ "" | relURL }}">
   {{ partial "site_head" . }}
-  <body class="dark:bg-hb-dark dark:text-white page-wrapper" id="top">
+  <body class="bg-[var(--color-background)] text-[var(--color-foreground)] page-wrapper" id="top">
     <div id="page-bg"></div>
     <div class="page-header {{ if site.Params.header.navbar.fixed_to_top }}sticky top-0 z-30{{ end }}">
       {{/* Load header block */}}

@@ -1,0 +1,29 @@
+name: "retro"
+type: "light"
+
+light:
+  colors:
+    primary: "#e38c89" # Desaturated Red/Pink (approximated from oklch(80% 0.114 19.571))
+    secondary: "#b4e9d6" # Mint Green (approximated from oklch(92% 0.084 155.995))
+    neutral: "#79726b" # Warm Stone (approximated from oklch(44% 0.011 73.639))
+  ui:
+    background: "#ebe6d9" # Vintage Paper / Beige (approximated from oklch(91.637% 0.034 90.515))
+    foreground: "#7d5e3c" # Sepia/Brown (approximated from oklch(41% 0.112 45.904))
+    header:
+      background: "#e3dbcd" # Slightly darker paper
+      foreground: "#7d5e3c"
+    footer:
+      background: "#dcd3c3"
+      foreground: "#5c4033"
+
+dark:
+  # A dark "Polaroid" variant
+  colors:
+    primary: "#e38c89"
+    secondary: "#b4e9d6"
+  ui:
+    background: "#292524" # Dark Stone
+    foreground: "#e7e5e4" # Warm Gray
+    header:
+      background: "#1c1917"
+      foreground: "#e7e5e4"

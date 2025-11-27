@@ -1,0 +1,29 @@
+name: "synthwave"
+type: "dark"
+
+dark:
+  colors:
+    primary: "#e779c1" # Neon Pink (approx oklch(71% 0.202 349.761))
+    secondary: "#58c7f3" # Cyan (approx oklch(82% 0.111 230.318))
+    neutral: "#2a2e37" # Dark Blue-Gray (approx oklch(45% 0.24 277.023) adjusted for readability)
+  ui:
+    background: "#1a103d" # Deep Purple (approx oklch(15% 0.09 281.288))
+    foreground: "#f9f7fd" # Light Lavender (approx oklch(78% 0.115 274.713))
+    header:
+      background: "rgba(26, 16, 61, 0.9)" # Deep Purple
+      foreground: "#f9f7fd"
+    footer:
+      background: "#110a28" # Darker Deep Purple
+      foreground: "#b8b2cc"
+
+light:
+  # Synthwave usually doesn't have a light mode, providing a high contrast fallback
+  colors:
+    primary: "#e779c1"
+    secondary: "#58c7f3"
+  ui:
+    background: "#f9f7fd"
+    foreground: "#1a103d"
+    header:
+      background: "#ffffff"
+      foreground: "#1a103d"

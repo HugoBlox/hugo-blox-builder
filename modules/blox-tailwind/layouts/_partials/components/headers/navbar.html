@@ -32,7 +32,7 @@
     <input id="nav-toggle" type="checkbox" class="hidden" />
     <label
       for="nav-toggle"
-      class="order-3 cursor-pointer flex items-center lg:hidden text-dark dark:text-white lg:order-1">
+      class="order-3 cursor-pointer flex items-center lg:hidden text-[var(--color-header-fg)] lg:order-1">
       <svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20">
         <title>Open Menu</title>
         <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
@@ -142,7 +142,7 @@
       {{ with $show_search }}
       <button
         aria-label="toggle search"
-        class="text-black hover:text-primary inline-block px-3 text-xl dark:text-white cursor-pointer"
+        class="inline-block px-3 text-xl text-[var(--color-header-fg)] hover:text-primary-500 cursor-pointer"
         data-search-toggle>
         <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
       </button>
@@ -150,8 +150,8 @@
 
       {{ $show_theme_chooser := site.Params.header.navbar.show_theme_chooser | default true }}
       {{ if $show_theme_chooser }}
-      <div class="px-3 text-black hover:text-primary-700 dark:text-white dark:hover:text-primary-300
-            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
+      <div class="px-3 text-[var(--color-header-fg)] hover:text-primary-500
+            [&.active]:font-bold [&.active]:text-primary-500">
         <button class="theme-toggle mt-1" accesskey="t" title="appearance">
           <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -177,8 +177,8 @@
 
       {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
       {{ if .IsTranslated | and $show_translations }}
-      <div class="pl-1 mr-5 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200
-            [&.active]:font-bold [&.active]:text-black/90 dark:[&.active]:text-white">
+      <div class="pl-1 mr-5 text-[var(--color-header-fg)] hover:text-primary-500
+            [&.active]:font-bold [&.active]:text-primary-500">
         {{- partial "components/language-chooser.html" (dict "page" .) -}}
       </div>
       {{ end }}

@@ -1,0 +1,26 @@
+{{/* HugoBlox Theme Helper to output CSS variables for a specific theme block */}}
+{{ $data := .data }}
+
+{{/* 1. Palette Generation (Primary/Secondary Scales) */}}
+{{ $primary := $data.colors.primary | default "#3b82f6" }}
+{{ $secondary := $data.colors.secondary | default "#10b981" }}
+
+{{ partial "functions/generate_color_scale" (dict "name" "primary" "color" $primary) }}
+{{ partial "functions/generate_color_scale" (dict "name" "secondary" "color" $secondary) }}
+
+{{ if $data.colors.neutral }}
+  {{/* Map user 'neutral' to Tailwind 'gray' utility to override text-gray-* classes */}}
+  {{ partial "functions/generate_color_scale" (dict "name" "gray" "color" $data.colors.neutral) }}
+{{ end }}
+
+{{/* 2. Semantic UI Variables */}}
+--color-background: {{ $data.ui.background | default "#ffffff" }};
+--color-foreground: {{ $data.ui.foreground | default "#000000" }};
+
+{{/* Header */}}
+--color-header-bg: {{ $data.ui.header.background | default $data.ui.background | default "#ffffff" }};
+--color-header-fg: {{ $data.ui.header.foreground | default $data.ui.foreground | default "#000000" }};
+
+{{/* Footer */}}
+--color-footer-bg: {{ $data.ui.footer.background | default $data.ui.background | default "#f3f4f6" }};
+--color-footer-fg: {{ $data.ui.footer.foreground | default $data.ui.foreground | default "#000000" }};
