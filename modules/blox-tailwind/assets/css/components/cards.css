@@ -23,7 +23,7 @@
 }
 
 .hb-card-title {
-  @apply flex font-semibold items-start gap-2 text-gray-700 hover:text-gray-900 items-center;
+  @apply flex font-semibold gap-2 text-gray-700 hover:text-gray-900 items-center;
 
   color: var(--color-neutral-700);
 }
