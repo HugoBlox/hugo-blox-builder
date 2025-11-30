@@ -72,8 +72,8 @@
           >
         </li>
         {{ end }}
-        {{ $show_theme_chooser := site.Params.header.navbar.show_theme_chooser | default true }}
-        {{ if $show_theme_chooser }}
+        {{ $show_mode_toggle := site.Params.header.navbar.show_mode_toggle | default site.Params.header.navbar.show_theme_chooser | default true }}
+        {{ if $show_mode_toggle }}
         <li class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
           <button class="theme-toggle mt-1" accesskey="t" title="">
@@ -98,6 +98,31 @@
           </button>
         </li>
         {{ end }}
+
+        {{/* Theme Picker */}}
+        {{ if site.Params.header.navbar.show_theme_picker }}
+        <li class="lg:px-2">
+          <select onchange="document.documentElement.setAttribute('data-theme-pack', this.value); localStorage.setItem('hb-theme-pack', this.value);" class="bg-transparent text-[var(--color-header-fg)] border-none focus:ring-0 cursor-pointer text-sm font-medium">
+            <option value="">Theme</option>
+            {{ range $name, $data := site.Data.themes }}
+              <option value="{{ $name }}">{{ $name | humanize }}</option>
+            {{ end }}
+          </select>
+          <script>
+            (function() {
+              const savedTheme = localStorage.getItem('hb-theme-pack');
+              if (savedTheme) {
+                document.documentElement.setAttribute('data-theme-pack', savedTheme);
+                document.addEventListener('DOMContentLoaded', () => {
+                  const select = document.querySelector('select[onchange*="data-theme-pack"]');
+                  if (select) select.value = savedTheme;
+                });
+              }
+            })();
+          </script>
+        </li>
+        {{ end }}
+
         {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
         {{ if .IsTranslated | and $show_translations }}
         <li class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500

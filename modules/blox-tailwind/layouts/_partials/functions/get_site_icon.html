@@ -1,7 +1,42 @@
-{{/* Function to get website icon image. */}}
-{{/* Input: size (int) */}}
-{{/* Output: resource (obj) */}}
+{{/*
+  HugoBlox Image Engine: Get website favicon/icon
+  
+  SVG-first detection for modern browser support.
+  Auto-detects from assets/media/:
+    1. icon.svg (preferred - vector, supports dark mode)
+    2. icon.png (fallback - raster, processed by Hugo)
+  
+  Input: size (int) - Only used for PNG processing
+  Output: dict with:
+    - resource: The icon resource
+    - type: MIME type ("image/svg+xml" or "image/png")
+    - is_svg: boolean
+*/}}
 
-{{ $icon := resources.GetMatch "media/icon.png" }}
-{{ $icon_resized := $icon.Fill (printf "%sx%s Center" (string .) (string .)) }}
-{{ return $icon_resized }}
+{{ $size := . | default 32 }}
+{{ $result := dict "resource" nil "type" "" "is_svg" false }}
+
+{{/* 1. Check for SVG first (preferred) */}}
+{{ $icon_svg := resources.Get "media/icon.svg" }}
+{{ if $icon_svg }}
+  {{ $result = dict "resource" $icon_svg "type" "image/svg+xml" "is_svg" true }}
+{{ else }}
+  {{/* 2. Fallback to PNG */}}
+  {{ $icon_png := resources.Get "media/icon.png" }}
+  {{ if $icon_png }}
+    {{ $icon_resized := $icon_png.Fill (printf "%sx%s Center" (string $size) (string $size)) }}
+    {{ $result = dict "resource" $icon_resized "type" "image/png" "is_svg" false }}
+  {{ else }}
+    {{/* 3. Ultimate fallback: Try to generate from logo */}}
+    {{ $logo_png := resources.Get "media/logo.png" }}
+    {{ if $logo_png }}
+      {{ $icon_from_logo := $logo_png.Fill (printf "%sx%s Center" (string $size) (string $size)) }}
+      {{ $result = dict "resource" $icon_from_logo "type" "image/png" "is_svg" false }}
+    {{ else }}
+      {{/* 4. No icon found */}}
+      {{ warnf "No favicon found. Please add assets/media/icon.svg (preferred) or assets/media/icon.png" }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $result }}

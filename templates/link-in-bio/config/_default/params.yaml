@@ -3,19 +3,42 @@
 # Documentation: https://docs.hugoblox.com/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-# Appearance
-appearance:
-  mode: light
-  theme:
-    light: "default"
-    dark: "default"
+# ==============================================================================
+# HUGO BLOX CONFIGURATION
+# ==============================================================================
+hugoblox:
+  # ────────────────────────────────────────────────────────────────────────────
+  # BRANDING
+  # Your site's identity - used in navbar, footer, SEO, and copyright
+  # ────────────────────────────────────────────────────────────────────────────
+  branding:
+    name: "Your Name"
 
-# SEO
+  # ────────────────────────────────────────────────────────────────────────────
+  # THEME
+  # Controls colors and appearance
+  # ────────────────────────────────────────────────────────────────────────────
+  theme:
+    mode: light
+    pack: "default"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # TYPOGRAPHY & LAYOUT
+  # ────────────────────────────────────────────────────────────────────────────
+  typography:
+    font: "sans"
+    size: "md"
+  layout:
+    radius: "lg"
+    spacing: "comfortable"
+
+# ==============================================================================
+# SEO & MARKETING
+# ==============================================================================
 marketing:
   seo:
     site_type: Person
     local_business_type: ''
-    org_name: ''
     description: 'A highly-customizable Hugo link in bio theme powered by Hugo Blox website builder.'
     twitter: 'BuildLore'
   analytics:
@@ -28,18 +51,24 @@ marketing:
     google: ''
     baidu: ''
 
-# Site header
+# ==============================================================================
+# SITE HEADER
+# ==============================================================================
 header:
   navbar:
     enable: true
     block: floating-theme-toggler
 
-# Site footer
+# ==============================================================================
+# SITE FOOTER
+# ==============================================================================
 footer:
   copyright:
-    notice: '© {year} Me'
+    notice: '© {year} {name}'
 
-# Localization
+# ==============================================================================
+# LOCALIZATION
+# ==============================================================================
 locale:
   date_format: 'Jan 2, 2006'
   time_format: '3:04 PM'

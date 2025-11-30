@@ -1,0 +1,31 @@
+{{/*
+  HugoBlox Theme Engine: Demo Theme Styles
+  Generates CSS variables for ALL available theme packs.
+  Used for the "Theme Pack Chooser" demo feature.
+*/}}
+
+{{ $typography_config := .typography }}
+{{ $layout_config := .layout }}
+
+<style>
+  {{ range $pack_name, $pack_data := site.Data.themes }}
+    {{ if $pack_data.hugoblox }}
+      {{ $theme := $pack_data.hugoblox }}
+      
+      {{/* Get light/dark mode data */}}
+      {{ $light_data := $theme.light | default $theme }}
+      {{ $dark_data := $theme.dark | default $theme }}
+      
+      {{/* 1. Light Mode Variables */}}
+      [data-theme-pack="{{ $pack_name }}"] {
+        {{ partial "functions/theme_variables" (dict "data" $light_data "is_dark" false "typography" $typography_config "layout" $layout_config) | safeCSS }}
+      }
+
+      {{/* 2. Dark Mode Variables */}}
+      [data-theme-pack="{{ $pack_name }}"].dark,
+      .dark [data-theme-pack="{{ $pack_name }}"] {
+        {{ partial "functions/theme_variables" (dict "data" $dark_data "is_dark" true "typography" $typography_config "layout" $layout_config) | safeCSS }}
+      }
+    {{ end }}
+  {{ end }}
+</style>

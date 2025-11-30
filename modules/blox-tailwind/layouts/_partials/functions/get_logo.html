@@ -1,21 +1,41 @@
-{{/* Function to get logo image. */}}
-{{/* Inputs: constraint: max_height/fit (str); size (int) */}}
-{{/* Output: resource (obj) */}}
+{{/*
+  HugoBlox Image Engine: Get website logo
+  
+  SVG-first detection for crisp rendering at any size.
+  Auto-detects from assets/media/:
+    1. logo.svg (preferred - vector, infinite scalability)
+    2. logo.png (fallback - raster, processed by Hugo)
+  
+  Inputs:
+    - constraint: "max_height" or "fit" (default: "fit")
+    - size: int - Target size in pixels
+  
+  Output: dict with:
+    - resource: The logo resource (processed if PNG)
+    - type: MIME type ("image/svg+xml" or "image/png")
+    - is_svg: boolean
+*/}}
 
-{{/* Workaround fact Hugo does not support GetMatch in assets dir */}}
-{{/* Hugo doesn't support image ops on SVG: https://discourse.gohugo.io/t/ho-do-i-convert-a-generic-resource-to-image-resource/22570/4 */}}
-{{ $logo := resources.Get "media/logo.png" | default (resources.Get "media/logo.svg") }}
-{{ $logo_proc := $logo }}
+{{ $constraint := .constraint | default "fit" }}
+{{ $size := .size | default 36 }}
+{{ $result := dict "resource" nil "type" "" "is_svg" false }}
 
-{{/* If the type of image can be resized by Hugo, resize it given a `.size` argument to the function. */}}
-{{ if resources.Get "media/logo.png" }}
-  {{ if eq .constraint "max_height" }}
-    {{/* Resize logo to fit specified max height. */}}
-    {{ $logo_proc = ($logo.Resize (printf "x%s" (string .size))) }}
-  {{ else }}
-    {{/* Constrain logo to fit within specified dimensions. */}}
-    {{ $logo_proc = ($logo.Fit (printf "%sx%s" (string .size) (string .size))) }}
+{{/* 1. Check for SVG first (preferred) */}}
+{{ $logo_svg := resources.Get "media/logo.svg" }}
+{{ if $logo_svg }}
+  {{ $result = dict "resource" $logo_svg "type" "image/svg+xml" "is_svg" true }}
+{{ else }}
+  {{/* 2. Fallback to PNG */}}
+  {{ $logo_png := resources.Get "media/logo.png" }}
+  {{ if $logo_png }}
+    {{ $logo_processed := $logo_png }}
+    {{ if eq $constraint "max_height" }}
+      {{ $logo_processed = $logo_png.Resize (printf "x%d" $size) }}
+    {{ else }}
+      {{ $logo_processed = $logo_png.Fit (printf "%dx%d" $size $size) }}
+    {{ end }}
+    {{ $result = dict "resource" $logo_processed "type" "image/png" "is_svg" false }}
   {{ end }}
 {{ end }}
 
-{{ return $logo_proc }}
+{{ return $result }}

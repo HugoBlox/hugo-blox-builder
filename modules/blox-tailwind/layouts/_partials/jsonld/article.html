@@ -9,7 +9,8 @@
 {{ end }}
 
 {{ $author := partial "functions/get_author_name" $page }}
-{{ $publisher := site.Params.marketing.seo.org_name | default site.Title }}
+{{ $branding := partialCached "functions/get_branding" $page "branding" }}
+{{ $publisher := $branding.organization }}
 {{ $logo_url := partial "functions/get_logo_url" $page -}}
 
 <script type="application/ld+json">

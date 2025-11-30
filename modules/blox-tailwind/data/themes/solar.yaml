@@ -1,0 +1,45 @@
+# HugoBlox Theme Pack
+# https://docs.hugoblox.com
+
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Solar"
+    vendor: "hugoblox"
+    version: "1.0.0"
+    license: "MIT"
+    description: "Solarized-inspired, easy on the eyes"
+
+  type: "dual"
+
+  light:
+    # Inspired by Solarized Light - Low contrast, warm, easy on the eyes
+    colors:
+      primary: "#b58900" # Yellow (Solarized)
+      secondary: "#2aa198" # Cyan (Solarized)
+      neutral: "#657b83" # Base00 (Primary Content)
+    ui:
+      background: "#fdf6e3" # Base3 (Creamy Background)
+      foreground: "#586e75" # Base01 (Optional darker text for contrast)
+      header:
+        background: "#eee8d5" # Base2 (Slightly darker highlights)
+        foreground: "#586e75"
+      footer:
+        background: "#eee8d5"
+        foreground: "#657b83"
+
+  dark:
+    # Inspired by Solarized Dark - Deep, cool, high precision
+    colors:
+      primary: "#268bd2" # Blue (Solarized)
+      secondary: "#859900" # Green (Solarized)
+      neutral: "#839496" # Base0 (Primary Content)
+    ui:
+      background: "#002b36" # Base03 (Deep Teal Background)
+      foreground: "#93a1a1" # Base1 (Light Content)
+      header:
+        background: "#073642" # Base02 (Lighter Teal Highlights)
+        foreground: "#93a1a1"
+      footer:
+        background: "#073642"
+        foreground: "#839496"

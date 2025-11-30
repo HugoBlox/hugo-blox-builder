@@ -1,5 +1,6 @@
 {{/* Display copyright license. */}}
 
+{{ $branding := partialCached "functions/get_branding" . "branding" }}
 {{ $copyright_license := .Params.copyright.license | default site.Params.footer.copyright.license }}
 {{ $notice := .Params.copyright.notice | default site.Params.footer.copyright.notice }}
 
@@ -23,7 +24,10 @@
 
   {{ with $notice }}
   <p class="powered-by text-center">
-    {{ replace (replace . "{year}" now.Year) "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) | markdownify }}
+    {{ $processed := replace . "{year}" now.Year }}
+    {{ $processed = replace $processed "{name}" $branding.organization }}
+    {{ $processed = replace $processed "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) }}
+    {{ $processed | markdownify }}
   </p>
   {{ end }}
 
@@ -46,7 +50,9 @@
 
   {{ with $notice }}
   <p class="powered-by text-center">
-    {{ replace . "{year}" now.Year | markdownify }}
+    {{ $processed := replace . "{year}" now.Year }}
+    {{ $processed = replace $processed "{name}" $branding.organization }}
+    {{ $processed | markdownify }}
   </p>
   {{ end }}
 

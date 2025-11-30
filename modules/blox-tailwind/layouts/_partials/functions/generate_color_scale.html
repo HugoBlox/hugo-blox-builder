@@ -47,6 +47,7 @@
 
   {{/* Base (500) */}}
   --hb-{{$name}}-500-rgb: {{ $r }} {{ $g }} {{ $b }};
+  --color-{{$name}}-500: rgb(var(--hb-{{$name}}-500-rgb));
 
   {{/* Tints (50-400): Mix with White */}}
   {{ $tints := slice
@@ -62,6 +63,7 @@
     {{ $gp := div (add (mul $g (sub 100 $p)) (mul 255 $p)) 100 }}
     {{ $bp := div (add (mul $b (sub 100 $p)) (mul 255 $p)) 100 }}
     --hb-{{$name}}-{{ .shade }}-rgb: {{ $rp }} {{ $gp }} {{ $bp }};
+    --color-{{$name}}-{{ .shade }}: rgb(var(--hb-{{$name}}-{{ .shade }}-rgb));
   {{ end }}
 
   {{/* Shades (600-950): Mix with Black */}}
@@ -78,6 +80,7 @@
     {{ $gp := div (mul $g (sub 100 $p)) 100 }}
     {{ $bp := div (mul $b (sub 100 $p)) 100 }}
     --hb-{{$name}}-{{ .shade }}-rgb: {{ $rp }} {{ $gp }} {{ $bp }};
+    --color-{{$name}}-{{ .shade }}: rgb(var(--hb-{{$name}}-{{ .shade }}-rgb));
   {{ end }}
 
 {{ else }}

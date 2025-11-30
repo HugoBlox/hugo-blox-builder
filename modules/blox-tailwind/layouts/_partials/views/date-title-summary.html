@@ -1,6 +1,6 @@
 {{ $item := .item }}
 {{ $page := .page }}
-{{ $summary := $item.Params.summary | default $item.Params.description | default $item.Summary }}
+{{ $summary := partial "functions/get_summary" $item }}
 {{ $summary =  $summary | page.RenderString }}
 <article class="md:grid md:grid-cols-4 md:items-baseline">
   <div class="md:col-span-3 group relative flex flex-col items-start">
@@ -15,7 +15,7 @@
       datetime="{{ time.Format "2006-01-02" $item.Date }}">
       {{ time.Format (site.Params.locale.date_format | default ":date_long") $item.Date }}
     </time>
-    <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">{{$summary}}</p>
+    <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">{{$summary}}</p>
     <div aria-hidden="true" class="relative z-10 mt-4 flex items-center text-sm font-medium text-primary-500">
     {{ T "read_more" | default "Read more" }}
       <svg aria-hidden="true" class="ml-1 h-4 w-4 stroke-current" fill="none" viewBox="0 0 16 16">

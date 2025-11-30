@@ -1,10 +1,11 @@
 {{- $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") -}}
+{{- $branding := partialCached "functions/get_branding" . "branding" -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": {{site.Params.marketing.seo.site_type | default site.Params.marketing.seo.site_type}},
+  "@type": {{site.Params.marketing.seo.site_type | default "Organization"}},
   "@id": {{site.BaseURL}},
-  "name": {{site.Params.marketing.seo.org_name | default site.Title}},
+  "name": {{$branding.organization}},
   "logo": {{ partial "functions/get_logo_url" . }},
   {{with $sharing_image}}"image": {{.Permalink}},{{end}}
   {{ if (eq site.Params.marketing.seo.site_type "LocalBusiness") | and site.Params.marketing.seo.coordinates }}

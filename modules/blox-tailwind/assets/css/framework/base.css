@@ -89,4 +89,15 @@
     background-color: var(--color-primary-400);
     color: black;
   }
+
+  /* Inline Code Styling */
+  .prose code:not(:where(pre *)) {
+    @apply rounded-md bg-neutral-100 px-1.5 py-0.5 text-[0.875em] font-normal text-primary-700;
+    @apply dark:bg-neutral-700/50 dark:text-primary-300;
+  }
+
+  .prose code:not(:where(pre *))::before,
+  .prose code:not(:where(pre *))::after {
+    content: none !important;
+  }
 }

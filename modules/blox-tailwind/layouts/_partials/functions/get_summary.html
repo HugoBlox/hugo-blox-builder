@@ -1,0 +1,3 @@
+{{/* Get page summary with fallback priority: Params.summary > Params.description > Params.abstract > Summary */}}
+{{ $summary := .Params.summary | default .Params.description | default .Params.abstract | default .Summary }}
+{{ return $summary }}

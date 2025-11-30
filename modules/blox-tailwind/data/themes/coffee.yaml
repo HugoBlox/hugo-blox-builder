@@ -1,0 +1,45 @@
+# HugoBlox Theme Pack
+# https://docs.hugoblox.com
+
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Coffee"
+    vendor: "hugoblox"
+    version: "1.0.0"
+    license: "MIT"
+    description: "Warm latte light mode, deep americano dark mode"
+
+  type: "dual"
+
+  light:
+    # "Latte" - Warm, creamy, light
+    colors:
+      primary: "#3b2313" # Mocha/Coffee bean
+      secondary: "#d97706" # Caramel/Amber
+      neutral: "#78716c" # Stone
+    ui:
+      background: "#fffaf5" # Warm cream/milk foam
+      foreground: "#3b2313" # Espresso text
+      header:
+        background: "#f5efe9" # Visible header band (same as footer)
+        foreground: "#3b2313"
+      footer:
+        background: "#f5efe9" # Slightly darker latte foam
+        foreground: "#5c4033"
+
+  dark:
+    # "Americano" - Deep, dark, intense
+    colors:
+      primary: "#d49255" # Warm Orange/Brown crema
+      secondary: "#395260" # Cool Slate Blue
+      neutral: "#2b262b" # Deep Espresso (Dark Neutral)
+    ui:
+      background: "#2b262b" # Deep Espresso
+      foreground: "#e0cab6" # Crema
+      header:
+        background: "#2b262b"
+        foreground: "#e0cab6"
+      footer:
+        background: "#231f23" # Darker roast
+        foreground: "#9ca3af"

@@ -3,19 +3,43 @@
 # Documentation: https://docs.hugoblox.com/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-# Appearance
-appearance:
-  mode: light
-  theme:
-    light: "default"
-    dark: "default"
+# ==============================================================================
+# HUGO BLOX CONFIGURATION
+# ==============================================================================
+hugoblox:
+  # ────────────────────────────────────────────────────────────────────────────
+  # BRANDING
+  # Your site's identity - used in navbar, footer, SEO, and copyright
+  # ────────────────────────────────────────────────────────────────────────────
+  branding:
+    name: "My Company"
+    # Logo auto-detected from assets/media/logo.{svg,png}
 
-# SEO
+  # ────────────────────────────────────────────────────────────────────────────
+  # THEME
+  # Controls colors and appearance
+  # ────────────────────────────────────────────────────────────────────────────
+  theme:
+    mode: light
+    pack: "default"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # TYPOGRAPHY & LAYOUT
+  # ────────────────────────────────────────────────────────────────────────────
+  typography:
+    font: "sans"
+    size: "md"
+  layout:
+    radius: "md"
+    spacing: "comfortable"
+
+# ==============================================================================
+# SEO & MARKETING
+# ==============================================================================
 marketing:
   seo:
     site_type: Person
     local_business_type: ''
-    org_name: ''
     description: 'A highly-customizable Hugo landing page theme powered by Hugo Blox website builder.'
     twitter: 'BuildLore'
     llm:
@@ -35,30 +59,33 @@ marketing:
     google: ''
     baidu: ''
 
-# Site header
+# ==============================================================================
+# SITE HEADER
+# ==============================================================================
 header:
   navbar:
     enable: true
     block: 'navbar'
     align: 'center'
     fixed_to_top: true
-    logo:
-      text: ''
-      # Logo filename in `assets/media/` folder
-      filename: 'logo.svg'
     button:
       enable: true
       text: 'Get Started'
       url: 'https://hugoblox.com/templates/'
     show_search: true
-    show_theme_chooser: true
+    show_mode_toggle: true
+    # show_theme_picker: true
 
-# Site footer
+# ==============================================================================
+# SITE FOOTER
+# ==============================================================================
 footer:
   copyright:
-    notice: '© {year} My Company'
+    notice: '© {year} {name}'
 
-# Localization
+# ==============================================================================
+# LOCALIZATION
+# ==============================================================================
 locale:
   date_format: 'Jan 2, 2006'
   time_format: '3:04 PM'

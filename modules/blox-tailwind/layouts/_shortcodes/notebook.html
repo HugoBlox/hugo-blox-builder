@@ -1,0 +1,42 @@
+{{/*
+  HugoBlox Notebook Shortcode
+  Copyright (c) HugoBlox
+
+  Licensed under MIT WITH ATTRIBUTION REQUIRED:
+  - Keep this notice intact
+  - Preserve visible/hidden "Powered by Hugo Blox Builder" attribution
+  - See https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md
+
+  This shortcode relies on the Hugo Blox Builder theme ecosystem.
+  Docs: https://docs.hugoblox.com/
+
+  Render Jupyter/Quarto notebooks directly inside Markdown while keeping blocks editable.
+
+  Parameters
+  ----------
+  src/file (required)
+      Notebook path. Supports page resources, assets/, static/, or remote URLs.
+  title (optional)
+      Heading override. Defaults to notebook filename.
+  language (optional)
+      Highlight language override. Defaults to notebook metadata or python.
+  show_code / show_markdown / show_outputs (optional, default true)
+      Toggle sections per cell type.
+  show_metadata (optional, default false)
+      Display kernel/language metadata badges.
+  line_numbers (optional, default false)
+      Render chroma line numbers for code cells.
+  max_output_height (optional, default "26rem")
+      CSS value for output scroll area height (supports rem/vh/calc()).
+  dense (optional, default false)
+      Compact spacing preset.
+  source_url / show_download / download_label (optional)
+      Override download link behavior.
+
+  Examples
+  --------
+  {{< notebook src="notebooks/analysis.ipynb" >}}
+  {{< notebook src="https://example.com/demo.ipynb" show_metadata=true line_numbers=true >}}
+  {{< notebook file="stats/notebook.ipynb" show_code=false show_outputs=true title="Model outputs" >}}
+*/}}
+{{ partial "functions/notebook/render" . }}

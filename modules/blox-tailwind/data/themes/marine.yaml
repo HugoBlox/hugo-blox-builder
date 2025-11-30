@@ -1,29 +1,40 @@
-name: "marine"
-type: "dark"
+# HugoBlox Theme Pack
+# https://docs.hugoblox.com
 
-dark:
-  colors:
-    primary: "#2dd4bf" # Teal/Cyan (approximated from oklch(85.661% 0.144 198.645))
-    secondary: "#a855f7" # Purple (approximated from oklch(60.682% 0.108 309.782))
-    neutral: "#1e3a8a" # Deep Blue (approximated from oklch(27% 0.146 265.522))
-  ui:
-    background: "#1e3a8a" # Deep Ocean Blue (from oklch(37% 0.146 265.522))
-    foreground: "#e0f2fe" # Light Sky (approximated from oklch(90% 0.058 230.902))
-    header:
-      background: "#1e3a8a"
-      foreground: "#e0f2fe"
-    footer:
-      background: "#172554" # Darker depth
-      foreground: "#93c5fd"
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Marine"
+    vendor: "hugoblox"
+    version: "1.0.0"
+    license: "MIT"
+    description: "Deep ocean blues with teal accents"
 
-light:
-  # A "Beach Day" pairing
-  colors:
-    primary: "#2dd4bf"
-    secondary: "#a855f7"
-  ui:
-    background: "#f0f9ff"
-    foreground: "#0c4a6e"
-    header:
-      background: "#ffffff"
+  type: "dual"
+
+  dark:
+    colors:
+      primary: "#2dd4bf" # Teal/Cyan
+      secondary: "#a855f7" # Purple
+      neutral: "#1e3a8a" # Deep Blue
+    ui:
+      background: "#1e3a8a" # Deep Ocean Blue
+      foreground: "#e0f2fe" # Light Sky
+      header:
+        background: "#1e3a8a"
+        foreground: "#e0f2fe"
+      footer:
+        background: "#172554" # Darker depth
+        foreground: "#93c5fd"
+
+  light:
+    # A "Beach Day" pairing
+    colors:
+      primary: "#2dd4bf"
+      secondary: "#a855f7"
+    ui:
+      background: "#f0f9ff"
       foreground: "#0c4a6e"
+      header:
+        background: "#e0f2fe" # Sky-100 for visible header bar
+        foreground: "#0c4a6e"

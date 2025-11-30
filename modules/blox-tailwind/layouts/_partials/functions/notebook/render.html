@@ -1,0 +1,540 @@
+{{- $ctx := . -}}
+{{- $hbxVerification := partial "functions/hbx_verify.html" $ctx -}}
+{{- if ne $hbxVerification "verified" -}}
+  {{- errorf "Install HugoBlox to use the Notebook shortcode at: %s" $ctx.Position -}}
+{{- end -}}
+{{- $shortcodeName := $ctx.Name | default "notebook" -}}
+
+{{- $src := "" -}}
+{{- if $ctx.IsNamedParams -}}
+  {{- $src = $ctx.Get "src" | default ($ctx.Get "file") -}}
+{{- else -}}
+  {{- $src = $ctx.Get 0 -}}
+{{- end -}}
+{{- if not $src -}}
+  {{- errorf "%s shortcode: provide a notebook path via positional argument or src=..." $shortcodeName -}}
+{{- end -}}
+
+{{- $displayName := $src -}}
+{{- with urls.Parse $src -}}
+  {{- if .Path -}}
+    {{- $displayName = path.Base .Path -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $title := $ctx.Get "title" | default $displayName -}}
+{{- $languageOverride := $ctx.Get "language" -}}
+{{- $showCode := $ctx.Get "show_code" | default true -}}
+{{- $showMarkdown := $ctx.Get "show_markdown" | default true -}}
+{{- $showOutputs := $ctx.Get "show_outputs" | default true -}}
+{{- $showMetadata := $ctx.Get "show_metadata" | default false -}}
+{{- $lineNumbers := $ctx.Get "line_numbers" | default false -}}
+{{- $dense := $ctx.Get "dense" | default false -}}
+{{- $maxOutputHeight := $ctx.Get "max_output_height" | default "26rem" -}}
+{{- $sourceURL := $ctx.Get "source_url" -}}
+{{- $showDownload := $ctx.Get "show_download" | default true -}}
+{{- $downloadLabel := $ctx.Get "download_label" | default "Download notebook" -}}
+{{- $emptyMessage := $ctx.Get "empty_message" | default "Notebook is empty or hidden by the current view options." -}}
+{{- $id := delimit (slice "hb-notebook" (partial "functions/uid.html" $ctx)) "-" -}}
+
+{{- $isRemote := and $src (ne (urls.Parse $src).Scheme "") -}}
+{{- $normalizedSrc := $src -}}
+{{- if not $isRemote -}}
+  {{- $normalizedSrc = strings.TrimPrefix "./" $normalizedSrc -}}
+  {{- $normalizedSrc = strings.TrimPrefix "/" $normalizedSrc -}}
+  {{- if $normalizedSrc -}}
+    {{- $normalizedSrc = path.Clean $normalizedSrc -}}
+  {{- end -}}
+  {{- if eq $normalizedSrc "." -}}
+    {{- $normalizedSrc = "" -}}
+  {{- end -}}
+  {{- if strings.HasPrefix $normalizedSrc ".." -}}
+    {{- errorf "%s shortcode: refusing to read outside the project for %q" $shortcodeName $src -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $notebookContent := "" -}}
+{{- $resource := dict -}}
+{{- $resourceFound := false -}}
+
+{{- if $isRemote -}}
+  {{- $remote := try (resources.GetRemote $src) -}}
+  {{- if $remote.Err -}}
+    {{- errorf "%s shortcode: unable to fetch remote notebook %q (%s)" $shortcodeName $src $remote.Err -}}
+  {{- else -}}
+    {{- $resource = $remote.Value -}}
+    {{- $resourceFound = true -}}
+    {{- $notebookContent = $resource.Content -}}
+    {{- if not $sourceURL -}}
+      {{- $sourceURL = $src -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- with $ctx.Page -}}
+    {{- with .Resources -}}
+      {{- with .GetMatch $normalizedSrc -}}
+        {{- $resource = . -}}
+        {{- $resourceFound = true -}}
+      {{- else -}}
+        {{- if not (strings.Contains $normalizedSrc "/") -}}
+          {{- with .GetMatch (printf "**/%s" $normalizedSrc) -}}
+            {{- $resource = . -}}
+            {{- $resourceFound = true -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if $resourceFound -}}
+    {{- $notebookContent = $resource.Content -}}
+    {{- if not $sourceURL -}}
+      {{- $sourceURL = $resource.RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not $notebookContent -}}
+    {{- $searchPaths := slice $normalizedSrc -}}
+    {{- $pageDir := "" -}}
+    {{- with $ctx.Page.File -}}
+      {{- $pageDir = path.Dir .Path -}}
+    {{- end -}}
+    {{- if $pageDir -}}
+      {{- $searchPaths = $searchPaths | append (path.Join $pageDir $normalizedSrc) -}}
+      {{- if not (strings.HasPrefix $normalizedSrc "content/") -}}
+        {{- $searchPaths = $searchPaths | append (printf "content/%s" (path.Join $pageDir $normalizedSrc)) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not (strings.HasPrefix $normalizedSrc "content/") -}}
+      {{- $searchPaths = $searchPaths | append (printf "content/%s" $normalizedSrc) -}}
+    {{- end -}}
+    {{- if not (strings.HasPrefix $normalizedSrc "assets/") -}}
+      {{- $searchPaths = $searchPaths | append (printf "assets/%s" $normalizedSrc) -}}
+    {{- end -}}
+    {{- if not (strings.HasPrefix $normalizedSrc "static/") -}}
+      {{- $searchPaths = $searchPaths | append (printf "static/%s" $normalizedSrc) -}}
+    {{- end -}}
+    {{- range $candidate := $searchPaths }}
+      {{- if not $notebookContent -}}
+        {{- $fileAttempt := try (readFile $candidate) -}}
+        {{- if not $fileAttempt.Err -}}
+          {{- $notebookContent = $fileAttempt.Value -}}
+          {{- if and (strings.HasPrefix $candidate "static/") (not $sourceURL) -}}
+            {{- $public := strings.TrimPrefix $candidate "static" -}}
+            {{- if not (strings.HasPrefix $public "/") -}}
+              {{- $public = printf "/%s" $public -}}
+            {{- end -}}
+            {{- $sourceURL = relLangURL $public -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not $notebookContent -}}
+  {{- $pagePath := "" -}}
+  {{- with $ctx.Page.File -}}
+    {{- $pagePath = .Path -}}
+  {{- end -}}
+  {{- errorf "%s shortcode: notebook %q could not be located relative to %s. Please check that you have removed \\.ipynb$ from ignoreFiles in your config/_default/hugo.yaml." $shortcodeName $src $pagePath -}}
+{{- end -}}
+
+{{- $parsed := dict -}}
+{{- $parsedResult := try (transform.Unmarshal $notebookContent) -}}
+{{- if $parsedResult.Err -}}
+  {{- errorf "%s shortcode: %q is not valid notebook JSON (%s)" $shortcodeName $src $parsedResult.Err -}}
+{{- else -}}
+  {{- $parsed = $parsedResult.Value -}}
+{{- end -}}
+
+{{- $cells := slice -}}
+{{- with index $parsed "cells" -}}
+  {{- if reflect.IsSlice . -}}
+    {{- $cells = . -}}
+  {{- end -}}
+{{- end -}}
+{{- $metadata := index $parsed "metadata" | default dict -}}
+
+{{- $language := $languageOverride -}}
+{{- if not $language -}}
+  {{- with index $metadata "language_info" -}}
+    {{- with index . "name" -}}
+      {{- $language = printf "%v" . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $language -}}
+  {{- $language = "python" -}}
+{{- end -}}
+{{- $language = lower $language -}}
+
+{{- $languageVersion := "" -}}
+{{- with index $metadata "language_info" -}}
+  {{- with index . "version" -}}
+    {{- $languageVersion = printf "%v" . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $kernelDisplay := "" -}}
+{{- with index $metadata "kernelspec" -}}
+  {{- with index . "display_name" -}}
+    {{- $kernelDisplay = printf "%v" . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $kernelName := "" -}}
+{{- with index $metadata "kernelspec" -}}
+  {{- with index . "name" -}}
+    {{- $kernelName = printf "%v" . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $nbformat := "" -}}
+{{- with index $parsed "nbformat" -}}
+  {{- $nbformat = printf "%v" . -}}
+{{- end -}}
+{{- with index $parsed "nbformat_minor" -}}
+  {{- if $nbformat -}}
+    {{- $nbformat = printf "%s.%v" $nbformat . -}}
+  {{- else -}}
+    {{- $nbformat = printf "%v" . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $cellCount := len $cells -}}
+
+{{- $containerClass := "hb-notebook not-prose" -}}
+{{- if $dense -}}
+  {{- $containerClass = printf "%s %s" $containerClass "hb-notebook--dense" -}}
+{{- end -}}
+
+{{- $subtitleParts := slice -}}
+{{- if $language -}}
+  {{- $subtitleParts = $subtitleParts | append (strings.Title $language) -}}
+{{- end -}}
+{{- if $kernelDisplay -}}
+  {{- $subtitleParts = $subtitleParts | append (printf "Kernel: %s" $kernelDisplay) -}}
+{{- end -}}
+{{- if $nbformat -}}
+  {{- $subtitleParts = $subtitleParts | append (printf "nbformat %s" $nbformat) -}}
+{{- end -}}
+{{- if gt $cellCount 0 -}}
+  {{- $subtitleParts = $subtitleParts | append (printf "%d cells" $cellCount) -}}
+{{- end -}}
+
+{{- $metaItems := slice -}}
+{{- $metaItems = $metaItems | append (dict "label" "Language" "value" (strings.Title $language)) -}}
+{{- if $languageVersion -}}
+  {{- $metaItems = $metaItems | append (dict "label" "Version" "value" $languageVersion) -}}
+{{- end -}}
+{{- if or $kernelDisplay $kernelName -}}
+  {{- $metaItems = $metaItems | append (dict "label" "Kernel" "value" (strings.TrimSpace (printf "%s %s" $kernelDisplay $kernelName))) -}}
+{{- end -}}
+{{- if $nbformat -}}
+  {{- $metaItems = $metaItems | append (dict "label" "nbformat" "value" $nbformat) -}}
+{{- end -}}
+{{- with index $metadata "authors" -}}
+  {{- $authors := slice -}}
+  {{- if reflect.IsSlice . -}}
+    {{- range . -}}
+      {{- $name := "" -}}
+      {{- with index . "name" -}}
+        {{- $name = printf "%v" . -}}
+      {{- end -}}
+      {{- if not $name -}}
+        {{- $name = printf "%v" . -}}
+      {{- end -}}
+      {{- if $name -}}
+        {{- $authors = $authors | append $name -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $authors = $authors | append (printf "%v" .) -}}
+  {{- end -}}
+  {{- if gt (len $authors) 0 -}}
+    {{- $metaItems = $metaItems | append (dict "label" "Authors" "value" (delimit $authors ", ")) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $sourceURLIsRemote := false -}}
+{{- if $sourceURL -}}
+  {{- $sourceURLIsRemote = ne (urls.Parse $sourceURL).Scheme "" -}}
+  {{- if not $sourceURLIsRemote -}}
+    {{- if not (strings.HasPrefix $sourceURL "/") -}}
+      {{- $sourceURL = printf "/%s" $sourceURL -}}
+    {{- end -}}
+    {{- $sourceURL = relLangURL $sourceURL -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $styleAttr := printf "--hb-notebook-output-max-height:%s;" $maxOutputHeight | safeCSS -}}
+<div id="{{ $id }}" class="{{ $containerClass }}" data-hb-component="notebook" aria-label="Notebook {{ $title | plainify }}" style="{{ $styleAttr }}">
+  <div class="hb-notebook-header">
+    <div class="hb-notebook-heading">
+      <p class="hb-notebook-title">{{ $title }}</p>
+      {{- with $subtitleParts }}
+        <p class="hb-notebook-subtitle">{{ delimit . " · " }}</p>
+      {{- end }}
+    </div>
+    {{- if and $showDownload $sourceURL }}
+      <a class="hb-notebook-download" href="{{ $sourceURL | safeURL }}" {{ if $sourceURLIsRemote }}target="_blank" rel="noopener noreferrer"{{ else }}download{{ end }}>
+        {{ partial "functions/get_icon" (dict "name" "arrow-down-tray" "attributes" "class=\"w-4 h-4\"") }}
+        <span>{{ $downloadLabel }}</span>
+      </a>
+    {{- end }}
+  </div>
+
+  {{- if and $showMetadata (gt (len $metaItems) 0) }}
+    <dl class="hb-notebook-metadata">
+      {{- range $metaItems }}
+        {{- if .value }}
+          <div>
+            <dt>{{ .label }}</dt>
+            <dd>{{ .value }}</dd>
+          </div>
+        {{- end }}
+      {{- end }}
+    </dl>
+  {{- end }}
+
+  {{- $visibleScratch := newScratch -}}
+  {{- $visibleScratch.Set "visible" 0 -}}
+  <div class="hb-notebook-body">
+    {{- range $cells }}
+      {{- $cellType := index . "cell_type" | default "raw" -}}
+      {{- $cellMetadata := index . "metadata" | default dict -}}
+      {{- $cellTags := slice -}}
+      {{- with index $cellMetadata "tags" -}}
+        {{- if reflect.IsSlice . -}}
+          {{- range . -}}
+            {{- $cellTags = $cellTags | append (printf "%v" .) -}}
+          {{- end -}}
+        {{- else -}}
+          {{- $cellTags = $cellTags | append (printf "%v" .) -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $executionCount := "" -}}
+      {{- with index . "execution_count" -}}
+        {{- $executionCount = printf "%v" . -}}
+      {{- end -}}
+      {{- $outputs := slice -}}
+      {{- with index . "outputs" -}}
+        {{- if reflect.IsSlice . -}}
+          {{- $outputs = . -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $shouldRender := or
+          (and (eq $cellType "markdown") $showMarkdown)
+          (and (eq $cellType "raw") $showMarkdown)
+          (and (eq $cellType "code") (or $showCode (and $showOutputs (gt (len $outputs) 0))))
+        -}}
+      {{- if $shouldRender }}
+        {{- $visibleScratch.Add "visible" 1 -}}
+        <article class="hb-notebook-cell {{ cond (eq $cellType "code") "hb-notebook-cell--code" (cond (eq $cellType "markdown") "hb-notebook-cell--markdown" "hb-notebook-cell--raw") }}" data-cell-type="{{ $cellType }}">
+          <header class="hb-notebook-cell-header">
+            <span class="hb-notebook-pill">
+              {{- if eq $cellType "code" -}}
+                {{- printf "In [%s]" (cond $executionCount $executionCount " ") -}}
+              {{- else -}}
+                {{- strings.Title $cellType -}}
+              {{- end -}}
+            </span>
+            {{- if gt (len $cellTags) 0 }}
+              <div class="hb-notebook-tags">
+                {{- range $cellTags }}
+                  <span>{{ . }}</span>
+                {{- end }}
+              </div>
+            {{- end }}
+          </header>
+
+          {{- if eq $cellType "markdown" }}
+            {{- $source := index . "source" -}}
+            {{- $sourceContent := "" -}}
+            {{- if reflect.IsSlice $source -}}
+              {{- $sourceContent = delimit $source "" -}}
+            {{- else if $source -}}
+              {{- $sourceContent = printf "%v" $source -}}
+            {{- end -}}
+            {{- $sourceContent = replace $sourceContent "\r\n" "\n" -}}
+            {{- if $sourceContent }}
+              <div class="hb-notebook-markdown prose dark:prose-invert">
+                {{ $sourceContent | markdownify }}
+              </div>
+            {{- end -}}
+          {{- else if eq $cellType "raw" }}
+            {{- $raw := index . "source" -}}
+            {{- $rawContent := "" -}}
+            {{- if reflect.IsSlice $raw -}}
+              {{- $rawContent = delimit $raw "" -}}
+            {{- else if $raw -}}
+              {{- $rawContent = printf "%v" $raw -}}
+            {{- end -}}
+            {{- if $rawContent }}
+              <pre class="hb-notebook-raw">{{ $rawContent | htmlEscape }}</pre>
+            {{- end -}}
+          {{- else if eq $cellType "code" }}
+            {{- $source := index . "source" -}}
+            {{- $sourceContent := "" -}}
+            {{- if reflect.IsSlice $source -}}
+              {{- $sourceContent = delimit $source "" -}}
+            {{- else if $source -}}
+              {{- $sourceContent = printf "%v" $source -}}
+            {{- end -}}
+            {{- $sourceContent = replace $sourceContent "\r\n" "\n" -}}
+            {{- $sourceContent = strings.TrimSuffix "\n" $sourceContent -}}
+            {{- $sourceContent = strings.TrimSuffix "\r" $sourceContent -}}
+            {{- if and $showCode $sourceContent }}
+              <div class="hb-notebook-code" data-language="{{ $language }}">
+                {{- $options := "" -}}
+                {{- if $lineNumbers -}}
+                  {{- $options = "linenos=table" -}}
+                {{- end -}}
+                {{- $hl := highlight $sourceContent $language $options -}}
+                {{- if $hl -}}
+                  {{ $hl | safeHTML }}
+                {{- else -}}
+                  <pre><code>{{ $sourceContent | htmlEscape }}</code></pre>
+                {{- end -}}
+              </div>
+            {{- end -}}
+
+            {{- if and $showOutputs (gt (len $outputs) 0) }}
+              <div class="hb-notebook-outputs">
+                {{- range $outputs }}
+                  {{- $outputType := index . "output_type" | default "" -}}
+                  {{- if eq $outputType "stream" }}
+                    {{- $text := index . "text" -}}
+                    {{- $textContent := "" -}}
+                    {{- if reflect.IsSlice $text -}}
+                      {{- $textContent = delimit $text "" -}}
+                    {{- else if $text -}}
+                      {{- $textContent = printf "%v" $text -}}
+                    {{- end -}}
+                    <pre class="hb-notebook-output hb-notebook-output--stream"><code>{{ $textContent | htmlEscape }}</code></pre>
+                  {{- else if eq $outputType "error" }}
+                    {{- $ename := index . "ename" | default "" -}}
+                    {{- $evalue := index . "evalue" | default "" -}}
+                    {{- $trace := index . "traceback" | default slice -}}
+                    {{- $traceContent := "" -}}
+                    {{- if reflect.IsSlice $trace -}}
+                      {{- $traceContent = delimit $trace "\n" -}}
+                    {{- else if $trace -}}
+                      {{- $traceContent = printf "%v" $trace -}}
+                    {{- end -}}
+                    <div class="hb-notebook-output hb-notebook-output--error">
+                      <strong>{{ printf "%s: %s" $ename $evalue }}</strong>
+                      {{- if $traceContent }}
+                        <pre><code>{{ $traceContent | htmlEscape }}</code></pre>
+                      {{- end -}}
+                    </div>
+                  {{- else }}
+                    {{- $data := index . "data" | default dict -}}
+                    {{- $outputScratch := newScratch -}}
+                    {{- $outputScratch.Set "rendered" false -}}
+                    {{- with index $data "text/html" }}
+                      {{- $htmlPayload := "" -}}
+                      {{- if reflect.IsSlice . -}}
+                        {{- $htmlPayload = delimit . "" -}}
+                      {{- else -}}
+                        {{- $htmlPayload = printf "%v" . -}}
+                      {{- end -}}
+                      {{- if $htmlPayload }}
+                        <div class="hb-notebook-output hb-notebook-output--html">{{ $htmlPayload | safeHTML }}</div>
+                        {{- $outputScratch.Set "rendered" true -}}
+                      {{- end -}}
+                    {{- end }}
+                    {{- with index $data "text/markdown" }}
+                      {{- $markdownPayload := "" -}}
+                      {{- if reflect.IsSlice . -}}
+                        {{- $markdownPayload = delimit . "" -}}
+                      {{- else -}}
+                        {{- $markdownPayload = printf "%v" . -}}
+                      {{- end -}}
+                      {{- if $markdownPayload }}
+                        <div class="hb-notebook-output hb-notebook-output--markdown prose dark:prose-invert">
+                          {{ $markdownPayload | markdownify }}
+                        </div>
+                        {{- $outputScratch.Set "rendered" true -}}
+                      {{- end -}}
+                    {{- end }}
+                    {{- with index $data "text/latex" }}
+                      {{- $latexPayload := "" -}}
+                      {{- if reflect.IsSlice . -}}
+                        {{- $latexPayload = delimit . "" -}}
+                      {{- else -}}
+                        {{- $latexPayload = printf "%v" . -}}
+                      {{- end -}}
+                      {{- if $latexPayload }}
+                        <div class="hb-notebook-output hb-notebook-output--latex">{{ printf "$$%s$$" $latexPayload | safeHTML }}</div>
+                        {{- $outputScratch.Set "rendered" true -}}
+                      {{- end -}}
+                    {{- end }}
+                    {{- with index $data "image/png" }}
+                      {{- $pngPayload := printf "%v" . -}}
+                      {{- if $pngPayload }}
+                        <div class="hb-notebook-output hb-notebook-output--image">
+                          <img src="data:image/png;base64,{{ $pngPayload }}" alt="Notebook output image" loading="lazy" decoding="async" />
+                        </div>
+                        {{- $outputScratch.Set "rendered" true -}}
+                      {{- end -}}
+                    {{- end }}
+                    {{- with index $data "image/jpeg" }}
+                      {{- $jpegPayload := printf "%v" . -}}
+                      {{- if $jpegPayload }}
+                        <div class="hb-notebook-output hb-notebook-output--image">
+                          <img src="data:image/jpeg;base64,{{ $jpegPayload }}" alt="Notebook output image" loading="lazy" decoding="async" />
+                        </div>
+                        {{- $outputScratch.Set "rendered" true -}}
+                      {{- end -}}
+                    {{- end }}
+                    {{- with index $data "image/svg+xml" }}
+                      {{- $svgPayload := "" -}}
+                      {{- if reflect.IsSlice . -}}
+                        {{- $svgPayload = delimit . "" -}}
+                      {{- else -}}
+                        {{- $svgPayload = printf "%v" . -}}
+                      {{- end -}}
+                      {{- if $svgPayload }}
+                        <div class="hb-notebook-output hb-notebook-output--image">{{ $svgPayload | safeHTML }}</div>
+                        {{- $outputScratch.Set "rendered" true -}}
+                      {{- end -}}
+                    {{- end }}
+                    {{- with or (index $data "application/vnd.plotly.v1+json") (index $data "application/json") }}
+                      {{- $jsonFormatted := . | jsonify (dict "indent" "  ") -}}
+                      <pre class="hb-notebook-output hb-notebook-output--json"><code>{{ $jsonFormatted }}</code></pre>
+                      {{- $outputScratch.Set "rendered" true -}}
+                    {{- end }}
+                    {{- if not ($outputScratch.Get "rendered") }}
+                      {{- with index $data "text/plain" }}
+                        {{- $textPayload := "" -}}
+                        {{- if reflect.IsSlice . -}}
+                          {{- $textPayload = delimit . "" -}}
+                        {{- else -}}
+                          {{- $textPayload = printf "%v" . -}}
+                        {{- end -}}
+                        {{- if $textPayload }}
+                          <pre class="hb-notebook-output hb-notebook-output--text"><code>{{ $textPayload | htmlEscape }}</code></pre>
+                          {{- $outputScratch.Set "rendered" true -}}
+                        {{- end -}}
+                      {{- end }}
+                    {{- end }}
+                    {{- if not ($outputScratch.Get "rendered") }}
+                      <pre class="hb-notebook-output hb-notebook-output--json"><code>{{ $data | jsonify | htmlEscape }}</code></pre>
+                    {{- end }}
+                  {{- end }}
+                {{- end }}
+              </div>
+            {{- end }}
+          {{- end }}
+        </article>
+      {{- end }}
+    {{- end }}
+  </div>
+
+  {{- if eq ($visibleScratch.Get "visible") 0 }}
+    <div class="hb-notebook-empty">{{ $emptyMessage }}</div>
+  {{- end }}
+  <div class="sr-only" data-hb-component="notebook" data-hb-version="1.0" data-hb-license="MIT">
+    Powered by Hugo Blox Builder - https://github.com/HugoBlox/hugo-blox-builder
+  </div>
+</div>

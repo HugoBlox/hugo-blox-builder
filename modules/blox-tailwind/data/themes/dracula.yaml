@@ -1,29 +1,45 @@
-name: "dracula"
-type: "dark"
+# HugoBlox Theme Pack
+# https://docs.hugoblox.com
 
-dark:
-  colors:
-    primary: "#ff79c6" # Dracula Pink
-    secondary: "#bd93f9" # Dracula Purple
-    neutral: "#6272a4" # Dracula Comment (Blue-Gray)
-  ui:
-    background: "#282a36" # Dracula Background
-    foreground: "#f8f8f2" # Dracula Foreground
-    header:
-      background: "#282a36"
-      foreground: "#f8f8f2"
-    footer:
-      background: "#21222c" # Slightly darker selection color
-      foreground: "#f8f8f2"
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Dracula"
+    vendor: "hugoblox"
+    version: "1.0.0"
+    license: "MIT"
+    description: "The iconic dark theme with a light Buffy variant"
 
-# Optional light variant (Dracula usually doesn't have one, but we can provide a high contrast or soft variant)
-light:
-  colors:
-    primary: "#ff79c6"
-    secondary: "#bd93f9"
-  ui:
-    background: "#f8f8f2"
-    foreground: "#282a36"
-    header:
-      background: "#ffffff"
-      foreground: "#282a36"
+  type: "dual"
+
+  dark:
+    # Official Dracula Dark
+    colors:
+      primary: "#ff79c6" # Pink
+      secondary: "#bd93f9" # Purple
+      neutral: "#6272a4" # Comment
+    ui:
+      background: "#282a36" # Background
+      foreground: "#f8f8f2" # Foreground
+      header:
+        background: "#282a36"
+        foreground: "#f8f8f2"
+      footer:
+        background: "#21222c" # Selection
+        foreground: "#f8f8f2"
+
+  light:
+    # Dracula Light (Buffy inspired) - Inverted aesthetic
+    colors:
+      primary: "#d03282" # Darker Pink for contrast
+      secondary: "#9259d6" # Darker Purple for contrast
+      neutral: "#44475a" # Current Line (Dark Gray)
+    ui:
+      background: "#f8f8f2" # Light Gray
+      foreground: "#282a36" # Dark Gray
+      header:
+        background: "#e4e4db" # Slightly darker band
+        foreground: "#282a36"
+      footer:
+        background: "#e4e4db"
+        foreground: "#282a36"

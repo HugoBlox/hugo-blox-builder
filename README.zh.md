@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme">
-    <img src="./.github/media/zh-hero.png" alt="用 Hugo Blox 打造世界级站点" width="100%">
+    <img src="./.github/media/zh-hero.png" alt="用 HugoBlox 打造世界级站点" width="100%">
   </a>
 </p>
 
@@ -16,7 +16,7 @@
 <p align="center">
   <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 启动 Copilot（免费）</b></a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>升级 Pro（终身）</b></a>
+  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>升级 Pro</b></a>
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
     <img src="https://img.shields.io/discord/722225264733716590?label=%E5%8A%A0%E5%85%A5%20Discord&style=social" alt="Discord">
   </a>
   <a href="https://github.com/HugoBlox/hugo-blox-builder">
-    <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=%E4%B8%BA%20Hugo%20Blox%20%E5%8A%A0%E6%98%9F&style=social" alt="为 Hugo Blox 加星">
+    <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=%E4%B8%BA%20Hugo%20Blox%20%E5%8A%A0%E6%98%9F&style=social" alt="为 HugoBlox 加星">
   </a>
   <a href="https://github.com/gcushen">
     <img src="https://img.shields.io/github/followers/gcushen?label=%E5%85%B3%E6%B3%A8&style=social" alt="在 GitHub 关注">
@@ -33,11 +33,11 @@
 
 ---
 
-## 为什么顶尖开发者和研究者选择 Hugo Blox？
+## 为什么顶尖开发者和研究者选择 HugoBlox？
 
 在智能体 / Copilot 时代，**Markdown 正在变成新的「源码」**。
 
-市面上各种 vibe coding / 生成式建站工具，会一股脑吐出一大坨难以维护的 React/JS 黑盒代码，一旦离开那个 AI，很快就失控。**Hugo Blox 选的是另一条路：用极简的静态站栈，配上开源 Copilot 体验。**
+市面上各种 vibe coding / 生成式建站工具，会一股脑吐出一大坨难以维护的 React/JS 黑盒代码，一旦离开那个 AI，很快就失控。**HugoBlox 选的是另一条路：用极简的静态站栈，配上开源 Copilot 体验。**
 
 - **🔮 面向未来的内容资产：** 内容以干净的 Markdown 存储——这是 LLM 和人类都读得懂的格式，迁移简单、长期可用，没有厂商锁定。
 - **🧠 Copilot 工作流：**
@@ -78,24 +78,25 @@ npx hugoblox create
 
 ## 开源版 vs Pro 版
 
-Hugo Blox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭建一流站点；如果你希望更快推进项目、同时支持生态发展，可以考虑升级 Pro。
+HugoBlox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭建一流站点；如果你希望更快推进项目、同时支持生态发展，可以考虑升级 Pro。
 
-| 能力 | 开源版 | **Hugo Blox Pro** |
+| 能力 | 开源版 | **HugoBlox Pro** |
 | :--- | :---: | :---: |
 | **核心框架** | ✅ | ✅ |
-| **标准积木**（Hero、功能介绍等） | ✅ | ✅ |
-| **高级整站模板**（SaaS、课程、实验室主页等） | ❌ | **✅ 全部解锁** |
-| **独家 Pro 积木** | ❌ | **✅ 全部解锁** |
-| **终身更新** | ❌ | **✅ 包含** |
-| **支持项目 / 赞助开源** | ❤️ | **🏆 真爱用户** |
+| **Studio 站点编辑器** | ❌ | **✅ 包含** |
+| **高级整站模板**（SaaS、实验室主页等） | ❌ | **✅ 包含** |
+| **独家 Pro 积木** | ❌ | **✅ 包含** |
+| **移除 HugoBlox 版权声明？** | ❌ | **✅ 包含** |
+| **Discord 社区支持** | ❤️ | **⚡️ 优先支持** |
+| **支持开源 / 科研** | ❤️ | **🏆 Hero 身份** |
 
-👉 [**升级 Pro（终身）**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
+👉 [**升级 Pro**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 ---
 
 ## 创作者怎么说
 
-> “Hugo Blox 直接帮我省了 40+ 小时做实验室网站。BibTeX 自动同步出版物 —— **引用量提升了 3×**。”
+> “HugoBlox 直接帮我省了 40+ 小时做实验室网站。BibTeX 自动同步出版物 —— **引用量提升了 3×**。”
 > —— **Sarah Yang 博士**，AI 研究者
 
 > “我们 10 分钟就把文档站点上线了。积木系统太妙了；**新同学上手时间缩短了 60%**。”
@@ -105,8 +106,8 @@ Hugo Blox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭
 
 ## 支持这个项目
 
-- 💎 **Pro（一次性捐赠）** — 终身获取全部高级模板、积木与更新。
-  <br/>[**立即升级 Pro（终身）→**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
+- 💎 **Pro（仅需 $8/月）** — 获取可视化编辑器以及所有高级模板、积木与更新。
+  <br/>[**立即升级 Pro →**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 - ☕️ **请我们喝杯咖啡** — 支持开源与开放科研。
   <br/>[**GitHub 赞助 →**](https://github.com/sponsors/gcushen)
@@ -123,7 +124,7 @@ Hugo Blox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭
 - 💬 [Discord](https://discord.gg/z8wNYzb)
 - 📚 [文档与指南](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
 - 🐦 [X / Twitter](https://x.com/BuildLore)
-- ⭐ [为 Hugo Blox 加星](https://github.com/HugoBlox/hugo-blox-builder)
+- ⭐ [为 HugoBlox 加星](https://github.com/HugoBlox/hugo-blox-builder)
 
 ---
 

@@ -58,7 +58,8 @@
   {{ $mesh_style := $gradient_mesh.style | default "orbs" }}
   {{ $mesh_animation_raw := $gradient_mesh.animation | default "pulse" }}
   {{ $mesh_intensity := $gradient_mesh.intensity | default "subtle" }}
-  {{ $mesh_colors := $gradient_mesh.colors | default (slice "primary-500/20" "primary-600/20") }}
+  {{/* Auto-theme: Mix Primary and Secondary brand colors for dynamic personalization */}}
+  {{ $mesh_colors := $gradient_mesh.colors | default (slice "primary-500/20" "secondary-500/20") }}
   
   {{/* Map animation names to CSS classes */}}
   {{ $mesh_animation := "" }}

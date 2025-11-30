@@ -1,0 +1,81 @@
+/*
+  Hugo Blox Layout Utilities
+  
+  Provides CSS utilities that use the configurable layout tokens:
+  - --hb-radius: Border radius token
+  - --hb-spacing-base: Base spacing unit
+  - --hb-spacing-section: Section padding
+  - --hb-font-size-base: Base font size
+  - --hb-font-size-scale: Modular scale ratio
+*/
+
+/* Border radius utility - use instead of hardcoded rounded-* classes */
+.hb-rounded {
+  border-radius: var(--hb-radius, 0.5rem);
+}
+
+.hb-rounded-sm {
+  border-radius: calc(var(--hb-radius, 0.5rem) * 0.5);
+}
+
+.hb-rounded-lg {
+  border-radius: calc(var(--hb-radius, 0.5rem) * 1.5);
+}
+
+.hb-rounded-xl {
+  border-radius: calc(var(--hb-radius, 0.5rem) * 2);
+}
+
+/* Section spacing */
+.hb-section {
+  padding-top: var(--hb-spacing-section, 4rem);
+  padding-bottom: var(--hb-spacing-section, 4rem);
+}
+
+.hb-section-sm {
+  padding-top: calc(var(--hb-spacing-section, 4rem) * 0.5);
+  padding-bottom: calc(var(--hb-spacing-section, 4rem) * 0.5);
+}
+
+/* Component spacing */
+.hb-gap {
+  gap: var(--hb-spacing-base, 1rem);
+}
+
+.hb-gap-sm {
+  gap: calc(var(--hb-spacing-base, 1rem) * 0.5);
+}
+
+.hb-gap-lg {
+  gap: calc(var(--hb-spacing-base, 1rem) * 1.5);
+}
+
+/* Padding utilities */
+.hb-p {
+  padding: var(--hb-spacing-base, 1rem);
+}
+
+.hb-px {
+  padding-left: var(--hb-spacing-base, 1rem);
+  padding-right: var(--hb-spacing-base, 1rem);
+}
+
+.hb-py {
+  padding-top: var(--hb-spacing-base, 1rem);
+  padding-bottom: var(--hb-spacing-base, 1rem);
+}
+
+/* Margin utilities */
+.hb-m {
+  margin: var(--hb-spacing-base, 1rem);
+}
+
+.hb-mx {
+  margin-left: var(--hb-spacing-base, 1rem);
+  margin-right: var(--hb-spacing-base, 1rem);
+}
+
+.hb-my {
+  margin-top: var(--hb-spacing-base, 1rem);
+  margin-bottom: var(--hb-spacing-base, 1rem);
+}

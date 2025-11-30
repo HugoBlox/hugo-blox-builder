@@ -1,0 +1,59 @@
+{{/*
+  HugoBlox Theme Engine: Loads and validates a HugoBlox theme pack
+  
+  Input: Theme pack name (string), e.g. "minimal" or "acme/corporate"
+  
+  Returns: The theme data object (type, light, dark, etc.) or nil if invalid
+  
+  Validates:
+    - Theme exists in data/themes/
+    - Required 'hugoblox' wrapper is present
+    - Required 'meta.format' starts with 'hugoblox-theme@'
+*/}}
+
+{{ $pack_name := . }}
+{{ $result := dict }}
+
+{{/* Parse vendor/name format */}}
+{{ $vendor := "" }}
+{{ $name := $pack_name }}
+
+{{ if strings.Contains $pack_name "/" }}
+  {{ $parts := split $pack_name "/" }}
+  {{ $vendor = index $parts 0 }}
+  {{ $name = index $parts 1 }}
+{{ end }}
+
+{{/* Load raw theme data */}}
+{{ $raw_theme := dict }}
+
+{{ if $vendor }}
+  {{/* Third-party theme: data/themes/vendor/name.yaml */}}
+  {{ $vendor_themes := index site.Data.themes $vendor }}
+  {{ if $vendor_themes }}
+    {{ $raw_theme = index $vendor_themes $name }}
+  {{ end }}
+{{ else }}
+  {{/* Built-in or user theme: data/themes/name.yaml */}}
+  {{ $raw_theme = index site.Data.themes $name }}
+{{ end }}
+
+{{/* Validate theme structure */}}
+{{ if not $raw_theme }}
+  {{ warnf "THEME ERROR: Theme pack '%s' not found in data/themes/" $pack_name }}
+{{ else if not $raw_theme.hugoblox }}
+  {{ warnf "THEME ERROR: Theme '%s' is not a valid HugoBlox theme (missing 'hugoblox' key)" $pack_name }}
+{{ else }}
+  {{ $theme := $raw_theme.hugoblox }}
+  
+  {{/* Validate format version */}}
+  {{ $format := $theme.meta.format | default "" }}
+  {{ if not (hasPrefix $format "hugoblox-theme@") }}
+    {{ warnf "THEME ERROR: Theme '%s' has invalid format '%s'. Expected 'hugoblox-theme@1'" $pack_name $format }}
+  {{ end }}
+  
+  {{/* Return the validated theme data (without the hugoblox wrapper) */}}
+  {{ $result = $theme }}
+{{ end }}
+
+{{ return $result }}

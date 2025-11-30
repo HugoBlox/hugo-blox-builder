@@ -82,10 +82,13 @@
             <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
               {{ .Params.answer | plainify | truncate 200 }}
             </p>
-            {{ else if .Summary }}
-            <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-              {{ .Summary }}
-            </p>
+            {{ else }}
+              {{ $summary := partial "functions/get_summary" . }}
+              {{ if $summary }}
+              <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                {{ $summary }}
+              </p>
+              {{ end }}
             {{ end }}
             
             <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400">

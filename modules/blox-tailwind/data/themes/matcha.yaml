@@ -1,0 +1,45 @@
+# HugoBlox Theme Pack
+# https://docs.hugoblox.com
+
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Matcha"
+    vendor: "hugoblox"
+    version: "1.0.0"
+    license: "MIT"
+    description: "Fresh, organic greens inspired by Japanese tea"
+
+  type: "dual"
+
+  light:
+    # "Matcha Latte" - Creamy, fresh, organic
+    colors:
+      primary: "#65a30d" # Fresh Tea Leaf (Lime-600)
+      secondary: "#15803d" # Deep Herbal Green (Green-700)
+      neutral: "#3f6212" # Olive text (Lime-800)
+    ui:
+      background: "#f7fee7" # Very pale lime cream (Lime-50)
+      foreground: "#1a2e05" # Dark moss text
+      header:
+        background: "#ecfccb" # Light Matcha Foam (Lime-100)
+        foreground: "#365314" # Deep olive
+      footer:
+        background: "#d9f99d" # Stronger tea green (Lime-200)
+        foreground: "#14532d"
+
+  dark:
+    # "Ceremonial Grade" - Deep, rich, meditative
+    colors:
+      primary: "#a3e635" # Vibrant Matcha Powder (Lime-400)
+      secondary: "#4ade80" # Soft green light (Green-400)
+      neutral: "#1a2f23" # Deep Forest Background
+    ui:
+      background: "#14281d" # Deep Nori Green
+      foreground: "#ecfccb" # Pale tea green text
+      header:
+        background: "#0f1f16" # Darker leaf
+        foreground: "#d9f99d"
+      footer:
+        background: "#052e16" # Deepest green (Green-950)
+        foreground: "#86efac"

@@ -4,7 +4,8 @@
 
 {{/* Get author and publisher info */}}
 {{ $author := partial "functions/get_author_name" $page }}
-{{ $publisher := site.Params.marketing.seo.org_name | default site.Title }}
+{{ $branding := partialCached "functions/get_branding" $page "branding" }}
+{{ $publisher := $branding.organization }}
 
 {{/* Extract question - prioritize explicit param, fallback to title */}}
 {{ $question := $page.Params.question | default $page.Title }}
@@ -85,4 +86,3 @@
   }
 }
 </script>
-

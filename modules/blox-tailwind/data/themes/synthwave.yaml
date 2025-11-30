@@ -1,29 +1,44 @@
-name: "synthwave"
-type: "dark"
+# HugoBlox Theme Pack
+# https://docs.hugoblox.com
 
-dark:
-  colors:
-    primary: "#e779c1" # Neon Pink (approx oklch(71% 0.202 349.761))
-    secondary: "#58c7f3" # Cyan (approx oklch(82% 0.111 230.318))
-    neutral: "#2a2e37" # Dark Blue-Gray (approx oklch(45% 0.24 277.023) adjusted for readability)
-  ui:
-    background: "#1a103d" # Deep Purple (approx oklch(15% 0.09 281.288))
-    foreground: "#f9f7fd" # Light Lavender (approx oklch(78% 0.115 274.713))
-    header:
-      background: "rgba(26, 16, 61, 0.9)" # Deep Purple
-      foreground: "#f9f7fd"
-    footer:
-      background: "#110a28" # Darker Deep Purple
-      foreground: "#b8b2cc"
+hugoblox:
+  meta:
+    format: "hugoblox-theme@1"
+    name: "Synthwave"
+    vendor: "hugoblox"
+    version: "1.0.0"
+    license: "MIT"
+    description: "Neon-drenched 80s retrowave aesthetic"
 
-light:
-  # Synthwave usually doesn't have a light mode, providing a high contrast fallback
-  colors:
-    primary: "#e779c1"
-    secondary: "#58c7f3"
-  ui:
-    background: "#f9f7fd"
-    foreground: "#1a103d"
-    header:
-      background: "#ffffff"
-      foreground: "#1a103d"
+  type: "dual"
+
+  dark:
+    colors:
+      primary: "#e779c1" # Neon Pink
+      secondary: "#58c7f3" # Cyan
+      neutral: "#2a2e37" # Dark Blue-Gray
+    ui:
+      background: "#1a103d" # Deep Purple
+      foreground: "#f9f7fd" # Light Lavender
+      header:
+        background: "rgba(26, 16, 61, 0.9)" # Deep Purple
+        foreground: "#f9f7fd"
+      footer:
+        background: "#110a28" # Darker Deep Purple
+        foreground: "#b8b2cc"
+
+  light:
+    # "Vaporwave" - A bright, pastel-neon day dream
+    colors:
+      primary: "#d946ef" # Electric Fuchsia
+      secondary: "#06b6d4" # Neon Cyan
+      neutral: "#701a75" # Deep Magenta (for text utilities)
+    ui:
+      background: "#fff0f5" # Lavender Blush
+      foreground: "#2e1065" # Deep Violet Ink
+      header:
+        background: "#fae8ff" # Light Fuchsia Mist
+        foreground: "#86198f" # Vibrant Purple
+      footer:
+        background: "#f0abfc" # Sunset Pink
+        foreground: "#2e1065" # Dark Violet

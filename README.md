@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme">
-    <img src="./.github/media/hero.png" alt="Build world-class sites with Hugo Blox" width="100%">
+    <img src="./.github/media/hero.png" alt="Build world-class sites with HugoBlox" width="100%">
   </a>
 </p>
 
@@ -33,11 +33,11 @@
 
 ---
 
-## Why Top Talent Chooses Hugo Blox
+## Why Top Talent Chooses HugoBlox
 
 In the age of AI agents, **Markdown is the new source code**.
 
-Vibe coding tools generate fragile, "black box" React/JS apps that are a nightmare to maintain once the AI disconnects. **Hugo Blox** is different. We combine the speed of an AI builder with the robustness of a static site generator.
+Vibe coding tools generate fragile, "black box" React/JS apps that are a nightmare to maintain once the AI disconnects. **HugoBlox** is different. We combine the speed of an AI builder with the robustness of a static site generator.
 
 - **🔮 Future-Proof & AI Ready:** Your content lives in clean Markdown—the native language of LLMs. It's readable by humans and machines forever. No vendor lock-in.
 - **🧠 The "Copilot" Workflow:**
@@ -80,16 +80,17 @@ For more guides, visit our documentation at [**https://docs.hugoblox.com/**](htt
 
 ## Free vs. Pro
 
-**Hugo Blox** is open core. You can build a world-class site for free. **Pro** is for those who want to move faster and support the ecosystem.
+**HugoBlox** is open core. You can build a world-class site for free. **Pro** is for those who want to move faster and support the ecosystem.
 
-| Feature | Open Source | **Hugo Blox Pro** |
+| Feature | Open Source | **HugoBlox Pro** |
 | :--- | :---: | :---: |
 | **Core Framework** | ✅ | ✅ |
-| **Standard Blocks** (Hero, Features, etc.) | ✅ | ✅ |
-| **Premium Templates** (SaaS, Course, Lab) | ❌ | **✅ Included** |
+| **Studio site editor** | ❌ | **✅ Included** |
+| **Premium Templates** (SaaS, Lab) | ❌ | **✅ Included** |
 | **Exclusive Pro Blocks** | ❌ | **✅ Included** |
-| **Lifetime Updates** | ❌ | **✅ Included** |
-| **Support the Project** | ❤️ | **🏆 Hero Status** |
+| **Remove HugoBlox attribution?** | ❌ | **✅ Included** |
+| **Discord Community Support** | ❤️ | **⚡️ Priority** |
+| **Support Open Source/Research** | ❤️ | **🏆 Hero Status** |
 
 👉 [**Upgrade to Pro**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
@@ -97,7 +98,7 @@ For more guides, visit our documentation at [**https://docs.hugoblox.com/**](htt
 
 ## What Creators Say
 
-> "Hugo Blox saved me 40+ hours on my lab site. Bibtex integration auto-updates publications — **our citations are up 3×**."
+> "HugoBlox saved me 40+ hours on my lab site. Bibtex integration auto-updates publications — **our citations are up 3×**."
 > — **Dr. Sarah Yang**, AI Researcher
 
 > "We launched our documentation in 10 minutes. The block system is genius; **onboarding time dropped by 60%**."
@@ -107,7 +108,7 @@ For more guides, visit our documentation at [**https://docs.hugoblox.com/**](htt
 
 ## Support the Project
 
-- 💎 **Pro (one-time donation)** — Get lifetime access to all premium templates, blocks, and updates.
+- 💎 **Pro (only $8/m)** — Get access to the visual editor and all premium templates, blocks, and updates.
   <br/>[**Go Pro →**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
 - ☕️ **Donate a Coffee** — Support open source and open research.

@@ -1,31 +1,27 @@
+{{ $branding := partialCached "functions/get_branding" . "branding" }}
+{{ $logo := partialCached "functions/get_logo" (dict "constraint" "max_height" "size" 36) "navbar_logo" }}
 <header id="site-header" class="header">
   <nav class="navbar px-3 flex justify-start">
     <div class="order-0 h-full">
       <!-- Brand -->
-      <a class="navbar-brand" href="{{ site.Home.RelPermalink }}" title="{{ site.Title }}">
-        {{- $logo_filename := site.Params.header.navbar.logo.filename -}}
-        {{ with $logo_filename }}
-          {{- $logo:= resources.Get (path.Join "media" $logo_filename) -}}
-          {{ with $logo }}
-            {{ $logoExt := path.Ext . }}
-            {{ if eq $logoExt `.svg` }}
-              {{- $logo.Content | safeHTML -}}
-            {{else}}
-              {{ $logo_img := ($logo.Process "Resize x36 webp") }}
-              <img
-                fetchpriority="high"
-                decoding="async"
-                class=""
-                width="{{ $logo_img.Width }}"
-                height="{{ $logo_img.Height }}"
-                src="{{ $logo_img.RelPermalink }}"
-                alt="{{ site.Title }}" />
-            {{end}}
+      <a class="navbar-brand" href="{{ site.Home.RelPermalink }}" title="{{ $branding.site_title }}">
+        {{/* Auto-detect logo from assets/media/logo.{svg,png} */}}
+        {{ with $logo.resource }}
+          {{ if $logo.is_svg }}
+            {{- .Content | safeHTML -}}
           {{ else }}
-            {{ warnf "Logo `%s` not found in `assets/media/` folder" $logo_filename }}
-          {{end}}
+            <img
+              fetchpriority="high"
+              decoding="async"
+              class=""
+              width="{{ .Width }}"
+              height="{{ .Height }}"
+              src="{{ .RelPermalink }}"
+              alt="{{ $branding.name }}" />
+          {{ end }}
         {{ end }}
-        {{ with site.Params.header.navbar.logo.text }}{{.}}{{end}}
+        {{/* Display brand name */}}
+        {{ $branding.name }}
       </a>
     </div>
     <!-- Mobile menu -->
@@ -148,8 +144,8 @@
       </button>
       {{ end }}
 
-      {{ $show_theme_chooser := site.Params.header.navbar.show_theme_chooser | default true }}
-      {{ if $show_theme_chooser }}
+      {{ $show_mode_toggle := site.Params.header.navbar.show_mode_toggle | default site.Params.header.navbar.show_theme_chooser | default true }}
+      {{ if $show_mode_toggle }}
       <div class="px-3 text-[var(--color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
         <button class="theme-toggle mt-1" accesskey="t" title="appearance">
@@ -172,6 +168,31 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
+      </div>
+      {{ end }}
+
+      {{/* Theme Picker */}}
+      {{ if site.Params.header.navbar.show_theme_picker }}
+      <div class="px-3">
+        <select onchange="document.documentElement.setAttribute('data-theme-pack', this.value); localStorage.setItem('hb-theme-pack', this.value);" class="bg-transparent text-[var(--color-header-fg)] border-none focus:ring-0 cursor-pointer text-sm font-medium">
+          <option value="">Theme</option>
+          {{ range $name, $data := site.Data.themes }}
+            <option value="{{ $name }}">{{ $name | humanize }}</option>
+          {{ end }}
+        </select>
+        <script>
+          (function() {
+            const savedTheme = localStorage.getItem('hb-theme-pack');
+            if (savedTheme) {
+              document.documentElement.setAttribute('data-theme-pack', savedTheme);
+              // Defer selecting the option until DOM is ready
+              document.addEventListener('DOMContentLoaded', () => {
+                const select = document.querySelector('select[onchange*="data-theme-pack"]');
+                if (select) select.value = savedTheme;
+              });
+            }
+          })();
+        </script>
       </div>
       {{ end }}
 

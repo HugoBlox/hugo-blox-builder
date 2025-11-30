@@ -3,19 +3,43 @@
 # Documentation: https://docs.hugoblox.com/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-# Appearance
-appearance:
-  mode: light
-  theme:
-    light: "default"
-    dark: "default"
+# ==============================================================================
+# HUGO BLOX CONFIGURATION
+# ==============================================================================
+hugoblox:
+  # ────────────────────────────────────────────────────────────────────────────
+  # BRANDING
+  # Your site's identity - used in navbar, footer, SEO, and copyright
+  # ────────────────────────────────────────────────────────────────────────────
+  branding:
+    name: "My Docs"
+    # Logo auto-detected from assets/media/logo.{svg,png}
 
-# SEO
+  # ────────────────────────────────────────────────────────────────────────────
+  # THEME
+  # Controls colors and appearance
+  # ────────────────────────────────────────────────────────────────────────────
+  theme:
+    mode: light
+    pack: "default"
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # TYPOGRAPHY & LAYOUT
+  # ────────────────────────────────────────────────────────────────────────────
+  typography:
+    font: "sans"
+    size: "md"
+  layout:
+    radius: "sm"
+    spacing: "comfortable"
+
+# ==============================================================================
+# SEO & MARKETING
+# ==============================================================================
 marketing:
   seo:
     site_type: Project
     local_business_type: ''
-    org_name: ''
     description: 'A highly-customizable Hugo documentation theme powered by Hugo Blox website builder.'
     twitter: 'BuildLore'
   analytics:
@@ -30,40 +54,45 @@ marketing:
     google: ''
     baidu: ''
 
-# Site header
+# ==============================================================================
+# SITE HEADER
+# ==============================================================================
 header:
   navbar:
     enable: true
     blox: "navbar"
     align: "center"
     fixed_to_top: true
-    logo:
-      text: ""
-      # Logo filename in `assets/media/` folder
-      filename: "logo.svg"
     button:
       enable: true
       text: "Get Started"
       url: "https://hugoblox.com/templates/details/docs/"
     show_search: true
-    show_theme_chooser: true
+    show_mode_toggle: true
+    # show_theme_picker: true
 
-# Site footer
+# ==============================================================================
+# SITE FOOTER
+# ==============================================================================
 footer:
   copyright:
-    notice: '© {year} My Company. This work is licensed under {license}'
+    notice: '© {year} {name}. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: false
       share_alike: true
       allow_commercial: false
 
-# Localization
+# ==============================================================================
+# LOCALIZATION
+# ==============================================================================
 locale:
   date_format: 'Jan 2, 2006'
   time_format: '3:04 PM'
 
-# Site features
+# ==============================================================================
+# SITE FEATURES
+# ==============================================================================
 features:
   math:
     enable: false

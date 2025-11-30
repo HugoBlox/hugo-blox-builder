@@ -26,6 +26,9 @@
 /* Hugo Blox theme system (color utilities) */
 @import "color-utilities.css";
 
+/* Hugo Blox layout utilities (radius, spacing tokens) */
+@import "layout-utilities.css";
+
 /* Hugo Blox framework components */
 @import "framework/components.css";
 

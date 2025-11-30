@@ -1,0 +1,180 @@
+{{/*
+  HugoBlox Theme Engine: Get theme configuration
+  
+  Returns a dict with:
+    - mode: 'light' | 'dark' | 'system'
+    - light: Light theme pack name (default: "default")
+    - dark: Dark theme pack name (default: "default")
+    - colors: Global color overrides { primary, secondary, neutral }
+    - colors_light: Light-mode specific color overrides
+    - colors_dark: Dark-mode specific color overrides
+    - ui: Semantic UI overrides { header_bg, footer_bg, etc. }
+    - typography: { font, size }
+    - layout: { radius, spacing }
+  
+  Supports backward compatibility with deprecation warnings for:
+    - appearance.mode → hugoblox.theme.mode
+    - appearance.color → hugoblox.theme.colors.primary
+    - appearance.theme.light/dark → hugoblox.theme.pack.light/dark
+    - appearance.font → hugoblox.typography.font
+*/}}
+
+{{/* New structure: hugoblox.theme */}}
+{{ $hb := site.Params.hugoblox | default dict }}
+{{ $hb_theme := $hb.theme | default dict }}
+
+{{/* Legacy structure: appearance */}}
+{{ $appearance := site.Params.appearance | default dict }}
+{{ $legacy_theme := $appearance.theme | default dict }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    MODE (light/dark/system)
+    Priority: hugoblox.theme.mode → appearance.mode → "system"
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $mode := "system" }}
+
+{{ with $hb_theme.mode }}
+  {{ $mode = . }}
+{{ else }}
+  {{ with $appearance.mode }}
+    {{ $mode = . }}
+    {{/* Only warn if using old structure AND new structure exists */}}
+    {{ if $hb_theme }}
+      {{ warnf "DEPRECATED: 'appearance.mode' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  theme:\n    mode: \"%s\"\n" . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    THEME PACK SELECTION (light/dark)
+    Priority: hugoblox.theme.pack → hugoblox.theme.light/dark → appearance.theme.light/dark → "default"
+    
+    Pack can be:
+      - String: "default" (applies to both)
+      - Object: { light: "latte", dark: "americano" }
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $light_pack := "default" }}
+{{ $dark_pack := "default" }}
+
+{{/* Check hugoblox.theme.pack first */}}
+{{ with $hb_theme.pack }}
+  {{ if reflect.IsMap . }}
+    {{ $light_pack = .light | default "default" }}
+    {{ $dark_pack = .dark | default "default" }}
+  {{ else }}
+    {{/* Single string applies to both */}}
+    {{ $light_pack = . }}
+    {{ $dark_pack = . }}
+  {{ end }}
+{{ else }}
+  {{/* Check hugoblox.theme.light/dark (alternative flat structure) */}}
+  {{ with $hb_theme.light }}
+    {{ $light_pack = . }}
+  {{ else }}
+    {{/* Check legacy appearance.theme.light */}}
+    {{ with $legacy_theme.light }}
+      {{ $light_pack = . }}
+      {{ if $hb_theme }}
+        {{ warnf "DEPRECATED: 'appearance.theme.light' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  theme:\n    pack:\n      light: \"%s\"\n" . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{ with $hb_theme.dark }}
+    {{ $dark_pack = . }}
+  {{ else }}
+    {{/* Check legacy appearance.theme.dark */}}
+    {{ with $legacy_theme.dark }}
+      {{ $dark_pack = . }}
+      {{ if $hb_theme }}
+        {{ warnf "DEPRECATED: 'appearance.theme.dark' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  theme:\n    pack:\n      dark: \"%s\"\n" . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    GLOBAL COLOR OVERRIDES
+    Priority: hugoblox.theme.colors → appearance.theme.colors → appearance.color (primary only)
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $colors := dict }}
+
+{{ with $hb_theme.colors }}
+  {{ $colors = . }}
+{{ else }}
+  {{ with $legacy_theme.colors }}
+    {{ $colors = . }}
+  {{ else }}
+    {{/* Check legacy appearance.color (primary only) */}}
+    {{ with $appearance.color }}
+      {{ $colors = dict "primary" . }}
+      {{ warnf "DEPRECATED: 'appearance.color' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  theme:\n    colors:\n      primary: \"%s\"\n" . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    MODE-SPECIFIC COLOR OVERRIDES
+    New feature: hugoblox.theme.colors_light / colors_dark
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $colors_light := $hb_theme.colors_light | default dict }}
+{{ $colors_dark := $hb_theme.colors_dark | default dict }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    SEMANTIC UI OVERRIDES
+    New feature: hugoblox.theme.ui
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $ui := $hb_theme.ui | default dict }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    TYPOGRAPHY
+    Priority: hugoblox.typography → appearance.font (legacy)
+    
+    font: "sans" (Inter, default) | "serif" (Roboto Slab) | "native" (system fonts)
+    size: "sm" | "md" | "lg" | "xl" (maps to base font size)
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $hb_typography := $hb.typography | default dict }}
+{{ $font := "sans" }}
+{{ $font_size := "md" }}
+
+{{ with $hb_typography.font }}
+  {{ $font = . }}
+{{ else }}
+  {{/* Check legacy appearance.font */}}
+  {{ with $appearance.font }}
+    {{ $font = . }}
+    {{ warnf "DEPRECATED: 'appearance.font' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  typography:\n    font: \"%s\"\n" . }}
+  {{ end }}
+{{ end }}
+
+{{ with $hb_typography.size }}
+  {{ $font_size = . }}
+{{ end }}
+
+{{ $typography := dict "font" $font "size" $font_size }}
+
+{{/* ═══════════════════════════════════════════════════════════════════════════
+    LAYOUT TOKENS
+    New feature: hugoblox.layout
+    
+    radius: "none" | "sm" | "md" | "lg" | "full"
+    spacing: "compact" | "comfortable" | "spacious"
+═══════════════════════════════════════════════════════════════════════════ */}}
+{{ $hb_layout := $hb.layout | default dict }}
+{{ $radius := $hb_layout.radius | default "md" }}
+{{ $spacing := $hb_layout.spacing | default "comfortable" }}
+
+{{ $layout := dict "radius" $radius "spacing" $spacing }}
+
+{{/* Return theme config dict */}}
+{{ return dict 
+    "mode" $mode
+    "light" $light_pack
+    "dark" $dark_pack
+    "colors" $colors
+    "colors_light" $colors_light
+    "colors_dark" $colors_dark
+    "ui" $ui
+    "typography" $typography
+    "layout" $layout
+}}

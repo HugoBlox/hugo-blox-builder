@@ -13,21 +13,24 @@
       "**/node_modules/**": true,
       "**/public/**": true,
       "**/resources/**": true,
-      "**/pagefind/**": true
+      "**/pagefind/**": true,
+      "**/dist/**": true
     },
     "search.exclude": {
       "**/node_modules/**": true,
       "**/public/**": true,
       "**/resources/**": true,
-      "**/pagefind/**": true
+      "**/pagefind/**": true,
+      "**/dist/**": true
     },
     "files.watcherExclude": {
       "**/node_modules/**": true,
       "**/public/**": true,
       "**/resources/**": true,
-      "**/pagefind/**": true
+      "**/pagefind/**": true,
+      "**/dist/**": true
     },
-    "explorer.excludeGitIgnore": true,
+    "explorer.excludeGitIgnore": false,
     "workbench.editor.labelFormat": "medium",
     "breadcrumbs.enabled": true,
     "npm.packageManager": "pnpm",

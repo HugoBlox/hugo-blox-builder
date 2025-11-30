@@ -27,15 +27,11 @@
 
   {{/* Generate page description. */}}
   {{ $desc := "" }}
-  {{ if .Params.summary }}
-    {{ $desc = .Params.summary }}
-  {{ else if .Params.abstract }}
-    {{ $desc = .Params.abstract }}
-  {{ else if .IsPage }}
-    {{ $desc = .Summary }}
-  {{ else if site.Params.marketing.seo.description }}
+  {{ $desc = partial "functions/get_summary" . }}
+  {{ if site.Params.marketing.seo.description | and (not $desc) }}
     {{ $desc = site.Params.marketing.seo.description }}
-  {{ else }}
+  {{ end }}
+  {{ if not $desc }}
     {{ $desc = $superuser_role }}
   {{ end }}
   <meta name="description" content="{{ $desc | plainify }}" />
@@ -45,19 +41,14 @@
   {{ end }}
   <link rel="alternate" hreflang="{{ site.LanguageCode | default "en-us" }}" href="{{ .Permalink }}" />
 
-  {{/* Hugo Blox Color Theme Initialization */}}
-  {{ $legacy_color := (lower site.Params.appearance.color) | default "blue" }}
-  
-  {{/* 1. New Data-Driven System (Mix & Match) */}}
-  {{ if site.Params.appearance.theme }}
-     {{ partial "functions/theme_generator.html" (dict "light" site.Params.appearance.theme.light "dark" site.Params.appearance.theme.dark) }}
-  {{/* 2. Legacy CSS System Fallback */}}
-  {{ else if (fileExists (printf "assets/css/themes/%s.css" $legacy_color)) }}
-     {{ $theme_css := resources.Get (printf "css/themes/%s.css" $legacy_color) | minify }}
-     <link rel="stylesheet" href="{{ $theme_css.RelPermalink }}" />
-  {{ else }}
-     {{/* 3. Default Fallback */}}
-     {{ partial "functions/theme_generator.html" (dict "light" "default" "dark" "default") }}
+  {{/* Hugo Blox Theme Engine Initialization */}}
+  {{/* Uses get_theme_config helper for backward-compatible config resolution */}}
+  {{ $theme_config := partialCached "functions/get_theme_config" . "theme_config" }}
+  {{ partial "functions/theme_generator.html" $theme_config }}
+
+  {{/* Demo Theme Pack Styles (if enabled) */}}
+  {{ if site.Params.header.navbar.show_theme_picker }}
+    {{ partial "functions/demo_theme_styles.html" (dict "typography" $theme_config.typography "layout" $theme_config.layout) }}
   {{ end }}
 
   {{/* Tailwind CSS v4 Processing */}}
@@ -93,13 +84,30 @@
   {{ partialCached "blox-analytics/index" . }}
 
   {{/* RSS Feed */}}
+  {{ $branding := partialCached "functions/get_branding" . "branding" }}
   {{ with .OutputFormats.Get "RSS" }}
-    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ site.Title }}" />
+    <link rel="alternate" href="{{ .RelPermalink }}" type="application/rss+xml" title="{{ $branding.site_title }}" />
   {{ end }}
 
-  {{/* Progressive Web App (PWA) Icon */}}
-  <link rel="icon" type="image/png" href="{{ (partial "functions/get_site_icon" 32).RelPermalink }}" />
-  <link rel="apple-touch-icon" type="image/png" href="{{ (partial "functions/get_site_icon" 180).RelPermalink }}" />
+  {{/* Progressive Web App (PWA) Icon - SVG preferred */}}
+  {{ $icon := partial "functions/get_site_icon" 32 }}
+  {{ with $icon.resource }}
+    <link rel="icon" type="{{ $icon.type }}" href="{{ .RelPermalink }}" />
+  {{ end }}
+  {{/* Apple Touch Icon - requires PNG */}}
+  {{ $icon_apple := partial "functions/get_site_icon" 180 }}
+  {{ if not $icon_apple.is_svg }}
+    {{ with $icon_apple.resource }}
+      <link rel="apple-touch-icon" type="image/png" href="{{ .RelPermalink }}" />
+    {{ end }}
+  {{ else }}
+    {{/* SVG icon - need PNG fallback for Apple */}}
+    {{ $icon_png := resources.Get "media/icon.png" }}
+    {{ with $icon_png }}
+      {{ $apple_icon := .Fill "180x180 Center" }}
+      <link rel="apple-touch-icon" type="image/png" href="{{ $apple_icon.RelPermalink }}" />
+    {{ end }}
+  {{ end }}
 
   <link rel="canonical" href="{{ .Permalink }}" />
 
@@ -120,27 +128,33 @@
     {{ $og_image = $sharing_image.Permalink }}
   {{ else if $has_logo }}
     {{/* !CACHED! Can safely cache this site logo variant */}}
-    {{ $og_image = (partialCached "functions/get_logo" (dict "constraint" "fit" "size" 300)).Permalink }}
+    {{ $logo_data := partialCached "functions/get_logo" (dict "constraint" "fit" "size" 300) "logo_og" }}
+    {{ with $logo_data.resource }}
+      {{ $og_image = .Permalink }}
+    {{ end }}
     {{ $twitter_card = "summary" }}
   {{ else }}
-    {{ $og_image = (partial "functions/get_site_icon" 512).Permalink }}
+    {{ $icon_og := partial "functions/get_site_icon" 512 }}
+    {{ with $icon_og.resource }}
+      {{ $og_image = .Permalink }}
+    {{ end }}
     {{ $twitter_card = "summary" }}
   {{ end }}
   {{ $scr.Set "og_image" $og_image }}{{/* Set `og_image` globally for `rss.xml`. */}}
 
   {{ $title := "" }}
   {{ with .Params.seo.title }}
-    {{ $title = replace . "{brand}" site.Title }}
+    {{ $title = replace . "{brand}" $branding.site_title }}
   {{ else }}
-    {{ $title = .Title | default site.Title }}
-    {{ if ne $title site.Title }}{{ $title = printf "%s | %s" $title site.Title }}{{ end }}
+    {{ $title = .Title | default $branding.site_title }}
+    {{ if ne $title $branding.site_title }}{{ $title = printf "%s | %s" $title $branding.site_title }}{{ end }}
   {{ end }}
   <meta property="twitter:card" content="{{ $twitter_card }}" />
   {{ with site.Params.marketing.seo.twitter }}
     <meta property="twitter:site" content="@{{ . }}" />
     <meta property="twitter:creator" content="@{{ . }}" />
   {{ end }}
-  <meta property="og:site_name" content="{{ site.Title }}" />
+  <meta property="og:site_name" content="{{ $branding.site_title }}" />
   <meta property="og:url" content="{{ .Permalink }}" />
   <meta property="og:title" content="{{ $title }}" />
   <meta property="og:description" content="{{ $desc }}" />
@@ -169,26 +183,81 @@
 
   <title>{{$title}}</title>
 
-  {{/* Load font theme */}}
+  {{/* Load font theme - uses typography config from get_theme_config */}}
+  {{/* Supported values: 'sans' (Inter, default), 'serif' (Roboto Slab), 'native' (system fonts) */}}
+  {{ $font_setting := $theme_config.typography.font | default "sans" }}
+  {{ $use_custom_font := true }}
   {{ $font_family := "Inter var" }}
-  {{ $font_file := "" }}
-  {{ $font_type := "" }}
-  {{ if eq site.Params.appearance.font "serif" }}
+  {{ $font_file := "Inter.var.woff2" }}
+  {{ $font_type := "woff2" }}
+  
+  {{ if eq $font_setting "native" }}
+    {{/* Native system font stack - no custom font loaded */}}
+    {{ $use_custom_font = false }}
+  {{ else if eq $font_setting "serif" }}
     {{ $font_file = "RobotoSlab-VariableFont_wght.ttf" }}
     {{ $font_type = "truetype" }}
-  {{else}}
-    {{ $font_file = "Inter.var.woff2" }}
-    {{ $font_type = "woff2" }}
-  {{end}}
-  {{ $font := resources.Get (printf "dist/font/%s" $font_file) }}
+  {{ end }}
+  {{/* Default case (sans or any unrecognized value) uses Inter */}}
+  
+  {{/* Map size tokens to CSS custom properties */}}
+  {{ $font_size_base := "1rem" }}
+  {{ $font_size_scale := "1.25" }}
+  {{ if eq $theme_config.typography.size "sm" }}
+    {{ $font_size_base = "0.875rem" }}
+    {{ $font_size_scale = "1.2" }}
+  {{ else if eq $theme_config.typography.size "lg" }}
+    {{ $font_size_base = "1.125rem" }}
+    {{ $font_size_scale = "1.333" }}
+  {{ else if eq $theme_config.typography.size "xl" }}
+    {{ $font_size_base = "1.25rem" }}
+    {{ $font_size_scale = "1.414" }}
+  {{ end }}
+  
+  {{/* Map radius tokens to CSS values */}}
+  {{ $radius_value := "0.5rem" }}
+  {{ if eq $theme_config.layout.radius "none" }}
+    {{ $radius_value = "0" }}
+  {{ else if eq $theme_config.layout.radius "sm" }}
+    {{ $radius_value = "0.25rem" }}
+  {{ else if eq $theme_config.layout.radius "lg" }}
+    {{ $radius_value = "0.75rem" }}
+  {{ else if eq $theme_config.layout.radius "full" }}
+    {{ $radius_value = "9999px" }}
+  {{ end }}
+  
+  {{/* Map spacing tokens to CSS values */}}
+  {{ $spacing_base := "1rem" }}
+  {{ $spacing_section := "4rem" }}
+  {{ if eq $theme_config.layout.spacing "compact" }}
+    {{ $spacing_base = "0.75rem" }}
+    {{ $spacing_section = "2.5rem" }}
+  {{ else if eq $theme_config.layout.spacing "spacious" }}
+    {{ $spacing_base = "1.25rem" }}
+    {{ $spacing_section = "6rem" }}
+  {{ end }}
+  
   <style>
+    :root {
+      /* Typography tokens */
+      --hb-font-size-base: {{ $font_size_base }};
+      --hb-font-size-scale: {{ $font_size_scale }};
+      
+      /* Layout tokens */
+      --hb-radius: {{ $radius_value }};
+      --hb-spacing-base: {{ $spacing_base }};
+      --hb-spacing-section: {{ $spacing_section }};
+    }
+    {{ if $use_custom_font }}
+    {{ $font_resource := resources.Get (printf "dist/font/%s" $font_file) }}
     @font-face {
       font-family: '{{$font_family}}';
       font-style: normal;
       font-weight: 100 900;
       font-display: swap;
-      src: url({{ $font.RelPermalink }}) format({{$font_type}});
+      src: url({{ $font_resource.RelPermalink }}) format({{$font_type}});
     }
+    {{ end }}
   </style>
 
   {{ if .Params.design.background.image.filename }}
