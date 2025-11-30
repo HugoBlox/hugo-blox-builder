@@ -14,6 +14,7 @@
   {{ $attrs := .attributes | default "" }}
   {{/* Convert SVG sizing to emoji text sizing with important specificity */}}
   {{ if in $attrs "w-24" }}{{ $attrs = replaceRE "w-24 h-24" "" $attrs }}{{ $attrs = printf "%s text-8xl leading-none" $attrs }}{{ end }}
+  {{ if in $attrs "w-16" }}{{ $attrs = replaceRE "w-16 h-16" "" $attrs }}{{ $attrs = printf "%s text-5xl leading-none" $attrs }}{{ end }}
   {{ if in $attrs "w-12" }}{{ $attrs = replaceRE "w-12 h-12" "" $attrs }}{{ $attrs = printf "%s text-5xl leading-none" $attrs }}{{ end }}
   {{ if in $attrs "w-8" }}{{ $attrs = replaceRE "w-8 h-8" "" $attrs }}{{ $attrs = printf "%s text-4xl leading-none" $attrs }}{{ end }}
   {{ if in $attrs "w-6" }}{{ $attrs = replaceRE "w-6 h-6" "" $attrs }}{{ $attrs = printf "%s text-2xl leading-none" $attrs }}{{ end }}
@@ -43,37 +44,55 @@
     {{ $icon = printf `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s">%s</svg>` (cast.ToString $icon_size) (cast.ToString $icon_size) $icon_body }}
   {{ end }}
 {{ else }}
-  {{ with index (index site.Data.icons.hb "icons") $name -}}
-    {{ $icon = . }}
+  {{/* Icon NOT found in pack - check if it's a direct Unicode emoji */}}
+  {{ if not (strings.Contains $.name "/") }}
+    {{/* No explicit pack specified (defaulted to hero) - treat as direct Unicode emoji */}}
+    {{ $attrs := .attributes | default "" }}
+    {{/* Convert SVG sizing to emoji text sizing (same as emoji pack) */}}
+    {{ if in $attrs "w-24" }}{{ $attrs = replaceRE "w-24 h-24" "text-8xl" $attrs }}{{ end }}
+    {{ if in $attrs "w-16" }}{{ $attrs = replaceRE "w-16 h-16" "text-5xl" $attrs }}{{ end }}
+    {{ if in $attrs "w-12" }}{{ $attrs = replaceRE "w-12 h-12" "text-5xl" $attrs }}{{ end }}
+    {{ if in $attrs "w-8" }}{{ $attrs = replaceRE "w-8 h-8" "text-4xl" $attrs }}{{ end }}
+    {{ if in $attrs "w-6" }}{{ $attrs = replaceRE "w-6 h-6" "text-2xl" $attrs }}{{ end }}
+    {{ if in $attrs "w-5" }}{{ $attrs = replaceRE "w-5 h-5" "text-xl" $attrs }}{{ end }}
+    {{ if in $attrs "w-4" }}{{ $attrs = replaceRE "w-4 h-4" "text-lg" $attrs }}{{ end }}
+    {{/* Add centering and line-height classes if not already present */}}
+    {{ if not (in $attrs "flex") }}{{ $attrs = replaceRE "class=\"" "class=\"flex items-center justify-center leading-none " $attrs }}{{ end }}
+    {{ $icon = printf "<span %s>%s</span>" $attrs $.name }}
   {{ else }}
-    {{- $prefix := printf "media/icons/%s/" $pack -}}
-    {{- $icon_path := printf "%s%s.svg" $prefix $name -}}
-    {{- if not (fileExists (printf "assets/%s" $icon_path)) -}}
-      {{ $pageRef := "unknown location" }}
-      {{ if .Page }}
-        {{ if .Page.File }}
-          {{ if .Page.File.Path }}
-            {{ $pageRef = .Page.File.Path }}
+    {{/* Explicit pack specified but icon not found - continue with fallback logic */}}
+    {{ with index (index site.Data.icons.hb "icons") $name -}}
+      {{ $icon = . }}
+    {{ else }}
+      {{- $prefix := printf "media/icons/%s/" $pack -}}
+      {{- $icon_path := printf "%s%s.svg" $prefix $name -}}
+      {{- if not (fileExists (printf "assets/%s" $icon_path)) -}}
+        {{ $pageRef := "unknown location" }}
+        {{ if .Page }}
+          {{ if .Page.File }}
+            {{ if .Page.File.Path }}
+              {{ $pageRef = .Page.File.Path }}
+            {{ else if .Page.RelPermalink }}
+              {{ $pageRef = .Page.RelPermalink }}
+            {{ end }}
           {{ else if .Page.RelPermalink }}
             {{ $pageRef = .Page.RelPermalink }}
           {{ end }}
-        {{ else if .Page.RelPermalink }}
-          {{ $pageRef = .Page.RelPermalink }}
         {{ end }}
+        {{ partial "functions/logger" (dict
+              "page" .Page
+              "level" "warn"
+              "id" (printf "missing-icon-%s-%s" $pack $name)
+              "message" (printf "The icon `%s` was not found in `assets/media/icons/%s/`. Referenced in: %s" $name $pack $pageRef)
+            )
+        }}
+      {{- end -}}
+      {{- $icon_resource := resources.Get $icon_path -}}
+      {{ if $icon_resource }}
+        {{ $icon = $icon_resource.Content }}
+      {{ else }}
+        {{ $icon = index (index site.Data.icons.brands "icons") "hugo" }}
       {{ end }}
-      {{ partial "functions/logger" (dict
-            "page" .Page
-            "level" "warn"
-            "id" (printf "missing-icon-%s-%s" $pack $name)
-            "message" (printf "The icon `%s` was not found in `assets/media/icons/%s/`. Referenced in: %s" $name $pack $pageRef)
-          )
-      }}
-    {{- end -}}
-    {{- $icon_resource := resources.Get $icon_path -}}
-    {{ if $icon_resource }}
-      {{ $icon = $icon_resource.Content }}
-    {{ else }}
-      {{ $icon = index (index site.Data.icons.brands "icons") "hugo" }}
     {{ end }}
   {{ end }}
 {{ end }}

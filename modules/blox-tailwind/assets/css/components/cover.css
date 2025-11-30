@@ -1,0 +1,146 @@
+/**
+ * Article Cover Component Styles
+ * Notion-inspired page cover with icon overlay
+ */
+
+.article-cover {
+  @apply relative w-full;
+  /* Height is set inline via style attribute, but ensure it displays */
+  min-height: 200px;
+  /* Allow icon to overflow bottom */
+  overflow: visible;
+  /* Add margin for overlapping icon */
+  margin-bottom: 2.5rem;
+  
+  /* Responsive height adjustments for mobile */
+  @media (max-width: 768px) {
+    height: 240px !important;
+    min-height: 240px;
+  }
+}
+
+/* Cover image container */
+.article-cover img {
+  @apply w-full h-full object-cover;
+}
+
+/* Cover icon container base styles */
+.article-cover-icon {
+  @apply flex items-center justify-center w-full h-full;
+  transition: transform 0.2s ease-in-out;
+}
+
+.article-cover-icon:hover {
+  @apply scale-105;
+}
+
+/* Glass morphism effect for icons */
+.article-cover-icon.glass {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .article-cover-icon.glass {
+  background: rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Fade effect styles */
+.article-cover-fade {
+  @apply absolute left-0 right-0 pointer-events-none;
+  bottom: -1px;
+  background: linear-gradient(to bottom, transparent, white);
+}
+
+.dark .article-cover-fade {
+  background: linear-gradient(to bottom, transparent, rgb(15, 23, 42));
+}
+
+/* Style variants */
+.article-cover[data-cover-style="minimal"] {
+  @apply shadow-sm;
+}
+
+.article-cover[data-cover-style="glass"] {
+  @apply overflow-visible;
+}
+
+.article-cover[data-cover-style="gradient"] {
+  /* Applied via inline overlay divs */
+}
+
+/* Ensure cover works well with dark mode */
+.dark .article-cover {
+  @apply border-b border-gray-800;
+}
+
+/* Caption styles */
+.article-cover .cover-caption {
+  @apply absolute bottom-4 left-4 right-4 text-sm text-white/90;
+  @apply bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .article-cover-icon {
+    @apply scale-90;
+  }
+}
+
+/* Parallax effect support (optional feature) */
+.article-cover.parallax {
+  transform-style: preserve-3d;
+}
+
+.article-cover.parallax img {
+  transform: translateZ(-1px) scale(1.5);
+}
+
+/* Link hover effect if cover is clickable */
+.article-cover a {
+  @apply block w-full h-full;
+}
+
+.article-cover a:hover img {
+  @apply scale-105 transition-transform duration-500;
+}
+
+/* Print styles - show cover but optimize */
+@media print {
+  .article-cover {
+    max-height: 200px !important;
+    page-break-after: avoid;
+  }
+  
+  .article-cover-fade,
+  .article-cover-icon {
+    @apply hidden;
+  }
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .article-cover,
+  .article-cover *,
+  .article-cover-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .article-cover.parallax img {
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .article-cover-icon {
+    @apply border-2 border-current;
+  }
+  
+  .article-cover .cover-caption {
+    @apply bg-black text-white;
+  }
+}

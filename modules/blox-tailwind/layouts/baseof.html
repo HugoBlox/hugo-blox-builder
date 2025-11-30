@@ -22,7 +22,8 @@
         {{ end }}
       {{ end }}
     </div>
-    <div class="page-body {{if ne .Type "landing"}} my-10{{end}}">
+    {{ $cover := partial "functions/get_cover_image.html" . }}
+    <div class="page-body {{if and (ne .Type "landing") (not $cover)}} my-10{{end}}">
       {{ block "main" . }}{{ end }}
     </div>
     <div class="page-footer">

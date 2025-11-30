@@ -9,6 +9,9 @@
   {{ end }}
 {{ end }}
 
+{{/* Page Cover */}}
+{{ partial "components/cover.html" . }}
+
 <div class="mx-auto flex max-w-screen-xl">
   {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" true) }}
   {{ partial "components/toc.html" . }}
@@ -21,8 +24,45 @@
       </div>
       {{ end }}
 
-      <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-        {{- .Title -}}
+      {{/* Add spacing if cover has overlapping icon */}}
+      {{ $cover := partial "functions/get_cover_image.html" . }}
+      {{ $has_overlap_icon := false }}
+      {{ if $cover }}
+        {{ $icon_config := .Params.cover.icon | default (dict) }}
+        {{ if or $icon_config.name $icon_config.emoji }}
+          {{ $icon_position := $icon_config.position | default "overlap" }}
+          {{ if eq $icon_position "overlap" }}
+            {{ $has_overlap_icon = true }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      <h1 class="{{ if $has_overlap_icon }}mt-12{{ else }}mt-2{{ end }} text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+        {{/* Inline icon before title if specified */}}
+        {{ if $cover }}
+          {{ $icon_config := .Params.cover.icon | default (dict) }}
+          {{ if or $icon_config.name $icon_config.emoji }}
+            {{ $icon_position := $icon_config.position | default "overlap" }}
+            {{ if eq $icon_position "inline" }}
+              <span class="inline-flex items-center gap-3">
+                {{ if $icon_config.emoji }}
+                  <span class="text-4xl">{{ $icon_config.emoji }}</span>
+                {{ else if $icon_config.name }}
+                  <span class="w-10 h-10">
+                    {{ partial "components/icon.html" (dict "name" $icon_config.name "attributes" "class=\"w-full h-full\"") }}
+                  </span>
+                {{ end }}
+                <span>{{- .Title -}}</span>
+              </span>
+            {{ else }}
+              {{- .Title -}}
+            {{ end }}
+          {{ else }}
+            {{- .Title -}}
+          {{ end }}
+        {{ else }}
+          {{- .Title -}}
+        {{ end }}
       </h1>
 
       <div class="mt-4 mb-16">

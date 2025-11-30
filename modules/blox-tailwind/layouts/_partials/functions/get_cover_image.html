@@ -1,0 +1,41 @@
+{{/* HugoBlox function to retrieve the cover image */}}
+{{/* Inputs: page context */}}
+{{/* Output: image resource, or nil if not found */}}
+
+{{/*
+    Cover image is searched in this order:
+      1. Search for a file `*cover*` in the page directory
+      2. Search for a file `.Params.cover.image` in the page directory
+      3. Search for a file `.Params.cover.image` in the `assets/media/` directory
+*/}}
+
+{{/* Search for an image "*cover*" in page folder */}}
+{{ $resource := (.Resources.ByType "image").GetMatch "*cover*" }}
+{{ if eq $resource nil }}
+  {{/* Otherwise fall back to the image file specified in front matter */}}
+  {{ $filename := "" }}
+  {{ if .Params.cover }}
+    {{ if reflect.IsMap .Params.cover }}
+      {{ $filename = .Params.cover.image }}
+    {{ else }}
+      {{/* Support simple string format: cover: "image.jpg" */}}
+      {{ $filename = .Params.cover }}
+    {{ end }}
+  {{ end }}
+  {{ if $filename }}
+    {{/* Check if it's a remote URL */}}
+    {{ if or (strings.HasPrefix $filename "http://") (strings.HasPrefix $filename "https://") }}
+      {{ $resource = resources.GetRemote $filename }}
+      {{ if eq $resource nil }}
+        {{ warnf "Remote cover image not found: %s" $filename }}
+      {{ end }}
+    {{ else }}
+      {{/* Search in page folder */}}
+      {{ $resource = (.Resources.ByType "image").GetMatch $filename }}
+      {{/* Otherwise in `assets/media/` folder */}}
+      {{ if eq $resource nil }} {{ $resource = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $resource }}

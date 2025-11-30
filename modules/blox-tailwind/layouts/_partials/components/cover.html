@@ -1,0 +1,220 @@
+{{/* Article Cover Component - Notion-inspired page cover with icon overlay */}}
+{{/* Requires: page context */}}
+
+{{ $cover := partial "functions/get_cover_image.html" . }}
+{{ if $cover }}
+
+{{/* Get cover configuration with defaults */}}
+{{ $cover_config := .Params.cover | default (dict) }}
+{{ if not (reflect.IsMap $cover_config) }}
+  {{/* Simple string format: cover: "image.jpg" */}}
+  {{ $cover_config = dict "image" $cover_config }}
+{{ end }}
+
+{{/* Default alt text to page title if not specified */}}
+{{ $alt_text := $cover_config.alt_text | default (.Title | plainify) }}
+
+{{/* Height configuration */}}
+{{ $height_map := dict 
+  "small" "200px" 
+  "medium" "320px" 
+  "large" "480px" 
+  "full" "60vh" 
+}}
+{{ $height := index $height_map ($cover_config.height | default "medium") | default "320px" }}
+
+{{/* Style configuration */}}
+{{ $style := $cover_config.style | default "gradient" }}
+
+{{/* Position configuration */}}
+{{ $position := $cover_config.position | default (dict) }}
+{{ $x := $position.x | default 50 }}
+{{ $y := $position.y | default 50 }}
+
+{{/* Overlay configuration */}}
+{{ $overlay := $cover_config.overlay | default (dict) }}
+{{ $overlay_enabled := $overlay.enabled | default true }}
+{{ $overlay_type := $overlay.type | default "gradient" }}
+{{ $overlay_opacity := $overlay.opacity | default 0.3 }}
+{{ $overlay_color := $overlay.color | default "#000000" }}
+{{ $overlay_gradient := $overlay.gradient | default "bottom" }}
+
+{{/* Fade configuration */}}
+{{ $fade := $cover_config.fade | default (dict) }}
+{{ $fade_enabled := $fade.enabled | default true }}
+{{ $fade_height := $fade.height | default "60px" }}
+{{ $fade_blur := $fade.blur | default false }}
+
+{{/* Icon configuration */}}
+{{ $icon_config := $cover_config.icon | default (dict) }}
+{{ $has_icon := or $icon_config.name $icon_config.emoji }}
+{{ $icon_position := $icon_config.position | default "overlap" }}
+{{ $icon_size := $icon_config.size | default "large" }}
+{{ $icon_style := $icon_config.style | default "glass" }}
+{{ $icon_border := $icon_config.border | default true }}
+
+{{/* Responsive hide on mobile */}}
+{{ $hide_mobile := false }}
+{{ if $cover_config.responsive }}
+  {{ $hide_mobile = $cover_config.responsive.hide_on_mobile | default false }}
+{{ end }}
+
+{{/* Process cover image */}}
+{{ $cover_width := 2560 }}
+{{ $cover_height := 520 }}
+{{ if eq ($cover_config.height | default "medium") "small" }}
+  {{ $cover_height = 320 }}
+{{ else if eq ($cover_config.height | default "medium") "large" }}
+  {{ $cover_height = 768 }}
+{{ else if eq ($cover_config.height | default "medium") "full" }}
+  {{ $cover_height = 1080 }}
+{{ end }}
+
+{{/* Generate responsive images */}}
+{{ $processed_cover := $cover }}
+{{ $srcset := "" }}
+{{ if ne $cover.MediaType.SubType "gif" }}
+  {{ $fill_spec := printf "%dx%d Center q85 webp" $cover_width $cover_height }}
+  {{ $processed_cover = $cover.Fill $fill_spec }}
+  
+  {{ $variants := slice }}
+  {{ $widths := slice 640 768 1024 1366 1920 2560 }}
+  {{ range $widths }}
+    {{ $w := . }}
+    {{ $h := div (mul $w $cover_height) $cover_width }}
+    {{ $variant_spec := printf "%dx%d Center q85 webp" $w $h }}
+    {{ $variant := $cover.Fill $variant_spec }}
+    {{ $variants = $variants | append (printf "%s %dw" $variant.RelPermalink $w) }}
+  {{ end }}
+  {{ $srcset = delimit $variants ", " }}
+{{ end }}
+
+{{/* Build CSS classes based on style */}}
+{{ $cover_classes := "article-cover relative w-full" }}
+{{ if $hide_mobile }}
+  {{ $cover_classes = printf "%s hidden md:block" $cover_classes }}
+{{ end }}
+
+{{/* Container styles */}}
+{{ $container_style := printf "height: %s;" $height }}
+
+{{/* Calculate mask style for fade */}}
+{{ $mask_style := "" }}
+{{ if and $fade_enabled (ne $style "minimal") }}
+  {{/* Mask fades from black (visible) to transparent (invisible) at the bottom */}}
+  {{ $mask_style = printf "-webkit-mask-image: linear-gradient(to bottom, black calc(100%% - %s), transparent 100%%); mask-image: linear-gradient(to bottom, black calc(100%% - %s), transparent 100%%);" $fade_height $fade_height }}
+{{ end }}
+
+<div class="{{ $cover_classes }}" style="{{ $container_style | safeCSS }}" data-cover-style="{{ $style }}">
+  <!-- Image Container (Clipped) -->
+  <div class="absolute inset-0 overflow-hidden" style="{{ $mask_style | safeCSS }}">
+    {{/* Cover Image */}}
+    <div class="absolute inset-0">
+      {{ if ne $cover.MediaType.SubType "gif" }}
+        <img 
+          srcset="{{ $srcset }}"
+          sizes="100vw"
+          src="{{ $processed_cover.RelPermalink }}" 
+          alt="{{ $alt_text }}" 
+          class="w-full h-full object-cover object-center"
+          style="object-position: {{ $x }}% {{ $y }}%;"
+          fetchpriority="high"
+          loading="eager">
+      {{ else }}
+        <img 
+          src="{{ $cover.RelPermalink }}" 
+          alt="{{ $alt_text }}" 
+          class="w-full h-full object-cover object-center"
+          style="object-position: {{ $x }}% {{ $y }}%;"
+          fetchpriority="high"
+          loading="eager">
+      {{ end }}
+    </div>
+
+    {{/* Overlay Effects */}}
+    {{ if and $overlay_enabled (ne $style "minimal") }}
+      {{ if eq $style "gradient" }}
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/{{ $overlay_opacity | mul 100 }}"></div>
+      {{ else if eq $style "glass" }}
+        <div class="absolute inset-0 backdrop-blur-sm backdrop-saturate-150" style="background: rgba(255, 255, 255, 0.1);"></div>
+      {{ else if eq $style "blur" }}
+        <div class="absolute inset-x-0 bottom-0 h-1/3 backdrop-blur-md"></div>
+      {{ else if eq $overlay_type "gradient" }}
+        {{ if eq $overlay_gradient "bottom" }}
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/{{ $overlay_opacity | mul 100 }}"></div>
+        {{ else if eq $overlay_gradient "top" }}
+          <div class="absolute inset-0 bg-gradient-to-t from-transparent to-black/{{ $overlay_opacity | mul 100 }}"></div>
+        {{ else if eq $overlay_gradient "both" }}
+          <div class="absolute inset-0 bg-gradient-to-b from-black/{{ $overlay_opacity | mul 50 }} via-transparent to-black/{{ $overlay_opacity | mul 100 }}"></div>
+        {{ else if eq $overlay_gradient "radial" }}
+          <div class="absolute inset-0" style="background: radial-gradient(circle, transparent 0%, rgba(0,0,0,{{ $overlay_opacity }}) 100%);"></div>
+        {{ end }}
+      {{ else if eq $overlay_type "solid" }}
+        <div class="absolute inset-0" style="background-color: {{ $overlay_color }}; opacity: {{ $overlay_opacity }};"></div>
+      {{ end }}
+    {{ end }}
+
+    {{/* Blur Effect at Bottom (Optional) */}}
+    {{ if and $fade_enabled $fade_blur (ne $style "minimal") }}
+      {{/* Taller blur zone with mask to create smooth blur transition before fade out */}}
+      {{/* Semi-transparent background needed for backdrop-filter to render */}}
+      <div class="absolute inset-x-0 bottom-0 pointer-events-none" 
+           style="height: calc({{ $fade_height }} * 2.5); 
+                  background: rgba(255, 255, 255, 0.01);
+                  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+                  -webkit-mask-image: linear-gradient(to bottom, transparent, black); mask-image: linear-gradient(to bottom, transparent, black);"></div>
+    {{ end }}
+    
+    {{/* Caption */}}
+    {{ with $cover_config.caption }}
+      <div class="absolute bottom-4 left-4 right-4 text-sm text-white/90 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg z-20">
+        {{ . | markdownify }}
+      </div>
+    {{ end }}
+  </div>
+
+  {{/* Icon Overlay - Only if position is "overlap" - NOW UNCLIPPED */}}
+  {{ if and $has_icon (eq $icon_position "overlap") }}
+    {{ $icon_size_map := dict "small" "w-8 h-8" "medium" "w-12 h-12" "large" "w-16 h-16" }}
+    {{ $icon_size_class := index $icon_size_map $icon_size | default "w-16 h-16" }}
+    {{ $icon_padding := cond (eq $icon_size "small") "p-1.5" (cond (eq $icon_size "medium") "p-2" "p-3") }}
+    
+    <div class="absolute left-6 md:left-12 {{ $icon_size_class }}" style="bottom: -32px; z-index: 30;">
+      <div class="article-cover-icon {{ $icon_padding }} rounded-xl shadow-lg backdrop-blur-md
+                  {{ if eq $icon_style "glass" }}bg-white/90 dark:bg-gray-800/80 border border-white/30 dark:border-gray-700/30
+                  {{ else if eq $icon_style "rounded" }}bg-white dark:bg-gray-800 rounded-full
+                  {{ else }}bg-white dark:bg-gray-800{{ end }}
+                  {{ if $icon_border }}border border-gray-200 dark:border-gray-700{{ end }}">
+        {{ if $icon_config.emoji }}
+          <span class="text-2xl md:text-3xl lg:text-4xl leading-none flex items-center justify-center">{{ $icon_config.emoji }}</span>
+        {{ else if $icon_config.name }}
+          {{ partial "functions/get_icon.html" (dict "name" $icon_config.name "attributes" (printf "class=\"%s text-gray-700 dark:text-gray-200\"" $icon_size_class)) }}
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+
+</div>
+
+{{/* Icon Below Cover - If position is "below" */}}
+{{ if and $has_icon (eq $icon_position "below") }}
+  {{ $icon_size_map := dict "small" "w-8 h-8" "medium" "w-12 h-12" "large" "w-16 h-16" }}
+  {{ $icon_size_class := index $icon_size_map $icon_size | default "w-16 h-16" }}
+  {{ $icon_padding := cond (eq $icon_size "small") "p-1.5" (cond (eq $icon_size "medium") "p-2" "p-3") }}
+  
+  <div class="flex justify-center -mt-8 mb-4 relative z-10">
+    <div class="article-cover-icon {{ $icon_size_class }} {{ $icon_padding }} rounded-xl shadow-lg backdrop-blur-md
+                {{ if eq $icon_style "glass" }}bg-white/90 dark:bg-gray-800/80 border border-white/30 dark:border-gray-700/30
+                {{ else if eq $icon_style "rounded" }}bg-white dark:bg-gray-800 rounded-full
+                {{ else }}bg-white dark:bg-gray-800{{ end }}
+                {{ if $icon_border }}border border-gray-200 dark:border-gray-700{{ end }}">
+      {{ if $icon_config.emoji }}
+        <span class="text-2xl md:text-3xl lg:text-4xl leading-none flex items-center justify-center">{{ $icon_config.emoji }}</span>
+      {{ else if $icon_config.name }}
+        {{ partial "functions/get_icon.html" (dict "name" $icon_config.name "attributes" (printf "class=\"%s text-gray-700 dark:text-gray-200\"" $icon_size_class)) }}
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
+
+{{ end }}
