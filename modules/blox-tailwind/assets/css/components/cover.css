@@ -11,7 +11,7 @@
   overflow: visible;
   /* Add margin for overlapping icon */
   margin-bottom: 2.5rem;
-  
+
   /* Responsive height adjustments for mobile */
   @media (max-width: 768px) {
     height: 240px !important;
@@ -113,7 +113,7 @@
     max-height: 200px !important;
     page-break-after: avoid;
   }
-  
+
   .article-cover-fade,
   .article-cover-icon {
     @apply hidden;
@@ -128,7 +128,7 @@
     animation: none !important;
     transition: none !important;
   }
-  
+
   .article-cover.parallax img {
     transform: none !important;
   }
@@ -139,7 +139,7 @@
   .article-cover-icon {
     @apply border-2 border-current;
   }
-  
+
   .article-cover .cover-caption {
     @apply bg-black text-white;
   }

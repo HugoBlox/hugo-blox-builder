@@ -74,11 +74,50 @@
   
   {{ $light_base = merge $light_base (dict "colors" $light_colors) }}
   
-  {{/* Apply surface overrides */}}
+  {{/* Apply surface overrides (only non-empty values) */}}
   {{ if $surfaces_overrides }}
     {{ $light_surfaces := merge (dict) ($light_base.surfaces | default dict) }}
-    {{ range $key, $value := $surfaces_overrides }}
-      {{ $light_surfaces = merge $light_surfaces (dict $key $value) }}
+    {{ with $surfaces_overrides.background }}
+      {{ if ne . "" }}
+        {{ $light_surfaces = merge $light_surfaces (dict "background" .) }}
+      {{ end }}
+    {{ end }}
+    {{ with $surfaces_overrides.foreground }}
+      {{ if ne . "" }}
+        {{ $light_surfaces = merge $light_surfaces (dict "foreground" .) }}
+      {{ end }}
+    {{ end }}
+    {{ with $surfaces_overrides.header }}
+      {{ $header := merge (dict) ($light_surfaces.header | default dict) }}
+      {{ with .background }}
+        {{ if ne . "" }}
+          {{ $header = merge $header (dict "background" .) }}
+        {{ end }}
+      {{ end }}
+      {{ with .foreground }}
+        {{ if ne . "" }}
+          {{ $header = merge $header (dict "foreground" .) }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $header) 0 }}
+        {{ $light_surfaces = merge $light_surfaces (dict "header" $header) }}
+      {{ end }}
+    {{ end }}
+    {{ with $surfaces_overrides.footer }}
+      {{ $footer := merge (dict) ($light_surfaces.footer | default dict) }}
+      {{ with .background }}
+        {{ if ne . "" }}
+          {{ $footer = merge $footer (dict "background" .) }}
+        {{ end }}
+      {{ end }}
+      {{ with .foreground }}
+        {{ if ne . "" }}
+          {{ $footer = merge $footer (dict "foreground" .) }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $footer) 0 }}
+        {{ $light_surfaces = merge $light_surfaces (dict "footer" $footer) }}
+      {{ end }}
     {{ end }}
     {{ $light_base = merge $light_base (dict "surfaces" $light_surfaces) }}
   {{ end }}
@@ -112,11 +151,50 @@
   
   {{ $dark_base = merge $dark_base (dict "colors" $dark_colors) }}
   
-  {{/* Apply surface overrides */}}
+  {{/* Apply surface overrides (only non-empty values) */}}
   {{ if $surfaces_overrides }}
     {{ $dark_surfaces := merge (dict) ($dark_base.surfaces | default dict) }}
-    {{ range $key, $value := $surfaces_overrides }}
-      {{ $dark_surfaces = merge $dark_surfaces (dict $key $value) }}
+    {{ with $surfaces_overrides.background }}
+      {{ if ne . "" }}
+        {{ $dark_surfaces = merge $dark_surfaces (dict "background" .) }}
+      {{ end }}
+    {{ end }}
+    {{ with $surfaces_overrides.foreground }}
+      {{ if ne . "" }}
+        {{ $dark_surfaces = merge $dark_surfaces (dict "foreground" .) }}
+      {{ end }}
+    {{ end }}
+    {{ with $surfaces_overrides.header }}
+      {{ $header := merge (dict) ($dark_surfaces.header | default dict) }}
+      {{ with .background }}
+        {{ if ne . "" }}
+          {{ $header = merge $header (dict "background" .) }}
+        {{ end }}
+      {{ end }}
+      {{ with .foreground }}
+        {{ if ne . "" }}
+          {{ $header = merge $header (dict "foreground" .) }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $header) 0 }}
+        {{ $dark_surfaces = merge $dark_surfaces (dict "header" $header) }}
+      {{ end }}
+    {{ end }}
+    {{ with $surfaces_overrides.footer }}
+      {{ $footer := merge (dict) ($dark_surfaces.footer | default dict) }}
+      {{ with .background }}
+        {{ if ne . "" }}
+          {{ $footer = merge $footer (dict "background" .) }}
+        {{ end }}
+      {{ end }}
+      {{ with .foreground }}
+        {{ if ne . "" }}
+          {{ $footer = merge $footer (dict "foreground" .) }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $footer) 0 }}
+        {{ $dark_surfaces = merge $dark_surfaces (dict "footer" $footer) }}
+      {{ end }}
     {{ end }}
     {{ $dark_base = merge $dark_base (dict "surfaces" $dark_surfaces) }}
   {{ end }}
