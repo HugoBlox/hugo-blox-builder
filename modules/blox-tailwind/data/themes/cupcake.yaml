@@ -17,7 +17,7 @@ hugoblox:
       primary: "#e779c1" # Frosting Pink
       secondary: "#d946ef" # Deep Purple/Fuchsia
       neutral: "#5c4033" # Chocolate/Dark Brown
-    ui:
+    surfaces:
       background: "#faf7f5" # Vanilla/Sugar
       foreground: "#7d1f39" # Berry Jam
       header:
@@ -33,7 +33,7 @@ hugoblox:
       primary: "#f472b6" # Bright Icing Pink (Pink-400)
       secondary: "#c084fc" # Purple Sprinkle (Purple-400)
       neutral: "#831843" # Deep Berry (Pink-900)
-    ui:
+    surfaces:
       background: "#4c0519" # Deep Red Velvet / Rose-950
       foreground: "#fce7f3" # Sweet Cream / Pink-100
       header:

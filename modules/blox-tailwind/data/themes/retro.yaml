@@ -18,7 +18,7 @@ hugoblox:
       primary: "#e38c89" # Desaturated Red/Pink
       secondary: "#b4e9d6" # Mint Green
       neutral: "#79726b" # Warm Stone
-    ui:
+    surfaces:
       background: "#ebe6d9" # Vintage Paper / Beige
       foreground: "#7d5e3c" # Sepia/Brown
       header:
@@ -34,7 +34,7 @@ hugoblox:
       primary: "#fbbf24" # Mustard Gold (Amber-400)
       secondary: "#f472b6" # Retro Pink (Pink-400)
       neutral: "#134e4a" # Dark Teal (Teal-900)
-    ui:
+    surfaces:
       background: "#042f2e" # Deep Petrol / Teal-950
       foreground: "#ccfbf1" # Pale Mint / Teal-50
       header:

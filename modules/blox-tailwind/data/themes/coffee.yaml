@@ -18,7 +18,7 @@ hugoblox:
       primary: "#3b2313" # Mocha/Coffee bean
       secondary: "#d97706" # Caramel/Amber
       neutral: "#78716c" # Stone
-    ui:
+    surfaces:
       background: "#fffaf5" # Warm cream/milk foam
       foreground: "#3b2313" # Espresso text
       header:
@@ -34,7 +34,7 @@ hugoblox:
       primary: "#d49255" # Warm Orange/Brown crema
       secondary: "#395260" # Cool Slate Blue
       neutral: "#2b262b" # Deep Espresso (Dark Neutral)
-    ui:
+    surfaces:
       background: "#2b262b" # Deep Espresso
       foreground: "#e0cab6" # Crema
       header:

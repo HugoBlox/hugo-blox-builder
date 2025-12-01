@@ -18,7 +18,7 @@ hugoblox:
       primary: "#0969da" # GitHub Blue
       secondary: "#1f883d" # GitHub Green
       neutral: "#24292f" # GitHub Dark Gray (Text)
-    ui:
+    surfaces:
       background: "#ffffff"
       foreground: "#24292f"
       header:
@@ -34,7 +34,7 @@ hugoblox:
       primary: "#58a6ff" # GitHub Blue (Dark Mode)
       secondary: "#238636" # GitHub Green (Dark Mode)
       neutral: "#c9d1d9" # GitHub Light Gray (Text)
-    ui:
+    surfaces:
       background: "#0d1117" # GitHub Dimmed BG
       foreground: "#c9d1d9"
       header:

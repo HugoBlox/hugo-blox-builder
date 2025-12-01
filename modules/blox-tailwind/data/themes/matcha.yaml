@@ -18,7 +18,7 @@ hugoblox:
       primary: "#65a30d" # Fresh Tea Leaf (Lime-600)
       secondary: "#15803d" # Deep Herbal Green (Green-700)
       neutral: "#3f6212" # Olive text (Lime-800)
-    ui:
+    surfaces:
       background: "#f7fee7" # Very pale lime cream (Lime-50)
       foreground: "#1a2e05" # Dark moss text
       header:
@@ -34,7 +34,7 @@ hugoblox:
       primary: "#a3e635" # Vibrant Matcha Powder (Lime-400)
       secondary: "#4ade80" # Soft green light (Green-400)
       neutral: "#1a2f23" # Deep Forest Background
-    ui:
+    surfaces:
       background: "#14281d" # Deep Nori Green
       foreground: "#ecfccb" # Pale tea green text
       header:

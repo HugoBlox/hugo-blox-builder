@@ -18,7 +18,7 @@ hugoblox:
       primary: "#b58900" # Yellow (Solarized)
       secondary: "#2aa198" # Cyan (Solarized)
       neutral: "#657b83" # Base00 (Primary Content)
-    ui:
+    surfaces:
       background: "#fdf6e3" # Base3 (Creamy Background)
       foreground: "#586e75" # Base01 (Optional darker text for contrast)
       header:
@@ -34,7 +34,7 @@ hugoblox:
       primary: "#268bd2" # Blue (Solarized)
       secondary: "#859900" # Green (Solarized)
       neutral: "#839496" # Base0 (Primary Content)
-    ui:
+    surfaces:
       background: "#002b36" # Base03 (Deep Teal Background)
       foreground: "#93a1a1" # Base1 (Light Content)
       header:

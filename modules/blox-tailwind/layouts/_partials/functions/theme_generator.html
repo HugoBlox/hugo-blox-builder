@@ -8,7 +8,7 @@
     - colors: Global color overrides { primary, secondary, neutral }
     - colors_light: Light-mode specific color overrides
     - colors_dark: Dark-mode specific color overrides
-    - ui: Semantic UI overrides
+    - surfaces: Semantic surface color overrides
 */}}
 
 {{ $config := . }}
@@ -17,7 +17,7 @@
 {{ $global_colors := $config.colors | default dict }}
 {{ $colors_light := $config.colors_light | default dict }}
 {{ $colors_dark := $config.colors_dark | default dict }}
-{{ $ui_overrides := $config.ui | default dict }}
+{{ $surfaces_overrides := $config.surfaces | default dict }}
 
 {{/* Load Theme Data using the new loader */}}
 {{ if not site.Data.themes }}
@@ -74,13 +74,13 @@
   
   {{ $light_base = merge $light_base (dict "colors" $light_colors) }}
   
-  {{/* Apply UI overrides */}}
-  {{ if $ui_overrides }}
-    {{ $light_ui := merge (dict) ($light_base.ui | default dict) }}
-    {{ range $key, $value := $ui_overrides }}
-      {{ $light_ui = merge $light_ui (dict $key $value) }}
+  {{/* Apply surface overrides */}}
+  {{ if $surfaces_overrides }}
+    {{ $light_surfaces := merge (dict) ($light_base.surfaces | default dict) }}
+    {{ range $key, $value := $surfaces_overrides }}
+      {{ $light_surfaces = merge $light_surfaces (dict $key $value) }}
     {{ end }}
-    {{ $light_base = merge $light_base (dict "ui" $light_ui) }}
+    {{ $light_base = merge $light_base (dict "surfaces" $light_surfaces) }}
   {{ end }}
 {{ end }}
 
@@ -112,13 +112,13 @@
   
   {{ $dark_base = merge $dark_base (dict "colors" $dark_colors) }}
   
-  {{/* Apply UI overrides */}}
-  {{ if $ui_overrides }}
-    {{ $dark_ui := merge (dict) ($dark_base.ui | default dict) }}
-    {{ range $key, $value := $ui_overrides }}
-      {{ $dark_ui = merge $dark_ui (dict $key $value) }}
+  {{/* Apply surface overrides */}}
+  {{ if $surfaces_overrides }}
+    {{ $dark_surfaces := merge (dict) ($dark_base.surfaces | default dict) }}
+    {{ range $key, $value := $surfaces_overrides }}
+      {{ $dark_surfaces = merge $dark_surfaces (dict $key $value) }}
     {{ end }}
-    {{ $dark_base = merge $dark_base (dict "ui" $dark_ui) }}
+    {{ $dark_base = merge $dark_base (dict "surfaces" $dark_surfaces) }}
   {{ end }}
 {{ end }}
 

@@ -17,7 +17,7 @@ hugoblox:
       primary: "#e779c1" # Neon Pink
       secondary: "#58c7f3" # Cyan
       neutral: "#2a2e37" # Dark Blue-Gray
-    ui:
+    surfaces:
       background: "#1a103d" # Deep Purple
       foreground: "#f9f7fd" # Light Lavender
       header:
@@ -33,7 +33,7 @@ hugoblox:
       primary: "#d946ef" # Electric Fuchsia
       secondary: "#06b6d4" # Neon Cyan
       neutral: "#701a75" # Deep Magenta (for text utilities)
-    ui:
+    surfaces:
       background: "#fff0f5" # Lavender Blush
       foreground: "#2e1065" # Deep Violet Ink
       header:

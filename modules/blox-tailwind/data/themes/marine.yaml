@@ -17,7 +17,7 @@ hugoblox:
       primary: "#2dd4bf" # Teal/Cyan
       secondary: "#a855f7" # Purple
       neutral: "#1e3a8a" # Deep Blue
-    ui:
+    surfaces:
       background: "#1e3a8a" # Deep Ocean Blue
       foreground: "#e0f2fe" # Light Sky
       header:
@@ -32,7 +32,7 @@ hugoblox:
     colors:
       primary: "#2dd4bf"
       secondary: "#a855f7"
-    ui:
+    surfaces:
       background: "#f0f9ff"
       foreground: "#0c4a6e"
       header:

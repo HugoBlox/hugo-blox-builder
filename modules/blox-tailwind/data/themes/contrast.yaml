@@ -16,7 +16,7 @@ hugoblox:
     colors:
       primary: "indigo"
       secondary: "blue"
-    ui:
+    surfaces:
       background: "#ffffff"
       foreground: "#111827"
       header:
@@ -30,7 +30,7 @@ hugoblox:
     colors:
       primary: "blue"
       secondary: "teal"
-    ui:
+    surfaces:
       background: "#0f172a"
       foreground: "#f8fafc"
       header:

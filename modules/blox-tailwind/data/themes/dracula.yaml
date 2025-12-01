@@ -18,7 +18,7 @@ hugoblox:
       primary: "#ff79c6" # Pink
       secondary: "#bd93f9" # Purple
       neutral: "#6272a4" # Comment
-    ui:
+    surfaces:
       background: "#282a36" # Background
       foreground: "#f8f8f2" # Foreground
       header:
@@ -34,7 +34,7 @@ hugoblox:
       primary: "#d03282" # Darker Pink for contrast
       secondary: "#9259d6" # Darker Purple for contrast
       neutral: "#44475a" # Current Line (Dark Gray)
-    ui:
+    surfaces:
       background: "#f8f8f2" # Light Gray
       foreground: "#282a36" # Dark Gray
       header:

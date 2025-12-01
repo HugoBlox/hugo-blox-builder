@@ -13,14 +13,14 @@
   {{ partial "functions/generate_color_scale" (dict "name" "gray" "color" $data.colors.neutral) }}
 {{ end }}
 
-{{/* 2. Semantic Surface Variables */}}
---color-background: {{ $data.surfaces.background | default "#ffffff" }};
---color-foreground: {{ $data.surfaces.foreground | default "#000000" }};
+{{/* 2. Semantic UI Variables */}}
+--color-background: {{ $data.ui.background | default "#ffffff" }};
+--color-foreground: {{ $data.ui.foreground | default "#000000" }};
 
 {{/* Header */}}
---color-header-bg: {{ $data.surfaces.header.background | default $data.surfaces.background | default "#ffffff" }};
---color-header-fg: {{ $data.surfaces.header.foreground | default $data.surfaces.foreground | default "#000000" }};
+--color-header-bg: {{ $data.ui.header.background | default $data.ui.background | default "#ffffff" }};
+--color-header-fg: {{ $data.ui.header.foreground | default $data.ui.foreground | default "#000000" }};
 
 {{/* Footer */}}
---color-footer-bg: {{ $data.surfaces.footer.background | default $data.surfaces.background | default "#f3f4f6" }};
---color-footer-fg: {{ $data.surfaces.footer.foreground | default $data.surfaces.foreground | default "#000000" }};
+--color-footer-bg: {{ $data.ui.footer.background | default $data.ui.background | default "#f3f4f6" }};
+--color-footer-fg: {{ $data.ui.footer.foreground | default $data.ui.foreground | default "#000000" }};
