@@ -1,4 +1,4 @@
-{{ $pirsch := site.Params.marketing.analytics.pirsch | default "" }}
+{{ $pirsch := site.Params.hugoblox.analytics.pirsch.site_id | default "" }}
 
 {{ if hugo.IsProduction | and $pirsch }}
 <script defer src="https://api.pirsch.io/pirsch.js" id="pirschjs" data-code="{{$pirsch}}"></script>

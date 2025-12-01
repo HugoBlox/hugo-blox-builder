@@ -5,7 +5,7 @@
   <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
 
   {{/* APA Style */}}
-  {{ if eq (site.Params.publications.citation_style | default "apa") "apa" }}
+  {{ if eq (site.Params.hugoblox.content.citations.style | default "apa") "apa" }}
 
   <span class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" $item }}

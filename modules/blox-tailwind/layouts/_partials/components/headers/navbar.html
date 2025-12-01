@@ -43,7 +43,7 @@
     <!-- /Mobile menu -->
 
     <!-- Main menu -->
-    {{ $align_menu := site.Params.header.navbar.align | default "center" }}
+    {{ $align_menu := site.Params.hugoblox.header.align | default "center" }}
     <ul
       id="nav-menu"
       class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-start
@@ -120,12 +120,12 @@
       </li>
       {{ end }}
       {{ end }}
-      {{ if site.Params.header.navbar.button.enable }}
+      {{ if site.Params.hugoblox.header.cta.enable }}
       <li class="mt-4 inline-block lg:hidden">
         <a
           class=""
-          href="{{ site.Params.header.navbar.button.url | relLangURL }}">
-          {{ site.Params.header.navbar.button.text }}
+          href="{{ site.Params.hugoblox.header.cta.url | relLangURL }}">
+          {{ site.Params.hugoblox.header.cta.text }}
         </a>
       </li>
       {{ end }}
@@ -134,7 +134,7 @@
     <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
 
       {{/* Show site search? */}}
-      {{ $show_search := site.Params.header.navbar.show_search | default false }}
+      {{ $show_search := site.Params.hugoblox.header.search | default false }}
       {{ with $show_search }}
       <button
         aria-label="toggle search"
@@ -144,7 +144,7 @@
       </button>
       {{ end }}
 
-      {{ $show_mode_toggle := site.Params.header.navbar.show_mode_toggle | default site.Params.header.navbar.show_theme_chooser | default true }}
+      {{ $show_mode_toggle := site.Params.hugoblox.header.theme_toggle | default true }}
       {{ if $show_mode_toggle }}
       <div class="px-3 text-[var(--color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
@@ -172,7 +172,7 @@
       {{ end }}
 
       {{/* Theme Picker */}}
-      {{ if site.Params.header.navbar.show_theme_picker }}
+      {{ if site.Params.hugoblox.header.theme_picker }}
       <div class="px-3">
         <select onchange="document.documentElement.setAttribute('data-theme-pack', this.value); localStorage.setItem('hb-theme-pack', this.value);" class="bg-transparent text-[var(--color-header-fg)] border-none focus:ring-0 cursor-pointer text-sm font-medium">
           <option value="">Theme</option>
@@ -196,7 +196,7 @@
       </div>
       {{ end }}
 
-      {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
+      {{ $show_translations := site.Params.hugoblox.header.language_switcher | default true }}
       {{ if .IsTranslated | and $show_translations }}
       <div class="pl-1 mr-5 text-[var(--color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
@@ -205,14 +205,14 @@
       {{ end }}
 
       <!-- CTA button -->
-      {{ if site.Params.header.navbar.button.enable }}
+      {{ if site.Params.hugoblox.header.cta.enable }}
       <a
-        href="{{ site.Params.header.navbar.button.url | relLangURL }}"
+        href="{{ site.Params.hugoblox.header.cta.url | relLangURL }}"
         class="inline-block rounded border px-5 py-2 font-semibold transition
         md:ml-4 px-4 py-1.5 text-sm
         border-black  hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white
         hidden lg:inline-block">
-        {{ site.Params.header.navbar.button.text }}
+        {{ site.Params.hugoblox.header.cta.text }}
       </a>
       {{ end }}
     </div>

@@ -1,8 +1,8 @@
-{{ $ga := site.Params.marketing.analytics.google_analytics | default "" }}
+{{ $ga := site.Params.hugoblox.analytics.google.measurement_id | default "" }}
 
 {{ if hugo.IsProduction | and $ga }}
 
-{{ $gtag_config := cond (site.Params.features.privacy_pack.enable | default false) "{ 'anonymize_ip': true }" "{}" }}
+{{ $gtag_config := cond (site.Params.hugoblox.privacy.anonymize_analytics | default true) "{ 'anonymize_ip': true }" "{}" }}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{$ga}}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

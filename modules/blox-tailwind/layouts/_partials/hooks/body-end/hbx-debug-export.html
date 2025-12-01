@@ -1,5 +1,5 @@
 {{/* Hugo Blox: Export Debug Logs for Dev HUD (window var) */}}
-{{- if and hugo.IsServer (site.Params.hbx.log.export | default true) -}}
+{{- if and hugo.IsServer (site.Params.hugoblox.debug.export_logs | default true) -}}
   {{- /* Collect all logs from all pages (site-wide) */ -}}
   {{- $entries := slice -}}
   {{- range .Site.Pages -}}

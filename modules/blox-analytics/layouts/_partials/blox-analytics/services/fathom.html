@@ -1,4 +1,4 @@
-{{ $fathom := site.Params.marketing.analytics.fathom | default "" }}
+{{ $fathom := site.Params.hugoblox.analytics.fathom.site_id | default "" }}
 
 {{ if hugo.IsProduction | and $fathom }}
 <script src="https://cdn.usefathom.com/script.js" data-site="{{$fathom}}" defer></script>

@@ -1,4 +1,4 @@
-{{ $clarity := site.Params.marketing.analytics.microsoft_clarity | default "" }}
+{{ $clarity := site.Params.hugoblox.analytics.clarity.project_id | default "" }}
 {{ if hugo.IsProduction | and $clarity }}
 <script>
   (function(c,l,a,r,i,t,y){

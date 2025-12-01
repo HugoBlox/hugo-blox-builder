@@ -3,16 +3,16 @@
 {{ printf "<!-- Last Published: %s -->" (now | time.Format ":date_long") | safeHTML }}
 {{- $language_code := site.LanguageCode | default "en-us" -}}
 <html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{else}}dir="ltr"{{end}}
-      data-wc-theme-default="{{ (lower site.Params.appearance.mode) | default "system" }}"
+      data-wc-theme-default="{{ (lower site.Params.hugoblox.theme.mode) | default "system" }}"
       data-hbb-relurl="{{ "" | relURL }}">
   {{ partial "site_head" . }}
   <body class="bg-[var(--color-background)] text-[var(--color-foreground)] page-wrapper" id="top">
     <div id="page-bg"></div>
-    <div class="page-header {{ if site.Params.header.navbar.fixed_to_top }}sticky top-0 z-30{{ end }}">
+    <div class="page-header {{ if site.Params.hugoblox.header.sticky }}sticky top-0 z-30{{ end }}">
       {{/* Load header block */}}
-      {{ $show_navbar := ((site.Params.header.navbar.enable | default true) | and (ne .Params.header.navbar.enable false)) | or .Params.header.navbar.enable }}
+      {{ $show_navbar := ((site.Params.hugoblox.header.enable | default true) | and (ne .Params.header.navbar.enable false)) | or .Params.header.navbar.enable }}
       {{ if $show_navbar }}
-        {{- $header_config := .Params.header.navbar | default site.Params.header.navbar | default dict -}}
+        {{- $header_config := .Params.header.navbar | default site.Params.hugoblox.header | default dict -}}
         {{- $block_name := partial "hbx/resolve-block-param" (dict "config" $header_config "context" "header") | default "navbar" -}}
         {{ $block_path := printf "components/headers/%s.html" $block_name }}
         {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}

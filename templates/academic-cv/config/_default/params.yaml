@@ -1,27 +1,34 @@
-# SITE SETUP
-# Guide: https://docs.hugoblox.com/tutorial/
-# Documentation: https://docs.hugoblox.com/
-# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
-
-# ==============================================================================
+# ══════════════════════════════════════════════════════════════════════════════
 # HUGO BLOX CONFIGURATION
-# ==============================================================================
+# Schema: hugoblox.com/schema/v2
+# Tutorial: https://docs.hugoblox.com/tutorial/
+# Documentation: https://docs.hugoblox.com/
+# ══════════════════════════════════════════════════════════════════════════════
 hugoblox:
+  schema: "2.0"
+
   # ────────────────────────────────────────────────────────────────────────────
-  # BRANDING
-  # Your site's identity - used in navbar, footer, SEO, and copyright
+  # IDENTITY
+  # Site-level branding (for people/profiles, use the author system in content/authors/)
   # ────────────────────────────────────────────────────────────────────────────
-  branding:
-    # Display name shown in navbar and general site display
+  identity:
+    # Site name - shown in navbar, footer, copyright, and browser title by default
     name: "Your Name"
-    # Optional: Browser tab title (defaults to name if not set)
-    # site_title: "Your Name | Research"
-    # Optional: Legal/copyright entity (defaults to name if not set)
-    # organization: "Your Full Legal Name"
+    # Legal entity for copyright notices (defaults to name if not set)
+    organization: ""
+    # Schema.org type for structured data
+    type: person                        # person | organization | local_business
+    # Short tagline displayed on your site
+    tagline: ""
+    # Site meta description for search engines and social sharing
+    description: "The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website."
+    # Social accounts (used for meta tags like Twitter Cards)
+    social:
+      twitter: "BuildLore"              # Twitter/X handle for Twitter Cards (without @)
 
   # ────────────────────────────────────────────────────────────────────────────
   # THEME
-  # Controls colors and appearance
+  # Color and visual design system
   # ────────────────────────────────────────────────────────────────────────────
   theme:
     # Mode: 'light', 'dark', or 'system' (follows OS preference)
@@ -29,14 +36,27 @@ hugoblox:
     # Theme pack: name from data/themes/ or { light: "x", dark: "y" } for mix-and-match
     pack: "default"
     # Optional: Override theme pack colors
-    # colors:
-    #   primary: "indigo"    # Tailwind palette name or hex (e.g., "#6366f1")
-    #   secondary: "emerald"
-    #   neutral: "stone"     # Affects gray utilities (text-gray-*, bg-gray-*)
+    colors:
+      primary: ""                       # Tailwind palette name or hex (e.g., "indigo" or "#6366f1")
+      secondary: ""
+      neutral: ""                       # Affects gray utilities (text-gray-*, bg-gray-*)
+    # Optional: Mode-specific color overrides
+    colors_light: {}
+    colors_dark: {}
+    # Optional: Semantic surface color overrides
+    surfaces:
+      background: ""
+      foreground: ""
+      header:
+        background: ""
+        foreground: ""
+      footer:
+        background: ""
+        foreground: ""
 
   # ────────────────────────────────────────────────────────────────────────────
   # TYPOGRAPHY
-  # Controls fonts and text sizing
+  # Font and text sizing
   # ────────────────────────────────────────────────────────────────────────────
   typography:
     # Font: 'sans' (Inter), 'serif' (Roboto Slab), or 'native' (system fonts)
@@ -46,77 +66,228 @@ hugoblox:
 
   # ────────────────────────────────────────────────────────────────────────────
   # LAYOUT
-  # Controls spacing and visual structure
+  # Spacing and shape tokens
   # ────────────────────────────────────────────────────────────────────────────
   layout:
     # Border radius: 'none', 'sm', 'md', 'lg', or 'full'
     radius: "md"
     # Spacing density: 'compact', 'comfortable', or 'spacious'
     spacing: "comfortable"
+    # Avatar shape in author profiles
+    avatar_shape: circle                # circle | square | rounded
 
-# ==============================================================================
-# SEO & MARKETING
-# ==============================================================================
-marketing:
-  seo:
-    site_type: Person
-    local_business_type: ''
-    description: 'The highly-customizable Hugo Academic theme powered by Hugo Blox Builder. Easily create your personal academic website.'
-    twitter: 'BuildLore'
-    llm:
-      allow:
-        - /
-      disallow: []
-      note: 'Guidance for AI crawlers - customize to match your public content.'
-      contact: ''
-      policy_url: ''
-  analytics:
-    google_analytics: ''
-    baidu_tongji: ''
-    plausible: ''
-    fathom: ''
-    pirsch: ''
-  verification:
-    google: ''
-    baidu: ''
-
-# ==============================================================================
-# SITE HEADER
-# ==============================================================================
-header:
-  navbar:
+  # ────────────────────────────────────────────────────────────────────────────
+  # HEADER
+  # Site header and navigation bar
+  # ────────────────────────────────────────────────────────────────────────────
+  header:
     enable: true
-    block: 'navbar'
-    fixed_to_top: true
-    show_search: true
-    show_mode_toggle: true
-    show_theme_picker: true
+    # Header style variant
+    style: navbar                       # navbar | navbar-simple | minimal
+    # Stick to top on scroll
+    sticky: true
+    # Menu alignment
+    align: center                       # left | center | right
+    # Feature toggles
+    search: true
+    theme_toggle: true
+    theme_picker: false
+    language_switcher: true
+    # Call-to-action button
+    cta:
+      enable: false
+      text: ""
+      url: ""
 
-# ==============================================================================
-# SITE FOOTER
-# ==============================================================================
-footer:
+  # ────────────────────────────────────────────────────────────────────────────
+  # FOOTER
+  # Site footer
+  # ────────────────────────────────────────────────────────────────────────────
+  footer:
+    # Footer style variant
+    style: minimal                      # minimal | columns | centered
+    language_switcher: true
+    # Custom footer text (HTML supported)
+    text: ""
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # COPYRIGHT
+  # Legal notices and licensing
+  # ────────────────────────────────────────────────────────────────────────────
   copyright:
-    # Use {year} for current year, {name} for branding.organization, {license} for CC license link
-    notice: '© {year} {name}. This work is licensed under {license}'
+    # Copyright notice - supports {year}, {name}, {license} placeholders
+    notice: "© {year} {name}. This work is licensed under {license}"
     license:
-      enable: true
+      type: cc                          # cc | all_rights | custom
       allow_derivatives: false
       share_alike: true
       allow_commercial: false
 
-# ==============================================================================
-# LOCALIZATION
-# ==============================================================================
-locale:
-  date_format: 'Jan 2, 2006'
-  time_format: '3:04 PM'
+  # ────────────────────────────────────────────────────────────────────────────
+  # SEO
+  # Search engine optimization - overrides and technical settings
+  # ────────────────────────────────────────────────────────────────────────────
+  seo:
+    # Browser tab title override (defaults to identity.name if not set)
+    title: ""
+    # For local_business identity type only
+    location:
+      address:
+        street: ""
+        city: ""
+        region: ""
+        postal_code: ""
+        country: ""
+      coordinates:
+        latitude: null
+        longitude: null
+      phone: ""
+    # AI/LLM crawler guidance (llms.txt)
+    ai:
+      allow:
+        - /
+      disallow: []
+      note: "Guidance for AI crawlers - customize to match your public content."
+      contact: ""
 
-# ==============================================================================
-# SITE FEATURES
-# ==============================================================================
-features:
-  math:
+  # ────────────────────────────────────────────────────────────────────────────
+  # CONTENT
+  # Content rendering and behavior
+  # ────────────────────────────────────────────────────────────────────────────
+  content:
+    # Math rendering
+    math:
+      enable: false
+    # Table of contents
+    toc:
+      enable: true
+    # Reading time estimates
+    reading_time:
+      enable: true
+    # Academic citations
+    citations:
+      style: apa                        # apa | mla | chicago | ieee
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # SEARCH
+  # Site search
+  # ────────────────────────────────────────────────────────────────────────────
+  search:
+    enable: true
+    # Trending/suggested search terms
+    suggestions: []
+    # Quick action shortcuts in search modal
+    quick_actions: []
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # COMMENTS
+  # User comments system
+  # ────────────────────────────────────────────────────────────────────────────
+  comments:
     enable: false
-  privacy_pack:
+    provider: ""                        # giscus | disqus | commento
+    giscus:
+      repo: ""
+      repo_id: ""
+      category: ""
+      category_id: ""
+    disqus:
+      shortname: ""
+    commento:
+      url: ""
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # ANALYTICS
+  # Traffic and behavior analytics
+  # ────────────────────────────────────────────────────────────────────────────
+  analytics:
+    google:
+      measurement_id: ""                # Google Analytics 4: G-XXXXXXXXXX
+    google_tag_manager:
+      container_id: ""                  # GTM-XXXXXXX
+    plausible:
+      domain: ""
+    fathom:
+      site_id: ""
+    pirsch:
+      site_id: ""
+    clarity:
+      project_id: ""
+    baidu:
+      site_id: ""
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # VERIFICATION
+  # Search engine site verification codes
+  # ────────────────────────────────────────────────────────────────────────────
+  verification:
+    google: ""
+    bing: ""
+    baidu: ""
+    yandex: ""
+    pinterest: ""
+    naver: ""
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # REPOSITORY
+  # Source code repository for "Edit this page" links
+  # ────────────────────────────────────────────────────────────────────────────
+  repository:
     enable: false
+    url: ""                             # e.g., https://github.com/username/repo
+    branch: main
+    content_dir: content
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # LOCALE
+  # Regional formatting preferences
+  # ────────────────────────────────────────────────────────────────────────────
+  locale:
+    date_format: "Jan 2, 2006"          # Go time format
+    time_format: "3:04 PM"
+    address_format: en-us
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # SECURITY
+  # Security headers and policies (requires blox-plugin-netlify)
+  # ────────────────────────────────────────────────────────────────────────────
+  security:
+    csp:
+      policy: ""
+      report_only: false
+    frame_options: deny                 # deny | sameorigin | allow
+    permissions_policy: ""
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # PRIVACY
+  # Privacy and compliance features
+  # ────────────────────────────────────────────────────────────────────────────
+  privacy:
+    enable: false
+    anonymize_analytics: true
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # DEBUG
+  # Development and debugging (hidden in production)
+  # ────────────────────────────────────────────────────────────────────────────
+  debug:
+    enable: false
+    hud:
+      position: bottom-left             # top-left | top-right | bottom-left | bottom-right
+      opacity: 1.0
+    export_logs: true
+
+  # ────────────────────────────────────────────────────────────────────────────
+  # PRO
+  # Pro subscription features and affiliate program
+  # ────────────────────────────────────────────────────────────────────────────
+  pro:
+    # Hide "Powered by HugoBlox" attribution
+    # Requires: Pro subscription to support HugoBlox via alternative means
+    # Note: Even with Pro, you can keep this false to support open source!
+    # Get Pro: https://hugoblox.com/pro
+    hide_attribution: false
+    
+    # Affiliate referral code for rewards program
+    # Join affiliate program: https://hugoblox.com/affiliates
+    affiliate_code: ""

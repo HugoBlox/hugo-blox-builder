@@ -21,7 +21,7 @@
             >{{ $prev.Title }}</span>
             <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
               {{ if .Params.show_date | default true }}
-                {{ time.Format (site.Params.locale.date_format | default ":date_long") $prev.Date }}
+                {{ time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") $prev.Date }}
               {{ end }}
             </span>
           </span>
@@ -38,7 +38,7 @@
             >
             <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
               {{ if .Params.show_date | default true }}
-                {{ time.Format (site.Params.locale.date_format | default ":date_long") $next.Date }}
+                {{ time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") $next.Date }}
               {{ end }}
             </span>
           </span>

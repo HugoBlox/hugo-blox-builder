@@ -1,8 +1,8 @@
 {{/* Display copyright license. */}}
 
 {{ $branding := partialCached "functions/get_branding" . "branding" }}
-{{ $copyright_license := .Params.copyright.license | default site.Params.footer.copyright.license }}
-{{ $notice := .Params.copyright.notice | default site.Params.footer.copyright.notice }}
+{{ $copyright_license := .Params.copyright.license | default site.Params.hugoblox.copyright.license }}
+{{ $notice := .Params.copyright.notice | default site.Params.hugoblox.copyright.notice }}
 
 {{ if ($copyright_license.enable | default false) }}
 

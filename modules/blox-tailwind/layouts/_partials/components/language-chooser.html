@@ -1,6 +1,6 @@
 {{ $page := .page }}
 {{ $class := .class }}
-{{ $hide_language_name := site.Params.header.navbar.hide_language_name | default false }}
+{{ $hide_language_name := false }}{{/* TODO: Add to hugoblox.header.hide_language_name if needed */}}
 {{ $str_languages := T "languages" }}
 
 {{- if $page.IsTranslated -}}

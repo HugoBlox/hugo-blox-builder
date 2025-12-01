@@ -30,7 +30,7 @@
 {{ end }}
 
 {{/* Show site search? */}}
-{{ $show_search := site.Params.header.navbar.show_search | default false }}
+{{ $show_search := site.Params.hugoblox.header.search | default false }}
 
 {{/* Load Alpine JS extension? */}}
 {{/* Alpine is needed for search modal and other interactive components */}}
@@ -85,7 +85,7 @@
 {{ end }}
 
 {{/* Katex */}}
-{{ if (.Page.HasShortcode "math") | or .Params.math | or site.Params.features.math.enable }}
+{{ if (.Page.HasShortcode "math") | or .Params.math | or site.Params.hugoblox.content.math.enable }}
   {{ $katex_css := resources.Get "dist/lib/katex/katex.min.css" }}
   {{ $katex_css = $katex_css | resources.Fingerprint "sha256" }}
   <link type="text/css" rel="stylesheet" href="{{ $katex_css.RelPermalink }}" integrity="{{ $katex_css.Data.Integrity }}" />

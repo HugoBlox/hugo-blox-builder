@@ -1,4 +1,4 @@
-{{ $plausible := site.Params.marketing.analytics.plausible | default "" }}
+{{ $plausible := site.Params.hugoblox.analytics.plausible.domain | default "" }}
 
 {{ if hugo.IsProduction | and $plausible }}
 <script defer data-domain="{{$plausible}}" src="https://plausible.io/js/script.js"></script>

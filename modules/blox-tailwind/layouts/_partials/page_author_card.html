@@ -1,6 +1,6 @@
 {{ $page := .page }}
 {{ $author_page := .author_page }}
-{{ $site_type := site.Params.marketing.seo.site_type | default "Person" }}
+{{ $site_type := site.Params.hugoblox.identity.type | humanize | default "Person" }}
 {{- $has_profile := not (eq nil $author_page.Params.superuser) -}}
 
 {{/* Check an author profile exists. */}}
@@ -11,7 +11,7 @@
     {{ $profile_url = site.BaseURL }}
   {{ end }}
   {{ $avatar := ($author_page.Resources.ByType "image").GetMatch "*avatar*" }}
-  {{ $avatar_shape := site.Params.features.avatar.shape | default "circle" }}
+  {{ $avatar_shape := site.Params.hugoblox.layout.avatar_shape | default "circle" }}
 
 <div class="flex pt-12 pb-4">
   {{ if $avatar }}

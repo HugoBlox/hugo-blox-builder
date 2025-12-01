@@ -3,8 +3,8 @@
   <script>
     (function(){
       try {
-        const PLACEMENT = {{ (site.Params.hbx.log.placement | default "bottom-left") | jsonify }};
-        const OPACITY = {{ (site.Params.hbx.log.opacity | default 1.0) | jsonify }};
+        const PLACEMENT = {{ (site.Params.hugoblox.debug.hud.position | default "bottom-left") | jsonify }};
+        const OPACITY = {{ (site.Params.hugoblox.debug.hud.opacity | default 1.0) | jsonify }};
         const PLACEMENT_KEY = 'hbx-hud-placement';
         const HIDE_BUTTON_KEY = 'hbx-hide-button';
         const VALID_PLACEMENTS = ['bottom-left', 'bottom-center', 'bottom-right', 'top-left', 'top-center', 'top-right'];

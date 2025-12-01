@@ -1,5 +1,5 @@
 {{/*
-  get_branding.html - Centralized branding configuration helper
+  get_branding.html - Centralized branding configuration helper (v2)
   
   Returns a dict with:
     - name: Display name (navbar, footer, JSON-LD publisher)
@@ -7,67 +7,32 @@
     - organization: Legal/copyright entity name
   
   Fallback chain:
-    - site_title → name → site.Title
+    - site_title → seo.title → name → site.Title
     - organization → name → site.Title
-  
-  Supports backward compatibility with deprecation warnings for:
-    - header.navbar.logo.text → hugoblox.branding.name
-    - marketing.seo.org_name → hugoblox.branding.organization
 */}}
 
-{{/* New structure: hugoblox.branding */}}
+{{/* v2 structure: hugoblox.identity */}}
 {{ $hb := site.Params.hugoblox | default dict }}
-{{ $branding := $hb.branding | default dict }}
+{{ $identity := $hb.identity | default dict }}
+{{ $seo := $hb.seo | default dict }}
 
 {{/* ═══════════════════════════════════════════════════════════════════════════
     NAME (primary display name)
-    Priority: hugoblox.branding.name → header.navbar.logo.text (deprecated) → site.Title
+    Priority: hugoblox.identity.name → site.Title
 ═══════════════════════════════════════════════════════════════════════════ */}}
-{{ $name := "" }}
-
-{{/* Check new location first */}}
-{{ with $branding.name }}
-  {{ $name = . }}
-{{ else }}
-  {{/* Check deprecated location: header.navbar.logo.text */}}
-  {{ with site.Params.header.navbar.logo.text }}
-    {{ $name = . }}
-    {{ warnf "DEPRECATED: 'header.navbar.logo.text' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  branding:\n    name: \"%s\"\n" . }}
-  {{ else }}
-    {{/* Ultimate fallback: Hugo's site.Title */}}
-    {{ $name = site.Title }}
-  {{ end }}
-{{ end }}
+{{ $name := $identity.name | default site.Title }}
 
 {{/* ═══════════════════════════════════════════════════════════════════════════
     SITE_TITLE (browser tab / SEO title)
-    Priority: hugoblox.branding.site_title → name
+    Priority: hugoblox.seo.title → hugoblox.identity.name → site.Title
 ═══════════════════════════════════════════════════════════════════════════ */}}
-{{ $site_title := $branding.site_title | default $name }}
+{{ $site_title := $seo.title | default $name }}
 
 {{/* ═══════════════════════════════════════════════════════════════════════════
     ORGANIZATION (legal/copyright entity)
-    Priority: hugoblox.branding.organization → marketing.seo.org_name (deprecated) → name
+    Priority: hugoblox.identity.organization → name
 ═══════════════════════════════════════════════════════════════════════════ */}}
-{{ $organization := "" }}
-
-{{/* Check new location first */}}
-{{ with $branding.organization }}
-  {{ $organization = . }}
-{{ else }}
-  {{/* Check deprecated location: marketing.seo.org_name */}}
-  {{ with site.Params.marketing.seo.org_name }}
-    {{ if ne . "" }}
-      {{ $organization = . }}
-      {{ warnf "DEPRECATED: 'marketing.seo.org_name' in config/_default/params.yaml is deprecated. Please move to:\n\nhugoblox:\n  branding:\n    organization: \"%s\"\n" . }}
-    {{ else }}
-      {{ $organization = $name }}
-    {{ end }}
-  {{ else }}
-    {{/* Fallback to name */}}
-    {{ $organization = $name }}
-  {{ end }}
-{{ end }}
+{{ $organization := $identity.organization | default $name }}
 
 {{/* Return branding dict */}}
 {{ return dict 

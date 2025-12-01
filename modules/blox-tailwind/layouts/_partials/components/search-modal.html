@@ -98,7 +98,7 @@
         <div x-show="!query && results.length === 0" class="p-6">
           
           {{/* Quick Actions - Configurable via site params */}}
-          {{ $quick_actions := site.Params.features.search.quick_actions }}
+          {{ $quick_actions := site.Params.hugoblox.search.quick_actions }}
           {{ if $quick_actions }}
           <div class="mb-8">
             <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
@@ -126,7 +126,7 @@
           {{ end }}
           
           {{/* Trending Searches - Configurable via site params */}}
-          {{ $trending := site.Params.features.search.trending_searches }}
+          {{ $trending := site.Params.hugoblox.search.suggestions }}
           {{ if $trending }}
           <div>
             <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
@@ -267,7 +267,7 @@
       selectedIndex: -1,
       activeFilter: null,
       availableFilters: [],
-      trendingSearches: {{ site.Params.features.search.trending_searches | default (slice "Search term 1" "Search term 2") | jsonify }},
+      trendingSearches: {{ site.Params.hugoblox.search.suggestions | default (slice "Search term 1" "Search term 2") | jsonify }},
       pagefind: null,
       pagefindModulePath: window.hbb?.assetPaths?.pagefind ?? '/pagefind/pagefind.js',
       

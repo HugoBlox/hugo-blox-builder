@@ -1,7 +1,7 @@
 <!-- Main navigation container -->
 
 {{/* Show site search? */}}
-{{ $show_search := site.Params.header.navbar.show_search | default false }}
+{{ $show_search := site.Params.hugoblox.header.search | default false }}
 
 <nav
   class="relative flex w-full flex-nowrap items-center justify-between bg-white py-2 text-neutral-500 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-slate-900 lg:flex-wrap lg:justify-start lg:py-4"
@@ -72,7 +72,7 @@
           >
         </li>
         {{ end }}
-        {{ $show_mode_toggle := site.Params.header.navbar.show_mode_toggle | default site.Params.header.navbar.show_theme_chooser | default true }}
+        {{ $show_mode_toggle := site.Params.hugoblox.header.theme_toggle | default true }}
         {{ if $show_mode_toggle }}
         <li class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
@@ -100,7 +100,7 @@
         {{ end }}
 
         {{/* Theme Picker */}}
-        {{ if site.Params.header.navbar.show_theme_picker }}
+        {{ if site.Params.hugoblox.header.theme_picker }}
         <li class="lg:px-2">
           <select onchange="document.documentElement.setAttribute('data-theme-pack', this.value); localStorage.setItem('hb-theme-pack', this.value);" class="bg-transparent text-[var(--color-header-fg)] border-none focus:ring-0 cursor-pointer text-sm font-medium">
             <option value="">Theme</option>
@@ -123,7 +123,7 @@
         </li>
         {{ end }}
 
-        {{ $show_translations := site.Params.header.navbar.show_translations | default true }}
+        {{ $show_translations := site.Params.hugoblox.header.language_switcher | default true }}
         {{ if .IsTranslated | and $show_translations }}
         <li class="lg:px-2 text-[var(--color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">

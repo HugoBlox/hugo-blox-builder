@@ -3,29 +3,29 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": {{site.Params.marketing.seo.site_type | default "Organization"}},
+  "@type": {{site.Params.hugoblox.identity.type | humanize | default "Organization"}},
   "@id": {{site.BaseURL}},
   "name": {{$branding.organization}},
   "logo": {{ partial "functions/get_logo_url" . }},
   {{with $sharing_image}}"image": {{.Permalink}},{{end}}
-  {{ if (eq site.Params.marketing.seo.site_type "LocalBusiness") | and site.Params.marketing.seo.coordinates }}
+  {{ if (eq site.Params.hugoblox.identity.type "local_business") | and site.Params.hugoblox.seo.location.coordinates }}
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": {{site.Params.marketing.seo.coordinates.latitude}},
-    "longitude": {{site.Params.marketing.seo.coordinates.longitude}}
+    "latitude": {{site.Params.hugoblox.seo.location.coordinates.latitude}},
+    "longitude": {{site.Params.hugoblox.seo.location.coordinates.longitude}}
   },
   {{end}}
-  {{ with site.Params.marketing.seo.address }}
+  {{ with site.Params.hugoblox.seo.location.address }}
   "address": {
     "@type": "PostalAddress",
     "streetAddress": {{ .street | default "" }},
     "addressLocality": {{ .city | default "" }},
     "addressRegion": {{ .region | default "" }},
-    "postalCode": {{ .postcode | default "" }},
-    "addressCountry": {{ .country_code | default .country | default "" }}
+    "postalCode": {{ .postal_code | default "" }},
+    "addressCountry": {{ .country | default "" }}
   },
   {{end}}
-  {{ with site.Params.marketing.seo.phone }}"telephone": {{.}},{{end}}
+  {{ with site.Params.hugoblox.seo.location.phone }}"telephone": {{.}},{{end}}
   "url": {{site.BaseURL}}
 }
 </script>

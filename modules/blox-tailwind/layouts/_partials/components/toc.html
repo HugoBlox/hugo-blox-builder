@@ -25,12 +25,12 @@
     {{- end -}}
 
     {{/* Page Features */}}
-    {{- if site.Params.features.repository.url | and .Params.editable -}}
+    {{- if site.Params.hugoblox.repository.url | and .Params.editable -}}
     <div class="{{ $class }} sticky bottom-0 flex flex-col items-start gap-2 pb-8">
 
-        {{ $edit_url := site.Params.features.repository.url | default "" }}
-        {{ $branch := site.Params.features.repository.branch | default "main" }}
-        {{ $dir := site.Params.features.repository.content_dir | default "content" }}
+        {{ $edit_url := site.Params.hugoblox.repository.url | default "" }}
+        {{ $branch := site.Params.hugoblox.repository.branch | default "main" }}
+        {{ $dir := site.Params.hugoblox.repository.content_dir | default "content" }}
         {{- with .File -}}{{ $edit_url = urls.JoinPath $edit_url "edit" $branch $dir (replace .Path "\\" "/") }}{{- end -}}
         {{- with .Params.edit_url -}}{{ $edit_url = . }}{{- end -}}
         <a class="text-xs font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 contrast-more:text-gray-800 contrast-more:dark:text-gray-50" href="{{ $edit_url }}" target="_blank" rel="noreferer">{{ $edit_this_page }}</a>

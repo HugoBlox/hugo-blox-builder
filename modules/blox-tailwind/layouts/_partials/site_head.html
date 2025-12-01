@@ -28,8 +28,8 @@
   {{/* Generate page description. */}}
   {{ $desc := "" }}
   {{ $desc = partial "functions/get_summary" . }}
-  {{ if site.Params.marketing.seo.description | and (not $desc) }}
-    {{ $desc = site.Params.marketing.seo.description }}
+  {{ if site.Params.hugoblox.identity.description | and (not $desc) }}
+    {{ $desc = site.Params.hugoblox.identity.description }}
   {{ end }}
   {{ if not $desc }}
     {{ $desc = $superuser_role }}
@@ -47,7 +47,7 @@
   {{ partial "functions/theme_generator.html" $theme_config }}
 
   {{/* Demo Theme Pack Styles (if enabled) */}}
-  {{ if site.Params.header.navbar.show_theme_picker }}
+  {{ if site.Params.hugoblox.header.theme_picker }}
     {{ partial "functions/demo_theme_styles.html" (dict "typography" $theme_config.typography "layout" $theme_config.layout) }}
   {{ end }}
 
@@ -150,7 +150,7 @@
     {{ if ne $title $branding.site_title }}{{ $title = printf "%s | %s" $title $branding.site_title }}{{ end }}
   {{ end }}
   <meta property="twitter:card" content="{{ $twitter_card }}" />
-  {{ with site.Params.marketing.seo.twitter }}
+  {{ with site.Params.hugoblox.identity.social.twitter }}
     <meta property="twitter:site" content="@{{ . }}" />
     <meta property="twitter:creator" content="@{{ . }}" />
   {{ end }}

@@ -1,4 +1,4 @@
-{{ $gt := site.Params.marketing.analytics.google_tag_manager | default "" }}
+{{ $gt := site.Params.hugoblox.analytics.google_tag_manager.container_id | default "" }}
 {{ if hugo.IsProduction | and $gt }}
 <script>
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

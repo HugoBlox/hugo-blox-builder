@@ -1,4 +1,4 @@
-{{ $show_translations := site.Params.footer.show_translations | default true }}
+{{ $show_translations := site.Params.hugoblox.footer.language_switcher | default true }}
 {{ if .IsTranslated | and $show_translations }}
 <div class="mx-auto flex gap-3 py-2 px-4">
   <div class="font-bold">
@@ -24,7 +24,7 @@
 </p>
 {{ end }}
 
-{{ with site.Params.footer.text }}
+{{ with site.Params.hugoblox.footer.text }}
 <p class="text-center">
   {{ . | markdownify | emojify }}
 </p>

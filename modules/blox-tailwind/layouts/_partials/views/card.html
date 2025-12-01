@@ -173,7 +173,7 @@
           {{ end }}
           {{ if $showDate }}
             <time class="hidden sm:inline whitespace-nowrap" datetime="{{ $item.Date.Format "2006-01-02" }}">
-              {{ $item.Date | time.Format (site.Params.locale.date_format | default "Jan 2, 2006") }}
+              {{ $item.Date | time.Format (site.Params.hugoblox.locale.date_format | default "Jan 2, 2006") }}
             </time>
           {{ end }}
           {{ if and $showDate $showReadTime }}

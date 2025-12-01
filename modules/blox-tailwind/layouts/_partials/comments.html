@@ -1,4 +1,4 @@
-{{ $provider := trim (site.Params.features.comment.provider | lower) " " }}
+{{ $provider := trim (site.Params.hugoblox.comments.provider | lower) " " }}
 
 {{ if $provider }}
   {{ $provider_tpl := printf "comments/%s.html" $provider }}

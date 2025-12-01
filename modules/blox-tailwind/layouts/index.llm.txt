@@ -1,4 +1,4 @@
-{{- $cfg := site.Params.marketing.seo.llm | default dict -}}
+{{- $cfg := site.Params.hugoblox.seo.ai | default dict -}}
 {{- $allows := $cfg.allow | default (slice "/") -}}
 {{- $disallows := $cfg.disallow | default slice -}}
 

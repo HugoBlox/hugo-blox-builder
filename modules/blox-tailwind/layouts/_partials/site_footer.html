@@ -3,7 +3,7 @@
   {{ partial "functions/get_hook" (dict "hook" "footer-start" "context" .) }}
 
   {{/* Load footer block */}}
-  {{- $footer_config := site.Params.footer | default dict -}}
+  {{- $footer_config := site.Params.hugoblox.footer | default dict -}}
   {{- $footer_section_name := partial "hbx/resolve-block-param" (dict "config" $footer_config "context" "footer") | default "minimal" -}}
   {{ $footer_section_path := printf "components/footers/%s.html" $footer_section_name }}
   {{ if not (templates.Exists (printf "_partials/%s" $footer_section_path)) }}
@@ -12,10 +12,37 @@
   {{ partial $footer_section_path . }}
 
   {{/* Attribution - PLEASE DO NOT REMOVE THIS, SUPPORT OPEN SOURCE */}}
-  {{- if not (site.Params.i_am_a_sponsor | default false) -}}
+  
+  {{/* Check for Pro license key */}}
+  {{- $license_key := getenv "HUGO_BLOX_LICENSE" -}}
+  {{- $has_pro_license := false -}}
+  
+  {{- if $license_key -}}
+    {{/* Validate UUID v4 format */}}
+    {{- $uuid_pattern := "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" -}}
+    {{- $is_valid_format := findRE $uuid_pattern (lower $license_key) -}}
+    {{- $has_pro_license = gt (len $is_valid_format) 0 -}}
+  {{- end -}}
+  
+  {{/* Check user preference */}}
+  {{- $wants_to_hide := site.Params.hugoblox.pro.hide_attribution | default false -}}
+  
+  {{/* Determine if we show attribution */}}
+  {{- $show_attribution := true -}}
+  
+  {{- if $has_pro_license -}}
+    {{/* Pro user - respect their choice */}}
+    {{- $show_attribution = not $wants_to_hide -}}
+  {{- else if $wants_to_hide -}}
+    {{/* Free user trying to hide - show warning and attribution */}}
+    {{- warnf "Attribution removal requires a Pro subscription. Get Pro at https://hugoblox.com/pro \nAlready subscribed to Pro? Reach out in the Pro Discord channel for support." -}}
+    {{- $show_attribution = true -}}
+  {{- end -}}
+  
+  {{- if $show_attribution -}}
     {{- $base := "https://hugoblox.com" -}}
     {{- $tid  := "" -}}
-    {{- $ref  := .Site.Params.affiliate_ref | default "" -}}
+    {{- $ref  := .Site.Params.hugoblox.pro.affiliate_code | default "" -}}
   
     {{/* Detect Template */}}
     {{ $hugoblox_file := "" }}
@@ -82,6 +109,6 @@
       <a class="inline-flex items-center rounded px-2 py-0.5 border border-current ms-2 text-xs hover:opacity-100"
          href="{{ $ctaHref }}" target="_blank" rel="noopener" data-hbx="poweredby_cta">{{ $i18n_ctaText }}</a>
     </p>
-  {{- end -}}  
+  {{- end -}}{{/* end $show_attribution */}}  
 
 </footer>
