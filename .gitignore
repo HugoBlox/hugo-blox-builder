@@ -38,7 +38,7 @@ starters/**/pnpm-lock.yaml
 
 # IDE & Editor files
 .idea/
-.vscode/
+/.vscode/
 .specstory/
 docs/
 
