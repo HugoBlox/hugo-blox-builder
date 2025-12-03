@@ -14,7 +14,7 @@
 
   /* Responsive height adjustments for mobile */
   @media (max-width: 768px) {
-    height: 240px !important;
+    height: 240px;
     min-height: 240px;
   }
 }
@@ -110,7 +110,7 @@
 /* Print styles - show cover but optimize */
 @media print {
   .article-cover {
-    max-height: 200px !important;
+    max-height: 200px;
     page-break-after: avoid;
   }
 
@@ -125,12 +125,12 @@
   .article-cover,
   .article-cover *,
   .article-cover-icon {
-    animation: none !important;
-    transition: none !important;
+    animation: none;
+    transition: none;
   }
 
   .article-cover.parallax img {
-    transform: none !important;
+    transform: none;
   }
 }
 

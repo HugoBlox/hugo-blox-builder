@@ -98,6 +98,6 @@
 
   .prose code:not(:where(pre *))::before,
   .prose code:not(:where(pre *))::after {
-    content: none !important;
+    content: none;
   }
 }

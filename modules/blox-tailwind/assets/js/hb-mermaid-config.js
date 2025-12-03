@@ -1,6 +1,6 @@
 function getCssVar(name) {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  return value ? "rgb(" + value + ")" : null;
+  return value ? `rgb(${value})` : null;
 }
 
 window.mermaid.initialize({

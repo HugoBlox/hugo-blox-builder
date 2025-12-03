@@ -61,9 +61,9 @@ async function copyCodeToClipboard(button, codeWrapper) {
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
     console.error("Failed to copy:", errorMessage);
-    button.innerHTML = i18n["copyFailed"] || "Failed";
+    button.innerHTML = i18n.copyFailed || "Failed";
     setTimeout(() => {
-      button.innerHTML = i18n["copy"];
+      button.innerHTML = i18n.copy;
     }, NOTIFICATION_DURATION);
     throw err; // Re-throw for potential error boundary handling
   }
@@ -74,12 +74,12 @@ async function copyCodeToClipboard(button, codeWrapper) {
  * @param {HTMLElement} copyBtn - The copy button element
  */
 function copiedNotification(copyBtn) {
-  copyBtn.innerHTML = i18n["copied"];
+  copyBtn.innerHTML = i18n.copied;
   copyBtn.disabled = true;
   copyBtn.classList.add("copied");
 
   setTimeout(() => {
-    copyBtn.innerHTML = i18n["copy"];
+    copyBtn.innerHTML = i18n.copy;
     copyBtn.disabled = false;
     copyBtn.classList.remove("copied");
   }, NOTIFICATION_DURATION);
@@ -92,8 +92,8 @@ function copiedNotification(copyBtn) {
 function createCopyButton() {
   const copyBtn = document.createElement("button");
   copyBtn.classList.add("copy-button");
-  copyBtn.innerHTML = i18n["copy"];
-  copyBtn.setAttribute("aria-label", i18n["copyLabel"] || "Copy code to clipboard");
+  copyBtn.innerHTML = i18n.copy;
+  copyBtn.setAttribute("aria-label", i18n.copyLabel || "Copy code to clipboard");
   copyBtn.setAttribute("type", "button"); // Explicit button type
   return copyBtn;
 }

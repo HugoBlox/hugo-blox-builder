@@ -13,6 +13,7 @@ requests = "^2.31.0"
 pyyaml = "^6.0.1"
 ruamel-yaml = "^0.18.6"
 tomlkit = "^0.12.3"
+plotext = "^5.2.8"
 
 [build-system]
 requires = ["poetry-core"]
