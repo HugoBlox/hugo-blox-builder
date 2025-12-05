@@ -56,7 +56,7 @@ Vibe coding tools generate fragile, "black box" React/JS apps that are a nightma
 *A visual CMS in VS Code – discovery time, not deployment drudgery.*
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 Download HugoBlox Studio Now (Free with Pro)</b></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 Download HugoBlox Studio Now (Free)</b></a>
 </p>
 
 <p align="center">

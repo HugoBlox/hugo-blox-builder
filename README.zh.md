@@ -56,7 +56,7 @@ Vibe coding 工具生成的 React/JS 代码通常脆弱且难以维护，如同�
 *VS Code 中的可视化 CMS —— 发现即所得，告别部署苦役。*
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 立即下载 HugoBlox Studio (Pro 用户免费)</b></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 立即下载 HugoBlox Studio (免费)</b></a>
 </p>
 
 <p align="center">
