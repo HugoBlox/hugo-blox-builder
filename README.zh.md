@@ -6,17 +6,17 @@
   </a>
 </p>
 
-<h1 align="center">技术 / 学术网站的开源 Copilot</h1>
+<h1 align="center">HugoBlox: 您的开源科研副驾驶</h1>
 
 <p align="center">
-  <strong>在 AI 时代，为你的个人品牌和团队打造一份「面向未来」的数字资产。</strong><br/>
-  被来自 <strong>Meta、Stanford、NVIDIA 以及一线创业公司 / 实验室</strong> 的研究者和创始人青睐。
+  <strong>在 AI 时代打造「面向未来」的品牌。</strong><br/>
+  <strong>Meta, Stanford, NVIDIA, 和 Y Combinator</strong> 的顶尖研究者与创始人的共同选择。
 </p>
 
 <p align="center">
   <a href="https://hugoblox.com/start?utm_source=github&utm_medium=readme"><b>🚀 启动 Copilot（免费）</b></a>
   &nbsp;•&nbsp;
-  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme"><b>升级 Pro</b></a>
+  <a href="https://hugoblox.com/pro?utm_source=github&utm_medium=readme">升级 Pro</a>
 </p>
 
 <p align="center">
@@ -24,27 +24,40 @@
     <img src="https://img.shields.io/discord/722225264733716590?label=%E5%8A%A0%E5%85%A5%20Discord&style=social" alt="Discord">
   </a>
   <a href="https://github.com/HugoBlox/hugo-blox-builder">
-    <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=%E4%B8%BA%20Hugo%20Blox%20%E5%8A%A0%E6%98%9F&style=social" alt="为 HugoBlox 加星">
+    <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=%E4%B8%BA%20Hugo%20Blox%20%E5%8A%A0%E6%98%9F&style=social" alt="GitHub Stars">
   </a>
-  <a href="https://github.com/gcushen">
-    <img src="https://img.shields.io/github/followers/gcushen?label=%E5%85%B3%E6%B3%A8&style=social" alt="在 GitHub 关注">
+  <a href="https://x.com/BuildLore">
+    <img src="https://img.shields.io/twitter/follow/BuildLore?label=%E5%85%B3%E6%B3%A8&style=social" alt="Follow on X">
   </a>
 </p>
 
 ---
 
-## 为什么顶尖开发者和研究者选择 HugoBlox？
+## 为什么顶尖人才选择 HugoBlox
 
-在智能体 / Copilot 时代，**Markdown 正在变成新的「源码」**。
+在 AI Agent 时代，**Markdown 正成为新的源代码**。HugoBlox 赋能 STEM 研究人员、数据科学家、创新实验室和 YC 创业公司，无需繁琐代码即可创建令人惊叹的高影响力网站。
 
-市面上各种 vibe coding / 生成式建站工具，会一股脑吐出一大坨难以维护的 React/JS 黑盒代码，一旦离开那个 AI，很快就失控。**HugoBlox 选的是另一条路：用极简的静态站栈，配上开源 Copilot 体验。**
+Vibe coding 工具生成的 React/JS 代码通常脆弱且难以维护，如同「黑盒」。**HugoBlox** 结合了 AI 的速度与静态站点的稳健性，现更通过 **HugoBlox Studio** —— 您在 VS Code 中的可视化 UI 编辑器 —— 得到全面增强。
 
-- **🔮 面向未来的内容资产：** 内容以干净的 Markdown 存储——这是 LLM 和人类都读得懂的格式，迁移简单、长期可用，没有厂商锁定。
-- **🧠 Copilot 工作流：**
-  - **在线 Copilot：** 在浏览器里选模板、拼积木，60 秒内上线到 GitHub Pages。
-  - **VS Code 扩展（即将发布）：** 在编辑器中写内容、可视化区块布局，用 AI 辅助生成和重构网页文案。
-- **⚡ 性能拉满、无技术债：** 静态输出 + 极少 JS，轻松冲击 100/100 Lighthouse 分数，不会拖慢你实验/产品的主战场。
-- **🎓 为学术 & 深度技术场景而生：** 原生支持 LaTeX 数学公式、BibTeX 引用自动导入、Jupyter 集成——从论文到项目页，全链路一站搞定。
+- **🔮 面向未来 & AI 就绪:** 内容即干净的 Markdown —— 人类和 LLM 均可读。无厂商锁定。
+- **🧠 「副驾驶」工作流:**
+  - **在线版:** AI 辅助部署器，60 秒内上线。
+  - **VS Code 版:** 隆重介绍 **HugoBlox Studio** —— 直接在 IDE 中进行可视化编辑、实时预览和智能配置。
+- **⚡ 无技术债的极致性能:** 完美的 Lighthouse 分数，零 JS 臃肿，由 Tailwind 4 和 Hugo Modules 驱动。
+- **🎓 科研级特性:** LaTeX、BibTeX 自动引用、Jupyter 集成 —— 放大您的研究成果。
+
+![HugoBlox Studio 实战](.github/media/studio/slide-1.webp)
+*几分钟内构建惊艳的科研作品集 —— 专注于突破，而非代码。*
+
+![可视化配置编辑器](.github/media/studio/slide-2.webp)
+*即时预览与智能建议 —— 轻松提升您的站点。*
+
+![主题选择器](.github/media/studio/slide-3.webp)
+*VS Code 中的可视化 CMS —— 发现即所得，告别部署苦役。*
+
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 立即下载 HugoBlox Studio (Pro 用户免费)</b></a>
+</p>
 
 <p align="center">
   <img src="./.github/media/templates.webp" alt="模板预览" width="900">
@@ -58,37 +71,44 @@
 
 ## 快速上手
 
-### 方案一：在线 Copilot（最快、零安装）
+### 方案一：在线 Copilot（最快）
+为您的实验室、创业公司或个人简介发布专业网站，仅需不到 2 分钟。
 
-👉 [**浏览器里直接开干**](https://hugoblox.com/start?utm_source=github&utm_medium=readme) — 选模板、拖拽积木、接入 GitHub，一键发布到 GitHub Pages。
+👉 [**在浏览器中免费开始**](https://hugoblox.com/start?utm_source=github&utm_medium=readme)
 
-### 方案二：命令行 Copilot（本地开发者）
+### 方案二：VS Code 中的 HugoBlox Studio（可视化利器）
+使用我们的 VS Code 扩展超级充能您的工作流 —— 专为专业人士打造的可视化编辑。
 
-偏爱命令行？用本地 Copilot 快速生成站点骨架：
+1. 从 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio) 安装。
+2. 在 VS Code 中打开您的 HugoBlox 项目。
+3. 点击 HugoBlox 图标，开始可视化构建！
+
+### 方案三：CLI（开发者专用）
+偏爱终端？使用我们的本地副驾驶搭建骨架：
 
 ```bash
 npx hugoblox create
 ```
 
-*前置条件：[Hugo Extended & Node](https://docs.hugoblox.com/getting-started/install-hugo/#prerequisites)。*
+*前置条件: [Hugo Extended & Node](https://docs.hugoblox.com/start/cli/).*
 
-更多上手指南，请访问文档 [**https://docs.hugoblox.com/**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)。
+更多指南，请访问文档 [**docs.hugoblox.com**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)。
 
 ---
 
-## 开源版 vs Pro 版
+## 免费版 vs. Pro 版
 
-HugoBlox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭建一流站点；如果你希望更快推进项目、同时支持生态发展，可以考虑升级 Pro。
+**HugoBlox** 采用 Open Core 模式。您可以用开源版免费搭建世界级站点。**Pro** 版通过 Studio 和高级功能为您加速。
 
-| 能力 | 开源版 | **HugoBlox Pro** |
+| 功能 | 开源版 | **HugoBlox Pro** |
 | :--- | :---: | :---: |
 | **核心框架** | ✅ | ✅ |
 | **Studio 站点编辑器** | ❌ | **✅ 包含** |
-| **高级整站模板**（SaaS、实验室主页等） | ❌ | **✅ 包含** |
+| **高级整站模板** (SaaS, 实验室) | ❌ | **✅ 包含** |
 | **独家 Pro 积木** | ❌ | **✅ 包含** |
-| **移除 HugoBlox 版权声明？** | ❌ | **✅ 包含** |
-| **Discord 社区支持** | ❤️ | **⚡️ 优先支持** |
-| **支持开源 / 科研** | ❤️ | **🏆 Hero 身份** |
+| **移除归属声明?** | ❌ | **✅ 包含** |
+| **Discord 支持** | ❤️ | **⚡️ 优先支持** |
+| **支持开放科研** | ❤️ | **🏆 Hero 身份** |
 
 👉 [**升级 Pro**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
@@ -96,30 +116,30 @@ HugoBlox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭�
 
 ## 创作者怎么说
 
-> “HugoBlox 直接帮我省了 40+ 小时做实验室网站。BibTeX 自动同步出版物 —— **引用量提升了 3×**。”
-> —— **Sarah Yang 博士**，AI 研究者
+> "HugoBlox Studio 直接帮我省了 40+ 小时做实验室网站。可视化编辑 + BibTeX 自动更新 = **引用量提升了 3 倍**。"
+> — **Dr. Sarah Yang**, AI 研究者
 
-> “我们 10 分钟就把文档站点上线了。积木系统太妙了；**新同学上手时间缩短了 60%**。”
-> —— **Alexandre Rodrigues**，创始人
+> "用 Studio 10 分钟就把文档站点上线了。积木系统太妙了；新手上手时间缩短了 60%。"
+> — **Alexandre Rodrigues**, 创始人
 
 ---
 
 ## 支持这个项目
 
-- 💎 **Pro（仅需 $8/月）** — 获取可视化编辑器以及所有高级模板、积木与更新。
-  <br/>[**立即升级 Pro →**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
+- 💎 **Pro (仅需 $8/月)** — 解锁 Studio, 高级模板，以及所有更新。
+  <br/>[**升级 Pro →**](https://hugoblox.com/pro?utm_source=github&utm_medium=readme)
 
-- ☕️ **请我们喝杯咖啡** — 支持开源与开放科研。
+- ☕️ **请喝杯咖啡** — 支持开源与科研。
   <br/>[**GitHub 赞助 →**](https://github.com/sponsors/gcushen)
 
-- 🤝 **企业赞助** — 触达成千上万开发者与研究者。你的 Logo 将展示在此 README。
+- 🤝 **企业赞助** — 触达成千上万开发者与研究者。您的 Logo 将展示在此。
   <br/>[**成为合作伙伴 →**](https://github.com/sponsors/gcushen)
 
 ---
 
 ## 社区
 
-欢迎加入社区提问、分享与共建。
+加入社区提问、分享作品与共同进步。
 
 - 💬 [Discord](https://discord.gg/z8wNYzb)
 - 📚 [文档与指南](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
@@ -130,8 +150,8 @@ HugoBlox 是 **开源内核 + Pro 增强** 的模式。你可以用开源版搭�
 
 ## 许可证
 
-MIT © 2016–至今 [George Cushen](https://georgecushen.com?utm_source=github&utm_medium=hbb-readme) — [License 详情](./LICENSE.md)
+MIT © 2016–Present [George Cushen](https://georgecushen.com/?utm_source=github&utm_medium=hbb-readme) — [License 详情](./LICENSE.md)
 
 <p align="center">
-  <sub>无追踪。无锁定。你的内容，始终属于你。</sub>
+  <sub>无追踪。无锁定。您的内容始终属于您。</sub>
 </p>
