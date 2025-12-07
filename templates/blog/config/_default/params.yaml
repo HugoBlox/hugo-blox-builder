@@ -185,7 +185,7 @@ hugoblox:
   # ────────────────────────────────────────────────────────────────────────────
   comments:
     enable: false
-    provider: ""                        # giscus | disqus | commento
+    provider: ""                        # giscus | disqus
     giscus:
       repo: ""
       repo_id: ""
@@ -193,8 +193,6 @@ hugoblox:
       category_id: ""
     disqus:
       shortname: ""
-    commento:
-      url: ""
 
   # ────────────────────────────────────────────────────────────────────────────
   # ANALYTICS
