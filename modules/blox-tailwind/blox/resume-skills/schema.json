@@ -39,13 +39,7 @@
             },
             {
               "type": "object",
-              "properties": {
-                "show_skill_percentage": {
-                  "type": "boolean",
-                  "description": "Display skill percentage bars",
-                  "default": true
-                }
-              }
+              "properties": {}
             }
           ]
         }

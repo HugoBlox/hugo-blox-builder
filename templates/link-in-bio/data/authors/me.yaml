@@ -1,0 +1,125 @@
+schema: hugoblox/author/v1
+slug: me
+is_owner: true
+name:
+  display: Alex Johnson
+  given: Alex
+  family: Johnson
+  pronouns: he/him
+status:
+  icon: "🚀"
+role: Senior AI Research Scientist
+bio: >
+  Alex Johnson is a Senior AI Research Scientist at Meta AI, where he leads groundbreaking work on large language models
+  and multimodal systems. His research has been published in top conferences like NeurIPS and ICML, with over 10,000
+  citations. Alex is passionate about pushing the boundaries of AI while ensuring ethical development. Outside of work,
+  he enjoys hiking in the Rockies, building custom PCs, and mentoring the next generation of AI talent.
+affiliations:
+  - name: Meta AI
+    url: https://ai.meta.com/
+links:
+  - icon: at-symbol
+    url: mailto:alex.johnson@meta.com
+    label: E-mail Me
+  - icon: brands/x
+    url: https://x.com/AlexAIResearch
+  - icon: brands/github
+    url: https://github.com/alexjohnsonai
+  - icon: brands/linkedin
+    url: https://www.linkedin.com/in/alexjohnsonai/
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?user=alexjohnson
+  - icon: academicons/orcid
+    url: https://orcid.org/0000-0002-1825-0097
+interests:
+  - Large Language Models
+  - Computer Vision
+  - Reinforcement Learning
+  - AI Ethics
+education:
+  - degree: PhD Computer Science (AI Focus)
+    institution: Stanford University
+    start: 2015-09-01
+    end: 2019-06-30
+    summary: |
+      Thesis on _Scaling Laws for Neural Language Models_. Supervised by Prof. Andrew Ng. Published 5 papers in NeurIPS and ICML, with 2 best paper awards.
+    button:
+      text: 'Read Thesis'
+      url: 'https://example.com/thesis.pdf'
+  - degree: MS Computer Science
+    institution: Carnegie Mellon University
+    start: 2013-09-01
+    end: 2015-05-31
+    summary: |
+      GPA: 4.0/4.0
+
+      Specialized in machine learning and robotics.
+  - degree: BS Computer Science
+    institution: MIT
+    start: 2009-09-01
+    end: 2013-05-31
+    summary: |
+      GPA: 3.9/4.0
+
+      Minored in Mathematics. President of AI Club.
+experience:
+  - role: Senior AI Research Scientist
+    org: Meta AI
+    start: 2020-01-01
+    summary: |
+      Leading research on multimodal AI systems. Contributed to Llama 2 and other open-source models. 50+ citations in 3 years.
+  - role: AI Research Intern
+    org: OpenAI
+    start: 2019-06-01
+    end: 2019-12-31
+    summary: |
+      Worked on GPT-3 scaling. Co-authored paper on prompt engineering.
+skills:
+  - name: Technical Skills
+    items:
+      - label: Python & PyTorch
+        level: 5
+        icon: code-bracket
+      - label: Machine Learning
+        level: 5
+        icon: chart-bar
+      - label: Cloud Computing (AWS/GCP)
+        level: 4
+        icon: cloud
+  - name: Hobbies
+    color: '#eeac02'
+    color_border: '#f0bf23'
+    items:
+      - label: Hiking in the Rockies
+        level: 4
+        icon: person-simple-walk
+      - label: Building Custom PCs
+        level: 5
+        icon: cpu-chip
+      - label: Sci-Fi Reading
+        level: 4
+        icon: book-open
+languages:
+  - name: English
+    level: 5
+  - name: Spanish
+    level: 3
+awards:
+  - title: Best Paper Award
+    url: https://neurips.cc/
+    date: '2022-12-01'
+    awarder: NeurIPS
+    icon: hero/trophy
+    summary: Awarded for groundbreaking work on efficient training of large models.
+  - title: AI Innovation Grant
+    url: https://www.nsf.gov/
+    date: '2021-06-15'
+    awarder: National Science Foundation
+    icon: hero/currency-dollar
+    summary: $500,000 grant for research in ethical AI development.
+  - title: Outstanding PhD Thesis
+    url: https://www.stanford.edu/
+    date: '2019-06-30'
+    awarder: Stanford University
+    icon: hero/academic-cap
+    summary: Recognized for contributions to scaling laws in deep learning.

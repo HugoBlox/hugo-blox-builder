@@ -5,14 +5,9 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $author := $block.content.username | default "admin" }}
-
-{{ $person_page_path := (printf "/authors/%s" $author) }}
-{{ $person_page := site.GetPage $person_page_path }}
-{{ if not $person_page }}
-{{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your Skill block and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
-{{end}}
-{{ $awards := $person_page.Params.awards }}
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $awards := $profile.awards }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
@@ -24,25 +19,29 @@
 
 <div class="w-full flex flex-col gap-6">
 {{ if $awards }}
-{{ range $idx, $key := sort $awards ".date_start" "desc" }}
+{{ range $idx, $key := sort $awards ".date" "desc" }}
 <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   {{- $icon := .icon }}
-  {{ with $icon }}
-  <div class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3">
-    {{ partial "functions/get_icon" (dict "name" $icon "attributes" "style=\"height: 100%;\"")  }}
-  </div>
-  {{ end}}
   {{with .url}}<a href={{.}} target="_blank" rel="noopener">{{end}}
-    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{{.title | markdownify | emojify}}</h5>
+    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white flex items-center gap-2">
+      {{ with $icon }}
+        <span class="inline-flex items-center justify-center w-7 h-7 text-primary-600 dark:text-primary-300">
+          {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-6 h-6'") }}
+        </span>
+      {{ end }}
+      <span>{{.title | markdownify | emojify}}</span>
+    </h5>
   {{with .url}}</a>{{end}}
 
   <div class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
-    {{.awarder}} &#8729;
-    {{ if .date}}
+    {{ .awarder }} &#8729;
+    {{ if .date }}
       {{ (time .date) | time.Format ($block.design.date_format | default "January 2006") }}
-    {{else}}
+    {{ else if .date_start }}
+      {{ (time .date_start) | time.Format ($block.design.date_format | default "January 2006") }}
+    {{ else }}
       {{ i18n "present" | default "Present" }}
-    {{end}}
+    {{ end }}
   </div>
 
   {{with .summary}}

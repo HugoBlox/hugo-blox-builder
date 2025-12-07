@@ -7,7 +7,7 @@ Showcase your professional accomplishments, certifications, and awards with the 
 ## ✨ Key Features
 
 - **Professional Cards**: Clean, shadowed card design for each award or certification
-- **Icon Integration**: Brand icons for certifying organizations and institutions
+- **Icon Integration**: Add per-award icons (e.g., trophy, badge) for instant visual cues
 - **Certificate Links**: Direct links to verify credentials with proper external link handling
 - **Date Formatting**: Customizable date display (month/year format by default)
 - **Markdown Support**: Rich text formatting for award titles and descriptions
@@ -55,4 +55,3 @@ Showcase your professional accomplishments, certifications, and awards with the 
 - **Brand Integration**: Certifying organization icons add visual interest and authenticity
 
 Perfect for professionals, academics, consultants, and anyone who wants to showcase their achievements in a format that builds confidence and demonstrates expertise. Your accomplishments deserve professional presentation.
-

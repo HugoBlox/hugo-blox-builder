@@ -78,30 +78,22 @@
           <script>console.log('Author notes detected in single.html, Alpine.js should load');</script>
         {{ end }}
 
-        {{ $taxonomy := "authors" }}
-        {{ range $i, $author_obj := (.GetTerms $taxonomy) }}
-          {{ $author_page := $author_obj.Page }}
-          {{ $avatar := ($author_page.Resources.ByType "image").GetMatch "*avatar*" }}
-          {{- if and $i (not $avatar) }}<span class="mr-1">,</span>{{ end -}}
-          {{ with $author_page.Params.website }}
-          <a href="{{.}}" target="_blank" rel="noreferrer">
-          {{ end }}
+        {{ range $i, $slug := .Params.authors }}
+          {{ $profile := partial "functions/get_author_profile" $slug }}
+          {{ $avatar := $profile.avatar }}
+          {{ if and $i (not $avatar) }}<span class="mr-1">,</span>{{ end }}
           <div class="group inline-flex items-center text-current gap-x-1.5 mx-1">
             {{ with $avatar }}
-              {{/* Simple 2x retina image for small avatar */}}
-              {{ $avatar_32 := $avatar.Process "Fill 32x32 Center webp" }}
+              {{ $avatar_32 := .Process "Fill 32x32 Center webp" }}
               <img src="{{ $avatar_32.RelPermalink }}" 
                    width="16"
                    height="16"
-                   alt="{{ $author_page.Title }}" 
+                   alt="{{ $profile.title }}" 
                    class="inline-block h-4 w-4 rounded-full border border-current" 
                    loading="lazy" />
             {{ end }}
-            <div {{if $author_page.Params.website}}class="group-hover:underline"{{end}}>{{ $author_page.Title }}</div>
+            <div>{{ $profile.title }}</div>
           </div>
-          {{ with $author_page.Params.website }}
-          </a>
-          {{ end }}
           {{/* Add author note tooltip if available */}}
           {{- if isset $.Params "author_notes" -}}
             {{- with (index $.Params.author_notes $i) -}}

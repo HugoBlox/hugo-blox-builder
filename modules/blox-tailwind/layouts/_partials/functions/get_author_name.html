@@ -7,19 +7,18 @@
 {{ $publisher := $branding.organization }}
 
 {{ $author := "" }}
-{{ $author_username := "" }}
+{{ $author_slug := "" }}
 
-{{ if and (not $page.Params.authors) ($page.Scratch.Get "superuser_username") }}
-  {{ $author_username = $page.Scratch.Get "superuser_username" }}
+{{ if and (not $page.Params.authors) ($page.Scratch.Get "superuser_slug") }}
+  {{ $author_slug = $page.Scratch.Get "superuser_slug" }}
 {{ else if $page.Params.authors }}
   {{ $author = index $page.Params.authors 0 }}
-  {{ $author_username = urlize $author }}
+  {{ $author_slug = urlize $author }}
 {{ end }}
 
-{{ $taxonomy := "authors" }}
-{{ $profile_page := site.GetPage (printf "/%s/%s" $taxonomy $author_username) }}
-{{ with $profile_page }}
-  {{ $author = .Title }}
+{{ $profile := partial "functions/get_author_profile" (dict "slug" $author_slug) }}
+{{ if $profile.title }}
+  {{ $author = $profile.title }}
 {{ else }}
   {{ $author = $author | default $publisher }}
 {{ end }}

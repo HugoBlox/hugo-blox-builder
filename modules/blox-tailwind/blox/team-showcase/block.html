@@ -37,119 +37,180 @@
     {{ end }}
   </div>
 
-  {{/* Team Grid */}}
-  <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    
-    {{ range $block.content.user_groups }}
-      {{ $group_name := . }}
-      {{ $query := where (where site.Pages "Section" "authors") ".Params.user_groups" "intersect" (slice .) }}
-      
-      {{/* Sort */}}
-      {{ $sort_by := $block.content.sort_by | default "Params.last_name" }}
-      {{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
-      {{ $sort_ascending := $block.content.sort_ascending | default true }}
-      {{ $sort_order := cond $sort_ascending "asc" "desc" }}
-      {{ $query = sort $query $sort_by $sort_order }}
-      
-      {{/* Group Header (if multiple groups) */}}
-      {{ if and $query (gt (len $block.content.user_groups) 1) }}
-      <div class="col-span-full">
+  {{/* Build profiles from data/authors */}}
+  {{ $allProfiles := slice }}
+  {{ range $slug, $_ := site.Data.authors }}
+    {{ $allProfiles = $allProfiles | append (partial "functions/get_author_profile" (dict "slug" $slug)) }}
+  {{ end }}
+
+  {{ $groups := $block.content.user_groups }}
+
+  {{ if $groups }}
+    {{ range $group := $groups }}
+      {{ $groupProfiles := slice }}
+      {{ range $allProfiles }}
+        {{ $u := .user_groups | default (slice) }}
+        {{ if gt (len (intersect $u (slice $group))) 0 }}
+          {{ $groupProfiles = $groupProfiles | append . }}
+        {{ end }}
+      {{ end }}
+      {{ $groupProfiles = sort $groupProfiles "title" }}
+
+      {{ if and $groupProfiles (gt (len $groups) 1) }}
+      <div class="col-span-full mb-4">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">
-          {{ $group_name | markdownify }}
+          {{ $group | markdownify }}
         </h3>
       </div>
       {{ end }}
-      
-      {{/* Team Members */}}
-      {{ range $person := $query }}
-        {{ $avatar := (.Resources.ByType "image").GetMatch "*avatar*" }}
-        {{ $link := "" }}
-        {{ with site.GetPage (printf "/authors/%s" (path.Base .File.Dir)) }}
-          {{ $link = .RelPermalink }}
+
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full">
+        {{ range $profile := $groupProfiles }}
+          {{ $avatar := $profile.avatar }}
+          {{ $link := printf "/authors/%s/" $profile.slug }}
+          
+          <div class="group relative">
+            <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              
+              {{ if $avatar }}
+              <a href="{{ $link }}" class="block relative h-64 overflow-hidden">
+                {{ $image := $avatar.Fill "400x400 Center webp" }}
+                <img src="{{ $image.RelPermalink }}" 
+                     alt="{{ $profile.title }}" 
+                     width="{{ $image.Width }}" 
+                     height="{{ $image.Height }}" 
+                     loading="lazy"
+                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </a>
+              {{ end }}
+              
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                  <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                    {{ $profile.title }}
+                  </a>
+                </h3>
+                
+                {{ if $show_role }}
+                <div class="text-gray-600 dark:text-gray-400 mb-3">
+                  {{ with $profile.role }}<p class="font-medium">{{ . }}</p>{{ end }}
+                  {{ if and $show_organizations $profile.affiliations }}
+                    {{ range first 1 $profile.affiliations }}
+                    <p class="text-sm mt-1">{{ .name }}</p>
+                    {{ end }}
+                  {{ end }}
+                </div>
+                {{ end }}
+                
+                {{ with $profile.bio }}
+                <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                  {{ . }}
+                </p>
+                {{ end }}
+                
+                {{ if and $show_interests $profile.interests }}
+                <div class="mb-4">
+                  <div class="flex flex-wrap gap-1">
+                    {{ range first 3 $profile.interests }}
+                    <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
+                      {{ . }}
+                    </span>
+                    {{ end }}
+                  </div>
+                </div>
+                {{ end }}
+                
+                {{ if and $show_social $profile.links }}
+                <div class="flex gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+                  {{ range $profile.links }}
+                  {{ $l := .url | default .link }}
+                  {{ $scheme := (urls.Parse $l).Scheme }}
+                  {{ $target := "" }}
+                  {{ if not $scheme }}
+                    {{ $l = (.url | default .link) | relLangURL }}
+                    {{ if eq (path.Ext $l) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+                  {{ else if in (slice "http" "https") $scheme }}
+                    {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+                  {{ end }}
+                  
+                  <a href="{{ $l | safeURL }}" 
+                     {{ $target | safeHTMLAttr }} 
+                     aria-label="{{ .icon }}"
+                     {{ with .label }} title="{{ . }}"{{ end }}
+                     class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                    {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
+                  </a>
+                  {{ end }}
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          </div>
         {{ end }}
-        
+      </div>
+    {{ end }}
+  {{ else }}
+    {{ $allProfiles = sort $allProfiles "title" }}
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {{ range $profile := $allProfiles }}
+        {{ $avatar := $profile.avatar }}
+        {{ $link := printf "/authors/%s/" $profile.slug }}
         <div class="group relative">
           <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            
-            {{/* Avatar */}}
             {{ if $avatar }}
             <a href="{{ $link }}" class="block relative h-64 overflow-hidden">
               {{ $image := $avatar.Fill "400x400 Center webp" }}
               <img src="{{ $image.RelPermalink }}" 
-                   alt="{{ .Title }}" 
+                   alt="{{ $profile.title }}" 
                    width="{{ $image.Width }}" 
                    height="{{ $image.Height }}" 
                    loading="lazy"
                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-              
-              {{/* Gradient Overlay */}}
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </a>
             {{ end }}
-            
-            {{/* Content */}}
             <div class="p-6">
-              {{/* Name */}}
               <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
                 <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                  {{ .Title }}
+                  {{ $profile.title }}
                 </a>
               </h3>
-              
-              {{/* Role & Organization */}}
               {{ if $show_role }}
               <div class="text-gray-600 dark:text-gray-400 mb-3">
-                {{ with .Params.role }}
-                <p class="font-medium">{{ . }}</p>
-                {{ end }}
-                
-                {{ if and $show_organizations .Params.organizations }}
-                  {{ range first 1 .Params.organizations }}
+                {{ with $profile.role }}<p class="font-medium">{{ . }}</p>{{ end }}
+                {{ if and $show_organizations $profile.affiliations }}
+                  {{ range first 1 $profile.affiliations }}
                   <p class="text-sm mt-1">{{ .name }}</p>
                   {{ end }}
                 {{ end }}
               </div>
               {{ end }}
-              
-              {{/* Bio */}}
-              {{ with .Params.bio }}
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                {{ . }}
-              </p>
+              {{ with $profile.bio }}
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{{ . }}</p>
               {{ end }}
-              
-              {{/* Interests */}}
-              {{ if and $show_interests .Params.interests }}
+              {{ if and $show_interests $profile.interests }}
               <div class="mb-4">
                 <div class="flex flex-wrap gap-1">
-                  {{ range first 3 .Params.interests }}
-                  <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
-                    {{ . }}
-                  </span>
+                  {{ range first 3 $profile.interests }}
+                  <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">{{ . }}</span>
                   {{ end }}
                 </div>
               </div>
               {{ end }}
-              
-              {{/* Social Links */}}
-              {{ if $show_social }}
+              {{ if and $show_social $profile.links }}
               <div class="flex gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
-                {{ range .Params.social }}
-                {{ $link := .url | default .link }}
-                {{ $scheme := (urls.Parse $link).Scheme }}
+                {{ range $profile.links }}
+                {{ $l := .url | default .link }}
+                {{ $scheme := (urls.Parse $l).Scheme }}
                 {{ $target := "" }}
                 {{ if not $scheme }}
-                  {{ $link = (.url | default .link) | relLangURL }}
-                  {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+                  {{ $l = (.url | default .link) | relLangURL }}
+                  {{ if eq (path.Ext $l) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
                 {{ else if in (slice "http" "https") $scheme }}
                   {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
                 {{ end }}
-                
-                <a href="{{ $link | safeURL }}" 
-                   {{ $target | safeHTMLAttr }} 
-                   aria-label="{{ .icon }}"
-                   {{ with .label }} title="{{ . }}"{{ end }}
-                   class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                <a href="{{ $l | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}" {{ with .label }} title="{{ . }}"{{ end }} class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
                   {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
                 </a>
                 {{ end }}
@@ -159,8 +220,8 @@
           </div>
         </div>
       {{ end }}
-    {{ end }}
-  </div>
+    </div>
+  {{ end }}
   
   {{/* Call to Action */}}
   {{ with $block.content.cta }}

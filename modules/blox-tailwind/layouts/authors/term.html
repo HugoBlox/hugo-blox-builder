@@ -1,0 +1,98 @@
+{{ define "main" }}
+
+{{ $slug := .Data.Term | urlize }}
+{{ $profile := partial "functions/get_author_profile" (dict "slug" $slug) }}
+{{ $avatar := $profile.avatar }}
+{{ $avatar_shape := site.Params.hugoblox.layout.avatar_shape | default "circle" }}
+
+<section class="max-w-5xl mx-auto px-6 py-10">
+  <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+    <div class="flex-shrink-0">
+      {{ if $avatar }}
+        {{ $responsive := partial "functions/process_responsive_image.html" (dict
+          "image" $avatar
+          "mode" "fill"
+          "aspect_ratio" "1:1"
+          "anchor" "Center"
+          "sizes" (slice 160 240 320 480)
+        ) }}
+        <img
+          class="h-32 w-32 sm:h-40 sm:w-40 {{ if ne $avatar_shape "square" }}rounded-full{{ end }}"
+          srcset="{{ $responsive.srcset }}"
+          sizes="160px"
+          src="{{ $responsive.fallback.RelPermalink }}"
+          width="160"
+          height="160"
+          alt="{{ $profile.title }}"
+          loading="lazy"
+        />
+      {{ else }}
+        <div class="h-32 w-32 sm:h-40 sm:w-40 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+          {{ partial "functions/get_icon" (dict "name" "hero/user" "attributes" "class=\"h-12 w-12 text-gray-400\"") }}
+        </div>
+      {{ end }}
+    </div>
+
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <h1 class="text-3xl sm:text-4xl font-bold">{{ $profile.title }}</h1>
+        {{ with $profile.status }}
+          {{ with .icon }}
+            <span class="text-2xl" aria-hidden="true">{{ . }}</span>
+          {{ end }}
+        {{ end }}
+      </div>
+
+      {{ with $profile.role }}
+        <div class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">{{ . | markdownify | emojify }}</div>
+      {{ end }}
+
+      {{ with $profile.affiliations }}
+        <div class="text-neutral-600 dark:text-neutral-300">
+          {{ range $index, $org := . }}
+            {{ if gt $index 0 }} · {{ end }}
+            {{ if $org.url }}<a href="{{ $org.url }}" class="underline">{{ $org.name }}</a>{{ else }}{{ $org.name }}{{ end }}
+          {{ end }}
+        </div>
+      {{ end }}
+
+      {{ with $profile.bio }}
+        <div class="prose prose-slate dark:prose-invert max-w-none">
+          {{ . | markdownify | emojify }}
+        </div>
+      {{ end }}
+
+      {{ if $profile.links }}
+        <div class="pt-2">
+          {{ partial "social_links" (dict "Params" (dict "profiles" $profile.links)) }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{ $view := "card" }}
+{{ $block := . }}
+{{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+{{ $config := dict
+  "columns" 2
+  "len" (len $paginator.Pages)
+  "fill_image" true
+  "show_date" true
+  "show_read_time" true
+  "show_read_more" true
+}}
+
+<div class="flex flex-col items-center px-6">
+  {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view "config" $config) }}
+
+  {{ range $index, $item := $paginator.Pages }}
+    {{ partial "functions/render_view" (dict "page" . "item" . "view" $view "index" $index "config" $config) }}
+  {{ end }}
+
+  {{ partial "functions/render_view" (dict "fragment" "end" "page" $block "item" . "view" $view) }}
+
+  {{ partial "components/paginator" . }}
+</div>
+
+{{ end }}

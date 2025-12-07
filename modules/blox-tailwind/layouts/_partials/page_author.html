@@ -3,16 +3,22 @@
 {{/* Don't show author box on normal pages or if author box disabled. */}}
 {{ if ne .Type "page" | and (not (or (eq site.Params.profile false) (eq .Params.profile false))) }}
 
-{{/* Display superuser if superuser exists and page authors are not explicitly specified. */}}
-{{/* Otherwise, display first author if a profile for them exists. */}}
+{{ $authors := .Params.authors }}
 
-{{ if and (not .Params.authors) (.Scratch.Get "superuser_username") }}
-  {{ $author_page := site.GetPage (printf "/%s/%s" "authors" (.Scratch.Get "superuser_username")) }}
-  {{ partial "page_author_card" (dict "author_page" $author_page) }}
-{{ else if .Params.authors }}
-  {{ $taxonomy := "authors" }}
-  {{ range $author_obj := (.GetTerms $taxonomy) }}
-    {{ partial "page_author_card" (dict "author_page" $author_obj.Page) }}
+{{/* If authors not set, fallback to superuser/owner from Scratch */}}
+{{ if (not $authors) }}
+  {{ $superuser := .Scratch.Get "superuser_slug" }}
+  {{ if $superuser }}
+    {{ $authors = (slice $superuser) }}
+  {{ end }}
+{{ end }}
+
+{{ if $authors }}
+  {{ range $idx, $slug := $authors }}
+    {{ $profile := partial "functions/get_author_profile" $slug }}
+    {{ if $profile }}
+      {{ partial "page_author_card" (dict "profile" $profile "page" .) }}
+    {{ end }}
   {{ end }}
 {{ end }}
 

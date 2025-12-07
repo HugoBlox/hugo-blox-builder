@@ -1,21 +1,19 @@
+{{ $profile := .profile }}
 {{ $page := .page }}
-{{ $author_page := .author_page }}
 {{ $site_type := site.Params.hugoblox.identity.type | humanize | default "Person" }}
-{{- $has_profile := not (eq nil $author_page.Params.superuser) -}}
+{{ $avatar_shape := site.Params.hugoblox.layout.avatar_shape | default "circle" }}
 
-{{/* Check an author profile exists. */}}
-{{ if $has_profile }}
-  {{/* If it's a personal site and primary page author is superuser, link to the homepage rather than their profile page. */}}
-  {{ $profile_url := $author_page.RelPermalink }}
-  {{ if and (eq $site_type "Person") (eq $author_page.Params.superuser true) }}
+{{ if $profile }}
+  {{/* If it's a personal site and the profile is owner, link home */}}
+  {{ $profile_url := printf "/authors/%s/" $profile.slug }}
+  {{ if and (eq $site_type "Person") ($profile.is_owner) }}
     {{ $profile_url = site.BaseURL }}
   {{ end }}
-  {{ $avatar := ($author_page.Resources.ByType "image").GetMatch "*avatar*" }}
-  {{ $avatar_shape := site.Params.hugoblox.layout.avatar_shape | default "circle" }}
+
+  {{ $avatar := $profile.avatar }}
 
 <div class="flex pt-12 pb-4">
   {{ if $avatar }}
-    {{/* Use utility for high-res avatar processing (smart for Retina displays) */}}
     {{ $responsive := partial "functions/process_responsive_image.html" (dict 
         "image" $avatar 
         "mode" "fill"
@@ -31,7 +29,7 @@
       src="{{ $responsive.fallback.RelPermalink }}"
       width="96"
       height="96"
-      alt="{{$author_page.Title}}"
+      alt="{{$profile.title}}"
       loading="lazy"
       />
   {{ end }}
@@ -42,29 +40,27 @@
     <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
       <span class="inline-block">
         {{if $profile_url}}<a href="{{$profile_url}}" class="no-underline">{{end}}
-        {{$author_page.Title}}
+        {{$profile.title}}
         {{if $profile_url}}</a>{{end}}
       </span>
-      {{- with $author_page.Params.pronouns -}}
+      {{- with $profile.pronouns -}}
         <span class="text-sm font-normal text-gray-600 dark:text-gray-400 ml-1 inline-block">({{ . }})</span>
       {{- end -}}
     </div>
 
-    {{ with $author_page.Params.role }}
+    {{ with $profile.role }}
     <div class="text-sm font-bold text-neutral-700 dark:text-neutral-300">
     {{. | markdownify | emojify}}
     </div>
     {{end}}
 
 
-    {{ with $author_page.Params.bio }}
+    {{ with $profile.bio }}
     <div class="text-sm text-neutral-700 dark:text-neutral-300">{{ . | markdownify | emojify }}</div>
     {{ end }}
 
     <div class="text-2xl sm:text-lg pt-1">
-
-      {{ partial "social_links" $author_page }}
-
+      {{ partial "social_links" (dict "Params" (dict "profiles" $profile.links)) }}
     </div>
   </div>
 </div>

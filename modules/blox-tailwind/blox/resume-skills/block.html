@@ -5,15 +5,9 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $author := $block.content.username | default "admin" }}
-
-{{ $person_page_path := (printf "/authors/%s" $author) }}
-{{ $person_page := site.GetPage $person_page_path }}
-{{ if not $person_page }}
-{{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your Skill block and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
-{{end}}
-{{ $skills := $person_page.Params.skills }}
-{{ $show_show_skill_percentage := $block.design.show_skill_percentage | default true }}
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $skills := $profile.skills | default (slice) }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
@@ -35,12 +29,7 @@
       {{ .name | markdownify | emojify }}
       {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
     </div>
-    {{ range .items }}
-    {{ $pack := or .icon_pack "fas" }}
-    {{ $pack_prefix := $pack }}
-    {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-    {{ $pack_prefix = "fa" }}
-    {{ end }}
+    {{ range (.items | default (slice)) }}
 
     <div class="skills-content">
 
@@ -50,13 +39,26 @@
       </span>
       {{ end }}
 
+      {{ $label := .label | default .name }}
       <span class="skills-name text-gray-700 dark:text-gray-300">
-        {{ .name | markdownify | emojify }}
+        {{ $label | markdownify | emojify }}
         {{ with .description }}<p class="skills-description">{{ . | markdownify | emojify }}</p>{{ end }}
       </span>
-      {{ if .percent | and $show_show_skill_percentage }}
+      {{/* Numeric level (1-5) only. */}}
+      {{ $level := 0.0 }}
+      {{ if isset . "level" }}
+        {{ $raw := .level }}
+        {{ $type := printf "%T" $raw }}
+        {{ if or (eq $type "int") (eq $type "int64") (eq $type "int32") (eq $type "int16") (eq $type "int8") (eq $type "uint") (eq $type "uint64") (eq $type "uint32") (eq $type "uint16") (eq $type "uint8") (eq $type "float64") (eq $type "float32") }}
+          {{ $level = float $raw }}
+        {{ end }}
+      {{ end }}
+      {{ if gt $level 5 }}{{ $level = 5 }}{{ end }}
+      {{ if lt $level 0 }}{{ $level = 0 }}{{ end }}
+      {{ if gt $level 0 }}
+      {{ $levelPercent := mul $level 20 }}
       <div class="skills-wrapper" {{with $color_border}}{{ (printf "style=\"border-color: %s\"" .) | safeHTMLAttr }}{{end}}>
-        <div class="skills-percent" style="width: {{ (printf "%s" (cast.ToString (.percent | default 100))) | safeCSS }}%; {{with $color}}{{ (printf "background-color: %s" .) | safeCSS }}{{end}}"></div>
+        <div class="skills-percent" style="width: {{ printf "%.0f" $levelPercent }}%; {{with $color}}{{ (printf "background-color: %s" .) | safeCSS }}{{end}}"></div>
       </div>
       {{ end }}
     </div>
@@ -64,4 +66,3 @@
   </div>
 {{ end }}
 </div>
-

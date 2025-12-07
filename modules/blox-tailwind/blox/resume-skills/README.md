@@ -11,7 +11,7 @@ Present your technical and professional competencies with the Resume Skills bloc
 - **Icon Integration**: Beautiful icons for each skill that enhance visual recognition
 - **Flexible Layout**: Side-by-side categories on larger screens, stacked on mobile
 - **Custom Colors**: Configurable progress bar colors to match your brand
-- **Toggle Control**: Option to show or hide percentage indicators
+- **Automatic Bars**: Bars appear when a skill has a level (1–5)
 - **Markdown Support**: Rich text formatting for skill names and descriptions
 
 ## 🎯 Perfect For
@@ -64,4 +64,3 @@ Present your technical and professional competencies with the Resume Skills bloc
 Perfect for technical professionals, creative experts, and anyone who wants to present their skills in an organized, visually appealing format that helps employers quickly understand their capabilities and expertise levels.
 
 Turn your skill set into a competitive advantage with professional presentation that clearly communicates your value proposition.
-

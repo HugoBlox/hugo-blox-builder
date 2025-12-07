@@ -1,17 +1,18 @@
 {{/* Display author list. */}}
 
 {{ if .Params.authors }}
-  {{ range $index, $value := (.GetTerms "authors") }}
-    {{- /* Highlight the author's name? */ -}}
-    {{- $highlight_name := .Page.Params.highlight_name | default false -}}
+  {{ range $index, $term := (.GetTerms "authors") }}
+    {{- $slug := $term.Data.Term | urlize -}}
+    {{- $profile := partial "functions/get_author_profile" (dict "slug" $slug) -}}
+    {{- $display := $profile.title | default $term.LinkTitle -}}
+    {{- $highlight_name := false -}}
 
     {{- if gt $index 0 }}, {{ end -}}
     <span {{ if $highlight_name }}class="font-bold"{{end}}>
-      {{/* Effectively check the page's `build` option as `build` is not exposed in Hugo's Page object. */}}
-      {{- if .RelPermalink -}}
-        <a href="{{.RelPermalink}}">{{.LinkTitle}}</a>
+      {{- if $term.RelPermalink -}}
+        <a href="{{ $term.RelPermalink }}">{{ $display }}</a>
       {{- else -}}
-        {{ .LinkTitle }}
+        {{ $display }}
       {{- end -}}
     </span>
     {{- if isset $.Params "author_notes" -}}

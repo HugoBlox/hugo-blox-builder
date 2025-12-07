@@ -6,6 +6,11 @@ Present a complete professional picture with the Resume Biography 3 block - an e
 
 ## 🛠️ Customization
 
+- **Name sizing**: Adjust the profile heading size to accommodate long names using `design.name.size`:
+  - `compact`: space-friendly for long names
+  - `balanced` (default): matches the demo style
+  - `display`: extra-large for short names
+
 - **Section heading overrides**: Customize any of the three main section headings using `content.headings`:
   - `about`: Biography section heading (default: "Professional Summary" from i18n `about_me`)
   - `education`: Education section heading (default: from i18n `education`)
@@ -20,6 +25,9 @@ content:
     about: Research Profile
     education: Academic Background
     interests: Research Areas
+design:
+  name:
+    size: compact
 ```
 
 ## ✨ Key Features

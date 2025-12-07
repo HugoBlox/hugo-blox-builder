@@ -1,7 +1,6 @@
 name: Deploy website to GitHub Pages
 
 env:
-  WC_HUGO_VERSION: '0.152.2'
   NODE_VERSION: '20'
 
 on:
@@ -42,6 +41,12 @@ jobs:
       if: hashFiles('package.json') != ''
       uses: pnpm/action-setup@v4
 
+    - name: Get Hugo Version
+      id: hugo-version
+      run: |
+        VERSION=$(grep "hugo_version" hugoblox.yaml | awk '{print $2}' | tr -d "'\"")
+        echo "HUGO_VERSION=$VERSION" >> $GITHUB_ENV
+
     - name: Install dependencies
       run: |
         # Install Tailwind CLI if package.json exists
@@ -53,7 +58,7 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3
       with:
-        hugo-version: ${{ env.WC_HUGO_VERSION }}
+        hugo-version: ${{ env.HUGO_VERSION }}
         extended: true
 
       # Cache dependencies (Go modules, node_modules) - stable, rarely changes

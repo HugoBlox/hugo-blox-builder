@@ -1,0 +1,22 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/go:1",
+  "features": {
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "extended": true,
+      "version": "0.152.2"
+    },
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hugoblox.hugoblox-studio"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm install --no-frozen-lockfile && hugo --logLevel debug && pnpm dlx pagefind --source 'public' --verbose",
+  "postAttachCommand": "(code --command workbench.view.extension.hugoblox-studio || true) && hugo server --disableFastRender -D --port 1313",
+  "forwardPorts": [
+    1313
+  ]
+}

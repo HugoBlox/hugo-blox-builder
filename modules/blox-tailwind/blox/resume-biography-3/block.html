@@ -6,19 +6,22 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
-{{ $author := $block.content.username | default "admin" }}
-
-{{ $person_page_path := (printf "/authors/%s" $author) }}
-{{ $person_page := site.GetPage $person_page_path }}
-{{ if not $person_page }}
-  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
-{{end}}
-{{ $person := $person_page.Params }}
-{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $avatar := $profile.avatar }}
 
 {{/* Avatar customization parameters */}}
 {{ $avatar_size := $block.design.avatar.size | default "large" }}
 {{ $avatar_shape := $block.design.avatar.shape | default "circle" }}
+
+{{/* Profile name typography */}}
+{{ $name_size := $block.design.name.size | default "balanced" }}
+{{ $name_class_map := dict
+  "compact" "text-3xl sm:text-4xl lg:text-5xl"
+  "balanced" "text-4xl sm:text-5xl lg:text-6xl"
+  "display" "text-5xl sm:text-6xl lg:text-7xl"
+}}
+{{ $name_class := index $name_class_map $name_size | default (index $name_class_map "balanced") }}
 
 {{/* Size mappings optimized for 2025 standards: display_size -> [display_px, generation_px] */}}
 {{ $size_map := dict "small" (slice "150" "300") "medium" (slice "200" "400") "large" (slice "320" "640") "xl" (slice "400" "800") "xxl" (slice "500" "1000") }}
@@ -68,40 +71,33 @@
 
         {{/* Avatar */}}
         {{ if $avatar }}
-        <div class="avatar-wrapper {{ if $img }}-mt-24{{else}}mb-4{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
+        <div class="avatar-wrapper {{ if $img }}-mt-24{{else}}mb-4{{end}}">
           {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
           <img class="avatar {{$shape_class}} border-4 border-white shadow-2xl" 
                src="{{ $avatar_image.RelPermalink }}" 
-               alt="{{$person_page.Title}}"
+               alt="{{$profile.title}}"
                width="{{$display_size}}" 
                height="{{$display_size}}"
-               style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
-          {{with $person.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
+               style="object-fit: cover;">
+          {{with $profile.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
         </div>
         {{ end }}
 
         {{/* Name and Role - Centered */}}
         <div class="space-y-3">
-          <h1 class="text-5xl lg:text-6xl font-black text-gray-900 dark:text-white leading-tight">
-            {{- if $person.name_pronunciation -}}
-              <ruby>
-                <rb>{{ $person_page.Title }}</rb>
-                <rt class="text-sm text-gray-500 dark:text-gray-400">{{ $person.name_pronunciation }}</rt>
-              </ruby>
-            {{- else -}}
-              {{- $person_page.Title -}}
-            {{- end -}}
+          <h1 class="{{ $name_class }} font-black text-gray-900 dark:text-white leading-tight">
+            {{ $profile.title }}
           </h1>
           
-          {{- with $person.pronouns -}}
+          {{- with $profile.pronouns -}}
             <p class="text-lg text-gray-600 dark:text-gray-400">({{ . }})</p>
           {{- end -}}
           
-          {{ with $person.role }}
+          {{ with $profile.role }}
             <p class="text-2xl font-semibold text-primary-600 dark:text-primary-400">{{ . | markdownify | emojify }}</p>
           {{ end }}
           
-          {{ range $person.organizations }}
+          {{ range $profile.affiliations }}
             <p class="text-lg text-gray-700 dark:text-gray-300">
               {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">{{ end }}
               {{ .name }}
@@ -112,12 +108,7 @@
 
         {{/* Social Icons */}}
         <div class="flex flex-wrap justify-center gap-4">
-          {{ range $person.profiles }}
-          {{ $pack := or .icon_pack "fas" }}
-          {{ $pack_prefix := $pack }}
-          {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-            {{ $pack_prefix = "fa" }}
-          {{ end }}
+          {{ range $profile.links }}
           {{ $link := .url | default .link }}
           {{ $scheme := (urls.Parse $link).Scheme }}
           {{ $target := "" }}
@@ -143,7 +134,8 @@
       <div class="md:col-span-8">
         
         {{/* Bio Section */}}
-        {{ with ($block.content.text | emojify | $page.RenderString) | default $person_page.Content }}
+        {{ $bio_content := ($block.content.text | emojify | $page.RenderString) | default $profile.bio }}
+        {{ with $bio_content }}
         <div class="mb-12">
           <div class="flex items-center gap-4 mb-8">
             <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
@@ -174,7 +166,7 @@
         {{ end }}
 
         {{/* Education Section */}}
-        {{ with $person.education }}
+        {{ with $profile.education }}
         <div class="mb-16">
           <div class="flex items-center gap-4 mb-8">
             <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
@@ -195,9 +187,12 @@
                   {{end}}
                 </div>
                 <div class="flex-1 flex-grow">
+                  {{ $degree := .degree | default .area }}
+                  {{ $year := .year | default (cond (and .start .end) (printf "%s - %s" .start .end) .start) }}
                   <p class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                    {{ .area }}{{ with .year }}, {{ . }}{{ end }}
+                    {{ $degree }}
                   </p>
+                  {{ with $year }}<p class="text-gray-600 dark:text-gray-400 font-medium mt-1">{{ . }}</p>{{ end }}
                   <p class="text-gray-600 dark:text-gray-400 font-medium mt-1">{{ .institution }}</p>
                 </div>
               </div>
@@ -208,7 +203,7 @@
         {{ end }}
 
         {{/* Interests Section */}}
-        {{ with $person.interests }}
+        {{ with $profile.interests }}
         <div>
           <div class="flex items-center gap-4 mb-8">
             <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">

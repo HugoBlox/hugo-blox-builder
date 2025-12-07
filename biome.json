@@ -3,6 +3,7 @@
   "files": {
     "includes": [
       "**",
+      "!modules/**/*.html",
       "!**/node_modules",
       "!**/public",
       "!**/resources",

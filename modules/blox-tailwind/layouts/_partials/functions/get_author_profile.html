@@ -1,0 +1,122 @@
+{{/*
+Return a normalized HugoBlox author/person profile from data.
+
+Input (flexible):
+- dict with "slug" key, or a raw string slug.
+
+Output (dict):
+- slug: string
+- title: string (display name, fallback to humanized slug)
+- role: string (optional)
+- bio: string (optional)
+- status: map (optional)
+- affiliations: array (optional)
+- ids: map (optional)
+- links: array (optional)
+- is_owner: bool (optional)
+- has_data: bool (true if found in data/authors)
+- avatar: resource (optional) – matching assets/media/authors/<slug>.*
+*/}}
+
+{{- $input := . -}}
+{{- $slug := "" -}}
+
+{{- $inputType := printf "%T" $input -}}
+
+{{- if (reflect.IsMap $input) -}}
+  {{- $slug = index $input "slug" | default "" -}}
+{{- else if eq $inputType "string" -}}
+  {{- $slug = $input -}}
+{{- else -}}
+  {{- $slug = printf "%v" $input -}}
+{{- end -}}
+
+{{- $slug = $slug | urlize -}}
+
+{{- $data := index site.Data.authors $slug -}}
+{{- $hasData := $data -}}
+
+{{/* Structured name resolution */}}
+{{- $name := $data.name -}}
+{{- $display := "" -}}
+{{- $given := "" -}}
+{{- $family := "" -}}
+{{- $middle := "" -}}
+{{- $alternate := "" -}}
+{{- $namePronunciation := "" -}}
+{{- $namePronouns := "" -}}
+
+{{- if $name.display }}{{ $display = $name.display }}{{ end }}
+{{- if $name.given }}{{ $given = $name.given }}{{ end }}
+{{- if $name.family }}{{ $family = $name.family }}{{ end }}
+{{- if $name.middle }}{{ $middle = $name.middle }}{{ end }}
+{{- if $name.alternate }}{{ $alternate = $name.alternate }}{{ end }}
+{{- if $name.pronunciation }}{{ $namePronunciation = $name.pronunciation }}{{ end }}
+{{- if $name.pronouns }}{{ $namePronouns = $name.pronouns }}{{ end }}
+
+{{- $title := "" -}}
+{{- if $display -}}
+  {{- $title = $display -}}
+{{- else if $data.title -}}
+  {{- $title = $data.title -}}
+{{- else -}}
+  {{- $title = $slug | humanize -}}
+{{- end -}}
+
+{{- $role := $data.role -}}
+{{- $bio := $data.bio -}}
+{{- $status := $data.status -}}
+{{- $affiliations := $data.affiliations -}}
+{{- $ids := $data.ids -}}
+{{- $links := $data.links -}}
+{{- $isOwner := or ($data.is_owner) ($data.superuser) -}}
+{{- $pronouns := $namePronouns | default $data.pronouns -}}
+{{- $userGroups := $data.user_groups -}}
+{{- $interests := $data.interests -}}
+{{- $education := $data.education -}}
+{{- $experience := or $data.experience $data.work -}}
+{{- $skills := $data.skills -}}
+{{- $languages := $data.languages -}}
+{{- $awards := $data.awards -}}
+{{- $postnominals := slice -}}
+{{- if $data.postnominals -}}
+  {{- if (reflect.IsSlice $data.postnominals) -}}
+    {{- $postnominals = $data.postnominals -}}
+  {{- else -}}
+    {{- $postnominals = slice $data.postnominals -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Avatar resolution: look in assets/media/authors/<slug>.* */ -}}
+{{- $avatar := resources.GetMatch (printf "media/authors/%s.*" $slug) -}}
+
+{{- $profile := dict
+  "slug" $slug
+  "title" $title
+  "name_display" $display
+  "name_given" $given
+  "name_family" $family
+  "name_middle" $middle
+  "name_alternate" $alternate
+  "name_pronunciation" $namePronunciation
+  "role" $role
+  "bio" $bio
+  "status" $status
+  "affiliations" $affiliations
+  "ids" $ids
+  "links" $links
+  "pronouns" $pronouns
+  "user_groups" $userGroups
+  "interests" $interests
+  "education" $education
+  "experience" $experience
+  "skills" $skills
+  "languages" $languages
+  "awards" $awards
+  "postnominals" $postnominals
+  "is_owner" $isOwner
+  "has_data" (not (eq $hasData nil))
+  "avatar" $avatar
+-}}
+
+{{- return $profile -}}

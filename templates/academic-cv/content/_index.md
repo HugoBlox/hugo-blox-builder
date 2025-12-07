@@ -12,7 +12,7 @@ sections:
   - block: resume-biography-3
     content:
       # Choose a user profile to display (a folder name within `content/authors/`)
-      username: admin
+      username: me
       text: ''
       # Show a call-to-action button under your biography? (optional)
       button:
@@ -27,6 +27,10 @@ sections:
       background:
         gradient_mesh:
           enable: true
+
+      # Name heading sizing to accommodate long or short names
+      name:
+        size: balanced # Options: compact (long names), balanced (default), display (short names)
 
       # Avatar customization
       avatar:

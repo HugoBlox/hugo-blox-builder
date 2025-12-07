@@ -106,6 +106,18 @@
                       "description": "Custom CSS styles for biography text"
                     }
                   }
+                },
+                "name": {
+                  "type": "object",
+                  "description": "Profile name typography controls",
+                  "properties": {
+                    "size": {
+                      "type": "string",
+                      "enum": ["compact", "balanced", "display"],
+                      "description": "Heading size for the profile name to suit different name lengths",
+                      "default": "balanced"
+                    }
+                  }
                 }
               }
             }

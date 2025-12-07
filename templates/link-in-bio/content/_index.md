@@ -13,7 +13,7 @@ sections:
   - block: resume-biography
     content:
       # The user's folder name in content/authors/
-      username: admin
+      username: me
     design:
       biography:
         style: 'text-align: justify; font-size: 0.8em;'

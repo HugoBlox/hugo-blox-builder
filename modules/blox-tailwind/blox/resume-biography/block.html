@@ -6,15 +6,9 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
-{{ $author := $block.content.username | default "admin" }}
-
-{{ $person_page_path := (printf "/authors/%s" $author) }}
-{{ $person_page := site.GetPage $person_page_path }}
-{{ if not $person_page }}
-  {{ errorf "Could not find an author page at `%s`. Please check the value of `author` in your About widget and create an associated author page if one does not already exist. See https://docs.hugoblox.com/page-builder/#about " $person_page_path }}
-{{end}}
-{{ $person := $person_page.Params }}
-{{ $avatar := ($person_page.Resources.ByType "image").GetMatch "*avatar*" }}
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $avatar := $profile.avatar }}
 
 {{/* Avatar customization parameters */}}
 {{ $avatar_size := $block.design.avatar.size | default "medium" }}
@@ -76,30 +70,23 @@
 
   <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
     {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
-    <img class="avatar {{$shape_class}} bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$person_page.Title}}"
+    <img class="avatar {{$shape_class}} bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$profile.title}}"
          width="{{$display_size}}" height="{{$display_size}}"
          style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
-    {{with $person.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
+    {{with $profile.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
   </div>
   {{ end }}
 
   <div class="text-3xl font-bold mb-2 mt-6">
-    {{- if $person.name_pronunciation -}}
-      <ruby>
-        <rb>{{ $person_page.Title }}</rb>
-        <rt>{{ $person.name_pronunciation }}</rt>
-      </ruby>
-    {{- else -}}
-      {{- $person_page.Title -}}
-    {{- end -}}
+    {{- $profile.title -}}
   </div>
-  {{- with $person.pronouns -}}
+  {{- with $profile.pronouns -}}
     <div class="text-lg font-normal text-gray-600 dark:text-gray-400 -mt-1 mb-2">({{ . }})</div>
   {{- end -}}
 
-  {{ with $person.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
+  {{ with $profile.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
 
-  {{ range $person.organizations }}
+  {{ range $profile.affiliations }}
   <div class="mb-2">
     {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
     <div>{{ .name }}</div>
@@ -107,13 +94,9 @@
   </div>
   {{ end }}
 
+  {{ if $profile.links }}
   <ul class="network-icon dark:text-zinc-100">
-    {{ range $person.profiles }}
-    {{ $pack := or .icon_pack "fas" }}
-    {{ $pack_prefix := $pack }}
-    {{ if in (slice "fab" "fas" "far" "fal") $pack }}
-      {{ $pack_prefix = "fa" }}
-    {{ end }}
+    {{ range $profile.links }}
     {{ $link := .url | default .link }}
     {{ $scheme := (urls.Parse $link).Scheme }}
     {{ $target := "" }}
@@ -131,8 +114,10 @@
     </li>
     {{ end }}
   </ul>
+  {{ end }}
 
-  {{ with ($block.content.text | emojify | $page.RenderString) | default $person_page.Content }}
+  {{ $bio_content := ($block.content.text | emojify | $page.RenderString) | default $profile.bio }}
+  {{ with $bio_content }}
   <div class="pt-2 d-flex justify-content-center prose prose-slate lg:prose-xl dark:prose-invert">
     <div class="bio-text" {{ with $block.design.biography.style }}{{ (printf "style=\"%s\"" .) | safe.HTMLAttr }}{{end}}>
       {{ . }}

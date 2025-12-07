@@ -9,7 +9,7 @@ Features:
  - Updates special module metadata (blox-tailwind data/hugoblox.yaml version)
  - Updates dependent modules' go.mod "require" versions when a dependency is released
  - Tags changed modules with annotated tags and pushes tags
- - Updates templates' go.mod to latest released module versions and bumps Hugo version in CI/Netlify config
+ - Updates templates' go.mod to latest released module versions and bumps Hugo version in template configs (hugoblox.yaml, Netlify, devcontainer)
 
 Usage examples:
   poetry run python scripts/release_modules.py --dry-run --log-level INFO
@@ -111,6 +111,36 @@ def update_go_mod_require_pseudo_version(go_mod_text: str, dep_module_path: str,
   pattern_line = rf"(?m)^(\s*{re.escape(dep_module_path)}\s+)(?:v\d+[^\s]*|v\d+\.\d+\.\d+-\d+-[a-f0-9]+)$"
   replacement_line = rf"\g<1>{pseudo_version}"
   return re.sub(pattern_line, replacement_line, go_mod_text)
+
+
+def update_devcontainer_hugo(starter_dir: Path, latest_hugo: Optional[str], updated_paths: List[Path]) -> None:
+  """Update devcontainer Hugo feature version if present."""
+  if not latest_hugo:
+    return
+  devcontainer = starter_dir / ".devcontainer" / "devcontainer.json"
+  if not devcontainer.exists():
+    return
+  try:
+    data = json.loads(devcontainer.read_text(encoding="utf-8"))
+  except Exception as exc:  # pragma: no cover - defensive
+    logging.warning("starter %s: failed to parse devcontainer.json (%s)", starter_dir.name, exc)
+    return
+
+  features = data.get("features", {})
+  hugo_feature = features.get("ghcr.io/devcontainers/features/hugo:1")
+  if not isinstance(hugo_feature, dict):
+    return
+
+  current = hugo_feature.get("version")
+  if current == latest_hugo:
+    return
+
+  hugo_feature["version"] = latest_hugo
+  features["ghcr.io/devcontainers/features/hugo:1"] = hugo_feature
+  data["features"] = features
+  devcontainer.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+  updated_paths.append(devcontainer)
+  logging.info("starter %s: devcontainer Hugo version -> %s", starter_dir.name, latest_hugo)
 
 
 @dataclass
@@ -512,17 +542,8 @@ def update_starters(modules: Dict[str, Module], commit: bool, push: bool) -> Non
           updated_paths.append(netlify)
           logging.info("starter %s: netlify.toml HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
-    # bump deploy.yml env WC_HUGO_VERSION
-    workflow = starter_dir / ".github" / "workflows" / "deploy.yml"
-    if latest_hugo and workflow.exists():
-      with workflow.open("r", encoding="utf-8") as f:
-        wf = yaml.load(f) or {}
-      if "env" in wf and wf["env"].get("WC_HUGO_VERSION") != latest_hugo:
-        wf["env"]["WC_HUGO_VERSION"] = latest_hugo
-        with workflow.open("w", encoding="utf-8") as f:
-          yaml.dump(wf, f)
-        updated_paths.append(workflow)
-        logging.info("starter %s: deploy.yml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
+    # bump devcontainer Hugo version (new location for Hugo pin)
+    update_devcontainer_hugo(starter_dir, latest_hugo, updated_paths)
 
   if updated_paths:
     stage_and_maybe_commit(updated_paths, "chore(templates): bump modules and Hugo", commit, push)
@@ -591,17 +612,8 @@ def update_starters_to_commits(modules: Dict[str, Module], commit: bool, push: b
           updated_paths.append(netlify)
           logging.info("starter %s: netlify.toml HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
 
-    # bump deploy.yml env WC_HUGO_VERSION (same as regular update_starters)
-    workflow = starter_dir / ".github" / "workflows" / "deploy.yml"
-    if latest_hugo and workflow.exists():
-      with workflow.open("r", encoding="utf-8") as f:
-        wf = yaml.load(f) or {}
-      if "env" in wf and wf["env"].get("WC_HUGO_VERSION") != latest_hugo:
-        wf["env"]["WC_HUGO_VERSION"] = latest_hugo
-        with workflow.open("w", encoding="utf-8") as f:
-          yaml.dump(wf, f)
-        updated_paths.append(workflow)
-        logging.info("starter %s: deploy.yml WC_HUGO_VERSION -> %s", starter_dir.name, latest_hugo)
+    # bump devcontainer Hugo version (same as regular update_starters)
+    update_devcontainer_hugo(starter_dir, latest_hugo, updated_paths)
 
   if updated_paths:
     stage_and_maybe_commit(updated_paths, "chore(templates): update modules to latest commits", commit, push)

@@ -13,7 +13,7 @@ design:
 sections:
   - block: biography
     content:
-      username: admin
+      username: me
       # Show a call-to-action button under your biography? (optional)
       button:
         text: Download Résumé
@@ -31,7 +31,7 @@ sections:
         shape: rounded # Options: circle (default), square, rounded
   - block: experience
     content:
-      username: admin
+      username: me
     design:
       # Hugo date format
       date_format: 'January 2006'
@@ -40,13 +40,13 @@ sections:
   - block: skills
     content:
       title: Skills & Hobbies
-      username: admin
+      username: me
   - block: awards
     content:
       title: Awards
-      username: admin
+      username: me
   - block: languages
     content:
       title: Languages
-      username: admin
+      username: me
 ---

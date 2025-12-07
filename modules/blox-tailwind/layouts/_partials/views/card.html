@@ -145,29 +145,20 @@
         <div class="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-500 flex-wrap mb-3">
           {{ if $item.Params.authors }}
           <div class="flex items-center gap-2 min-w-0">
-            {{ $authorTerm := index ($item.GetTerms "authors") 0 }}
-            {{ if $authorTerm }}
-              {{/* Author page exists - show avatar or default icon */}}
-              <div class="relative h-6 w-6 flex-shrink-0">
-                {{ $avatar := ($authorTerm.Resources.ByType "image").GetMatch "*avatar*" }}
-                {{ if $avatar }}
-                  {{ $avatar_48 := $avatar.Process "Fill 48x48 Center webp" }}
-                  <img alt="avatar" class="rounded-full object-cover" src="{{$avatar_48.RelPermalink}}" width="24" height="24" loading="lazy" decoding="async" />
-                {{ else }}
-                  {{/* Default avatar icon when no image */}}
-                  <div class="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                    {{ partial "functions/get_icon" (dict "name" "hero/user" "attributes" "class=\"w-4 h-4 text-gray-500 dark:text-gray-400\"") }}
-                  </div>
-                {{ end }}
-              </div>
-              <span class="truncate max-w-[9rem] text-sm">{{ $authorTerm.Page.LinkTitle }}</span>
-            {{ else }}
-              {{/* No author page - just show team icon and first author name */}}
-              <div class="w-6 h-6 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center flex-shrink-0">
-                {{ partial "functions/get_icon" (dict "name" "hero/user-group" "attributes" "class=\"w-4 h-4 text-primary-600 dark:text-primary-400\"") }}
-              </div>
-              <span class="truncate max-w-[9rem] text-sm">{{ index $item.Params.authors 0 }}</span>
-            {{ end }}
+            {{ $slug := index $item.Params.authors 0 | urlize }}
+            {{ $profile := partial "functions/get_author_profile" $slug }}
+            {{ $avatar := $profile.avatar }}
+            <div class="relative h-6 w-6 flex-shrink-0">
+              {{ if $avatar }}
+                {{ $avatar_48 := $avatar.Process "Fill 48x48 Center webp" }}
+                <img alt="avatar" class="rounded-full object-cover" src="{{$avatar_48.RelPermalink}}" width="24" height="24" loading="lazy" decoding="async" />
+              {{ else }}
+                <div class="w-6 h-6 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                  {{ partial "functions/get_icon" (dict "name" "hero/user" "attributes" "class=\"w-4 h-4 text-gray-500 dark:text-gray-400\"") }}
+                </div>
+              {{ end }}
+            </div>
+            <span class="truncate max-w-[9rem] text-sm">{{ $profile.title }}</span>
           </div>
           <span class="opacity-40">•</span>
           {{ end }}

@@ -3,7 +3,7 @@ title: v2.0.0 Released!
 summary: Hugo v2.0.0 released. Download now and follow the guide to get started in 5 minutes!
 date: 2024-01-19
 authors:
-  - admin
+  - me
 tags:
   - Hugo
   - Hugo Blox

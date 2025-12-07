@@ -12,18 +12,30 @@
     <meta name="robots" content="noindex" />
   {{- end -}}
 
-  {{/* Attempt to load superuser. */}}
-  {{ $superuser_name := "" }}
-  {{ $superuser_username := "" }}
-  {{ $superuser_role := "" }}
-  {{ range first 1 (where (where site.Pages "Section" "authors") "Params.superuser" true) }}
-    {{ $superuser_name = .Title }}
-    {{ $superuser_username = path.Base .File.Dir }}
-    {{ $superuser_role = .Params.role }}
-  {{ end }}
-  {{ $scr.Set "superuser_username" $superuser_username }}{{/* Set superuser globally for page_author.html. */}}
+{{/* Attempt to load superuser/person from data. */}}
+{{ $superuser_name := "" }}
+{{ $superuser_slug := "" }}
+{{ $superuser_role := "" }}
 
-  {{ with $superuser_name }}<meta name="author" content="{{ . }}" />{{ end }}
+{{/* Prefer is_owner flag, fallback to slug 'me' */}}
+{{ range $slug, $data := site.Data.authors }}
+  {{ if and (not $superuser_slug) ($data.is_owner) }}
+    {{ $superuser_slug = $slug }}
+  {{ end }}
+{{ end }}
+{{ if and (eq $superuser_slug "") (index site.Data.authors "me") }}
+  {{ $superuser_slug = "me" }}
+{{ end }}
+
+{{ if $superuser_slug }}
+  {{ $profile := partial "functions/get_author_profile" (dict "slug" $superuser_slug) }}
+  {{ $superuser_name = $profile.title }}
+  {{ $superuser_role = $profile.role }}
+{{ end }}
+
+{{ $scr.Set "superuser_slug" $superuser_slug }}{{/* Set superuser globally for author rendering. */}}
+
+{{ with $superuser_name }}<meta name="author" content="{{ . }}" />{{ end }}
 
   {{/* Generate page description. */}}
   {{ $desc := "" }}
@@ -114,15 +126,22 @@
   {{/* Get page image for sharing. */}}
   {{ $sharing_image := resources.GetMatch (path.Join "media" "sharing.*") }}
   {{ $featured_image := (.Resources.ByType "image").GetMatch "*featured*" }}
-  {{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
+{{ $avatar_image := (.Resources.ByType "image").GetMatch "avatar*" }}
   {{ $has_logo := fileExists "assets/media/logo.png" | or (fileExists "assets/media/logo.svg") }}
   {{ $og_image := "" }}
   {{ $twitter_card := "summary_large_image" }}
-  {{ if (and (eq .Kind "term") $avatar_image) }}
-    {{/* Match image processing in About widget to prevent generating more images than necessary. */}}
-    {{ $og_image = ($avatar_image.Fill "540x540 Center").Permalink }}
+{{ if and (eq .Kind "term") (eq .Data.Singular "author") }}
+  {{/* Try data-driven avatar for author term pages */}}
+  {{ $termSlug := .Data.Term | urlize }}
+  {{ $profile := partial "functions/get_author_profile" (dict "slug" $termSlug) }}
+  {{ with $profile.avatar }}
+    {{ $og_image = (.Fill "540x540 Center").Permalink }}
     {{ $twitter_card = "summary" }}
-  {{ else if $featured_image }}
+  {{ end }}
+{{ else if (and (eq .Kind "term") $avatar_image) }}
+  {{ $og_image = ($avatar_image.Fill "540x540 Center").Permalink }}
+  {{ $twitter_card = "summary" }}
+{{ else if $featured_image }}
     {{ $og_image = $featured_image.Permalink }}
   {{ else if $sharing_image }}
     {{ $og_image = $sharing_image.Permalink }}
