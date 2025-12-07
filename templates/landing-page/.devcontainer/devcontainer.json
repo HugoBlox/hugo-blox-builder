@@ -15,7 +15,7 @@
     }
   },
   "postCreateCommand": "pnpm install --no-frozen-lockfile && hugo --logLevel debug && pnpm dlx pagefind --source 'public' --verbose",
-  "postAttachCommand": "(code --command workbench.view.extension.hugoblox-studio || true) && hugo server --disableFastRender -D --port 1313",
+  "postAttachCommand": "(code --command workbench.view.extension.hugoblox-studio || true)",
   "forwardPorts": [
     1313
   ]
