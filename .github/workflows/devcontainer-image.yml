@@ -68,7 +68,7 @@ jobs:
             TAGS="${TAGS}\n${IMAGE_NAME}:latest"
           fi
           {
-            echo "list<<'EOF'"
+            echo "list<<EOF"
             printf "%b\n" "$TAGS"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
