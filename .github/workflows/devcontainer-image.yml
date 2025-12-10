@@ -13,7 +13,7 @@ on:
         required: false
 
 env:
-  IMAGE_NAME: ghcr.io/${{ toLower(github.repository_owner) }}/hugo-blox-dev
+  IMAGE_NAME: ghcr.io/hugoblox/hugo-blox-dev
   DEFAULT_HUGO_VERSION: 0.152.2
   NODE_VERSION: 20
   PNPM_VERSION: 10.14.0
