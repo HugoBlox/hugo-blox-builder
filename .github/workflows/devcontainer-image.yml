@@ -1,0 +1,85 @@
+name: Build HugoBlox devcontainer image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".devcontainer/base.Dockerfile"
+      - ".github/workflows/devcontainer-image.yml"
+  workflow_dispatch:
+    inputs:
+      hugo_versions:
+        description: "Comma-separated Hugo versions to build (e.g. 0.152.2,0.154.0)"
+        required: false
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/hugo-blox-dev
+  DEFAULT_HUGO_VERSION: 0.152.2
+  NODE_VERSION: 20
+  PNPM_VERSION: 10.14.0
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.versions.outputs.matrix }}
+    steps:
+      - name: Select Hugo versions
+        id: versions
+        run: |
+          VERSIONS="${{ github.event.inputs.hugo_versions || env.DEFAULT_HUGO_VERSION }}"
+          MATRIX=$(python - <<'PY'
+          import os, json
+          versions = [v.strip() for v in os.environ["VERSIONS"].split(",") if v.strip()]
+          print(json.dumps(versions))
+          PY
+          )
+          echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
+
+  build-and-push:
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        hugo: ${{ fromJson(needs.prepare-matrix.outputs.versions) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute tags
+        id: tags
+        env:
+          HUGO_VERSION: ${{ matrix.hugo }}
+        run: |
+          TAGS="${IMAGE_NAME}:hugo${HUGO_VERSION}"
+          if [ "${HUGO_VERSION}" = "${DEFAULT_HUGO_VERSION}" ]; then
+            TAGS="${TAGS}\n${IMAGE_NAME}:latest"
+          fi
+          {
+            echo "list<<'EOF'"
+            printf "%b\n" "$TAGS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: .devcontainer/base.Dockerfile
+          push: true
+          build-args: |
+            HUGO_VERSION=${{ matrix.hugo }}
+            NODE_VERSION=${{ env.NODE_VERSION }}
+            PNPM_VERSION=${{ env.PNPM_VERSION }}
+          tags: ${{ steps.tags.outputs.list }}

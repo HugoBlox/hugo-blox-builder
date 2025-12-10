@@ -113,8 +113,23 @@ def update_go_mod_require_pseudo_version(go_mod_text: str, dep_module_path: str,
   return re.sub(pattern_line, replacement_line, go_mod_text)
 
 
+def _bump_hugo_image_tag(image: str, latest_hugo: str) -> Optional[str]:
+  """
+  Replace the hugo version segment in an image tag formatted like:
+  ghcr.io/org/hugo-blox-dev:hugo0.152.2[-suffix]
+  """
+  pattern = re.compile(r"^(?P<prefix>.+/hugo-blox-dev:hugo)(?P<version>\d+\.\d+\.\d+)(?P<rest>.*)$")
+  match = pattern.match(image)
+  if not match:
+    return None
+  current = match.group("version")
+  if current == latest_hugo:
+    return None
+  return f"{match.group('prefix')}{latest_hugo}{match.group('rest')}"
+
+
 def update_devcontainer_hugo(starter_dir: Path, latest_hugo: Optional[str], updated_paths: List[Path]) -> None:
-  """Update devcontainer Hugo feature version if present."""
+  """Update devcontainer Hugo version pinned via image tag (preferred) or legacy feature."""
   if not latest_hugo:
     return
   devcontainer = starter_dir / ".devcontainer" / "devcontainer.json"
@@ -126,21 +141,33 @@ def update_devcontainer_hugo(starter_dir: Path, latest_hugo: Optional[str], upda
     logging.warning("starter %s: failed to parse devcontainer.json (%s)", starter_dir.name, exc)
     return
 
-  features = data.get("features", {})
-  hugo_feature = features.get("ghcr.io/devcontainers/features/hugo:1")
-  if not isinstance(hugo_feature, dict):
-    return
+  updated = False
 
-  current = hugo_feature.get("version")
-  if current == latest_hugo:
-    return
+  # Preferred: bump Hugo version embedded in the image tag.
+  image = data.get("image")
+  if isinstance(image, str):
+    new_image = _bump_hugo_image_tag(image, latest_hugo)
+    if new_image:
+      data["image"] = new_image
+      updated = True
+      logging.info("starter %s: devcontainer image -> %s", starter_dir.name, new_image)
 
-  hugo_feature["version"] = latest_hugo
-  features["ghcr.io/devcontainers/features/hugo:1"] = hugo_feature
-  data["features"] = features
-  devcontainer.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
-  updated_paths.append(devcontainer)
-  logging.info("starter %s: devcontainer Hugo version -> %s", starter_dir.name, latest_hugo)
+  # Legacy fallback: devcontainer Hugo feature pin.
+  if not updated:
+    features = data.get("features", {})
+    hugo_feature = features.get("ghcr.io/devcontainers/features/hugo:1")
+    if isinstance(hugo_feature, dict):
+      current = hugo_feature.get("version")
+      if current != latest_hugo:
+        hugo_feature["version"] = latest_hugo
+        features["ghcr.io/devcontainers/features/hugo:1"] = hugo_feature
+        data["features"] = features
+        updated = True
+        logging.info("starter %s: devcontainer Hugo feature -> %s", starter_dir.name, latest_hugo)
+
+  if updated:
+    devcontainer.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    updated_paths.append(devcontainer)
 
 
 @dataclass
