@@ -26,8 +26,9 @@ jobs:
     steps:
       - name: Select Hugo versions
         id: versions
+        env:
+          VERSIONS: ${{ github.event.inputs.hugo_versions || env.DEFAULT_HUGO_VERSION }}
         run: |
-          VERSIONS="${{ github.event.inputs.hugo_versions || env.DEFAULT_HUGO_VERSION }}"
           MATRIX=$(python - <<'PY'
           import os, json
           versions = [v.strip() for v in os.environ["VERSIONS"].split(",") if v.strip()]
