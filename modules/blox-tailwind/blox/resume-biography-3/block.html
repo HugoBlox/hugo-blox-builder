@@ -71,14 +71,14 @@
 
         {{/* Avatar */}}
         {{ if $avatar }}
-        <div class="avatar-wrapper {{ if $img }}-mt-24{{else}}mb-4{{end}}">
+        <div class="avatar-wrapper {{ if $img }}-mt-24{{else}}mb-4{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
           {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
           <img class="avatar {{$shape_class}} border-4 border-white shadow-2xl" 
                src="{{ $avatar_image.RelPermalink }}" 
                alt="{{$profile.title}}"
                width="{{$display_size}}" 
                height="{{$display_size}}"
-               style="object-fit: cover;">
+               style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
           {{with $profile.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
         </div>
         {{ end }}

@@ -58,7 +58,7 @@
         {{ with .icon }}
           {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
         {{ end }}
-        {{ .text | default (i18n "learn_more" | default "Learn more") }}
+        {{ .text | default "Learn more" }}
       </a>
       {{ end }}
 
@@ -104,7 +104,7 @@
           {{ with .icon }}
             {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
           {{ end }}
-          {{ .text | default (i18n "learn_more" | default "Learn more") }}
+          {{ .text | default "Learn more" }}
         </a>
         {{ end }}
 

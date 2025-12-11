@@ -36,7 +36,7 @@
     "npm.packageManager": "pnpm",
     "editor.detectIndentation": false,
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": null,
     "editor.codeActionsOnSave": {
       "source.fixAll.biome": "explicit"
     },
@@ -45,58 +45,66 @@
     "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
     "[json]": { "editor.defaultFormatter": "biomejs.biome" },
     "[css]": { "editor.defaultFormatter": "biomejs.biome" },
-    "[html]": { 
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.formatOnSave": true 
-    },
     "[markdown]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.defaultFormatter": "prettier.prettier-vscode",
       "files.trimTrailingWhitespace": false
     },
     "[python]": {
       "editor.tabSize": 4,
-      "editor.insertSpaces": true
+      "editor.insertSpaces": true,
+      "editor.defaultFormatter": "charliermarsh.ruff"
     },
     "[yaml]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "prettier.prettier-vscode"
     },
     "[toml]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
+      "editor.defaultFormatter": "prettier.prettier-vscode"
     },
-
-    "eslint.workingDirectories": [{ "mode": "auto" }],
-    "eslint.validate": [
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact"
+    "files.associations": {
+      "**/layouts/**/*.html": "hugo",
+      "**/layouts/**/*.htm": "hugo",
+      "modules/**/*.html": "hugo",
+      "modules/**/*.htm": "hugo",
+      "templates/**/*.html": "hugo",
+      "templates/**/*.htm": "hugo",
+      "test/**/*.html": "hugo",
+      "test/**/*.htm": "hugo"
+    },
+    "[hugo]": {
+      "editor.formatOnSave": false,
+      "editor.defaultFormatter": null
+    },
+    "emmet.excludeLanguages": [
+      "hugo"
     ],
-
+    "html.format.enable": true,
+    "biome.formatter.enabled": false,
 
     "tailwindCSS.emmetCompletions": true,
-
+    "tailwindCSS.includeLanguages": {
+      "hugo": "html"
+    },
+    "tailwindCSS.experimental.classRegex": [
+      ":class\\s*=\\s*\"([^\"]*)\"",
+      "x-bind:class\\s*=\\s*\"([^\"]*)\""
+    ],
     "yaml.validate": true,
-    "prettier.useEditorConfig": true
+
+    "[html]": {
+      "editor.defaultFormatter": "prettier.prettier-vscode",
+      "editor.formatOnSave": true
+    }
   },
   "extensions": {
     "recommendations": [
-      "dbaeumer.vscode-eslint",
-      "esbenp.prettier-vscode",
-      "bradlc.vscode-tailwindcss",
       "redhat.vscode-yaml",
-      "tamasfe.even-better-toml",
       "DavidAnson.vscode-markdownlint",
-      "ms-python.python",
-      "charliermarsh.ruff",
-      "streetsidesoftware.code-spell-checker",
       "mikestead.dotenv",
       "eamodio.gitlens",
-      "bierner.markdown-mermaid",
-      "EditorConfig.EditorConfig",
       "biomejs.biome",
-      "github.vscode-github-actions",
-      "timonwong.shellcheck",
-      "budparr.language-hugo-vscode"
+      "prettier.prettier-vscode",
+      "charliermarsh.ruff",
+      "bradlc.vscode-tailwindcss"
     ]
   }
 }

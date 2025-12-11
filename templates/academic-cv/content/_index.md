@@ -30,7 +30,7 @@ sections:
 
       # Name heading sizing to accommodate long or short names
       name:
-        size: balanced # Options: compact (long names), balanced (default), display (short names)
+        size: compact # Options: compact (long names), balanced (default), display (short names)
 
       # Avatar customization
       avatar:

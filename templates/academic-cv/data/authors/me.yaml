@@ -85,7 +85,7 @@ experience:
 skills:
   - name: Technical Skills
     items:
-      - label: Pytho
+      - label: Python
         level: 5
       - label: Machine Learning
         level: 5
