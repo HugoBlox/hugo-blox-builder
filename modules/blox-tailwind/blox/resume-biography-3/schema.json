@@ -113,9 +113,9 @@
                   "properties": {
                     "size": {
                       "type": "string",
-                      "enum": ["compact", "balanced", "display"],
+                      "enum": ["xs", "sm", "md", "lg", "xl"],
                       "description": "Heading size for the profile name to suit different name lengths",
-                      "default": "balanced"
+                      "default": "lg"
                     }
                   }
                 }

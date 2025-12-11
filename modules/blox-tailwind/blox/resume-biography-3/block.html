@@ -15,13 +15,15 @@
 {{ $avatar_shape := $block.design.avatar.shape | default "circle" }}
 
 {{/* Profile name typography */}}
-{{ $name_size := $block.design.name.size | default "balanced" }}
+{{ $name_size := $block.design.name.size | default "lg" }}
 {{ $name_class_map := dict
-  "compact" "text-3xl sm:text-4xl lg:text-5xl"
-  "balanced" "text-4xl sm:text-5xl lg:text-6xl"
-  "display" "text-5xl sm:text-6xl lg:text-7xl"
+  "xs" "text-xl sm:text-2xl lg:text-3xl"
+  "sm" "text-2xl sm:text-3xl lg:text-4xl"
+  "md" "text-3xl sm:text-4xl lg:text-5xl"
+  "lg" "text-4xl sm:text-5xl lg:text-6xl"
+  "xl" "text-5xl sm:text-6xl lg:text-7xl"
 }}
-{{ $name_class := index $name_class_map $name_size | default (index $name_class_map "balanced") }}
+{{ $name_class := index $name_class_map $name_size | default (index $name_class_map "lg") }}
 
 {{/* Size mappings optimized for 2025 standards: display_size -> [display_px, generation_px] */}}
 {{ $size_map := dict "small" (slice "150" "300") "medium" (slice "200" "400") "large" (slice "320" "640") "xl" (slice "400" "800") "xxl" (slice "500" "1000") }}
@@ -188,12 +190,18 @@
                 </div>
                 <div class="flex-1 flex-grow">
                   {{ $degree := .degree | default .area }}
-                  {{ $year := .year | default (cond (and .start .end) (printf "%s - %s" .start .end) .start) }}
                   <p class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                     {{ $degree }}
                   </p>
-                  {{ with $year }}<p class="text-gray-600 dark:text-gray-400 font-medium mt-1">{{ . }}</p>{{ end }}
-                  <p class="text-gray-600 dark:text-gray-400 font-medium mt-1">{{ .institution }}</p>
+                  {{ if .year }}
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">{{ .year }}</p>
+                  {{ else if .start }}
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                      {{ .start }}
+                      {{ if .end }}<br>{{ .end }}{{ end }}
+                    </p>
+                  {{ end }}
+                  <p class="text-gray-700 dark:text-gray-300 text-base">{{ .institution }}</p>
                 </div>
               </div>
             </div>
