@@ -1,0 +1,387 @@
+{{ define "main" }}
+
+{{/* Page Cover */}}
+{{ partial "components/cover.html" . }}
+
+<div class="mx-auto flex max-w-screen-xl">
+  {{ partial "components/sidebar.html" (dict "context" . "no_sidebar" true) }}
+  {{ partial "components/toc.html" . }}
+  <article class="w-full break-words flex min-h-[calc(100vh-var(--navbar-height))] min-w-0 justify-center pb-8 pr-[calc(env(safe-area-inset-right)-1.5rem)]">
+    <main class="w-full min-w-0 max-w-6xl px-6 pt-4 md:px-12">
+
+      {{ if .Params.show_breadcrumb }}
+      <div class="mb-4">
+        {{ partial "components/breadcrumb.html" . }}
+      </div>
+      {{ end }}
+
+      {{/* Add spacing if cover has overlapping icon */}}
+      {{ $cover := partial "functions/get_cover_image.html" . }}
+      {{ $has_overlap_icon := false }}
+      {{ if $cover }}
+        {{ $icon_config := .Params.cover.icon | default (dict) }}
+        {{ if or $icon_config.name $icon_config.emoji }}
+          {{ $icon_position := $icon_config.position | default "overlap" }}
+          {{ if eq $icon_position "overlap" }}
+            {{ $has_overlap_icon = true }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      <h1 class="{{ if $has_overlap_icon }}mt-12{{ else }}mt-2{{ end }} text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+        {{/* Inline icon before title if specified */}}
+        {{ if $cover }}
+          {{ $icon_config := .Params.cover.icon | default (dict) }}
+          {{ if or $icon_config.name $icon_config.emoji }}
+            {{ $icon_position := $icon_config.position | default "overlap" }}
+            {{ if eq $icon_position "inline" }}
+              <span class="inline-flex items-center gap-3">
+                {{ if $icon_config.emoji }}
+                  <span class="text-4xl">{{ $icon_config.emoji }}</span>
+                {{ else if $icon_config.name }}
+                  <span class="w-10 h-10">
+                    {{ partial "components/icon.html" (dict "name" $icon_config.name "attributes" "class=\"w-full h-full\"") }}
+                  </span>
+                {{ end }}
+                <span>{{- .Title -}}</span>
+              </span>
+            {{ else }}
+              {{- .Title -}}
+            {{ end }}
+          {{ else }}
+            {{- .Title -}}
+          {{ end }}
+        {{ else }}
+          {{- .Title -}}
+        {{ end }}
+      </h1>
+
+      <div class="mt-4 mb-16">
+      <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2">
+        {{- if .Date | and (not .Params.hide_date) -}}
+        <span class="mr-1">{{- .Date | time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") -}}</span>
+        {{- if .Params.authors }}<span class="mx-1">·</span>{{ end -}}
+        {{- end -}}
+
+        {{/* Set Alpine.js flag if author notes exist */}}
+        {{ if isset .Params "author_notes" }}
+          {{ .Store.Set "has_alpine" true }}
+          <script>console.log('Author notes detected in events/single.html, Alpine.js should load');</script>
+        {{ end }}
+
+        {{ range $i, $slug := .Params.authors }}
+          {{ $profile := partial "functions/get_author_profile" $slug }}
+          {{ $avatar := $profile.avatar }}
+          {{ if and $i (not $avatar) }}<span class="mr-1">,</span>{{ end }}
+          <div class="group inline-flex items-center text-current gap-x-1.5 mx-1">
+            {{ with $avatar }}
+              {{ $avatar_32 := .Process "Fill 32x32 Center webp" }}
+              <img src="{{ $avatar_32.RelPermalink }}" 
+                   width="16"
+                   height="16"
+                   alt="{{ $profile.title }}" 
+                   class="inline-block h-4 w-4 rounded-full border border-current" 
+                   loading="lazy" />
+            {{ end }}
+            <div>{{ $profile.title }}</div>
+          </div>
+          {{/* Add author note tooltip if available */}}
+          {{- if isset $.Params "author_notes" -}}
+            {{- with (index $.Params.author_notes $i) -}}
+              <span class="relative inline-block ml-1" x-data="{ tooltip: false }">
+                <button
+                  @mouseenter="tooltip = true"
+                  @mouseleave="tooltip = false"
+                  @click="tooltip = !tooltip"
+                  class="author-notes text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-200 transition-colors cursor-help"
+                  data-tooltip="{{.}}"
+                  aria-label="{{.}}"
+                  type="button"
+                >
+                  <svg class="inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                <div
+                  x-show="tooltip"
+                  x-transition:enter="transition ease-out duration-200"
+                  x-transition:enter-start="opacity-0 transform scale-95"
+                  x-transition:enter-end="opacity-100 transform scale-100"
+                  x-transition:leave="transition ease-in duration-150"
+                  x-transition:leave-start="opacity-100 transform scale-100"
+                  x-transition:leave-end="opacity-0 transform scale-95"
+                  @click.away="tooltip = false"
+                  class="absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 text-sm text-white bg-gray-900 dark:bg-gray-700 rounded-lg shadow-lg whitespace-nowrap"
+                  x-cloak
+                >
+                  {{.}}
+                  <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
+                </div>
+              </span>
+            {{- end -}}
+          {{- end -}}
+        {{ end }}
+
+        {{ if ne .Params.reading_time false }}
+        <span class="mx-1">·</span>
+        <span class="mx-1">
+          {{ .ReadingTime }} {{ i18n "minute_read" }}
+        </span>
+        {{ end }}
+        </div>
+
+        <div class="mt-3">
+          {{ partial "page_links_div.html" . }}
+        </div>
+      </div>
+
+      {{/* EMBEDDED SLIDES SECTION - Replaces featured image for events with slides */}}
+      {{ if .Params.slides }}
+        {{/* Enable Alpine.js for fullscreen functionality */}}
+        {{ .Store.Set "has_alpine" true }}
+        
+        {{/* Construct slides URL */}}
+        {{ $slides_page := site.GetPage (printf "/slides/%s" .Params.slides) }}
+        
+        {{ if $slides_page }}
+        <div 
+          x-data="{ 
+            isFullscreen: false,
+            toggleFullscreen() {
+              const container = this.$refs.slideContainer;
+              if (!this.isFullscreen) {
+                if (container.requestFullscreen) {
+                  container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                  container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                  container.msRequestFullscreen();
+                }
+              } else {
+                if (document.exitFullscreen) {
+                  document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                  document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                  document.msExitFullscreen();
+                }
+              }
+            }
+          }"
+          @fullscreenchange.window="isFullscreen = document.fullscreenElement === $refs.slideContainer"
+          @webkitfullscreenchange.window="isFullscreen = document.webkitFullscreenElement === $refs.slideContainer"
+          class="mb-12"
+        >
+          {{/* Slides iframe container - must contain button for fullscreen visibility */}}
+          <div 
+            x-ref="slideContainer"
+            class="relative w-full bg-black rounded-lg shadow-2xl overflow-visible"
+            style="aspect-ratio: 16 / 9;"
+            :class="isFullscreen ? 'h-screen' : ''"
+          >
+            <iframe
+              src="{{ $slides_page.RelPermalink }}"
+              class="w-full h-full border-0 rounded-lg"
+              allowfullscreen
+              allow="autoplay"
+              title="{{ $.Title }} - Slides"
+              loading="lazy"
+            ></iframe>
+            
+            {{/* Fullscreen toggle button - must be inside fullscreen container */}}
+            <button
+              @click="toggleFullscreen()"
+              class="absolute top-4 right-4 p-3 bg-white/95 dark:bg-gray-800/95 hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm"
+              :aria-label="isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'"
+              type="button"
+              style="z-index: 9999;"
+          >
+              {{/* Expand icon (when not fullscreen) */}}
+              <svg 
+                x-show="!isFullscreen"
+                xmlns="http://www.w3.org/2000/svg" 
+                class="h-5 w-5" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+              {{/* Compress icon (when fullscreen) */}}
+              <svg 
+                x-show="isFullscreen"
+                x-cloak
+                xmlns="http://www.w3.org/2000/svg" 
+                class="h-5 w-5" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+              </svg>
+            </button>
+          </div>
+
+          {{/* Slides metadata */}}
+          <div class="mt-4 flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+            <div class="flex items-center gap-4">
+              {{/* Direct link to slides */}}
+              <a 
+                href="{{ $slides_page.RelPermalink }}" 
+                target="_blank"
+                class="inline-flex items-center gap-1 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span>View slides in new tab</span>
+              </a>
+              
+              {{/* Presentation mode hint */}}
+              <span class="text-xs">
+                <kbd class="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">S</kbd>
+                for speaker notes
+              </span>
+            </div>
+          </div>
+        </div>
+        {{ end }}
+      {{ else }}
+        {{/* Fallback to featured image if no slides */}}
+        {{ $featured := partial "functions/get_featured_image.html" . }}
+        {{ if and $featured (not .Params.image.preview_only) }}
+        {{/* Fit image within max size. */}}
+        {{ $image := $featured }}
+
+        {{/* Determine image placement. */}}
+        {{ $placement := .Params.image.placement | default 1 }}{{/* Default to full column width. */}}
+        {{/* Configure responsive processing based on placement */}}
+        {{ $image_container := "" }}
+        {{ $responsive_sizes := slice }}
+        {{ $sizes_attr := "" }}
+        {{ if eq $placement 2}}
+          {{ $image_container = "container" }}
+          {{ $responsive_sizes = slice 480 768 1024 1200 1600 }}
+          {{ $sizes_attr = "(max-width: 480px) 100vw, (max-width: 768px) 90vw, (max-width: 1200px) 80vw, 1200px" }}
+        {{else if eq $placement 3}}
+          {{ $image_container = "container-fluid" }}
+          {{ $responsive_sizes = slice 768 1024 1366 1920 2560 }}
+          {{ $sizes_attr = "(max-width: 768px) 100vw, (max-width: 1366px) 90vw, (max-width: 1920px) 80vw, 2560px" }}
+        {{else}}
+          {{ $image_container = "article-container" }}
+          {{ $responsive_sizes = slice 320 480 640 720 960 }}
+          {{ $sizes_attr = "(max-width: 480px) 100vw, (max-width: 640px) 90vw, (max-width: 720px) 80vw, 720px" }}
+        {{end}}
+        
+        {{/* Process featured image using utility with placement-specific constraints */}}
+        {{ if ne $featured.MediaType.SubType "gif" }}
+          {{/* Pre-fit image to placement constraints, then apply responsive processing */}}
+          {{ $fitted_image := $featured }}
+          {{ if eq $placement 2}}
+            {{ $fitted_image = $featured.Fit "1200x2500" }}
+          {{else if eq $placement 3}}
+            {{ $fitted_image = $featured.Fit "2560x2560" }}
+          {{else}}
+            {{ $fitted_image = $featured.Fit "720x2500" }}
+          {{end}}
+          
+          {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+              "image" $fitted_image 
+              "mode" "responsive"
+              "sizes" $responsive_sizes
+          ) }}
+          
+          {{/* Featured image - use fitted image dimensions for container, responsive for srcset */}}
+          <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$fitted_image.Width}}px; max-height: {{$fitted_image.Height}}px;">
+            <div style="position: relative">
+              <img srcset="{{ $responsive.srcset }}"
+                   sizes="{{ $sizes_attr }}"
+                   src="{{ $responsive.fallback.RelPermalink }}" 
+                   width="{{ $fitted_image.Width }}" 
+                   height="{{ $fitted_image.Height }}" 
+                   alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
+                   class="featured-image"
+                   fetchpriority="high">
+              {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+            </div>
+          </div>
+        {{ else }}
+          {{/* Handle GIF - apply same placement constraints without responsive processing */}}
+          {{ $image := $featured }}
+          {{ if eq $placement 2}}
+            {{ $image = $featured.Fit "1200x2500" }}
+          {{else if eq $placement 3}}
+            {{ $image = $featured.Fit "2560x2560" }}
+          {{else}}
+            {{ $image = $featured.Fit "720x2500" }}
+          {{end}}
+          <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$image.Width}}px; max-height: {{$image.Height}}px;">
+            <div style="position: relative">
+              <img src="{{ $image.RelPermalink }}" 
+                   width="{{ $image.Width }}" 
+                   height="{{ $image.Height }}" 
+                   alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
+                   class="featured-image"
+                   fetchpriority="high">
+              {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+            </div>
+          </div>
+        {{ end }}
+        {{end}}
+      {{ end }}
+
+      {{/* EVENT METADATA */}}
+      {{ if .Params.abstract | or (eq .Type "events") }}
+        <div class="max-w-prose grid grid-cols-1 md:grid-cols-[200px_auto] gap-4 my-6">
+
+        {{ if .Params.abstract }}
+          <div class="font-bold text-2xl">{{ i18n "abstract" }}</div>
+          <div>{{ .Params.abstract | markdownify }}</div>
+        {{ end }}
+
+        {{ if eq .Type "events" }}
+          <div class="font-bold text-2xl">{{ i18n "date" }}</div>
+          <div>
+            {{ partial "functions/get_event_dates" . }}
+          </div>
+        {{ end }}
+
+        {{ if .Params.event }}
+          <div class="font-bold text-2xl">{{ i18n "event" }}</div>
+          <div>
+            {{ with .Params.event_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
+            {{ .Params.event | markdownify }}
+            {{ if .Params.event_url }}</a>{{ end }}
+          </div>
+        {{ end }}
+
+        {{ if .Params.location }}
+          <div class="font-bold text-2xl">{{ i18n "location" }}</div>
+          <div>
+            <p>{{ .Params.location | markdownify }}</p>
+            {{ if .Params.address }}
+              <p>{{partial "functions/get_address" (dict "root" . "address" .Params.address) }}</p>
+            {{end}}
+          </div>
+        {{ end }}
+
+      </div>
+      {{ end }}
+
+      <div class="prose prose-slate lg:prose-xl dark:prose-invert">
+        {{ .Content }}
+      </div>
+
+      {{ partial "components/last-edited.html" . }}
+
+      <div class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert mt-5">
+        {{ .Scratch.Set "invert_pager" true }}
+        {{ partial "page_footer" . }}
+      </div>
+
+    </main>
+  </article>
+</div>
+{{ end }}

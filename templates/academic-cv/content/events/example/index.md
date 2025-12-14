@@ -47,7 +47,7 @@ links:
     url: https://www.youtube.com/
   - icon: book-open
     name: Documentation
-    url: https://docs.hugoblox.com/
+    url: https://docs.hugoblox.com/guides/slides/
 
 # Link to your Markdown slides
 slides: "example"
@@ -201,7 +201,7 @@ Your slides are automatically:
 - ✅ Accessible at a direct URL
 - ✅ Keyboard-navigatable (→ ← keys)
 
-{{< button url="https://docs.hugoblox.com/" text="Read Full Documentation" icon="book-open" style="outline" size="md" align="center" />}}
+{{< button url="https://docs.hugoblox.com/guides/slides/" text="Read Full Documentation" icon="book-open" style="outline" size="md" align="center" />}}
 
 ---
 
@@ -360,7 +360,7 @@ Each lecture gets its own slide deck, all version controlled, all editable by st
 
 ### Get Help & Connect
 
-- 📚 [Documentation](https://docs.hugoblox.com)
+- 📚 [Documentation](https://docs.hugoblox.com/guides/slides/)
 - 💬 [Discord Community](https://discord.gg/z8wNYzb)
 - 🐛 [GitHub Issues](https://github.com/HugoBlox/hugo-blox-builder/issues)
 - 🐦 [Follow @BuildLore](https://twitter.com/BuildLore)
@@ -410,6 +410,6 @@ Each lecture gets its own slide deck, all version controlled, all editable by st
 
 ---
 
-**Have questions?** Check out the [FAQ](https://docs.hugoblox.com/) or [ask the community](https://discord.gg/z8wNYzb)!
+**Have questions?** Check out the [FAQ](https://docs.hugoblox.com/guides/slides/) or [ask the community](https://discord.gg/z8wNYzb)!
 
 **Want to contribute?** Hugo Blox is open source! [Contributions welcome](https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md).
