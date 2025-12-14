@@ -13,12 +13,22 @@
     {{/* Let `---` delimit slides. In Goldmark, that is `<hr>`. Alternatively, for Blackfriday, use `<hr />`. */}}
     {{ range (split $content "<hr>") }}
 
+    {{/* Check if this slide should be hidden using inline comment */}}
+    {{ $isHidden := false }}
+    {{ $slideContent := . }}
+    
+    {{ if in . "<!-- hide -->" }}
+      {{ $isHidden = true }}
+      {{/* Remove the hide comment from the content */}}
+      {{ $slideContent = replace . "<!-- hide -->" "" }}
+    {{ end }}
+
     {{/* Each `<section>` defines a new slide. */}}
     {{/* Only begin new slide `<section>` if not already added by custom `slide` shortcode. */}}
     {{ if not (in . "data-noprocess") }}
-    <section>
+    <section{{ if $isHidden }} data-visibility="hidden"{{ end }}>
     {{ end }}
-      {{ . | safeHTML }}
+      {{ $slideContent | safeHTML }}
     </section>
     {{ end }}
 

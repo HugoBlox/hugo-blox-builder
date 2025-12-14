@@ -290,6 +290,20 @@ Try these keyboard shortcuts:
 - `ESC` : Exit modes
 
 ---
+<!-- hide -->
+## Hidden Slide Demo (Inline Comment)
+
+This slide is hidden using the `<!-- hide -->` comment method.
+
+Perfect for:
+- Speaker-only content
+- Backup slides
+- Work-in-progress content
+
+Note:
+This slide won't appear in the presentation but remains in source for reference.
+
+---
 
 ## Thanks
 
