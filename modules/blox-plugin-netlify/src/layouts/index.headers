@@ -1,14 +1,19 @@
 {{- $csp_policy := site.Params.hugoblox.security.csp.policy | default "" -}}
 {{- $csp_report_only := site.Params.hugoblox.security.csp.report_only | default false -}}
-{{- $frame_options := site.Params.hugoblox.security.frame_options | default "deny" -}}
-{{- $allow_frame := eq $frame_options "allow" -}}
+{{- $frame_options := site.Params.hugoblox.security.frame_options | default "sameorigin" -}}
 {{- $default_perms := "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" -}}
 {{- $permissions_policy := site.Params.hugoblox.security.permissions_policy | default $default_perms -}}
 # Netlify headers
 # Automatically generated
 # Documentation: https://docs.hugoblox.com/hugo-tutorials/security/
 /*
-  {{if not $allow_frame}}X-Frame-Options: DENY{{end}}
+  {{- if eq $frame_options "allow" -}}
+    {{/* No X-Frame-Options header - allows all origins */}}
+  {{- else if eq $frame_options "sameorigin" -}}
+  X-Frame-Options: SAMEORIGIN
+  {{- else -}}
+  X-Frame-Options: DENY
+  {{- end -}}
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=31536000; includeSubDomains
