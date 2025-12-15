@@ -72,7 +72,7 @@ jobs:
                   echo "key=${{ runner.os }}-hugo-resources-${{ matrix.starter.name }}-$HASH" >> $GITHUB_OUTPUT
 
             - name: Cache Hugo resources (starter)
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: ${{ matrix.starter.path }}/resources/
                   key: ${{ steps.reskey.outputs.key }}
@@ -147,7 +147,7 @@ jobs:
               run: pnpm install --no-frozen-lockfile
 
             - name: Cache Hugo resources (test)
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: test/resources/
                   key: ${{ runner.os }}-hugo-resources-test-${{ hashFiles('test/assets/**/*', 'test/config.yaml', 'test/package.json') }}
@@ -189,7 +189,7 @@ jobs:
               run: pnpm install --no-frozen-lockfile
 
             - name: Cache Hugo resources (template)
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: templates/academic-cv/resources/
                   key: ${{ runner.os }}-hugo-resources-academic-latest-${{ hashFiles('templates/academic-cv/assets/**/*', 'templates/academic-cv/config/**/*', 'templates/academic-cv/hugoblox.yaml', 'templates/academic-cv/package.json') }}
@@ -244,7 +244,7 @@ jobs:
                   echo "version=$VERSION" >> $GITHUB_OUTPUT
 
             - name: Cache Hugo resources (test - min)
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               with:
                   path: test/resources/
                   key: ${{ runner.os }}-hugo-resources-test-min-${{ steps.min.outputs.version }}-${{ hashFiles('test/assets/**/*', 'test/config.yaml', 'test/package.json') }}
