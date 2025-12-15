@@ -1,14 +1,23 @@
 {{/* Display copyright license. */}}
 
 {{ $branding := partialCached "functions/get_branding" . "branding" }}
-{{ $copyright_license := .Params.copyright.license | default site.Params.hugoblox.copyright.license }}
-{{ $notice := .Params.copyright.notice | default site.Params.hugoblox.copyright.notice }}
+{{ $page_copyright := .Params.copyright | default dict }}
+{{ $site_copyright := site.Params.hugoblox.copyright | default dict }}
 
-{{ if ($copyright_license.enable | default false) }}
+{{ $copyright_license := $page_copyright.license | default $site_copyright.license | default dict }}
+{{ $notice := $page_copyright.notice | default $site_copyright.notice }}
 
-  {{ $allow_commercial := $copyright_license.allow_commercial | default false }}
-  {{ $allow_derivatives := $copyright_license.allow_derivatives | default false }}
-  {{ $share_alike := $copyright_license.share_alike | default true }}
+{{ $license_type := $copyright_license.type | default "cc" }}
+
+{{ $license_label := "" }}
+{{ $license_url := "" }}
+{{ $show_cc_icons := false }}
+
+{{ $allow_commercial := $copyright_license.allow_commercial | default false }}
+{{ $allow_derivatives := $copyright_license.allow_derivatives | default false }}
+{{ $share_alike := $copyright_license.share_alike | default true }}
+
+{{ if eq $license_type "cc" }}
 
   {{ $cc_code := "by" }}
   {{ if not $allow_commercial }}
@@ -20,40 +29,47 @@
     {{ $cc_code = printf "%s-nd" $cc_code }}
   {{end}}
 
-  {{ $license_url := printf "https://creativecommons.org/licenses/%s/4.0" ($cc_code | urlize) }}
+  {{ $license_url = printf "https://creativecommons.org/licenses/%s/4.0" ($cc_code | urlize) }}
+  {{ $license_label = printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper) }}
+  {{ $show_cc_icons = true }}
 
-  {{ with $notice }}
-  <p class="powered-by text-center">
-    {{ $processed := replace . "{year}" now.Year }}
-    {{ $processed = replace $processed "{name}" $branding.organization }}
-    {{ $processed = replace $processed "{license}" (printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">CC %s 4.0</a>" $license_url (replace $cc_code "-" " " | upper)) }}
-    {{ $processed | markdownify }}
-  </p>
+{{ else if eq $license_type "custom" }}
+
+  {{ $custom_label := $copyright_license.label | default $copyright_license.text | default "" }}
+  {{ $custom_url := $copyright_license.url | default "" }}
+  {{ if and $custom_label $custom_url }}
+    {{ $license_label = printf "<a href=\"%s\" rel=\"noopener noreferrer\" target=\"_blank\">%s</a>" $custom_url $custom_label }}
+  {{ else }}
+    {{ $license_label = $custom_label }}
   {{ end }}
 
-  <p class="powered-by footer-license-icons">
-    <a href="{{$license_url}}" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
-      <i class="fab fa-creative-commons fa-2x" aria-hidden="true"></i>
-      <i class="fab fa-creative-commons-by fa-2x" aria-hidden="true"></i>
+{{ end }}
+
+{{ if and $show_cc_icons $license_url }}
+
+  <p class="powered-by footer-license-icons text-center pb-2">
+    <a class="inline-flex items-center justify-center gap-2 align-middle" href="{{$license_url}}" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+    <a class="inline-flex items-center justify-center gap-2 align-middle" href="{{$license_url}}" rel="noopener noreferrer" target="_blank" aria-label="Creative Commons">
+      <svg class="h-6 w-6 inline-block align-middle text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M253.8 214.9l-33.2 17.3c-9.4-19.6-25.2-19.9-27.5-19.9-22.1 0-33.2 14.6-33.2 43.8 0 23.6 9.2 43.8 33.2 43.8 14.5 0 24.6-7.1 30.6-21.3l30.6 15.5c-6.2 11.5-25.7 39-65.1 39-22.6 0-74-10.3-74-77 0-58.7 43-77.1 72.6-77.1 30.7 0 52.7 11.9 66 35.9zm143 0l-32.8 17.3c-9.5-19.8-25.7-19.9-27.9-19.9-22.1 0-33.2 14.6-33.2 43.8 0 23.5 9.2 43.8 33.2 43.8 14.4 0 24.6-7.1 30.5-21.3l31 15.5c-2.1 3.8-21.4 39-65.1 39-22.7 0-74-9.9-74-77 0-58.7 43-77.1 72.6-77.1 30.7 0 52.6 11.9 65.6 35.9zM255.6 8C112.7 8 8 123.1 8 256.1 8 394.5 121.6 504.1 255.6 504.1 385.5 504.1 504 403.2 504 256.1 504 118.2 397.4 8 255.6 8zm.9 450.8c-112.5 0-203.7-93-203.7-202.8 0-105.4 85.4-203.3 203.7-203.3 112.5 0 202.8 89.5 202.8 203.3 0 121.7-99.7 202.8-202.8 202.8z"/></svg>
+      <svg class="h-6 w-6 inline-block align-middle text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M322.9 194.4l0 101.4-28.3 0 0 120.5-77.1 0 0-120.4-28.3 0 0-101.5c0-4.4 1.6-8.2 4.6-11.3 3.1-3.1 6.9-4.7 11.3-4.7l101.9 0c4.1 0 7.8 1.6 11.1 4.7 3.1 3.2 4.8 6.9 4.8 11.3zm-32.5-64.5a34.5 34.5 0 1 1 -69 .8 34.5 34.5 0 1 1 69-.8zM255.6 8C397.4 8 504 118.1 504 256 504 403.1 385.5 504 255.6 504 121.6 504 8 394.5 8 256 8 123.1 112.7 8 255.6 8zm.8 44.7c-118.2 0-203.7 97.9-203.7 203.3 0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8 .1-113.8-90.2-203.3-202.8-203.3z"/></svg>
       {{ if not $allow_commercial }}
-        <i class="fab fa-creative-commons-nc fa-2x" aria-hidden="true"></i>
+        <svg class="h-6 w-6 inline-block align-middle text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M255.6 8C395.4 8 504 115.9 504 256 504 403.2 385.5 504 255.6 504 121.1 504 8 393.2 8 256 8 123.1 112.7 8 255.6 8zM63.8 189.1c-7.4 20.4-11.1 42.7-11.1 66.9 0 110.9 92.1 202.4 203.7 202.4 122.4 0 177.2-101.8 178.5-104.1l-93.4-41.6c-7.7 37.1-41.2 53-68.2 55.4l0 38.1-28.8 0 0-38.2c-27.5-.3-52.6-10.2-75.3-29.7l34.1-34.5c31.7 29.4 86.4 31.8 86.4-2.2 0-6.2-2.2-11.2-6.6-15.1-14.2-6-1.8-.1-219.3-97.4zM256.4 52.3C218 52.3 144 61 85.9 145.3l94.8 42.5c10-31.3 40.4-42.9 63.8-44.3l0-38.1 28.8 0 0 38.1c22.7 1.2 43.4 8.9 62 23L303 199.7c-42.7-29.9-83.5-8-70 11.1 53.4 24.1 43.8 19.8 93 41.6l127.1 56.7c4.1-17.4 6.2-35.1 6.2-53.1 0-57-19.8-105-59.3-143.9-39.3-39.9-87.2-59.8-143.6-59.8z"/></svg>
       {{end}}
       {{ if and $allow_derivatives $share_alike }}
-        <i class="fab fa-creative-commons-sa fa-2x" aria-hidden="true"></i>
+        <svg class="h-6 w-6 inline-block align-middle text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M255.6 8C397.4 8 504 118.1 504 256 504 403.1 385.5 504 255.6 504 121.6 504 8 394.5 8 256 8 123.1 112.7 8 255.6 8zm.8 44.7c-118.2 0-203.7 97.9-203.7 203.3 0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8 .1-113.8-90.2-203.3-202.8-203.3zM145.7 221c13-83.9 80.5-95.7 108.9-95.7 99.8 0 127.5 82.5 127.5 134.2 0 63.6-41 132.9-128.9 132.9-38.9 0-99.1-20-109.4-97l62.5 0c1.5 30.1 19.6 45.2 54.5 45.2 23.3 0 58-18.2 58-82.8 0-82.5-49.1-80.6-56.7-80.6-33.1 0-51.7 14.6-55.8 43.8l18.2 0-49.2 49.2-49-49.2 19.4 0z"/></svg>
       {{ else if not $allow_derivatives }}
-        <i class="fab fa-creative-commons-nd fa-2x" aria-hidden="true"></i>
+        <svg class="h-6 w-6 inline-block align-middle text-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true" focusable="false"><path d="M255.6 8C397.4 8 504 118.1 504 256 504 403.1 385.5 504 255.6 504 121.6 504 8 394.5 8 256 8 123.1 112.7 8 255.6 8zm.8 44.7c-118.2 0-203.7 97.9-203.7 203.3 0 109.8 91.2 202.8 203.7 202.8 103.2 0 202.8-81.1 202.8-202.8 .1-113.8-90.2-203.3-202.8-203.3zm94 144.3l0 42.5-180.3 0 0-42.5 180.3 0zm0 79.8l0 42.5-180.3 0 0-42.5 180.3 0z"/></svg>
       {{end}}
     </a>
   </p>
 
-{{ else }}
+{{ end }}
 
-  {{ with $notice }}
-  <p class="powered-by text-center">
-    {{ $processed := replace . "{year}" now.Year }}
-    {{ $processed = replace $processed "{name}" $branding.organization }}
-    {{ $processed | markdownify }}
-  </p>
-  {{ end }}
-
+{{ with $notice }}
+<p class="powered-by text-center">
+  {{ $processed := replace . "{year}" now.Year }}
+  {{ $processed = replace $processed "{name}" $branding.organization }}
+  {{ $processed = replace $processed "{license}" $license_label }}
+  {{ $processed | markdownify }}
+</p>
 {{ end }}
