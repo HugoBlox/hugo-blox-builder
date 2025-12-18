@@ -6,20 +6,23 @@
 
   {{- with site.Home -}}
     {{- $home_title := .LinkTitle | default site.Title | default "Home" -}}
-    {{- $items = $items | append (dict "position" $position "name" ($home_title | plainify) "item" .Permalink) -}}
+    {{- $item := dict "@type" "ListItem" "position" $position "name" ($home_title | plainify) "item" (dict "@id" .Permalink "name" ($home_title | plainify)) -}}
+    {{- $items = $items | append $item -}}
     {{- $position = add $position 1 -}}
   {{- end -}}
 
   {{- with $page.Ancestors -}}
     {{- range .Reverse -}}
       {{- if not .IsHome -}}
-        {{- $items = $items | append (dict "position" $position "name" (.LinkTitle | plainify) "item" .Permalink) -}}
+        {{- $item := dict "@type" "ListItem" "position" $position "name" (.LinkTitle | plainify) "item" (dict "@id" .Permalink "name" (.LinkTitle | plainify)) -}}
+        {{- $items = $items | append $item -}}
         {{- $position = add $position 1 -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
 
-  {{- $items = $items | append (dict "position" $position "name" ($page.LinkTitle | default $page.Title | plainify) "item" $page.Permalink) -}}
+  {{- $item := dict "@type" "ListItem" "position" $position "name" ($page.LinkTitle | default $page.Title | plainify) "item" (dict "@id" $page.Permalink "name" ($page.LinkTitle | default $page.Title | plainify)) -}}
+  {{- $items = $items | append $item -}}
 
   {{- if gt (len $items) 1 -}}
     {{- $breadcrumb := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items -}}
