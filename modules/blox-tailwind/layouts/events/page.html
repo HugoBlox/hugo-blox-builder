@@ -251,12 +251,17 @@
       {{ else }}
         {{/* Fallback to featured image if no slides */}}
         {{ $featured := partial "functions/get_featured_image.html" . }}
-        {{ if and $featured (not .Params.image.preview_only) }}
+        {{/* Safely extract image parameters - handle case where image is not a map */}}
+        {{ $image_params := dict }}
+        {{ if and .Params.image (reflect.IsMap .Params.image) }}
+          {{ $image_params = .Params.image }}
+        {{ end }}
+        {{ if and $featured (not $image_params.preview_only) }}
         {{/* Fit image within max size. */}}
         {{ $image := $featured }}
 
         {{/* Determine image placement. */}}
-        {{ $placement := .Params.image.placement | default 1 }}{{/* Default to full column width. */}}
+        {{ $placement := $image_params.placement | default 1 }}{{/* Default to full column width. */}}
         {{/* Configure responsive processing based on placement */}}
         {{ $image_container := "" }}
         {{ $responsive_sizes := slice }}
@@ -301,10 +306,10 @@
                    src="{{ $responsive.fallback.RelPermalink }}" 
                    width="{{ $fitted_image.Width }}" 
                    height="{{ $fitted_image.Height }}" 
-                   alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
+                   alt="{{ with $image_params.alt_text }}{{.}}{{ end }}" 
                    class="featured-image"
                    fetchpriority="high">
-              {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+              {{ with $image_params.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
             </div>
           </div>
         {{ else }}
@@ -322,10 +327,10 @@
               <img src="{{ $image.RelPermalink }}" 
                    width="{{ $image.Width }}" 
                    height="{{ $image.Height }}" 
-                   alt="{{ with $.Params.image.alt_text }}{{.}}{{ end }}" 
+                   alt="{{ with $image_params.alt_text }}{{.}}{{ end }}" 
                    class="featured-image"
                    fetchpriority="high">
-              {{ with $.Params.image.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+              {{ with $image_params.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
             </div>
           </div>
         {{ end }}

@@ -8,7 +8,10 @@
 {{ end }}
 
 {{ $resource := partial "functions/get_featured_image.html" $item }}
-{{ $anchor := $item.Params.image.focal_point | default "Center" }}
+{{ $anchor := "Center" }}
+{{ if and $item.Params.image (reflect.IsMap $item.Params.image) }}
+  {{ $anchor = $item.Params.image.focal_point | default "Center" }}
+{{ end }}
 {{ $fill_image := .config.fill_image | default true }}
 {{ $showDate := .config.show_date | default true }}
 {{ $showReadTime := .config.show_read_time | default true }}
