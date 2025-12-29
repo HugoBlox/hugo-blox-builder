@@ -1,6 +1,6 @@
 {
   "name": "HugoBlox Codespace",
-  "image": "ghcr.io/HugoBlox/hugo-blox-dev:hugo0.152.2",
+  "image": "ghcr.io/HugoBlox/hugo-blox-dev:hugo0.153.4",
   "updateContentCommand": "pnpm install --frozen-lockfile --prefer-offline",
   "postCreateCommand": "pnpm --version && hugo version",
   "customizations": {
