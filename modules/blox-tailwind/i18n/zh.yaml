@@ -173,6 +173,47 @@
 - id: book_appointment
   translation: 预约
 
+# Contact info block
+
+- id: block_contact_title
+  translation: 联系我们
+
+- id: block_contact_visit_title
+  translation: 访问我们
+
+- id: block_contact_office_hours
+  translation: 办公时间
+
+- id: block_contact_view_on_map
+  translation: 在地图上查看
+
+- id: block_contact_connect_title
+  translation: 联系
+
+- id: block_contact_follow_us
+  translation: 关注我们
+
+- id: block_contact_prospective_title
+  translation: 潜在成员
+
+- id: block_contact_form_title
+  translation: 向我们发送信息
+
+- id: block_contact_form_name
+  translation: 姓名
+
+- id: block_contact_form_email
+  translation: 邮箱
+
+- id: block_contact_form_subject
+  translation: 主题
+
+- id: block_contact_form_message
+  translation: 信息
+
+- id: block_contact_form_submit
+  translation: 发送信息
+
 # Publication/Event details
 
 - id: abstract

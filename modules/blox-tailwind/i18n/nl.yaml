@@ -151,6 +151,47 @@
 - id: book_appointment
   translation: Maak een afspraak
 
+# Contact info block
+
+- id: block_contact_title
+  translation: Neem contact op
+
+- id: block_contact_visit_title
+  translation: Bezoek ons
+
+- id: block_contact_office_hours
+  translation: Kantoortijden
+
+- id: block_contact_view_on_map
+  translation: Bekijk op kaart
+
+- id: block_contact_connect_title
+  translation: Contact
+
+- id: block_contact_follow_us
+  translation: Volg ons
+
+- id: block_contact_prospective_title
+  translation: Aspirant-leden
+
+- id: block_contact_form_title
+  translation: Stuur ons een bericht
+
+- id: block_contact_form_name
+  translation: Naam
+
+- id: block_contact_form_email
+  translation: E-mailadres
+
+- id: block_contact_form_subject
+  translation: Onderwerp
+
+- id: block_contact_form_message
+  translation: Bericht
+
+- id: block_contact_form_submit
+  translation: Verzend bericht
+
 # Publication/Event details
 
 - id: abstract

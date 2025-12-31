@@ -200,6 +200,47 @@
 - id: book_appointment
   translation: Solicitar una cita
 
+# Contact info block
+
+- id: block_contact_title
+  translation: Contáctanos
+
+- id: block_contact_visit_title
+  translation: Visítanos
+
+- id: block_contact_office_hours
+  translation: Horario de atención
+
+- id: block_contact_view_on_map
+  translation: Ver en el mapa
+
+- id: block_contact_connect_title
+  translation: Contacto
+
+- id: block_contact_follow_us
+  translation: Síguenos
+
+- id: block_contact_prospective_title
+  translation: Miembros potenciales
+
+- id: block_contact_form_title
+  translation: Envíanos un mensaje
+
+- id: block_contact_form_name
+  translation: Nombre
+
+- id: block_contact_form_email
+  translation: Email
+
+- id: block_contact_form_subject
+  translation: Asunto
+
+- id: block_contact_form_message
+  translation: Mensaje
+
+- id: block_contact_form_submit
+  translation: Enviar mensaje
+
 # Publication/Event details
 
 - id: abstract

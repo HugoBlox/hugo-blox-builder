@@ -151,6 +151,47 @@
 - id: book_appointment
   translation: 預約
 
+# Contact info block
+
+- id: block_contact_title
+  translation: 聯絡我們
+
+- id: block_contact_visit_title
+  translation: 造訪我們
+
+- id: block_contact_office_hours
+  translation: 辦公時間
+
+- id: block_contact_view_on_map
+  translation: 在地圖上查看
+
+- id: block_contact_connect_title
+  translation: 聯繫
+
+- id: block_contact_follow_us
+  translation: 追蹤我們
+
+- id: block_contact_prospective_title
+  translation: 潛在成員
+
+- id: block_contact_form_title
+  translation: 向我們發送訊息
+
+- id: block_contact_form_name
+  translation: 姓名
+
+- id: block_contact_form_email
+  translation: 郵箱
+
+- id: block_contact_form_subject
+  translation: 主旨
+
+- id: block_contact_form_message
+  translation: 訊息
+
+- id: block_contact_form_submit
+  translation: 發送訊息
+
 # Publication/Event details
 
 - id: abstract

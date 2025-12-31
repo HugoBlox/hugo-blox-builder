@@ -187,6 +187,47 @@
 - id: book_appointment
   translation: Termin vereinbaren
 
+# Contact info block
+
+- id: block_contact_title
+  translation: Kontaktieren Sie uns
+
+- id: block_contact_visit_title
+  translation: Besuchen Sie uns
+
+- id: block_contact_office_hours
+  translation: Öffnungszeiten
+
+- id: block_contact_view_on_map
+  translation: Auf der Karte ansehen
+
+- id: block_contact_connect_title
+  translation: Kontakt
+
+- id: block_contact_follow_us
+  translation: Folgen Sie uns
+
+- id: block_contact_prospective_title
+  translation: Potenzielle Mitglieder
+
+- id: block_contact_form_title
+  translation: Senden Sie uns eine Nachricht
+
+- id: block_contact_form_name
+  translation: Name
+
+- id: block_contact_form_email
+  translation: E-Mail
+
+- id: block_contact_form_subject
+  translation: Betreff
+
+- id: block_contact_form_message
+  translation: Nachricht
+
+- id: block_contact_form_submit
+  translation: Nachricht senden
+
 # Publication/Event details
 
 - id: abstract
