@@ -56,9 +56,9 @@ done
 # Run Hugo from the site dir so Tailwind CLI is discoverable
 cd "templates/$STARTER"
 
-# Ensure Tailwind CLI exists in starter (required for Hugo css.TailwindCSS)
-if [ -f "package.json" ] && [ ! -x "node_modules/.bin/tailwindcss" ]; then
-    echo "📦 Installing Tailwind CLI in starter directory for Hugo..."
+# Ensure Tailwind CLI and Pagefind exist in starter (required for Hugo css.TailwindCSS and search indexing)
+if [ -f "package.json" ] && { [ ! -x "node_modules/.bin/tailwindcss" ] || [ ! -x "node_modules/.bin/pagefind" ]; }; then
+    echo "📦 Installing starter dependencies for Hugo..."
     if command -v pnpm >/dev/null 2>&1; then
         pnpm install
     else
@@ -86,7 +86,7 @@ github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-decap-cms -> ../../../
 if [ "$PAGEFIND" = true ]; then
     hugo
     if command -v pnpm >/dev/null 2>&1; then
-        pnpm dlx pagefind --site "public" --output-subdir ../static/pagefind
+        pnpm exec pagefind --site "public" --output-subdir ../static/pagefind
     else
         npm_config_yes=true npx pagefind --site "public" --output-subdir ../static/pagefind
     fi
