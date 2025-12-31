@@ -10,8 +10,8 @@
       {{ end }}
 
       {{/* Pagefind metadata for search filtering */}}
-      <div class="content" data-pagefind-body data-pagefind-meta="title:{{ .Title }}">
-        <h1>{{ .Title }}</h1>
+      <div class="content" data-pagefind-body>
+        <h1 data-pagefind-meta="title">{{ .Title }}</h1>
         {{ .Content }}
 
         {{/* Use hidden spans for filter values - best practice per Pagefind docs */}}

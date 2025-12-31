@@ -37,7 +37,7 @@
         {{ end }}
       {{ end }}
 
-      <h1 class="{{ if $has_overlap_icon }}mt-12{{ else }}mt-2{{ end }} text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+      <h1 class="{{ if $has_overlap_icon }}mt-12{{ else }}mt-2{{ end }} text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100" data-pagefind-meta="title" data-pagefind-body>
         {{/* Inline icon before title if specified */}}
         {{ if $cover }}
           {{ $icon_config := .Params.cover.icon | default (dict) }}
@@ -201,6 +201,7 @@
             <img srcset="{{ $responsive.srcset }}"
                  sizes="{{ $sizes_attr }}"
                  src="{{ $responsive.fallback.RelPermalink }}" 
+                 data-pagefind-meta="image[src]"
                  width="{{ $fitted_image.Width }}" 
                  height="{{ $fitted_image.Height }}" 
                  alt="{{ with $image_params.alt_text }}{{.}}{{ end }}" 
@@ -222,6 +223,7 @@
         <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16" style="max-width: {{$image.Width}}px; max-height: {{$image.Height}}px;">
           <div style="position: relative">
             <img src="{{ $image.RelPermalink }}" 
+                 data-pagefind-meta="image[src]"
                  width="{{ $image.Width }}" 
                  height="{{ $image.Height }}" 
                  alt="{{ with $image_params.alt_text }}{{.}}{{ end }}" 
@@ -288,7 +290,13 @@
       </div>
       {{ end }}
 
-      <div class="prose prose-slate lg:prose-xl dark:prose-invert">
+      <div class="prose prose-slate lg:prose-xl dark:prose-invert" data-pagefind-body>
+        {{ with .Section }}
+          <span data-pagefind-filter="type" style="display:none;">{{ . }}</span>
+        {{ end }}
+        {{ with .Params.categories }}
+          <span data-pagefind-filter="category" style="display:none;">{{ index . 0 }}</span>
+        {{ end }}
         {{ .Content }}
       </div>
 

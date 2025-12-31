@@ -1,8 +1,7 @@
 {{- define "main" -}}
 
 {{/* Pagefind metadata for search filtering */}}
-<div data-pagefind-body 
-     {{ with .Params.question }}data-pagefind-meta="title:{{ . }}"{{ end }}>
+<div data-pagefind-body>
   {{/* Use hidden spans for filter values - best practice per Pagefind docs */}}
   <span data-pagefind-filter="type" style="display:none;">questions</span>
   {{ with .Params.categories }}
@@ -26,7 +25,7 @@
 
       {{/* Question as title */}}
       <div class="qa-question mb-6">
-        <h1 class="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4" data-pagefind-meta="title">
           {{ .Params.question | default .Title }}
         </h1>
         

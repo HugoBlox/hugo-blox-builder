@@ -28,7 +28,7 @@
         {{ end }}
       {{ end }}
 
-      <h1 class="{{ if $has_overlap_icon }}mt-12{{ else }}mt-2{{ end }} text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+      <h1 class="{{ if $has_overlap_icon }}mt-12{{ else }}mt-2{{ end }} text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100" data-pagefind-meta="title" data-pagefind-body>
         {{/* Inline icon before title if specified */}}
         {{ if $cover }}
           {{ $icon_config := .Params.cover.icon | default (dict) }}
@@ -375,7 +375,13 @@
       </div>
       {{ end }}
 
-      <div class="prose prose-slate lg:prose-xl dark:prose-invert">
+      <div class="prose prose-slate lg:prose-xl dark:prose-invert" data-pagefind-body>
+        {{ with .Section }}
+          <span data-pagefind-filter="type" style="display:none;">{{ . }}</span>
+        {{ end }}
+        {{ with .Params.categories }}
+          <span data-pagefind-filter="category" style="display:none;">{{ index . 0 }}</span>
+        {{ end }}
         {{ .Content }}
       </div>
 

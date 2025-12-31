@@ -4,7 +4,7 @@
 {{ .Page.Store.Set "has_alpine" true }}
 
 {{/* Pagefind metadata for search filtering */}}
-<div data-pagefind-body data-pagefind-meta="title:{{ .Title }}">
+<div data-pagefind-body>
   {{/* Use hidden spans for filter values - best practice per Pagefind docs */}}
   <span data-pagefind-filter="type" style="display:none;">faq</span>
   {{ with .Params.categories }}
@@ -23,7 +23,7 @@
       </div>
       {{ end }}
 
-      <h1>{{ .Title }}</h1>
+      <h1 data-pagefind-meta="title">{{ .Title }}</h1>
       
       {{ with .Content }}
       <div class="lead mb-8">
