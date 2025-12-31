@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-skills.json",
   "title": "Resume Skills Block Schema",
-  "description": "Schema for the Resume Skills block - displays skills from author profile with optional progress bars",
+  "description": "Schema for the Resume Skills block - displays skills and proficiency pulled from an author profile",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,16 +11,17 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "resume-skills"
+          "const": "resume-skills",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the resume skills block",
+          "description": "Content configuration for the skills block",
           "properties": {
             "username": {
               "type": "string",
-              "description": "Author username (references authors/{username}/ page)",
-              "default": "admin"
+              "description": "Author username (references data/authors/{username}.yaml)",
+              "default": "me"
             },
             "title": {
               "type": "string",
@@ -30,20 +31,40 @@
               "type": "string",
               "description": "Section description (supports Markdown)"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "design": {
-          "allOf": [
-            {
-              "$ref": "../shared/schemas/base-block.json#/properties/design"
-            },
-            {
-              "type": "object",
-              "properties": {}
+          "type": "object",
+          "description": "Layout options for the skills grid",
+          "properties": {
+            "columns": {
+              "type": "integer",
+              "description": "Number of columns used to render skill groups",
+              "default": 2,
+              "minimum": 1,
+              "maximum": 5,
+              "examples": [2, 3]
             }
-          ]
+          },
+          "additionalProperties": true
         }
-      }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "resume-skills",
+          "content": {
+            "username": "me",
+            "title": "Skills",
+            "text": "Tooling and languages I use most often."
+          },
+          "design": {
+            "columns": 3
+          }
+        }
+      ]
     }
   ]
 }

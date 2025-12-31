@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/logos.json",
   "title": "Logos Block Schema",
-  "description": "Schema for the Logos block - displays partner/sponsor logos with various display modes",
+  "description": "Schema for the Logos block - showcases partner/customer logos in grid, carousel, or marquee layouts",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,96 +11,130 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "logos"
+          "const": "logos",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the logos block",
           "properties": {
             "title": {
-              "type": "string",
-              "description": "Main section title"
+              "type": "string"
             },
             "subtitle": {
-              "type": "string",
-              "description": "Section subtitle"
+              "type": "string"
             },
             "text": {
-              "type": "string",
-              "description": "Section description text"
+              "type": "string"
             },
             "logos": {
               "type": "array",
-              "description": "Array of logo items with details",
+              "description": "Explicit list of logos to render",
               "items": {
                 "type": "object",
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Partner/sponsor name"
+                    "description": "Partner/customer name (used for alt text)"
                   },
                   "image": {
                     "type": "string",
-                    "description": "Path to logo image relative to assets/media/"
-                  },
-                  "url": {
-                    "type": "string",
-                    "description": "Link to partner website"
-                  },
-                  "external": {
-                    "type": "boolean",
-                    "description": "Open link in new tab",
-                    "default": true
+                    "description": "Logo image filename in assets/media/"
                   },
                   "description": {
                     "type": "string",
-                    "description": "Short description shown on hover"
+                    "description": "Tooltip/hover description"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Optional link URL"
+                  },
+                  "external": {
+                    "type": "boolean",
+                    "description": "Open URL in a new tab",
+                    "default": false
                   }
-                }
+                },
+                "required": ["image"],
+                "additionalProperties": false
               }
             },
             "logo_folder": {
               "type": "string",
-              "description": "Legacy: Folder containing logo images (deprecated, use logos array instead)"
+              "description": "Folder in assets/media/ containing logo images (used when `logos` is not provided)"
             },
             "cta": {
               "type": "object",
-              "description": "Call to action button",
+              "description": "Optional call-to-action button beneath the logos",
               "properties": {
-                "text": {
-                  "type": "string",
-                  "description": "Button text"
-                },
                 "url": {
-                  "type": "string",
-                  "description": "Button URL"
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
                 },
                 "icon": {
-                  "type": "string",
-                  "description": "Optional icon name"
+                  "type": "string"
                 }
-              }
+              },
+              "required": ["url", "text"],
+              "additionalProperties": false
             }
-          }
+          },
+          "additionalProperties": false
         },
         "design": {
           "type": "object",
-          "description": "Design options for the logos block",
+          "description": "Display options for the logos block",
           "properties": {
             "display_mode": {
               "type": "string",
               "enum": ["grid", "carousel", "marquee"],
-              "description": "How to display the logos",
+              "description": "Layout style for the logos",
               "default": "grid"
             },
             "show_pattern": {
               "type": "boolean",
-              "description": "Show decorative background pattern",
+              "description": "Render a faint gradient pattern behind the section",
               "default": false
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "logos",
+          "design": {
+            "display_mode": "grid",
+            "show_pattern": true
+          },
+          "content": {
+            "title": "Trusted by leading labs",
+            "subtitle": "Partners + collaborators",
+            "text": "Teams building safety-first AI with us.",
+            "logos": [
+              {
+                "name": "DeepMind",
+                "image": "logos/deepmind.svg",
+                "url": "https://deepmind.com",
+                "external": true
+              },
+              {
+                "name": "OpenAI",
+                "image": "logos/openai.png",
+                "description": "Alignment research partner"
+              }
+            ],
+            "cta": {
+              "text": "See case studies",
+              "url": "/case-studies/",
+              "icon": "hero/arrow-right"
             }
           }
         }
-      }
+      ]
     }
   ]
 }

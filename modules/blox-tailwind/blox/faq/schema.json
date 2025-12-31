@@ -1,94 +1,138 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "title": "FAQ Block",
-  "description": "Display frequently asked questions in an accordion format with FAQPage structured data",
-  "properties": {
-    "content": {
+  "$id": "https://hugoblox.com/schemas/blocks/faq.json",
+  "title": "FAQ Block Schema",
+  "description": "Display frequently asked questions in an accordion format with optional CTA",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string",
-          "description": "Block title"
+        "block": {
+          "const": "faq",
+          "description": "Block type identifier"
         },
-        "subtitle": {
-          "type": "string",
-          "description": "Block subtitle"
-        },
-        "text": {
-          "type": "string",
-          "description": "Introductory text (Markdown supported)"
-        },
-        "items": {
-          "type": "array",
-          "description": "FAQ items",
-          "items": {
-            "type": "object",
-            "properties": {
-              "question": {
-                "type": "string",
-                "description": "The question"
-              },
-              "answer": {
-                "type": "string",
-                "description": "The answer (Markdown supported)"
-              }
-            },
-            "required": ["question", "answer"]
-          }
-        },
-        "button": {
+        "content": {
           "type": "object",
-          "description": "Call-to-action button",
           "properties": {
+            "title": {
+              "type": "string",
+              "description": "Block title"
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Block subtitle"
+            },
             "text": {
               "type": "string",
-              "description": "Button text"
+              "description": "Introductory text (Markdown supported)"
             },
-            "url": {
-              "type": "string",
-              "description": "Button URL"
-            },
-            "icon": {
-              "type": "string",
-              "description": "Button icon name"
-            }
-          }
-        }
-      }
-    },
-    "design": {
-      "type": "object",
-      "properties": {
-        "spacing": {
-          "type": "object",
-          "properties": {
-            "padding": {
+            "items": {
               "type": "array",
+              "description": "FAQ items",
               "items": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                  "question": {
+                    "type": "string",
+                    "description": "The question"
+                  },
+                  "answer": {
+                    "type": "string",
+                    "description": "The answer (Markdown supported)"
+                  }
+                },
+                "required": ["question", "answer"],
+                "additionalProperties": false
               },
-              "description": "Padding [top, right, bottom, left]"
+              "minItems": 1
             },
-            "margin": {
-              "type": "array",
-              "items": {
-                "type": "string"
+            "button": {
+              "type": "object",
+              "description": "Call-to-action button",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "description": "Button text"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Button URL"
+                },
+                "icon": {
+                  "type": "string",
+                  "description": "Button icon name"
+                }
               },
-              "description": "Margin [top, right, bottom, left]"
+              "required": ["text", "url"],
+              "additionalProperties": false
             }
-          }
+          },
+          "required": ["items"],
+          "additionalProperties": false
         },
-        "background": {
+        "design": {
           "type": "object",
+          "description": "Spacing overrides for the FAQ section",
           "properties": {
-            "color": {
-              "type": "string",
-              "description": "Background color CSS class"
+            "spacing": {
+              "type": "object",
+              "properties": {
+                "padding": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Padding [top, right, bottom, left]"
+                },
+                "margin": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Margin [top, right, bottom, left]"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "faq",
+          "content": {
+            "title": "Frequently asked questions",
+            "subtitle": "Fast answers for new users",
+            "text": "If you do not see your question, open an issue or reach out.",
+            "items": [
+              {
+                "question": "How do I enable Pagefind?",
+                "answer": "Add `pagefind = true` to your config and run `pnpm build`."
+              },
+              {
+                "question": "Can I customize Tailwind tokens?",
+                "answer": "Yes. Edit the design tokens in `modules/blox-tailwind/assets/` and run `pnpm format`."
+              }
+            ],
+            "button": {
+              "text": "View full knowledge base",
+              "url": "/faq/",
+              "icon": "hero/arrow-right"
+            }
+          },
+          "design": {
+            "spacing": {
+              "padding": ["2.5rem", "0", "2.5rem", "0"]
             }
           }
         }
-      }
+      ]
     }
-  }
+  ]
 }

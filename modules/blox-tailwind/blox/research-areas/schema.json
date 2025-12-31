@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/research-areas.json",
   "title": "Research Areas Block Schema",
-  "description": "Schema for the Research Areas block - displays research focus areas with rich visuals and metrics",
+  "description": "Schema for the Research Areas block - highlights thematic areas with optional stats and CTAs",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,129 +11,172 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "research-areas"
+          "const": "research-areas",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the research areas block",
           "properties": {
             "title": {
-              "type": "string",
-              "description": "Section title"
+              "type": "string"
             },
             "subtitle": {
-              "type": "string",
-              "description": "Section subtitle"
+              "type": "string"
             },
             "text": {
-              "type": "string",
-              "description": "Section description text"
+              "type": "string"
             },
             "items": {
               "type": "array",
-              "description": "Array of research area items",
+              "description": "Research area cards",
               "items": {
                 "type": "object",
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Research area name",
-                    "required": true
+                    "description": "Area title"
                   },
                   "description": {
                     "type": "string",
-                    "description": "Research area description",
-                    "required": true
-                  },
-                  "icon": {
-                    "type": "string",
-                    "description": "Icon identifier (e.g., 'hero/beaker', 'devicon/python')"
-                  },
-                  "emoji": {
-                    "type": "string",
-                    "description": "Emoji as alternative to icon"
-                  },
-                  "image": {
-                    "type": "string",
-                    "description": "Image path relative to assets/media/"
+                    "description": "Short summary"
                   },
                   "gradient": {
                     "type": "string",
-                    "description": "Tailwind gradient classes (e.g., 'from-blue-400 to-purple-400')"
+                    "description": "Tailwind gradient classes for the header",
+                    "examples": ["from-primary-400 to-secondary-400"]
                   },
-                  "url": {
+                  "image": {
                     "type": "string",
-                    "description": "Link to detailed page"
+                    "description": "Optional header image filename in assets/media/"
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Optional icon displayed instead of an image"
                   },
                   "status": {
                     "type": "string",
-                    "enum": ["active", "emerging", "planning"],
-                    "description": "Research area status"
+                    "description": "Status badge (e.g., active, emerging, planning)"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Optional external/internal link for the area title"
                   },
                   "topics": {
                     "type": "array",
-                    "description": "Key topics/keywords",
+                    "description": "Keywords or topics associated with the area",
                     "items": {
                       "type": "string"
                     }
                   },
                   "team_size": {
-                    "type": "string",
-                    "description": "Number of team members (e.g., '12 researchers')"
+                    "type": ["string", "number"],
+                    "description": "Team size metric displayed in the footer"
                   },
                   "publications": {
-                    "type": "string",
-                    "description": "Number of publications (e.g., '45 papers')"
+                    "type": ["string", "number"],
+                    "description": "Publication count metric"
                   },
                   "funding": {
                     "type": "string",
-                    "description": "Funding amount (e.g., '$2.5M')"
+                    "description": "Funding metric/label"
                   },
                   "cta": {
                     "type": "object",
-                    "description": "Call to action for this area",
+                    "description": "Per-area call-to-action button",
                     "properties": {
-                      "text": {
-                        "type": "string"
-                      },
                       "url": {
                         "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
                       }
-                    }
+                    },
+                    "required": ["url", "text"],
+                    "additionalProperties": false
                   }
-                }
-              }
+                },
+                "required": ["name", "description"],
+                "additionalProperties": false
+              },
+              "minItems": 1
             },
             "cta": {
               "type": "object",
-              "description": "Global call to action",
+              "description": "Global call-to-action beneath the grid",
               "properties": {
-                "text": {
+                "url": {
                   "type": "string"
                 },
-                "url": {
+                "text": {
                   "type": "string"
                 },
                 "icon": {
                   "type": "string"
                 }
-              }
+              },
+              "required": ["url", "text"],
+              "additionalProperties": false
             }
-          }
+          },
+          "required": ["items"],
+          "additionalProperties": false
         },
         "design": {
           "type": "object",
-          "description": "Design options for the research areas block",
+          "description": "Layout option for research areas",
           "properties": {
             "layout": {
               "type": "string",
               "enum": ["cards", "hexagon", "timeline"],
-              "description": "Layout style for research areas",
+              "description": "Choose between card grid, hexagon swarm, or timeline layout",
               "default": "cards"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "research-areas",
+          "design": {
+            "layout": "cards"
+          },
+          "content": {
+            "title": "Research areas",
+            "subtitle": "Where we invest time and curiosity",
+            "text": "From alignment and evals to deployable agents.",
+            "items": [
+              {
+                "name": "Alignment & Safety",
+                "description": "Mechanistic interpretability, agent evaluations, and scalable oversight.",
+                "gradient": "from-primary-400 to-secondary-400",
+                "icon": "hero/shield-check",
+                "status": "active",
+                "topics": ["evals", "interpretability", "tooling"],
+                "team_size": "6",
+                "publications": "12",
+                "funding": "$3.2M",
+                "cta": {
+                  "text": "See roadmap",
+                  "url": "/research/alignment/"
+                }
+              },
+              {
+                "name": "Multimodal systems",
+                "description": "Unified stacks for text, image, and audio models.",
+                "image": "research/multimodal.jpg",
+                "status": "emerging"
+              }
+            ],
+            "cta": {
+              "text": "All research areas",
+              "url": "/research/"
             }
           }
         }
-      }
+      ]
     }
   ]
 }

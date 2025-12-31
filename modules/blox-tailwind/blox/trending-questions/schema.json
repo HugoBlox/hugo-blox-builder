@@ -1,83 +1,134 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "title": "Trending Questions Block",
-  "description": "Display trending or featured questions",
-  "properties": {
-    "content": {
+  "$id": "https://hugoblox.com/schemas/blocks/trending-questions.json",
+  "title": "Trending Questions Block Schema",
+  "description": "Display trending or featured questions with optional dynamic sourcing from content marked `trending: true`",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string"
+        "block": {
+          "const": "trending-questions",
+          "description": "Block type identifier"
         },
-        "subtitle": {
-          "type": "string"
-        },
-        "questions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "question": {
-                "type": "string"
-              },
-              "answer_preview": {
-                "type": "string"
-              },
-              "link": {
-                "type": "string"
-              },
-              "badge": {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "string"
-                  },
-                  "color": {
-                    "type": "string"
-                  }
-                }
-              },
-              "author": {
-                "type": "string"
-              },
-              "views": {
-                "type": "string"
-              },
-              "upvotes": {
-                "type": "number"
-              }
-            }
-          }
-        },
-        "view_all": {
+        "content": {
           "type": "object",
           "properties": {
-            "text": {
+            "title": {
               "type": "string"
             },
-            "link": {
+            "subtitle": {
               "type": "string"
+            },
+            "count": {
+              "type": "integer",
+              "description": "Number of items to pull when auto-querying pages with `trending: true`",
+              "default": 4,
+              "minimum": 1
+            },
+            "questions": {
+              "type": "array",
+              "description": "Static fallback list of questions to render",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "question": {
+                    "type": "string"
+                  },
+                  "answer_preview": {
+                    "type": "string"
+                  },
+                  "link": {
+                    "type": "string",
+                    "description": "URL to the full answer/article"
+                  },
+                  "badge": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string",
+                        "description": "Tailwind classes applied to the badge"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "views": {
+                    "type": ["string", "number"]
+                  },
+                  "upvotes": {
+                    "type": ["integer", "number"]
+                  }
+                },
+                "required": ["question", "link"],
+                "additionalProperties": false
+              }
+            },
+            "view_all": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                }
+              },
+              "required": ["text", "link"],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "trending-questions",
+          "design": {
+            "spacing": {
+              "padding": ["3rem", "0", "3rem", "0"]
+            }
+          },
+          "content": {
+            "title": "Trending questions",
+            "subtitle": "Top searches from the last 7 days.",
+            "count": 4,
+            "questions": [
+              {
+                "question": "How do I deploy Hugo Blox to Netlify?",
+                "answer_preview": "Use the provided CI workflow or run `hugo --gc --minify`...",
+                "link": "/docs/deploy/netlify/",
+                "badge": {
+                  "text": "🔥 Popular",
+                  "color": "bg-amber-100 text-amber-800"
+                },
+                "views": 1200,
+                "upvotes": 86
+              },
+              {
+                "question": "Where can I customize Tailwind 4 tokens?",
+                "answer_preview": "Tokens are defined in `modules/blox-tailwind/assets/`...",
+                "link": "/docs/style/tokens/",
+                "author": "geo"
+              }
+            ],
+            "view_all": {
+              "text": "Browse all questions",
+              "link": "/faq/"
             }
           }
         }
-      }
-    },
-    "design": {
-      "type": "object",
-      "properties": {
-        "spacing": {
-          "type": "object"
-        },
-        "background": {
-          "type": "object",
-          "properties": {
-            "color": {
-              "type": "string"
-            }
-          }
-        }
-      }
+      ]
     }
-  }
+  ]
 }

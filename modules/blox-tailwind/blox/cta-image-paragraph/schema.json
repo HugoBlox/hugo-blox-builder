@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/cta-image-paragraph.json",
   "title": "CTA Image Paragraph Block Schema",
-  "description": "Schema for the CTA Image Paragraph block - displays alternating image and text sections with features and buttons",
+  "description": "Schema for the CTA Image Paragraph block - alternating media and copy with optional feature bullets and button",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,65 +11,95 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "cta-image-paragraph"
+          "const": "cta-image-paragraph",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the CTA image paragraph block",
           "properties": {
             "items": {
               "type": "array",
-              "description": "Array of image-paragraph items",
+              "description": "CTA sections with media and supporting copy",
               "items": {
                 "type": "object",
                 "properties": {
                   "title": {
                     "type": "string",
-                    "description": "Item title (supports Markdown)"
+                    "description": "Heading for the CTA item"
                   },
                   "text": {
                     "type": "string",
-                    "description": "Item description text (supports Markdown)"
+                    "description": "Supporting paragraph (supports Markdown)"
                   },
                   "image": {
                     "type": "string",
-                    "description": "Image filename (in assets/media/)"
+                    "description": "Image filename in assets/media/",
+                    "examples": ["screenshots/product.png"]
+                  },
+                  "feature_icon": {
+                    "type": "string",
+                    "description": "Icon used before each feature bullet",
+                    "default": "check"
                   },
                   "features": {
                     "type": "array",
-                    "description": "Array of feature list items",
+                    "description": "Bullet list shown under the paragraph",
                     "items": {
                       "type": "string"
                     }
                   },
-                  "feature_icon": {
-                    "type": "string",
-                    "description": "Icon for feature list items (icon pack format: pack/icon-name)",
-                    "default": "check"
-                  },
                   "button": {
                     "type": "object",
-                    "description": "Optional call-to-action button",
+                    "description": "Optional CTA button",
                     "properties": {
-                      "url": {
-                        "type": "string",
-                        "description": "Button URL"
-                      },
                       "text": {
-                        "type": "string",
-                        "description": "Button text"
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
                       }
                     },
-                    "required": ["url", "text"]
+                    "required": ["text", "url"],
+                    "additionalProperties": false
                   }
                 },
-                "required": ["title", "text", "image"]
-              }
+                "required": ["title", "text", "image"],
+                "additionalProperties": false
+              },
+              "minItems": 1
             }
           },
-          "required": ["items"]
+          "required": ["items"],
+          "additionalProperties": false
         }
-      }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "cta-image-paragraph",
+          "content": {
+            "items": [
+              {
+                "title": "Ship polished docs with Hugo Blox",
+                "text": "Pair Markdown content with responsive imagery and reusable CTAs.",
+                "image": "screenshots/docs.png",
+                "feature_icon": "hero/check-circle",
+                "features": ["Responsive images generated automatically", "Markdown-first authoring", "Works with Netlify, Vercel, and GitHub Pages"],
+                "button": {
+                  "text": "Read the guide",
+                  "url": "/docs/get-started/"
+                }
+              },
+              {
+                "title": "Launch production-ready marketing pages",
+                "text": "Use alternating layouts to highlight product benefits.",
+                "image": "screenshots/marketing.png"
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,114 +1,120 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "title": "Search Hero Block",
-  "description": "A hero section with prominent search functionality for knowledge bases",
-  "properties": {
-    "content": {
-      "type": "object",
-      "properties": {
-        "badge": {
-          "type": "object",
-          "properties": {
-            "text": {
-              "type": "string",
-              "description": "Badge text"
-            },
-            "show_pulse": {
-              "type": "boolean",
-              "description": "Show pulsing dot indicator"
-            }
-          }
-        },
-        "title": {
-          "type": "string",
-          "description": "Main title. Use ==text== syntax to apply gradient highlighting to any words or phrases. Example: 'Master ==AI Tools==. ==Boost Your Productivity.=='"
-        },
-        "subtitle": {
-          "type": "string",
-          "description": "Subtitle text"
-        },
-        "search_placeholder": {
-          "type": "string",
-          "description": "Search input placeholder"
-        },
-        "suggestions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Quick search suggestions"
-        },
-        "stats": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string",
-                "description": "Stat value"
-              },
-              "label": {
-                "type": "string",
-                "description": "Stat label"
-              }
-            }
-          }
-        }
-      }
+  "$id": "https://hugoblox.com/schemas/blocks/search-hero.json",
+  "title": "Search Hero Block Schema",
+  "description": "A hero section with prominent search functionality and optional stats",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
     },
-    "design": {
+    {
       "type": "object",
       "properties": {
-        "spacing": {
-          "type": "object"
+        "block": {
+          "const": "search-hero",
+          "description": "Block type identifier"
         },
-        "background": {
+        "content": {
           "type": "object",
           "properties": {
-            "color": {
-              "type": "string",
-              "description": "Background color (Tailwind class)"
-            },
-            "gradient_mesh": {
+            "badge": {
               "type": "object",
-              "description": "Animated gradient mesh background",
+              "description": "Optional badge displayed above the title",
               "properties": {
-                "enable": {
+                "text": {
+                  "type": "string",
+                  "description": "Badge text"
+                },
+                "show_pulse": {
                   "type": "boolean",
-                  "description": "Enable animated gradient mesh"
-                },
-                "style": {
-                  "type": "string",
-                  "enum": ["orbs", "waves", "dots", "grid"],
-                  "description": "Visual style of gradient mesh",
-                  "default": "orbs"
-                },
-                "animation": {
-                  "type": "string",
-                  "enum": ["pulse", "float", "rotate", "none"],
-                  "description": "Animation type",
-                  "default": "pulse"
-                },
-                "intensity": {
-                  "type": "string",
-                  "enum": ["subtle", "medium", "bold"],
-                  "description": "Visual intensity",
-                  "default": "subtle"
-                },
-                "colors": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "description": "Tailwind colors with opacity (e.g., 'primary-500/20')",
-                  "default": ["primary-500/20", "primary-600/20"]
+                  "description": "Show pulsing dot indicator",
+                  "default": false
                 }
+              },
+              "required": ["text"],
+              "additionalProperties": false
+            },
+            "title": {
+              "type": "string",
+              "description": "Main title. Use ==text== syntax to apply gradient highlighting to words or phrases."
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Subtitle text"
+            },
+            "search_placeholder": {
+              "type": "string",
+              "description": "Search input placeholder",
+              "default": "Search for answers..."
+            },
+            "suggestions": {
+              "type": "array",
+              "description": "Quick search suggestion chips that open Pagefind with a preset query",
+              "items": {
+                "type": "string"
+              }
+            },
+            "stats": {
+              "type": "array",
+              "description": "Optional lightweight stats below the search box",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Stat value (supports Markdown)"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Stat label"
+                  }
+                },
+                "required": ["value", "label"],
+                "additionalProperties": false
               }
             }
+          },
+          "required": ["title"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "search-hero",
+          "design": {
+            "background": {
+              "gradient_mesh": {
+                "enable": true,
+                "style": "waves",
+                "colors": ["primary-500/25", "secondary-500/25"],
+                "animation": "float"
+              }
+            }
+          },
+          "content": {
+            "badge": {
+              "text": "Instant answers",
+              "show_pulse": true
+            },
+            "title": "Master ==AI tools==. Find answers faster.",
+            "subtitle": "Search our docs, playbooks, and notebooks.",
+            "search_placeholder": "Search documentation...",
+            "suggestions": ["Get started", "Deploy with Hugo Blox"],
+            "stats": [
+              {
+                "value": "250+",
+                "label": "articles"
+              },
+              {
+                "value": "9/10",
+                "label": "avg. satisfaction"
+              }
+            ]
           }
         }
-      }
+      ]
     }
-  }
+  ]
 }

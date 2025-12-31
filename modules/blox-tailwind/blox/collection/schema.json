@@ -11,7 +11,8 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "collection"
+          "const": "collection",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
@@ -26,24 +27,24 @@
               "description": "Section description (supports Markdown)"
             },
             "count": {
-              "type": "number",
-              "description": "Maximum number of items to display",
+              "type": "integer",
+              "description": "Maximum number of items to display (0 means unlimited)",
               "minimum": 0,
               "default": 5
             },
             "offset": {
-              "type": "number",
-              "description": "Number of items to skip",
+              "type": "integer",
+              "description": "Number of items to skip from the start of the query",
               "minimum": 0,
               "default": 0
             },
             "page_type": {
               "type": "string",
-              "description": "Filter by page type (e.g., 'post', 'publication')"
+              "description": "Filter by page type/section (e.g., 'post', 'publication')"
             },
             "sort_by": {
               "type": "string",
-              "description": "Field to sort by",
+              "description": "Field to sort by (e.g., Date, title, weight, lastmod)",
               "default": "Date"
             },
             "sort_ascending": {
@@ -60,6 +61,14 @@
               "type": "object",
               "description": "Content filtering options",
               "properties": {
+                "kinds": {
+                  "type": "array",
+                  "description": "Limit to Hugo page kinds",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": ["page"]
+                },
                 "folders": {
                   "type": "array",
                   "description": "Filter by content folders/sections",
@@ -67,9 +76,16 @@
                     "type": "string"
                   }
                 },
+                "tags": {
+                  "type": "array",
+                  "description": "Filter by multiple tags (intersection)",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "tag": {
                   "type": "string",
-                  "description": "Filter by tag"
+                  "description": "Filter by a single tag"
                 },
                 "category": {
                   "type": "string",
@@ -107,11 +123,103 @@
                   "description": "Exclude future-dated content",
                   "default": false
                 }
-              }
+              },
+              "additionalProperties": false
+            },
+            "archive": {
+              "type": "object",
+              "description": "Archive link configuration",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Show archive link even when item count is below limit"
+                },
+                "link": {
+                  "type": "string",
+                  "description": "Override archive URL (defaults to derived archive page)"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Override archive link text"
+                }
+              },
+              "additionalProperties": false
             }
+          },
+          "additionalProperties": false
+        },
+        "design": {
+          "type": "object",
+          "description": "Layout options for collection rendering",
+          "properties": {
+            "view": {
+              "type": "string",
+              "enum": ["card", "compact", "showcase", "citation", "list", "masonry"],
+              "description": "Display view type",
+              "default": "card"
+            },
+            "columns": {
+              "type": ["integer", "string"],
+              "description": "Number of columns when using grid-based views",
+              "default": 2
+            },
+            "fill_image": {
+              "type": "boolean",
+              "description": "Fill cards with cover images when available",
+              "default": true
+            },
+            "show_date": {
+              "type": "boolean",
+              "description": "Display published/modified date when available",
+              "default": true
+            },
+            "show_read_time": {
+              "type": "boolean",
+              "description": "Display estimated reading time when available",
+              "default": true
+            },
+            "show_read_more": {
+              "type": "boolean",
+              "description": "Show a read more link on cards",
+              "default": true
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "collection",
+          "content": {
+            "title": "Latest research notes",
+            "text": "Fresh from the lab notebook.",
+            "count": 6,
+            "page_type": "post",
+            "sort_by": "Date",
+            "sort_ascending": false,
+            "filters": {
+              "folders": ["post"],
+              "tags": ["alignment", "evaluations"],
+              "featured_only": true
+            },
+            "archive": {
+              "enable": true,
+              "text": "All posts",
+              "link": "/post/"
+            }
+          },
+          "design": {
+            "view": "card",
+            "columns": 3,
+            "fill_image": true,
+            "show_date": true,
+            "show_read_time": true,
+            "show_read_more": true
           }
         }
-      }
+      ]
     }
   ]
 }

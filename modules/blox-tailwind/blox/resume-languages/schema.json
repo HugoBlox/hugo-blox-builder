@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-languages.json",
   "title": "Resume Languages Block Schema",
-  "description": "Schema for the Resume Languages block - displays language proficiency with circular progress indicators",
+  "description": "Schema for the Languages block - renders language proficiency from the author profile",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,16 +11,16 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "resume-languages"
+          "const": "resume-languages",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the resume languages block",
           "properties": {
             "username": {
               "type": "string",
-              "description": "Author username (references authors/{username}/ page)",
-              "default": "admin"
+              "description": "Author username (references data/authors/{username}.yaml)",
+              "default": "me"
             },
             "title": {
               "type": "string",
@@ -30,9 +30,22 @@
               "type": "string",
               "description": "Section description (supports Markdown)"
             }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "resume-languages",
+          "content": {
+            "username": "me",
+            "title": "Languages",
+            "text": "Comfortable in English, French, and Mandarin."
           }
         }
-      }
+      ]
     }
   ]
 }

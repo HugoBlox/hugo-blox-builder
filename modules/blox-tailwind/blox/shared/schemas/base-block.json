@@ -2,21 +2,24 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/base-block.json",
   "title": "Hugo Blox Base Block Schema",
-  "description": "Common parameters available to all Hugo Blox blocks",
+  "description": "Common parameters available to all Hugo Blox blocks rendered via parse_block_v3.html",
   "type": "object",
   "properties": {
     "block": {
       "type": "string",
-      "description": "Block type identifier (required)"
+      "description": "Block type identifier (required for routing to the correct template)",
+      "examples": ["hero", "stats"]
     },
     "blox": {
       "type": "string",
       "description": "Legacy block type identifier (deprecated, use 'block' instead)",
-      "deprecated": true
+      "deprecated": true,
+      "examples": ["features"]
     },
     "id": {
       "type": "string",
-      "description": "Optional unique identifier for this section"
+      "description": "Optional unique identifier for this section",
+      "examples": ["intro", "team"]
     },
     "demo": {
       "type": "boolean",
@@ -25,34 +28,43 @@
     },
     "design": {
       "type": "object",
-      "description": "Design and styling options",
+      "description": "Design and styling options applied by the shared block wrapper",
       "properties": {
         "background": {
           "type": "object",
-          "description": "Background styling options",
+          "description": "Background styling options (colors, gradients, media, mesh)",
           "properties": {
             "color": {
               "oneOf": [
                 {
                   "type": "string",
-                  "description": "Single color value"
+                  "description": "Single color value",
+                  "examples": ["primary-50", "#0b1021"]
                 },
                 {
                   "type": "object",
                   "properties": {
                     "light": {
                       "type": "string",
-                      "description": "Light mode color"
+                      "description": "Light mode color",
+                      "examples": ["#ffffff"]
                     },
                     "dark": {
                       "type": "string",
-                      "description": "Dark mode color"
+                      "description": "Dark mode color",
+                      "examples": ["#0b1021"]
                     }
                   },
-                  "additionalProperties": false
+                  "additionalProperties": false,
+                  "examples": [
+                    {
+                      "light": "#ffffff",
+                      "dark": "#0b1021"
+                    }
+                  ]
                 }
               ],
-              "description": "Background color (supports Tailwind colors, hex, rgb)"
+              "description": "Background color (supports Tailwind tokens, hex, or rgb values)"
             },
             "gradient": {
               "type": "object",
@@ -60,24 +72,108 @@
               "properties": {
                 "start": {
                   "type": "string",
-                  "description": "Gradient start color"
+                  "description": "Gradient start color",
+                  "examples": ["primary-500"]
                 },
                 "end": {
                   "type": "string",
-                  "description": "Gradient end color"
+                  "description": "Gradient end color",
+                  "examples": ["secondary-600"]
                 },
                 "direction": {
-                  "type": "string",
+                  "type": ["string", "number"],
                   "description": "Gradient direction in degrees",
-                  "default": "135"
+                  "default": "135",
+                  "examples": ["135", 90]
                 }
               },
               "required": ["start", "end"],
               "additionalProperties": false
             },
+            "gradient_mesh": {
+              "type": "object",
+              "description": "Layered gradient mesh backgrounds",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Enable the gradient mesh renderer",
+                  "default": false
+                },
+                "style": {
+                  "type": "string",
+                  "enum": ["orbs", "waves", "dots", "grid"],
+                  "description": "Mesh style to render",
+                  "default": "orbs"
+                },
+                "animation": {
+                  "type": "string",
+                  "enum": ["pulse", "float", "rotate", "none"],
+                  "description": "Animation preset for mesh elements",
+                  "default": "pulse"
+                },
+                "intensity": {
+                  "type": "string",
+                  "enum": ["subtle", "medium", "bold"],
+                  "description": "Visual intensity of the mesh",
+                  "default": "subtle"
+                },
+                "colors": {
+                  "type": "array",
+                  "description": "Tailwind color tokens used in the mesh",
+                  "items": {
+                    "type": "string"
+                  },
+                  "examples": [["primary-500/20", "secondary-500/20"]]
+                },
+                "orb_count": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "Number of orbs when using the 'orbs' style",
+                  "examples": [2, 3]
+                },
+                "positions": {
+                  "type": "array",
+                  "description": "Position utility classes for orb/wave placement",
+                  "items": {
+                    "type": "string"
+                  },
+                  "examples": [["top-0 left-1/4", "bottom-0 right-1/4"]]
+                },
+                "sizes": {
+                  "type": "array",
+                  "description": "Size utility classes per orb",
+                  "items": {
+                    "type": "string"
+                  },
+                  "examples": [["w-96 h-96", "w-80 h-80"]]
+                },
+                "wave_count": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "description": "Number of waves when using the 'waves' style",
+                  "examples": [3]
+                },
+                "dot_size": {
+                  "type": "string",
+                  "description": "Dot size utility for the 'dots' style",
+                  "examples": ["w-4 h-4"]
+                },
+                "spacing": {
+                  "type": ["string", "number"],
+                  "description": "Spacing in pixels for dots, grid, or waves",
+                  "examples": [16, "32"]
+                },
+                "line_width": {
+                  "type": ["string", "number"],
+                  "description": "Line width in pixels for the 'grid' style",
+                  "examples": [1, "2"]
+                }
+              },
+              "additionalProperties": false
+            },
             "text_color_light": {
               "type": "boolean",
-              "description": "Whether to use light text color (for dark backgrounds)"
+              "description": "Use light text color (for dark backgrounds)"
             },
             "image": {
               "type": "object",
@@ -85,7 +181,8 @@
               "properties": {
                 "filename": {
                   "type": "string",
-                  "description": "Image filename in assets/media/"
+                  "description": "Image filename relative to assets/media/",
+                  "examples": ["backgrounds/hero.jpg"]
                 },
                 "size": {
                   "type": "string",
@@ -111,11 +208,14 @@
                       "type": "number",
                       "description": "Image brightness filter (0-1, where 1 is normal)",
                       "minimum": 0,
-                      "maximum": 1
+                      "maximum": 1,
+                      "examples": [0.65]
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
-              }
+              },
+              "additionalProperties": false
             },
             "video": {
               "type": "object",
@@ -123,16 +223,19 @@
               "properties": {
                 "filename": {
                   "type": "string",
-                  "description": "Video filename in assets/media/"
+                  "description": "Video filename in assets/media/",
+                  "examples": ["loops/background.mp4"]
                 },
                 "flip": {
                   "type": "boolean",
                   "description": "Flip video horizontally",
                   "default": false
                 }
-              }
+              },
+              "additionalProperties": false
             }
-          }
+          },
+          "additionalProperties": false
         },
         "spacing": {
           "type": "object",
@@ -145,64 +248,69 @@
                 "type": "string"
               },
               "minItems": 4,
-              "maxItems": 4
+              "maxItems": 4,
+              "examples": [["4rem", "0", "4rem", "0"]]
             }
-          }
-        },
-        "clip_path": {
-          "type": "string",
-          "description": "CSS clip-path value"
+          },
+          "additionalProperties": false
         },
         "css_style": {
           "type": "string",
-          "description": "Custom CSS styles to apply to the section"
+          "description": "Custom CSS styles to apply to the section",
+          "examples": ["min-height: 70vh;"]
         },
         "css_class": {
           "type": "string",
-          "description": "Custom CSS classes to apply to the section"
-        },
-        "columns": {
-          "type": ["string", "number"],
-          "description": "Number of columns for layout",
-          "default": "1"
-        },
-        "view": {
-          "type": "string",
-          "description": "Display view type (used by collection block)",
-          "enum": ["card", "compact", "showcase", "citation", "list", "masonry"]
-        },
-        "loop": {
-          "type": "boolean",
-          "description": "Enable looping (for slider blocks)",
-          "default": true
-        },
-        "interval": {
-          "type": ["string", "number"],
-          "description": "Interval in milliseconds (for slider blocks)",
-          "default": "3000"
-        },
-        "no_padding": {
-          "type": "boolean",
-          "description": "Disable default padding (for hero block)",
-          "default": false
-        },
-        "card": {
-          "type": "object",
-          "description": "Card styling options (for CTA card block)",
-          "properties": {
-            "css_class": {
-              "type": "string",
-              "description": "CSS classes for the card"
-            },
-            "css_style": {
-              "type": "string",
-              "description": "CSS styles for the card"
-            }
-          }
+          "description": "Custom CSS classes to apply to the section",
+          "examples": ["relative overflow-hidden"]
         }
       }
     }
   },
   "required": ["block"],
-  "additionalProperties": true
+  "additionalProperties": true,
+  "examples": [
+    {
+      "block": "hero",
+      "id": "intro",
+      "demo": false,
+      "design": {
+        "background": {
+          "color": {
+            "light": "#ffffff",
+            "dark": "#0b1021"
+          },
+          "gradient": {
+            "start": "primary-500",
+            "end": "secondary-600",
+            "direction": "135"
+          },
+          "gradient_mesh": {
+            "enable": true,
+            "style": "orbs",
+            "colors": ["primary-500/20", "secondary-500/20"],
+            "orb_count": 2,
+            "positions": ["top-0 left-1/4", "bottom-0 right-1/4"],
+            "sizes": ["w-96 h-96", "w-80 h-80"],
+            "animation": "pulse",
+            "intensity": "medium"
+          },
+          "image": {
+            "filename": "backgrounds/hero.jpg",
+            "parallax": true
+          },
+          "video": {
+            "filename": "loops/background.mp4",
+            "flip": false
+          },
+          "text_color_light": true
+        },
+        "spacing": {
+          "padding": ["4rem", "0", "4rem", "0"]
+        },
+        "css_class": "relative overflow-hidden",
+        "css_style": "min-height: 70vh;"
+      }
+    }
+  ]
 }

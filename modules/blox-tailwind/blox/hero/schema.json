@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/hero.json",
   "title": "Hero Block Schema",
-  "description": "Schema for the Hero block - displays prominent hero sections with title, text, and call-to-action buttons",
+  "description": "Schema for the Hero block - displays prominent hero sections with titles, text, and calls-to-action",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -28,7 +28,7 @@
             },
             "announcement": {
               "type": "object",
-              "description": "Optional announcement banner",
+              "description": "Optional announcement banner above the title",
               "properties": {
                 "text": {
                   "type": "string",
@@ -44,7 +44,7 @@
                     },
                     "url": {
                       "type": "string",
-                      "description": "Link URL"
+                      "description": "Link URL or page anchor"
                     }
                   },
                   "required": ["text", "url"],
@@ -60,7 +60,7 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "description": "Button URL"
+                  "description": "Button URL or hash anchor"
                 },
                 "text": {
                   "type": "string",
@@ -80,7 +80,7 @@
               "properties": {
                 "url": {
                   "type": "string",
-                  "description": "Link URL"
+                  "description": "Link URL or page anchor"
                 },
                 "text": {
                   "type": "string",
@@ -92,10 +92,58 @@
             }
           },
           "additionalProperties": false
+        },
+        "design": {
+          "type": "object",
+          "description": "Hero-specific design tweaks",
+          "properties": {
+            "no_padding": {
+              "type": "boolean",
+              "description": "Disable default vertical padding applied by the hero layout",
+              "default": false
+            }
+          },
+          "additionalProperties": true
         }
       },
       "required": ["content"],
-      "additionalProperties": false
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "hero",
+          "id": "intro",
+          "design": {
+            "no_padding": false,
+            "background": {
+              "gradient": {
+                "start": "primary-500",
+                "end": "secondary-500"
+              },
+              "text_color_light": true
+            }
+          },
+          "content": {
+            "announcement": {
+              "text": "Latest preprint is live",
+              "link": {
+                "text": "Read the paper",
+                "url": "/publications/rlhf-foundations"
+              }
+            },
+            "title": "Building aligned AI together",
+            "text": "Human-centred research, transparent tooling, and production-ready stacks.",
+            "primary_action": {
+              "text": "Start a project",
+              "url": "#contact",
+              "icon": "hero/arrow-right"
+            },
+            "secondary_action": {
+              "text": "View portfolio",
+              "url": "/projects/"
+            }
+          }
+        }
+      ]
     }
   ]
 }

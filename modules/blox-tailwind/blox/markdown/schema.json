@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/markdown.json",
   "title": "Markdown Block Schema",
-  "description": "Schema for the Markdown block - displays markdown content with optional title",
+  "description": "Schema for the Markdown block - renders arbitrary Markdown content with an optional heading",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,24 +11,36 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "markdown"
+          "const": "markdown",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the markdown block",
           "properties": {
             "title": {
               "type": "string",
-              "description": "Section title (supports Markdown)"
+              "description": "Section heading (supports Markdown)"
             },
             "text": {
               "type": "string",
-              "description": "Markdown content (supports full Markdown syntax)"
+              "description": "Markdown body content"
             }
           },
-          "required": ["text"]
+          "required": ["text"],
+          "additionalProperties": false
         }
-      }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "markdown",
+          "content": {
+            "title": "Why Hugo Blox?",
+            "text": "Hugo Blox ships **Preact blocks**, Tailwind 4, and fast Hugo rendering. Mix Markdown, data-driven content, and components without build grief."
+          }
+        }
+      ]
     }
   ]
 }

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-biography-3.json",
   "title": "Resume Biography 3 Block Schema",
-  "description": "Schema for the Resume Biography 3 block - displays author bio with avatar, interests, and education in horizontal layout",
+  "description": "Schema for the Resume Biography 3 block - horizontal layout with banner, avatar, and profile details",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -11,20 +11,20 @@
       "type": "object",
       "properties": {
         "block": {
-          "const": "resume-biography-3"
+          "const": "resume-biography-3",
+          "description": "Block type identifier"
         },
         "content": {
           "type": "object",
-          "description": "Content configuration for the resume biography 3 block",
           "properties": {
             "username": {
               "type": "string",
-              "description": "Author username (references authors/{username}/ page)",
-              "default": "admin"
+              "description": "Author username (references data/authors/{username}.yaml)",
+              "default": "me"
             },
             "text": {
               "type": "string",
-              "description": "Biography text override (supports Markdown). If not provided, uses author page content."
+              "description": "Biography text override (supports Markdown). Defaults to the author profile bio."
             },
             "headings": {
               "type": "object",
@@ -36,13 +36,14 @@
                 },
                 "education": {
                   "type": "string",
-                  "description": "Heading for education section (default: from i18n 'education')"
+                  "description": "Heading for education section (default: i18n 'education')"
                 },
                 "interests": {
                   "type": "string",
-                  "description": "Heading for interests section (default: from i18n 'interests')"
+                  "description": "Heading for interests section (default: i18n 'interests')"
                 }
-              }
+              },
+              "additionalProperties": false
             },
             "button": {
               "type": "object",
@@ -57,73 +58,109 @@
                   "description": "Button text"
                 }
               },
-              "required": ["url", "text"]
+              "required": ["url", "text"],
+              "additionalProperties": false
             }
-          }
+          },
+          "additionalProperties": false
         },
         "design": {
-          "allOf": [
-            {
-              "$ref": "../shared/schemas/base-block.json#/properties/design"
-            },
-            {
+          "type": "object",
+          "description": "Presentation options for the biography layout",
+          "properties": {
+            "avatar": {
               "type": "object",
+              "description": "Avatar styling options",
               "properties": {
-                "avatar": {
-                  "type": "object",
-                  "description": "Avatar styling options",
-                  "properties": {
-                    "size": {
-                      "type": "string",
-                      "enum": ["small", "medium", "large", "xl", "xxl"],
-                      "description": "Avatar size",
-                      "default": "medium"
-                    },
-                    "shape": {
-                      "type": "string",
-                      "enum": ["circle", "square", "rounded"],
-                      "description": "Avatar shape",
-                      "default": "circle"
-                    }
-                  }
+                "size": {
+                  "type": "string",
+                  "enum": ["small", "medium", "large", "xl", "xxl"],
+                  "description": "Avatar size",
+                  "default": "large"
                 },
-                "banner": {
-                  "type": "object",
-                  "description": "Optional banner image",
-                  "properties": {
-                    "filename": {
-                      "type": "string",
-                      "description": "Banner image filename (in assets/media/)"
-                    }
-                  }
-                },
-                "biography": {
-                  "type": "object",
-                  "description": "Biography text styling",
-                  "properties": {
-                    "style": {
-                      "type": "string",
-                      "description": "Custom CSS styles for biography text"
-                    }
-                  }
-                },
-                "name": {
-                  "type": "object",
-                  "description": "Profile name typography controls",
-                  "properties": {
-                    "size": {
-                      "type": "string",
-                      "enum": ["xs", "sm", "md", "lg", "xl"],
-                      "description": "Heading size for the profile name to suit different name lengths",
-                      "default": "lg"
-                    }
-                  }
+                "shape": {
+                  "type": "string",
+                  "enum": ["circle", "square", "rounded"],
+                  "description": "Avatar shape",
+                  "default": "circle"
                 }
-              }
+              },
+              "additionalProperties": false
+            },
+            "banner": {
+              "type": "object",
+              "description": "Optional banner image",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "description": "Banner image filename (in assets/media/)"
+                }
+              },
+              "additionalProperties": false
+            },
+            "biography": {
+              "type": "object",
+              "description": "Biography text styling",
+              "properties": {
+                "style": {
+                  "type": "string",
+                  "description": "Custom CSS styles for biography text"
+                }
+              },
+              "additionalProperties": false
+            },
+            "name": {
+              "type": "object",
+              "description": "Profile name typography controls",
+              "properties": {
+                "size": {
+                  "type": "string",
+                  "enum": ["xs", "sm", "md", "lg", "xl"],
+                  "description": "Heading size for the profile name",
+                  "default": "lg"
+                }
+              },
+              "additionalProperties": false
             }
-          ]
+          },
+          "additionalProperties": true
         }
-      }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "resume-biography-3",
+          "content": {
+            "username": "me",
+            "text": "Research lead focused on alignment, evaluations, and safety tooling.",
+            "headings": {
+              "about": "Professional summary",
+              "education": "Education",
+              "interests": "Interests"
+            },
+            "button": {
+              "url": "/cv.pdf",
+              "text": "Download CV"
+            }
+          },
+          "design": {
+            "avatar": {
+              "size": "large",
+              "shape": "circle"
+            },
+            "name": {
+              "size": "lg"
+            },
+            "banner": {
+              "filename": "banners/research.jpg"
+            },
+            "biography": {
+              "style": "max-width: 70ch;"
+            }
+          }
+        }
+      ]
     }
   ]
 }
