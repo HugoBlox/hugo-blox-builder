@@ -1,5 +1,5 @@
 build:
-  hugo_version: '0.153.4'
+  hugo_version: '0.153.5'
 template:
   id: "documentation"
   name: "Documentation"
