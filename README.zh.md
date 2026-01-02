@@ -23,8 +23,8 @@
   <a href="https://discord.gg/z8wNYzb">
     <img src="https://img.shields.io/discord/722225264733716590?label=%E5%8A%A0%E5%85%A5%20Discord&style=social" alt="Discord">
   </a>
-  <a href="https://github.com/HugoBlox/hugo-blox-builder">
-    <img src="https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?label=%E4%B8%BA%20Hugo%20Blox%20%E5%8A%A0%E6%98%9F&style=social" alt="GitHub Stars">
+  <a href="https://github.com/HugoBlox/kit">
+    <img src="https://img.shields.io/github/stars/HugoBlox/kit?label=%E4%B8%BA%20Hugo%20Blox%20%E5%8A%A0%E6%98%9F&style=social" alt="GitHub Stars">
   </a>
   <a href="https://x.com/BuildLore">
     <img src="https://img.shields.io/twitter/follow/BuildLore?label=%E5%85%B3%E6%B3%A8&style=social" alt="Follow on X">
@@ -144,7 +144,7 @@ npx hugoblox create
 - 💬 [Discord](https://discord.gg/z8wNYzb)
 - 📚 [文档与指南](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
 - 🐦 [X / Twitter](https://x.com/BuildLore)
-- ⭐ [为 HugoBlox 加星](https://github.com/HugoBlox/hugo-blox-builder)
+- ⭐ [为 HugoBlox 加星](https://github.com/HugoBlox/kit)
 
 ---
 

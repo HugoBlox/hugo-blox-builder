@@ -1,8 +1,8 @@
 name = "Hugo Blox - Tailwind"
 license = "MIT"
-licenselink = "https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md"
+licenselink = "https://github.com/HugoBlox/kit/blob/main/LICENSE.md"
 description = "Create any kind of website with fully customizable widgets - 50+ light/dark color themes, language packs, and widgets included."
-homepage = "https://github.com/HugoBlox/hugo-blox-builder"
+homepage = "https://github.com/HugoBlox/kit"
 demosite = "https://hugo-academic-pages.netlify.app/"
 tags = ["widgets",
         "portfolio",

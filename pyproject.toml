@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hugo-blox-builder"
+name = "kit"
 version = "0.1.0"
 description = "Project management tool for Hugo Blox Builder repository"
 authors = ["George Cushen <gcushen@users.noreply.github.com>"]

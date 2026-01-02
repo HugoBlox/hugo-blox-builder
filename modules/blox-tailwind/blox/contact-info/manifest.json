@@ -8,6 +8,6 @@
   "description": "Display contact information with modern card layout, including address, phone, email, social media, and optional contact form",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "static-site", "contact", "information", "address", "research-lab"]
 }

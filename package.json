@@ -1,17 +1,17 @@
 {
-  "name": "hugo-blox-builder",
+  "name": "kit",
   "version": "1.0.0",
   "description": "The Page Builder for Hugo",
   "author": "George Cushen",
   "license": "MIT",
   "packageManager": "pnpm@10.14.0",
   "bugs": {
-    "url": "https://github.com/HugoBlox/hugo-blox-builder/issues"
+    "url": "https://github.com/HugoBlox/kit/issues"
   },
   "homepage": "https://hugoblox.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HugoBlox/hugo-blox-builder.git"
+    "url": "git+https://github.com/HugoBlox/kit.git"
   },
   "dependencies": {
     "alpinejs": "^3.15.0",

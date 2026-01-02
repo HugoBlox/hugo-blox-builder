@@ -8,6 +8,6 @@
   "description": "Showcase professional awards and certifications with elegant card layouts and certificate links",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "resume", "awards", "certifications", "cv", "professional"]
 }

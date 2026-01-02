@@ -11,7 +11,7 @@ body:
 
         We use GitHub Issues for project management, **NOT for support**.
 
-        🚑 For **help** and **questions**, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)**, and if not, ask your question there instead.
+        🚑 For **help** and **questions**, search if your question has already been asked on the community **[chat](https://discord.gg/z8wNYzb)** and **[forum](https://github.com/HugoBlox/kit/discussions)**, and if not, ask your question there instead.
 
         Bug reports also shouldn't be used for support requests about a specific problem in your site, only if the issue can be reproduced on a fresh Hugo Blox Builder template.
 
@@ -27,7 +27,7 @@ body:
       label: Preliminary Checks
       description: Please make sure that you verify each checkbox and follow the instructions for them.
       options:
-        - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/HugoBlox/hugo-blox-builder/issues?q=is%3Aissue"
+        - label: "This issue is not a duplicate. Before opening a new issue, please search existing issues: https://github.com/HugoBlox/kit/issues?q=is%3Aissue"
           required: true
         - label: "This issue is not a question, feature request, or anything other than a bug report directly related to Hugo Blox Builder. Please post those things on Discord: https://discord.gg/z8wNYzb"
           required: true

@@ -8,6 +8,6 @@
   "description": "Engaging alternating image and text sections with feature lists and call-to-action buttons",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "marketing", "images", "features", "storytelling", "conversion"]
 }

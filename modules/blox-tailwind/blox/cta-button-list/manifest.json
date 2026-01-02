@@ -8,6 +8,6 @@
   "description": "Create compelling vertical lists of call-to-action buttons with icons and hover effects",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "cta", "buttons", "conversion", "marketing", "social-links"]
 }

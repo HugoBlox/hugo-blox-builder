@@ -8,6 +8,6 @@
   "description": "Horizontal biography layout with integrated education and interests sections",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "resume", "biography", "horizontal", "education", "interests", "cv"]
 }

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Hugo Blox Test Build",
   "main": "",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "author": "George Cushen",
   "license": "MIT",
   "private": true,

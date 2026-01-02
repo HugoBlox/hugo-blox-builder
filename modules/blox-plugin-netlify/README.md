@@ -13,7 +13,7 @@ By default, the plugin will help secure your site with some common security head
    ```yaml
    module:
      imports:
-       - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-plugin-netlify
+       - path: github.com/HugoBlox/kit/modules/blox-plugin-netlify
    ```
 
 2. Tell Hugo to generate the Netlify `headers` and `redirects` files by adding them to Hugo's `outputs` config. For example,

@@ -20,8 +20,8 @@ The integrated [**Hugo Blox**](https://hugoblox.com) website builder and CMS mak
 - ⬇️ **Automatically import citations from BibTeX** with the [Academic File Converter](https://github.com/GetRD/academic-file-converter)
 - 🐦 Share your new site with the community: [@BuildLore](https://x.com/BuildLore) [@GeorgeCushen](https://x.com/GeorgeCushen) [#MadeWithHugoBlox](https://x.com/search?q=%23MadeWithHugoBlox&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
-- 🚀 [Contribute improvements](https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md) or [suggest improvements](https://github.com/HugoBlox/hugo-blox-builder/issues)
-- ⬆️ **Updating?** View the [Update Guide](https://docs.hugoblox.com/reference/update/) and [Release Notes](https://github.com/HugoBlox/hugo-blox-builder/releases)
+- 🚀 [Contribute improvements](https://github.com/HugoBlox/kit/blob/main/CONTRIBUTING.md) or [suggest improvements](https://github.com/HugoBlox/kit/issues)
+- ⬆️ **Updating?** View the [Update Guide](https://docs.hugoblox.com/reference/update/) and [Release Notes](https://github.com/HugoBlox/kit/releases)
 
 ## We ask you, humbly, to support this open source movement
 

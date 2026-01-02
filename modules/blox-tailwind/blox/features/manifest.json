@@ -8,6 +8,6 @@
   "description": "Showcase features, benefits, or services in an organized grid with icons and descriptions",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "features", "grid", "services", "benefits", "product"]
 }

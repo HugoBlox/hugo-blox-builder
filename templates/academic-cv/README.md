@@ -41,7 +41,7 @@ Most CVs are static PDFs that get lost in the pile. This is an **intelligent por
   </a>
 </p>
 
-![HugoBlox Studio in Action](https://raw.githubusercontent.com/HugoBlox/hugo-blox-builder/main/.github/media/studio/slide-1.webp)
+![HugoBlox Studio in Action](https://raw.githubusercontent.com/HugoBlox/kit/main/.github/media/studio/slide-1.webp)
 *HugoBlox Studio: Drag-and-drop page builder inside VS Code.*
 
 > "My citations went up 3x after switching to this template. The citation auto-sync feature is a lifesaver."
@@ -141,7 +141,7 @@ npx hugoblox create site --template academic-cv
 - 💬 [**Discord Community**](https://discord.gg/z8wNYzb)
 - 📚 [**Documentation**](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
 - 🐦 [**Follow on X**](https://x.com/BuildLore)
-- ⭐ [**Star on GitHub**](https://github.com/HugoBlox/hugo-blox-builder)
+- ⭐ [**Star on GitHub**](https://github.com/HugoBlox/kit)
 
 ---
 

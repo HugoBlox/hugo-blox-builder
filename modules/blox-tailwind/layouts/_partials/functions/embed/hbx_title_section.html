@@ -114,7 +114,7 @@
       {{- end -}}
     {{- end -}}
     
-    {{/* Fallback: extract owner from resource string (e.g., "HugoBlox/hugo-blox-builder" -> "HugoBlox") */}}
+    {{/* Fallback: extract owner from resource string (e.g., "HugoBlox/kit" -> "HugoBlox") */}}
     {{- if and (not $owner) $resource -}}
       {{- $parts := split $resource "/" -}}
       {{- if gt (len $parts) 0 -}}

@@ -305,7 +305,7 @@
 
   {{ $js_license := printf "/*! Hugo Blox Builder Tailwind UI v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
   {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
-  {{ $js_license := $js_license | printf "%s/*! License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */\n" }}
+  {{ $js_license := $js_license | printf "%s/*! License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */\n" }}
   {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}
   {{ $i18n := dict "copy" (i18n "btn_copy") "copied" (i18n "btn_copied" | default "Copied") }}
   {{ $js_params := dict "hugoEnvironment" hugo.Environment "i18n" $i18n }}

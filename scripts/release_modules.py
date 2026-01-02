@@ -172,34 +172,38 @@ def update_devcontainer_hugo(starter_dir: Path, latest_hugo: Optional[str], upda
 
 @dataclass
 class Module:
-  name: str  # e.g., blox-tailwind
-  rel_dir: Path  # e.g., modules/blox-tailwind
-  module_path: str  # go module path e.g., github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind
-  major: int  # 0,1,2,... (derived from module_path suffix /vN if any)
-  requires: Set[str] = field(default_factory=set)  # module paths this module requires
-  dependents: Set[str] = field(default_factory=set)  # reverse edge, filled later
+    name: str  # e.g., blox-tailwind
+    rel_dir: Path  # e.g., modules/blox-tailwind
+    module_path: (
+        str  # go module path e.g., github.com/HugoBlox/kit/modules/blox-tailwind
+    )
+    major: int  # 0,1,2,... (derived from module_path suffix /vN if any)
+    requires: Set[str] = field(default_factory=set)  # module paths this module requires
+    dependents: Set[str] = field(default_factory=set)  # reverse edge, filled later
 
-  def tag_prefix(self) -> str:
-    # tags must be like: modules/blox-tailwind/vX.Y.Z
-    return f"{self.rel_dir.as_posix()}/v"
+    def tag_prefix(self) -> str:
+        # tags must be like: modules/blox-tailwind/vX.Y.Z
+        return f"{self.rel_dir.as_posix()}/v"
 
-  def current_version_tag(self) -> Optional[str]:
-    # Find last tag for this module, prefixed by module rel path
-    # Sorted by semantic version descending
-    # For modules with major >= 2, the version series must start with v{major}.
-    pattern = f"{self.rel_dir.as_posix()}/v{self.major if self.major >= 2 else ''}*"
-    # Clean potential double 'v' for major 0/1
-    pattern = pattern.replace("v*v", "v*")
-    res = run_cmd(["git", "tag", "--list", pattern, "--sort=-v:refname"], cwd=REPO_ROOT)
-    tags = [t.strip() for t in res.stdout.splitlines() if t.strip()]
-    return tags[0] if tags else None
+    def current_version_tag(self) -> Optional[str]:
+        # Find last tag for this module, prefixed by module rel path
+        # Sorted by semantic version descending
+        # For modules with major >= 2, the version series must start with v{major}.
+        pattern = f"{self.rel_dir.as_posix()}/v{self.major if self.major >= 2 else ''}*"
+        # Clean potential double 'v' for major 0/1
+        pattern = pattern.replace("v*v", "v*")
+        res = run_cmd(
+            ["git", "tag", "--list", pattern, "--sort=-v:refname"], cwd=REPO_ROOT
+        )
+        tags = [t.strip() for t in res.stdout.splitlines() if t.strip()]
+        return tags[0] if tags else None
 
-  def last_version(self) -> Optional[str]:
-    tag = self.current_version_tag()
-    if not tag:
-      return None
-    m = re.search(r"/v(\d+\.\d+\.\d+)$", tag)
-    return m.group(1) if m else None
+    def last_version(self) -> Optional[str]:
+        tag = self.current_version_tag()
+        if not tag:
+            return None
+        m = re.search(r"/v(\d+\.\d+\.\d+)$", tag)
+        return m.group(1) if m else None
 
 
 def _extract_requires_from_go_mod(content: str) -> Set[str]:

@@ -312,7 +312,7 @@ This slide won't appear in the presentation but remains in source for reference.
 - 🌐 Website: [hugoblox.com](https://hugoblox.com)
 - 🐦 X/Twitter: [@BuildLore](https://twitter.com/BuildLore)
 - 💬 Discord: [Join Community](https://discord.gg/z8wNYzb)
-- ⭐ GitHub: [Star us!](https://github.com/HugoBlox/hugo-blox-builder)
+- ⭐ GitHub: [Star us!](https://github.com/HugoBlox/kit)
 
 **All slides created with Markdown** • No vendor lock-in • Edit anywhere
 

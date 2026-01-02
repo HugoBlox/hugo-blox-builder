@@ -4,7 +4,7 @@
 
 [![All Access](https://img.shields.io/badge/Support-All%20Access-2ea44f?logo=heart)](https://hugoblox.com/all-access)
 [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?logo=github)](https://github.com/sponsors/gcushen)
-[![Star us](https://img.shields.io/github/stars/HugoBlox/hugo-blox-builder?style=social)](https://github.com/HugoBlox/hugo-blox-builder)
+[![Star us](https://img.shields.io/github/stars/HugoBlox/kit?style=social)](https://github.com/HugoBlox/kit)
 [![Discord](https://img.shields.io/discord/722225264733716590?logo=discord)](https://discord.gg/z8wNYzb)
 
 ## ❤️ Love Hugo Blox? Help keep it thriving.
@@ -33,21 +33,21 @@ We want contributing to Hugo Blox to be fun, enjoyable, and educational for anyo
 
 ### ⏱️ 30 Seconds
 
-- **⭐ Star the repository**: [github.com/HugoBlox/hugo-blox-builder](https://github.com/HugoBlox/hugo-blox-builder)
-- **👍 Vote on issues**: Shape the roadmap by [upvoting features](https://github.com/HugoBlox/hugo-blox-builder/issues) you need
-- **💡 Suggest an enhancement**: Have an idea? [Create a GitHub Issue](https://github.com/HugoBlox/hugo-blox-builder/issues) for the community to vote on
+- **⭐ Star the repository**: [github.com/HugoBlox/kit](https://github.com/HugoBlox/kit)
+- **👍 Vote on issues**: Shape the roadmap by [upvoting features](https://github.com/HugoBlox/kit/issues) you need
+- **💡 Suggest an enhancement**: Have an idea? [Create a GitHub Issue](https://github.com/HugoBlox/kit/issues) for the community to vote on
 - **📢 Share your site**: Post your Hugo Blox site on X/LinkedIn/Reddit with #HugoBlox
 
 ### 🕐 5-10 Minutes
 
-- **📸 Share a screenshot**: Show your beautiful site in [Discussions](https://github.com/HugoBlox/hugo-blox-builder/discussions)
+- **📸 Share a screenshot**: Show your beautiful site in [Discussions](https://github.com/HugoBlox/kit/discussions)
 - **🐛 Report issues clearly**: Found a bug? Help us fix it with clear steps to reproduce
 - **💬 Help in Discord**: Answer a question in our [Discord community](https://discord.gg/z8wNYzb)
 - **✏️ Fix documentation typos**: Spot an error? Fix it directly on GitHub (no setup needed!)
 
 ### 🕓 ~1 Hour
 
-- **🔧 Implement a small issue**: See [help-wanted issues](https://github.com/HugoBlox/hugo-blox-builder/labels/help%20wanted)
+- **🔧 Implement a small issue**: See [help-wanted issues](https://github.com/HugoBlox/kit/labels/help%20wanted)
 - **📚 Write documentation**: Help keep the documentation complete and up-to-date
 
 ### 🕘 A Few Hours
@@ -63,8 +63,8 @@ Join the **Contributing** channel on the **[community Discord](https://discord.g
 
 Whether or not you're a developer, there are plenty of non-technical ways that you can help. We always need help with:
 
-- Helping the Hugo Blox community via the live [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/HugoBlox/hugo-blox-builder/discussions)
-- Investigating and reviewing open [Issues](https://github.com/HugoBlox/hugo-blox-builder/issues) and [Pull Requests](https://github.com/HugoBlox/hugo-blox-builder/pulls)
+- Helping the Hugo Blox community via the live [chat](https://discord.gg/z8wNYzb) and [forum](https://github.com/HugoBlox/kit/discussions)
+- Investigating and reviewing open [Issues](https://github.com/HugoBlox/kit/issues) and [Pull Requests](https://github.com/HugoBlox/kit/pulls)
   - Influence the roadmap! Give a thumbs up 👍 to upvote a feature request you would like to use
 - Improving the [documentation](https://docs.hugoblox.com/) and writing tutorials
   - Just click the _Edit_ button at the bottom of pages or open an issue with your proposed improvement
@@ -116,8 +116,8 @@ Whether or not you're a developer, there are plenty of non-technical ways that y
 
    ```bash
    # Fork on GitHub first, then:
-   git clone https://github.com/YOUR-USERNAME/hugo-blox-builder.git
-   cd hugo-blox-builder
+   git clone https://github.com/YOUR-USERNAME/kit.git
+   cd kit
    ```
 
 2. **Install Dependencies**
@@ -140,7 +140,7 @@ That's it! You're ready to contribute. 🎉
 ### Repository structure
 
 ```
-hugo-blox-builder/
+kit/
 ├── modules/
 │   └── blox-tailwind/        # Main theme module
 │       ├── layouts/          # HTML templates (easy to edit!)
@@ -157,13 +157,13 @@ hugo-blox-builder/
 
 #### What are some good issues to contribute to?
 
-If you're a developer looking to contribute, but you're not sure where to begin, check out the [help wanted](https://github.com/HugoBlox/hugo-blox-builder/labels/help%20wanted) label on Github, which contains issues which need some love.
+If you're a developer looking to contribute, but you're not sure where to begin, check out the [help wanted](https://github.com/HugoBlox/kit/labels/help%20wanted) label on Github, which contains issues which need some love.
 
 #### How can I propose an improvement?
 
-If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/HugoBlox/hugo-blox-builder/pulls) for the community to review.
+If you have a straightforward bug fix or improvement, feel free to contribute it in a [Pull Request](https://github.com/HugoBlox/kit/pulls) for the community to review.
 
-If you have an idea for a new feature, please start by [searching the issues](https://github.com/HugoBlox/hugo-blox-builder/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/HugoBlox/hugo-blox-builder/issues/new/choose), as adding new features to Hugo Blox first requires some analysis around the design and spec.
+If you have an idea for a new feature, please start by [searching the issues](https://github.com/HugoBlox/kit/issues) to check that the feature has not already been suggested and then suggest it by [opening a new issue](https://github.com/HugoBlox/kit/issues/new/choose), as adding new features to Hugo Blox first requires some analysis around the design and spec.
 
 Please be mindful of the project [scope](#scope).
 
@@ -177,7 +177,7 @@ Please be mindful of the project [scope](#scope).
 
 ### Contribute a language pack
 
-To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/hugo-blox-builder), place your language pack in `modules/blox-tailwind/i18n/`, add the language metadata to `modules/blox-tailwind/data/languages.yaml`, and open a Pull Request on Github with these two files.
+To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/kit), place your language pack in `modules/blox-tailwind/i18n/`, add the language metadata to `modules/blox-tailwind/data/languages.yaml`, and open a Pull Request on Github with these two files.
 
 ### Contribute a theme pack
 
@@ -185,7 +185,7 @@ To contribute a **new language pack** or an improvement to a language pack, refe
 
 ### Contribute a template
 
-Consider duplicating a bare-bones template, such as the [Link In Bio](https://github.com/HugoBlox/hugo-blox-builder/tree/main/templates/link-in-bio) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
+Consider duplicating a bare-bones template, such as the [Link In Bio](https://github.com/HugoBlox/kit/tree/main/templates/link-in-bio) folder, and building up your own template using the Hugo Blox. Reach out on the **Contributing** channel in Discord to submit your template.
 
 ### Contribute to the Publication importer
 
@@ -196,7 +196,7 @@ To contribute to **Hugo Academic CLI**, the automatic publication and blog post 
 ### Where to Ask Questions
 
 - **🗣️ Discord**: Real-time chat in [#contributing channel](https://discord.gg/z8wNYzb)
-- **💬 Discussions**: Async help in [GitHub Discussions](https://github.com/HugoBlox/hugo-blox-builder/discussions)
+- **💬 Discussions**: Async help in [GitHub Discussions](https://github.com/HugoBlox/kit/discussions)
 - **🐛 Issues**: Bug reports and feature requests
 
 ### Tips for Getting Quick Help
@@ -218,7 +218,7 @@ To contribute to **Hugo Academic CLI**, the automatic publication and blog post 
 
 ### Hall of Fame
 
-Check our [Contributors page](https://github.com/HugoBlox/hugo-blox-builder/graphs/contributors) to see everyone who's helped!
+Check our [Contributors page](https://github.com/HugoBlox/kit/graphs/contributors) to see everyone who's helped!
 
 ## 💚 Can't Contribute Code? Support the Project!
 
@@ -289,7 +289,7 @@ Every contribution matters — whether it's fixing a typo, adding a translation,
 
 ---
 
-_Questions? Join our [Discord](https://discord.gg/z8wNYzb) or start a [Discussion](https://github.com/HugoBlox/hugo-blox-builder/discussions)._ 
+_Questions? Join our [Discord](https://discord.gg/z8wNYzb) or start a [Discussion](https://github.com/HugoBlox/kit/discussions)._ 
 
 _This project follows the [Contributor Covenant Code of Conduct](.github/CODE_OF_CONDUCT.md)._ 
 

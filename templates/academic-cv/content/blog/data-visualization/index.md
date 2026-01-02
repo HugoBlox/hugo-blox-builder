@@ -43,7 +43,7 @@ HuggingFace Dataset
 
 GitHub Repository
 
-{{< embed platform="github" resource="HugoBlox/hugo-blox-builder" type="repo" >}}
+{{< embed platform="github" resource="HugoBlox/kit" type="repo" >}}
 
 Custom embed with manual data
 

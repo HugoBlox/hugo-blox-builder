@@ -21,7 +21,7 @@ Get support fast. Hugo Blox has the largest Hugo community on Discord, consistin
 
 ## Feature requests {#feature-requests}
 
-For new feature requests, create a post on our [GitHub Issues](https://github.com/HugoBlox/hugo-blox-builder/issues). You can also upvote existing feature requests with a 👍
+For new feature requests, create a post on our [GitHub Issues](https://github.com/HugoBlox/kit/issues). You can also upvote existing feature requests with a 👍
 
 ## News {#news}
 

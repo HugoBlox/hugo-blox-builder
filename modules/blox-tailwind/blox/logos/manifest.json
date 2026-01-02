@@ -8,6 +8,6 @@
   "description": "Display partner, sponsor, or collaborator logos with interactive effects and multiple display modes",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "static-site", "logos", "partners", "sponsors", "carousel", "marquee"]
 }

@@ -152,10 +152,10 @@ The above buttons are created with:
 
 ### External Link with New Tab
 
-{{< button url="https://github.com/hugo-blox/hugo-blox-builder" new_tab="true" style="outline" icon="arrow-top-right-on-square" icon_position="right" >}}View on GitHub{{< /button >}}
+{{< button url="https://github.com/hugo-blox/kit" new_tab="true" style="outline" icon="arrow-top-right-on-square" icon_position="right" >}}View on GitHub{{< /button >}}
 
 ```go-html-template
-{{</* button url="https://github.com/hugo-blox/hugo-blox-builder" new_tab="true" style="outline" icon="arrow-top-right-on-square" icon_position="right" */>}}View on GitHub{{</* /button */>}}
+{{</* button url="https://github.com/hugo-blox/kit" new_tab="true" style="outline" icon="arrow-top-right-on-square" icon_position="right" */>}}View on GitHub{{</* /button */>}}
 ```
 
 ### Download Button

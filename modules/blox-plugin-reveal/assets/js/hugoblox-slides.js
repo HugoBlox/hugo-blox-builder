@@ -1,6 +1,6 @@
 /*************************************************
  *  Hugo Blox Builder - https://hugoblox.com/
- *  License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md
+ *  License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md
  *
  *  Reveal.JS integration
  **************************************************/

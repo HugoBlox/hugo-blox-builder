@@ -35,7 +35,7 @@ links:
   provider: arxiv
   id: 1512.04133v1
 - type: code
-  url: https://github.com/HugoBlox/hugo-blox-builder
+  url: https://github.com/HugoBlox/kit
 - type: slides
   url: https://www.slideshare.net/
 - type: dataset

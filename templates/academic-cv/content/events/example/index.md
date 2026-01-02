@@ -40,7 +40,7 @@ image:
 links:
   - icon: brands/github
     name: Star on GitHub
-    url: https://github.com/HugoBlox/hugo-blox-builder
+    url: https://github.com/HugoBlox/kit
   - icon: brands/youtube
     name: Video Tutorial
     url: https://www.youtube.com/
@@ -355,13 +355,13 @@ Each lecture gets its own slide deck, all version controlled, all editable by st
 > - 🔬 CERN, NASA, NIH
 > - 🌐 Thousands of universities worldwide
 
-{{< button url="https://github.com/HugoBlox/hugo-blox-builder" text="Star on GitHub" icon="brands/github" style="primary" size="lg" align="center" rounded="full" />}}
+{{< button url="https://github.com/HugoBlox/kit" text="Star on GitHub" icon="brands/github" style="primary" size="lg" align="center" rounded="full" />}}
 
 ### Get Help & Connect
 
 - 📚 [Documentation](https://docs.hugoblox.com/guides/slides/)
 - 💬 [Discord Community](https://discord.gg/z8wNYzb)
-- 🐛 [GitHub Issues](https://github.com/HugoBlox/hugo-blox-builder/issues)
+- 🐛 [GitHub Issues](https://github.com/HugoBlox/kit/issues)
 - 🐦 [Follow @BuildLore](https://twitter.com/BuildLore)
 
 ---
@@ -413,4 +413,4 @@ Each lecture gets its own slide deck, all version controlled, all editable by st
 
 **Have questions?** Check out the [FAQ](https://docs.hugoblox.com/guides/slides/) or [ask the community](https://discord.gg/z8wNYzb)!
 
-**Want to contribute?** Hugo Blox is open source! [Contributions welcome](https://github.com/HugoBlox/hugo-blox-builder/blob/main/CONTRIBUTING.md).
+**Want to contribute?** Hugo Blox is open source! [Contributions welcome](https://github.com/HugoBlox/kit/blob/main/CONTRIBUTING.md).

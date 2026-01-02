@@ -8,6 +8,6 @@
   "description": "Display team members with customizable grouping, filtering, and rich profiles",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "static-site", "team", "people", "organization", "research-lab"]
 }

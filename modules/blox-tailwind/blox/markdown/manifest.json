@@ -8,6 +8,6 @@
   "description": "Display rich markdown content with beautiful typography and optional section titles",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "markdown", "content", "typography", "prose", "text"]
 }

@@ -8,6 +8,6 @@
   "description": "Display technical and professional skills with optional progress bars and organized categories",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "resume", "skills", "technical", "progress", "expertise", "cv"]
 }

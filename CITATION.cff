@@ -14,7 +14,7 @@ authors:
     orcid: "https://orcid.org/0000-0003-0526-3793"
 
 license: "MIT"
-repository-code: "https://github.com/HugoBlox/hugo-blox-builder"
+repository-code: "https://github.com/HugoBlox/kit"
 url: "https://hugoblox.com"
 doi: 10.5281/zenodo.17704062
 

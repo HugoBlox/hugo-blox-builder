@@ -3,7 +3,7 @@
 Need help? Here’s how to get support efficiently:
 
 - Discord: https://discord.gg/z8wNYzb
-- GitHub Discussions: https://github.com/HugoBlox/hugo-blox-builder/discussions
+- GitHub Discussions: https://github.com/HugoBlox/kit/discussions
 - Docs & Guides: https://docs.hugoblox.com/
 - Issues: use for confirmed bugs or well-scoped feature requests only
 

@@ -103,7 +103,7 @@
         {{ $i18n_published_with = $published_with }}
       {{ end }}
       {{ $i18n_published_with = replace $i18n_published_with "{hugoblox}" (printf "<a class=\"underline hover:opacity-100\" href=\"%s\" target=\"_blank\" rel=\"noopener\" data-hbx=\"poweredby_brand\">%s</a>" $brandHref $brandText) | safeHTML }}
-      {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/HugoBlox/hugo-blox-builder\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
+      {{ $i18n_published_with = replace $i18n_published_with "{repo_link}" "<a href=\"https://github.com/HugoBlox/kit\" target=\"_blank\" rel=\"noopener\">" | safeHTML }}
       {{ $i18n_published_with = replace $i18n_published_with "{/repo_link}" "</a>" | safeHTML }}
       {{ $i18n_published_with | safeHTML }}
       <a class="inline-flex items-center rounded px-2 py-0.5 border border-current ms-2 text-xs hover:opacity-100"

@@ -8,6 +8,6 @@
   "description": "Professional biography section with customizable avatar, social links, and personal information",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "resume", "biography", "profile", "avatar", "social", "cv"]
 }

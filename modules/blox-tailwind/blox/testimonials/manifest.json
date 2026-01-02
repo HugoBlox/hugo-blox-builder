@@ -8,6 +8,6 @@
   "description": "Build trust with authentic customer testimonials featuring quotes, names, and profile photos",
   "author": "Hugo Blox",
   "homepage": "https://hugoblox.com/blocks/",
-  "repository": "https://github.com/HugoBlox/hugo-blox-builder",
+  "repository": "https://github.com/HugoBlox/kit",
   "keywords": ["hugo", "testimonials", "social-proof", "reviews", "customers", "trust"]
 }
