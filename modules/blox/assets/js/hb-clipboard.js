@@ -1,5 +1,5 @@
 /**
- * Clipboard Utilities for Hugo Blox Builder
+ * Clipboard Utilities for Hugo Blox Kit
  * Provides cross-browser clipboard functionality
  */
 

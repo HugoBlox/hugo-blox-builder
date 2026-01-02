@@ -16,7 +16,7 @@ The integrated [**Hugo Blox**](https://hugoblox.com) website builder and CMS mak
 
 - 👉 [**Get Started**](https://hugoblox.com/templates/details/docs/)
 - 📚 [View the **documentation**](https://docs.hugoblox.com/)
-- 💬 [Chat with the **Hugo Blox Builder community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
+- 💬 [Chat with the **HugoBlox Kit community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
 - ⬇️ **Automatically import citations from BibTeX** with the [Academic File Converter](https://github.com/GetRD/academic-file-converter)
 - 🐦 Share your new site with the community: [@BuildLore](https://x.com/BuildLore) [@GeorgeCushen](https://x.com/GeorgeCushen) [#MadeWithHugoBlox](https://x.com/search?q=%23MadeWithHugoBlox&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
@@ -25,7 +25,7 @@ The integrated [**Hugo Blox**](https://hugoblox.com) website builder and CMS mak
 
 ## We ask you, humbly, to support this open source movement
 
-Today we ask you to defend the open source independence of the Hugo Blox Builder and themes 🐧
+Today we ask you to defend the open source independence of the HugoBlox Kit and themes 🐧
 
 We're an open source movement that depends on your support to stay online and thriving, but 99.9% of our creators don't give; they simply look the other way.
 

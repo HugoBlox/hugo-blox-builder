@@ -3,7 +3,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="generator" content="Hugo Blox Builder {{ site.Data.hugoblox.version }}" />
+  <meta name="generator" content="Hugo Blox Kit {{ site.Data.hugoblox.version }}" />
 
   {{/* EXTENSIBILITY HOOK: HEAD-START */}}
   {{ partial "functions/get_hook" (dict "hook" "head-start" "context" .) }}
@@ -303,7 +303,7 @@
   {{/* !CACHED! Initialized once at site level and then cached for each page */}}
   {{- partialCached "init.html" . "hb_init_once" -}}
 
-  {{ $js_license := printf "/*! Hugo Blox Builder Tailwind UI v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
+  {{ $js_license := printf "/*! Hugo Blox Kit Tailwind UI v%s | https://hugoblox.com/ */\n" site.Data.hugoblox.version }}
   {{ $js_license := $js_license | printf "%s/*! Copyright 2016-present George Cushen (https://georgecushen.com/) */\n" }}
   {{ $js_license := $js_license | printf "%s/*! License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */\n" }}
   {{ $js_bundle_head := $js_license | resources.FromString "js/bundle-head.js" }}

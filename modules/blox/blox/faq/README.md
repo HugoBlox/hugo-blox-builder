@@ -22,11 +22,11 @@ sections:
       subtitle: Find answers to common questions
       text: Can't find what you're looking for? [Contact us](/contact)
       items:
-        - question: What is Hugo Blox Builder?
-          answer: Hugo Blox Builder is a no-code website builder framework powered by Hugo and Tailwind CSS.
+        - question: What is HugoBlox Kit?
+          answer: HugoBlox Kit is a no-code website builder framework powered by Hugo and Tailwind CSS.
         
         - question: Is it free to use?
-          answer: Yes! Hugo Blox Builder is open source and free to use under the MIT license.
+          answer: Yes! HugoBlox Kit is open source and free to use under the MIT license.
         
         - question: How do I get started?
           answer: |
@@ -55,4 +55,3 @@ This block automatically generates FAQPage structured data for better SEO and el
 - **Colors**: Automatically adapts to your theme
 - **Spacing**: Customizable via `design.spacing`
 - **Background**: Customizable via `design.background.color`
-

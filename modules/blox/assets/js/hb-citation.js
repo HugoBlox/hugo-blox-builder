@@ -1,5 +1,5 @@
 /**
- * Citation clipboard handler for Hugo Blox Builder
+ * Citation clipboard handler for Hugo Blox Kit
  * Copies BibTeX citation to clipboard when cite button is clicked
  */
 

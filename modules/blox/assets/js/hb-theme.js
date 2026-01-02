@@ -1,4 +1,4 @@
-// Hugo Blox Builder Light / Dark theme toggle
+// Hugo Blox Kit Light / Dark theme toggle
 document.addEventListener("DOMContentLoaded", () => {
   addThemeToggleListener();
 });

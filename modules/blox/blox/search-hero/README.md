@@ -262,4 +262,4 @@ title: "Learn ==Smarter==, Not ==Harder=="
 
 ---
 
-**Part of Hugo Blox Builder** - https://hugoblox.com
+**Part of HugoBlox Kit** - https://hugoblox.com

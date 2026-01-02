@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "kit"
 version = "0.1.0"
-description = "Project management tool for Hugo Blox Builder repository"
+description = "Project management tool for HugoBlox Kit repository"
 authors = ["George Cushen <gcushen@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"

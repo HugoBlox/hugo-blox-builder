@@ -1,6 +1,6 @@
 import {applyHugoStyleFixes, initTheme} from "./hb-init.js";
 
-// Initialize Hugo Blox Builder global object
+// Initialize Hugo Blox Kit global object
 const root = document.documentElement;
 const defaultTheme = root.dataset.wcThemeDefault || "system";
 const relBase = root.dataset.hbbRelurl || "/";

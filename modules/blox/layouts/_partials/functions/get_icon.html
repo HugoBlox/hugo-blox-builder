@@ -1,5 +1,5 @@
 {{/* Return the requested SVG icon */}}
-{{/* Search for the icon in the Hugo Blox Builder icon library, falling back to user's icon library */}}
+{{/* Search for the icon in the Hugo Blox Kit icon library, falling back to user's icon library */}}
 
 {{ $dirFile := path.Split .name }}
 {{ $pack := .pack | default (strings.Replace $dirFile.Dir "/" "") | default "hero" }}

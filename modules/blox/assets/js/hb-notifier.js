@@ -1,5 +1,5 @@
 /**
- * Notification/Toast System for Hugo Blox Builder
+ * Notification/Toast System for Hugo Blox Kit
  * Provides reusable notification functionality
  */
 

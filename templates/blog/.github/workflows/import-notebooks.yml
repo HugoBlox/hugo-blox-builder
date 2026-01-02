@@ -38,7 +38,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: 'content: import blog posts from `notebooks/` folder'
-          title: Hugo Blox Builder - Import latest blog posts
+          title: HugoBlox Kit - Import latest blog posts
           body: |
             Convert Jupyter Notebooks in the `notebooks/` folder into blog posts in the `content/post/` folder.
             将`notebooks/`文件夹中的Jupyter笔记本转换为`content/post/`文件夹中的博客帖子。

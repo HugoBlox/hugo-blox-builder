@@ -177,7 +177,7 @@ Please be mindful of the project [scope](#scope).
 
 ### Contribute a language pack
 
-To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/kit), place your language pack in `modules/blox/i18n/`, add the language metadata to `modules/blox/data/languages.yaml`, and open a Pull Request on Github with these two files.
+To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork HugoBlox Kit](https://github.com/HugoBlox/kit), place your language pack in `modules/blox/i18n/`, add the language metadata to `modules/blox/data/languages.yaml`, and open a Pull Request on Github with these two files.
 
 ### Contribute a theme pack
 

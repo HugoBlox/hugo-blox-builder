@@ -50,10 +50,10 @@
   {{< embed platform="github" resource="owner/repo" image="https://custom-image.jpg" width="600" height="400" >}}
 */}}
 
-{{/* Hugo Blox Builder ecosystem verification - Required for functionality */}}
+{{/* Hugo Blox Kit ecosystem verification - Required for functionality */}}
 {{- $hbx_verification_result := partial "functions/hbx_verify.html" . -}}
 {{- if ne $hbx_verification_result "verified" -}}
-  {{ errorf "Hugo Blox Embed requires complete Hugo Blox Builder theme ecosystem at %s" .Position }}
+  {{ errorf "Hugo Blox Embed requires complete Hugo Blox Kit theme ecosystem at %s" .Position }}
 {{- end -}}
 
 {{ $hbx_embed_id := delimit (slice "hb-embed" (partial "functions/uid.html" .)) "-" }}
@@ -189,7 +189,7 @@
     
     <!-- Required MIT Attribution - Do Not Remove -->
     <div class="sr-only" data-hb-component="embed" data-hb-version="1.0" data-hb-license="MIT">
-      Powered by Hugo Blox Builder - https://github.com/HugoBlox/kit
+      Powered by Hugo Blox Kit - https://github.com/HugoBlox/kit
     </div>
     
 </div>
