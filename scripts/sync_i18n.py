@@ -12,7 +12,7 @@ from pathlib import Path
 from ruamel.yaml import YAML
 
 I18N_PATH = Path(__file__).resolve().parents[1].joinpath(
-    'modules', 'blox-tailwind', 'i18n')
+    'modules', 'blox', 'i18n')
 MASTER_PACK = I18N_PATH.joinpath('en.yaml')
 
 yaml = YAML()

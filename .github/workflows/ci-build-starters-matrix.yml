@@ -236,9 +236,9 @@ jobs:
               id: min
               run: |
                   set -euo pipefail
-                  VERSION=$(grep -E "^[[:space:]]*min:[[:space:]]*['\"]?" modules/blox-tailwind/hugo.yaml | head -n1 | sed -E "s/.*min:[[:space:]]*['\"]?([^'\"#]+).*/\\1/")
+                  VERSION=$(grep -E "^[[:space:]]*min:[[:space:]]*['\"]?" modules/blox/hugo.yaml | head -n1 | sed -E "s/.*min:[[:space:]]*['\"]?([^'\"#]+).*/\\1/")
                   if [ -z "$VERSION" ]; then
-                    echo "::error::Could not read module.hugoVersion.min from modules/blox-tailwind/hugo.yaml"
+                    echo "::error::Could not read module.hugoVersion.min from modules/blox/hugo.yaml"
                     exit 1
                   fi
                   echo "version=$VERSION" >> $GITHUB_OUTPUT

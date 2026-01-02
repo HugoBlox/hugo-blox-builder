@@ -90,7 +90,7 @@ class UpdateCitationReleaseInfoTests(unittest.TestCase):
     release_modules.REPO_ROOT = repo_root
     return repo_root
 
-  def test_updates_version_and_date_for_blox_tailwind(self) -> None:
+  def test_updates_version_and_date_for_blox(self) -> None:
     repo_root = self._patch_repo_root_with_citation(
       'version: "0.10.0"\ndate-released: 2024-01-01\n',
     )
@@ -105,9 +105,9 @@ class UpdateCitationReleaseInfoTests(unittest.TestCase):
     release_modules.datetime = FixedDatetime
 
     module = release_modules.Module(
-      name="blox-tailwind",
-      rel_dir=Path("modules/blox-tailwind"),
-      module_path="modules/blox-tailwind",
+      name="blox",
+      rel_dir=Path("modules/blox"),
+      module_path="modules/blox",
       major=0,
     )
 

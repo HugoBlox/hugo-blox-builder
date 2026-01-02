@@ -8,12 +8,12 @@ By default, the plugin will help secure your site with some common security head
 
 ## Install
 
-1. Edit `config/_default/config.yaml` to install the `blox-plugin-netlify` module:
+1. Edit `config/_default/config.yaml` to install the Netlify integration module:
 
    ```yaml
    module:
      imports:
-       - path: github.com/HugoBlox/kit/modules/blox-plugin-netlify
+       - path: github.com/HugoBlox/kit/modules/integrations/netlify
    ```
 
 2. Tell Hugo to generate the Netlify `headers` and `redirects` files by adding them to Hugo's `outputs` config. For example,

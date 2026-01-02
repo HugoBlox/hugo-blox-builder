@@ -21,14 +21,14 @@
       "!**/*.backlinks.json",
       "!**/hugo_stats.json",
       "!**/*.code-workspace",
-      "!**/modules/blox-tailwind/data/icons/devicon.json",
+      "!**/modules/blox/data/icons/devicon.json",
       "!**/templates",
       "!**/test",
       "!**/modules/**/package.json",
       "!**/assets/jsconfig.json",
       "!**/docs-local",
       "!**/backups",
-      "!**/modules/blox-tailwind/assets/css/config/safelist.css"
+      "!**/modules/blox/assets/css/config/safelist.css"
     ]
   },
   "formatter": {

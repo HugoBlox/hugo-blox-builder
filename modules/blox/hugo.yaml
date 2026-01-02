@@ -106,7 +106,7 @@ module:
     min: '0.148.2'
     extended: true
   imports:
-    - path: github.com/HugoBlox/kit/modules/blox-analytics
+    - path: github.com/HugoBlox/kit/modules/analytics
   mounts:
     - source: content
       target: content

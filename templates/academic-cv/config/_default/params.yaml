@@ -247,7 +247,7 @@ hugoblox:
 
   # ────────────────────────────────────────────────────────────────────────────
   # SECURITY
-  # Security headers and policies (requires blox-plugin-netlify)
+  # Security headers and policies (requires Netlify integration)
   # ────────────────────────────────────────────────────────────────────────────
   security:
     csp:

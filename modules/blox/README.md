@@ -1,6 +1,6 @@
-# Hugo Blox Tailwind UI
+# Hugo Blox (core)
 
-The Hugo Blox web framework utilizing [Tailwind CSS v4](https://tailwindcss.com/) with Hugo's native integration for styling components with Tailwind v4.
+The Hugo Blox web framework powered by [Tailwind CSS v4](https://tailwindcss.com/) with Hugo's native integration for styling components with Tailwind v4.
 
 ## Requirements
 

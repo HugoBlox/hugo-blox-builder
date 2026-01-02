@@ -4,9 +4,9 @@
 Release management for HugoBlox modules.
 
 Features:
- - Detects changes per module since last path-prefixed tag (e.g., modules/blox-tailwind/v0.4.3)
+ - Detects changes per module since last path-prefixed tag (e.g., modules/blox/v0.4.3)
  - Determines next semantic version per module (conventional commits heuristics, default to patch)
- - Updates special module metadata (blox-tailwind data/hugoblox.yaml version)
+ - Updates special module metadata (blox data/hugoblox.yaml version)
  - Updates dependent modules' go.mod "require" versions when a dependency is released
  - Tags changed modules with annotated tags and pushes tags
  - Updates templates' go.mod to latest released module versions and bumps Hugo version in template configs (hugoblox.yaml, Netlify, devcontainer)
@@ -172,17 +172,15 @@ def update_devcontainer_hugo(starter_dir: Path, latest_hugo: Optional[str], upda
 
 @dataclass
 class Module:
-    name: str  # e.g., blox-tailwind
-    rel_dir: Path  # e.g., modules/blox-tailwind
-    module_path: (
-        str  # go module path e.g., github.com/HugoBlox/kit/modules/blox-tailwind
-    )
+    name: str  # e.g., blox
+    rel_dir: Path  # e.g., modules/blox
+    module_path: str
     major: int  # 0,1,2,... (derived from module_path suffix /vN if any)
     requires: Set[str] = field(default_factory=set)  # module paths this module requires
     dependents: Set[str] = field(default_factory=set)  # reverse edge, filled later
 
     def tag_prefix(self) -> str:
-        # tags must be like: modules/blox-tailwind/vX.Y.Z
+        # tags must be like: modules/blox/vX.Y.Z
         return f"{self.rel_dir.as_posix()}/v"
 
     def current_version_tag(self) -> Optional[str]:
@@ -223,7 +221,7 @@ def _extract_requires_from_go_mod(content: str) -> Set[str]:
 
 def discover_modules() -> Dict[str, Module]:
   modules: Dict[str, Module] = {}
-  for go_mod in MODULES_DIR.glob("*/go.mod"):
+  for go_mod in MODULES_DIR.glob("**/go.mod"):
     rel_dir = go_mod.parent.relative_to(REPO_ROOT)
     if rel_dir.name in EXCLUDED_MODULE_DIRS:
       continue
@@ -337,8 +335,8 @@ def bump_semver(version: Optional[str], bump: str, enforced_major: Optional[int]
 
 def write_blox_tailwind_theme_version(module: Module, version: str) -> List[Path]:
   updated: List[Path] = []
-  # Update modules/blox-tailwind/data/hugoblox.yaml version: "X.Y.Z"
-  if module.name != "blox-tailwind":
+  # Update modules/blox/data/hugoblox.yaml version: "X.Y.Z"
+  if module.name != "blox":
     return updated
   data_file = module.rel_dir / "data" / "hugoblox.yaml"
   if not data_file.exists():
@@ -356,8 +354,8 @@ def write_blox_tailwind_theme_version(module: Module, version: str) -> List[Path
 
 
 def update_citation_release_info(module: Module, version: str) -> List[Path]:
-  """Update the public citation metadata to the latest blox-tailwind release."""
-  if module.name != "blox-tailwind":
+  """Update the public citation metadata to the latest blox release."""
+  if module.name != "blox":
     return []
 
   citation = REPO_ROOT / "CITATION.cff"
@@ -761,7 +759,7 @@ def main() -> None:
     go_mod_synced = update_module_requirements_to_latest(m, modules, latest_versions)
     if go_mod_synced:
       touched_files.append(go_mod_synced)
-    # Special-case blox-tailwind theme version bump and citation metadata
+    # Special-case blox theme version bump and citation metadata
     touched_files.extend(write_blox_tailwind_theme_version(m, next_version))
     touched_files.extend(update_citation_release_info(m, next_version))
 

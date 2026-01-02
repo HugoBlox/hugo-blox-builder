@@ -9,7 +9,7 @@
 import yaml
 from pathlib import Path
 
-LANG_PATH = Path(__file__).resolve().parent.parent.joinpath('blox-tailwind').joinpath('data').joinpath('i18n')
+LANG_PATH = Path(__file__).resolve().parent.parent.joinpath('modules').joinpath('blox').joinpath('data').joinpath('i18n')
 LANG_YAML = LANG_PATH.joinpath('languages.yaml')
 
 

@@ -12,7 +12,7 @@ import del from "rollup-plugin-delete";
 import {defineConfig} from "vite";
 import {viteStaticCopy} from "vite-plugin-static-copy";
 
-const MODULE_DIR = "modules/blox-tailwind";
+const MODULE_DIR = "modules/blox";
 const OUTPUT_DIR = resolve(MODULE_DIR, "assets/dist/lib");
 
 export default defineConfig({

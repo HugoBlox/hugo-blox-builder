@@ -1,8 +1,8 @@
-# blox-analytics
+# Analytics module
 
-**A Hugo module (plugin) for website analytics and search engine verification.**
+**A Hugo Blox module for website analytics and search engine verification.**
 
-Are you using the `blox-tailwind` module? The analytics module is already included, so you do not need to install it. For all other sites, refer to the installation guide below.
+Are you using the `blox` module? The analytics module is already included, so you do not need to install it. For all other sites, refer to the installation guide below.
 
 ## Install
 
@@ -13,7 +13,7 @@ Get analytics and verification for your Hugo site by following the guide below:
    ```yaml
    module:
      imports:
-       - path: github.com/HugoBlox/kit/modules/blox-analytics
+       - path: github.com/HugoBlox/kit/modules/analytics
    ```
 
 2. Load the module in your site's `<head>` with:

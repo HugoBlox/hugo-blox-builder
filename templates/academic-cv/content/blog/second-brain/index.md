@@ -50,9 +50,9 @@ Mindmaps can be created by simply writing the items as a Markdown list within th
 ```markmap {height="200px"}
 - Hugo Modules
   - Hugo Blox
-  - blox-plugins-netlify
-  - blox-plugins-netlify-cms
-  - blox-plugins-reveal
+  - netlify
+  - netlify-cms
+  - slides
 ```
 </code>
 </pre>
@@ -63,9 +63,9 @@ renders as
 ```markmap {height="200px"}
 - Hugo Modules
   - Hugo Blox
-  - blox-plugins-netlify
-  - blox-plugins-netlify-cms
-  - blox-plugins-reveal
+  - netlify
+  - netlify-cms
+  - slides
 ```
 
 Anh here's a more advanced mindmap with formatting, code blocks, and math:

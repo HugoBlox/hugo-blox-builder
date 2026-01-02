@@ -1,6 +1,6 @@
-# blox-plugin-reveal
+# Slides module (Reveal.js)
 
-A Hugo plugin for [Reveal.JS](https://revealjs.com/).
+A Hugo Blox module for [Reveal.JS](https://revealjs.com/).
 
 Empowers you to easily create, share, and present slide decks using the open, future-proof Markdown standard.
 
@@ -13,7 +13,7 @@ Supports math, syntax highlighting, diagrams, speaker notes, and much more!
    ```yaml
    module:
      imports:
-       - path: github.com/HugoBlox/kit/modules/blox-plugin-reveal
+       - path: github.com/HugoBlox/kit/modules/slides
    ```
 
 ## Usage

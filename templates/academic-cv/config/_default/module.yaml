@@ -5,9 +5,9 @@
 ############################
 
 imports:
-  - path: github.com/HugoBlox/kit/modules/blox-plugin-netlify
-  - path: github.com/HugoBlox/kit/modules/blox-tailwind
-  - path: github.com/HugoBlox/kit/modules/blox-plugin-reveal
+  - path: github.com/HugoBlox/kit/modules/integrations/netlify
+  - path: github.com/HugoBlox/kit/modules/blox
+  - path: github.com/HugoBlox/kit/modules/slides
 
 # Install any Hugo Blox within the `hugo-blox/blox/` folder
 mounts:

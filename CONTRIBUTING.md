@@ -142,12 +142,12 @@ That's it! You're ready to contribute. 🎉
 ```
 kit/
 ├── modules/
-│   └── blox-tailwind/        # Main theme module
-│       ├── layouts/          # HTML templates (easy to edit!)
-│       ├── assets/css/       # Tailwind CSS v4 styles
-│       └── i18n/            # Translations (help translate!)
+│   └── blox/               # Main theme module
+│       ├── layouts/        # HTML templates (easy to edit!)
+│       ├── assets/css/     # Tailwind CSS v4 styles
+│       └── i18n/           # Translations (help translate!)
 ├── templates/
-│   ├── academic-cv/         # CV/Resume template
+│   ├── academic-cv/        # CV/Resume template
 │   ├── blog/               # Blog template
 │   └── documentation/      # Docs template
 └── scripts/                # Helper scripts
@@ -177,7 +177,7 @@ Please be mindful of the project [scope](#scope).
 
 ### Contribute a language pack
 
-To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/kit), place your language pack in `modules/blox-tailwind/i18n/`, add the language metadata to `modules/blox-tailwind/data/languages.yaml`, and open a Pull Request on Github with these two files.
+To contribute a **new language pack** or an improvement to a language pack, refer to the [language pack guide](https://docs.hugoblox.com/reference/language/#create-or-modify-a-language-pack). Once created, [fork Hugo Blox Builder](https://github.com/HugoBlox/kit), place your language pack in `modules/blox/i18n/`, add the language metadata to `modules/blox/data/languages.yaml`, and open a Pull Request on Github with these two files.
 
 ### Contribute a theme pack
 
