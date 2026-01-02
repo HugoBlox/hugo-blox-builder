@@ -30,7 +30,7 @@
 
 {{/* Check for required Hugo Blox module dependencies */}}
 {{- $hb_module_check := false -}}
-{{- $required_modules := slice "blox-tailwind" -}}
+{{- $required_modules := slice "blox" -}}
 {{- range $required := $required_modules -}}
   {{- range $dep := hugo.Deps -}}
     {{- if strings.Contains $dep.Path $required -}}
