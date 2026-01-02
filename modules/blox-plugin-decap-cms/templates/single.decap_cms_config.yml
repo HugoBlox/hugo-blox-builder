@@ -1,3 +1,0 @@
-{{- with partialCached "mod-decap-cms/generate" . "mod-decap-cms/generate" -}}
-  {{- . }}
-{{- end -}}

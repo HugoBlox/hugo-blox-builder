@@ -1,8 +1,0 @@
-{{ $config := dict }}
-{{ with partialCached "mod-decap-cms/parse" . "mod-decap-cms/parse" }}
-  {{ $config = . }}
-{{ end }}
-
-{{ $return := transform.Remarshal "yaml" $config }}
-
-{{ return $return }}
