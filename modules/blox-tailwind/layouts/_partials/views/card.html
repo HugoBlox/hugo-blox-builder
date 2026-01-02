@@ -18,6 +18,11 @@
 {{ $showReadMore := .config.show_read_more | default true }}
 {{ $hasMeta := or $showDate $showReadTime $showReadMore }}
 {{ $index := .index }}
+{{ $isEvent := eq $item.Type "events" }}
+{{ $event_dates := "" }}
+{{ if $isEvent }}
+{{ $event_dates = partial "functions/get_event_dates" $item }}
+{{ end }}
 
 <div class="group bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50" role="article" aria-labelledby="card-title-{{ $item.File.UniqueID }}">
     <!-- Image Section -->
@@ -166,9 +171,13 @@
           <span class="opacity-40">•</span>
           {{ end }}
           {{ if $showDate }}
+            {{ if $isEvent }}
+            <span class="hidden sm:inline whitespace-nowrap">{{ $event_dates }}</span>
+            {{ else }}
             <time class="hidden sm:inline whitespace-nowrap" datetime="{{ $item.Date.Format "2006-01-02" }}">
               {{ $item.Date | time.Format (site.Params.hugoblox.locale.date_format | default "Jan 2, 2006") }}
             </time>
+            {{ end }}
           {{ end }}
           {{ if and $showDate $showReadTime }}
             <span class="hidden sm:inline opacity-40">•</span>

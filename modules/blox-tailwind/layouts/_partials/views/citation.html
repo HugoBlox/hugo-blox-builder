@@ -1,4 +1,6 @@
 {{ $item := .item }}
+{{ $year_value := $item.Params.event_start | default $item.Date }}
+{{ $year := (time $year_value).Format "2006" }}
 {{ $has_attachments := partial "functions/has_attachments" $item }}
 
 <div class="pub-list-item view-citation" style="margin-bottom: 1rem">
@@ -10,7 +12,7 @@
   <span class="article-metadata li-cite-author">
     {{ partial "page_metadata_authors" $item }}
   </span>
-  ({{- $item.Date.Format "2006" -}}).
+  ({{- $year -}}).
   <a href="{{ $item.RelPermalink }}" class="underline">{{ $item.Title }}</a>.
   {{ if $item.Params.publication_short }}
     {{- $item.Params.publication_short | markdownify -}}.
@@ -36,7 +38,7 @@
   {{ else if $item.Params.publication }}
     {{- $item.Params.publication | markdownify -}},
   {{ end }}
-  {{- $item.Date.Format "2006" -}}.
+  {{- $year -}}.
 
   {{ if $has_attachments }}
   <div class="flex flex-wrap space-x-3">

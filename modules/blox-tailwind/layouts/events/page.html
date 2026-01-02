@@ -56,10 +56,11 @@
         {{ end }}
       </h1>
 
+      {{ $display_date := .Params.event_start | default .Date }}
       <div class="mt-4 mb-16">
       <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2">
-        {{- if .Date | and (not .Params.hide_date) -}}
-        <span class="mr-1">{{- .Date | time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") -}}</span>
+        {{- if $display_date | and (not .Params.hide_date) -}}
+        <span class="mr-1">{{- (time $display_date) | time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") -}}</span>
         {{- if .Params.authors }}<span class="mx-1">·</span>{{ end -}}
         {{- end -}}
 
@@ -353,11 +354,11 @@
           </div>
         {{ end }}
 
-        {{ if .Params.event }}
+        {{ if .Params.event_name }}
           <div class="font-bold text-2xl">{{ i18n "event" }}</div>
           <div>
             {{ with .Params.event_url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
-            {{ .Params.event | markdownify }}
+            {{ .Params.event_name | markdownify }}
             {{ if .Params.event_url }}</a>{{ end }}
           </div>
         {{ end }}

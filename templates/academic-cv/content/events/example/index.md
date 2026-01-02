@@ -1,7 +1,8 @@
 ---
 title: "Create Beautiful Presentations with Markdown"
+date: '2017-01-01T00:00:00Z'
 
-event: HugoBlox Showcase
+event_name: HugoBlox Showcase
 event_url: https://hugoblox.com
 
 location: Online & In-Person
@@ -17,11 +18,9 @@ abstract: |
   Join us to explore HugoBlox's revolutionary Markdown-based slide system. Create beautiful presentations with code syntax highlighting, math equations, animations, and dual-column layouts. Edit your slides in any text editor, version control them with Git, and present them anywhere with just a browser. Experience true presentation freedom.
 
 # Talk start and end times.
-date: '2030-06-01T13:00:00Z'
-date_end: '2030-06-01T15:00:00Z'
-all_day: false
-
-publishDate: '2017-01-01T00:00:00Z'
+event_start: '2030-06-01T13:00:00Z'
+event_end: '2030-06-01T15:00:00Z'
+event_all_day: false
 
 authors:
   - me
@@ -372,7 +371,9 @@ Each lecture gets its own slide deck, all version controlled, all editable by st
 > [!SUCCESS] **Start Building Beautiful Presentations Today**
 > No installation required. No account needed. Just Markdown and your creativity.
 
-{{< button url="https://docs.hugoblox.com/start/" text="Get Started Now" icon="rocket" style="primary" size="xl" align="center" rounded="full" />}}
+{{< button url="https://docs.hugoblox.com/start/" text="Get Started Now" icon="rocket-launch" style="primary" size="xl" align="center" rounded="full" />}}
+
+<br>
 
 {{< button url="https://docs.hugoblox.com/guides/studio/" text="Try HugoBlox Studio" icon="paint-brush" style="secondary" size="lg" align="center" rounded="lg" />}}
 

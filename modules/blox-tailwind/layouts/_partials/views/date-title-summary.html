@@ -2,6 +2,7 @@
 {{ $page := .page }}
 {{ $summary := partial "functions/get_summary" $item }}
 {{ $summary =  $summary | page.RenderString }}
+{{ $displayDate := .item.Params.event_start | default .item.Date }}
 <article class="md:grid md:grid-cols-4 md:items-baseline">
   <div class="md:col-span-3 group relative flex flex-col items-start">
     <h2 class="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
@@ -12,8 +13,8 @@
     </h2>
     <time
       class="md:hidden relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500 pl-1"
-      datetime="{{ time.Format "2006-01-02" $item.Date }}">
-      {{ time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") $item.Date }}
+      datetime="{{ time.Format "2006-01-02" $displayDate }}">
+      {{ time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") $displayDate }}
     </time>
     <p class="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">{{$summary}}</p>
     <div aria-hidden="true" class="relative z-10 mt-4 flex items-center text-sm font-medium text-primary-500">
@@ -25,6 +26,6 @@
   </div>
   <time
     class="mt-1 hidden md:block relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500"
-    datetime="{{ time.Format "2006-01-02" $item.Date }}">{{ time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") $item.Date }}
+    datetime="{{ time.Format "2006-01-02" $displayDate }}">{{ time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") $displayDate }}
   </time>
 </article>

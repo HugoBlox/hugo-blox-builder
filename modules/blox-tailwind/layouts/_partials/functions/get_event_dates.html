@@ -1,17 +1,21 @@
 {{/* Function to get event start and end dates/times. */}}
-{{ $t1 := time .Date }}{{/* Start datetime. */}}
+{{ $start_date := .Params.event_start | default .Date }}
+{{ $end_date := .Params.event_end | default .Params.date_end }}
+{{ $all_day := .Params.event_all_day | default .Params.all_day }}
+
+{{ $t1 := time $start_date }}{{/* Start datetime. */}}
 {{ $str := slice (time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") (time $t1)) }}{{/* Init return string with start date. */}}
 {{/* Show start time if not all day event. */}}
-{{ if not .Params.all_day }}{{ $str = $str | append (time.Format (site.Params.hugoblox.locale.time_format | default "3:04 PM") (time $t1)) }}{{ end }}
+{{ if not $all_day }}{{ $str = $str | append (time.Format (site.Params.hugoblox.locale.time_format | default "3:04 PM") (time $t1)) }}{{ end }}
 {{/* Show event end date if provided. */}}
-{{ if .Params.date_end }}
+{{ if $end_date }}
   {{ $str = $str | append "&mdash;" }}
-  {{ $t2 := time .Params.date_end}}{{/* End datetime. */}}
+  {{ $t2 := time $end_date}}{{/* End datetime. */}}
   {{/* Show end date if it differs to start date. */}}
   {{ if not (eq $t1.Year $t2.Year | and (eq $t1.Month $t2.Month) | and (eq $t1.Day $t2.Day)) }}
     {{ $str = $str | append (time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") (time $t2)) }}
   {{ end }}
   {{/* Show end time if not all day event. */}}
-  {{ if not .Params.all_day }}{{ $str = $str | append (time.Format (site.Params.hugoblox.locale.time_format | default "3:04 PM") (time $t2)) }}{{ end }}
+  {{ if not $all_day }}{{ $str = $str | append (time.Format (site.Params.hugoblox.locale.time_format | default "3:04 PM") (time $t2)) }}{{ end }}
 {{ end }}
 {{ return ((delimit $str " ") | safeHTML) }}
