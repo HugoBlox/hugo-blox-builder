@@ -77,8 +77,7 @@ export HUGO_MODULE_REPLACEMENTS="\
 github.com/HugoBlox/kit/modules/blox-tailwind -> ../../../modules/blox-tailwind,\
 github.com/HugoBlox/kit/modules/blox-analytics -> ../../../modules/blox-analytics,\
 github.com/HugoBlox/kit/modules/blox-plugin-netlify -> ../../../modules/blox-plugin-netlify,\
-github.com/HugoBlox/kit/modules/blox-plugin-reveal -> ../../../modules/blox-plugin-reveal,\
-"
+github.com/HugoBlox/kit/modules/blox-plugin-reveal -> ../../../modules/blox-plugin-reveal"
 
 # Optionally pre-build and generate Pagefind index for local search
 if [ "$PAGEFIND" = true ]; then
