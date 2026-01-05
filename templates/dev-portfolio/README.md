@@ -1,4 +1,4 @@
-# [Developer Portfolio (Free)](https://hugoblox.com/templates/dev-portfolio/start?utm_source=github&utm_medium=readme)
+# [Developer Portfolio](https://hugoblox.com/templates/dev-portfolio/start?utm_source=github&utm_medium=readme)
 
 [![Screenshot](.github/preview.png)](https://hugoblox.com/templates/dev-portfolio/start?utm_source=github&utm_medium=readme)
 
