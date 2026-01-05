@@ -17,11 +17,13 @@
   <a href="https://docs.hugoblox.com/guides/studio/">HugoBlox Studio (Visual Editor)</a>
 </p>
 
-<!-- 12s preview placeholder (add file and update link) -->
-<!--
+
 <p align="center">
-  <a href="./.github/preview.mp4"><b>▶︎ Watch 12s Preview</b></a>
+  <a href="[./.github/preview.mp4](https://github.com/user-attachments/assets/a6b676c0-1c10-4734-a55f-68c6f72d1612)"><b>▶︎ Watch 12s Preview</b></a>
 </p>
+
+https://github.com/user-attachments/assets/a6b676c0-1c10-4734-a55f-68c6f72d1612
+
 -->
 
 <p align="center">
