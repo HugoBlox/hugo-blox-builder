@@ -19,12 +19,10 @@
 
 
 <p align="center">
-  <a href="[./.github/preview.mp4](https://github.com/user-attachments/assets/a6b676c0-1c10-4734-a55f-68c6f72d1612)"><b>▶︎ Watch 12s Preview</b></a>
+  <b>▶︎ Watch 12s Preview</b>
 </p>
 
 https://github.com/user-attachments/assets/a6b676c0-1c10-4734-a55f-68c6f72d1612
-
--->
 
 <p align="center">
   <a href="https://discord.gg/z8wNYzb"><img src="https://img.shields.io/discord/722225264733716590?label=Join%20Discord&style=social" alt="Discord"></a>
