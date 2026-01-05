@@ -1,0 +1,256 @@
+/**
+ * Hugo Blox Animations
+ * Scroll-triggered reveals and micro-interactions
+ */
+
+/* Typewriter cursor */
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  margin-left: 2px;
+  background-color: currentColor;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Reveal animations base */
+[x-reveal] {
+  opacity: 0;
+}
+
+/* Stagger container */
+[data-stagger] > [data-stagger-item] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+[data-stagger].revealed > [data-stagger-item] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover enhancements for cards */
+.card-hover-lift {
+  transition:
+    transform 0.3s ease-out,
+    box-shadow 0.3s ease-out;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover glow effect */
+.hover-glow {
+  position: relative;
+  transition: all 0.3s ease-out;
+}
+
+.hover-glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-secondary-500));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease-out;
+  filter: blur(8px);
+}
+
+.hover-glow:hover::before {
+  opacity: 0.5;
+}
+
+/* Icon bounce on hover */
+.icon-bounce:hover {
+  animation: iconBounce 0.5s ease-out;
+}
+
+@keyframes iconBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Scale up on hover */
+.scale-hover {
+  transition: transform 0.2s ease-out;
+}
+
+.scale-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Button pulse */
+.btn-pulse {
+  position: relative;
+}
+
+.btn-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 currentColor;
+  opacity: 0.4;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+    opacity: 0.4;
+  }
+  100% {
+    box-shadow: 0 0 0 12px currentColor;
+    opacity: 0;
+  }
+}
+
+/* Float animation for background orbs */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+/* Slow rotate for decorative elements */
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 30s linear infinite;
+}
+
+/* Fade in up - for scroll reveals */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Scale in - for icons/badges */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+/* Slide in from left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+
+  .typewriter-cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  [x-reveal],
+  [data-stagger] > [data-stagger-item] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Dark mode adjustments */
+.dark .hover-glow::before {
+  opacity: 0;
+}
+
+.dark .hover-glow:hover::before {
+  opacity: 0.3;
+}
+
+/* Dark mode icon visibility fix */
+/* For icons that are dark/black and invisible on dark backgrounds */
+.dark .dark-mode-icon svg,
+.dark .dark-mode-icon img {
+  filter: invert(1) brightness(2);
+}
+
+/* Alternative: Add subtle background to icon containers */
+.dark .dark-mode-icon {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+/* Hover state restores some contrast */
+.dark .group:hover .dark-mode-icon svg,
+.dark .group:hover .dark-mode-icon img {
+  filter: invert(1) brightness(1.5);
+}

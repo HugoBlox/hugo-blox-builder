@@ -1,0 +1,13 @@
+{
+  "id": "dev-hero",
+  "name": "Dev Hero",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "hero",
+  "tags": ["hero", "developer", "portfolio", "introduction", "landing"],
+  "description": "A developer-focused hero section with gradient effects, social links, and CTA buttons - optimized for dark mode",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/kit",
+  "keywords": ["hugo", "hero", "developer", "portfolio", "landing-page"]
+}

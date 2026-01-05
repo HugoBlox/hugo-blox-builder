@@ -1,0 +1,130 @@
+{{/* Hugo Blox: Tech Stack */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{/* Enable animations */}}
+{{ if ne $block.design.animations false }}
+  {{ $page.Store.Set "has_animations" true }}
+  {{ $page.Store.Set "has_alpine" true }}
+{{ end }}
+
+{{/* Style */}}
+{{ $style := $block.design.style | default "grid" }}
+{{ $show_levels := $block.design.show_levels | default false }}
+
+<div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
+  
+  {{/* Header */}}
+  <div class="text-center mb-12">
+    {{ with $block.content.title }}
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      {{ . | emojify | $page.RenderString }}
+    </h2>
+    {{ end }}
+    {{ with $block.content.subtitle }}
+    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+      {{ . | emojify | $page.RenderString }}
+    </p>
+    {{ end }}
+  </div>
+
+  {{/* Categories */}}
+  <div class="space-y-12">
+    {{ range $block.content.categories }}
+      <div>
+        {{/* Category Title */}}
+        {{ with .name }}
+        <h3 class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400 mb-6 flex items-center justify-center gap-4">
+          <span class="h-px w-12 bg-gradient-to-r from-transparent to-primary-500/50"></span>
+          <span>{{ . }}</span>
+          <span class="h-px w-12 bg-gradient-to-l from-transparent to-primary-500/50"></span>
+        </h3>
+        {{ end }}
+
+        {{/* Tech Items - Centered flex layout */}}
+        <div class="flex flex-wrap justify-center gap-4" data-stagger="50">
+          {{ range $idx, $item := .items }}
+            {{ $level := $item.level | default "" }}
+            {{ $level_width := "0%" }}
+            {{ $level_color := "bg-gray-500" }}
+            {{ if eq $level "expert" }}
+              {{ $level_width = "100%" }}
+              {{ $level_color = "bg-emerald-500" }}
+            {{ else if eq $level "advanced" }}
+              {{ $level_width = "75%" }}
+              {{ $level_color = "bg-primary-500" }}
+            {{ else if eq $level "intermediate" }}
+              {{ $level_width = "50%" }}
+              {{ $level_color = "bg-amber-500" }}
+            {{ else if eq $level "beginner" }}
+              {{ $level_width = "25%" }}
+              {{ $level_color = "bg-gray-400" }}
+            {{ end }}
+
+            <div 
+              class="group relative w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-[calc(25%-0.75rem)] lg:w-[140px] bg-gray-50 dark:bg-white/[0.03] backdrop-blur-sm rounded-xl border border-gray-200 dark:border-white/[0.06] p-4 hover:bg-gray-100 dark:hover:bg-white/[0.06] hover:border-primary-300 dark:hover:border-primary-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/5 scale-hover"
+            >
+              {{/* Icon */}}
+              <div class="flex flex-col items-center text-center">
+                {{ with $item.icon }}
+                {{/* Add dark-icon class for icons that need inversion in dark mode */}}
+                {{ $dark_icons := slice "express" "vercel" "github" "nextjs" }}
+                {{ $icon_name := . }}
+                {{ $needs_invert := false }}
+                {{ range $dark_icons }}
+                  {{ if in $icon_name . }}{{ $needs_invert = true }}{{ end }}
+                {{ end }}
+                <div class="w-12 h-12 mb-3 flex items-center justify-center transition-all duration-300 icon-bounce {{ if $needs_invert }}dark-mode-icon{{ end }}">
+                  {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-10 h-10\"") }}
+                </div>
+                {{ end }}
+                
+                {{/* Name */}}
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                  {{ $item.name }}
+                </span>
+
+                {{/* Level Indicator */}}
+                {{ if and $show_levels $level }}
+                <div class="mt-2 w-full">
+                  <div class="h-1 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                    <div class="h-full {{ $level_color }} rounded-full transition-all duration-500" style="width: {{ $level_width }}"></div>
+                  </div>
+                  <span class="text-xs text-gray-500 mt-1 capitalize">{{ $level }}</span>
+                </div>
+                {{ end }}
+              </div>
+
+              {{/* Hover glow effect */}}
+              <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-primary-500/0 via-primary-500/0 to-secondary-500/0 group-hover:from-primary-500/5 group-hover:to-secondary-500/5 transition-all duration-500 pointer-events-none"></div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+  </div>
+
+  {{/* Simple flat list style alternative */}}
+  {{ if eq $style "list" }}
+  <div class="flex flex-wrap justify-center gap-3 mt-8">
+    {{ range $block.content.categories }}
+      {{ range $i, $tech := .items }}
+      <div 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-white/[0.03] backdrop-blur-sm rounded-full border border-gray-200 dark:border-white/[0.08] hover:border-primary-300 dark:hover:border-primary-500/30 hover:bg-gray-100 dark:hover:bg-white/[0.06] transition-all duration-300 scale-hover"
+      >
+        {{ with $tech.icon }}
+        <span class="text-gray-600 dark:text-gray-400">
+          {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
+        </span>
+        {{ end }}
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ $tech.name }}</span>
+      </div>
+      {{ end }}
+    {{ end }}
+  </div>
+  {{ end }}
+</div>

@@ -20,10 +20,10 @@
 {{ $button_classes := "" }}
 {{ if eq $text_color_mode "light" }}
   {{ $text_classes = "text-white" }}
-  {{ $button_classes = "text-gray-900" }}
+  {{ $button_classes = "text-gray-900 dark:text-white" }}
 {{ else if eq $text_color_mode "dark" }}
-  {{ $text_classes = "text-gray-900" }}
-  {{ $button_classes = "text-gray-900" }}
+  {{ $text_classes = "text-gray-900 dark:text-white" }}
+  {{ $button_classes = "text-gray-900 dark:text-white" }}
 {{ else }}
   {{/* Auto mode - detect based on gradient colors */}}
   {{ $is_dark_bg := false }}
@@ -67,6 +67,7 @@
       {{ $button_link := .url }}
       {{ $button_scheme := (urls.Parse $button_link).Scheme }}
       {{ $button_target := "" }}
+      {{ $new_tab := .new_tab | default false }}
       {{ if not $button_scheme }}
         {{/* Check if it's a hash fragment (page anchor) */}}
         {{ if hasPrefix $button_link "#" }}
@@ -77,6 +78,10 @@
           {{ $button_link = $button_link | relLangURL }}
         {{ end }}
       {{ else if in (slice "http" "https") $button_scheme }}
+        {{ $new_tab = true }}
+      {{ end }}
+      {{/* Apply new tab if requested or external link */}}
+      {{ if $new_tab }}
         {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
       {{ end }}
       

@@ -344,6 +344,36 @@
 - id: poweredby_button
   translation: 'Erstelle deine →'
 
+# Contact info block
+
+- id: block_contact_follow_me
+  translation: Finde mich auf
+
+# Dev Hero block
+
+- id: scroll_to_content
+  translation: Zum Inhalt scrollen
+
+- id: developer
+  translation: Entwickler
+
+# Portfolio block
+
+- id: portfolio_link_code
+  translation: Code
+
+- id: portfolio_link_live
+  translation: Live
+
+- id: portfolio_link_demo
+  translation: Demo
+
+- id: portfolio_link_default
+  translation: Link
+
+- id: portfolio_view_all
+  translation: Alle Projekte anzeigen
+
 # Feedback widget
 
 - id: feedback_widget_title

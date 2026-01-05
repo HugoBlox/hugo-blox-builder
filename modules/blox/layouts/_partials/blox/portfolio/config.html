@@ -1,0 +1,13 @@
+{{/* Hugo Blox: Portfolio - config */}}
+{{/* Purpose: pre-declare dependencies before <head> libraries load */}}
+
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{/* Portfolio always needs Alpine for filtering */}}
+{{ $page.Store.Set "has_alpine" true }}
+
+{{/* Enable scroll/transition helpers if animations not explicitly disabled */}}
+{{ if ne $block.design.animations false }}
+  {{ $page.Store.Set "has_animations" true }}
+{{ end }}

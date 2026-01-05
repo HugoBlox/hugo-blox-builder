@@ -1,0 +1,125 @@
+name: Deploy website to GitHub Pages
+
+env:
+  NODE_VERSION: '20'
+
+on:
+  # Trigger the workflow every time you push to the `main` branch
+  push:
+    branches: ['main']
+  # Allows you to run this workflow manually from the Actions tab on GitHub
+  workflow_dispatch:
+
+# Provide permission to clone the repo and deploy it to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  # Build website
+  build:
+    if: github.repository_owner != 'HugoBlox'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          # Fetch history for Hugo's .GitInfo and .Lastmod
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Setup pnpm
+      if: hashFiles('package.json') != ''
+      uses: pnpm/action-setup@v4
+
+    - name: Get Hugo Version
+      id: hugo-version
+      run: |
+        VERSION=$(grep "hugo_version" hugoblox.yaml | awk '{print $2}' | tr -d "'\"")
+        echo "HUGO_VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Install dependencies
+      run: |
+        # Install Tailwind CLI if package.json exists
+        if [ -f "package.json" ]; then
+          echo "Installing Tailwind dependencies..."
+          pnpm install --no-frozen-lockfile || npm install
+        fi
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: ${{ env.HUGO_VERSION }}
+        extended: true
+
+      # Cache dependencies (Go modules, node_modules) - stable, rarely changes
+    - uses: actions/cache@v4
+      with:
+        path: |
+          /tmp/hugo_cache_runner/
+          node_modules/
+          modules/*/node_modules/
+        key: ${{ runner.os }}-hugo-deps-${{ hashFiles('**/go.mod', '**/package-lock.json',
+          '**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-hugo-deps-
+
+      # Cache Hugo resources (processed images, CSS) - invalidates only when assets/config change
+    - uses: actions/cache@v4
+      with:
+        path: resources/
+        key: ${{ runner.os }}-hugo-resources-${{ hashFiles('assets/**/*', 'config/**/*',
+          'hugo.yaml', 'package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-hugo-resources-
+
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v5
+
+    - name: Build with Hugo
+      env:
+        HUGO_ENVIRONMENT: production
+        HUGO_BLOX_LICENSE: ${{ secrets.HUGO_BLOX_LICENSE }}
+      run: |
+        echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
+        hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+    - name: Generate Pagefind search index (if applicable)
+      run: |
+        # Check if site uses Pagefind search
+        if [ -f "package.json" ] && grep -q "pagefind" package.json; then
+          pnpm run pagefind || npx pagefind --site "public"
+        fi
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: ./public
+
+  # Deploy website to GitHub Pages hosting
+  deploy:
+    if: github.repository_owner != 'HugoBlox'
+    needs: build
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

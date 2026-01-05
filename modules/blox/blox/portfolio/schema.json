@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/portfolio.json",
+  "title": "Portfolio Block Schema",
+  "description": "Schema for the Portfolio block - displays filterable project cards with Alpine.js",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "portfolio",
+          "description": "Block type identifier"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the portfolio block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)",
+              "examples": ["Featured Projects"]
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section subtitle (supports Markdown)",
+              "examples": ["Things I've built"]
+            },
+            "count": {
+              "type": "integer",
+              "description": "Maximum number of projects to display (0 means unlimited)",
+              "minimum": 0,
+              "default": 6
+            },
+            "sort_by": {
+              "type": "string",
+              "description": "Field to sort by (e.g., Date, title, weight)",
+              "default": "Date"
+            },
+            "sort_ascending": {
+              "type": "boolean",
+              "description": "Sort in ascending order",
+              "default": false
+            },
+            "filters": {
+              "type": "object",
+              "description": "Content filtering options",
+              "properties": {
+                "folders": {
+                  "type": "array",
+                  "description": "Content folders to query projects from",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": ["projects"],
+                  "examples": [["projects", "software"]]
+                }
+              },
+              "additionalProperties": false
+            },
+            "buttons": {
+              "type": "array",
+              "description": "Filter buttons configuration",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Button display text",
+                    "examples": ["All", "Frontend", "Backend"]
+                  },
+                  "tag": {
+                    "type": "string",
+                    "description": "Tag to filter by (* for all)",
+                    "examples": ["*", "Frontend", "Full-Stack"]
+                  }
+                },
+                "required": ["name", "tag"]
+              },
+              "default": [{ "name": "All", "tag": "*" }],
+              "examples": [
+                [
+                  { "name": "All", "tag": "*" },
+                  { "name": "Full-Stack", "tag": "Full-Stack" },
+                  { "name": "Frontend", "tag": "Frontend" },
+                  { "name": "Backend", "tag": "Backend" }
+                ]
+              ]
+            },
+            "default_button_index": {
+              "type": "integer",
+              "description": "Index of the default active filter button",
+              "minimum": 0,
+              "default": 0
+            },
+            "archive": {
+              "type": "object",
+              "description": "Archive link configuration",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Show 'View All' link (defaults to true if more projects exist than displayed, set to false to explicitly hide)"
+                },
+                "link": {
+                  "type": "string",
+                  "description": "Override archive URL (defaults to the first folder in filters.folders)",
+                  "examples": ["/projects/", "/work/"]
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Override archive link text (uses i18n 'portfolio_view_all' by default)",
+                  "examples": ["View All Projects", "See My Work", "Browse Portfolio"]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "design": {
+          "type": "object",
+          "description": "Layout options for portfolio rendering",
+          "properties": {
+            "columns": {
+              "type": "integer",
+              "description": "Number of columns (2, 3, or 4)",
+              "default": 3,
+              "enum": [2, 3, 4],
+              "examples": [2, 3, 4]
+            },
+            "fallback_icon": {
+              "type": "string",
+              "description": "Icon to display when no image is provided. Supports all Hugo Blox icon packs: hero (default), brands, devicon, emoji, or custom packs. Format: 'icon-name' or 'pack/icon-name'",
+              "default": "code-bracket",
+              "examples": ["code-bracket", "academic-cap", "beaker", "paint-brush", "brands/github", "devicon/python", "emoji/rocket"]
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "portfolio",
+          "id": "projects",
+          "content": {
+            "title": "Featured Projects",
+            "subtitle": "A selection of my recent work",
+            "count": 6,
+            "filters": {
+              "folders": ["projects"]
+            },
+            "buttons": [
+              { "name": "All", "tag": "*" },
+              { "name": "Full-Stack", "tag": "Full-Stack" },
+              { "name": "Frontend", "tag": "Frontend" },
+              { "name": "Backend", "tag": "Backend" }
+            ],
+            "default_button_index": 0,
+            "archive": {
+              "enable": true,
+              "text": "View All Projects"
+            }
+          },
+          "design": {
+            "columns": 3
+          }
+        }
+      ]
+    }
+  ]
+}

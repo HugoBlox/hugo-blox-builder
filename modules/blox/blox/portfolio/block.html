@@ -1,0 +1,267 @@
+{{/* Hugo Blox: Portfolio */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{/* Enable Alpine.js and animations for this block */}}
+{{ $page.Store.Set "has_alpine" true }}
+{{ if ne $block.design.animations false }}
+  {{ $page.Store.Set "has_animations" true }}
+{{ end }}
+
+{{/* Query projects */}}
+{{ $query := site.Pages }}
+{{ $folders := $block.content.filters.folders | default (slice "projects") }}
+{{ $query = where $query "Section" "in" $folders }}
+{{ $query = where $query "Kind" "eq" "page" }}
+
+{{/* Get archive page for "View All" link */}}
+{{ $archive_page := "" }}
+{{ $main_folder := index $folders 0 }}
+{{ $archive_page = site.GetPage "Section" $main_folder }}
+
+{{/* Sort */}}
+{{ $sort_by := $block.content.sort_by | default "Date" }}
+{{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
+{{ $sort_ascending := $block.content.sort_ascending | default false }}
+{{ $sort_order := cond $sort_ascending "asc" "desc" }}
+{{ $query = sort $query $sort_by $sort_order }}
+
+{{/* Store total count before limiting */}}
+{{ $total_count := len $query }}
+
+{{/* Limit */}}
+{{ $count := $block.content.count | default 6 }}
+{{ if gt $count 0 }}
+  {{ $query = first $count $query }}
+{{ end }}
+
+{{/* Get filter buttons */}}
+{{ $buttons := $block.content.buttons | default (slice (dict "name" "All" "tag" "*")) }}
+{{ $default_idx := $block.content.default_button_index | default 0 }}
+{{ $default_tag := "*" }}
+{{ with index $buttons $default_idx }}
+  {{ $default_tag = .tag }}
+{{ end }}
+
+{{/* Columns */}}
+{{ $columns := $block.design.columns | default 3 }}
+{{ $grid_class := "md:grid-cols-2 lg:grid-cols-3" }}
+{{ if eq $columns 2 }}
+  {{ $grid_class = "md:grid-cols-2" }}
+{{ else if eq $columns 4 }}
+  {{ $grid_class = "md:grid-cols-2 lg:grid-cols-4" }}
+{{ end }}
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16" x-data="{ activeFilter: '{{ $default_tag }}' }">
+  
+  {{/* Header */}}
+  <div class="text-center mb-12">
+    {{ with $block.content.title }}
+    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      {{ . | emojify | $page.RenderString }}
+    </h2>
+    {{ end }}
+    {{ with $block.content.subtitle }}
+    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+      {{ . | emojify | $page.RenderString }}
+    </p>
+    {{ end }}
+  </div>
+
+  {{/* Filter Buttons */}}
+  {{ if gt (len $buttons) 1 }}
+  <div class="flex flex-wrap justify-center gap-2 mb-10">
+    {{ range $idx, $button := $buttons }}
+    <button 
+      @click="activeFilter = '{{ $button.tag }}'"
+      :class="activeFilter === '{{ $button.tag }}' 
+        ? 'bg-primary-600 text-white border-primary-600 shadow-lg shadow-primary-500/25' 
+        : 'bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20'"
+      class="px-5 py-2.5 rounded-full text-sm font-medium border backdrop-blur-sm transition-all duration-300 ease-out cursor-pointer"
+    >
+      {{ $button.name }}
+    </button>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{/* Project Grid with staggered reveal animation */}}
+  <div class="grid grid-cols-1 {{ $grid_class }} gap-6" data-stagger="100">
+    {{ range $index, $item := $query }}
+      {{/* Get tags as comma-separated string */}}
+      {{ $item_tags := "" }}
+      {{ with $item.Params.tags }}
+        {{ $item_tags = delimit . "," }}
+      {{ end }}
+      
+      {{/* Get status */}}
+      {{ $status := $item.Params.status | default "" }}
+      {{ $status_class := "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" }}
+      {{ if eq $status "WIP" }}
+        {{ $status_class = "bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30" }}
+      {{ else if eq $status "Archived" }}
+        {{ $status_class = "bg-gray-500/20 text-gray-600 dark:text-gray-400 border-gray-500/30" }}
+      {{ end }}
+
+      <article 
+        x-show="activeFilter === '*' || '{{ $item_tags }}'.toLowerCase().includes(activeFilter.toLowerCase())"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        class="group relative flex flex-col bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] overflow-hidden hover:border-primary-500/50 hover:bg-gray-50 dark:hover:bg-white/[0.06] transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 card-hover-lift"
+      >
+        {{/* Card Header / Image */}}
+        <div class="relative h-48 overflow-hidden">
+          {{ $image := $item.Resources.GetMatch "{featured,cover,thumbnail}*" }}
+          {{ if $image }}
+            {{ if strings.Contains $image.MediaType.SubType "svg" }}
+              <img 
+                src="{{ $image.RelPermalink }}" 
+                alt="{{ $item.Title }}"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              >
+            {{ else }}
+              {{ $img := $image.Fill "600x400 webp" }}
+              <img 
+                src="{{ $img.RelPermalink }}" 
+                alt="{{ $item.Title }}"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              >
+            {{ end }}
+          {{ else }}
+            {{/* Gradient placeholder with configurable icon */}}
+            {{ $fallback_icon := $block.design.fallback_icon | default "code-bracket" }}
+            <div class="w-full h-full bg-gradient-to-br from-primary-600/40 via-secondary-600/30 to-primary-800/50 flex items-center justify-center">
+              {{ partial "functions/get_icon" (dict "name" $fallback_icon "attributes" "class=\"w-16 h-16 text-white/30\"") }}
+            </div>
+          {{ end }}
+          
+          {{/* Status Badge */}}
+          {{ with $status }}
+          <div class="absolute top-3 right-3">
+            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border backdrop-blur-sm {{ $status_class }}">
+              {{ . }}
+            </span>
+          </div>
+          {{ end }}
+          
+          {{/* Gradient Overlay */}}
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent"></div>
+        </div>
+
+        {{/* Card Content - use flex-col to push links to bottom */}}
+        <div class="p-5 flex flex-col flex-grow">
+          {{/* Title */}}
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+            <a href="{{ $item.RelPermalink }}" class="stretched-link">
+              {{ $item.Title }}
+            </a>
+          </h3>
+          
+          {{/* Summary */}}
+          {{ with $item.Params.summary }}
+          <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
+            {{ . }}
+          </p>
+          {{ else }}
+          <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
+            {{ $item.Summary | truncate 100 }}
+          </p>
+          {{ end }}
+
+          {{/* Tech Stack Tags - fixed 2-line height for consistency */}}
+          {{ with $item.Params.tech_stack }}
+          <div class="flex flex-wrap gap-1.5 mb-4 min-h-[3.5rem]">
+            {{ range first 4 . }}
+            <span class="px-2 py-0.5 text-xs font-medium rounded-md bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20 h-fit">
+              {{ . }}
+            </span>
+            {{ end }}
+            {{ if gt (len .) 4 }}
+            <span class="px-2 py-0.5 text-xs font-medium rounded-md bg-gray-100 dark:bg-gray-500/10 text-gray-600 dark:text-gray-400 h-fit">
+              +{{ sub (len .) 4 }}
+            </span>
+            {{ end }}
+          </div>
+          {{ end }}
+
+          {{/* Action Links - pushed to bottom with mt-auto */}}
+          {{ with $item.Params.links }}
+          <div class="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-white/5 mt-auto">
+            {{ range . }}
+              {{ $icon := "link" }}
+              {{ $label := .label | default .name }}
+              {{/* Fallback to i18n if no custom label provided */}}
+              {{ if not $label }}
+                {{ if eq .type "github" }}
+                  {{ $icon = "brands/github" }}
+                  {{ $label = i18n "portfolio_link_code" | default "Code" }}
+                {{ else if eq .type "live" }}
+                  {{ $icon = "globe-alt" }}
+                  {{ $label = i18n "portfolio_link_live" | default "Live" }}
+                {{ else if eq .type "demo" }}
+                  {{ $icon = "play" }}
+                  {{ $label = i18n "portfolio_link_demo" | default "Demo" }}
+                {{ else }}
+                  {{ $label = i18n "portfolio_link_default" | default "Link" }}
+                {{ end }}
+              {{ else }}
+                {{/* Custom label provided, still infer icon from type if not specified */}}
+                {{ if eq .type "github" }}
+                  {{ $icon = "brands/github" }}
+                {{ else if eq .type "live" }}
+                  {{ $icon = "globe-alt" }}
+                {{ else if eq .type "demo" }}
+                  {{ $icon = "play" }}
+                {{ end }}
+              {{ end }}
+              {{ $icon = .icon | default $icon }}
+              <a 
+                href="{{ .url }}" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="relative z-10 inline-flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                onclick="event.stopPropagation();"
+              >
+                {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-4 h-4\"") }}
+                <span>{{ $label }}</span>
+              </a>
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      </article>
+    {{ end }}
+  </div>
+
+  {{/* View All Link */}}
+  {{/* Smart default: show link if there are more items than displayed, unless explicitly disabled */}}
+  {{ $show_archive_link := $block.content.archive.enable | default (gt $total_count $count) }}
+  {{ if $show_archive_link | and $archive_page }}
+    {{ $archive_link := "" }}
+    {{ if $block.content.archive.link }}
+      {{ $archive_link = $block.content.archive.link | relLangURL }}
+    {{ else }}
+      {{ $archive_link = $archive_page.RelPermalink }}
+    {{ end }}
+    
+    {{ $archive_text := $block.content.archive.text | default (i18n "portfolio_view_all" | default "View All Projects") }}
+    
+    <div class="text-center mt-12">
+      <a 
+        href="{{ $archive_link }}" 
+        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-800 dark:text-white bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300"
+      >
+        {{ $archive_text | emojify }}
+        {{ partial "functions/get_icon" (dict "name" "arrow-right" "attributes" "class=\"w-4 h-4\"") }}
+      </a>
+    </div>
+  {{ end }}
+</div>

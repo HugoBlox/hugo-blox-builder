@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/tech-stack.json",
+  "title": "Tech Stack Block Schema",
+  "description": "Schema for the Tech Stack block - displays technologies with icons organized by category",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "tech-stack",
+          "description": "Block type identifier"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the tech stack block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown)",
+              "examples": ["Tech Stack", "Skills & Technologies"]
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Section subtitle (supports Markdown)",
+              "examples": ["Technologies I work with daily"]
+            },
+            "categories": {
+              "type": "array",
+              "description": "Categories of technologies",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Category name",
+                    "examples": ["Languages", "Frontend", "Backend", "DevOps"]
+                  },
+                  "items": {
+                    "type": "array",
+                    "description": "Technologies in this category",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Technology name",
+                          "examples": ["TypeScript", "React", "Node.js"]
+                        },
+                        "icon": {
+                          "type": "string",
+                          "description": "Icon identifier (supports devicon/, brands/, or hero icons)",
+                          "examples": ["devicon/typescript", "devicon/react", "brands/github"]
+                        },
+                        "level": {
+                          "type": "string",
+                          "description": "Proficiency level (optional)",
+                          "enum": ["expert", "advanced", "intermediate", "beginner"],
+                          "examples": ["expert", "advanced"]
+                        }
+                      },
+                      "required": ["name"]
+                    }
+                  }
+                },
+                "required": ["items"]
+              },
+              "examples": [
+                [
+                  {
+                    "name": "Languages",
+                    "items": [
+                      { "name": "TypeScript", "icon": "devicon/typescript", "level": "expert" },
+                      { "name": "Python", "icon": "devicon/python", "level": "advanced" }
+                    ]
+                  }
+                ]
+              ]
+            }
+          },
+          "required": ["categories"],
+          "additionalProperties": false
+        },
+        "design": {
+          "type": "object",
+          "description": "Layout options for tech stack rendering",
+          "properties": {
+            "style": {
+              "type": "string",
+              "description": "Display style",
+              "enum": ["grid", "list"],
+              "default": "grid"
+            },
+            "show_levels": {
+              "type": "boolean",
+              "description": "Show proficiency level indicators",
+              "default": false
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "tech-stack",
+          "id": "skills",
+          "content": {
+            "title": "Tech Stack",
+            "subtitle": "Technologies I use to build things",
+            "categories": [
+              {
+                "name": "Languages",
+                "items": [
+                  { "name": "TypeScript", "icon": "devicon/typescript", "level": "expert" },
+                  { "name": "Python", "icon": "devicon/python", "level": "advanced" },
+                  { "name": "Go", "icon": "devicon/go", "level": "intermediate" }
+                ]
+              },
+              {
+                "name": "Frontend",
+                "items": [
+                  { "name": "React", "icon": "devicon/react" },
+                  { "name": "Next.js", "icon": "devicon/nextjs" },
+                  { "name": "Tailwind CSS", "icon": "devicon/tailwindcss" }
+                ]
+              }
+            ]
+          },
+          "design": {
+            "style": "grid",
+            "show_levels": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{{/* Hugo Blox: Dev Hero - config */}}
+{{/* Purpose: pre-declare dependencies before <head> libraries load */}}
+
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{ $typewriter := $block.content.typewriter | default dict }}
+{{ $has_animations := or ($block.design.animations | default false) ($typewriter.enable | default false) }}
+
+{{ if $has_animations }}
+  {{ $page.Store.Set "has_animations" true }}
+  {{ $page.Store.Set "has_alpine" true }}
+{{ end }}

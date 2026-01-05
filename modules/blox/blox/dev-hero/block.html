@@ -1,0 +1,278 @@
+{{/* Hugo Blox: Dev Hero */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{/* Enable animations if typewriter or scroll animations are configured */}}
+{{ $typewriter := $block.content.typewriter | default dict }}
+{{ $has_animations := or $typewriter.enable $block.design.animations }}
+{{ if $has_animations }}
+  {{ $page.Store.Set "has_animations" true }}
+  {{ $page.Store.Set "has_alpine" true }}
+{{ end }}
+
+{{/* Get author data from YAML */}}
+{{ $username := $block.content.username | default "me" }}
+{{ $author := partial "functions/get_author_profile" $username }}
+
+{{/* Get avatar */}}
+{{ $avatar := "" }}
+{{ $avatar_shape := $block.design.avatar_shape | default "circle" }}
+{{ with $author.avatar }}
+  {{ $avatar = .Fill "300x300 webp Center" }}
+{{ end }}
+
+{{/* Layout style */}}
+{{ $style := $block.design.style | default "centered" }}
+
+<div class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+  
+  {{/* Background Effects - only visible in dark mode */}}
+  <div class="absolute inset-0 pointer-events-none dark:block hidden">
+    {{/* Gradient orbs */}}
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-primary-600/5 rounded-full blur-3xl"></div>
+    
+    {{/* Grid pattern */}}
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+  </div>
+  
+  {{/* Light mode subtle background */}}
+  <div class="absolute inset-0 pointer-events-none dark:hidden">
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-100 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary-100 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 {{ if eq $style "centered" }}text-center{{ end }}">
+    
+    {{ if eq $style "split" }}
+    {{/* Split layout with avatar on side */}}
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      
+      {{/* Avatar */}}
+      {{ with $avatar }}
+      <div class="flex-shrink-0">
+        <div class="relative">
+          <div class="w-48 h-48 md:w-64 md:h-64 {{ if eq $avatar_shape "circle" }}rounded-full{{ else }}rounded-2xl{{ end }} overflow-hidden ring-4 ring-gray-200 dark:ring-white/10 shadow-2xl shadow-primary-500/20">
+            <img src="{{ .RelPermalink }}" alt="{{ $author.title }}" class="w-full h-full object-cover">
+          </div>
+          {{/* Status emoji badge */}}
+          {{ if $block.content.show_status }}
+            {{ with $author.status.icon }}
+            <span class="absolute bottom-2 right-2 w-12 h-12 flex items-center justify-center text-2xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
+              {{ . | emojify }}
+            </span>
+            {{ end }}
+          {{ end }}
+          {{/* Decorative ring */}}
+          <div class="absolute -inset-2 {{ if eq $avatar_shape "circle" }}rounded-full{{ else }}rounded-3xl{{ end }} border border-dashed border-gray-300 dark:border-white/10 animate-spin" style="animation-duration: 30s;"></div>
+        </div>
+      </div>
+      {{ end }}
+
+      {{/* Content */}}
+      <div class="text-center md:text-left">
+        {{/* Greeting */}}
+        {{ with $block.content.greeting }}
+        <p class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-4 flex items-center {{ if eq $style "centered" }}justify-center{{ end }} gap-2">
+          <span class="inline-block w-8 h-px bg-primary-500"></span>
+          {{ . }}
+        </p>
+        {{ end }}
+
+        {{/* Name */}}
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+          {{ with $block.content.name_prefix }}<span class="text-gray-500 dark:text-gray-400 font-normal">{{ . }}</span> {{ end }}
+          <span class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
+            {{ $author.title | default $block.content.title | default (i18n "developer" | default "Developer") }}
+          </span>
+        </h1>
+
+        {{/* Role/Tagline with optional typewriter */}}
+        {{ $role := $author.role | default $block.content.tagline }}
+        {{ if and $typewriter.enable $typewriter.strings }}
+        <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 font-light mb-6 h-8">
+          {{ with $typewriter.prefix }}<span>{{ . }}</span> {{ end }}
+          <span 
+            x-data="typewriter({{ $typewriter.strings | jsonify }}, { typeSpeed: {{ $typewriter.type_speed | default 80 }}, deleteSpeed: {{ $typewriter.delete_speed | default 50 }}, pauseTime: {{ $typewriter.pause_time | default 2000 }} })"
+            x-text="currentText"
+            class="text-primary-600 dark:text-primary-400"
+          ></span><span class="typewriter-cursor"></span>
+        </p>
+        {{ else if $role }}
+        <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 font-light mb-6">
+          {{ $role | $page.RenderString }}
+        </p>
+        {{ end }}
+
+        {{/* Bio */}}
+        {{ with $author.bio | default $block.content.bio }}
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl {{ if eq $style "centered" }}mx-auto{{ end }} mb-8 leading-relaxed">
+          {{ . | $page.RenderString }}
+        </p>
+        {{ end }}
+
+    {{/* Social Links */}}
+    {{ $links := $author.links | default $block.content.links }}
+    {{ with $links }}
+    <div class="flex items-center gap-4 mb-8 {{ if eq $style "centered" }}justify-center{{ end }}">
+      {{ range . }}
+        {{ $icon := .icon | default "link" }}
+        {{ $url := .url }}
+        
+        <a 
+          href="{{ $url }}" 
+          target="{{ if hasPrefix $url "mailto:" }}_self{{ else }}_blank{{ end }}"
+          rel="noopener noreferrer"
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/50 transition-all duration-300"
+          {{ with .label }}title="{{ . }}"{{ end }}
+        >
+          {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-5 h-5\"") }}
+        </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+        {{/* CTA Buttons */}}
+        {{ with $block.content.cta_buttons }}
+        <div class="flex flex-wrap gap-4 {{ if eq $style "centered" }}justify-center{{ end }}">
+          {{ range $idx, $btn := . }}
+            {{ $is_primary := eq $idx 0 }}
+            <a 
+              href="{{ .url }}"
+              class="{{ if $is_primary }}bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-500/25{{ else }}bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30{{ end }} px-6 py-3 rounded-full font-semibold transition-all duration-300 inline-flex items-center gap-2"
+            >
+              {{ with .icon }}
+              {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
+              {{ end }}
+              {{ .text }}
+            </a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+
+    {{ else }}
+    {{/* Centered layout */}}
+    
+    {{/* Avatar */}}
+    {{ with $avatar }}
+    <div class="mb-8">
+      <div class="relative inline-block">
+        <div class="w-32 h-32 md:w-40 md:h-40 {{ if eq $avatar_shape "circle" }}rounded-full{{ else }}rounded-2xl{{ end }} overflow-hidden ring-4 ring-gray-200 dark:ring-white/10 shadow-2xl shadow-primary-500/20 mx-auto">
+          <img src="{{ .RelPermalink }}" alt="{{ $author.title }}" class="w-full h-full object-cover">
+        </div>
+        {{/* Status emoji badge */}}
+        {{ if $block.content.show_status }}
+          {{ with $author.status.icon }}
+          <span class="absolute bottom-0 right-0 w-10 h-10 flex items-center justify-center text-xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
+            {{ . | emojify }}
+          </span>
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{/* Greeting */}}
+    {{ with $block.content.greeting }}
+    <p class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-4 inline-flex items-center gap-2">
+      <span class="inline-block w-8 h-px bg-primary-500"></span>
+      {{ . }}
+      <span class="inline-block w-8 h-px bg-primary-500"></span>
+    </p>
+    {{ end }}
+
+    {{/* Name */}}
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+      {{ with $block.content.name_prefix }}<span class="text-gray-500 font-normal">{{ . }}</span> {{ end }}
+      <span class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
+        {{ $author.title | default $block.content.title | default (i18n "developer" | default "Developer") }}
+      </span>
+    </h1>
+
+    {{/* Role/Tagline with optional typewriter */}}
+    {{ $role := $author.role | default $block.content.tagline }}
+    {{ if and $typewriter.enable $typewriter.strings }}
+    <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light mb-6 min-h-[2em]">
+      {{ with $typewriter.prefix }}<span>{{ . }}</span> {{ end }}
+      <span 
+        x-data="typewriter({{ $typewriter.strings | jsonify }}, { typeSpeed: {{ $typewriter.type_speed | default 80 }}, deleteSpeed: {{ $typewriter.delete_speed | default 50 }}, pauseTime: {{ $typewriter.pause_time | default 2000 }} })"
+        x-text="currentText"
+        class="text-primary-600 dark:text-primary-400"
+      ></span><span class="typewriter-cursor"></span>
+    </p>
+    {{ else if $role }}
+    <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light mb-6">
+      {{ $role | $page.RenderString }}
+    </p>
+    {{ end }}
+
+    {{/* Bio */}}
+    {{ with $author.bio | default $block.content.bio }}
+    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
+      {{ . | $page.RenderString }}
+    </p>
+    {{ end }}
+
+    {{/* Social Links */}}
+    {{ $links := $author.links | default $block.content.links }}
+    {{ with $links }}
+    <div class="flex items-center justify-center gap-4 mb-10">
+      {{ range . }}
+        {{ $icon := .icon | default "link" }}
+        {{ $url := .url }}
+        
+        <a 
+          href="{{ $url }}" 
+          target="{{ if hasPrefix $url "mailto:" }}_self{{ else }}_blank{{ end }}"
+          rel="noopener noreferrer"
+          class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/50 transition-all duration-300"
+          {{ with .label }}title="{{ . }}"{{ end }}
+        >
+          {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-5 h-5\"") }}
+        </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* CTA Buttons */}}
+    {{ with $block.content.cta_buttons }}
+    <div class="flex flex-wrap justify-center gap-4">
+      {{ range $idx, $btn := . }}
+        {{ $is_primary := eq $idx 0 }}
+        <a 
+          href="{{ .url }}"
+          class="{{ if $is_primary }}bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30{{ else }}bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30{{ end }} px-8 py-4 rounded-full font-semibold transition-all duration-300 inline-flex items-center gap-2 text-lg"
+        >
+          {{ with .icon }}
+          {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
+          {{ end }}
+          {{ .text }}
+        </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{ end }}
+
+    {{/* Scroll indicator - clicks to scroll to next section */}}
+    {{ if $block.content.show_scroll_indicator }}
+    {{ $scroll_target := $block.content.scroll_target | default "#projects" }}
+    <a 
+      href="{{ $scroll_target }}" 
+      class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer group"
+      aria-label="{{ i18n "scroll_to_content" | default "Scroll to content" }}"
+    >
+      <div class="w-6 h-10 rounded-full border-2 border-gray-300 dark:border-white/20 group-hover:border-primary-400/50 flex items-start justify-center p-2 transition-colors">
+        <div class="w-1 h-2 bg-gray-400 dark:bg-white/40 group-hover:bg-primary-400 rounded-full animate-pulse transition-colors"></div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>

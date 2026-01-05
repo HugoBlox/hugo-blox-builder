@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/dev-hero.json",
+  "title": "Dev Hero Block Schema",
+  "description": "Schema for the Dev Hero block - a developer-focused hero section with gradient effects",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "dev-hero",
+          "description": "Block type identifier"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the dev hero block",
+          "properties": {
+            "username": {
+              "type": "string",
+              "description": "Author username to pull data from (matches folder name in /authors/)",
+              "default": "me",
+              "examples": ["me", "admin"]
+            },
+            "title": {
+              "type": "string",
+              "description": "Override name/title (falls back to author title)"
+            },
+            "tagline": {
+              "type": "string",
+              "description": "Override role/tagline (falls back to author role)"
+            },
+            "bio": {
+              "type": "string",
+              "description": "Override bio text (falls back to author bio)"
+            },
+            "greeting": {
+              "type": "string",
+              "description": "Small greeting text above the name",
+              "examples": ["Hi, I'm", "Hello, I'm", "Welcome"]
+            },
+            "name_prefix": {
+              "type": "string",
+              "description": "Prefix before the name (styled differently)",
+              "examples": ["I'm", "Hey, I'm"]
+            },
+            "show_status": {
+              "type": "boolean",
+              "description": "Show status emoji badge on avatar (uses author's status.icon from profile)",
+              "default": false
+            },
+            "show_scroll_indicator": {
+              "type": "boolean",
+              "description": "Show scroll down indicator at bottom",
+              "default": false
+            },
+            "scroll_target": {
+              "type": "string",
+              "description": "CSS selector for scroll indicator target",
+              "default": "#projects",
+              "examples": ["#projects", "#about", "#contact"]
+            },
+            "links": {
+              "type": "array",
+              "description": "Override social links (falls back to author links)",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "icon": {
+                    "type": "string",
+                    "description": "Icon identifier",
+                    "examples": ["brands/github", "brands/linkedin", "brands/x", "at-symbol"]
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Link URL"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Link label/title"
+                  }
+                },
+                "required": ["icon", "url"]
+              }
+            },
+            "cta_buttons": {
+              "type": "array",
+              "description": "Call-to-action buttons",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "Button text",
+                    "examples": ["View My Work", "Download Resume", "Contact Me"]
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "Button URL",
+                    "examples": ["#projects", "/resume.pdf", "#contact"]
+                  },
+                  "icon": {
+                    "type": "string",
+                    "description": "Button icon (optional)",
+                    "examples": ["arrow-down", "document-arrow-down", "envelope"]
+                  }
+                },
+                "required": ["text", "url"]
+              },
+              "examples": [
+                [
+                  { "text": "View My Work", "url": "#projects", "icon": "arrow-down" },
+                  { "text": "Download Resume", "url": "/resume.pdf", "icon": "document-arrow-down" }
+                ]
+              ]
+            },
+            "typewriter": {
+              "type": "object",
+              "description": "Typewriter animation for cycling through roles/taglines",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Enable typewriter effect",
+                  "default": false
+                },
+                "strings": {
+                  "type": "array",
+                  "description": "Array of strings to cycle through",
+                  "items": { "type": "string" },
+                  "examples": [["Full-Stack Developer", "Open Source Contributor", "Tech Enthusiast"]]
+                },
+                "prefix": {
+                  "type": "string",
+                  "description": "Static text before the animated part",
+                  "examples": ["I'm a", "I build"]
+                },
+                "type_speed": {
+                  "type": "integer",
+                  "description": "Typing speed in milliseconds per character",
+                  "default": 80
+                },
+                "delete_speed": {
+                  "type": "integer",
+                  "description": "Delete speed in milliseconds per character",
+                  "default": 50
+                },
+                "pause_time": {
+                  "type": "integer",
+                  "description": "Pause time in milliseconds before deleting",
+                  "default": 2000
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "design": {
+          "type": "object",
+          "description": "Layout options for dev hero rendering",
+          "properties": {
+            "style": {
+              "type": "string",
+              "description": "Layout style",
+              "enum": ["centered", "split"],
+              "default": "centered"
+            },
+            "avatar_shape": {
+              "type": "string",
+              "description": "Avatar shape",
+              "enum": ["circle", "rounded"],
+              "default": "circle"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "dev-hero",
+          "id": "hero",
+          "content": {
+            "username": "me",
+            "greeting": "Hi, I'm",
+            "show_status": true,
+            "show_scroll_indicator": true,
+            "cta_buttons": [
+              { "text": "View My Work", "url": "#projects", "icon": "arrow-down" },
+              { "text": "Get In Touch", "url": "#contact", "icon": "envelope" }
+            ]
+          },
+          "design": {
+            "style": "centered",
+            "avatar_shape": "circle",
+            "background": {
+              "color": {
+                "dark": "#0a0a0f"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

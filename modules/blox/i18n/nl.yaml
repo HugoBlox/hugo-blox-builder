@@ -307,3 +307,33 @@
 
 - id: poweredby_button
   translation: 'Bouw de jouwe →'
+
+# Contact info block
+
+- id: block_contact_follow_me
+  translation: Vind mij op
+
+# Dev Hero block
+
+- id: scroll_to_content
+  translation: Scroll naar inhoud
+
+- id: developer
+  translation: Ontwikkelaar
+
+# Portfolio block
+
+- id: portfolio_link_code
+  translation: Code
+
+- id: portfolio_link_live
+  translation: Live
+
+- id: portfolio_link_demo
+  translation: Demo
+
+- id: portfolio_link_default
+  translation: Link
+
+- id: portfolio_view_all
+  translation: Bekijk alle projecten

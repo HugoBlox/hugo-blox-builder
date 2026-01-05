@@ -1,0 +1,13 @@
+{
+  "id": "tech-stack",
+  "name": "Tech Stack",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["tech-stack", "skills", "technologies", "icons", "developer", "showcase"],
+  "description": "Display technologies and skills with icons organized by category, featuring hover effects and optional proficiency indicators",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/kit",
+  "keywords": ["hugo", "tech-stack", "skills", "technologies", "developer", "portfolio"]
+}

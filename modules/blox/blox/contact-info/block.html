@@ -6,8 +6,36 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
+{{/* Enable Alpine.js for copy-to-clipboard functionality */}}
+{{ $page.Store.Set "has_alpine" true }}
+
 {{ $title := $block.content.title | default (i18n "block_contact_title" | default "Contact Us") | emojify | $page.RenderString }}
 {{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
+
+{{/* Check if Visit Us card has content */}}
+{{ $has_visit_content := or $block.content.address $block.content.office_hours $block.content.map_url }}
+
+{{/* Check if Connect card has content - fallback to author profile if no email/social */}}
+{{ $author := $block.content.username | default "me" }}
+{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $email := $block.content.email | default $profile.email }}
+{{ $phone := $block.content.phone }}
+{{ $social := $block.content.social | default $profile.links }}
+{{ $has_connect_content := or $email $phone $social $block.content.prospective }}
+
+{{/* Determine grid layout - single column centered if only one card */}}
+{{ $grid_class := "grid-cols-1 lg:grid-cols-2" }}
+{{ $card_max_width := "" }}
+{{ $is_single_card := false }}
+{{ if and $has_visit_content (not $has_connect_content) }}
+  {{ $grid_class = "grid-cols-1" }}
+  {{ $card_max_width = "max-w-3xl mx-auto" }}
+  {{ $is_single_card = true }}
+{{ else if and $has_connect_content (not $has_visit_content) }}
+  {{ $grid_class = "grid-cols-1" }}
+  {{ $card_max_width = "max-w-3xl mx-auto" }}
+  {{ $is_single_card = true }}
+{{ end }}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
   
@@ -27,12 +55,13 @@
   </div>
 
   {{/* Contact Cards Grid */}}
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+  <div class="grid {{ $grid_class }} gap-8 lg:gap-12">
     
-    {{/* Visit Us Card */}}
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+    {{/* Visit Us Card - Only show if has content */}}
+    {{ if $has_visit_content }}
+    <div class="{{ $card_max_width }} bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] p-8 hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-primary-300 dark:hover:border-primary-500/30 transition-all duration-300">
       <div class="flex items-center mb-6">
-        <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+        <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-500/10 rounded-full flex items-center justify-center border border-primary-200 dark:border-primary-500/20">
           {{ partial "functions/get_icon" (dict "name" "hero/map-pin" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
         </div>
         <h3 class="ml-4 text-2xl font-bold text-gray-900 dark:text-white">
@@ -50,7 +79,7 @@
         {{ end }}
         
         {{ with $block.content.office_hours }}
-        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div class="pt-4 border-t border-gray-200 dark:border-white/10">
           <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ i18n "block_contact_office_hours" | default "Office Hours" }}</h4>
           <div class="text-gray-600 dark:text-gray-300 space-y-1">
             {{ range . }}
@@ -62,18 +91,116 @@
         
         {{ with $block.content.map_url }}
         <a href="{{ . }}" target="_blank" rel="noopener" 
-           class="inline-flex items-center mt-4 px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors">
+           class="inline-flex items-center mt-4 px-4 py-2 bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-400 rounded-lg border border-primary-200 dark:border-primary-500/20 hover:bg-primary-200 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/40 transition-all">
           {{ partial "functions/get_icon" (dict "name" "hero/map" "attributes" "class=\"w-5 h-5 mr-2\"") }}
           {{ i18n "block_contact_view_on_map" | default "View on Map" }}
         </a>
         {{ end }}
       </div>
     </div>
+    {{ end }}
 
-    {{/* Connect Card */}}
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+    {{/* Connect Card - Only show if has content */}}
+    {{ if $has_connect_content }}
+    <div class="{{ $card_max_width }} bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] p-8 lg:p-10 hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-primary-300 dark:hover:border-primary-500/30 transition-all duration-300">
+      
+      {{/* Filter social links - remove mailto if email is shown separately */}}
+      {{ $filtered_social := slice }}
+      {{ range $social }}
+        {{ if not (hasPrefix .url "mailto:") }}
+          {{ $filtered_social = $filtered_social | append . }}
+        {{ end }}
+      {{ end }}
+
+      {{ if $is_single_card }}
+      {{/* Single card layout - horizontal on desktop */}}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12" x-data="{ copied: false }">
+        
+        {{/* Left: Email & CTA */}}
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              {{ $block.content.connect_title | default (i18n "block_contact_connect_title" | default "Let's Connect") }}
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+              {{ $block.content.text | default "I'm always open to discussing new projects, opportunities, or just having a chat." }}
+            </p>
+          </div>
+          
+          {{ with $email }}
+          {{/* Email with click-to-copy */}}
+          <div class="relative">
+            <button 
+              @click="navigator.clipboard.writeText('{{ . }}'); copied = true; setTimeout(() => copied = false, 2000)"
+              class="group flex items-center gap-3 text-left"
+            >
+              <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 group-hover:bg-primary-200 dark:group-hover:bg-primary-500/20 group-hover:border-primary-300 dark:group-hover:border-primary-500/40 transition-all">
+                {{ partial "functions/get_icon" (dict "name" "hero/envelope" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">Click to copy</p>
+                <p class="text-lg font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ . }}</p>
+              </div>
+            </button>
+            {{/* Toast notification */}}
+            <div 
+              x-show="copied" 
+              x-transition:enter="transition ease-out duration-200"
+              x-transition:enter-start="opacity-0 translate-y-1"
+              x-transition:enter-end="opacity-100 translate-y-0"
+              x-transition:leave="transition ease-in duration-150"
+              x-transition:leave-start="opacity-100 translate-y-0"
+              x-transition:leave-end="opacity-0 translate-y-1"
+              class="absolute left-0 -bottom-10 px-3 py-1.5 bg-emerald-500/90 text-white text-sm font-medium rounded-lg shadow-lg"
+            >
+              ✓ Copied to clipboard!
+            </div>
+          </div>
+          
+          {{/* Primary CTA Button */}}
+          <a href="mailto:{{ . }}" 
+             class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
+            {{ partial "functions/get_icon" (dict "name" "hero/paper-airplane" "attributes" "class=\"w-5 h-5 mr-2\"") }}
+            Send a message
+          </a>
+          {{ end }}
+          
+          {{ with $phone }}
+          <a href="tel:{{ . }}" class="flex items-center group">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 group-hover:bg-primary-200 dark:group-hover:bg-primary-500/20 group-hover:border-primary-300 dark:group-hover:border-primary-500/40 transition-all mr-3">
+              {{ partial "functions/get_icon" (dict "name" "hero/phone" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Call me</p>
+              <p class="text-lg font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ . }}</p>
+            </div>
+          </a>
+          {{ end }}
+        </div>
+        
+        {{/* Right: Social Links */}}
+        {{ with $filtered_social }}
+        <div class="flex flex-col justify-center items-center md:items-start">
+          <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-5">{{ i18n "block_contact_follow_me" | default "Find me on" }}</h4>
+          <div class="flex flex-wrap gap-4">
+            {{ range . }}
+            <a href="{{ .url }}" target="_blank" rel="noopener"
+               class="group flex items-center justify-center w-14 h-14 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-primary-100 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/40 hover:scale-110 transition-all duration-300"
+               {{ with .label }}title="{{ . }}"{{ end }}>
+              <div class="text-gray-600 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-7 h-7\"") }}
+              </div>
+            </a>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      {{ else }}
+      {{/* Standard card layout (when shown alongside Visit Us) */}}
       <div class="flex items-center mb-6">
-        <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
+        <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-500/10 rounded-full flex items-center justify-center border border-primary-200 dark:border-primary-500/20">
           {{ partial "functions/get_icon" (dict "name" "hero/chat-bubble-left-right" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
         </div>
         <h3 class="ml-4 text-2xl font-bold text-gray-900 dark:text-white">
@@ -84,32 +211,39 @@
       <div class="space-y-4">
         {{/* Contact Methods */}}
         <div class="space-y-3">
-          {{ with $block.content.email }}
-          <div class="flex items-center">
-            {{ partial "functions/get_icon" (dict "name" "hero/envelope" "attributes" "class=\"w-5 h-5 text-gray-500 dark:text-gray-400 mr-3\"") }}
-            <a href="mailto:{{ . }}" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              {{ . }}
-            </a>
-          </div>
+          {{ with $email }}
+          <a href="mailto:{{ . }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 mr-4">
+              {{ partial "functions/get_icon" (dict "name" "hero/envelope" "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+              <p class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ . }}</p>
+            </div>
+          </a>
           {{ end }}
           
-          {{ with $block.content.phone }}
-          <div class="flex items-center">
-            {{ partial "functions/get_icon" (dict "name" "hero/phone" "attributes" "class=\"w-5 h-5 text-gray-500 dark:text-gray-400 mr-3\"") }}
-            <a href="tel:{{ . }}" class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              {{ . }}
-            </a>
-          </div>
+          {{ with $phone }}
+          <a href="tel:{{ . }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 mr-4">
+              {{ partial "functions/get_icon" (dict "name" "hero/phone" "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+              <p class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ . }}</p>
+            </div>
+          </a>
           {{ end }}
           
           {{/* Social Media */}}
-          {{ with $block.content.social }}
-          <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-            <h4 class="font-semibold text-gray-900 dark:text-white mb-3">{{ i18n "block_contact_follow_us" | default "Follow Us" }}</h4>
-            <div class="flex gap-3">
+          {{ with $filtered_social }}
+          <div class="pt-4 border-t border-gray-200 dark:border-white/10">
+            <h4 class="font-semibold text-gray-900 dark:text-white mb-4">{{ i18n "block_contact_follow_me" | default "Find me on" }}</h4>
+            <div class="flex flex-wrap gap-3">
               {{ range . }}
               <a href="{{ .url }}" target="_blank" rel="noopener"
-                 class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-primary-100 dark:hover:bg-primary-900/50 hover:text-primary-600 dark:hover:text-primary-400 transition-all">
+                 class="w-11 h-11 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:bg-primary-100 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/40 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300"
+                 {{ with .label }}title="{{ . }}"{{ end }}>
                 {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
               </a>
               {{ end }}
@@ -117,28 +251,30 @@
           </div>
           {{ end }}
         </div>
+      </div>
+      {{ end }}
         
-        {{/* Prospective Members */}}
-        {{ with $block.content.prospective }}
-        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-          <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ .title | default (i18n "block_contact_prospective_title" | default "Prospective Members") }}</h4>
-          <p class="text-gray-600 dark:text-gray-300 mb-4">{{ .text }}</p>
-          {{ with .button }}
-          <a href="{{ .url }}" 
-             class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg shadow hover:shadow-lg transition-all">
-            {{ partial "functions/get_icon" (dict "name" "hero/user-plus" "attributes" "class=\"w-5 h-5 mr-2\"") }}
-            {{ .text }}
-          </a>
-          {{ end }}
-        </div>
+      {{/* Prospective Members - shown in both layouts */}}
+      {{ with $block.content.prospective }}
+      <div class="mt-6 pt-6 border-t border-gray-200 dark:border-white/10">
+        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ .title | default (i18n "block_contact_prospective_title" | default "Prospective Members") }}</h4>
+        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ .text }}</p>
+        {{ with .button }}
+        <a href="{{ .url }}" 
+           class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
+          {{ partial "functions/get_icon" (dict "name" "hero/user-plus" "attributes" "class=\"w-5 h-5 mr-2\"") }}
+          {{ .text }}
+        </a>
         {{ end }}
       </div>
+      {{ end }}
     </div>
+    {{ end }}
   </div>
 
   {{/* Optional Map Embed */}}
   {{ with $block.content.map_embed }}
-  <div class="mt-12 rounded-2xl overflow-hidden shadow-xl">
+  <div class="mt-12 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.08]">
     <div class="aspect-w-16 aspect-h-9 lg:aspect-h-6">
       {{ . | safeHTML }}
     </div>
@@ -148,33 +284,33 @@
   {{/* Contact Form (optional) */}}
   {{ if $block.content.show_form }}
   <div class="mt-12 max-w-2xl mx-auto">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+    <div class="bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] p-8">
       <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ i18n "block_contact_form_title" | default "Send us a Message" }}</h3>
       <form action="{{ $block.content.form_action | default "#" }}" method="POST" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ i18n "block_contact_form_name" | default "Name" }}</label>
+            <label for="name" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{{ i18n "block_contact_form_name" | default "Name" }}</label>
             <input type="text" id="name" name="name" required
-                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                   class="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors">
           </div>
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ i18n "block_contact_form_email" | default "Email" }}</label>
-            <input type="email" id="email" name="email" required
-                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+            <label for="form-email" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{{ i18n "block_contact_form_email" | default "Email" }}</label>
+            <input type="email" id="form-email" name="email" required
+                   class="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors">
           </div>
         </div>
         <div>
-          <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ i18n "block_contact_form_subject" | default "Subject" }}</label>
+          <label for="subject" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{{ i18n "block_contact_form_subject" | default "Subject" }}</label>
           <input type="text" id="subject" name="subject" required
-                 class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                 class="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors">
         </div>
         <div>
-          <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ i18n "block_contact_form_message" | default "Message" }}</label>
+          <label for="message" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{{ i18n "block_contact_form_message" | default "Message" }}</label>
           <textarea id="message" name="message" rows="5" required
-                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+                    class="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors resize-none"></textarea>
         </div>
         <button type="submit"
-                class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow hover:shadow-lg transition-all">
+                class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
           {{ i18n "block_contact_form_submit" | default "Send Message" }}
         </button>
       </form>

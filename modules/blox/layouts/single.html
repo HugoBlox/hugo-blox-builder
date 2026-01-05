@@ -179,7 +179,19 @@
       {{end}}
       
       {{/* Process featured image using utility with placement-specific constraints */}}
-      {{ if ne $featured.MediaType.SubType "gif" }}
+      {{ if strings.Contains $featured.MediaType.SubType "svg" }}
+        {{/* SVGs cannot be processed by Hugo (Fit/Fill). Render directly. */}}
+        <div class="article-header {{$image_container}} featured-image-wrapper mt-4 mb-16">
+          <div style="position: relative">
+            <img src="{{ $featured.RelPermalink }}"
+                 data-pagefind-meta="image[src]"
+                 alt="{{ with $image_params.alt_text }}{{.}}{{ end }}"
+                 class="featured-image"
+                 fetchpriority="high">
+            {{ with $image_params.caption }}<span class="article-header-caption">{{ . | markdownify | emojify }}</span>{{ end }}
+          </div>
+        </div>
+      {{ else if ne $featured.MediaType.SubType "gif" }}
         {{/* Pre-fit image to placement constraints, then apply responsive processing */}}
         {{ $fitted_image := $featured }}
         {{ if eq $placement 2}}

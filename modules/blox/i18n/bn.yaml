@@ -263,3 +263,33 @@
 
 - id: published_with
   translation: '{hugoblox}-এর সাথে প্রকাশিত – বিনামূল্যে, {repo_link}ওপেন সোর্স{/repo_link} ওয়েবসাইট নির্মাতা যা সৃজনকারীদের ক্ষমতায়ন করে।'
+
+# Contact info block
+
+- id: block_contact_follow_me
+  translation: আমাকে খুঁজুন
+
+# Dev Hero block
+
+- id: scroll_to_content
+  translation: কনটেন্টে স্ক্রোল করুন
+
+- id: developer
+  translation: ডেভেলপার
+
+# Portfolio block
+
+- id: portfolio_link_code
+  translation: কোড
+
+- id: portfolio_link_live
+  translation: লাইভ
+
+- id: portfolio_link_demo
+  translation: ডেমো
+
+- id: portfolio_link_default
+  translation: লিংক
+
+- id: portfolio_view_all
+  translation: সমস্ত প্রকল্প দেখুন

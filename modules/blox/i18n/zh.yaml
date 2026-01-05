@@ -329,3 +329,33 @@
 
 - id: poweredby_button
   translation: '构建您的 →'
+
+# Contact info block
+
+- id: block_contact_follow_me
+  translation: 在这里找到我
+
+# Dev Hero block
+
+- id: scroll_to_content
+  translation: 滚动到内容
+
+- id: developer
+  translation: 开发者
+
+# Portfolio block
+
+- id: portfolio_link_code
+  translation: 代码
+
+- id: portfolio_link_live
+  translation: 在线
+
+- id: portfolio_link_demo
+  translation: 演示
+
+- id: portfolio_link_default
+  translation: 链接
+
+- id: portfolio_view_all
+  translation: 查看所有项目

@@ -32,9 +32,19 @@
 {{/* Show site search? */}}
 {{ $show_search := site.Params.hugoblox.header.search | default false }}
 
+{{/* Hugo Blox Animations - load synchronously BEFORE Alpine.js to register components */}}
+{{ if .Page.Store.Get "has_animations" }}
+  {{ $animations_js := resources.Get "js/hb-animations.js" | resources.Minify }}
+  {{- if hugo.IsProduction -}}
+    {{ $animations_js = $animations_js | fingerprint "sha256" }}
+  {{- end -}}
+  <script src="{{ $animations_js.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $animations_js.Data.Integrity }}"{{ end }}></script>
+{{ end }}
+
 {{/* Load Alpine JS extension? */}}
 {{/* Alpine is needed for search modal and other interactive components */}}
-{{ if or (.Page.Store.Get "has_alpine") $show_search }}
+{{ $needs_alpine := or (.Page.Store.Get "has_alpine") $show_search (.Page.Store.Get "has_animations") }}
+{{ if $needs_alpine }}
   <script>console.log('✓ Alpine.js loading on demand');</script>
   {{ $alpine_js := resources.Get "dist/lib/alpinejs/cdn.min.js" }}
   {{ $alpine_js = $alpine_js | resources.Fingerprint "sha256" }}

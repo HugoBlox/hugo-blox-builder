@@ -283,6 +283,9 @@
 - id: block_contact_follow_us
   translation: Follow Us
 
+- id: block_contact_follow_me
+  translation: Find me on
+
 - id: block_contact_prospective_title
   translation: Prospective Members
 
@@ -461,6 +464,31 @@
 
 - id: poweredby_button
   translation: 'Build yours →'
+
+# Dev Hero block
+
+- id: scroll_to_content
+  translation: Scroll to content
+
+- id: developer
+  translation: Developer
+
+# Portfolio block
+
+- id: portfolio_link_code
+  translation: Code
+
+- id: portfolio_link_live
+  translation: Live
+
+- id: portfolio_link_demo
+  translation: Demo
+
+- id: portfolio_link_default
+  translation: Link
+
+- id: portfolio_view_all
+  translation: View All Projects
 
 # Feedback widget
 

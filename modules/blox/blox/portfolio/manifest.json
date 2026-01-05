@@ -1,0 +1,13 @@
+{
+  "id": "portfolio",
+  "name": "Portfolio",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": ["portfolio", "projects", "filter", "alpine", "developer", "showcase"],
+  "description": "Display filterable project cards with Alpine.js powered tag filtering, glass morphism styling, and smooth animations",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/kit",
+  "keywords": ["hugo", "portfolio", "projects", "filtering", "alpine.js", "developer"]
+}

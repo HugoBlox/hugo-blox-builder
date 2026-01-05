@@ -1,4 +1,4 @@
-{{/* Hugo Blox: Experience */}}
+{{/* Hugo Blox: Experience - 2026 Redesign */}}
 {{/* Documentation: https://hugoblox.com/blocks/ */}}
 {{/* License: https://github.com/HugoBlox/kit/blob/main/LICENSE.md */}}
 
@@ -11,106 +11,209 @@
 {{ $profile := partial "functions/get_author_profile" $author }}
 {{ $is_education_first := $block.design.is_education_first | default false }}
 
-<div class="flex flex-col items-center mx-auto w-full max-w-prose justify-center">
-<!--  <article class="prose prose-slate lg:prose-xl dark:prose-invert">-->
-<!--    {{ with $block.content.title }}-->
-<!--    <h2>{{ . }}</h2>-->
-<!--    {{end}}-->
-<!--  </article>-->
+<div class="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
 
-<!-- Need Gap >= 3 when flex-row due to negative margin on cols (-start-3) -->
-<div class="flex flex-col lg:gap-x-6 w-full px-6 sm:px-0 {{ if $is_education_first }}flex-col-reverse{{end}}">
+<div class="flex flex-col gap-16 {{ if $is_education_first }}flex-col-reverse{{end}}">
 
 {{ $experience := or $profile.experience $profile.work }}
 {{ if $experience }}
 <div class="w-full">
-  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "experience" | default "Experience" }}</h3>
-  <ol class="relative w-full border-s border-gray-200 dark:border-gray-700">
-    {{ range $idx, $key := $experience }}
-    <li class="mb-10 ms-6">
-        <span class="absolute flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-primary-900">
-            {{ if .icon }}
-              {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-5 h-5'") }}
-            {{else}}
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-5 h-5 text-primary-800 dark:text-primary-300"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"></path></svg>
-            {{end}}
-        </span>
-      <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{ .role | default .position }}
-        <!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
-      </h3>
-      <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{ .org | default .company_name }}</span>
-      <time class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
-        {{ $start := or .start .date_start }}
-        {{ $end := or .end .date_end }}
-        {{ if $start }}
-          {{ (time $start) | time.Format ($block.design.date_format | default "January 2006") }} –
-        {{ end }}
-        {{ if $end }}
-          {{ (time $end) | time.Format ($block.design.date_format | default "January 2006") }}
-        {{ else }}
-          {{ i18n "present" | default "Present" }}
-        {{end}}
-      </time>
-      <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 prose max-w-none prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
+  <h2 class="mb-10 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "experience" | default "Experience" }}</h2>
+  
+  {{/* Timeline container */}}
+  <div class="relative">
+    {{/* Gradient timeline line */}}
+    <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-primary-400 to-primary-600/50"></div>
+    
+    {{/* Experience items */}}
+    <div class="space-y-8">
+      {{ range $idx, $item := $experience }}
+      {{/* Card wrapper */}}
+      <div class="group relative pl-12 sm:pl-16">
+        
+        {{/* Timeline marker */}}
+        <div class="absolute left-0 sm:left-2 top-6 flex items-center justify-center">
+          {{/* Glowing dot */}}
+          <div class="relative">
+            <div class="absolute inset-0 w-8 h-8 bg-primary-500/30 rounded-full blur-md group-hover:bg-primary-500/50 transition-all duration-300"></div>
+            <div class="relative w-8 h-8 bg-white dark:bg-gray-900 border-2 border-primary-500 rounded-full flex items-center justify-center group-hover:border-primary-400 group-hover:scale-110 transition-all duration-300">
+              {{ if $item.icon }}
+                {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class='w-4 h-4 text-primary-600 dark:text-primary-400'") }}
+              {{else}}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-4 h-4 text-primary-600 dark:text-primary-400"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"></path></svg>
+              {{end}}
+            </div>
+          </div>
+        </div>
+        
+        {{/* Content card */}}
+        <div class="relative bg-white dark:bg-white/[0.02] backdrop-blur-sm rounded-xl border border-gray-200 dark:border-white/[0.06] p-6 hover:bg-gray-50 dark:hover:bg-white/[0.04] hover:border-primary-300 dark:hover:border-primary-500/30 transition-all duration-300 group-hover:translate-x-1 shadow-sm dark:shadow-none">
+          
+          {{/* Header row */}}
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+            <div>
+              {{/* Role/Position */}}
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {{ $item.role | default $item.position }}
+              </h3>
+              {{/* Company */}}
+              <p class="text-primary-600 dark:text-primary-400 font-medium mt-1">
+                {{ $item.org | default $item.company_name }}
+              </p>
+            </div>
+            
+            {{/* Date badge */}}
+            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <time>
+                {{ $start := or $item.start $item.date_start }}
+                {{ $end := or $item.end $item.date_end }}
+                {{ if $start }}
+                  {{ (time $start) | time.Format ($block.design.date_format | default "Jan 2006") }} –
+                {{ end }}
+                {{ if $end }}
+                  {{ (time $end) | time.Format ($block.design.date_format | default "Jan 2006") }}
+                {{ else }}
+                  <span class="text-primary-600 dark:text-primary-400 font-medium">{{ i18n "present" | default "Present" }}</span>
+                {{end}}
+              </time>
+            </div>
+          </div>
+          
+          {{/* Description */}}
+          {{ with $item.summary }}
+          <div class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            {{ . | $page.RenderString }}
+          </div>
+          {{ end }}
+          
+          {{/* Tags/Skills */}}
+          {{ with $item.tags }}
+          <div class="flex flex-wrap gap-2 mt-4">
+            {{ range . }}
+            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20">
+              {{ . }}
+            </span>
+            {{ end }}
+          </div>
+          {{ end }}
 
-      {{ with .button }}
-      <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg transition-colors hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-gray-900 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white dark:focus:ring-gray-700">
-        {{ with .icon }}
-          {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
-        {{ end }}
-        {{ .text | default "Learn more" }}
-      </a>
+          {{/* Action button */}}
+          {{ with $item.button }}
+          <div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/5">
+            <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              {{ with .icon }}
+                {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+              {{ end }}
+              {{ .text | default "Learn more" }}
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
       {{ end }}
-
-    </li>
-    {{ end }}
-  </ol>
+    </div>
+  </div>
 </div>
 {{ end }}
 
 {{ if $profile.education }}
 <div class="w-full">
-  <h3 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "education" }}</h3>
-    <ol class="relative w-full border-s border-gray-200 dark:border-gray-700">
-      {{ range $idx, $key := $profile.education }}
-      <li class="mb-10 ms-6">
-        <span class="absolute flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-primary-900">
-            {{ if .icon }}
-            {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-5 h-5 text-primary-800 dark:text-primary-300'") }}
-            {{else}}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-5 h-5 text-primary-800 dark:text-primary-300"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"></path></svg>
-            {{end}}
-        </span>
-        <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">{{ .degree | default .area }}
-<!--          <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span>-->
-        </h3>
-        <span class="block mb-2 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">{{ .institution }}</span>
-        <time class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
-          {{ $start := or .start .date_start }}
-          {{ $end := or .end .date_end }}
-          {{ if $start }}
-            {{ (time $start) | time.Format ($block.design.date_format | default "January 2006") }} –
+  <h2 class="mb-10 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "education" }}</h2>
+  
+  {{/* Timeline container */}}
+  <div class="relative">
+    {{/* Gradient timeline line */}}
+    <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-secondary-500 via-secondary-400 to-secondary-600/50"></div>
+    
+    {{/* Education items */}}
+    <div class="space-y-8">
+      {{ range $idx, $item := $profile.education }}
+      {{/* Card wrapper */}}
+      <div class="group relative pl-12 sm:pl-16">
+        
+        {{/* Timeline marker */}}
+        <div class="absolute left-0 sm:left-2 top-6 flex items-center justify-center">
+          {{/* Glowing dot */}}
+          <div class="relative">
+            <div class="absolute inset-0 w-8 h-8 bg-secondary-500/30 rounded-full blur-md group-hover:bg-secondary-500/50 transition-all duration-300"></div>
+            <div class="relative w-8 h-8 bg-white dark:bg-gray-900 border-2 border-secondary-500 rounded-full flex items-center justify-center group-hover:border-secondary-400 group-hover:scale-110 transition-all duration-300">
+              {{ if $item.icon }}
+                {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class='w-4 h-4 text-secondary-600 dark:text-secondary-400'") }}
+              {{else}}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-4 h-4 text-secondary-600 dark:text-secondary-400"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"></path></svg>
+              {{end}}
+            </div>
+          </div>
+        </div>
+        
+        {{/* Content card */}}
+        <div class="relative bg-white dark:bg-white/[0.02] backdrop-blur-sm rounded-xl border border-gray-200 dark:border-white/[0.06] p-6 hover:bg-gray-50 dark:hover:bg-white/[0.04] hover:border-secondary-300 dark:hover:border-secondary-500/30 transition-all duration-300 group-hover:translate-x-1 shadow-sm dark:shadow-none">
+          
+          {{/* Header row */}}
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+            <div>
+              {{/* Degree */}}
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-secondary-600 dark:group-hover:text-secondary-400 transition-colors">
+                {{ $item.degree | default $item.area }}
+              </h3>
+              {{/* Institution */}}
+              <p class="text-secondary-600 dark:text-secondary-400 font-medium mt-1">
+                {{ $item.institution }}
+              </p>
+            </div>
+            
+            {{/* Date badge */}}
+            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <time>
+                {{ $start := or $item.start $item.date_start }}
+                {{ $end := or $item.end $item.date_end }}
+                {{ if $start }}
+                  {{ (time $start) | time.Format ($block.design.date_format | default "Jan 2006") }} –
+                {{ end }}
+                {{ if $end }}
+                  {{ (time $end) | time.Format ($block.design.date_format | default "Jan 2006") }}
+                {{ else }}
+                  <span class="text-primary-600 dark:text-primary-400 font-medium">{{ i18n "present" | default "Present" }}</span>
+                {{end}}
+              </time>
+            </div>
+          </div>
+          
+          {{/* Description */}}
+          {{ with $item.summary }}
+          <div class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            {{ . | $page.RenderString }}
+          </div>
           {{ end }}
-          {{ if $end }}
-            {{ (time $end) | time.Format ($block.design.date_format | default "January 2006") }}
-          {{ else }}
-            {{ i18n "present" | default "Present" }}
-          {{end}}
-        </time>
-        <div class="mb-4 text-base font-normal text-gray-500 dark:text-gray-300 prose max-w-none prose-slate dark:prose-invert">{{.summary | $page.RenderString}}</div>
 
-        {{ with .button }}
-        <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg transition-colors hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-gray-900 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white dark:focus:ring-gray-700">
-          {{ with .icon }}
-            {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+          {{/* Action button */}}
+          {{ with $item.button }}
+          <div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/5">
+            <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">
+              {{ with .icon }}
+                {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+              {{ end }}
+              {{ .text | default "Learn more" }}
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
           {{ end }}
-          {{ .text | default "Learn more" }}
-        </a>
-        {{ end }}
-
-      </li>
+        </div>
+      </div>
       {{ end }}
-    </ol>
+    </div>
+  </div>
 </div>
 {{ end }}
 

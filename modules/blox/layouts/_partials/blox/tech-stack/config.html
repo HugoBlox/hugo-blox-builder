@@ -1,0 +1,10 @@
+{{/* Hugo Blox: Tech Stack - config */}}
+{{/* Purpose: pre-declare dependencies before <head> libraries load */}}
+
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+
+{{ if ne $block.design.animations false }}
+  {{ $page.Store.Set "has_animations" true }}
+  {{ $page.Store.Set "has_alpine" true }}
+{{ end }}

@@ -41,5 +41,8 @@
 /* Hugo Blox Search */
 @import "hb-search.css";
 
+/* Hugo Blox Animations (typewriter, scroll reveals) */
+@import "animations.css";
+
 /* Safelist for dynamic classes */
 @import "config/safelist.css";

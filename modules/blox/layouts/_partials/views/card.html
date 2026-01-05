@@ -24,7 +24,7 @@
 {{ $event_dates = partial "functions/get_event_dates" $item }}
 {{ end }}
 
-<div class="group bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-2 focus-within:ring-2 focus-within:ring-blue-500/50" role="article" aria-labelledby="card-title-{{ $item.File.UniqueID }}">
+<div class="group bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:shadow-primary-500/10 hover:-translate-y-2 focus-within:ring-2 focus-within:ring-primary-500/50" role="article" aria-labelledby="card-title-{{ $item.File.UniqueID }}">
     <!-- Image Section -->
     <div class="relative overflow-hidden aspect-[16/9] bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
       {{ with $item.Params.content_meta }}
@@ -36,7 +36,17 @@
         {{ end }}
       {{ end }}
       {{ with $resource }}
-        {{ if ne .MediaType.SubType "gif" }}
+        {{ if strings.Contains .MediaType.SubType "svg" }}
+          <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block">
+            <img class="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105 {{ if $fill_image }}object-fill{{ else }}object-contain{{ end }}" 
+                 src="{{ .RelPermalink }}"
+                 loading="lazy" 
+                 decoding="async"
+                 {{ if eq $index 0 }}fetchpriority="high"{{ end }}
+                 style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                 alt="{{ $item.Title | plainify }} featured image">
+          </a>
+        {{ else if ne .MediaType.SubType "gif" }}
           {{ $original_image := "" }}
           {{ if $fill_image }}
             {{ $original_image = .Fill (printf "800x450 %s" $anchor) }}
@@ -75,11 +85,11 @@
           </a>
         {{ end }}
       {{ else }}
-        <!-- Fallback gradient with subtle pattern - make clickable for consistency -->
+        <!-- Fallback gradient using theme colors - make clickable for consistency -->
         <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block w-full h-full">
-          <div class="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center hover:from-blue-500/30 hover:to-purple-500/30 transition-colors duration-300">
+          <div class="w-full h-full bg-gradient-to-br from-primary-600/40 via-secondary-600/30 to-primary-800/50 flex items-center justify-center transition-all duration-300 group-hover:from-primary-500/50 group-hover:via-secondary-500/40 group-hover:to-primary-700/60">
             <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <svg class="w-8 h-8 text-white/60" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-8 h-8 text-white/40" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
               </svg>
             </div>
@@ -97,7 +107,7 @@
         {{ if or .content_type .difficulty }}
         <div class="flex items-center gap-x-4">
           {{ with .content_type }}
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">
             {{ . }}
           </span>
           {{ end }}
@@ -120,7 +130,7 @@
       </div>
       {{ end }}
 
-      <h3 id="card-title-{{ $item.File.UniqueID }}" class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 leading-tight">
+      <h3 id="card-title-{{ $item.File.UniqueID }}" class="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200 leading-tight">
         <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="hover:underline">
           {{ $item.Title }}
           {{ if $item.Params.external_link }}
@@ -207,7 +217,7 @@
       
       <!-- Optional AI metadata -->
       {{ if $item.Params.ai_insights }}
-        <div class="flex items-center gap-2 pt-2 text-xs text-blue-500 bg-blue-50 dark:bg-blue-950/30 rounded-lg px-3 py-2">
+        <div class="flex items-center gap-2 pt-2 text-xs text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/30 rounded-lg px-3 py-2">
           <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>

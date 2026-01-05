@@ -1,0 +1,7 @@
+{{/* Hugo Blox: Contact Info - config */}}
+{{/* Purpose: pre-declare dependencies before <head> libraries load */}}
+
+{{ $page := .wcPage }}
+
+{{/* Contact block uses Alpine for copy-to-clipboard + small interactions */}}
+{{ $page.Store.Set "has_alpine" true }}

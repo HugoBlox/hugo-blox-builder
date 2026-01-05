@@ -1,0 +1,19 @@
+{
+  "name": "hugo-blox-dev-portfolio-free",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "description": "Modern developer portfolio template for Hugo Blox with Tailwind CSS v4 - Free version",
+  "scripts": {
+    "dev": "hugo server --disableFastRender",
+    "build": "hugo --minify && pnpm run pagefind",
+    "pagefind": "pagefind --site public"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/typography": "^0.5.10",
+    "pagefind": "^1.4.0",
+    "preact": "^10.27.2",
+    "tailwindcss": "^4.1.12"
+  }
+}
