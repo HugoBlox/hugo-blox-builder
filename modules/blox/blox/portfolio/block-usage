@@ -1,0 +1,348 @@
+- block: portfolio
+    id: portfolio
+    content:
+      title: PORTFOLIO
+      text: ''
+      filters:
+        folders:
+          - post
+          - courses
+          - events
+          - slides
+      count: 0
+      archive:
+        enable: true
+        text: 'VIEW ALL POSTS'
+        text_template: 'VIEW ALL %s POSTS'
+    design:
+      view: citation
+      columns: '1'
+      # OLD FORMAT - Now supported!
+      filter_button:
+        - name: BLOG
+          tag: '*'
+        - name: PRACTICE
+          tag: Events
+        - name: CLASS
+          tag: Course
+        - name: TESTS
+          tag: Quizzes
+      filter_type: "categories"
+      filter_label: "Topics"
+      max_posts_per_filter: 3
+      show_date: false
+      hide_date: true
+      show_read_more: true
+      hide_author: true      # ← SET TO TRUE TO HIDE AUTHOR
+      hide_tags: true        # ← SET TO TRUE TO HIDE TAGS
+      hide_categories: false
+      spacing:
+        padding: [0, 0, 0, 0]
+      css_class: ""
+
+You can see it in https://innerknowing.xyz/en/
+
+Here are complete example Hugo Blox Portfolio block configurations for your `_index.md` file:
+
+***
+
+## **Basic Portfolio Block**
+
+```yaml
+---
+title: My Portfolio
+type: landing
+
+sections:
+  - block: portfolio
+    id: projects
+    content:
+      title: Featured Projects
+      subtitle: Selected works and research
+      text: Browse my portfolio of projects and publications
+      filters:
+        folders: ['project']
+      count: 12
+      sort_by: 'Date'
+      sort_ascending: false
+    design:
+      view: article-grid
+      columns: '3'
+      filter_button:
+        - name: All
+          tag: '*'
+        - name: Research
+          tag: 'research'
+        - name: Development
+          tag: 'development'
+---
+```
+
+***
+
+## **Advanced Portfolio with Custom Filters**
+
+```yaml
+---
+title: Research Portfolio
+type: landing
+
+sections:
+  - block: portfolio
+    id: publications
+    content:
+      title: Publications & Projects
+      subtitle: Academic research and open-source contributions
+      text: |
+        Explore my work in **neuroscience**, **embodied cognition**, and **somatic experience**.
+
+      # Filter content
+      filters:
+        folders: ['publication', 'project']
+        tags: ['neuroscience', 'somatic-markers', 'NLP']
+        exclude_tags: ['draft', 'private']
+        featured_only: false
+        exclude_past: false
+        exclude_future: false
+
+      # Pagination
+      count: 9  # Show 9 items per page
+      offset: 0
+
+      # Sorting
+      sort_by: 'Date'
+      sort_ascending: false
+
+      # Archive page links
+      archive:
+        text: "View All Publications"
+        text_template: "View All %s Posts"
+
+    design:
+      # Layout
+      view: article-grid  # Options: article-grid, card, citation, list, compact
+      columns: '3'
+
+      # Filtering
+      filter_type: tags  # Options: tags, categories
+      filter_items: ['neuroscience', 'somatic-markers', 'NLP', 'research']
+      filter_label: "Filter by topic:"
+      max_posts_per_filter: 6
+
+      # Visibility controls
+      hide_author: true
+      hide_tags: false
+      hide_categories: true
+      hide_date: false
+      show_date: true
+      show_read_time: true
+      show_read_more: true
+      fill_image: true
+
+      # No results message
+      no_results_title: "No publications found"
+      no_results_text: "Try selecting a different topic filter."
+---
+```
+
+***
+
+## **Minimal Portfolio (Blog Posts)**
+
+```yaml
+---
+title: Blog
+type: landing
+
+sections:
+  - block: portfolio
+    id: blog
+    content:
+      title: Latest Posts
+      filters:
+        folders: ['blog']
+      count: 6
+    design:
+      view: article-grid
+      columns: '2'
+      filter_button:
+        - name: All
+          tag: '*'
+        - name: AI
+          tag: 'artificial-intelligence'
+        - name: Privacy
+          tag: 'privacy'
+---
+```
+
+***
+
+## **Card View Portfolio**
+
+```yaml
+---
+title: Projects
+type: landing
+
+sections:
+  - block: portfolio
+    id: showcase
+    content:
+      title: Project Showcase
+      text: My open-source and research projects
+      filters:
+        folders: ['project']
+        featured_only: true
+      count: 12
+      archive:
+        text: "View Complete Portfolio"
+    design:
+      view: card
+      columns: '2'
+      filter_type: categories
+      max_posts_per_filter: 4
+      hide_author: true
+      hide_date: false
+---
+```
+
+***
+
+## **Academic Publications Portfolio**
+
+```yaml
+---
+title: Research
+type: landing
+
+sections:
+  - block: portfolio
+    id: publications
+    content:
+      title: Research Publications
+      subtitle: Peer-reviewed articles and conference papers
+      filters:
+        folders: ['publication']
+        publication_type: '2'  # Journal articles
+      sort_by: 'PublishDate'
+      sort_ascending: false
+      count: 20
+    design:
+      view: citation
+      columns: '1'
+      filter_button:
+        - name: All
+          tag: '*'
+        - name: Neuroscience
+          tag: 'neuroscience'
+        - name: Somatic
+          tag: 'somatic-experience'
+      hide_author: false
+      hide_tags: true
+      show_date: true
+---
+```
+
+***
+
+## **Multiple Portfolios on Same Page**
+
+```yaml
+---
+title: Complete Portfolio
+type: landing
+
+sections:
+  # Featured projects
+  - block: portfolio
+    id: featured
+    content:
+      title: Featured Work
+      filters:
+        folders: ['project']
+        featured_only: true
+      count: 3
+    design:
+      view: card
+      columns: '3'
+      filter_button: false  # Disable filtering
+
+  # All projects with filters
+  - block: portfolio
+    id: all-projects
+    content:
+      title: All Projects
+      filters:
+        folders: ['project']
+      count: 12
+    design:
+      view: article-grid
+      columns: '3'
+      filter_type: tags
+      max_posts_per_filter: 6
+
+  # Publications
+  - block: portfolio
+    id: publications
+    content:
+      title: Publications
+      filters:
+        folders: ['publication']
+      count: 10
+    design:
+      view: citation
+      columns: '1'
+      filter_type: categories
+---
+```
+
+***
+
+## **Key Configuration Tips**
+
+**1. Content Folder Structure**:
+```
+content/
+├── _index.md          # Homepage with portfolio block
+├── project/           # Projects folder
+│   ├── project-1/
+│   │   └── index.md
+│   └── project-2/
+│       └── index.md
+└── publication/       # Publications folder
+    └── paper-1/
+        └── index.md
+```
+
+**2. Individual Item Front Matter** (`content/project/my-project/index.md`):
+```yaml
+---
+title: "My Project"
+date: 2025-11-15
+tags: ['AI', 'research', 'python']
+categories: ['Development']
+featured: true
+---
+```
+
+**3. View Types**:
+- `article-grid` - Standard card grid (default)
+- `card` - Larger cards with more detail
+- `citation` - Academic citation format (centered)
+- `list` - Simple list view
+- `compact` - Minimal compact listing
+
+**4. Filter Types**:
+- `tags` - Filter by post tags
+- `categories` - Filter by post categories
+
+**5. Common Folders**:
+- `project` - Projects
+- `publication` - Academic papers
+- `post` or `blog` - Blog posts
+- `talk` - Conference talks
+- `event` - Events
+
+***
+
+Choose the configuration that best matches your needs and customize the `title`, `subtitle`, `text`, `filters`, and `design` options to fit your content structure!
