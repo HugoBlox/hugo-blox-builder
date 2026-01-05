@@ -53,6 +53,8 @@ jobs:
                       path: templates/academic-cv
                     - name: landing-page
                       path: templates/landing-page
+                    - name: dev-portfolio
+                      path: templates/dev-portfolio
 
         steps:
             - name: Checkout

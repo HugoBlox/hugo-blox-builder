@@ -40,6 +40,7 @@ jobs:
                       templates/documentation/**
                       templates/link-in-bio/**
                       templates/landing-page/**
+                      templates/dev-portfolio/**
                   dir_names: true
                   dir_names_max_depth: 2
                   dir_names_exclude_current_dir: true
@@ -58,12 +59,14 @@ jobs:
                     ["templates/documentation"]="theme-documentation"
                     ["templates/link-in-bio"]="theme-link-in-bio"
                     ["templates/landing-page"]="theme-landing-page"
+                    ["templates/dev-portfolio"]="theme-developer-portfolio"
+                    ["templates/dev-portfolio-pro"]="theme-developer-portfolio-pro"
                   )
 
                   # For non-push events, always use full matrix
                   if [ "${{ github.event_name }}" != "push" ]; then
                     echo "Using full matrix for ${{ github.event_name }} event"
-                    echo "matrix=[{\"local_path\":\"templates/academic-cv\",\"split_repository\":\"theme-academic-cv\"},{\"local_path\":\"templates/resume\",\"split_repository\":\"theme-resume\"},{\"local_path\":\"templates/blog\",\"split_repository\":\"theme-blog\"},{\"local_path\":\"templates/documentation\",\"split_repository\":\"theme-documentation\"},{\"local_path\":\"templates/link-in-bio\",\"split_repository\":\"theme-link-in-bio\"},{\"local_path\":\"templates/landing-page\",\"split_repository\":\"theme-landing-page\"}]" >> "$GITHUB_OUTPUT"
+                    echo "matrix=[{\"local_path\":\"templates/academic-cv\",\"split_repository\":\"theme-academic-cv\"},{\"local_path\":\"templates/resume\",\"split_repository\":\"theme-resume\"},{\"local_path\":\"templates/blog\",\"split_repository\":\"theme-blog\"},{\"local_path\":\"templates/documentation\",\"split_repository\":\"theme-documentation\"},{\"local_path\":\"templates/link-in-bio\",\"split_repository\":\"theme-link-in-bio\"},{\"local_path\":\"templates/landing-page\",\"split_repository\":\"theme-landing-page\"},{\"local_path\":\"templates/dev-portfolio\",\"split_repository\":\"theme-developer-portfolio\"},{\"local_path\":\"templates/dev-portfolio-pro\",\"split_repository\":\"theme-developer-portfolio-pro\"}]" >> "$GITHUB_OUTPUT"
                     echo "has_changes=true" >> "$GITHUB_OUTPUT"
                     exit 0
                   fi
