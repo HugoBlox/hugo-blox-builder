@@ -1,0 +1,551 @@
+{{/* Hugo Blox: Portfolio - SUPPORTS BOTH OLD & NEW FILTER FORMATS */}}
+{{/* Documentation: https://hugoblox.com/blocks/ */}}
+{{/* License: https://github.com/HugoBlox/hugo-blox-builder/blob/main/LICENSE.md */}}
+
+{{/* Initialise */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $view := $block.design.view | default "article-grid" }}
+{{ $items_offset := $block.content.offset | default 0 }}
+{{ $items_count := $block.content.count }}
+{{ if eq $items_count 0 }}
+  {{ $items_count = 65535 }}
+{{ else }}
+  {{ $items_count = $items_count | default 12 }}
+{{ end }}
+
+{{/* Query */}}
+{{ $query := site.RegularPages }}
+{{ $archive_page := "" }}
+
+{{/* Filters */}}
+{{ if $block.content.page_type }}
+  {{ $query = where $query "Type" $block.content.page_type }}
+  {{ $archive_page = site.GetPage "Section" $block.content.page_type }}
+{{ end }}
+{{ if $block.content.filters.folders }}
+  {{ $folders := $block.content.filters.folders }}
+  {{ $query = where $query "Section" "in" $folders }}
+  {{ $main_folder := index $folders 0 }}
+  {{ $archive_page = site.GetPage "Section" $main_folder }}
+{{ end }}
+{{ if $block.content.filters.tags }}
+  {{ $query = where $query "Params.tags" "intersect" $block.content.filters.tags }}
+{{ end }}
+{{ if $block.content.filters.exclude_tags }}
+  {{ $query = $query | symdiff (where site.RegularPages "Params.tags" "intersect" $block.content.filters.exclude_tags) }}
+{{ end }}
+{{ if $block.content.filters.tag }}
+  {{ $archive_page = site.GetPage (printf "tags/%s" (urlize $block.content.filters.tag)) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+{{ if $block.content.filters.category }}
+  {{ $archive_page = site.GetPage (printf "categories/%s" (urlize $block.content.filters.category)) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+{{ if $block.content.filters.publication_type }}
+  {{ $archive_page = site.GetPage (printf "publication_types/%s" $block.content.filters.publication_type) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+{{ if $block.content.filters.exclude_publication_type }}
+  {{ $query = $query | complement (site.GetPage (printf "publication_types/%s" $block.content.filters.exclude_publication_type)).Pages }}
+{{ end }}
+{{ if $block.content.filters.author }}
+  {{ $archive_page = site.GetPage (printf "authors/%s" (urlize $block.content.filters.author)) }}
+  {{ $query = $query | intersect $archive_page.Pages }}
+{{ end }}
+{{ if $block.content.filters.featured_only }}
+  {{ $query = where $query "Params.featured" "==" true }}
+{{ end }}
+{{ if $block.content.filters.exclude_featured }}
+  {{ $query = where $query "Params.featured" "!=" true }}
+{{ end }}
+{{ if $block.content.filters.exclude_past }}
+  {{ $query = where $query "Date" ">=" now }}
+{{ end }}
+{{ if $block.content.filters.exclude_future }}
+  {{ $query = where $query "Date" "<" now }}
+{{ end }}
+
+{{/* Sort */}}
+{{ $sort_by := $block.content.sort_by | default "Date" }}
+{{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
+{{ $sort_ascending := $block.content.sort_ascending | default false }}
+{{ $sort_order := cond $sort_ascending "asc" "desc" }}
+{{ $query = sort $query $sort_by $sort_order }}
+
+{{/* Offset and Limit */}}
+{{ if gt $items_offset 0 }}
+  {{ $query = first $items_count (after $items_offset $query) }}
+{{ else }}
+  {{ $query = first $items_count $query }}
+{{ end }}
+
+{{/* Filter configuration */}}
+{{ $filter_type := $block.design.filter_type | default "tags" }}
+{{ $max_posts_per_filter := $block.design.max_posts_per_filter | default 6 }}
+
+{{/* Build filter buttons - SUPPORT BOTH FORMATS */}}
+{{ $filter_buttons := slice }}
+{{ $use_old_format := false }}
+
+{{/* Check if using old array format: [{name: "X", tag: "Y"}] */}}
+{{ with $block.design.filter_button }}
+  {{ if reflect.IsSlice . }}
+    {{ $use_old_format = true }}
+    {{ $filter_buttons = . }}
+  {{ end }}
+{{ end }}
+
+{{/* If not old format, build from tags/categories */}}
+{{ if not $use_old_format }}
+  {{ $custom_filter_items := $block.design.filter_items | default slice }}
+
+  {{/* Collect all available categories and tags from queried items */}}
+  {{ $all_categories := slice }}
+  {{ $all_tags := slice }}
+  {{ range $query }}
+    {{ with .Params.categories }}
+      {{ if reflect.IsSlice . }}
+        {{ range . }}
+          {{ if and . (eq (printf "%T" .) "string") }}
+            {{ $all_categories = $all_categories | append . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ with .Params.tags }}
+      {{ if reflect.IsSlice . }}
+        {{ range . }}
+          {{ if and . (eq (printf "%T" .) "string") }}
+            {{ $all_tags = $all_tags | append . }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $all_categories = $all_categories | uniq | sort }}
+  {{ $all_tags = $all_tags | uniq | sort }}
+
+  {{/* Determine which items to show */}}
+  {{ $filter_items := slice }}
+  {{ if eq $filter_type "categories" }}
+    {{ if $custom_filter_items }}
+      {{ $filter_items = $custom_filter_items }}
+    {{ else }}
+      {{ $filter_items = $all_categories }}
+    {{ end }}
+  {{ else if eq $filter_type "tags" }}
+    {{ if $custom_filter_items }}
+      {{ $filter_items = $custom_filter_items }}
+    {{ else }}
+      {{ $filter_items = $all_tags }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Convert to button format */}}
+  {{ range $filter_items }}
+    {{ $filter_buttons = $filter_buttons | append (dict "name" (. | title) "tag" .) }}
+  {{ end }}
+{{ end }}
+
+{{/* Configuration for hiding elements */}}
+{{ $hide_author := $block.design.hide_author | default true }}
+{{ $hide_tags := $block.design.hide_tags | default true }}
+{{ $hide_categories := $block.design.hide_categories | default false }}
+{{ $hide_date := $block.design.hide_date | default false }}
+{{ $show_date := $block.design.show_date | default true }}
+{{ $columns := $block.design.columns | default "3" }}
+{{ $filter_enabled := true }}
+{{ if isset $block.design "filter_button" }}
+  {{ if not $block.design.filter_button }}
+    {{ $filter_enabled = false }}
+  {{ end }}
+{{ end }}
+
+{{/* Generate unique ID for this portfolio block */}}
+{{ $portfolio_id := printf "portfolio-%d" now.UnixNano }}
+
+<div class="w-full portfolio-clean-{{ $portfolio_id }}" id="{{ $portfolio_id }}">
+  {{/* Container with max-w-7xl */}}
+  <div class="max-w-7xl mx-auto">
+    {{/* Title */}}
+    {{ if $block.content.title }}
+    <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6 md:px-0 mb-8">
+      <div class="text-3xl font-bold text-gray-900 dark:text-white">
+        {{ $block.content.title | emojify | $page.RenderString }}
+      </div>
+      {{ with $block.content.text }}<p class="text-lg text-gray-600 dark:text-gray-400 text-center">{{ . | emojify | $page.RenderString }}</p>{{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Filter Controls - Rounded Button Group */}}
+    {{ if and $filter_enabled $filter_buttons }}
+    <div class="flex flex-col items-center gap-4 mb-8 px-6">
+      <div class="flex flex-col items-center gap-2">
+        {{ with $block.design.filter_label }}
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ . }}</span>
+        {{ end }}
+        <div class="inline-flex flex-wrap justify-center rounded-lg shadow-sm gap-0" role="group">
+          {{/* Collect visible buttons first */}}
+          {{ $visible_buttons := slice }}
+
+          {{ range $button := $filter_buttons }}
+            {{ if or (eq $button.tag "*") (eq $button.tag "all") }}
+              {{ $visible_buttons = $visible_buttons | append $button }}
+            {{ else }}
+              {{ $item_count := 0 }}
+              {{ if eq $filter_type "categories" }}
+                {{ $item_count = len (where $query "Params.categories" "intersect" (slice $button.tag)) }}
+              {{ else }}
+                {{ $item_count = len (where $query "Params.tags" "intersect" (slice $button.tag)) }}
+              {{ end }}
+              {{ if gt $item_count 0 }}
+                {{ $visible_buttons = $visible_buttons | append $button }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          {{/* Render buttons */}}
+          {{ $button_count := len $visible_buttons }}
+          {{ range $index, $button := $visible_buttons }}
+            {{ $is_first := eq $index 0 }}
+            {{ $is_last := eq $index (sub $button_count 1) }}
+            {{ $is_all := or (eq $button.tag "*") (eq $button.tag "all") }}
+
+            {{/* Determine rounding classes */}}
+            {{ $rounding := "" }}
+            {{ if $is_first }}
+              {{ $rounding = "rounded-l-lg" }}
+            {{ end }}
+            {{ if $is_last }}
+              {{ $rounding = printf "%s rounded-r-lg" $rounding }}
+            {{ end }}
+
+            {{/* Determine border classes */}}
+            {{ $border_classes := "border" }}
+            {{ if not $is_first }}
+              {{ $border_classes = "border-t border-b border-r" }}
+            {{ end }}
+
+            {{/* Set first button (All) as active by default */}}
+            {{ $active_class := "" }}
+            {{ if $is_first }}
+              {{ $active_class = "bg-primary-700 text-white border-primary-700" }}
+            {{ else }}
+              {{ $active_class = "bg-white text-gray-900 border-gray-200 hover:bg-gray-100 hover:text-primary-700 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700" }}
+            {{ end }}
+
+            <button type="button"
+                    onclick="portfolioFilter.setFilter('{{ $button.tag }}')"
+                    id="filter-{{ $button.tag | urlize }}"
+                    class="px-4 py-2 text-sm font-medium {{ $border_classes }} {{ $rounding }} focus:z-10 focus:ring-2 focus:ring-primary-700 transition-colors duration-200 {{ $active_class }}">
+              {{ $button.name }}
+            </button>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+
+    {{/* Portfolio Grid - FIXED: Safe type handling */}}
+    <div class="px-6">
+      {{ $config := dict
+          "columns" ($block.design.columns | default 3)
+          "len" (len $query)
+          "fill_image" ($block.design.fill_image | default true)
+          "show_date" (and $show_date (not $hide_date))
+          "show_read_time" ($block.design.show_read_time | default false)
+          "show_read_more" ($block.design.show_read_more | default true)
+        }}
+
+      <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-{{ $columns }} gap-8">
+        {{/* Render each item once with safe type checking */}}
+        {{ range $index, $item := $query }}
+          {{ $item_tags := slice }}
+          {{ $item_categories := slice }}
+
+          {{/* Safely collect tags - ensure it's a slice of strings */}}
+          {{ with $item.Params.tags }}
+            {{ if reflect.IsSlice . }}
+              {{ range . }}
+                {{ if and . (eq (printf "%T" .) "string") }}
+                  {{ $item_tags = $item_tags | append (string .) }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          {{/* Safely collect categories - ensure it's a slice of strings */}}
+          {{ with $item.Params.categories }}
+            {{ if reflect.IsSlice . }}
+              {{ range . }}
+                {{ if and . (eq (printf "%T" .) "string") }}
+                  {{ $item_categories = $item_categories | append (string .) }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          {{/* Build filter data attributes */}}
+          {{ $filter_data := slice "*" }}
+          {{ if eq $filter_type "categories" }}
+            {{ range $item_categories }}
+              {{ $filter_data = $filter_data | append . }}
+            {{ end }}
+          {{ else }}
+            {{ range $item_tags }}
+              {{ $filter_data = $filter_data | append . }}
+            {{ end }}
+          {{ end }}
+          {{ $filter_data = $filter_data | uniq }}
+
+          {{/* Generate CSS classes safely */}}
+          {{ $js_tag_classes := "" }}
+          {{ if gt (len $item_tags) 0 }}
+            {{ $tag_classes := slice }}
+            {{ range $item_tags }}
+              {{ $clean_tag := . | string | lower | replaceRE "[^a-z0-9-]" "-" }}
+              {{ $tag_classes = $tag_classes | append (printf "js-id-%s" $clean_tag) }}
+            {{ end }}
+            {{ $js_tag_classes = delimit $tag_classes " " }}
+          {{ end }}
+
+          <div class="portfolio-item {{ $js_tag_classes }}"
+               data-filters="{{ delimit $filter_data "|" }}"
+               style="display: block;">
+            {{ partial "functions/render_view" (dict "page" $block "item" $item "view" $view "index" $index "config" $config) }}
+          </div>
+        {{ end }}
+      </div>
+
+      {{/* View All Links - Per Filter */}}
+      {{ range $button := $filter_buttons }}
+        {{ if and (ne $button.tag "*") (ne $button.tag "all") }}
+          {{ $current_filter := $button.tag }}
+          {{ $filtered_posts := slice }}
+          {{ if eq $filter_type "categories" }}
+            {{ $filtered_posts = where $query "Params.categories" "intersect" (slice $current_filter) }}
+          {{ else }}
+            {{ $filtered_posts = where $query "Params.tags" "intersect" (slice $current_filter) }}
+          {{ end }}
+
+          {{ if gt (len $filtered_posts) $max_posts_per_filter }}
+            {{ $view_all_link := "" }}
+            {{ if eq $filter_type "categories" }}
+              {{ $view_all_link = printf "categories/%s/" ($current_filter | urlize) | relLangURL }}
+            {{ else }}
+              {{ $view_all_link = printf "tags/%s/" ($current_filter | urlize) | relLangURL }}
+            {{ end }}
+
+            {{ $filtered_button_text := printf "View All %s Posts" $button.name }}
+            {{ if $block.content.archive.text_template }}
+              {{ $filtered_button_text = printf $block.content.archive.text_template $button.name }}
+            {{ end }}
+
+            <div class="view-all-link" data-filter="{{ $current_filter }}" style="display: none;">
+              <div class="mt-10 flex justify-center">
+                <a href="{{ $view_all_link }}"
+                   class="inline-flex items-center gap-2 rounded-lg bg-primary-600 hover:bg-primary-700 px-6 py-3 text-sm font-medium text-white transition-colors duration-200 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-sm">
+                  <span>{{ $filtered_button_text }}</span>
+                  <span class="text-xs bg-white/20 text-white px-2 py-1 rounded-full">
+                    {{ len $filtered_posts }} total
+                  </span>
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{/* View All link for "All" filter */}}
+      {{ if and $archive_page (gt (len $query) $max_posts_per_filter) }}
+      <div class="view-all-link" data-filter="*" style="display: block;">
+        <div class="mt-10 flex justify-center">
+          {{ $archive_button_text := "View All Posts" }}
+          {{ if $block.content.archive.text }}
+            {{ $archive_button_text = $block.content.archive.text }}
+          {{ end }}
+          <a href="{{ $archive_page.RelPermalink }}"
+             class="inline-flex items-center gap-2 rounded-lg bg-primary-600 hover:bg-primary-700 px-6 py-3 text-sm font-medium text-white transition-colors duration-200 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-sm">
+            <span>{{ $archive_button_text }}</span>
+            <span class="text-xs bg-white/20 text-white px-2 py-1 rounded-full">
+              {{ len $query }} total
+            </span>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      {{ end }}
+
+      {{/* No results message */}}
+      <div id="no-results" style="display: none;" class="text-center py-12">
+        <div class="text-gray-500 dark:text-gray-400">
+          <svg class="mx-auto w-12 h-12 mb-4 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+          </svg>
+          <p class="text-lg font-medium">{{ $block.design.no_results_title | default "No posts found" }}</p>
+          <p class="text-sm">{{ $block.design.no_results_text | default "Try selecting a different filter." }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const portfolioFilter = {
+  activeFilter: '*',
+  maxPerFilter: {{ $max_posts_per_filter }},
+
+  setFilter(filter) {
+    const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+    this.updateButtons(filter);
+    this.showFilteredItems(filter);
+    this.showViewAllLinks(filter);
+    this.activeFilter = filter;
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, scrollPos);
+    });
+  },
+
+  updateButtons(activeFilter) {
+    const allButtons = document.querySelectorAll('[id^="filter-"]');
+    const activeClass = 'bg-primary-700 text-white border-primary-700';
+    const inactiveClass = 'bg-white text-gray-900 border-gray-200 hover:bg-gray-100 hover:text-primary-700 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700';
+
+    allButtons.forEach(button => {
+      button.className = button.className.replace(activeClass, inactiveClass);
+    });
+
+    const activeButton = document.getElementById(`filter-${activeFilter.replace(/\s+/g, '-').toLowerCase()}`);
+    if (activeButton) {
+      activeButton.className = activeButton.className.replace(inactiveClass, activeClass);
+    }
+  },
+
+  showFilteredItems(filter) {
+    const items = document.querySelectorAll('.portfolio-item');
+    let visibleCount = 0;
+    const maxShow = this.maxPerFilter;
+    let shownInFilter = 0;
+
+    items.forEach(item => {
+      const itemFilters = item.dataset.filters ? item.dataset.filters.split('|') : ['*'];
+
+      if (filter === '*' || filter === 'all' || itemFilters.includes(filter)) {
+        if (shownInFilter < maxShow) {
+          item.style.display = 'block';
+          item.style.opacity = '1';
+          visibleCount++;
+          shownInFilter++;
+        } else {
+          item.style.display = 'none';
+          item.style.opacity = '0';
+        }
+      } else {
+        item.style.display = 'none';
+        item.style.opacity = '0';
+      }
+    });
+
+    const noResults = document.getElementById('no-results');
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  },
+
+  showViewAllLinks(filter) {
+    const allLinks = document.querySelectorAll('.view-all-link');
+    allLinks.forEach(link => {
+      link.style.display = 'none';
+    });
+
+    const activeLink = document.querySelector(`[data-filter="${filter}"].view-all-link`);
+    if (activeLink) {
+      activeLink.style.display = 'block';
+    }
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  portfolioFilter.showFilteredItems('*');
+  portfolioFilter.showViewAllLinks('*');
+});
+</script>
+
+<style>
+/* Smooth transitions */
+.portfolio-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-item[style*="display: none"] {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.view-all-link {
+  transition: opacity 0.3s ease;
+}
+
+/* Hide tags */
+{{ if $hide_tags }}
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item span.inline-block.text-xs.font-medium.tracking-wider.uppercase,
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item .article-tags,
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item [class*="tag"] {
+  display: none !important;
+}
+{{ end }}
+
+/* Hide author */
+{{ if $hide_author }}
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item div.flex.gap-3:has(.h-6.w-6),
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item .group.cursor-pointer:has(.h-6.w-6),
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item div:has(img.h-6.w-6.rounded-full),
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item .article-metadata .author {
+  display: none !important;
+}
+{{ end }}
+
+/* Hide dates */
+{{ if or $hide_date (not $show_date) }}
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item time,
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item .article-date,
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item [class*="date"] {
+  display: none !important;
+}
+{{ end }}
+
+/* Hide categories */
+{{ if $hide_categories }}
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item [data-categories],
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item .category-badge,
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item .article-categories {
+  display: none !important;
+}
+{{ end }}
+
+/* Center citation and card views */
+{{ if or (eq $view "citation") (eq $view "card") }}
+.portfolio-clean-{{ $portfolio_id }} #portfolio-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.portfolio-clean-{{ $portfolio_id }} .portfolio-item {
+  width: 100%;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+{{ end }}
+</style>
