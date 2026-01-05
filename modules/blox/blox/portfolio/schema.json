@@ -1,0 +1,334 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://hugoblox.com/schemas/blocks/portfolio.json",
+  "title": "Portfolio Block Schema",
+  "description": "Schema for the Portfolio block - displays responsive, filterable content grid with advanced filtering and customization options",
+  "allOf": [
+    {
+      "$ref": "../shared/schemas/base-block.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "block": {
+          "const": "portfolio",
+          "description": "Block type identifier"
+        },
+        "content": {
+          "type": "object",
+          "description": "Content configuration for the portfolio block",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Section title (supports Markdown and emoji)"
+            },
+            "text": {
+              "type": "string",
+              "description": "Section description (supports Markdown and emoji)"
+            },
+            "count": {
+              "type": "integer",
+              "description": "Maximum number of items to display (0 means unlimited)",
+              "minimum": 0,
+              "default": 12
+            },
+            "offset": {
+              "type": "integer",
+              "description": "Number of items to skip from the start of the query",
+              "minimum": 0,
+              "default": 0
+            },
+            "page_type": {
+              "type": "string",
+              "description": "Filter by page type/section (e.g., 'post', 'publication', 'project')",
+              "examples": ["post", "publication", "project", "event"]
+            },
+            "sort_by": {
+              "type": "string",
+              "description": "Field to sort by (e.g., Date, Title, Weight, Lastmod, PublishDate)",
+              "default": "Date",
+              "examples": ["Date", "Title", "Weight", "Lastmod", "PublishDate"]
+            },
+            "sort_ascending": {
+              "type": "boolean",
+              "description": "Sort in ascending order (false = descending)",
+              "default": false
+            },
+            "filters": {
+              "type": "object",
+              "description": "Advanced content filtering options",
+              "properties": {
+                "folders": {
+                  "type": "array",
+                  "description": "Filter by content folders/sections",
+                  "items": {
+                    "type": "string"
+                  },
+                  "examples": [["post"], ["publication", "preprint"]]
+                },
+                "tags": {
+                  "type": "array",
+                  "description": "Filter by multiple tags (intersection)",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "exclude_tags": {
+                  "type": "array",
+                  "description": "Exclude items with these tags",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "tag": {
+                  "type": "string",
+                  "description": "Filter by a single tag"
+                },
+                "category": {
+                  "type": "string",
+                  "description": "Filter by a single category"
+                },
+                "publication_type": {
+                  "type": "string",
+                  "description": "Filter by publication type"
+                },
+                "exclude_publication_type": {
+                  "type": "string",
+                  "description": "Exclude specific publication type"
+                },
+                "author": {
+                  "type": "string",
+                  "description": "Filter by author username"
+                },
+                "featured_only": {
+                  "type": "boolean",
+                  "description": "Show only featured content",
+                  "default": false
+                },
+                "exclude_featured": {
+                  "type": "boolean",
+                  "description": "Exclude featured content",
+                  "default": false
+                },
+                "exclude_past": {
+                  "type": "boolean",
+                  "description": "Exclude past-dated content",
+                  "default": false
+                },
+                "exclude_future": {
+                  "type": "boolean",
+                  "description": "Exclude future-dated content",
+                  "default": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "archive": {
+              "type": "object",
+              "description": "Archive link configuration",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Show archive link even when item count is below limit"
+                },
+                "link": {
+                  "type": "string",
+                  "description": "Override archive URL (defaults to derived archive page)"
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Override archive link text for 'All' filter",
+                  "default": "View All Posts"
+                },
+                "text_template": {
+                  "type": "string",
+                  "description": "Template for per-filter archive links (use %s for filter name)",
+                  "examples": ["View All %s Posts", "See all %s articles"]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "design": {
+          "type": "object",
+          "description": "Layout and filtering options for portfolio rendering",
+          "properties": {
+            "view": {
+              "type": "string",
+              "enum": ["article-grid", "card", "compact", "citation", "list", "masonry"],
+              "description": "Display view type",
+              "default": "article-grid"
+            },
+            "columns": {
+              "type": ["integer", "string"],
+              "description": "Number of columns for grid-based views (1-4)",
+              "default": 3,
+              "minimum": 1,
+              "maximum": 4
+            },
+            "fill_image": {
+              "type": "boolean",
+              "description": "Fill cards with cover images when available",
+              "default": true
+            },
+            "show_date": {
+              "type": "boolean",
+              "description": "Display published/modified date",
+              "default": true
+            },
+            "hide_date": {
+              "type": "boolean",
+              "description": "Hide date display (overrides show_date)",
+              "default": false
+            },
+            "show_read_time": {
+              "type": "boolean",
+              "description": "Display estimated reading time",
+              "default": false
+            },
+            "show_read_more": {
+              "type": "boolean",
+              "description": "Show a read more link on cards",
+              "default": true
+            },
+            "hide_author": {
+              "type": "boolean",
+              "description": "Hide author information",
+              "default": true
+            },
+            "hide_tags": {
+              "type": "boolean",
+              "description": "Hide tags display",
+              "default": true
+            },
+            "hide_categories": {
+              "type": "boolean",
+              "description": "Hide categories display",
+              "default": false
+            },
+            "filter_button": {
+              "oneOf": [
+                {
+                  "type": "boolean",
+                  "description": "Enable/disable filtering (false disables)"
+                },
+                {
+                  "type": "array",
+                  "description": "Legacy format: Array of filter button objects",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Display name for the filter button"
+                      },
+                      "tag": {
+                        "type": "string",
+                        "description": "Tag or category value to filter by (use '*' or 'all' for show all)"
+                      }
+                    },
+                    "required": ["name", "tag"],
+                    "additionalProperties": false
+                  }
+                }
+              ],
+              "description": "Filter button configuration (supports both old and new formats)"
+            },
+            "filter_type": {
+              "type": "string",
+              "enum": ["tags", "categories"],
+              "description": "Type of taxonomy to use for filtering",
+              "default": "tags"
+            },
+            "filter_items": {
+              "type": "array",
+              "description": "Custom list of filter items (tags or categories) to display",
+              "items": {
+                "type": "string"
+              }
+            },
+            "filter_label": {
+              "type": "string",
+              "description": "Label text displayed above filter buttons",
+              "examples": ["Filter by topic:", "Browse by category:"]
+            },
+            "max_posts_per_filter": {
+              "type": "integer",
+              "description": "Maximum items to show per filter before displaying 'View All' link",
+              "default": 6,
+              "minimum": 1
+            },
+            "no_results_title": {
+              "type": "string",
+              "description": "Title text for no results message",
+              "default": "No posts found"
+            },
+            "no_results_text": {
+              "type": "string",
+              "description": "Description text for no results message",
+              "default": "Try selecting a different filter."
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "required": ["content"],
+      "additionalProperties": true,
+      "examples": [
+        {
+          "block": "portfolio",
+          "content": {
+            "title": "Recent Projects",
+            "text": "Explore our latest work and research",
+            "count": 12,
+            "page_type": "project",
+            "sort_by": "Date",
+            "sort_ascending": false,
+            "filters": {
+              "folders": ["project"],
+              "featured_only": false
+            },
+            "archive": {
+              "text": "View All Projects",
+              "text_template": "View All %s Projects"
+            }
+          },
+          "design": {
+            "view": "article-grid",
+            "columns": 3,
+            "filter_type": "tags",
+            "filter_label": "Filter by technology:",
+            "max_posts_per_filter": 6,
+            "fill_image": true,
+            "show_date": true,
+            "show_read_time": false,
+            "hide_author": true,
+            "hide_tags": false,
+            "hide_categories": true
+          }
+        },
+        {
+          "block": "portfolio",
+          "content": {
+            "title": "Publications",
+            "count": 0,
+            "filters": {
+              "folders": ["publication"],
+              "exclude_publication_type": "thesis"
+            }
+          },
+          "design": {
+            "view": "citation",
+            "columns": 1,
+            "filter_type": "categories",
+            "filter_items": ["Machine Learning", "Neuroscience", "Data Science"],
+            "hide_author": false,
+            "hide_date": false
+          }
+        }
+      ]
+    }
+  ]
+}
