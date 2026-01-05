@@ -1,0 +1,57 @@
+{
+  "id": "portfolio",
+  "name": "Portfolio",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "content",
+  "tags": [
+    "portfolio",
+    "collection",
+    "filter",
+    "grid",
+    "blog",
+    "publications",
+    "projects",
+    "content-display",
+    "responsive",
+    "taxonomy"
+  ],
+  "description": "A responsive, filterable content grid component for displaying posts, projects, publications, or any Hugo content with advanced filtering and customization options",
+  "author": "Hugo Blox",
+  "homepage": "https://hugoblox.com/blocks/",
+  "repository": "https://github.com/HugoBlox/kit",
+  "keywords": [
+    "hugo",
+    "static-site",
+    "portfolio",
+    "filter",
+    "grid",
+    "responsive",
+    "content",
+    "taxonomy",
+    "pagination",
+    "tailwind"
+  ],
+  "features": [
+    "Dynamic filtering by tags or categories",
+    "Multiple view layouts (article-grid, card, citation, list, compact)",
+    "Responsive 1-4 column grid layouts",
+    "Smart pagination with View All links",
+    "Content filtering by folders, tags, categories, authors, dates",
+    "Customizable visibility controls",
+    "Smooth animations and transitions",
+    "Archive integration with item counts",
+    "Type-safe filter handling"
+  ],
+  "views": [
+    "article-grid",
+    "card",
+    "citation",
+    "list",
+    "compact"
+  ],
+  "dependencies": {
+    "hugo": ">=0.110.0",
+    "tailwindcss": ">=3.0.0"
+  }
+}
