@@ -20,16 +20,21 @@ Output (dict):
 
 {{- $input := . -}}
 {{- $slug := "" -}}
+{{- $rawTitle := "" -}}
 
 {{- $inputType := printf "%T" $input -}}
 
 {{- if (reflect.IsMap $input) -}}
   {{- $slug = index $input "slug" | default "" -}}
+  {{- with index $input "title" }}{{ $rawTitle = . }}{{ end -}}
 {{- else if eq $inputType "string" -}}
   {{- $slug = $input -}}
+  {{- $rawTitle = $input -}}
 {{- else -}}
   {{- $slug = printf "%v" $input -}}
 {{- end -}}
+
+{{- $rawTitle = trim $rawTitle " " -}}
 
 {{- $slug = $slug | urlize -}}
 
@@ -59,8 +64,10 @@ Output (dict):
   {{- $title = $display -}}
 {{- else if $data.title -}}
   {{- $title = $data.title -}}
+{{- else if $rawTitle -}}
+  {{- $title = $rawTitle -}}
 {{- else -}}
-  {{- $title = $slug | humanize -}}
+  {{- $title = $slug | humanize | title -}}
 {{- end -}}
 
 {{- $role := $data.role -}}
