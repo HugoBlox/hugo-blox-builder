@@ -1,0 +1,155 @@
+{{/*
+  Hugo Blox Slides Embed Component - Reusable iframe embed with fullscreen support
+  Usage: {{ partial "components/slides-embed.html" (dict "page" . "slides_slug" .Params.slides) }}
+  
+  Params:
+  - page: current page context
+  - slides_slug: slug of slides to embed (e.g., "example")
+  - show_actions: (optional) show open/speaker notes links, default true
+  - title: (optional) title for iframe, defaults to page title
+*/}}
+
+{{ $page := .page }}
+{{ $slides_slug := .slides_slug }}
+{{ $show_actions := .show_actions | default true }}
+{{ $slides_label := i18n "slides" | default "Slides" }}
+{{ $present_fullscreen_label := i18n "present_fullscreen" | default "Present (fullscreen)" }}
+{{ $enter_fullscreen_label := i18n "enter_fullscreen" | default "Enter fullscreen" }}
+{{ $exit_fullscreen_label := i18n "exit_fullscreen" | default "Exit fullscreen" }}
+{{ $speaker_notes_hint := i18n "speaker_notes_hint" | default "for speaker notes" }}
+{{ $slides_not_found_label := i18n "slides_not_found" | default "Slides not found" }}
+{{ $embed_title := .title | default (printf "%s - %s" $page.Title $slides_label) }}
+
+{{/* Enable Alpine.js for fullscreen functionality */}}
+{{ $page.Store.Set "has_alpine" true }}
+
+{{/* Get slides page */}}
+{{ $slides_page := site.GetPage (printf "/slides/%s" $slides_slug) }}
+{{ $scr := newScratch }}
+{{ if $slides_page }}
+  {{ $scr.Set "slides_url" $slides_page.RelPermalink }}
+  {{ $scr.Set "present_url" $slides_page.RelPermalink }}
+  {{ $scr.Set "embed_url" $slides_page.RelPermalink }}
+  {{ $present_format := $slides_page.OutputFormats.Get "present" }}
+  {{ if not $present_format }}
+    {{ $present_format = $slides_page.OutputFormats.Get "Present" }}
+  {{ end }}
+  {{ with $present_format }}
+    {{ $scr.Set "present_url" .RelPermalink }}
+    {{ $scr.Set "embed_url" (printf "%s?embed=1" .RelPermalink) }}
+  {{ end }}
+{{ end }}
+{{ $slides_url := $scr.Get "slides_url" }}
+{{ $present_url := $scr.Get "present_url" | default $slides_url }}
+{{ $embed_url := $scr.Get "embed_url" | default $slides_url }}
+
+{{ if $slides_page }}
+<div 
+  x-data="{ 
+    isFullscreen: false,
+    toggleFullscreen() {
+      const container = this.$refs.slideContainer;
+      if (!this.isFullscreen) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        } else if (container.msRequestFullscreen) {
+          container.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+  }"
+  @fullscreenchange.window="isFullscreen = document.fullscreenElement === $refs.slideContainer"
+  @webkitfullscreenchange.window="isFullscreen = document.webkitFullscreenElement === $refs.slideContainer"
+  class="mb-12"
+>
+  {{/* Slides iframe container - wrapper for fullscreen API */}}
+  <div 
+    x-ref="slideContainer"
+    class="relative w-full bg-black rounded-lg shadow-2xl overflow-visible"
+    style="aspect-ratio: 16 / 9;"
+    :class="isFullscreen ? 'h-screen' : ''"
+  >
+    <iframe
+      src="{{ $embed_url }}"
+      class="w-full h-full border-0 rounded-lg"
+      allowfullscreen
+      allow="autoplay"
+      title="{{ $embed_title }}"
+      loading="lazy"
+    ></iframe>
+    
+    {{/* Fullscreen toggle button - inside container for fullscreen visibility */}}
+    <button
+      @click="toggleFullscreen()"
+      class="absolute top-4 right-4 p-3 bg-white/95 dark:bg-gray-800/95 hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm"
+      :aria-label="isFullscreen ? {{ $exit_fullscreen_label | jsonify }} : {{ $enter_fullscreen_label | jsonify }}"
+      type="button"
+      style="z-index: 9999;"
+    >
+      {{/* Expand icon (when not fullscreen) */}}
+      <svg 
+        x-show="!isFullscreen"
+        xmlns="http://www.w3.org/2000/svg" 
+        class="h-5 w-5" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+      </svg>
+      {{/* Compress icon (when fullscreen) */}}
+      <svg 
+        x-show="isFullscreen"
+        x-cloak
+        xmlns="http://www.w3.org/2000/svg" 
+        class="h-5 w-5" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+      </svg>
+    </button>
+  </div>
+
+  {{ if $show_actions }}
+  {{/* Action links below embed */}}
+  <div class="mt-4 flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+    <div class="flex items-center gap-4">
+      {{/* Open in new tab */}}
+      <a 
+        href="{{ $present_url }}"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-1 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+        <span>{{ $present_fullscreen_label }}</span>
+      </a>
+      
+      {{/* Presentation mode hint */}}
+      <span class="text-xs">
+        <kbd class="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">S</kbd>
+        {{ $speaker_notes_hint }}
+      </span>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ else }}
+  <p class="text-sm text-red-600 dark:text-red-400">{{ $slides_not_found_label }}: {{ $slides_slug }}</p>
+{{ end }}

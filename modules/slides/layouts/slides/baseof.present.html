@@ -1,0 +1,86 @@
+{{/*
+  Present Baseof - Presentation output only
+*/}}
+
+<!doctype html>
+{{- $language_code := site.LanguageCode | default "en-us" -}}
+<html lang="{{$language_code}}" {{ if in site.Data.i18n.rtl.rtl $language_code }}dir="rtl"{{else}}dir="ltr"{{end}}>
+<head>
+
+  {{/* Asset versions */}}
+  {{ $cdn_url_reveal := "https://cdn.jsdelivr.net/npm/reveal.js@5.0.4" }}
+  {{ $mermaid_version := "9.1.3" }}
+  {{ $mermaid_sri := "sha256-TIYL00Rhw/8WaoUhYTLX9SKIEFdXxg+yMWSLVUbhiLg=" }}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="HugoBlox Kit {{with site.Data.hugoblox.version}}{{.}}{{end}}">
+
+  {{ with site.Home.OutputFormats.Get "WebAppManifest" }}
+    <link rel="manifest" href="{{ .RelPermalink }}">
+  {{ end }}
+
+  <link rel="icon" type="image/png" href="{{ "media/icon.png" | relURL }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ "media/icon.png" | relURL }}">
+
+  {{ $landing_url := .Permalink }}
+  {{ with .OutputFormats.Get "HTML" }}
+    {{ $landing_url = .Permalink }}
+  {{ end }}
+  <link rel="canonical" href="{{ $landing_url }}">
+  <meta name="robots" content="noindex, nofollow">
+
+  <title>{{ .Title }} | {{ site.Params.hugoblox.identity.name | default site.Title }}</title>
+
+  {{/* Load Reveal CSS */}}
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/reveal.min.css">
+  {{- $theme := $.Param "slides.theme" | default "black" -}}
+  <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/theme/{{ $theme }}.min.css">
+
+  {{/* Hugo Chroma Syntax Highlighter */}}
+  {{ $hl_theme := $.Param "slides.highlight_style" | default "dracula" }}
+  {{ $hl_theme_path := printf "css/libs/chroma/%s.css" $hl_theme }}
+  {{ if fileExists (printf "assets/%s" $hl_theme_path) }}
+    {{ $hl_theme_css := resources.Get $hl_theme_path | minify }}
+    <link rel="stylesheet" href="{{ $hl_theme_css.RelPermalink }}">
+  {{ end }}
+
+  {{/* Reveal print styles (paper or PDF) */}}
+  <script>
+    (function() {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.has("print-pdf") ? "pdf" : "paper";
+      link.href = "{{ $cdn_url_reveal }}/dist/print/" + mode + ".css";
+      document.head.appendChild(link);
+    })();
+  </script>
+</head>
+<body>
+
+  {{ block "main" . }}{{ end }}
+
+  {{/* Load Reveal and plugins */}}
+  <script src="{{ $cdn_url_reveal }}/dist/reveal.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/markdown/markdown.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/notes/notes.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/search/search.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/math/math.min.js" crossorigin="anonymous"></script>
+  <script src="{{ $cdn_url_reveal }}/plugin/zoom/zoom.min.js" crossorigin="anonymous"></script>
+
+  {{/* Load Mermaid if enabled */}}
+  {{ if $.Param "slides.diagram" | default false}}
+    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" title=\"mermaid\"></script>" (printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.min.js" $mermaid_version) $mermaid_sri | safeHTML }}
+  {{ end }}
+
+  {{/* Initialize Reveal */}}
+  {{ $slidejs := resources.Get "js/hugoblox-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) | fingerprint }}
+  <script src="{{ $slidejs.RelPermalink }}"></script>
+
+  {{ partial "functions/get_hook" (dict "hook" "body-end" "context" .) }}
+
+</body>
+</html>

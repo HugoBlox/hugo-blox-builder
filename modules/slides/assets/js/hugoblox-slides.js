@@ -11,6 +11,9 @@
 
 import * as params from "@params";
 
+// Guard against null/undefined slides params - ensures decks render with sensible defaults
+const slides = params.slides || {};
+
 // Enable core slide features.
 var enabledPlugins = [RevealMarkdown, RevealSearch, RevealNotes, RevealMath.KaTeX, RevealZoom];
 
@@ -38,15 +41,17 @@ const keysToCamelCase = (o) => {
 
 // reveal configurations can be included in front matter under slides.reveal
 var pluginOptions = {};
-if (typeof params.slides.reveal_options !== "undefined") {
-  pluginOptions = params.slides.reveal_options;
+if (typeof slides.reveal_options !== "undefined") {
+  pluginOptions = slides.reveal_options;
 }
 
 pluginOptions = keysToCamelCase(pluginOptions);
 
-//enable menu by default if not set
+// Menu disabled by default (reveal.js-menu@2.1.0 has ESM compatibility issues)
+// Menu plugin no longer maintained as of 2026-01 (last updated 6 years ago).
+// TODO: consider removing this plugin as it's unlikely to work with modern browsers.
 if (typeof pluginOptions.menu_enabled === "undefined") {
-  pluginOptions.menu_enabled = true;
+  pluginOptions.menu_enabled = false;
 }
 
 // configure menu if enabled
@@ -59,18 +64,18 @@ pluginOptions.plugins = enabledPlugins;
 Reveal.initialize(pluginOptions);
 
 // Disable Mermaid by default.
-if (typeof params.slides.diagram === "undefined") {
-  params.slides.diagram = false;
+if (typeof slides.diagram === "undefined") {
+  slides.diagram = false;
 }
 
 // Configure Mermaid only if diagrams are enabled.
-if (params.slides.diagram) {
+if (slides.diagram) {
   //mermaid options
   // mermaid: front matter configuration can be used to set mermaid options
   // You can also use directives (see mermaid documentation)
   let mermaidOptions = {};
-  if (typeof params.slides.diagram_options !== "undefined") {
-    mermaidOptions = params.slides.diagram_options;
+  if (typeof slides.diagram_options !== "undefined") {
+    mermaidOptions = slides.diagram_options;
   }
 
   // `startOnLoad` must be false since diagrams are lazily rendered.

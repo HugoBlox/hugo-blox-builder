@@ -359,3 +359,292 @@
 
 - id: portfolio_view_all
   translation: 查看所有项目
+
+# AI Features
+
+- id: ai_insight
+  translation: AI 洞察
+
+# Content Metadata
+
+- id: content_type
+  translation: 内容类型
+
+- id: difficulty
+  translation: 难度
+
+- id: prerequisites
+  translation: 先决条件
+
+# Card metadata
+
+- id: trending
+  translation: 热门
+
+- id: article
+  translation: 文章
+
+- id: articles
+  translation: 文章
+
+- id: browse
+  translation: 浏览
+
+- id: all
+  translation: 全部
+
+- id: helpful
+  translation: 有帮助
+
+# Additional buttons
+
+- id: btn_site
+  translation: 网站
+
+- id: btn_canonical
+  translation: 规范链接
+
+- id: btn_crosspost
+  translation: 交叉发布
+
+- id: btn_discussion
+  translation: 讨论
+
+- id: btn_event
+  translation: 活动
+
+- id: btn_calendar
+  translation: 日历
+
+- id: btn_registration
+  translation: 注册
+
+- id: btn_demo
+  translation: 演示
+
+- id: btn_model
+  translation: 模型
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+# Callouts
+
+- id: callout_abstract
+  translation: 摘要
+
+- id: callout_summary
+  translation: 总结
+
+- id: callout_info
+  translation: 信息
+
+- id: callout_todo
+  translation: 待办
+
+- id: callout_question
+  translation: 问题
+
+- id: callout_quote
+  translation: 引用
+
+- id: callout_warning
+  translation: 警告
+
+- id: callout_danger
+  translation: 危险
+
+- id: callout_bug
+  translation: 缺陷
+
+- id: callout_example
+  translation: 示例
+
+- id: callout_failure
+  translation: 失败
+
+- id: callout_success
+  translation: 成功
+
+# Slides
+
+- id: back_to_slides
+  translation: 返回幻灯
+
+- id: present_slides
+  translation: 演示
+
+- id: present_fullscreen
+  translation: 演示（全屏）
+
+- id: export_pdf_print
+  translation: 导出 PDF（打印）
+
+- id: slides_print_hint
+  translation: 在打印模式打开 - 浏览器打印 > 另存为 PDF
+
+- id: slides_search_placeholder
+  translation: 按标题搜索幻灯集...
+
+- id: slides_no_decks
+  translation: 未找到幻灯集
+
+- id: slides_no_matches
+  translation: 没有符合筛选的幻灯集
+
+- id: clear_filters
+  translation: 清除过滤
+
+- id: topics
+  translation: 主题
+
+- id: details
+  translation: 详情
+
+- id: related_resources
+  translation: 相关资源
+
+- id: copy_link
+  translation: 复制链接
+
+- id: copy_citation
+  translation: 复制引用
+
+
+- id: citation
+  translation: 引用
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: 下载 cite.bib
+
+- id: lecture
+  translation: 讲座
+
+- id: enter_fullscreen
+  translation: 进入全屏
+
+- id: exit_fullscreen
+  translation: 退出全屏
+
+- id: speaker_notes_hint
+  translation: 用于演讲者备注
+
+- id: slides_not_found
+  translation: 未找到幻灯
+
+# Q&A
+
+- id: qa
+  translation: 问答
+
+- id: question
+  translation: 问题
+
+- id: answer
+  translation: 答案
+
+- id: accepted_answer
+  translation: 已采纳的回答
+
+- id: other_answers
+  translation: 其他回答
+
+- id: questions
+  translation: 问题
+
+- id: questions_count
+  translation: 个问题
+
+- id: related_questions
+  translation: 相关问题
+
+- id: search_questions
+  translation: 搜索问题...
+
+- id: no_questions_yet
+  translation: 尚无问题
+
+- id: faq
+  translation: 常见问题
+
+- id: faqs
+  translation: 常见问题
+
+- id: browse_by_category
+  translation: 按类别浏览
+
+# General extras
+
+- id: about_me
+  translation: 职业简介
+
+- id: backlinks
+  translation: 反向链接
+
+- id: days
+  translation: 天
+
+- id: hours
+  translation: 小时
+
+- id: minutes
+  translation: 分钟
+
+- id: seconds
+  translation: 秒
+
+- id: docs
+  translation: 文档
+
+- id: featured
+  translation: 精选
+
+- id: read_more
+  translation: 阅读更多
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: 反馈
+
+- id: feedback_widget_question
+  translation: 此页面有帮助吗？
+
+- id: feedback_widget_answer_positive
+  translation: 😍 是
+
+- id: feedback_widget_answer_negative
+  translation: 😡 否
+
+- id: how_to_cite
+  translation: 如何引用

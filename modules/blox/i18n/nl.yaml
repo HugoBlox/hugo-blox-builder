@@ -337,3 +337,304 @@
 
 - id: portfolio_view_all
   translation: Bekijk alle projecten
+
+# AI Features
+
+- id: ai_insight
+  translation: AI-inzicht
+
+# Content Metadata
+
+- id: content_type
+  translation: Contenttype
+
+- id: difficulty
+  translation: Moeilijkheidsgraad
+
+- id: prerequisites
+  translation: Vereisten
+
+# Card metadata
+
+- id: trending
+  translation: Populair
+
+- id: article
+  translation: artikel
+
+- id: articles
+  translation: artikelen
+
+- id: browse
+  translation: Bladeren
+
+- id: all
+  translation: Alles
+
+- id: helpful
+  translation: nuttig
+
+# Additional buttons
+
+- id: btn_site
+  translation: Site
+
+- id: btn_canonical
+  translation: Canoniek
+
+- id: btn_crosspost
+  translation: Crosspost
+
+- id: btn_discussion
+  translation: Discussie
+
+- id: btn_event
+  translation: Evenement
+
+- id: btn_calendar
+  translation: Kalender
+
+- id: btn_registration
+  translation: Registratie
+
+- id: btn_demo
+  translation: Demo
+
+- id: btn_model
+  translation: Model
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+# Callouts
+
+- id: callout_note
+  translation: Notitie
+
+- id: callout_abstract
+  translation: Samenvatting
+
+- id: callout_summary
+  translation: Samenvatting
+
+- id: callout_info
+  translation: Info
+
+- id: callout_todo
+  translation: Te doen
+
+- id: callout_tip
+  translation: Tip
+
+- id: callout_question
+  translation: Vraag
+
+- id: callout_quote
+  translation: Citaat
+
+- id: callout_warning
+  translation: Waarschuwing
+
+- id: callout_caution
+  translation: Let op
+
+- id: callout_danger
+  translation: Gevaar
+
+- id: callout_bug
+  translation: Bug
+
+- id: callout_example
+  translation: Voorbeeld
+
+- id: callout_failure
+  translation: Mislukt
+
+- id: callout_success
+  translation: Succes
+
+- id: callout_important
+  translation: Belangrijk
+
+# Slides
+
+- id: back_to_slides
+  translation: Terug naar slides
+
+- id: present_slides
+  translation: Presenteren
+
+- id: present_fullscreen
+  translation: Presenteren (volledig scherm)
+
+- id: export_pdf_print
+  translation: PDF exporteren (print)
+
+- id: slides_print_hint
+  translation: Opent in printmodus - browser Afdrukken > Opslaan als PDF
+
+- id: slides_search_placeholder
+  translation: Zoek decks op titel...
+
+- id: slides_no_decks
+  translation: Geen decks gevonden
+
+- id: slides_no_matches
+  translation: Geen decks voldoen aan je filters
+
+- id: clear_filters
+  translation: Filters wissen
+
+- id: topics
+  translation: Onderwerpen
+
+- id: details
+  translation: Details
+
+- id: related_resources
+  translation: Gerelateerde bronnen
+
+- id: copy_link
+  translation: Link kopiëren
+
+- id: copy_citation
+  translation: Citatie kopiëren
+
+- id: how_to_cite
+  translation: Hoe te citeren
+
+- id: citation
+  translation: Citatie
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: cite.bib downloaden
+
+- id: lecture
+  translation: College
+
+- id: enter_fullscreen
+  translation: Volledig scherm
+
+- id: exit_fullscreen
+  translation: Volledig scherm afsluiten
+
+- id: speaker_notes_hint
+  translation: voor sprekersnotities
+
+- id: slides_not_found
+  translation: Slides niet gevonden
+
+# Q&A
+
+- id: qa
+  translation: Q&A
+
+- id: question
+  translation: Vraag
+
+- id: answer
+  translation: Antwoord
+
+- id: accepted_answer
+  translation: Geaccepteerd antwoord
+
+- id: other_answers
+  translation: Andere antwoorden
+
+- id: questions
+  translation: Vragen
+
+- id: questions_count
+  translation: vragen
+
+- id: related_questions
+  translation: Gerelateerde vragen
+
+- id: search_questions
+  translation: Zoek vragen...
+
+- id: no_questions_yet
+  translation: Nog geen vragen
+
+- id: faq
+  translation: FAQ
+
+- id: faqs
+  translation: FAQs
+
+- id: browse_by_category
+  translation: Blader op categorie
+
+# General extras
+
+- id: about_me
+  translation: Professionele samenvatting
+
+- id: backlinks
+  translation: Backlinks
+
+- id: days
+  translation: Dagen
+
+- id: hours
+  translation: Uren
+
+- id: minutes
+  translation: Minuten
+
+- id: seconds
+  translation: Seconden
+
+- id: experience
+  translation: Ervaring
+
+- id: read_more
+  translation: Lees meer
+
+- id: docs
+  translation: Documentatie
+
+- id: featured
+  translation: Uitgelicht
+
+- id: feedback_widget_title
+  translation: Feedback
+
+- id: feedback_widget_question
+  translation: Was deze pagina nuttig?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Ja
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Nee

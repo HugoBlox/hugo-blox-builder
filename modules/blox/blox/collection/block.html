@@ -100,7 +100,6 @@
 {{ range $query }}
   {{ if isset .Params "author_notes" }}
     {{ $page.Store.Set "has_alpine" true }}
-    <script>console.log('Author notes found in collection - Alpine.js enabled');</script>
     {{ break }}
   {{ end }}
 {{ end }}

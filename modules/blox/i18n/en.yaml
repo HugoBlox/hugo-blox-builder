@@ -421,6 +421,80 @@
 - id: questions_count
   translation: questions
 
+# Slides
+
+- id: back_to_slides
+  translation: Back to Slides
+
+- id: featured
+  translation: Featured
+
+- id: details
+  translation: Details
+
+- id: present_slides
+  translation: Present
+
+- id: present_fullscreen
+  translation: Present (fullscreen)
+
+- id: export_pdf_print
+  translation: Export PDF (print)
+
+- id: slides_print_hint
+  translation: Opens in print mode - use browser Print > Save as PDF
+
+- id: slides_search_placeholder
+  translation: Search decks by title...
+
+- id: slides_no_decks
+  translation: No slide decks found
+
+- id: slides_no_matches
+  translation: No decks match your filters
+
+- id: clear_filters
+  translation: Clear filters
+
+- id: topics
+  translation: Topics
+
+- id: related_resources
+  translation: Related Resources
+
+- id: copy_link
+  translation: Copy Link
+
+- id: copy_citation
+  translation: Copy citation
+
+- id: how_to_cite
+  translation: How to cite
+
+- id: citation
+  translation: Citation
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: Download cite.bib
+
+- id: lecture
+  translation: Lecture
+
+- id: enter_fullscreen
+  translation: Enter fullscreen
+
+- id: exit_fullscreen
+  translation: Exit fullscreen
+
+- id: speaker_notes_hint
+  translation: for speaker notes
+
+- id: slides_not_found
+  translation: Slides not found
+
 # Search
 
 - id: search

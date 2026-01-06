@@ -1,0 +1,62 @@
+# Configuration of Hugo
+# Documentation: https://gohugo.io/getting-started/configuration/
+
+# Website name (set in params.yaml under hugoblox.identity.name)
+title: ''
+# Website URL
+baseURL: 'https://example.com/'
+
+############################
+## LANGUAGE
+############################
+
+defaultContentLanguage: en
+hasCJKLanguage: false
+removePathAccents: true
+
+############################
+## ADVANCED
+############################
+
+build:
+  writeStats: true
+enableGitInfo: false
+summaryLength: 30
+pagination:
+  pagerSize: 12
+enableEmoji: true
+enableRobotsTXT: true
+footnotereturnlinkcontents: <sup>^</sup>
+disableAliases: true
+outputs:
+  home: [HTML, RSS, headers, redirects]
+  section: [HTML, RSS]
+  page: [HTML]
+outputFormats:
+  HTML:
+    baseName: index
+  present:
+    baseName: index
+    isHTML: true
+    mediaType: text/html
+    permalinkable: true
+    path: present
+    rel: alternate
+    
+permalinks:
+  slides: /slides/:contentbasename/
+imaging:
+  resampleFilter: lanczos
+  quality: 90
+  anchor: smart
+timeout: 600000
+taxonomies:
+  tag: tags
+markup:
+  _merge: deep
+  highlight:
+    lineNos: false
+security:
+  _merge: deep
+sitemap:
+  _merge: deep

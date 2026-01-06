@@ -1,0 +1,10 @@
+# Navigation Links
+# Simple navigation for a slides-focused site
+
+main:
+  - name: Home
+    url: /
+    weight: 10
+  - name: Browse Decks
+    url: /slides/
+    weight: 20

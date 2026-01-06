@@ -293,3 +293,351 @@
 
 - id: portfolio_view_all
   translation: সমস্ত প্রকল্প দেখুন
+
+# Additional translations
+
+- id: about_me
+  translation: পেশাগত সারসংক্ষেপ
+
+- id: ai_insight
+  translation: এআই অন্তর্দৃষ্টি
+
+- id: content_type
+  translation: বিষয়ের ধরন
+
+- id: difficulty
+  translation: কঠিনতা
+
+- id: prerequisites
+  translation: পূর্বশর্ত
+
+- id: trending
+  translation: ট্রেন্ডিং
+
+- id: article
+  translation: প্রবন্ধ
+
+- id: articles
+  translation: প্রবন্ধসমূহ
+
+- id: all
+  translation: সব
+
+- id: helpful
+  translation: সহায়ক
+
+
+# Buttons and links
+
+- id: btn_site
+  translation: সাইট
+
+- id: btn_canonical
+  translation: ক্যানোনিকাল
+
+- id: btn_crosspost
+  translation: ক্রসপোস্ট
+
+- id: btn_discussion
+  translation: আলোচনা
+
+- id: btn_event
+  translation: ইভেন্ট
+
+- id: btn_calendar
+  translation: ক্যালেন্ডার
+
+- id: btn_registration
+  translation: নিবন্ধন
+
+- id: btn_demo
+  translation: ডেমো
+
+- id: btn_model
+  translation: মডেল
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+# Callouts
+
+- id: callout_note
+  translation: নোট
+
+- id: callout_abstract
+  translation: সারাংশ
+
+- id: callout_summary
+  translation: সারসংক্ষেপ
+
+- id: callout_info
+  translation: তথ্য
+
+- id: callout_todo
+  translation: করনীয়
+
+- id: callout_tip
+  translation: টিপস
+
+- id: callout_question
+  translation: প্রশ্ন
+
+- id: callout_quote
+  translation: উদ্ধৃতি
+
+- id: callout_warning
+  translation: সতর্কতা
+
+- id: callout_caution
+  translation: সতর্কতা
+
+- id: callout_danger
+  translation: বিপদ
+
+- id: callout_bug
+  translation: বাগ
+
+- id: callout_example
+  translation: উদাহরণ
+
+- id: callout_failure
+  translation: ব্যর্থতা
+
+- id: callout_success
+  translation: সাফল্য
+
+- id: callout_important
+  translation: গুরুত্বপূর্ণ
+
+# Slides
+
+- id: back_to_slides
+  translation: স্লাইডে ফিরে যান
+
+- id: present_slides
+  translation: প্রেজেন্ট
+
+- id: present_fullscreen
+  translation: প্রেজেন্ট (পূর্ণস্ক্রিন)
+
+- id: export_pdf_print
+  translation: পিডিএফ রপ্তানি (প্রিন্ট)
+
+- id: slides_print_hint
+  translation: প্রিন্ট মোডে খোলে - ব্রাউজার প্রিন্ট > PDF হিসেবে সেভ করুন
+
+- id: slides_search_placeholder
+  translation: শিরোনাম দিয়ে ডেক খুঁজুন...
+
+- id: slides_no_decks
+  translation: কোন স্লাইড ডেক পাওয়া যায়নি
+
+- id: slides_no_matches
+  translation: কোন ডেক ফিল্টারের সাথে মেলে না
+
+- id: clear_filters
+  translation: ফিল্টার মুছুন
+
+- id: topics
+  translation: বিষয়
+
+- id: details
+  translation: বিস্তারিত
+
+- id: related_resources
+  translation: সম্পর্কিত রিসোর্স
+
+- id: copy_link
+  translation: লিঙ্ক কপি করুন
+
+- id: copy_citation
+  translation: উদ্ধৃতি কপি করুন
+
+- id: how_to_cite
+  translation: কীভাবে উদ্ধৃতি দিবেন
+
+- id: citation
+  translation: উদ্ধৃতি
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: cite.bib ডাউনলোড করুন
+
+- id: lecture
+  translation: লেকচার
+
+- id: enter_fullscreen
+  translation: পূর্ণস্ক্রিনে যান
+
+- id: exit_fullscreen
+  translation: পূর্ণস্ক্রিন থেকে বের হন
+
+- id: speaker_notes_hint
+  translation: বক্তার নোটের জন্য
+
+- id: slides_not_found
+  translation: স্লাইড পাওয়া যায়নি
+
+# Q&A
+
+- id: qa
+  translation: প্রশ্নোত্তর
+
+- id: question
+  translation: প্রশ্ন
+
+- id: answer
+  translation: উত্তর
+
+- id: accepted_answer
+  translation: গৃহীত উত্তর
+
+- id: other_answers
+  translation: অন্যান্য উত্তর
+
+- id: questions
+  translation: প্রশ্নসমূহ
+
+- id: questions_count
+  translation: প্রশ্ন
+
+- id: related_questions
+  translation: সম্পর্কিত প্রশ্ন
+
+- id: search_questions
+  translation: প্রশ্ন অনুসন্ধান...
+
+- id: no_questions_yet
+  translation: এখনও কোনো প্রশ্ন নেই
+
+- id: faq
+  translation: FAQ
+
+- id: faqs
+  translation: FAQs
+
+- id: browse_by_category
+  translation: বিভাগ অনুযায়ী দেখুন
+
+# General extras
+
+- id: backlinks
+  translation: ব্যাকলিঙ্কস
+
+- id: blog
+  translation: ব্লগ
+
+- id: browse
+  translation: ব্রাউজ
+
+- id: days
+  translation: দিন
+
+- id: hours
+  translation: ঘণ্টা
+
+- id: minutes
+  translation: মিনিট
+
+- id: seconds
+  translation: সেকেন্ড
+
+- id: experience
+  translation: অভিজ্ঞতা
+
+- id: read_more
+  translation: আরও পড়ুন
+
+- id: docs
+  translation: ডকুমেন্টেশন
+
+- id: featured
+  translation: বৈশিষ্ট্যযুক্ত
+
+- id: events
+  translation: ইভেন্ট
+
+- id: poweredby_button
+  translation: 'নিজেরটি বানান →'
+
+- id: block_contact_title
+  translation: যোগাযোগ করুন
+
+- id: block_contact_visit_title
+  translation: আমাদের দেখুন
+
+- id: block_contact_office_hours
+  translation: অফিস সময়
+
+- id: block_contact_view_on_map
+  translation: মানচিত্রে দেখুন
+
+- id: block_contact_connect_title
+  translation: সংযুক্ত হন
+
+- id: block_contact_follow_us
+  translation: আমাদের অনুসরণ করুন
+
+- id: block_contact_prospective_title
+  translation: সম্ভাব্য সদস্যরা
+
+- id: block_contact_form_title
+  translation: আমাদের বার্তা পাঠান
+
+- id: block_contact_form_name
+  translation: নাম
+
+- id: block_contact_form_email
+  translation: ইমেইল
+
+- id: block_contact_form_subject
+  translation: বিষয়
+
+- id: block_contact_form_message
+  translation: বার্তা
+
+- id: block_contact_form_submit
+  translation: বার্তা পাঠান
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: মতামত
+
+- id: feedback_widget_question
+  translation: এই পেজটি কি সহায়ক ছিল?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 হ্যাঁ
+
+- id: feedback_widget_answer_negative
+  translation: 😡 না

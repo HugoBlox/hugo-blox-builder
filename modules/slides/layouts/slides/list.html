@@ -1,0 +1,212 @@
+{{ define "main" }}
+
+{{/* Enable Alpine.js for tag filtering */}}
+{{ .Store.Set "has_alpine" true }}
+
+{{/* Collect all unique tags from slides */}}
+{{ $allTags := slice }}
+{{ $featuredPages := slice }}
+{{ $regularPages := slice }}
+{{ $search_placeholder := i18n "slides_search_placeholder" | default "Search decks by title..." }}
+{{ $all_label := i18n "all" | default "All" }}
+{{ $no_decks_label := i18n "slides_no_decks" | default "No slide decks found" }}
+{{ $no_matches_label := i18n "slides_no_matches" | default "No decks match your filters" }}
+{{ $clear_filters_label := i18n "clear_filters" | default "Clear filters" }}
+
+{{ range .Pages }}
+  {{ if .Params.tags }}
+    {{ range .Params.tags }}
+      {{ $allTags = $allTags | append . }}
+    {{ end }}
+  {{ end }}
+  {{ if or .Params.featured .Params.pinned }}
+    {{ $featuredPages = $featuredPages | append . }}
+  {{ else }}
+    {{ $regularPages = $regularPages | append . }}
+  {{ end }}
+{{ end }}
+
+{{ $allTags = $allTags | uniq | sort }}
+
+{{/* Sort featured by date descending, then regular by date descending */}}
+{{ $featuredPages = sort $featuredPages ".Date" "desc" }}
+{{ $regularPages = sort $regularPages ".Date" "desc" }}
+{{ $sortedPages := $featuredPages | append $regularPages }}
+
+<div class="container mx-auto px-4 sm:px-6 max-w-6xl py-8" x-data="slidesFilter()">
+  
+  {{/* Page Header */}}
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="prose prose-zinc dark:prose-invert max-w-none">
+      {{ . }}
+    </div>
+    {{ end }}
+  </div>
+
+  {{/* Search and Filter Bar */}}
+  <div class="mb-8 space-y-4">
+    {{/* Search input */}}
+    <div class="relative max-w-md">
+      <input 
+        type="text" 
+        x-model="searchQuery"
+        @input="filterDecks()"
+        placeholder="{{ $search_placeholder }}"
+        class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-shadow"
+      >
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+    </div>
+
+    {{/* Tag Filter Chips */}}
+    {{ if $allTags }}
+    <div class="flex flex-wrap gap-2">
+      <button 
+        @click="setTag('all')"
+        :class="activeTag === 'all' ? 'bg-primary-600 text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'"
+        class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+      >
+        {{ $all_label }}
+      </button>
+      {{ range $allTags }}
+      <button 
+        @click="setTag({{ . | jsonify }})"
+        :class="activeTag === {{ . | jsonify }} ? 'bg-primary-600 text-white' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'"
+        class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
+      >
+        {{ . }}
+      </button>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+
+  {{/* Decks Grid */}}
+  {{ $view := .Params.view | default "slides-gallery" }}
+  {{ $config := dict 
+    "columns" (.Params.columns | default 2) 
+    "len" (len $sortedPages) 
+    "fill_image" (.Params.fill_image | default true)
+    "show_date" (.Params.show_date | default true)
+  }}
+
+  {{ partial "functions/render_view" (dict "fragment" "start" "page" . "item" . "view" $view "config" $config) }}
+
+  {{ range $index, $item := $sortedPages }}
+    {{ $tags := $item.Params.tags | default (slice) }}
+    {{ $tagsJson := $tags | jsonify }}
+    {{ $authorList := slice }}
+    {{ with $item.Params.authors }}
+      {{ if reflect.IsSlice . }}
+        {{ $authorList = . }}
+      {{ else }}
+        {{ $authorList = slice . }}
+      {{ end }}
+    {{ end }}
+    {{ $authorNames := slice }}
+    {{ range $authorList }}
+      {{ $profile := partial "functions/get_author_profile" . }}
+      {{ $authorName := . }}
+      {{ if $profile.has_data }}
+        {{ $authorName = $profile.title }}
+      {{ end }}
+      {{ $authorNames = $authorNames | append $authorName }}
+    {{ end }}
+    {{ $searchParts := slice $item.Title }}
+    {{ with $item.Params.venue }}
+      {{ $searchParts = $searchParts | append . }}
+    {{ end }}
+    {{ if gt (len $authorNames) 0 }}
+      {{ $searchParts = $searchParts | append (delimit $authorNames " ") }}
+    {{ end }}
+    {{ if gt (len $tags) 0 }}
+      {{ $searchParts = $searchParts | append (delimit $tags " ") }}
+    {{ end }}
+    {{ $searchText := (delimit $searchParts " ") | lower }}
+    
+    <div 
+      class="deck-card"
+      data-tags="{{ $tagsJson }}"
+      data-search="{{ $searchText }}"
+    >
+      {{ partial "functions/render_view" (dict "page" $ "item" $item "view" $view "index" $index "config" $config) }}
+    </div>
+  {{ end }}
+
+  {{ partial "functions/render_view" (dict "fragment" "end" "page" . "item" . "view" $view) }}
+
+  {{/* Empty state */}}
+  {{ if eq (len $sortedPages) 0 }}
+  <div class="text-center py-12">
+    <svg class="mx-auto h-12 w-12 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    <p class="mt-4 text-zinc-600 dark:text-zinc-400">{{ $no_decks_label }}</p>
+  </div>
+  {{ end }}
+
+  {{/* No matches empty state */}}
+  <div 
+    x-show="noMatches" 
+    x-cloak
+    class="text-center py-12"
+  >
+    <svg class="mx-auto h-12 w-12 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    </svg>
+    <p class="mt-4 text-zinc-600 dark:text-zinc-400">{{ $no_matches_label }}</p>
+    <button @click="clearFilters()" class="mt-2 text-primary-600 dark:text-primary-400 hover:underline">
+      {{ $clear_filters_label }}
+    </button>
+  </div>
+
+</div>
+
+<script>
+  function slidesFilter() {
+    return {
+      activeTag: 'all',
+      searchQuery: '',
+      noMatches: false,
+
+      setTag(tag) {
+        this.activeTag = tag;
+        this.filterDecks();
+      },
+
+      clearFilters() {
+        this.activeTag = 'all';
+        this.searchQuery = '';
+        this.filterDecks();
+      },
+
+      filterDecks() {
+        const cards = document.querySelectorAll('.deck-card');
+        let visibleCount = 0;
+        const query = this.searchQuery.toLowerCase().trim();
+        
+        cards.forEach(card => {
+          const tags = JSON.parse(card.dataset.tags || '[]');
+          const searchText = card.dataset.search || '';
+          
+          const matchesTag = this.activeTag === 'all' || tags.includes(this.activeTag);
+          const matchesSearch = query === '' || searchText.includes(query);
+          
+          if (matchesTag && matchesSearch) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        this.noMatches = visibleCount === 0 && cards.length > 0;
+      }
+    }
+  }
+</script>
+
+{{ end }}

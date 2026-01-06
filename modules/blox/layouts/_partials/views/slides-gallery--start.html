@@ -1,0 +1,5 @@
+{{ $columns := .config.columns | default 2 }}
+{{ $len := .config.len | default 1 }}
+{{/* Grid layout optimized for slide deck previews - 16:9 aspect ratio cards */}}
+<div class="container px-4 sm:px-6 mx-auto max-w-6xl py-8">
+  <div class="grid gap-6 sm:gap-8 {{ if eq $columns 1 }}max-w-xl mx-auto{{ else if eq $columns 2 }}grid-cols-1 md:grid-cols-2{{ else }}grid-cols-1 md:grid-cols-2 lg:grid-cols-3{{ end }}">

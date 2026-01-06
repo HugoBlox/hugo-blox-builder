@@ -387,3 +387,262 @@
 
 - id: feedback_widget_answer_negative
   translation: 😡 Nein
+
+# AI Features
+
+- id: ai_insight
+  translation: KI-Einblick
+
+# Content Metadata
+
+- id: content_type
+  translation: Inhaltstyp
+
+- id: difficulty
+  translation: Schwierigkeitsgrad
+
+- id: prerequisites
+  translation: Voraussetzungen
+
+# Card metadata
+
+- id: trending
+  translation: Im Trend
+
+- id: article
+  translation: Artikel
+
+- id: articles
+  translation: Artikel
+
+- id: browse
+  translation: Durchsuchen
+
+- id: all
+  translation: Alle
+
+- id: helpful
+  translation: hilfreich
+
+# Additional buttons
+
+- id: btn_site
+  translation: Website
+
+- id: btn_canonical
+  translation: Kanonisch
+
+- id: btn_crosspost
+  translation: Crosspost
+
+- id: btn_discussion
+  translation: Diskussion
+
+- id: btn_event
+  translation: Event
+
+- id: btn_calendar
+  translation: Kalender
+
+- id: btn_registration
+  translation: Anmeldung
+
+- id: btn_demo
+  translation: Demo
+
+- id: btn_model
+  translation: Modell
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+# Callouts
+
+- id: callout_abstract
+  translation: Abstract
+
+- id: callout_summary
+  translation: Zusammenfassung
+
+- id: callout_info
+  translation: Info
+
+- id: callout_todo
+  translation: To-do
+
+- id: callout_tip
+  translation: Tipp
+
+- id: callout_question
+  translation: Frage
+
+- id: callout_quote
+  translation: Zitat
+
+- id: callout_warning
+  translation: Warnung
+
+- id: callout_danger
+  translation: Gefahr
+
+- id: callout_bug
+  translation: Bug
+
+- id: callout_example
+  translation: Beispiel
+
+- id: callout_failure
+  translation: Fehlschlag
+
+- id: callout_success
+  translation: Erfolg
+
+# Slides
+
+- id: back_to_slides
+  translation: Zurück zu Slides
+
+- id: present_slides
+  translation: Präsentieren
+
+- id: present_fullscreen
+  translation: Präsentieren (Vollbild)
+
+- id: export_pdf_print
+  translation: PDF exportieren (Druck)
+
+- id: slides_print_hint
+  translation: Öffnet im Druckmodus – Browser Drucken > Als PDF speichern
+
+- id: slides_search_placeholder
+  translation: Decks nach Titel suchen...
+
+- id: slides_no_decks
+  translation: Keine Foliensätze gefunden
+
+- id: slides_no_matches
+  translation: Keine Sätze entsprechen deinen Filtern
+
+- id: clear_filters
+  translation: Filter zurücksetzen
+
+- id: topics
+  translation: Themen
+
+- id: details
+  translation: Details
+
+- id: related_resources
+  translation: Verwandte Ressourcen
+
+- id: copy_link
+  translation: Link kopieren
+
+- id: copy_citation
+  translation: Zitat kopieren
+
+- id: how_to_cite
+  translation: So zitieren
+
+- id: citation
+  translation: Zitat
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: cite.bib herunterladen
+
+- id: lecture
+  translation: Vorlesung
+
+- id: enter_fullscreen
+  translation: Vollbildmodus starten
+
+- id: exit_fullscreen
+  translation: Vollbildmodus beenden
+
+- id: speaker_notes_hint
+  translation: für Sprechernotizen
+
+- id: slides_not_found
+  translation: Folien nicht gefunden
+
+# Q&A
+
+- id: qa
+  translation: Q&A
+
+- id: question
+  translation: Frage
+
+- id: answer
+  translation: Antwort
+
+- id: accepted_answer
+  translation: Akzeptierte Antwort
+
+- id: other_answers
+  translation: Weitere Antworten
+
+- id: questions
+  translation: Fragen
+
+- id: questions_count
+  translation: Fragen
+
+- id: related_questions
+  translation: Ähnliche Fragen
+
+- id: search_questions
+  translation: Fragen durchsuchen...
+
+- id: no_questions_yet
+  translation: Noch keine Fragen vorhanden
+
+- id: faq
+  translation: FAQ
+
+- id: faqs
+  translation: FAQs
+
+- id: browse_by_category
+  translation: Nach Kategorie durchsuchen
+
+# General extras
+
+- id: about_me
+  translation: Berufliches Profil
+
+- id: docs
+  translation: Dokumentation
+
+- id: featured
+  translation: Empfohlen

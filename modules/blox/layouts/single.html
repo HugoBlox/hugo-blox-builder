@@ -76,7 +76,6 @@
         {{/* Set Alpine.js flag if author notes exist */}}
         {{ if isset .Params "author_notes" }}
           {{ .Store.Set "has_alpine" true }}
-          <script>console.log('Author notes detected in single.html, Alpine.js should load');</script>
         {{ end }}
 
         {{ range $i, $slug := .Params.authors }}

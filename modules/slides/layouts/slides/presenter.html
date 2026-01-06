@@ -1,0 +1,14 @@
+{{/*
+  Presenter Layout - Full-screen Reveal.js presentation
+  Uses parent page's slide content
+  Route: /slides/<deck>/present/
+*/}}
+
+{{/* Get parent deck page (the actual slides content) */}}
+{{ $deckPage := .Parent }}
+{{ if not $deckPage }}
+  {{ $deckPage = . }}
+{{ end }}
+
+{{/* Render using modules/slides presentation layout */}}
+{{ partial "slides" (union (slice $deckPage) $deckPage.Pages) }}

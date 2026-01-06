@@ -304,3 +304,331 @@
 
 - id: published_with
   translation: Made with {hugoblox}.
+
+# AI Features
+
+- id: ai_insight
+  translation: Insight de IA
+
+# Content Metadata
+
+- id: content_type
+  translation: Tipo de conteúdo
+
+- id: difficulty
+  translation: Dificuldade
+
+- id: prerequisites
+  translation: Pré-requisitos
+
+# Card metadata
+
+- id: trending
+  translation: Em alta
+
+- id: article
+  translation: artigo
+
+- id: articles
+  translation: artigos
+
+- id: browse
+  translation: Navegar
+
+- id: all
+  translation: Todos
+
+- id: helpful
+  translation: útil
+
+# Additional buttons
+
+- id: btn_site
+  translation: Site
+
+- id: btn_canonical
+  translation: Canônico
+
+- id: btn_crosspost
+  translation: Crosspost
+
+- id: btn_discussion
+  translation: Discussão
+
+- id: btn_event
+  translation: Evento
+
+- id: btn_calendar
+  translation: Calendário
+
+- id: btn_registration
+  translation: Inscrição
+
+- id: btn_demo
+  translation: Demo
+
+- id: btn_model
+  translation: Modelo
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+# Callouts
+
+- id: callout_note
+  translation: Nota
+
+- id: callout_abstract
+  translation: Resumo
+
+- id: callout_summary
+  translation: Sumário
+
+- id: callout_info
+  translation: Informação
+
+- id: callout_todo
+  translation: Para fazer
+
+- id: callout_tip
+  translation: Dica
+
+- id: callout_question
+  translation: Pergunta
+
+- id: callout_quote
+  translation: Citação
+
+- id: callout_warning
+  translation: Aviso
+
+- id: callout_caution
+  translation: Cuidado
+
+- id: callout_danger
+  translation: Perigo
+
+- id: callout_bug
+  translation: Bug
+
+- id: callout_example
+  translation: Exemplo
+
+- id: callout_failure
+  translation: Falha
+
+- id: callout_success
+  translation: Sucesso
+
+- id: callout_important
+  translation: Importante
+
+# Slides
+
+- id: back_to_slides
+  translation: Voltar para slides
+
+- id: present_slides
+  translation: Apresentar
+
+- id: present_fullscreen
+  translation: Apresentar (tela cheia)
+
+- id: export_pdf_print
+  translation: Exportar PDF (impressão)
+
+- id: slides_print_hint
+  translation: Abre em modo de impressão - use Imprimir > Salvar como PDF
+
+- id: slides_search_placeholder
+  translation: Buscar decks por título...
+
+- id: slides_no_decks
+  translation: Nenhum conjunto de slides encontrado
+
+- id: slides_no_matches
+  translation: Nenhum deck corresponde aos filtros
+
+- id: clear_filters
+  translation: Limpar filtros
+
+- id: topics
+  translation: Tópicos
+
+- id: details
+  translation: Detalhes
+
+- id: related_resources
+  translation: Recursos relacionados
+
+- id: copy_link
+  translation: Copiar link
+
+- id: copy_citation
+  translation: Copiar citação
+
+- id: how_to_cite
+  translation: Como citar
+
+- id: citation
+  translation: Citação
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: Baixar cite.bib
+
+- id: lecture
+  translation: Aula
+
+- id: enter_fullscreen
+  translation: Entrar em tela cheia
+
+- id: exit_fullscreen
+  translation: Sair da tela cheia
+
+- id: speaker_notes_hint
+  translation: para notas do apresentador
+
+- id: slides_not_found
+  translation: Slides não encontrados
+
+# Q&A
+
+- id: qa
+  translation: Q&A
+
+- id: question
+  translation: Pergunta
+
+- id: answer
+  translation: Resposta
+
+- id: accepted_answer
+  translation: Resposta aceita
+
+- id: other_answers
+  translation: Outras respostas
+
+- id: questions
+  translation: Perguntas
+
+- id: questions_count
+  translation: perguntas
+
+- id: related_questions
+  translation: Perguntas relacionadas
+
+- id: search_questions
+  translation: Buscar perguntas...
+
+- id: no_questions_yet
+  translation: Ainda não há perguntas
+
+- id: faq
+  translation: FAQ
+
+- id: faqs
+  translation: FAQs
+
+- id: browse_by_category
+  translation: Navegar por categoria
+
+# General extras
+
+- id: about_me
+  translation: Resumo profissional
+
+- id: backlinks
+  translation: Backlinks
+
+- id: days
+  translation: Dias
+
+- id: hours
+  translation: Horas
+
+- id: minutes
+  translation: Minutos
+
+- id: seconds
+  translation: Segundos
+
+- id: developer
+  translation: Desenvolvedor
+
+- id: docs
+  translation: Documentação
+
+- id: experience
+  translation: Experiência
+
+- id: read_more
+  translation: Leia mais
+
+- id: featured
+  translation: Em destaque
+
+- id: block_contact_follow_me
+  translation: Encontre-me em
+
+- id: portfolio_link_code
+  translation: Código
+
+- id: portfolio_link_live
+  translation: Ao vivo
+
+- id: portfolio_link_demo
+  translation: Demo
+
+- id: portfolio_link_default
+  translation: Link
+
+- id: portfolio_view_all
+  translation: Ver todos os projetos
+
+- id: scroll_to_content
+  translation: Rolar para o conteúdo
+
+- id: feedback_widget_title
+  translation: Feedback
+
+- id: feedback_widget_question
+  translation: Esta página foi útil?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Sim
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Não
+
+- id: poweredby_button
+  translation: 'Construa a sua →'

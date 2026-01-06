@@ -1,0 +1,6 @@
+build:
+  hugo_version: '0.154.2'
+template:
+  id: "markdown-slides"
+  name: "Markdown Slides"
+  description: "A minimal template for hosting and sharing Markdown-based slide decks"

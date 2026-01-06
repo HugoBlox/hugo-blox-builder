@@ -1,0 +1,203 @@
+{{/* Hugo Blox Slides Gallery View - Optimized for slide deck presentations */}}
+{{/* Features: 16:9 aspect ratio, play button overlay, slide count, tags, featured badge */}}
+
+{{ $item := .item }}
+{{ $link := $item.RelPermalink }}
+{{ $html_format := $item.OutputFormats.Get "HTML" }}
+{{ if not $html_format }}
+  {{ $html_format = $item.OutputFormats.Get "html" }}
+{{ end }}
+{{ with $html_format }}
+  {{ $link = .RelPermalink }}
+{{ end }}
+{{ $present_link := $link }}
+{{ $present_format := $item.OutputFormats.Get "present" }}
+{{ if not $present_format }}
+  {{ $present_format = $item.OutputFormats.Get "Present" }}
+{{ end }}
+{{ with $present_format }}
+  {{ $present_link = .RelPermalink }}
+{{ end }}
+{{ $resource := partial "functions/get_featured_image.html" $item }}
+{{ $index := .index }}
+{{ $featured_label := i18n "featured" | default "Featured" }}
+{{ $details_label := i18n "details" | default "Details" }}
+{{ $present_label := i18n "present_slides" | default "Present" }}
+{{ $present_fullscreen_label := i18n "present_fullscreen" | default "Present (fullscreen)" }}
+{{ $slides_label := i18n "slides" | default "Slides" }}
+
+{{/* Check if featured/pinned */}}
+{{ $isFeatured := or $item.Params.featured $item.Params.pinned }}
+
+{{/* Calculate slide count by counting "---" separators in content */}}
+{{ $content := $item.RawContent }}
+{{ $slideCount := 1 }}
+{{ $separators := findRE "(?m)^---$" $content }}
+{{ if $separators }}
+  {{ $slideCount = add (len $separators) 1 }}
+  {{/* Subtract 1 for front matter separator if content starts with --- */}}
+  {{ if hasPrefix $content "---" }}
+    {{ $slideCount = sub $slideCount 1 }}
+  {{ end }}
+{{ end }}
+
+{{/* Get summary - use description from front matter or truncate content */}}
+{{ $summary := $item.Description | default $item.Summary | default "" }}
+{{ $summary = $summary | plainify | truncate 160 }}
+
+<article class="group relative flex flex-col bg-white dark:bg-zinc-900 rounded-xl shadow-sm ring-1 ring-zinc-900/5 dark:ring-white/10 overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10 hover:-translate-y-1{{ if $isFeatured }} ring-2 ring-primary-500/50{{ end }}">
+  {{/* Featured Badge */}}
+  {{ if $isFeatured }}
+  <div class="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-500 text-white flex items-center gap-1.5 shadow-lg">
+    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+    </svg>
+    {{ $featured_label }}
+  </div>
+  {{ end }}
+
+  {{/* Slide Preview Image - 16:9 aspect ratio */}}
+  <a href="{{ $present_link }}" target="_blank" rel="noopener" class="block relative aspect-video bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900 overflow-hidden" aria-label="{{ printf "%s %s" $present_fullscreen_label ($item.Title | plainify) }}">
+    {{ with $resource }}
+      {{ if strings.Contains .MediaType.SubType "svg" }}
+        <img 
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+          src="{{ .RelPermalink }}"
+          loading="lazy" 
+          decoding="async"
+          alt="{{ $item.Title | plainify }}">
+      {{ else if ne .MediaType.SubType "gif" }}
+        {{ $image := .Fill "800x450 Center" }}
+        {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+            "image" $image 
+            "mode" "responsive"
+            "sizes" (slice 400 600 800)
+            "formats" (slice "avif" "webp" "jpg")
+        ) }}
+        <img 
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+          srcset="{{ $responsive.srcset }}"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          src="{{ $responsive.fallback.RelPermalink }}" 
+          width="{{ $image.Width }}" 
+          height="{{ $image.Height }}"
+          loading="lazy" 
+          decoding="async"
+          {{ if eq $index 0 }}fetchpriority="high"{{ end }}
+          alt="{{ $item.Title | plainify }}">
+      {{ else }}
+        <img 
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          src="{{ .RelPermalink }}"
+          loading="lazy"
+          decoding="async"
+          alt="{{ $item.Title | plainify }}">
+      {{ end }}
+    {{ else }}
+      {{/* Fallback: Decorative gradient with slide icon - smaller, cleaner */}}
+      <div class="w-full h-full bg-gradient-to-br from-primary-500/10 via-secondary-500/10 to-primary-700/15 dark:from-primary-600/20 dark:via-secondary-600/15 dark:to-primary-800/25 flex items-center justify-center">
+        <div class="text-center px-4">
+          <svg class="w-8 h-8 mx-auto text-primary-500/40 dark:text-primary-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
+          </svg>
+        </div>
+      </div>
+    {{ end }}
+    
+    {{/* Play button overlay on hover */}}
+    <div class="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/30 transition-all duration-300">
+      <div class="w-14 h-14 rounded-full bg-white/90 dark:bg-zinc-900/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all duration-300 shadow-lg">
+        <svg class="w-6 h-6 text-primary-600 dark:text-primary-400 ml-1" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+    </div>
+    
+    {{/* Slide count badge */}}
+    {{ if gt $slideCount 1 }}
+    <div class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full text-xs font-medium bg-black/60 backdrop-blur-sm text-white">
+      {{ $slideCount }} {{ $slides_label | lower }}
+    </div>
+    {{ end }}
+  </a>
+  
+  {{/* Content Section */}}
+  <div class="flex flex-col flex-1 p-5">
+    {{/* Tags */}}
+    {{ if $item.Params.tags }}
+    <div class="flex flex-wrap gap-2 mb-3">
+      {{ range first 3 $item.Params.tags }}
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900/40 dark:text-primary-300">
+        {{ . }}
+      </span>
+      {{ end }}
+      {{ if gt (len $item.Params.tags) 3 }}
+      <span class="text-xs text-zinc-500 dark:text-zinc-400">+{{ sub (len $item.Params.tags) 3 }}</span>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{ $authors := slice }}
+    {{ with $item.Params.authors }}
+      {{ if reflect.IsSlice . }}
+        {{ $authors = . }}
+      {{ else }}
+        {{ $authors = slice . }}
+      {{ end }}
+    {{ end }}
+    {{ if gt (len $authors) 0 }}
+    {{ $author := index $authors 0 }}
+    {{ $profile := partial "functions/get_author_profile" $author }}
+    {{ $avatar := $profile.avatar }}
+    {{ $authorName := $author }}
+    {{ if $profile.has_data }}
+      {{ $authorName = $profile.title }}
+    {{ end }}
+    <div class="flex items-center gap-2 mb-2 text-xs text-zinc-500 dark:text-zinc-400">
+      <div class="relative h-6 w-6 flex-shrink-0">
+        {{ if $avatar }}
+          {{ $avatar_48 := $avatar.Process "Fill 48x48 Center webp" }}
+          <img alt="{{ $authorName }}" class="rounded-full object-cover" src="{{ $avatar_48.RelPermalink }}" width="24" height="24" loading="lazy" decoding="async" />
+        {{ else }}
+          <div class="w-6 h-6 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center">
+            {{ partial "functions/get_icon" (dict "name" "hero/user" "attributes" "class=\"w-4 h-4 text-zinc-500 dark:text-zinc-400\"") }}
+          </div>
+        {{ end }}
+      </div>
+      <span class="truncate max-w-[10rem]">{{ $authorName }}</span>
+    </div>
+    {{ end }}
+    
+    {{/* Title */}}
+    <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 mb-2">
+      <a href="{{ $link }}">{{ $item.Title }}</a>
+    </h3>
+    
+    {{/* Summary */}}
+    <p class="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 min-h-[3.75rem] mb-3 flex-1">{{ if $summary }}{{ $summary }}{{ else }}&nbsp;{{ end }}</p>
+    
+    {{/* Footer: Venue, Year, Details + Present Links */}}
+    <div class="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800 mt-auto">
+      <div class="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
+        {{ with $item.Params.venue }}
+        <span class="truncate max-w-[120px]" title="{{ . }}">{{ . }}</span>
+        <span class="text-zinc-300 dark:text-zinc-600">·</span>
+        {{ end }}
+        <time datetime="{{ $item.Date.Format "2006-01-02" }}">
+          {{ $item.Date.Format "2006" }}
+        </time>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="{{ $link }}" class="inline-flex items-center gap-1 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+          <span>{{ $details_label }}</span>
+        </a>
+        <a href="{{ $present_link }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+          <span>{{ $present_label }}</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

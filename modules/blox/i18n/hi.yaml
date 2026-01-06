@@ -1,0 +1,638 @@
+# Navigation
+
+- id: toggle_navigation
+  translation: नेविगेशन टॉगल करें
+
+- id: table_of_contents
+  translation: सामग्री तालिका
+
+- id: on_this_page
+  translation: इस पेज पर
+
+- id: back_to_top
+  translation: ऊपर वापस जाएँ
+
+- id: home
+  translation: होम
+
+- id: close
+  translation: बंद करें
+
+- id: languages
+  translation: भाषाएँ
+
+# General
+
+- id: related
+  translation: संबंधित
+
+- id: backlinks
+  translation: बैकलिंक्स
+
+# Callouts - All Obsidian-compatible types
+
+- id: callout_note
+  translation: नोट
+
+- id: callout_abstract
+  translation: सार
+
+- id: callout_summary
+  translation: सारांश
+
+- id: callout_info
+  translation: जानकारी
+
+- id: callout_todo
+  translation: करना है
+
+- id: callout_tip
+  translation: सुझाव
+
+- id: callout_success
+  translation: सफलता
+
+- id: callout_question
+  translation: प्रश्न
+
+- id: callout_warning
+  translation: चेतावनी
+
+- id: callout_failure
+  translation: विफलता
+
+- id: callout_danger
+  translation: खतरा
+
+- id: callout_bug
+  translation: बग
+
+- id: callout_example
+  translation: उदाहरण
+
+- id: callout_quote
+  translation: उद्धरण
+
+- id: callout_important
+  translation: महत्वपूर्ण
+
+- id: callout_caution
+  translation: सावधानी
+
+- id: minute_read
+  translation: मिनट पढ़ें
+
+- id: previous
+  translation: पिछला
+
+- id: next
+  translation: अगला
+
+- id: figure
+  translation: 'चित्र %d:'
+
+- id: edit_page
+  translation: इस पेज को संपादित करें
+
+# Themes
+
+- id: theme_selector
+  translation: प्रदर्शन प्राथमिकताएँ
+
+- id: theme_light
+  translation: लाइट
+
+- id: theme_dark
+  translation: डार्क
+
+- id: theme_auto
+  translation: स्वचालित
+
+# Buttons
+
+- id: btn_preprint
+  translation: प्रीप्रिंट
+
+- id: btn_pdf
+  translation: पीडीएफ
+
+- id: btn_cite
+  translation: उद्धृत करें
+
+- id: btn_slides
+  translation: स्लाइड्स
+
+- id: btn_video
+  translation: वीडियो
+
+- id: btn_code
+  translation: कोड
+
+- id: btn_dataset
+  translation: डेटासेट
+
+- id: btn_project
+  translation: प्रोजेक्ट
+
+- id: btn_poster
+  translation: पोस्टर
+
+- id: btn_source
+  translation: स्रोत दस्तावेज़
+
+# New link types
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_site
+  translation: साइट
+
+- id: btn_canonical
+  translation: कैनोनिकल
+
+- id: btn_crosspost
+  translation: क्रॉसपोस्ट
+
+- id: btn_discussion
+  translation: चर्चा
+
+- id: btn_event
+  translation: इवेंट
+
+- id: btn_calendar
+  translation: कैलेंडर
+
+- id: btn_registration
+  translation: पंजीकरण
+
+- id: btn_demo
+  translation: डेमो
+
+- id: btn_model
+  translation: मॉडल
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+- id: btn_copy
+  translation: कॉपी करें
+
+- id: btn_copied
+  translation: कॉपी किया गया
+
+- id: btn_download
+  translation: डाउनलोड
+
+# About widget
+
+- id: interests
+  translation: रुचियाँ
+
+- id: education
+  translation: शिक्षा
+
+- id: about_me
+  translation: व्यावसायिक सारांश
+
+- id: user_profile_latest
+  translation: नवीनतम
+
+# Countdown widget
+
+- id: days
+  translation: दिन
+
+- id: hours
+  translation: घंटे
+
+- id: minutes
+  translation: मिनट
+
+- id: seconds
+  translation: सेकंड
+
+# Accomplishments widget
+
+- id: see_certificate
+  translation: प्रमाणपत्र देखें
+
+# Experience widget
+
+- id: experience
+  translation: अनुभव
+
+- id: present
+  translation: वर्तमान
+
+# Pages widget
+
+- id: read_more
+  translation: और पढ़ें
+
+- id: more_pages
+  translation: सभी देखें
+
+- id: more_posts
+  translation: सभी पोस्ट देखें
+
+- id: more_talks
+  translation: सभी इवेंट देखें
+
+- id: more_publications
+  translation: सभी प्रकाशन देखें
+
+# Contact widget
+
+- id: contact_name
+  translation: नाम
+
+- id: contact_email
+  translation: ईमेल
+
+- id: contact_message
+  translation: संदेश
+
+- id: contact_attachment
+  translation: फ़ाइल संलग्न करें
+
+- id: contact_send
+  translation: भेजें
+
+- id: book_appointment
+  translation: अपॉइंटमेंट बुक करें
+
+# Contact info block
+
+- id: block_contact_title
+  translation: संपर्क करें
+
+- id: block_contact_visit_title
+  translation: हमसे मिलें
+
+- id: block_contact_office_hours
+  translation: ऑफिस समय
+
+- id: block_contact_view_on_map
+  translation: मैप पर देखें
+
+- id: block_contact_connect_title
+  translation: कनेक्ट करें
+
+- id: block_contact_follow_us
+  translation: हमें फॉलो करें
+
+- id: block_contact_follow_me
+  translation: मुझे यहाँ पाएँ
+
+- id: block_contact_prospective_title
+  translation: संभावित सदस्य
+
+- id: block_contact_form_title
+  translation: हमें संदेश भेजें
+
+- id: block_contact_form_name
+  translation: नाम
+
+- id: block_contact_form_email
+  translation: ईमेल
+
+- id: block_contact_form_subject
+  translation: विषय
+
+- id: block_contact_form_message
+  translation: संदेश
+
+- id: block_contact_form_submit
+  translation: संदेश भेजें
+
+# Publication/Event details
+
+- id: abstract
+  translation: सार
+
+- id: publication
+  translation: प्रकाशन
+
+- id: publication_type
+  translation: प्रकार
+
+- id: date
+  translation: तारीख
+
+- id: last_updated
+  translation: अंतिम अपडेट
+
+- id: event
+  translation: इवेंट
+
+- id: location
+  translation: स्थान
+
+- id: pub_paper_conference
+  translation: सम्मेलन पेपर
+
+- id: pub_article_journal
+  translation: जर्नल लेख
+
+- id: pub_article
+  translation: प्रीप्रिंट
+
+- id: pub_report
+  translation: रिपोर्ट
+
+- id: pub_book
+  translation: पुस्तक
+
+- id: pub_chapter
+  translation: पुस्तक अनुभाग
+
+- id: pub_thesis
+  translation: थीसिस
+
+- id: pub_patent
+  translation: पेटेंट
+
+# Project details
+
+- id: open_project_site
+  translation: प्रोजेक्ट साइट पर जाएँ
+
+# Content types for default archive page titles and search results
+
+- id: blog
+  translation: ब्लॉग
+
+- id: publications
+  translation: प्रकाशन
+
+- id: events
+  translation: इवेंट
+
+- id: projects
+  translation: प्रोजेक्ट
+
+- id: slides
+  translation: स्लाइड्स
+
+- id: authors
+  translation: लेखक
+
+- id: qa
+  translation: प्रश्नोत्तर
+
+- id: questions
+  translation: प्रश्न
+
+- id: faq
+  translation: अक्सर पूछे जाने वाले प्रश्न
+
+- id: faqs
+  translation: FAQs
+
+- id: docs
+  translation: प्रलेखन
+
+- id: question
+  translation: प्रश्न
+
+- id: answer
+  translation: उत्तर
+
+- id: accepted_answer
+  translation: स्वीकृत उत्तर
+
+- id: other_answers
+  translation: अन्य उत्तर
+
+- id: related_questions
+  translation: संबंधित प्रश्न
+
+- id: browse_by_category
+  translation: श्रेणी के अनुसार ब्राउज़ करें
+
+- id: search_questions
+  translation: प्रश्न खोजें...
+
+- id: no_questions_yet
+  translation: अभी तक कोई प्रश्न नहीं
+
+- id: questions_count
+  translation: प्रश्न
+
+# Slides
+
+- id: back_to_slides
+  translation: स्लाइड्स पर वापस जाएँ
+
+- id: featured
+  translation: विशेष
+
+- id: details
+  translation: विवरण
+
+- id: present_slides
+  translation: प्रस्तुति करें
+
+- id: present_fullscreen
+  translation: प्रस्तुति (फुलस्क्रीन)
+
+- id: export_pdf_print
+  translation: पीडीएफ निर्यात (प्रिंट)
+
+- id: slides_print_hint
+  translation: प्रिंट मोड में खुलेगा - ब्राउज़र प्रिंट > PDF के रूप में सहेजें
+
+- id: slides_search_placeholder
+  translation: शीर्षक से डेक खोजें...
+
+- id: slides_no_decks
+  translation: कोई स्लाइड डेक नहीं मिला
+
+- id: slides_no_matches
+  translation: कोई डेक आपके फ़िल्टर से मेल नहीं खाता
+
+- id: clear_filters
+  translation: फ़िल्टर साफ़ करें
+
+- id: topics
+  translation: विषय
+
+- id: related_resources
+  translation: संबंधित संसाधन
+
+- id: copy_link
+  translation: लिंक कॉपी करें
+
+- id: copy_citation
+  translation: उद्धरण कॉपी करें
+
+- id: how_to_cite
+  translation: कैसे उद्धृत करें
+
+- id: citation
+  translation: उद्धरण
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: cite.bib डाउनलोड करें
+
+- id: lecture
+  translation: व्याख्यान
+
+- id: enter_fullscreen
+  translation: फुलस्क्रीन में जाएँ
+
+- id: exit_fullscreen
+  translation: फुलस्क्रीन से बाहर निकलें
+
+- id: speaker_notes_hint
+  translation: वक्ता नोट्स के लिए
+
+- id: slides_not_found
+  translation: स्लाइड्स नहीं मिलीं
+
+# Search
+
+- id: search
+  translation: खोज
+
+- id: search_placeholder
+  translation: खोजें...
+
+- id: search_results
+  translation: परिणाम मिले
+
+- id: search_no_results
+  translation: कोई परिणाम नहीं मिला
+
+- id: search_common_queries
+  translation: सामान्य खोजें
+
+# Error 404
+
+- id: page_not_found
+  translation: पेज नहीं मिला
+
+- id: 404_recommendations
+  translation: शायद आप इनमें से किसी को ढूँढ रहे थे?
+
+# Cookie consent
+
+- id: cookie_message
+  translation: यह वेबसाइट सर्वोत्तम अनुभव देने के लिए कुकीज़ का उपयोग करती है।
+
+- id: cookie_dismiss
+  translation: समझ गया!
+
+- id: cookie_learn
+  translation: और जानें
+
+# Published with
+
+- id: published_with
+  translation: '{hugoblox} के साथ बनाया गया — मुफ़्त {repo_link}ओपन सोर्स{/repo_link} वेबसाइट बिल्डर जो क्रिएटर्स को सशक्त करता है।'
+
+- id: poweredby_button
+  translation: 'अपनी बनाएँ →'
+
+# Dev Hero block
+
+- id: scroll_to_content
+  translation: सामग्री पर स्क्रॉल करें
+
+- id: developer
+  translation: डेवलपर
+
+# Portfolio block
+
+- id: portfolio_link_code
+  translation: कोड
+
+- id: portfolio_link_live
+  translation: लाइव
+
+- id: portfolio_link_demo
+  translation: डेमो
+
+- id: portfolio_link_default
+  translation: लिंक
+
+- id: portfolio_view_all
+  translation: सभी प्रोजेक्ट देखें
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: प्रतिपुष्टि
+
+- id: feedback_widget_question
+  translation: क्या यह पेज सहायक था?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 हाँ
+
+- id: feedback_widget_answer_negative
+  translation: 😡 नहीं
+
+# AI Features
+
+- id: ai_insight
+  translation: एआई अंतर्दृष्टि
+
+# Content Metadata
+
+- id: content_type
+  translation: सामग्री प्रकार
+
+- id: difficulty
+  translation: कठिनाई
+
+- id: prerequisites
+  translation: पूर्वापेक्षाएँ
+
+# Card metadata
+
+- id: trending
+  translation: ट्रेंडिंग
+
+- id: article
+  translation: लेख
+
+- id: articles
+  translation: लेख
+
+- id: browse
+  translation: ब्राउज़
+
+- id: all
+  translation: सब
+
+- id: helpful
+  translation: सहायक

@@ -1,0 +1,15 @@
+outputFormats:
+  Present:
+    mediaType: text/html
+    baseName: index
+    isHTML: true
+    permalinkable: true
+    path: present
+
+cascade:
+  - _target:
+      path: "/slides/**"
+      kind: "page"
+    outputs:
+      - HTML
+      - Present

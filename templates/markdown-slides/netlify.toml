@@ -1,0 +1,49 @@
+[build]
+  command = """
+    set -e
+    echo "=== Starting Markdown Slides build process ==="
+    echo "Node version: $(node --version)"
+    echo "pnpm version: $(pnpm --version)"
+    echo "Hugo version: $(hugo version)"
+    
+    echo "=== Installing dependencies ==="
+    pnpm install --no-frozen-lockfile
+    
+    echo "=== Running Hugo build ==="
+    hugo --gc --minify -b $URL
+    
+    echo "=== Running Pagefind indexing ==="
+    pnpm run pagefind
+    
+    echo "=== Build completed successfully ==="
+  """
+  publish = "public"
+
+[build.environment]
+  HUGO_VERSION = "0.154.2"
+  GO_VERSION = "1.21.5"
+  NODE_VERSION = "22"
+  PNPM_FLAGS = "--no-frozen-lockfile"
+  HUGO_ENABLEGITINFO = "true"
+
+[context.production.environment]
+  HUGO_ENV = "production"
+
+[context.deploy-preview]
+  command = """
+    set -e
+    pnpm install --no-frozen-lockfile
+    hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL
+    pnpm run pagefind
+  """
+
+[context.branch-deploy]
+  command = """
+    set -e
+    pnpm install --no-frozen-lockfile
+    hugo --gc --minify -b $DEPLOY_PRIME_URL
+    pnpm run pagefind
+  """
+
+[[plugins]]
+  package = "netlify-plugin-hugo-cache-resources"

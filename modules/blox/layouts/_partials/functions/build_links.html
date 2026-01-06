@@ -89,22 +89,46 @@
 
 {{/* 2b) Slides relation parameter (legacy but common) */}}
 {{ with $page.Params.slides }}
-  {{ with (site.GetPage (printf "slides/%s" .)) }}
-    {{ $typeF := "slides" }}
-    {{ $urlF := .RelPermalink }}
-    {{ $keyF := printf "%s::%s" $typeF $urlF }}
-    {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
-      {{ $seen.SetInMap "set" $keyF true }}
-      {{ $links = $links | append (dict
-          "type" $typeF
-          "url" $urlF
-          "icon" (index (index $types $typeF) "icon")
-          "labelKey" (index (index $types $typeF) "label_i18n")
-          "contexts" (slice "list" "page")
-        ) }}
+  {{ if reflect.IsMap . }}
+    {{/* Skip: slides map is Reveal.js config for slide decks. */}}
+  {{ else if reflect.IsSlice . }}
+    {{ range . }}
+      {{ with (site.GetPage (printf "slides/%s" .)) }}
+        {{ $typeF := "slides" }}
+        {{ $urlF := .RelPermalink }}
+        {{ $keyF := printf "%s::%s" $typeF $urlF }}
+        {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+          {{ $seen.SetInMap "set" $keyF true }}
+          {{ $links = $links | append (dict
+              "type" $typeF
+              "url" $urlF
+              "icon" (index (index $types $typeF) "icon")
+              "labelKey" (index (index $types $typeF) "label_i18n")
+              "contexts" (slice "list" "page")
+            ) }}
+        {{ end }}
+      {{ else }}
+        {{ warnf "`slides` relation could not resolve to a page for %s" $page.File.Path }}
+      {{ end }}
     {{ end }}
   {{ else }}
-    {{ warnf "`slides` relation could not resolve to a page for %s" $page.File.Path }}
+    {{ with (site.GetPage (printf "slides/%s" .)) }}
+      {{ $typeF := "slides" }}
+      {{ $urlF := .RelPermalink }}
+      {{ $keyF := printf "%s::%s" $typeF $urlF }}
+      {{ if not ($seen.Get (printf "set.%s" $keyF)) }}
+        {{ $seen.SetInMap "set" $keyF true }}
+        {{ $links = $links | append (dict
+            "type" $typeF
+            "url" $urlF
+            "icon" (index (index $types $typeF) "icon")
+            "labelKey" (index (index $types $typeF) "label_i18n")
+            "contexts" (slice "list" "page")
+          ) }}
+      {{ end }}
+    {{ else }}
+      {{ warnf "`slides` relation could not resolve to a page for %s" $page.File.Path }}
+    {{ end }}
   {{ end }}
 {{ end }}
 

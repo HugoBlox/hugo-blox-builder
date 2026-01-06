@@ -263,3 +263,384 @@
 
 - id: published_with
   translation: Diterbitkan dengan {hugoblox} — Secara gratis, {repo_link}sumber terbuka{/repo_link} pembuat situs web yang memberdayakan para pembuat konten.
+
+# AI Features
+
+- id: ai_insight
+  translation: Wawasan AI
+
+# Content Metadata
+
+- id: content_type
+  translation: Jenis konten
+
+- id: difficulty
+  translation: Tingkat kesulitan
+
+- id: prerequisites
+  translation: Prasyarat
+
+# Card metadata
+
+- id: trending
+  translation: Sedang tren
+
+- id: article
+  translation: artikel
+
+- id: articles
+  translation: artikel
+
+- id: browse
+  translation: Jelajahi
+
+- id: all
+  translation: Semua
+
+- id: helpful
+  translation: bermanfaat
+
+# Additional buttons
+
+- id: btn_site
+  translation: Situs
+
+- id: btn_canonical
+  translation: Kanonikal
+
+- id: btn_crosspost
+  translation: Crosspost
+
+- id: btn_discussion
+  translation: Diskusi
+
+- id: btn_event
+  translation: Acara
+
+- id: btn_calendar
+  translation: Kalender
+
+- id: btn_registration
+  translation: Registrasi
+
+- id: btn_demo
+  translation: Demo
+
+- id: btn_model
+  translation: Model
+
+- id: btn_doi
+  translation: DOI
+
+- id: btn_hal
+  translation: HAL
+
+- id: btn_dblp
+  translation: DBLP
+
+- id: btn_isbn
+  translation: ISBN
+
+- id: btn_osf
+  translation: OSF
+
+- id: btn_zenodo
+  translation: Zenodo
+
+- id: btn_kaggle
+  translation: Kaggle
+
+- id: btn_openalex
+  translation: OpenAlex
+
+- id: btn_semanticscholar
+  translation: Semantic Scholar
+
+- id: btn_pwc
+  translation: Papers With Code
+
+# Callouts
+
+- id: callout_note
+  translation: Catatan
+
+- id: callout_abstract
+  translation: Abstrak
+
+- id: callout_summary
+  translation: Ringkasan
+
+- id: callout_info
+  translation: Info
+
+- id: callout_todo
+  translation: To-do
+
+- id: callout_tip
+  translation: Tip
+
+- id: callout_question
+  translation: Pertanyaan
+
+- id: callout_quote
+  translation: Kutipan
+
+- id: callout_warning
+  translation: Peringatan
+
+- id: callout_caution
+  translation: Perhatian
+
+- id: callout_danger
+  translation: Bahaya
+
+- id: callout_bug
+  translation: Bug
+
+- id: callout_example
+  translation: Contoh
+
+- id: callout_failure
+  translation: Gagal
+
+- id: callout_success
+  translation: Sukses
+
+- id: callout_important
+  translation: Penting
+
+# Slides
+
+- id: back_to_slides
+  translation: Kembali ke slides
+
+- id: present_slides
+  translation: Presentasi
+
+- id: present_fullscreen
+  translation: Presentasi (layar penuh)
+
+- id: export_pdf_print
+  translation: Ekspor PDF (cetak)
+
+- id: slides_print_hint
+  translation: Membuka mode cetak - gunakan Cetak > Simpan sebagai PDF
+
+- id: slides_search_placeholder
+  translation: Cari deck berdasarkan judul...
+
+- id: slides_no_decks
+  translation: Tidak ada deck ditemukan
+
+- id: slides_no_matches
+  translation: Tidak ada deck sesuai filter
+
+- id: clear_filters
+  translation: Hapus filter
+
+- id: topics
+  translation: Topik
+
+- id: details
+  translation: Detail
+
+- id: related_resources
+  translation: Sumber terkait
+
+- id: copy_link
+  translation: Salin tautan
+
+- id: copy_citation
+  translation: Salin sitasi
+
+- id: how_to_cite
+  translation: Cara mengutip
+
+- id: citation
+  translation: Sitasi
+
+- id: bibtex
+  translation: BibTeX
+
+- id: download_cite_bib
+  translation: Unduh cite.bib
+
+- id: lecture
+  translation: Kuliah
+
+- id: enter_fullscreen
+  translation: Masuk layar penuh
+
+- id: exit_fullscreen
+  translation: Keluar layar penuh
+
+- id: speaker_notes_hint
+  translation: untuk catatan pembicara
+
+- id: slides_not_found
+  translation: Slide tidak ditemukan
+
+- id: related
+  translation: Terkait
+
+# Q&A
+
+- id: qa
+  translation: Tanya Jawab
+
+- id: question
+  translation: Pertanyaan
+
+- id: answer
+  translation: Jawaban
+
+- id: accepted_answer
+  translation: Jawaban diterima
+
+- id: other_answers
+  translation: Jawaban lainnya
+
+- id: questions
+  translation: Pertanyaan
+
+- id: questions_count
+  translation: pertanyaan
+
+- id: related_questions
+  translation: Pertanyaan terkait
+
+- id: search_questions
+  translation: Cari pertanyaan...
+
+- id: no_questions_yet
+  translation: Belum ada pertanyaan
+
+- id: faq
+  translation: FAQ
+
+- id: faqs
+  translation: FAQ
+
+- id: browse_by_category
+  translation: Telusuri per kategori
+
+# General extras
+
+- id: about_me
+  translation: Ringkasan profesional
+
+- id: backlinks
+  translation: Tautan balik
+
+- id: days
+  translation: Hari
+
+- id: hours
+  translation: Jam
+
+- id: minutes
+  translation: Menit
+
+- id: seconds
+  translation: Detik
+
+- id: experience
+  translation: Pengalaman
+
+- id: read_more
+  translation: Baca selengkapnya
+
+- id: docs
+  translation: Dokumentasi
+
+- id: featured
+  translation: Unggulan
+
+# Feedback widget
+
+- id: feedback_widget_title
+  translation: Masukan
+
+- id: feedback_widget_question
+  translation: Apakah halaman ini membantu?
+
+- id: feedback_widget_answer_positive
+  translation: 😍 Ya
+
+- id: feedback_widget_answer_negative
+  translation: 😡 Tidak
+
+- id: block_contact_title
+  translation: Hubungi Kami
+
+- id: block_contact_visit_title
+  translation: Kunjungi Kami
+
+- id: block_contact_office_hours
+  translation: Jam kerja
+
+- id: block_contact_view_on_map
+  translation: Lihat di Peta
+
+- id: block_contact_connect_title
+  translation: Terhubung
+
+- id: block_contact_follow_us
+  translation: Ikuti kami
+
+- id: block_contact_follow_me
+  translation: Temukan saya di
+
+- id: block_contact_prospective_title
+  translation: Calon anggota
+
+- id: block_contact_form_title
+  translation: Kirim Pesan
+
+- id: block_contact_form_name
+  translation: Nama
+
+- id: block_contact_form_email
+  translation: Email
+
+- id: block_contact_form_subject
+  translation: Subjek
+
+- id: block_contact_form_message
+  translation: Pesan
+
+- id: block_contact_form_submit
+  translation: Kirim pesan
+
+- id: blog
+  translation: Blog
+
+- id: events
+  translation: Acara
+
+- id: poweredby_button
+  translation: 'Bangun punyamu →'
+
+- id: developer
+  translation: Pengembang
+
+- id: scroll_to_content
+  translation: Gulir ke konten
+
+- id: portfolio_link_code
+  translation: Kode
+
+- id: portfolio_link_live
+  translation: Langsung
+
+- id: portfolio_link_demo
+  translation: Demo
+
+- id: portfolio_link_default
+  translation: Tautan
+
+- id: portfolio_view_all
+  translation: Lihat semua proyek
+
+- id: featured
+  translation: Unggulan

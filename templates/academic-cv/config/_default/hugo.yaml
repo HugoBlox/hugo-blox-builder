@@ -18,6 +18,16 @@ defaultContentLanguageInSubdir: false
 removePathAccents: true
 
 ############################
+## PAGE OPTIONS
+############################
+
+cascade:
+  - _target:
+      path: /slides/**
+      kind: page
+    outputs: [HTML, present]
+
+############################
 ## ADVANCED
 ############################
 
