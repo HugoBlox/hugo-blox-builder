@@ -1,4 +1,4 @@
-# [Fast & Flexible Link In Bio Theme](https://github.com/HugoBlox/theme-link-in-bio)
+# [Fast & Flexible Link In Bio Theme](https://github.com/HugoBlox/hugo-theme-link-in-bio)
 
 [![Screenshot](./.github/preview.webp)](https://hugoblox.com/templates/)
 

@@ -1,4 +1,4 @@
-# [Creator's Blog: Hugo Theme](https://github.com/HugoBlox/theme-blog)
+# [Creator's Blog: Hugo Theme](https://github.com/HugoBlox/hugo-theme-data-science-blog)
 
 [![Screenshot](./.github/preview.png)](https://hugoblox.com/templates/)
 

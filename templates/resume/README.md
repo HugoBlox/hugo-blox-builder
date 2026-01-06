@@ -1,4 +1,4 @@
-# [Hugo Résumé Theme](https://github.com/HugoBlox/theme-resume)
+# [Hugo Résumé Theme](https://github.com/HugoBlox/hugo-theme-resume)
 
 [![Screenshot](./.github/preview.png)](https://hugoblox.com/templates/)
 

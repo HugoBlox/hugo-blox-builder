@@ -53,19 +53,40 @@ jobs:
               run: |
                   # Define the full mapping
                   declare -A STARTER_MAP=(
-                    ["templates/academic-cv"]="theme-academic-cv"
-                    ["templates/resume"]="theme-resume"
-                    ["templates/blog"]="theme-blog"
-                    ["templates/documentation"]="theme-documentation"
-                    ["templates/link-in-bio"]="theme-link-in-bio"
-                    ["templates/landing-page"]="theme-landing-page"
+                    ["templates/academic-cv"]="hugo-theme-academic-cv"
+                    ["templates/resume"]="hugo-theme-resume"
+                    ["templates/data-science-blog"]="hugo-theme-data-science-blog"
+                    ["templates/documentation"]="hugo-theme-documentation"
+                    ["templates/link-in-bio"]="hugo-theme-link-in-bio"
+                    ["templates/startup-landing-page"]="hugo-theme-startup-landing-page"
                     ["templates/dev-portfolio"]="hugo-theme-developer-portfolio"
                   )
 
-                  # For non-push events, always use full matrix
+                build_full_matrix() {
+                  local JSON="[" FIRST=true
+                  local ROOTS=()
+
+                  # Sort keys to keep output stable across runs
+                  readarray -t ROOTS < <(printf "%s\n" "${!STARTER_MAP[@]}" | sort)
+
+                  for ROOT in "${ROOTS[@]}"; do
+                    if [ "$FIRST" = true ]; then
+                      FIRST=false
+                    else
+                      JSON+=","
+                    fi
+                    JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
+                  done
+
+                  JSON+="]"
+                  echo "$JSON"
+                }
+
+                # For non-push events, always use full matrix derived from the map above
                   if [ "${{ github.event_name }}" != "push" ]; then
                     echo "Using full matrix for ${{ github.event_name }} event"
-                    echo "matrix=[{\"local_path\":\"templates/academic-cv\",\"split_repository\":\"theme-academic-cv\"},{\"local_path\":\"templates/resume\",\"split_repository\":\"theme-resume\"},{\"local_path\":\"templates/blog\",\"split_repository\":\"theme-blog\"},{\"local_path\":\"templates/documentation\",\"split_repository\":\"theme-documentation\"},{\"local_path\":\"templates/link-in-bio\",\"split_repository\":\"theme-link-in-bio\"},{\"local_path\":\"templates/landing-page\",\"split_repository\":\"theme-landing-page\"},{\"local_path\":\"templates/dev-portfolio\",\"split_repository\":\"hugo-theme-developer-portfolio\"}]" >> "$GITHUB_OUTPUT"
+                  FULL_MATRIX=$(build_full_matrix)
+                  echo "matrix=$FULL_MATRIX" >> "$GITHUB_OUTPUT"
                     echo "has_changes=true" >> "$GITHUB_OUTPUT"
                     exit 0
                   fi
