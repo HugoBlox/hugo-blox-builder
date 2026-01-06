@@ -41,6 +41,7 @@ jobs:
                       templates/link-in-bio/**
                       templates/landing-page/**
                       templates/dev-portfolio/**
+                      templates/markdown-slides/**
                   dir_names: true
                   dir_names_max_depth: 2
                   dir_names_exclude_current_dir: true
@@ -60,6 +61,7 @@ jobs:
                     ["templates/link-in-bio"]="hugo-theme-link-in-bio"
                     ["templates/startup-landing-page"]="hugo-theme-startup-landing-page"
                     ["templates/dev-portfolio"]="hugo-theme-developer-portfolio"
+                    ["templates/markdown-slides"]="hugo-theme-markdown-slides"
                   )
 
                 build_full_matrix() {
