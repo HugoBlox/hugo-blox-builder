@@ -64,31 +64,31 @@ jobs:
                     ["templates/markdown-slides"]="hugo-theme-markdown-slides"
                   )
 
-                build_full_matrix() {
-                  local JSON="[" FIRST=true
-                  local ROOTS=()
+                  build_full_matrix() {
+                    local JSON="[" FIRST=true
+                    local ROOTS=()
 
-                  # Sort keys to keep output stable across runs
-                  readarray -t ROOTS < <(printf "%s\n" "${!STARTER_MAP[@]}" | sort)
+                    # Sort keys to keep output stable across runs
+                    readarray -t ROOTS < <(printf "%s\n" "${!STARTER_MAP[@]}" | sort)
 
-                  for ROOT in "${ROOTS[@]}"; do
-                    if [ "$FIRST" = true ]; then
-                      FIRST=false
-                    else
-                      JSON+=","
-                    fi
-                    JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
-                  done
+                    for ROOT in "${ROOTS[@]}"; do
+                      if [ "$FIRST" = true ]; then
+                        FIRST=false
+                      else
+                        JSON+=","
+                      fi
+                      JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
+                    done
 
-                  JSON+="]"
-                  echo "$JSON"
-                }
+                    JSON+="]"
+                    echo "$JSON"
+                  }
 
-                # For non-push events, always use full matrix derived from the map above
+                  # For non-push events, always use full matrix derived from the map above
                   if [ "${{ github.event_name }}" != "push" ]; then
                     echo "Using full matrix for ${{ github.event_name }} event"
-                  FULL_MATRIX=$(build_full_matrix)
-                  echo "matrix=$FULL_MATRIX" >> "$GITHUB_OUTPUT"
+                    FULL_MATRIX=$(build_full_matrix)
+                    echo "matrix=$FULL_MATRIX" >> "$GITHUB_OUTPUT"
                     echo "has_changes=true" >> "$GITHUB_OUTPUT"
                     exit 0
                   fi
@@ -124,7 +124,7 @@ jobs:
                       if [ "$FIRST" = true ]; then
                         FIRST=false
                       else
-                        JSON+="," 
+                        JSON+=","
                       fi
                       JSON+="{\"local_path\":\"$ROOT\",\"split_repository\":\"${STARTER_MAP[$ROOT]}\"}"
                     fi
