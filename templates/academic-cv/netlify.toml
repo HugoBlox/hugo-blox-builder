@@ -21,7 +21,7 @@
   publish = "public"
 
 [build.environment]
-  HUGO_VERSION = "0.154.2"
+  HUGO_VERSION = "0.154.3"
   GO_VERSION = "1.21.5"
   NODE_VERSION = "22"
   # Netlify runs an implicit install step; ensure it never enforces frozen lockfiles
