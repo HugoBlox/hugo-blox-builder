@@ -6,6 +6,12 @@ on:
         branches:
             - main
     workflow_dispatch:
+        inputs:
+            force_all:
+                description: "Force split/push of all template repos, even if no changes detected"
+                required: false
+                type: boolean
+                default: false
     # IMPORTANT: workflows below must match the upstream workflow's `name:` exactly
     workflow_run:
         workflows:
@@ -51,6 +57,7 @@ jobs:
               id: set-matrix
               env:
                   CHANGED_DIRS: ${{ steps.changed.outputs.dir_names || '' }}
+                  FORCE_ALL: ${{ github.event.inputs.force_all || 'false' }}
               run: |
                   # Define the full mapping
                   declare -A STARTER_MAP=(
@@ -83,6 +90,15 @@ jobs:
                     JSON+="]"
                     echo "$JSON"
                   }
+
+                  # Manual override to force splitting all templates
+                  if [ "$FORCE_ALL" = "true" ]; then
+                    echo "Force mode enabled; splitting all templates"
+                    FULL_MATRIX=$(build_full_matrix)
+                    echo "matrix=$FULL_MATRIX" >> "$GITHUB_OUTPUT"
+                    echo "has_changes=true" >> "$GITHUB_OUTPUT"
+                    exit 0
+                  fi
 
                   # For non-push events, always use full matrix derived from the map above
                   if [ "${{ github.event_name }}" != "push" ]; then
