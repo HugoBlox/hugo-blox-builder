@@ -51,8 +51,8 @@ jobs:
                 starter:
                     - name: academic-cv
                       path: templates/academic-cv
-                    - name: landing-page
-                      path: templates/landing-page
+                    - name: startup-landing-page
+                      path: templates/startup-landing-page
                     - name: dev-portfolio
                       path: templates/dev-portfolio
 
