@@ -1,16 +1,23 @@
 {{/* Display author list. */}}
 
-{{ if .Params.authors }}
-  {{ range $index, $term := (.GetTerms "authors") }}
-    {{- $slug := $term.Data.Term | urlize -}}
-    {{- $profile := partial "functions/get_author_profile" (dict "slug" $slug) -}}
-    {{- $display := $profile.title | default $term.LinkTitle -}}
+{{- $authors := .Params.authors -}}
+
+{{ if $authors }}
+  {{- if not (reflect.IsSlice $authors) -}}
+    {{- $authors = slice $authors -}}
+  {{- end -}}
+
+  {{ range $index, $raw := $authors }}
+    {{- $slug := $raw | urlize -}}
+    {{- $profile := partial "functions/get_author_profile" (dict "slug" $slug "title" $raw) -}}
+    {{- $termPage := site.GetPage (printf "/authors/%s" $slug) -}}
+    {{- $display := $profile.title | default $raw -}}
     {{- $highlight_name := false -}}
 
     {{- if gt $index 0 }}, {{ end -}}
     <span {{ if $highlight_name }}class="font-bold"{{end}}>
-      {{- if $term.RelPermalink -}}
-        <a href="{{ $term.RelPermalink }}">{{ $display }}</a>
+      {{- if $termPage -}}
+        <a href="{{ $termPage.RelPermalink }}">{{ $display }}</a>
       {{- else -}}
         {{ $display }}
       {{- end -}}
