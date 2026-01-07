@@ -5,14 +5,21 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $view := $block.design.view | default "card" }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
-{{ $items_offset := $block.content.offset | default 0 }}
-{{ $items_count := $block.content.count }}
+{{ $view := "card" }}
+{{ $view_raw := index $design "view" }}
+{{ if eq (printf "%T" $view_raw) "string" }}
+  {{ $view = lower (strings.TrimSpace $view_raw) }}
+{{ end }}
+
+{{ $items_offset := partial "functions/coerce_int" (dict "value" (index $content "offset") "default" 0 "min" 0) }}
+{{ $items_count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 5 "min" 0) }}
 {{ if eq $items_count 0 }}
   {{ $items_count = 65535 }}
-{{ else }}
-  {{ $items_count = $items_count | default 5 }}
 {{ end }}
 
 {{/* Query */}}
@@ -20,22 +27,78 @@
 {{ $archive_page := "" }}
 
 {{/* Filters */}}
-{{ $kinds := $block.content.filters.kinds | default (slice "page") }}
+{{ $filters := index $content "filters" }}
+{{ if not (reflect.IsMap $filters) }}{{ $filters = dict }}{{ end }}
+
+{{ $kinds := slice }}
+{{ $kinds_raw := index $filters "kinds" }}
+{{ if reflect.IsSlice $kinds_raw }}
+  {{ range $kinds_raw }}
+    {{ $kind := strings.TrimSpace (printf "%v" .) }}
+    {{ if $kind }}
+      {{ $kinds = $kinds | append $kind }}
+    {{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $kinds_raw) "string" }}
+  {{ $kind := strings.TrimSpace $kinds_raw }}
+  {{ if $kind }}
+    {{ $kinds = slice $kind }}
+  {{ end }}
+{{ end }}
+{{ if eq (len $kinds) 0 }}
+  {{ $kinds = slice "page" }}
+{{ end }}
 {{ $query = where $query "Kind" "in" $kinds }}
 
-{{ if $block.content.page_type }}
-  {{ $query = where $query "Type" $block.content.page_type }}
-  {{ $archive_page = site.GetPage "Section" $block.content.page_type }}
+{{ $page_type := "" }}
+{{ $page_type_raw := index $content "page_type" }}
+{{ if eq (printf "%T" $page_type_raw) "string" }}
+  {{ $page_type = strings.TrimSpace $page_type_raw }}
 {{ end }}
-{{ if $block.content.filters.folders }}
-  {{ $folders := $block.content.filters.folders }}
+{{ if $page_type }}
+  {{ $query = where $query "Type" $page_type }}
+  {{ $archive_page = site.GetPage "Section" $page_type }}
+{{ end }}
+
+{{ $folders_raw := index $filters "folders" }}
+{{ $folders := slice }}
+{{ if reflect.IsSlice $folders_raw }}
+  {{ range $folders_raw }}
+    {{ $folder := strings.TrimSpace (printf "%v" .) }}
+    {{ if $folder }}
+      {{ $folders = $folders | append $folder }}
+    {{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $folders_raw) "string" }}
+  {{ $folder := strings.TrimSpace $folders_raw }}
+  {{ if $folder }}
+    {{ $folders = slice $folder }}
+  {{ end }}
+{{ end }}
+{{ if gt (len $folders) 0 }}
   {{ $query = where $query "Section" "in" $folders }}
-  {{/* Init archive page to main folder */}}
-  {{ $main_folder := index $folders 0 }}
-  {{ $archive_page = site.GetPage "Section" $main_folder }}
+  {{ $main_folder := strings.TrimSpace (printf "%v" (index $folders 0)) }}
+  {{ if $main_folder }}
+    {{ $archive_page = site.GetPage "Section" $main_folder }}
+  {{ end }}
 {{ end }}
-{{ if $block.content.filters.tags }}
-  {{ $tags := $block.content.filters.tags }}
+
+{{ $tags_raw := index $filters "tags" }}
+{{ $tags := slice }}
+{{ if reflect.IsSlice $tags_raw }}
+  {{ range $tags_raw }}
+    {{ $tag := strings.TrimSpace (printf "%v" .) }}
+    {{ if $tag }}
+      {{ $tags = $tags | append $tag }}
+    {{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $tags_raw) "string" }}
+  {{ $tag := strings.TrimSpace $tags_raw }}
+  {{ if $tag }}
+    {{ $tags = slice $tag }}
+  {{ end }}
+{{ end }}
+{{ if gt (len $tags) 0 }}
   {{ $selected := slice }}
   {{ range $tags }}
     {{ $tag_page := site.GetPage (printf "tags/%s" (urlize .)) }}
@@ -45,47 +108,110 @@
   {{ end }}
   {{ if gt (len $selected) 0 }}
     {{ $query = $query | intersect $selected }}
-    {{ $archive_page = site.GetPage (printf "tags/%s" (urlize (index $tags 0))) }}
+    {{ $first_tag := index $tags 0 }}
+    {{ $archive_page = site.GetPage (printf "tags/%s" (urlize $first_tag)) }}
   {{ end }}
 {{ end }}
-{{ if $block.content.filters.tag }}
-  {{ $archive_page = site.GetPage (printf "tags/%s" (urlize $block.content.filters.tag)) }}
-  {{ $query = $query | intersect $archive_page.Pages }}
+
+{{ $tag := "" }}
+{{ $tag_raw := index $filters "tag" }}
+{{ if eq (printf "%T" $tag_raw) "string" }}
+  {{ $tag = strings.TrimSpace $tag_raw }}
 {{ end }}
-{{ if $block.content.filters.category }}
-  {{ $archive_page = site.GetPage (printf "categories/%s" (urlize $block.content.filters.category)) }}
-  {{ $query = $query | intersect $archive_page.Pages }}
+{{ if $tag }}
+  {{ with site.GetPage (printf "tags/%s" (urlize $tag)) }}
+    {{ $archive_page = . }}
+    {{ $query = $query | intersect .Pages }}
+  {{ end }}
 {{ end }}
-{{ if $block.content.filters.publication_type }}
-  {{ $archive_page = site.GetPage (printf "publication_types/%s" $block.content.filters.publication_type) }}
-  {{ $query = $query | intersect $archive_page.Pages }}
+
+{{ $category := "" }}
+{{ $category_raw := index $filters "category" }}
+{{ if eq (printf "%T" $category_raw) "string" }}
+  {{ $category = strings.TrimSpace $category_raw }}
 {{ end }}
-{{ if $block.content.filters.exclude_publication_type }}
-  {{ $query = $query | complement (site.GetPage (printf "publication_types/%s" $block.content.filters.exclude_publication_type)).Pages }}
+{{ if $category }}
+  {{ with site.GetPage (printf "categories/%s" (urlize $category)) }}
+    {{ $archive_page = . }}
+    {{ $query = $query | intersect .Pages }}
+  {{ end }}
 {{ end }}
-{{ if $block.content.filters.author }}
-  {{ $archive_page = site.GetPage (printf "authors/%s" (urlize $block.content.filters.author)) }}
-  {{ $query = $query | intersect $archive_page.Pages }}
+
+{{ $publication_type := "" }}
+{{ $publication_type_raw := index $filters "publication_type" }}
+{{ if eq (printf "%T" $publication_type_raw) "string" }}
+  {{ $publication_type = strings.TrimSpace $publication_type_raw }}
 {{ end }}
-{{ if $block.content.filters.featured_only }}
+{{ if $publication_type }}
+  {{ with site.GetPage (printf "publication_types/%s" $publication_type) }}
+    {{ $archive_page = . }}
+    {{ $query = $query | intersect .Pages }}
+  {{ end }}
+{{ end }}
+
+{{ $exclude_publication_type := "" }}
+{{ $exclude_publication_type_raw := index $filters "exclude_publication_type" }}
+{{ if eq (printf "%T" $exclude_publication_type_raw) "string" }}
+  {{ $exclude_publication_type = strings.TrimSpace $exclude_publication_type_raw }}
+{{ end }}
+{{ if $exclude_publication_type }}
+  {{ with site.GetPage (printf "publication_types/%s" $exclude_publication_type) }}
+    {{ $query = $query | complement .Pages }}
+  {{ end }}
+{{ end }}
+
+{{ $author_filter := "" }}
+{{ $author_filter_raw := index $filters "author" }}
+{{ if eq (printf "%T" $author_filter_raw) "string" }}
+  {{ $author_filter = strings.TrimSpace $author_filter_raw }}
+{{ end }}
+{{ if $author_filter }}
+  {{ with site.GetPage (printf "authors/%s" (urlize $author_filter)) }}
+    {{ $archive_page = . }}
+    {{ $query = $query | intersect .Pages }}
+  {{ end }}
+{{ end }}
+
+{{ $featured_only := partial "functions/coerce_bool" (dict "value" (index $filters "featured_only") "default" false) }}
+{{ if $featured_only }}
   {{ $query = where $query "Params.featured" "==" true }}
 {{ end }}
-{{ if $block.content.filters.exclude_featured }}
+{{ $exclude_featured := partial "functions/coerce_bool" (dict "value" (index $filters "exclude_featured") "default" false) }}
+{{ if $exclude_featured }}
   {{ $query = where $query "Params.featured" "!=" true }}
 {{ end }}
-{{ if $block.content.filters.exclude_past }}
+{{ $exclude_past := partial "functions/coerce_bool" (dict "value" (index $filters "exclude_past") "default" false) }}
+{{ if $exclude_past }}
   {{ $query = where $query "Date" ">=" now }}
 {{ end }}
-{{ if $block.content.filters.exclude_future }}
+{{ $exclude_future := partial "functions/coerce_bool" (dict "value" (index $filters "exclude_future") "default" false) }}
+{{ if $exclude_future }}
   {{ $query = where $query "Date" "<" now }}
 {{ end }}
 
 {{ $count := len $query }}
 
 {{/* Sort */}}
-{{ $sort_by := $block.content.sort_by | default "Date" }}
+{{ $sort_by := "Date" }}
+{{ $sort_by_raw := index $content "sort_by" }}
+{{ if eq (printf "%T" $sort_by_raw) "string" }}
+  {{ $sort_by_raw = strings.TrimSpace $sort_by_raw }}
+  {{ if ne $sort_by_raw "" }}
+    {{ $sort_by = $sort_by_raw }}
+  {{ end }}
+{{ end }}
 {{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
-{{ $sort_ascending := $block.content.sort_ascending | default (eq $block.content.order "asc") | default false }}
+{{ $sort_ascending := false }}
+{{ if isset $content "sort_ascending" }}
+  {{ $sort_ascending = partial "functions/coerce_bool" (dict "value" (index $content "sort_ascending") "default" false) }}
+{{ else }}
+  {{ $order_raw := index $content "order" }}
+  {{ if eq (printf "%T" $order_raw) "string" }}
+    {{ if eq (lower (strings.TrimSpace $order_raw)) "asc" }}
+      {{ $sort_ascending = true }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 {{ $sort_order := cond $sort_ascending "asc" "desc" }}
 {{ $query = sort $query $sort_by $sort_order }}
 
@@ -104,28 +230,32 @@
   {{ end }}
 {{ end }}
 
-{{ $columns := $block.design.columns | default "2" }}
+{{ $columns := partial "functions/coerce_int" (dict "value" (index $design "columns") "default" 2 "min" 1 "max" 4) }}
+{{ $title := "" }}
+{{ with index $content "title" }}{{ $title = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $text := "" }}
+{{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString }}{{ end }}
 
-{{ if $block.content.title }}
+{{ if $title }}
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center px-6 md:px-0">
 
   <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-    {{ $block.content.title | emojify | $page.RenderString }}
+    {{ $title }}
   </div>
 
-  {{ with $block.content.text }}<p>{{ . | emojify | $page.RenderString }}</p>{{ end }}
+  {{ with $text }}<p>{{ . }}</p>{{ end }}
 </div>
 {{ end }}
 
 <div class="flex flex-col items-center px-6">
 
   {{ $config := dict 
-      "columns" ($block.design.columns | default 2) 
+      "columns" $columns
       "len" (len $query) 
-      "fill_image" ($block.design.fill_image | default true)
-      "show_date" ($block.design.show_date | default true)
-      "show_read_time" ($block.design.show_read_time | default true)
-      "show_read_more" ($block.design.show_read_more | default true)
+      "fill_image" (partial "functions/coerce_bool" (dict "value" (index $design "fill_image") "default" true))
+      "show_date" (partial "functions/coerce_bool" (dict "value" (index $design "show_date") "default" true))
+      "show_read_time" (partial "functions/coerce_bool" (dict "value" (index $design "show_read_time") "default" true))
+      "show_read_more" (partial "functions/coerce_bool" (dict "value" (index $design "show_read_more") "default" true))
     }}
   {{ partial "functions/render_view" (dict "fragment" "start" "page" $block "item" . "view" $view "config" $config) }}
 
@@ -138,14 +268,29 @@
 </div>
 
 {{/* Archive link */}}
-{{ $show_archive_link := $block.content.archive.enable | default (gt $count $items_count) }}
+{{ $archive := index $content "archive" }}
+{{ if not (reflect.IsMap $archive) }}{{ $archive = dict }}{{ end }}
+{{ $show_archive_link := gt $count $items_count }}
+{{ if isset $archive "enable" }}
+  {{ $show_archive_link = partial "functions/coerce_bool" (dict "value" (index $archive "enable") "default" false) }}
+{{ end }}
 {{ if $show_archive_link | and $archive_page }}
 
   {{ $archive_link := "" }}
-  {{ if $block.content.archive.link }}
-    {{ $archive_link = $block.content.archive.link | relLangURL }}
-  {{ else }}
+  {{ $archive_link_raw := index $archive "link" }}
+  {{ if eq (printf "%T" $archive_link_raw) "string" }}
+    {{ $archive_link = strings.TrimSpace $archive_link_raw }}
+  {{ end }}
+  {{ if not $archive_link }}
     {{ $archive_link = $archive_page.RelPermalink }}
+  {{ end }}
+  {{ if $archive_link }}
+    {{ $scheme := (urls.Parse $archive_link).Scheme }}
+    {{ if not $scheme }}
+      {{ if not (hasPrefix $archive_link "#") }}
+        {{ $archive_link = $archive_link | relLangURL }}
+      {{ end }}
+    {{ end }}
   {{ end }}
 
   {{/* Localisation */}}
@@ -161,13 +306,20 @@
     {{ $i18n = "more_pages" }}
   {{ end }}
 
-  {{ $archive_text := $block.content.archive.text | default (i18n $i18n) | default "See all" }}
+  {{ $archive_text := "" }}
+  {{ $archive_text_raw := index $archive "text" }}
+  {{ if eq (printf "%T" $archive_text_raw) "string" }}
+    {{ $archive_text = strings.TrimSpace $archive_text_raw }}
+  {{ end }}
+  {{ if not $archive_text }}
+    {{ $archive_text = i18n $i18n | default "See all" }}
+  {{ end }}
 
   <div class="container mx-auto max-w-screen-lg px-8 xl:px-5 pb-5 lg:pb-8">
     <div class="mt-10 flex justify-center">
       <a
         class="relative inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300"
-        href="{{ $archive_link }}">
+        href="{{ $archive_link | safeURL }}">
           <span>{{ $archive_text | emojify }}</span>
         </a>
       </div>

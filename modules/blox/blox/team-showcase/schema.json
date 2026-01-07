@@ -108,7 +108,7 @@
             },
             "show_interests": {
               "type": "boolean",
-              "description": "Display up to three interests per profile",
+              "description": "Display interests per profile (capped by max_interests)",
               "default": false
             },
             "show_social": {
@@ -152,7 +152,13 @@
             "title": "Meet the team",
             "subtitle": "Research + Engineering",
             "text": "We combine safety research with high-velocity engineering.",
-            "user_groups": ["Principal Investigators", "PhD Students"],
+            "user_groups": [
+              "Principal Investigators",
+              "Research Engineers",
+              { "name": "Alumni", "sort_by": "graduation_year", "sort_ascending": false }
+            ],
+            "sort_by": "name_family",
+            "sort_ascending": true,
             "cta": {
               "text": "Join us",
               "url": "/apply",
@@ -162,8 +168,12 @@
           "design": {
             "show_role": true,
             "show_organizations": true,
-            "show_interests": false,
-            "show_social": true
+            "show_interests": true,
+            "max_interests": 3,
+            "show_social": true,
+            "align": "left",
+            "max_columns": 3,
+            "show_empty_groups": false
           }
         }
       ]

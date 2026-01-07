@@ -154,7 +154,7 @@
           "properties": {
             "view": {
               "type": "string",
-              "enum": ["card", "compact", "showcase", "citation", "list", "masonry"],
+              "enum": ["card", "compact", "showcase", "citation", "list", "masonry", "article-grid", "date-title-summary", "slides-gallery"],
               "description": "Display view type",
               "default": "card"
             },

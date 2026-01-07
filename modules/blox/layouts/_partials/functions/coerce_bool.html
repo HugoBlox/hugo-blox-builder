@@ -1,0 +1,20 @@
+{{ $value := .value }}
+{{ $result := .default }}
+{{ if ne $value nil }}
+  {{ $valueType := printf "%T" $value }}
+  {{ if eq $valueType "bool" }}
+    {{ $result = $value }}
+  {{ else if or (eq $valueType "int") (eq $valueType "int8") (eq $valueType "int16") (eq $valueType "int32") (eq $valueType "int64") (eq $valueType "uint") (eq $valueType "uint8") (eq $valueType "uint16") (eq $valueType "uint32") (eq $valueType "uint64") }}
+    {{ $result = ne (int $value) 0 }}
+  {{ else if or (eq $valueType "float32") (eq $valueType "float64") }}
+    {{ $result = ne (float $value) 0 }}
+  {{ else if eq $valueType "string" }}
+    {{ $trimmed := lower (strings.TrimSpace $value) }}
+    {{ if in (slice "1" "true" "yes" "y" "on") $trimmed }}
+      {{ $result = true }}
+    {{ else if in (slice "0" "false" "no" "n" "off") $trimmed }}
+      {{ $result = false }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $result }}

@@ -1,0 +1,26 @@
+{{ $value := .value }}
+{{ $result := .default }}
+{{ if ne $value nil }}
+  {{ $valueType := printf "%T" $value }}
+  {{ if or (eq $valueType "int") (eq $valueType "int8") (eq $valueType "int16") (eq $valueType "int32") (eq $valueType "int64") (eq $valueType "uint") (eq $valueType "uint8") (eq $valueType "uint16") (eq $valueType "uint32") (eq $valueType "uint64") (eq $valueType "float32") (eq $valueType "float64") }}
+    {{ $result = int $value }}
+  {{ else if eq $valueType "string" }}
+    {{ $trimmed := strings.TrimSpace $value }}
+    {{ if gt (len (findRE "^-?[0-9]+$" $trimmed)) 0 }}
+      {{ $result = int $trimmed }}
+    {{ else if gt (len (findRE "^-?[0-9]*\\.[0-9]+$" $trimmed)) 0 }}
+      {{ $result = int (float $trimmed) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ if isset . "min" }}
+  {{ if lt $result .min }}
+    {{ $result = .min }}
+  {{ end }}
+{{ end }}
+{{ if isset . "max" }}
+  {{ if gt $result .max }}
+    {{ $result = .max }}
+  {{ end }}
+{{ end }}
+{{ return $result }}

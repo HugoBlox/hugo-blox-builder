@@ -41,6 +41,11 @@
                 "icon": {
                   "type": "string",
                   "description": "Optional button icon (icon pack format: pack/icon-name)"
+                },
+                "new_tab": {
+                  "type": "boolean",
+                  "description": "Open the button link in a new tab",
+                  "default": false
                 }
               },
               "required": ["url", "text"],

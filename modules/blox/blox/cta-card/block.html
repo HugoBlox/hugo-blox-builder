@@ -6,14 +6,52 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString | safeHTML }}
-{{ $card_class := $block.design.card.css_class }}
-{{ $card_style := $block.design.card.css_style }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+{{ $card := index $design "card" }}
+{{ if not (reflect.IsMap $card) }}{{ $card = dict }}{{ end }}
+
+{{ $title := "" }}
+{{ with index $content "title" }}{{ $title = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $text := "" }}
+{{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString | safeHTML }}{{ end }}
+{{ $card_class := "" }}
+{{ $card_class_raw := index $card "css_class" }}
+{{ if eq (printf "%T" $card_class_raw) "string" }}
+  {{ $card_class = $card_class_raw }}
+{{ end }}
+{{ $card_style := "" }}
+{{ $card_style_raw := index $card "css_style" }}
+{{ if eq (printf "%T" $card_style_raw) "string" }}
+  {{ $card_style = $card_style_raw }}
+{{ end }}
 
 {{/* Contrast and accessibility controls */}}
-{{ $text_color_mode := $block.design.card.text_color | default "auto" }}
-{{ $overlay_opacity := $block.design.card.overlay_opacity | default 0.15 }}
+{{ $text_color_mode := "auto" }}
+{{ $text_color_raw := index $card "text_color" }}
+{{ if eq (printf "%T" $text_color_raw) "string" }}
+  {{ $text_color_candidate := lower (strings.TrimSpace $text_color_raw) }}
+  {{ if in (slice "auto" "light" "dark") $text_color_candidate }}
+    {{ $text_color_mode = $text_color_candidate }}
+  {{ end }}
+{{ end }}
+{{ $overlay_opacity := 0.15 }}
+{{ $overlay_raw := index $card "overlay_opacity" }}
+{{ if ne $overlay_raw nil }}
+  {{ $overlay_type := printf "%T" $overlay_raw }}
+  {{ if or (eq $overlay_type "int") (eq $overlay_type "int8") (eq $overlay_type "int16") (eq $overlay_type "int32") (eq $overlay_type "int64") (eq $overlay_type "uint") (eq $overlay_type "uint8") (eq $overlay_type "uint16") (eq $overlay_type "uint32") (eq $overlay_type "uint64") (eq $overlay_type "float32") (eq $overlay_type "float64") }}
+    {{ $overlay_opacity = float $overlay_raw }}
+  {{ else if eq $overlay_type "string" }}
+    {{ $overlay_trimmed := strings.TrimSpace $overlay_raw }}
+    {{ if gt (len (findRE "^-?[0-9]*\\.?[0-9]+$" $overlay_trimmed)) 0 }}
+      {{ $overlay_opacity = float $overlay_trimmed }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ if lt $overlay_opacity 0 }}{{ $overlay_opacity = 0 }}{{ end }}
+{{ if gt $overlay_opacity 1 }}{{ $overlay_opacity = 1 }}{{ end }}
 
 {{/* Auto-detect text color based on background */}}
 {{ $text_classes := "" }}
@@ -27,8 +65,19 @@
 {{ else }}
   {{/* Auto mode - detect based on gradient colors */}}
   {{ $is_dark_bg := false }}
-  {{ with $block.design.background.gradient.start }}
-    {{ if or (hasPrefix . "primary-7") (hasPrefix . "primary-8") (hasPrefix . "primary-9") (hasPrefix . "secondary-7") (hasPrefix . "secondary-8") (hasPrefix . "secondary-9") }}
+  {{ $gradient_start := "" }}
+  {{ $bg := index $design "background" }}
+  {{ if and $bg (reflect.IsMap $bg) }}
+    {{ $gradient := index $bg "gradient" }}
+    {{ if and $gradient (reflect.IsMap $gradient) }}
+      {{ $start_raw := index $gradient "start" }}
+      {{ if eq (printf "%T" $start_raw) "string" }}
+        {{ $gradient_start = $start_raw }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ if $gradient_start }}
+    {{ if or (hasPrefix $gradient_start "primary-7") (hasPrefix $gradient_start "primary-8") (hasPrefix $gradient_start "primary-9") (hasPrefix $gradient_start "secondary-7") (hasPrefix $gradient_start "secondary-8") (hasPrefix $gradient_start "secondary-9") }}
       {{ $is_dark_bg = true }}
     {{ end }}
   {{ end }}
@@ -52,59 +101,78 @@
      style="{{ $custom_style | safeCSS }}">
     
     {{/* Modern Typography Hierarchy - Responsive text colors */}}
+    {{ with $title }}
     <h2 class="{{ $text_classes }} text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
-      {{ $title }}
+      {{ . }}
     </h2>
+    {{ end }}
     
     {{/* Enhanced Text with Better Spacing - Responsive colors */}}
+    {{ with $text }}
     <div class="{{ $text_classes }}/80 mt-6 text-lg sm:text-xl lg:text-2xl max-w-3xl leading-relaxed font-light">
-      {{ $text }}
+      {{ . }}
     </div>
+    {{ end }}
     
-    {{ with $block.content.button }}
-    {{/* Modern 2025 Button Container */}}
-    <div class="flex mt-10">
-      {{ $button_link := .url }}
-      {{ $button_scheme := (urls.Parse $button_link).Scheme }}
-      {{ $button_target := "" }}
-      {{ $new_tab := .new_tab | default false }}
-      {{ if not $button_scheme }}
-        {{/* Check if it's a hash fragment (page anchor) */}}
-        {{ if hasPrefix $button_link "#" }}
-          {{/* Keep hash fragments as-is */}}
-          {{ $button_link = $button_link }}
-        {{ else }}
-          {{/* Apply relLangURL for relative paths */}}
-          {{ $button_link = $button_link | relLangURL }}
+    {{ $button_raw := index $content "button" }}
+    {{ if and $button_raw (reflect.IsMap $button_raw) }}
+      {{ $button_text := "" }}
+      {{ $button_url := "" }}
+      {{ $button_icon := "" }}
+      {{ $button_new_tab := partial "functions/coerce_bool" (dict "value" (index $button_raw "new_tab") "default" false) }}
+      {{ with index $button_raw "text" }}{{ $button_text = printf "%v" . }}{{ end }}
+      {{ with index $button_raw "url" }}{{ $button_url = printf "%v" . }}{{ end }}
+      {{ with index $button_raw "icon" }}
+        {{ if eq (printf "%T" .) "string" }}
+          {{ $button_icon = . }}
         {{ end }}
-      {{ else if in (slice "http" "https") $button_scheme }}
-        {{ $new_tab = true }}
       {{ end }}
-      {{/* Apply new tab if requested or external link */}}
-      {{ if $new_tab }}
-        {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ $button_text = strings.TrimSpace $button_text }}
+      {{ $button_url = strings.TrimSpace $button_url }}
+      {{ if and $button_text $button_url }}
+        {{/* Modern 2025 Button Container */}}
+        <div class="flex mt-10">
+          {{ $button_link := $button_url }}
+          {{ $button_scheme := (urls.Parse $button_link).Scheme }}
+          {{ $button_target := "" }}
+          {{ if not $button_scheme }}
+            {{/* Check if it's a hash fragment (page anchor) */}}
+            {{ if not (hasPrefix $button_link "#") }}
+              {{/* Apply relLangURL for relative paths */}}
+              {{ $button_link = $button_link | relLangURL }}
+            {{ end }}
+            {{ if eq (path.Ext $button_link) ".pdf" }}
+              {{ $button_new_tab = true }}
+            {{ end }}
+          {{ else if in (slice "http" "https") $button_scheme }}
+            {{ $button_new_tab = true }}
+          {{ end }}
+          {{/* Apply new tab if requested or external link */}}
+          {{ if $button_new_tab }}
+            {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+          
+          {{/* 2025 Glassmorphism Button */}}
+          <a href="{{ $button_link | safeURL }}" 
+             {{ $button_target | safeHTMLAttr }} 
+             class="group relative inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold {{ $button_classes }} transition-all duration-300 ease-out hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500/50 dark:focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent">
+            
+            {{/* Button Background with Glassmorphism */}}
+            <div class="absolute inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl ring-1 ring-gray-200/30 dark:ring-white/30 shadow-lg group-hover:bg-white dark:group-hover:bg-gray-800 group-hover:ring-gray-300/50 dark:group-hover:ring-white/50 group-hover:shadow-2xl transition-all duration-300"></div>
+            
+            {{/* Button Content */}}
+            <span class="relative z-10">{{ $button_text }}</span>
+            {{ if $button_icon }}
+              <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+                {{ partial "functions/get_icon" (dict "name" $button_icon "attributes" "style=\"height: 1.25em\" class='inline-block'") }}
+              </span>
+            {{ end }}
+            
+            {{/* Subtle glow effect */}}
+            <div class="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+          </a>
+        </div>
       {{ end }}
-      
-      {{/* 2025 Glassmorphism Button */}}
-      <a href="{{ $button_link | safeURL }}" 
-         {{ $button_target | safeHTMLAttr }} 
-         class="group relative inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold {{ $button_classes }} transition-all duration-300 ease-out hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500/50 dark:focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent">
-        
-        {{/* Button Background with Glassmorphism */}}
-        <div class="absolute inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl ring-1 ring-gray-200/30 dark:ring-white/30 shadow-lg group-hover:bg-white dark:group-hover:bg-gray-800 group-hover:ring-gray-300/50 dark:group-hover:ring-white/50 group-hover:shadow-2xl transition-all duration-300"></div>
-        
-        {{/* Button Content */}}
-        <span class="relative z-10">{{ .text }}</span>
-        {{ with .icon }}
-          <span class="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-            {{ partial "functions/get_icon" (dict "name" . "attributes" "style=\"height: 1.25em\" class='inline-block'") }}
-          </span>
-        {{ end }}
-        
-        {{/* Subtle glow effect */}}
-        <div class="absolute inset-0 bg-white/20 dark:bg-white/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-      </a>
-    </div>
     {{ end }}
     
 </div>

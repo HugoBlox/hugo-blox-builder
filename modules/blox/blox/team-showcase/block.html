@@ -5,16 +5,38 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $show_social := $block.design.show_social | default true }}
-{{ $show_interests := $block.design.show_interests | default false }}
-{{ $show_role := $block.design.show_role | default true }}
-{{ $show_organizations := $block.design.show_organizations | default true }}
-{{ $max_interests := $block.design.max_interests | default 3 }}
-{{ $align := $block.design.align | default "center" }}
-{{ $max_columns := $block.design.max_columns | default 4 }}
-{{ $show_empty_groups := $block.design.show_empty_groups | default false }}
-{{ $sort_field := $block.content.sort_by | default "name_family" }}
-{{ $sort_asc := $block.content.sort_ascending | default true }}
+
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+
+{{ $show_social := partial "functions/coerce_bool" (dict "value" (index $design "show_social") "default" true) }}
+{{ $show_interests := partial "functions/coerce_bool" (dict "value" (index $design "show_interests") "default" false) }}
+{{ $show_role := partial "functions/coerce_bool" (dict "value" (index $design "show_role") "default" true) }}
+{{ $show_organizations := partial "functions/coerce_bool" (dict "value" (index $design "show_organizations") "default" true) }}
+{{ $show_empty_groups := partial "functions/coerce_bool" (dict "value" (index $design "show_empty_groups") "default" false) }}
+{{ $max_interests_int := partial "functions/coerce_int" (dict "value" (index $design "max_interests") "default" 3 "min" 0) }}
+{{ $max_columns_int := partial "functions/coerce_int" (dict "value" (index $design "max_columns") "default" 4 "min" 2 "max" 4) }}
+
+{{ $align := "center" }}
+{{ $align_raw := index $design "align" }}
+{{ if eq (printf "%T" $align_raw) "string" }}
+  {{ $align_candidate := lower (strings.TrimSpace $align_raw) }}
+  {{ if in (slice "center" "left") $align_candidate }}
+    {{ $align = $align_candidate }}
+  {{ end }}
+{{ end }}
+
+{{ $sort_field := "name_family" }}
+{{ $sort_field_raw := index $content "sort_by" }}
+{{ if eq (printf "%T" $sort_field_raw) "string" }}
+  {{ $sort_field_raw = strings.TrimSpace $sort_field_raw }}
+  {{ if ne $sort_field_raw "" }}
+    {{ $sort_field = $sort_field_raw }}
+  {{ end }}
+{{ end }}
+{{ $sort_asc := partial "functions/coerce_bool" (dict "value" (index $content "sort_ascending") "default" true) }}
 {{ $sort_field_lc := lower $sort_field }}
 {{ if hasPrefix $sort_field_lc "params." }}
   {{/* Backwards compatibility with Params.* used when authors were pages */}}
@@ -22,35 +44,14 @@
   {{ $sort_field_lc = lower $sort_field }}
 {{ end }}
 
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $title := "" }}
+{{ with index $content "title" }}{{ $title = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $subtitle := "" }}
+{{ with index $content "subtitle" }}{{ $subtitle = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $text := "" }}
+{{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString }}{{ end }}
 {{ $alignClass := cond (eq $align "left") "items-start text-left" "items-center text-center" }}
 {{ $ctaAlignClass := cond (eq $align "left") "text-left" "text-center" }}
-
-{{/* Safe numeric handling with clamping using type checks */}}
-{{ $max_columns_int := 4 }}
-{{ $max_columns_type := printf "%T" $max_columns }}
-{{ if or (eq $max_columns_type "int") (eq $max_columns_type "int64") (eq $max_columns_type "float64") (eq $max_columns_type "float32") (eq $max_columns_type "uint") (eq $max_columns_type "uint64") }}
-  {{ $max_columns_int = int $max_columns }}
-{{ else if eq $max_columns_type "string" }}
-  {{ if gt (len (findRE "^[0-9]+$" $max_columns)) 0 }}
-    {{ $max_columns_int = int $max_columns }}
-  {{ end }}
-{{ end }}
-{{ if lt $max_columns_int 2 }}{{ $max_columns_int = 2 }}{{ end }}
-{{ if gt $max_columns_int 4 }}{{ $max_columns_int = 4 }}{{ end }}
-
-{{ $max_interests_int := 3 }}
-{{ $max_interests_type := printf "%T" $max_interests }}
-{{ if or (eq $max_interests_type "int") (eq $max_interests_type "int64") (eq $max_interests_type "float64") (eq $max_interests_type "float32") (eq $max_interests_type "uint") (eq $max_interests_type "uint64") }}
-  {{ $max_interests_int = int $max_interests }}
-{{ else if eq $max_interests_type "string" }}
-  {{ if gt (len (findRE "^[0-9]+$" $max_interests)) 0 }}
-    {{ $max_interests_int = int $max_interests }}
-  {{ end }}
-{{ end }}
-{{ if lt $max_interests_int 0 }}{{ $max_interests_int = 0 }}{{ end }}
 
 {{ $columnsClasses := dict
   "2" "grid grid-cols-1 gap-8 sm:grid-cols-2"
@@ -91,9 +92,17 @@
     {{ $allProfiles = $allProfiles | append (dict "profile" $profile "profileData" $profileData) }}
   {{ end }}
 
-  {{ $groups := $block.content.user_groups }}
+  {{ $groups_raw := index $content "user_groups" }}
+  {{ $groups := slice }}
+  {{ if reflect.IsSlice $groups_raw }}
+    {{ $groups = $groups_raw }}
+  {{ else if eq (printf "%T" $groups_raw) "string" }}
+    {{ $groups = slice $groups_raw }}
+  {{ else if and $groups_raw (reflect.IsMap $groups_raw) }}
+    {{ $groups = slice $groups_raw }}
+  {{ end }}
 
-  {{ if $groups }}
+  {{ if gt (len $groups) 0 }}
     {{ range $i, $groupItem := $groups }}
       {{ $groupName := "" }}
       {{ $groupSortField := $sort_field }}
@@ -101,12 +110,22 @@
       {{ $groupSortFieldLc := "" }}
       {{ $itemIsMap := reflect.IsMap $groupItem }}
       {{ if $itemIsMap }}
-        {{ $groupName = index $groupItem "name" | default (index $groupItem "title") | default "" }}
-        {{ $groupSortField = index $groupItem "sort_by" | default $groupSortField }}
-        {{ $groupSortAsc = index $groupItem "sort_ascending" | default $groupSortAsc }}
+        {{ $groupNameRaw := index $groupItem "name" | default (index $groupItem "title") }}
+        {{ if ne $groupNameRaw nil }}
+          {{ $groupName = printf "%v" $groupNameRaw }}
+        {{ end }}
+        {{ $groupSortFieldRaw := index $groupItem "sort_by" }}
+        {{ if eq (printf "%T" $groupSortFieldRaw) "string" }}
+          {{ $groupSortFieldRaw = strings.TrimSpace $groupSortFieldRaw }}
+          {{ if ne $groupSortFieldRaw "" }}
+            {{ $groupSortField = $groupSortFieldRaw }}
+          {{ end }}
+        {{ end }}
+        {{ $groupSortAsc = partial "functions/coerce_bool" (dict "value" (index $groupItem "sort_ascending") "default" $groupSortAsc) }}
       {{ else }}
-        {{ $groupName = $groupItem }}
+        {{ $groupName = printf "%v" $groupItem }}
       {{ end }}
+      {{ $groupName = strings.TrimSpace $groupName }}
       {{ if eq (trim $groupName " ") "" }}
         {{/* Skip groups with empty names to avoid matching everything */}}
         {{ continue }}
@@ -122,10 +141,17 @@
       {{ $groupProfiles := slice }}
       {{ range $allProfiles }}
         {{ $profile := .profile }}
-        {{ $uRaw := $profile.user_groups | default (slice) }}
         {{ $u := slice }}
-        {{ range $uRaw }}
-          {{ $u = $u | append (printf "%v" .) }}
+        {{ $uRaw := $profile.user_groups }}
+        {{ if reflect.IsSlice $uRaw }}
+          {{ range $uRaw }}
+            {{ $u = $u | append (printf "%v" .) }}
+          {{ end }}
+        {{ else if eq (printf "%T" $uRaw) "string" }}
+          {{ $trimmedGroup := strings.TrimSpace $uRaw }}
+          {{ if ne $trimmedGroup "" }}
+            {{ $u = slice $trimmedGroup }}
+          {{ end }}
         {{ end }}
         {{ if gt (len (intersect $u (slice (printf "%v" $groupName)))) 0 }}
           {{ $profileData := .profileData }}
@@ -212,37 +238,67 @@
                   </a>
                 </h3>
                 
+                {{ $affiliations_raw := $profile.affiliations }}
+                {{ $affiliations := slice }}
+                {{ if reflect.IsSlice $affiliations_raw }}
+                  {{ $affiliations = $affiliations_raw }}
+                {{ else if eq (printf "%T" $affiliations_raw) "string" }}
+                  {{ $affiliations = slice $affiliations_raw }}
+                {{ end }}
+                {{ $first_affiliation := "" }}
+                {{ if gt (len $affiliations) 0 }}
+                  {{ $aff := index $affiliations 0 }}
+                  {{ if reflect.IsMap $aff }}
+                    {{ $affNameRaw := index $aff "name" | default (index $aff "title") }}
+                    {{ if ne $affNameRaw nil }}
+                      {{ $first_affiliation = printf "%v" $affNameRaw }}
+                    {{ end }}
+                  {{ else if eq (printf "%T" $aff) "string" }}
+                    {{ $first_affiliation = $aff }}
+                  {{ end }}
+                  {{ $first_affiliation = strings.TrimSpace $first_affiliation }}
+                {{ end }}
+
                 {{ if $show_role }}
                 <div class="text-gray-600 dark:text-gray-400 mb-3">
                   {{ $roleText := "" }}
-                  {{ with $profile.role }}{{ $roleText = . }}{{ end }}
-                  {{ if and (not $roleText) $profile.affiliations }}
-                    {{ range first 1 $profile.affiliations }}
-                      {{ $roleText = .name }}
+                  {{ with $profile.role }}
+                    {{ if eq (printf "%T" .) "string" }}
+                      {{ $roleText = . }}
                     {{ end }}
                   {{ end }}
+                  {{ if and (not $roleText) $first_affiliation }}
+                    {{ $roleText = $first_affiliation }}
+                  {{ end }}
                   {{ with $roleText }}<p class="font-medium">{{ . }}</p>{{ end }}
-                  {{ if and $show_organizations $profile.affiliations }}
-                    {{ range first 1 $profile.affiliations }}
-                    <p class="text-sm mt-1">{{ .name }}</p>
-                    {{ end }}
+                  {{ if and $show_organizations $first_affiliation }}
+                    <p class="text-sm mt-1">{{ $first_affiliation }}</p>
                   {{ end }}
                 </div>
                 {{ end }}
                 
-                {{ with $profile.bio }}
+                {{ $bio := "" }}
+                {{ with $profile.bio }}{{ $bio = printf "%v" . }}{{ end }}
+                {{ with $bio }}
                 <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
                   {{ . }}
                 </p>
                 {{ end }}
                 
-                {{ if and $show_interests $profile.interests }}
+                {{ $interests_raw := $profile.interests }}
+                {{ $interests := slice }}
+                {{ if reflect.IsSlice $interests_raw }}
+                  {{ $interests = $interests_raw }}
+                {{ else if eq (printf "%T" $interests_raw) "string" }}
+                  {{ $interests = slice $interests_raw }}
+                {{ end }}
+                {{ if and $show_interests (gt (len $interests) 0) }}
                 <div class="mb-4">
                   <div class="flex flex-wrap gap-1">
                     {{ if gt $max_interests_int 0 }}
-                      {{ range first $max_interests_int $profile.interests }}
+                      {{ range first $max_interests_int $interests }}
                       <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
-                        {{ . }}
+                        {{ printf "%v" . }}
                       </span>
                       {{ end }}
                     {{ end }}
@@ -250,26 +306,55 @@
                 </div>
                 {{ end }}
                 
-                {{ if and $show_social $profile.links }}
+                {{ $links_raw := $profile.links }}
+                {{ $links := slice }}
+                {{ if reflect.IsSlice $links_raw }}
+                  {{ $links = $links_raw }}
+                {{ else if eq (printf "%T" $links_raw) "string" }}
+                  {{ $links = slice $links_raw }}
+                {{ end }}
+                {{ if and $show_social (gt (len $links) 0) }}
                 <div class="flex gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
-                  {{ range $profile.links }}
-                  {{ $l := .url | default .link }}
-                  {{ $scheme := (urls.Parse $l).Scheme }}
-                  {{ $target := "" }}
-                  {{ if not $scheme }}
-                    {{ $l = (.url | default .link) | relLangURL }}
-                    {{ if eq (path.Ext $l) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
-                  {{ else if in (slice "http" "https") $scheme }}
-                    {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-                  {{ end }}
-                  
-                  <a href="{{ $l | safeURL }}" 
-                     {{ $target | safeHTMLAttr }} 
-                     aria-label="{{ .icon }}"
-                     {{ with .label }} title="{{ . }}"{{ end }}
-                     class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
-                    {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
-                  </a>
+                  {{ range $links }}
+                    {{ $linkUrl := "" }}
+                    {{ $iconName := "hero/link" }}
+                    {{ $linkLabel := "" }}
+                    {{ if reflect.IsMap . }}
+                      {{ $urlRaw := index . "url" | default (index . "link") }}
+                      {{ if eq (printf "%T" $urlRaw) "string" }}
+                        {{ $linkUrl = $urlRaw }}
+                      {{ end }}
+                      {{ $iconRaw := index . "icon" }}
+                      {{ if eq (printf "%T" $iconRaw) "string" }}
+                        {{ $iconName = $iconRaw }}
+                      {{ end }}
+                      {{ $labelRaw := index . "label" }}
+                      {{ if eq (printf "%T" $labelRaw) "string" }}
+                        {{ $linkLabel = $labelRaw }}
+                      {{ end }}
+                    {{ else if eq (printf "%T" .) "string" }}
+                      {{ $linkUrl = . }}
+                    {{ end }}
+                    {{ $linkUrl = strings.TrimSpace $linkUrl }}
+                    {{ if $linkUrl }}
+                      {{ $scheme := (urls.Parse $linkUrl).Scheme }}
+                      {{ $target := "" }}
+                      {{ if not $scheme }}
+                        {{ if not (hasPrefix $linkUrl "#") }}
+                          {{ $linkUrl = $linkUrl | relLangURL }}
+                        {{ end }}
+                        {{ if eq (path.Ext $linkUrl) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+                      {{ else if in (slice "http" "https") $scheme }}
+                        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+                      {{ end }}
+                      <a href="{{ $linkUrl | safeURL }}" 
+                         {{ $target | safeHTMLAttr }} 
+                         aria-label="{{ $iconName }}"
+                         {{ if $linkLabel }} title="{{ $linkLabel }}"{{ end }}
+                         class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                        {{ partial "functions/get_icon" (dict "name" $iconName "attributes" "class=\"w-5 h-5\"") }}
+                      </a>
+                    {{ end }}
                   {{ end }}
                 </div>
                 {{ end }}
@@ -347,45 +432,115 @@
                   {{ $profile.title }}
                 </a>
               </h3>
+
+              {{ $affiliations_raw := $profile.affiliations }}
+              {{ $affiliations := slice }}
+              {{ if reflect.IsSlice $affiliations_raw }}
+                {{ $affiliations = $affiliations_raw }}
+              {{ else if eq (printf "%T" $affiliations_raw) "string" }}
+                {{ $affiliations = slice $affiliations_raw }}
+              {{ end }}
+              {{ $first_affiliation := "" }}
+              {{ if gt (len $affiliations) 0 }}
+                {{ $aff := index $affiliations 0 }}
+                {{ if reflect.IsMap $aff }}
+                  {{ $affNameRaw := index $aff "name" | default (index $aff "title") }}
+                  {{ if ne $affNameRaw nil }}
+                    {{ $first_affiliation = printf "%v" $affNameRaw }}
+                  {{ end }}
+                {{ else if eq (printf "%T" $aff) "string" }}
+                  {{ $first_affiliation = $aff }}
+                {{ end }}
+                {{ $first_affiliation = strings.TrimSpace $first_affiliation }}
+              {{ end }}
+
               {{ if $show_role }}
               <div class="text-gray-600 dark:text-gray-400 mb-3">
-                {{ with $profile.role }}<p class="font-medium">{{ . }}</p>{{ end }}
-                {{ if and $show_organizations $profile.affiliations }}
-                  {{ range first 1 $profile.affiliations }}
-                  <p class="text-sm mt-1">{{ .name }}</p>
+                {{ $roleText := "" }}
+                {{ with $profile.role }}
+                  {{ if eq (printf "%T" .) "string" }}
+                    {{ $roleText = . }}
                   {{ end }}
+                {{ end }}
+                {{ if and (not $roleText) $first_affiliation }}
+                  {{ $roleText = $first_affiliation }}
+                {{ end }}
+                {{ with $roleText }}<p class="font-medium">{{ . }}</p>{{ end }}
+                {{ if and $show_organizations $first_affiliation }}
+                  <p class="text-sm mt-1">{{ $first_affiliation }}</p>
                 {{ end }}
               </div>
               {{ end }}
-              {{ with $profile.bio }}
+              {{ $bio := "" }}
+              {{ with $profile.bio }}{{ $bio = printf "%v" . }}{{ end }}
+              {{ with $bio }}
               <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{{ . }}</p>
               {{ end }}
-              {{ if and $show_interests $profile.interests }}
+
+              {{ $interests_raw := $profile.interests }}
+              {{ $interests := slice }}
+              {{ if reflect.IsSlice $interests_raw }}
+                {{ $interests = $interests_raw }}
+              {{ else if eq (printf "%T" $interests_raw) "string" }}
+                {{ $interests = slice $interests_raw }}
+              {{ end }}
+              {{ if and $show_interests (gt (len $interests) 0) }}
               <div class="mb-4">
                 <div class="flex flex-wrap gap-1">
                   {{ if gt $max_interests_int 0 }}
-                    {{ range first $max_interests_int $profile.interests }}
-                    <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">{{ . }}</span>
+                    {{ range first $max_interests_int $interests }}
+                    <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">{{ printf "%v" . }}</span>
                     {{ end }}
                   {{ end }}
                 </div>
               </div>
               {{ end }}
-              {{ if and $show_social $profile.links }}
+
+              {{ $links_raw := $profile.links }}
+              {{ $links := slice }}
+              {{ if reflect.IsSlice $links_raw }}
+                {{ $links = $links_raw }}
+              {{ else if eq (printf "%T" $links_raw) "string" }}
+                {{ $links = slice $links_raw }}
+              {{ end }}
+              {{ if and $show_social (gt (len $links) 0) }}
               <div class="flex gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
-                {{ range $profile.links }}
-                {{ $l := .url | default .link }}
-                {{ $scheme := (urls.Parse $l).Scheme }}
-                {{ $target := "" }}
-                {{ if not $scheme }}
-                  {{ $l = (.url | default .link) | relLangURL }}
-                  {{ if eq (path.Ext $l) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
-                {{ else if in (slice "http" "https") $scheme }}
-                  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-                {{ end }}
-                <a href="{{ $l | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}" {{ with .label }} title="{{ . }}"{{ end }} class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
-                  {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
-                </a>
+                {{ range $links }}
+                  {{ $linkUrl := "" }}
+                  {{ $iconName := "hero/link" }}
+                  {{ $linkLabel := "" }}
+                  {{ if reflect.IsMap . }}
+                    {{ $urlRaw := index . "url" | default (index . "link") }}
+                    {{ if eq (printf "%T" $urlRaw) "string" }}
+                      {{ $linkUrl = $urlRaw }}
+                    {{ end }}
+                    {{ $iconRaw := index . "icon" }}
+                    {{ if eq (printf "%T" $iconRaw) "string" }}
+                      {{ $iconName = $iconRaw }}
+                    {{ end }}
+                    {{ $labelRaw := index . "label" }}
+                    {{ if eq (printf "%T" $labelRaw) "string" }}
+                      {{ $linkLabel = $labelRaw }}
+                    {{ end }}
+                  {{ else if eq (printf "%T" .) "string" }}
+                    {{ $linkUrl = . }}
+                  {{ end }}
+                  {{ $linkUrl = strings.TrimSpace $linkUrl }}
+                  {{ if $linkUrl }}
+                    {{ $scheme := (urls.Parse $linkUrl).Scheme }}
+                    {{ $target := "" }}
+                    {{ if not $scheme }}
+                      {{ if not (hasPrefix $linkUrl "#") }}
+                        {{ $linkUrl = $linkUrl | relLangURL }}
+                      {{ end }}
+                      {{ if eq (path.Ext $linkUrl) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+                    {{ else if in (slice "http" "https") $scheme }}
+                      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+                    {{ end }}
+                    <a href="{{ $linkUrl | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ $iconName }}" {{ if $linkLabel }} title="{{ $linkLabel }}"{{ end }} class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors">
+                      {{ partial "functions/get_icon" (dict "name" $iconName "attributes" "class=\"w-5 h-5\"") }}
+                    </a>
+                  {{ end }}
                 {{ end }}
               </div>
               {{ end }}
@@ -397,15 +552,41 @@
   {{ end }}
   
   {{/* Call to Action */}}
-  {{ with $block.content.cta }}
-  <div class="mt-12 {{ $ctaAlignClass }}">
-    <a href="{{ .url }}" class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-      {{ .text }}
-      {{ with .icon }}
-      {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"ml-2 w-5 h-5\"") }}
+  {{ $cta_raw := index $content "cta" }}
+  {{ if and $cta_raw (reflect.IsMap $cta_raw) }}
+    {{ $cta_text := "" }}
+    {{ $cta_url := "" }}
+    {{ $cta_icon := "" }}
+    {{ with index $cta_raw "text" }}{{ $cta_text = printf "%v" . }}{{ end }}
+    {{ with index $cta_raw "url" }}{{ $cta_url = printf "%v" . }}{{ end }}
+    {{ with index $cta_raw "icon" }}
+      {{ if eq (printf "%T" .) "string" }}
+        {{ $cta_icon = . }}
       {{ end }}
-    </a>
-  </div>
+    {{ end }}
+    {{ $cta_text = strings.TrimSpace $cta_text }}
+    {{ $cta_url = strings.TrimSpace $cta_url }}
+    {{ if and $cta_text $cta_url }}
+      {{ $cta_link := $cta_url }}
+      {{ $scheme := (urls.Parse $cta_link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+        {{ if not (hasPrefix $cta_link "#") }}
+          {{ $cta_link = $cta_link | relLangURL }}
+        {{ end }}
+        {{ if eq (path.Ext $cta_link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <div class="mt-12 {{ $ctaAlignClass }}">
+        <a href="{{ $cta_link | safeURL }}" {{ $target | safeHTMLAttr }} class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+          {{ $cta_text }}
+          {{ if $cta_icon }}
+            {{ partial "functions/get_icon" (dict "name" $cta_icon "attributes" "class=\"ml-2 w-5 h-5\"") }}
+          {{ end }}
+        </a>
+      </div>
+    {{ end }}
   {{ end }}
   
 </div>
