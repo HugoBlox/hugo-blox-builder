@@ -49,10 +49,11 @@
             },
             "suggestions": {
               "type": "array",
-              "description": "Quick search suggestion chips that open Pagefind with a preset query",
+              "description": "Quick search suggestion chips that open Pagefind with a preset query. Clicking a suggestion opens the search modal with that text pre-filled.",
               "items": {
                 "type": "string"
-              }
+              },
+              "examples": [["Get started", "Deploy with Hugo Blox", "Tailwind customization"]]
             },
             "stats": {
               "type": "array",

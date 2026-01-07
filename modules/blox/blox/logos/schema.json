@@ -89,7 +89,7 @@
             "display_mode": {
               "type": "string",
               "enum": ["grid", "carousel", "marquee"],
-              "description": "Layout style for the logos",
+              "description": "Layout style: 'grid' shows all logos statically, 'carousel' scrolls horizontally with pause-on-hover, 'marquee' provides continuous horizontal scroll",
               "default": "grid"
             },
             "show_pattern": {

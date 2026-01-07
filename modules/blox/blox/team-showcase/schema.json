@@ -61,7 +61,8 @@
             },
             "sort_by": {
               "type": "string",
-              "description": "Field to sort authors by (e.g. 'name_family', 'graduation_year', 'weight'); the legacy 'Params.' prefix is optional for compatibility",
+              "description": "Field to sort authors by. Common values: 'name_family' (last name), 'weight', 'graduation_year'. The legacy 'Params.' prefix is optional for compatibility.",
+              "enum": ["name_family", "name.family", "family", "last_name", "family_name", "weight", "graduation_year", "title"],
               "default": "name_family"
             },
             "sort_ascending": {

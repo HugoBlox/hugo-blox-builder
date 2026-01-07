@@ -36,8 +36,8 @@
             "date_format": {
               "type": "string",
               "description": "Date format for experience and education entries (Go time layout)",
-              "default": "January 2006",
-              "examples": ["Jan 2006", "2006"]
+              "default": "Jan 2006",
+              "examples": ["Jan 2006", "January 2006", "2006"]
             },
             "is_education_first": {
               "type": "boolean",
@@ -46,7 +46,8 @@
             }
           },
           "additionalProperties": true
-        }
+        },
+        "$comment": "Experience and education items in the author profile support: role/position, org/company_name, start/date_start, end/date_end, summary, icon, tags (array), and button (object with url, text, icon)."
       },
       "required": ["content"],
       "additionalProperties": true,

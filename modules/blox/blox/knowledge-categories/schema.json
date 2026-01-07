@@ -62,7 +62,12 @@
                   },
                   "count": {
                     "type": "integer",
-                    "description": "Optional override for item count (otherwise uses taxonomy count)"
+                    "description": "Optional override for item count (otherwise uses taxonomy count)",
+                    "minimum": 0
+                  },
+                  "link": {
+                    "type": "string",
+                    "description": "Override the category URL (defaults to taxonomy page)"
                   }
                 },
                 "anyOf": [

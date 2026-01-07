@@ -98,6 +98,11 @@
               "type": "boolean",
               "description": "Show proficiency level indicators",
               "default": false
+            },
+            "animations": {
+              "type": "boolean",
+              "description": "Enable hover and stagger animations",
+              "default": true
             }
           },
           "additionalProperties": true

@@ -27,6 +27,11 @@
               "type": "string",
               "description": "Section subtitle"
             },
+            "username": {
+              "type": "string",
+              "description": "Author username to pull fallback contact details from",
+              "default": "me"
+            },
             "visit_title": {
               "type": "string",
               "description": "Title for the visit section",
@@ -37,26 +42,52 @@
               "description": "Title for the connect section",
               "default": "Connect"
             },
+            "text": {
+              "type": "string",
+              "description": "Connect section intro text"
+            },
             "address": {
-              "type": "object",
               "description": "Physical address information",
-              "properties": {
-                "lines": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Single-line address"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "lines": {
+                      "description": "Address lines",
+                      "oneOf": [
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "office_hours": {
+              "description": "Office hours information",
+              "oneOf": [
+                {
                   "type": "array",
-                  "description": "Address lines",
                   "items": {
                     "type": "string"
                   }
+                },
+                {
+                  "type": "string"
                 }
-              },
-              "additionalProperties": false
-            },
-            "office_hours": {
-              "type": "array",
-              "description": "Office hours information",
-              "items": {
-                "type": "string"
-              }
+              ]
             },
             "email": {
               "type": "string",
@@ -68,23 +99,50 @@
               "description": "Contact phone number"
             },
             "social": {
-              "type": "array",
               "description": "Social media links",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "icon": {
-                    "type": "string",
-                    "description": "Icon name (e.g., 'brands/x', 'brands/linkedin')"
-                  },
-                  "url": {
-                    "type": "string",
-                    "description": "Social media URL"
-                  }
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "Single social link"
                 },
-                "required": ["icon", "url"],
-                "additionalProperties": false
-              }
+                {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "icon": {
+                            "type": "string",
+                            "description": "Icon name (e.g., 'brands/x', 'brands/linkedin')"
+                          },
+                          "url": {
+                            "type": "string",
+                            "description": "Social media URL"
+                          },
+                          "link": {
+                            "type": "string",
+                            "description": "Alias for url"
+                          },
+                          "label": {
+                            "type": "string",
+                            "description": "Tooltip label"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Label alias"
+                          }
+                        },
+                        "anyOf": [{ "required": ["url"] }, { "required": ["link"] }],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                }
+              ]
             },
             "prospective": {
               "type": "object",

@@ -39,12 +39,25 @@
                     "type": "string",
                     "description": "The question"
                   },
+                  "title": {
+                    "type": "string",
+                    "description": "Alias for question"
+                  },
                   "answer": {
                     "type": "string",
                     "description": "The answer (Markdown supported)"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Alias for answer"
                   }
                 },
-                "required": ["question", "answer"],
+                "anyOf": [
+                  { "required": ["question", "answer"] },
+                  { "required": ["title", "text"] },
+                  { "required": ["question", "text"] },
+                  { "required": ["title", "answer"] }
+                ],
                 "additionalProperties": false
               },
               "minItems": 1
@@ -85,14 +98,30 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "Padding [top, right, bottom, left]"
+                  "minItems": 4,
+                  "maxItems": 4,
+                  "description": "Padding [top, right, bottom, left]",
+                  "default": ["20px", "0", "20px", "0"]
+                },
+                "padding_sm": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "description": "Responsive padding for smaller screens [top, bottom]",
+                  "default": ["3rem", "0"]
                 },
                 "margin": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   },
-                  "description": "Margin [top, right, bottom, left]"
+                  "minItems": 4,
+                  "maxItems": 4,
+                  "description": "Margin [top, right, bottom, left]",
+                  "default": ["0", "0", "0", "0"]
                 }
               },
               "additionalProperties": false

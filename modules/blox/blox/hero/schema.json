@@ -99,7 +99,7 @@
           "properties": {
             "no_padding": {
               "type": "boolean",
-              "description": "Disable default vertical padding applied by the hero layout",
+              "description": "Disable default vertical padding (py-32 sm:py-48 lg:py-56) applied by the hero layout",
               "default": false
             }
           },

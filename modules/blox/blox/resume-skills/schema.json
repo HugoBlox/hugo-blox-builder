@@ -40,14 +40,15 @@
           "properties": {
             "columns": {
               "type": "integer",
-              "description": "Number of columns used to render skill groups",
+              "description": "Number of columns used to render skill groups (1-5). Responsive: 2 cols applies at md, 3 at lg, 4 at xl, 5 at 2xl.",
               "default": 2,
               "minimum": 1,
               "maximum": 5,
               "examples": [2, 3]
             }
           },
-          "additionalProperties": true
+          "additionalProperties": true,
+          "$comment": "Skill groups in the author profile support: name, description, color (progress bar fill), color_border, items (array). Each item supports: label/name, description, icon, level (1-5 for progress bar)."
         }
       },
       "required": ["content"],

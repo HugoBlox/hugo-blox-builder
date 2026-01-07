@@ -171,11 +171,17 @@
               "description": "Avatar shape",
               "enum": ["circle", "rounded"],
               "default": "circle"
+            },
+            "animations": {
+              "type": "boolean",
+              "description": "Enable scroll and typewriter animations",
+              "default": false
             }
           },
           "additionalProperties": true
         }
       },
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

@@ -33,8 +33,8 @@
                   },
                   "image": {
                     "type": "string",
-                    "description": "Image filename in assets/media/",
-                    "examples": ["screenshots/product.png"]
+                    "description": "Image filename in assets/media/. Responsive images are generated automatically (400-1200px). GIFs are converted to webp.",
+                    "examples": ["screenshots/product.png", "features/demo.jpg"]
                   },
                   "feature_icon": {
                     "type": "string",

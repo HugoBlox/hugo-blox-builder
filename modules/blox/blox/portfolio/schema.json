@@ -36,7 +36,8 @@
             },
             "sort_by": {
               "type": "string",
-              "description": "Field to sort by (e.g., Date, title, weight)",
+              "description": "Field to sort by",
+              "enum": ["Date", "date", "Title", "title", "Weight", "weight", "Lastmod", "lastmod"],
               "default": "Date"
             },
             "sort_ascending": {
@@ -135,6 +136,11 @@
               "description": "Icon to display when no image is provided. Supports all Hugo Blox icon packs: hero (default), brands, devicon, emoji, or custom packs. Format: 'icon-name' or 'pack/icon-name'",
               "default": "code-bracket",
               "examples": ["code-bracket", "academic-cap", "beaker", "paint-brush", "brands/github", "devicon/python", "emoji/rocket"]
+            },
+            "animations": {
+              "type": "boolean",
+              "description": "Enable staggered reveal and filter animations",
+              "default": true
             }
           },
           "additionalProperties": true

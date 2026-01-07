@@ -42,7 +42,8 @@
                   },
                   "icon": {
                     "type": "string",
-                    "description": "Feature icon (icon pack format: pack/icon-name)"
+                    "description": "Feature icon. Supports hero/ (Heroicons), brands/ (brand logos), devicon/ (dev tools), or custom packs. Format: 'pack/icon-name' or just 'icon-name' for hero.",
+                    "examples": ["hero/swatch", "hero/puzzle-piece", "brands/github", "devicon/python"]
                   }
                 },
                 "required": ["name", "description"],

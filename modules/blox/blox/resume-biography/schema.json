@@ -53,7 +53,7 @@
                 "size": {
                   "type": "string",
                   "enum": ["small", "medium", "large", "xl", "xxl"],
-                  "description": "Avatar display size",
+                  "description": "Avatar display size. Sizes: small (150px), medium (200px), large (320px), xl (400px), xxl (500px). Images are generated at 2x for retina displays.",
                   "default": "medium"
                 },
                 "shape": {

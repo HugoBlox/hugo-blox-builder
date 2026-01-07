@@ -27,16 +27,39 @@
                     "type": "string",
                     "description": "Button label (supports Markdown)"
                   },
+                  "label": {
+                    "type": "string",
+                    "description": "Alias for text"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Alias for text"
+                  },
                   "url": {
                     "type": "string",
                     "description": "Button URL"
                   },
+                  "link": {
+                    "type": "string",
+                    "description": "Alias for url"
+                  },
                   "icon": {
                     "type": "string",
                     "description": "Optional leading icon (icon pack format: pack/icon-name)"
+                  },
+                  "new_tab": {
+                    "type": "boolean",
+                    "description": "Open link in a new tab (auto-detected for external URLs and PDFs)",
+                    "default": false
                   }
                 },
-                "required": ["text", "url"],
+                "anyOf": [
+                  { "required": ["text"] },
+                  { "required": ["label"] },
+                  { "required": ["name"] },
+                  { "required": ["url"] },
+                  { "required": ["link"] }
+                ],
                 "additionalProperties": false
               },
               "minItems": 1

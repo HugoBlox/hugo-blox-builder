@@ -34,8 +34,8 @@
                 "properties": {
                   "statistic": {
                     "type": ["string", "number"],
-                    "description": "The statistic value/number (supports Markdown)",
-                    "examples": ["120+", 3.2]
+                    "description": "The statistic value/number. Can include formatting like '120+', '5M', or '$3.2M'. Animated counter extracts numeric portion.",
+                    "examples": ["120+", "5M", "$3.2M", 42, 3.2]
                   },
                   "description": {
                     "type": "string",

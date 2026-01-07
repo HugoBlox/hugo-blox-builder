@@ -75,7 +75,7 @@
                 "size": {
                   "type": "string",
                   "enum": ["small", "medium", "large", "xl", "xxl"],
-                  "description": "Avatar size",
+                  "description": "Avatar display size. Sizes: small (150px), medium (200px), large (320px), xl (400px), xxl (500px). Images are generated at 2x for retina displays.",
                   "default": "large"
                 },
                 "shape": {
@@ -116,7 +116,7 @@
                 "size": {
                   "type": "string",
                   "enum": ["xs", "sm", "md", "lg", "xl"],
-                  "description": "Heading size for the profile name",
+                  "description": "Heading size for the profile name. Responsive sizing from xs (text-xl to text-3xl) up to xl (text-5xl to text-7xl).",
                   "default": "lg"
                 }
               },

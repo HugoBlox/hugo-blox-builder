@@ -44,7 +44,8 @@
             },
             "sort_by": {
               "type": "string",
-              "description": "Field to sort by (e.g., Date, title, weight, lastmod)",
+              "description": "Field to sort by",
+              "enum": ["Date", "date", "Title", "title", "Weight", "weight", "Lastmod", "lastmod", "PublishDate", "publishdate"],
               "default": "Date"
             },
             "sort_ascending": {
@@ -155,12 +156,14 @@
             "view": {
               "type": "string",
               "enum": ["card", "compact", "showcase", "citation", "list", "masonry", "article-grid", "date-title-summary", "slides-gallery"],
-              "description": "Display view type",
+              "description": "Display view type. 'card' shows full cards with images, 'compact' shows minimal list items, 'showcase' highlights featured content, 'citation' for academic publications, 'article-grid' for blog layouts.",
               "default": "card"
             },
             "columns": {
-              "type": ["integer", "string"],
-              "description": "Number of columns when using grid-based views",
+              "type": "integer",
+              "description": "Number of columns when using grid-based views (1-4)",
+              "minimum": 1,
+              "maximum": 4,
               "default": 2
             },
             "fill_image": {

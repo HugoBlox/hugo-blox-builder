@@ -128,7 +128,7 @@
             "layout": {
               "type": "string",
               "enum": ["cards", "hexagon", "timeline"],
-              "description": "Choose between card grid, hexagon swarm, or timeline layout",
+              "description": "Layout style: 'cards' shows rich detail cards with images/icons and metrics, 'hexagon' displays a visual swarm of octagonal shapes, 'timeline' presents areas in an alternating vertical timeline",
               "default": "cards"
             }
           },
