@@ -5,9 +5,74 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
-{{ $layout := $block.design.layout | default "cards" }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}
+  {{ $title = strings.TrimSpace (printf "%v" $title_raw) }}
+{{ end }}
+{{ if $title }}{{ $title = $title | emojify | $page.RenderString }}{{ end }}
+
+{{ $text := "" }}
+{{ $text_raw := index $content "text" }}
+{{ if $text_raw }}
+  {{ $text = strings.TrimSpace (printf "%v" $text_raw) }}
+{{ end }}
+{{ if $text }}{{ $text = $text | emojify | $page.RenderString }}{{ end }}
+
+{{ $layout := "cards" }}
+{{ $layout_raw := index $design "layout" }}
+{{ if eq (printf "%T" $layout_raw) "string" }}
+  {{ $layout_candidate := lower (strings.TrimSpace $layout_raw) }}
+  {{ if in (slice "cards" "compact" "minimal") $layout_candidate }}
+    {{ $layout = $layout_candidate }}
+  {{ end }}
+{{ end }}
+
+{{ $items_raw := index $content "items" }}
+{{ $items_iter := slice }}
+{{ if reflect.IsSlice $items_raw }}
+  {{ $items_iter = $items_raw }}
+{{ else if and $items_raw (reflect.IsMap $items_raw) }}
+  {{ $items_iter = slice $items_raw }}
+{{ end }}
+
+{{ $items := slice }}
+{{ if gt (len $items_iter) 0 }}
+  {{ range $items_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $icon := "" }}
+      {{ $statistic := "" }}
+      {{ $description := "" }}
+      {{ $sub_metric := "" }}
+      {{ with index . "icon" }}{{ $icon = printf "%v" . }}{{ end }}
+      {{ with index . "statistic" }}{{ $statistic = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "description" }}{{ $description = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "sub_metric" }}{{ $sub_metric = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if or $statistic $description }}
+        {{ $items = $items | append (dict "icon" $icon "statistic" $statistic "description" $description "sub_metric" $sub_metric) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $item_count := len $items }}
+{{ if lt $item_count 1 }}{{ $item_count = 1 }}{{ end }}
+{{ if gt $item_count 4 }}{{ $item_count = 4 }}{{ end }}
+{{ $grid_cols_class := "lg:grid-cols-3" }}
+{{ if eq $item_count 1 }}
+  {{ $grid_cols_class = "lg:grid-cols-1" }}
+{{ else if eq $item_count 2 }}
+  {{ $grid_cols_class = "lg:grid-cols-2" }}
+{{ else if eq $item_count 4 }}
+  {{ $grid_cols_class = "lg:grid-cols-4" }}
+{{ end }}
+{{ $base_cols_class := "grid-cols-2" }}
+{{ if eq $item_count 1 }}{{ $base_cols_class = "grid-cols-1" }}{{ end }}
 
 <div class="py-12 sm:py-16 lg:py-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,8 +95,8 @@
 
     {{/* Cards Layout */}}
     {{ if eq $layout "cards" }}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-{{ len $block.content.items }} gap-6 lg:gap-8">
-      {{ range $idx, $item := $block.content.items }}
+    <div class="grid grid-cols-1 sm:grid-cols-2 {{ $grid_cols_class }} gap-6 lg:gap-8">
+      {{ range $idx, $item := $items }}
       <div class="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-primary-200 dark:hover:border-primary-800">
         
         {{/* Background Gradient */}}
@@ -39,26 +104,28 @@
         
         <div class="relative p-8 text-center">
           {{/* Icon */}}
-          {{ if $item.icon }}
+          {{ $icon := index $item "icon" }}
+          {{ if $icon }}
           <div class="inline-flex items-center justify-center w-16 h-16 mb-6 bg-primary-100 dark:bg-primary-900/50 rounded-xl group-hover:scale-110 transition-transform duration-300">
-            {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class=\"w-8 h-8 text-primary-600 dark:text-primary-400\"") }}
+            {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-8 h-8 text-primary-600 dark:text-primary-400\"") }}
           </div>
           {{ end }}
           
           {{/* Statistic */}}
           <div class="mb-3">
-            <h3 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 counter" data-target="{{ $item.statistic | replaceRE `[^0-9.]` "" }}">
-              {{ $item.statistic | $page.RenderString }}
+            {{ $statistic := index $item "statistic" }}
+            <h3 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 counter" data-target="{{ $statistic | replaceRE `[^0-9.]` "" }}">
+              {{ $statistic | $page.RenderString }}
             </h3>
           </div>
           
           {{/* Description */}}
           <p class="text-sm sm:text-base font-medium text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
-            {{ $item.description | $page.RenderString }}
+            {{ (index $item "description") | $page.RenderString }}
           </p>
           
           {{/* Optional Sub-metric */}}
-          {{ with $item.sub_metric }}
+          {{ with index $item "sub_metric" }}
           <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
             {{ . }}
           </p>
@@ -71,21 +138,23 @@
     {{/* Compact Layout */}}
     {{ else if eq $layout "compact" }}
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-{{ len $block.content.items }} divide-y sm:divide-y-0 sm:divide-x divide-gray-200 dark:divide-gray-700">
-        {{ range $idx, $item := $block.content.items }}
+      <div class="grid grid-cols-1 sm:grid-cols-2 {{ $grid_cols_class }} divide-y sm:divide-y-0 sm:divide-x divide-gray-200 dark:divide-gray-700">
+        {{ range $idx, $item := $items }}
         <div class="group p-8 text-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300">
-          {{ if $item.icon }}
+          {{ $icon := index $item "icon" }}
+          {{ if $icon }}
           <div class="inline-flex items-center justify-center w-12 h-12 mb-4 bg-primary-100 dark:bg-primary-900/50 rounded-lg group-hover:scale-110 transition-transform duration-300">
-            {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
+            {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
           </div>
           {{ end }}
           
-          <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2 counter" data-target="{{ $item.statistic | replaceRE `[^0-9.]` "" }}">
-            {{ $item.statistic | $page.RenderString }}
+          {{ $statistic := index $item "statistic" }}
+          <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2 counter" data-target="{{ $statistic | replaceRE `[^0-9.]` "" }}">
+            {{ $statistic | $page.RenderString }}
           </h3>
           
           <p class="text-sm font-medium text-gray-600 dark:text-gray-300 leading-relaxed">
-            {{ $item.description | $page.RenderString }}
+            {{ (index $item "description") | $page.RenderString }}
           </p>
         </div>
         {{ end }}
@@ -94,21 +163,23 @@
     
     {{/* Minimal Layout */}}
     {{ else }}
-    <div class="grid grid-cols-2 lg:grid-cols-{{ len $block.content.items }} gap-8 lg:gap-12">
-      {{ range $item := $block.content.items }}
+    <div class="grid {{ $base_cols_class }} {{ $grid_cols_class }} gap-8 lg:gap-12">
+      {{ range $item := $items }}
       <div class="text-center group">
-        {{ if $item.icon }}
+        {{ $icon := index $item "icon" }}
+        {{ if $icon }}
         <div class="inline-flex items-center justify-center w-14 h-14 mb-4 bg-primary-100 dark:bg-primary-900/50 rounded-full group-hover:scale-110 transition-transform duration-300">
-          {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class=\"w-7 h-7 text-primary-600 dark:text-primary-400\"") }}
+          {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-7 h-7 text-primary-600 dark:text-primary-400\"") }}
         </div>
         {{ end }}
         
-        <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2 counter" data-target="{{ $item.statistic | replaceRE `[^0-9.]` "" }}">
-          {{ $item.statistic | $page.RenderString }}
+        {{ $statistic := index $item "statistic" }}
+        <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2 counter" data-target="{{ $statistic | replaceRE `[^0-9.]` "" }}">
+          {{ $statistic | $page.RenderString }}
         </h3>
         
         <p class="text-sm font-medium text-gray-600 dark:text-gray-300">
-          {{ $item.description | $page.RenderString }}
+          {{ (index $item "description") | $page.RenderString }}
         </p>
       </div>
       {{ end }}

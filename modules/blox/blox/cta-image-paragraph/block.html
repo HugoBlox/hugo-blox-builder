@@ -5,14 +5,34 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
 
 <div>
-  {{ range $idx, $item := $block.content.items }}
-  {{ $title := .title | emojify | $page.RenderString }}
-  {{ $text := .text | emojify | $page.RenderString }}
-  {{ $image_path := path.Join "media" .image }}
-  {{ $image := resources.GetMatch $image_path }}
-  {{ with $image }}
+  {{ $items_raw := index $content "items" }}
+  {{ $items := slice }}
+  {{ if reflect.IsSlice $items_raw }}
+    {{ $items = $items_raw }}
+  {{ else if and $items_raw (reflect.IsMap $items_raw) }}
+    {{ $items = slice $items_raw }}
+  {{ end }}
+
+  {{ range $idx, $item := $items }}
+  {{ if reflect.IsMap $item }}
+  {{ $title := "" }}
+  {{ $title_raw := index $item "title" }}
+  {{ if eq (printf "%T" $title_raw) "string" }}{{ $title = $title_raw | emojify | $page.RenderString }}{{ end }}
+  {{ $text := "" }}
+  {{ $text_raw := index $item "text" }}
+  {{ if eq (printf "%T" $text_raw) "string" }}{{ $text = $text_raw | emojify | $page.RenderString }}{{ end }}
+  {{ $image_name := "" }}
+  {{ $image_raw := index $item "image" }}
+  {{ if eq (printf "%T" $image_raw) "string" }}{{ $image_name = strings.TrimSpace $image_raw }}{{ end }}
+  {{ $image_path := "" }}
+  {{ if $image_name }}{{ $image_path = path.Join "media" $image_name }}{{ end }}
+  {{ $image := "" }}
+  {{ if $image_path }}{{ $image = resources.GetMatch $image_path }}{{ end }}
+  {{ if $image }}
   <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
     {{ if ne $image.MediaType.SubType "gif" }}
       {{ $responsive := partial "functions/process_responsive_image.html" (dict 
@@ -35,29 +55,57 @@
            alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     {{ end }}
   {{ else }}
-    {{ errorf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Please add the image to this folder and try again." $page.File.Path $image_path }}
+    {{ warnf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Skipping this item." $page.File.Path $image_path }}
   {{ end }}
     <div class="mt-4 md:mt-0">
       <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{$title}}</h2>
       <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{$text}}</p>
-      {{ $icon := .feature_icon | default "check" }}
-      {{ if .features }}
+      {{ $icon := "check" }}
+      {{ $icon_raw := index $item "feature_icon" }}
+      {{ if eq (printf "%T" $icon_raw) "string" }}{{ $icon = $icon_raw }}{{ end }}
+      {{ $features_raw := index $item "features" }}
+      {{ $features := slice }}
+      {{ if reflect.IsSlice $features_raw }}
+        {{ $features = $features_raw }}
+      {{ else if eq (printf "%T" $features_raw) "string" }}
+        {{ $features = slice $features_raw }}
+      {{ end }}
+      {{ if gt (len $features) 0 }}
       <ul>
-        {{ range .features }}
+        {{ range $features }}
         <li class="relative mb-4 pl-6">
           {{ partial "functions/get_icon" (dict "name" $icon "attributes" `class="inline-block pr-3" style="height: 1em;"`)  }}
-          {{ . | markdownify }}
+          {{ printf "%v" . | markdownify }}
         </li>
         {{ end }}
       </ul>
       {{ end }}
-      {{ with .button }}
-      <a href="{{.url}}" class="mt-3 inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
-        {{.text}}
+      {{ $button_raw := index $item "button" }}
+      {{ if and $button_raw (reflect.IsMap $button_raw) }}
+      {{ $button_text := "" }}
+      {{ $button_url := "" }}
+      {{ with index $button_raw "text" }}{{ $button_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index $button_raw "url" }}{{ $button_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if and $button_text $button_url }}
+      {{ $link := $button_url }}
+      {{ $target := "" }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ if not $scheme }}
+        {{ if not (hasPrefix $link "#") }}
+          {{ $link = $link | relLangURL }}
+        {{ end }}
+        {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="mt-3 inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+        {{ $button_text }}
         <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
       </a>
       {{ end }}
+      {{ end }}
     </div>
   </div>
+  {{ end }}
   {{ end }}
 </div>

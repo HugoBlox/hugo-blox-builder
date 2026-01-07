@@ -1,27 +1,64 @@
 {{- $wcPage := .wcPage -}}
 {{- $wcBlock := .wcBlock -}}
 {{- $wcIdentifier := .wcIdentifier -}}
+{{- $content := $wcBlock.content -}}
+{{- if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end -}}
+{{- $design := $wcBlock.design -}}
+{{- if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end -}}
 
 {{/* Enable Alpine.js for interactive accordion */}}
 {{ $wcPage.Page.Store.Set "has_alpine" true }}
 
-{{- $st := $wcBlock.design.spacing | default dict -}}
-{{- $pad := $st.padding | default (slice "20px" "0" "20px" "0") -}}
+{{- $st := index $design "spacing" -}}
+{{- if not (reflect.IsMap $st) }}{{ $st = dict }}{{ end -}}
+{{- $pad := slice "20px" "0" "20px" "0" -}}
+{{- $pad_raw := index $st "padding" -}}
+{{- if and (reflect.IsSlice $pad_raw) (ge (len $pad_raw) 4) }}{{ $pad = $pad_raw }}{{ end -}}
 {{- $pad_sm := slice "3rem" "0" -}}
-{{- $mar := $st.margin | default (slice "0" "0" "0" "0") -}}
+{{- $pad_sm_raw := index $st "padding_sm" -}}
+{{- if and (reflect.IsSlice $pad_sm_raw) (ge (len $pad_sm_raw) 2) }}{{ $pad_sm = $pad_sm_raw }}{{ end -}}
+{{- $mar := slice "0" "0" "0" "0" -}}
+{{- $mar_raw := index $st "margin" -}}
+{{- if and (reflect.IsSlice $mar_raw) (ge (len $mar_raw) 4) }}{{ $mar = $mar_raw }}{{ end -}}
 
-{{- $bg := $wcBlock.design.background | default dict -}}
-{{- $bg_color_val := $bg.color | default "" -}}
+{{- $bg := index $design "background" -}}
+{{- if not (reflect.IsMap $bg) }}{{ $bg = dict }}{{ end -}}
+{{- $bg_color_val := "" -}}
+{{- $bg_color_raw := index $bg "color" -}}
+{{- if eq (printf "%T" $bg_color_raw) "string" }}{{ $bg_color_val = $bg_color_raw }}{{ end -}}
+
+{{- $title := "" -}}
+{{- $title_raw := index $content "title" -}}
+{{- if eq (printf "%T" $title_raw) "string" }}{{ $title = $title_raw }}{{ end -}}
+{{- $subtitle := "" -}}
+{{- $subtitle_raw := index $content "subtitle" -}}
+{{- if eq (printf "%T" $subtitle_raw) "string" }}{{ $subtitle = $subtitle_raw }}{{ end -}}
+{{- $text := "" -}}
+{{- $text_raw := index $content "text" -}}
+{{- if eq (printf "%T" $text_raw) "string" }}{{ $text = $text_raw }}{{ end -}}
+
+{{- $items_raw := index $content "items" -}}
+{{- $items := slice -}}
+{{- if reflect.IsSlice $items_raw }}{{ $items = $items_raw }}{{ end -}}
+
+{{- $button := index $content "button" -}}
+{{- if not (reflect.IsMap $button) }}{{ $button = dict }}{{ end -}}
+{{- $button_text := "" -}}
+{{- with index $button "text" }}{{ $button_text = strings.TrimSpace (printf "%v" .) }}{{ end -}}
+{{- $button_url := "" -}}
+{{- with index $button "url" }}{{ $button_url = strings.TrimSpace (printf "%v" .) }}{{ end -}}
+{{- $button_icon := "" -}}
+{{- with index $button "icon" }}{{ $button_icon = printf "%v" . }}{{ end -}}
 
 <section id="{{ $wcIdentifier }}" class="hb-section {{ $bg_color_val }}" style="padding: {{ delimit $pad " " }}; padding-top: clamp({{ index $pad_sm 0 }}, {{ index $pad 0 }}, {{ index $pad 0 }}); padding-bottom: clamp({{ index $pad_sm 1 }}, {{ index $pad 2 }}, {{ index $pad 2 }}); margin: {{ delimit $mar " " }};">
   <div class="mx-auto max-w-screen-xl px-6 lg:px-8">
 
-    {{- with $wcBlock.content.title -}}
+    {{- with $title -}}
     <div class="mb-8 text-center">
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
         {{ . | markdownify | emojify }}
       </h2>
-      {{- with $wcBlock.content.subtitle -}}
+      {{- with $subtitle -}}
       <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
         {{ . | markdownify | emojify }}
       </p>
@@ -29,18 +66,24 @@
     </div>
     {{- end -}}
 
-    {{- with $wcBlock.content.text -}}
+    {{- with $text -}}
     <div class="prose prose-slate dark:prose-invert max-w-3xl mx-auto mb-8">
       {{ . | markdownify | emojify }}
     </div>
     {{- end -}}
 
-    {{- $items := $wcBlock.content.items | default slice -}}
-    
-    {{- if $items -}}
+    {{- if gt (len $items) 0 -}}
     <div class="max-w-3xl mx-auto" x-data="{ openItem: null }">
       <div class="space-y-4">
         {{- range $index, $item := $items -}}
+        {{- if reflect.IsMap $item -}}
+        {{- $question := "" -}}
+        {{- $question_raw := index $item "question" | default (index $item "title") -}}
+        {{- if ne $question_raw nil }}{{ $question = printf "%v" $question_raw }}{{ end -}}
+        {{- $answer := "" -}}
+        {{- $answer_raw := index $item "answer" | default (index $item "text") -}}
+        {{- if ne $answer_raw nil }}{{ $answer = printf "%v" $answer_raw }}{{ end -}}
+        {{- if or $question $answer -}}
         <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
           <button
             type="button"
@@ -49,7 +92,7 @@
             :aria-expanded="openItem === {{ $index }}"
           >
             <span class="font-semibold text-gray-900 dark:text-gray-100 pr-8">
-              {{ $item.question | markdownify | emojify }}
+              {{ $question | markdownify | emojify }}
             </span>
             <svg
               class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0"
@@ -72,21 +115,34 @@
             class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
           >
             <div class="prose prose-slate dark:prose-invert max-w-none">
-              {{ $item.answer | markdownify | emojify }}
+              {{ $answer | markdownify | emojify }}
             </div>
           </div>
         </div>
+        {{- end -}}
+        {{- end -}}
         {{- end -}}
       </div>
     </div>
     {{- end -}}
 
-    {{- with $wcBlock.content.button -}}
+    {{- if and $button_text $button_url -}}
+    {{- $link := $button_url -}}
+    {{- $target := "" -}}
+    {{- $scheme := (urls.Parse $link).Scheme -}}
+    {{- if not $scheme -}}
+      {{- if not (hasPrefix $link "#") -}}
+        {{- $link = $link | relLangURL -}}
+      {{- end -}}
+      {{- if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end -}}
+    {{- else if in (slice "http" "https") $scheme -}}
+      {{- $target = "target=\"_blank\" rel=\"noopener\"" -}}
+    {{- end -}}
     <div class="mt-10 text-center">
-      <a href="{{ .url }}" class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
-        {{ .text }}
-        {{- with .icon -}}
-        <span class="ml-2">{{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"inline-block h-5 w-5\"") }}</span>
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
+        {{ $button_text }}
+        {{- if $button_icon -}}
+        <span class="ml-2">{{ partial "functions/get_icon" (dict "name" $button_icon "attributes" "class=\"inline-block h-5 w-5\"") }}</span>
         {{- end -}}
       </a>
     </div>
@@ -94,4 +150,3 @@
 
   </div>
 </section>
-

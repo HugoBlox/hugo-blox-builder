@@ -5,18 +5,149 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
-{{ $author := $block.content.username | default "me" }}
-{{ $profile := partial "functions/get_author_profile" $author }}
-{{ $is_education_first := $block.design.is_education_first | default false }}
+{{ $text := "" }}
+{{ $text_raw := index $content "text" }}
+{{ if $text_raw }}{{ $text = strings.TrimSpace (printf "%v" $text_raw) }}{{ end }}
+{{ if $text }}{{ $text = $text | emojify | $page.RenderString }}{{ end }}
+
+{{ $username := "me" }}
+{{ $username_raw := index $content "username" }}
+{{ if eq (printf "%T" $username_raw) "string" }}
+  {{ $username = strings.TrimSpace $username_raw }}
+{{ end }}
+{{ $profile := partial "functions/get_author_profile" $username }}
+
+{{ $is_education_first := partial "functions/coerce_bool" (dict "value" (index $design "is_education_first") "default" false) }}
+{{ $date_format := "Jan 2006" }}
+{{ $date_format_raw := index $design "date_format" }}
+{{ if eq (printf "%T" $date_format_raw) "string" }}
+  {{ $date_format = strings.TrimSpace $date_format_raw | default "Jan 2006" }}
+{{ end }}
+
+{{ $experience_raw := or $profile.experience $profile.work }}
+{{ $experience_iter := slice }}
+{{ if reflect.IsSlice $experience_raw }}
+  {{ $experience_iter = $experience_raw }}
+{{ else if and $experience_raw (reflect.IsMap $experience_raw) }}
+  {{ $experience_iter = slice $experience_raw }}
+{{ end }}
+
+{{ $experience := slice }}
+{{ if gt (len $experience_iter) 0 }}
+  {{ range $experience_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $role := "" }}
+      {{ $org := "" }}
+      {{ $start := "" }}
+      {{ $end := "" }}
+      {{ $summary := "" }}
+      {{ $icon := "" }}
+      {{ $tags := slice }}
+      {{ $button_url := "" }}
+      {{ $button_text := "" }}
+      {{ $button_icon := "" }}
+
+      {{ with index . "role" }}{{ $role = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $role }}{{ with index . "position" }}{{ $role = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "org" }}{{ $org = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $org }}{{ with index . "company_name" }}{{ $org = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "start" }}{{ $start = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $start }}{{ with index . "date_start" }}{{ $start = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "end" }}{{ $end = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $end }}{{ with index . "date_end" }}{{ $end = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "summary" }}{{ $summary = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "icon" }}{{ $icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+      {{ $tags_raw := index . "tags" }}
+      {{ if reflect.IsSlice $tags_raw }}
+        {{ range $tags_raw }}
+          {{ $tag := strings.TrimSpace (printf "%v" .) }}
+          {{ if $tag }}{{ $tags = $tags | append $tag }}{{ end }}
+        {{ end }}
+      {{ else if eq (printf "%T" $tags_raw) "string" }}
+        {{ $tag_string := strings.TrimSpace $tags_raw }}
+        {{ if $tag_string }}
+          {{ if strings.Contains $tag_string "," }}
+            {{ range (split $tag_string ",") }}
+              {{ $tag := strings.TrimSpace . }}
+              {{ if $tag }}{{ $tags = $tags | append $tag }}{{ end }}
+            {{ end }}
+          {{ else }}
+            {{ $tags = slice $tag_string }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ $button_raw := index . "button" }}
+      {{ if reflect.IsMap $button_raw }}
+        {{ with index $button_raw "url" }}{{ $button_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $button_raw "text" }}{{ $button_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $button_raw "icon" }}{{ $button_icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ end }}
+
+      {{ if or $role $org }}
+        {{ $experience = $experience | append (dict "role" $role "org" $org "start" $start "end" $end "summary" $summary "icon" $icon "tags" $tags "button" (dict "url" $button_url "text" $button_text "icon" $button_icon)) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $education_raw := $profile.education }}
+{{ $education_iter := slice }}
+{{ if reflect.IsSlice $education_raw }}
+  {{ $education_iter = $education_raw }}
+{{ else if and $education_raw (reflect.IsMap $education_raw) }}
+  {{ $education_iter = slice $education_raw }}
+{{ end }}
+
+{{ $education := slice }}
+{{ if gt (len $education_iter) 0 }}
+  {{ range $education_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $degree := "" }}
+      {{ $institution := "" }}
+      {{ $start := "" }}
+      {{ $end := "" }}
+      {{ $summary := "" }}
+      {{ $icon := "" }}
+      {{ $button_url := "" }}
+      {{ $button_text := "" }}
+      {{ $button_icon := "" }}
+
+      {{ with index . "degree" }}{{ $degree = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $degree }}{{ with index . "area" }}{{ $degree = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "institution" }}{{ $institution = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "start" }}{{ $start = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $start }}{{ with index . "date_start" }}{{ $start = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "end" }}{{ $end = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $end }}{{ with index . "date_end" }}{{ $end = strings.TrimSpace (printf "%v" .) }}{{ end }}{{ end }}
+      {{ with index . "summary" }}{{ $summary = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "icon" }}{{ $icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+      {{ $button_raw := index . "button" }}
+      {{ if reflect.IsMap $button_raw }}
+        {{ with index $button_raw "url" }}{{ $button_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $button_raw "text" }}{{ $button_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $button_raw "icon" }}{{ $button_icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ end }}
+
+      {{ if or $degree $institution }}
+        {{ $education = $education | append (dict "degree" $degree "institution" $institution "start" $start "end" $end "summary" $summary "icon" $icon "button" (dict "url" $button_url "text" $button_text "icon" $button_icon)) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 <div class="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
 
 <div class="flex flex-col gap-16 {{ if $is_education_first }}flex-col-reverse{{end}}">
 
-{{ $experience := or $profile.experience $profile.work }}
-{{ if $experience }}
+{{ if gt (len $experience) 0 }}
 <div class="w-full">
   <h2 class="mb-10 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "experience" | default "Experience" }}</h2>
   
@@ -37,8 +168,9 @@
           <div class="relative">
             <div class="absolute inset-0 w-8 h-8 bg-primary-500/30 rounded-full blur-md group-hover:bg-primary-500/50 transition-all duration-300"></div>
             <div class="relative w-8 h-8 bg-white dark:bg-gray-900 border-2 border-primary-500 rounded-full flex items-center justify-center group-hover:border-primary-400 group-hover:scale-110 transition-all duration-300">
-              {{ if $item.icon }}
-                {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class='w-4 h-4 text-primary-600 dark:text-primary-400'") }}
+              {{ $icon := index $item "icon" }}
+              {{ if $icon }}
+                {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class='w-4 h-4 text-primary-600 dark:text-primary-400'") }}
               {{else}}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-4 h-4 text-primary-600 dark:text-primary-400"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z"></path></svg>
               {{end}}
@@ -54,11 +186,11 @@
             <div>
               {{/* Role/Position */}}
               <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {{ $item.role | default $item.position }}
+                {{ index $item "role" }}
               </h3>
               {{/* Company */}}
               <p class="text-primary-600 dark:text-primary-400 font-medium mt-1">
-                {{ $item.org | default $item.company_name }}
+                {{ index $item "org" }}
               </p>
             </div>
             
@@ -68,13 +200,23 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <time>
-                {{ $start := or $item.start $item.date_start }}
-                {{ $end := or $item.end $item.date_end }}
+                {{ $start := index $item "start" }}
+                {{ $end := index $item "end" }}
                 {{ if $start }}
-                  {{ (time $start) | time.Format ($block.design.date_format | default "Jan 2006") }} –
+                  {{ $parsed := try (time $start) }}
+                  {{ if not $parsed.Err }}
+                    {{ $parsed.Value | time.Format $date_format }} –
+                  {{ else }}
+                    {{ $start }} –
+                  {{ end }}
                 {{ end }}
                 {{ if $end }}
-                  {{ (time $end) | time.Format ($block.design.date_format | default "Jan 2006") }}
+                  {{ $parsed := try (time $end) }}
+                  {{ if not $parsed.Err }}
+                    {{ $parsed.Value | time.Format $date_format }}
+                  {{ else }}
+                    {{ $end }}
+                  {{ end }}
                 {{ else }}
                   <span class="text-primary-600 dark:text-primary-400 font-medium">{{ i18n "present" | default "Present" }}</span>
                 {{end}}
@@ -83,14 +225,14 @@
           </div>
           
           {{/* Description */}}
-          {{ with $item.summary }}
+          {{ with index $item "summary" }}
           <div class="text-gray-600 dark:text-gray-400 leading-relaxed">
             {{ . | $page.RenderString }}
           </div>
           {{ end }}
           
           {{/* Tags/Skills */}}
-          {{ with $item.tags }}
+          {{ with index $item "tags" }}
           <div class="flex flex-wrap gap-2 mt-4">
             {{ range . }}
             <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20">
@@ -101,18 +243,35 @@
           {{ end }}
 
           {{/* Action button */}}
-          {{ with $item.button }}
-          <div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/5">
-            <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-              {{ with .icon }}
-                {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+          {{ $button := index $item "button" }}
+          {{ if reflect.IsMap $button }}
+            {{ $button_url := index $button "url" }}
+            {{ $button_text := index $button "text" | default "Learn more" }}
+            {{ $button_icon := index $button "icon" }}
+            {{ if $button_url }}
+            {{ $button_link := $button_url }}
+            {{ $button_target := "" }}
+            {{ $button_scheme := (urls.Parse $button_link).Scheme }}
+            {{ if not $button_scheme }}
+              {{ if not (hasPrefix $button_link "#") }}
+                {{ $button_link = $button_link | relLangURL }}
               {{ end }}
-              {{ .text | default "Learn more" }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
+              {{ if eq (path.Ext $button_link) ".pdf" }}{{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+            {{ else if in (slice "http" "https") $button_scheme }}
+              {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+            <div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/5">
+              <a href="{{ $button_link | safeURL }}" {{ $button_target | safeHTMLAttr }} class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                {{ with $button_icon }}
+                  {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+                {{ end }}
+                {{ $button_text }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+            {{ end }}
           {{ end }}
         </div>
       </div>
@@ -122,9 +281,9 @@
 </div>
 {{ end }}
 
-{{ if $profile.education }}
+{{ if gt (len $education) 0 }}
 <div class="w-full">
-  <h2 class="mb-10 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "education" }}</h2>
+  <h2 class="mb-10 text-3xl font-bold text-gray-900 dark:text-white text-center">{{ i18n "education" | default "Education" }}</h2>
   
   {{/* Timeline container */}}
   <div class="relative">
@@ -133,7 +292,7 @@
     
     {{/* Education items */}}
     <div class="space-y-8">
-      {{ range $idx, $item := $profile.education }}
+      {{ range $idx, $item := $education }}
       {{/* Card wrapper */}}
       <div class="group relative pl-12 sm:pl-16">
         
@@ -143,8 +302,9 @@
           <div class="relative">
             <div class="absolute inset-0 w-8 h-8 bg-secondary-500/30 rounded-full blur-md group-hover:bg-secondary-500/50 transition-all duration-300"></div>
             <div class="relative w-8 h-8 bg-white dark:bg-gray-900 border-2 border-secondary-500 rounded-full flex items-center justify-center group-hover:border-secondary-400 group-hover:scale-110 transition-all duration-300">
-              {{ if $item.icon }}
-                {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class='w-4 h-4 text-secondary-600 dark:text-secondary-400'") }}
+              {{ $icon := index $item "icon" }}
+              {{ if $icon }}
+                {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class='w-4 h-4 text-secondary-600 dark:text-secondary-400'") }}
               {{else}}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256" class="w-4 h-4 text-secondary-600 dark:text-secondary-400"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"></path></svg>
               {{end}}
@@ -160,11 +320,11 @@
             <div>
               {{/* Degree */}}
               <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-secondary-600 dark:group-hover:text-secondary-400 transition-colors">
-                {{ $item.degree | default $item.area }}
+                {{ index $item "degree" }}
               </h3>
               {{/* Institution */}}
               <p class="text-secondary-600 dark:text-secondary-400 font-medium mt-1">
-                {{ $item.institution }}
+                {{ index $item "institution" }}
               </p>
             </div>
             
@@ -174,13 +334,23 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <time>
-                {{ $start := or $item.start $item.date_start }}
-                {{ $end := or $item.end $item.date_end }}
+                {{ $start := index $item "start" }}
+                {{ $end := index $item "end" }}
                 {{ if $start }}
-                  {{ (time $start) | time.Format ($block.design.date_format | default "Jan 2006") }} –
+                  {{ $parsed := try (time $start) }}
+                  {{ if not $parsed.Err }}
+                    {{ $parsed.Value | time.Format $date_format }} –
+                  {{ else }}
+                    {{ $start }} –
+                  {{ end }}
                 {{ end }}
                 {{ if $end }}
-                  {{ (time $end) | time.Format ($block.design.date_format | default "Jan 2006") }}
+                  {{ $parsed := try (time $end) }}
+                  {{ if not $parsed.Err }}
+                    {{ $parsed.Value | time.Format $date_format }}
+                  {{ else }}
+                    {{ $end }}
+                  {{ end }}
                 {{ else }}
                   <span class="text-primary-600 dark:text-primary-400 font-medium">{{ i18n "present" | default "Present" }}</span>
                 {{end}}
@@ -189,25 +359,42 @@
           </div>
           
           {{/* Description */}}
-          {{ with $item.summary }}
+          {{ with index $item "summary" }}
           <div class="text-gray-600 dark:text-gray-400 leading-relaxed">
             {{ . | $page.RenderString }}
           </div>
           {{ end }}
 
           {{/* Action button */}}
-          {{ with $item.button }}
-          <div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/5">
-            <a href="{{.url}}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">
-              {{ with .icon }}
-                {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+          {{ $button := index $item "button" }}
+          {{ if reflect.IsMap $button }}
+            {{ $button_url := index $button "url" }}
+            {{ $button_text := index $button "text" | default "Learn more" }}
+            {{ $button_icon := index $button "icon" }}
+            {{ if $button_url }}
+            {{ $button_link := $button_url }}
+            {{ $button_target := "" }}
+            {{ $button_scheme := (urls.Parse $button_link).Scheme }}
+            {{ if not $button_scheme }}
+              {{ if not (hasPrefix $button_link "#") }}
+                {{ $button_link = $button_link | relLangURL }}
               {{ end }}
-              {{ .text | default "Learn more" }}
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
+              {{ if eq (path.Ext $button_link) ".pdf" }}{{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+            {{ else if in (slice "http" "https") $button_scheme }}
+              {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+            <div class="mt-4 pt-4 border-t border-gray-100 dark:border-white/5">
+              <a href="{{ $button_link | safeURL }}" {{ $button_target | safeHTMLAttr }} class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-colors">
+                {{ with $button_icon }}
+                  {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-4 h-4'") }}
+                {{ end }}
+                {{ $button_text }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+            {{ end }}
           {{ end }}
         </div>
       </div>

@@ -5,16 +5,37 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
 {{/* Enable Alpine.js and animations for this block */}}
 {{ $page.Store.Set "has_alpine" true }}
-{{ if ne $block.design.animations false }}
+{{ $animations_enabled := true }}
+{{ if isset $design "animations" }}
+  {{ $animations_enabled = partial "functions/coerce_bool" (dict "value" (index $design "animations") "default" true) }}
+{{ end }}
+{{ if $animations_enabled }}
   {{ $page.Store.Set "has_animations" true }}
 {{ end }}
 
 {{/* Query projects */}}
 {{ $query := site.Pages }}
-{{ $folders := $block.content.filters.folders | default (slice "projects") }}
+{{ $filters := index $content "filters" }}
+{{ if not (reflect.IsMap $filters) }}{{ $filters = dict }}{{ end }}
+{{ $folders_raw := index $filters "folders" }}
+{{ $folders := slice }}
+{{ if reflect.IsSlice $folders_raw }}
+  {{ range $folders_raw }}
+    {{ $folder := strings.TrimSpace (printf "%v" .) }}
+    {{ if $folder }}{{ $folders = $folders | append $folder }}{{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $folders_raw) "string" }}
+  {{ $folder := strings.TrimSpace $folders_raw }}
+  {{ if $folder }}{{ $folders = slice $folder }}{{ end }}
+{{ end }}
+{{ if eq (len $folders) 0 }}{{ $folders = slice "projects" }}{{ end }}
 {{ $query = where $query "Section" "in" $folders }}
 {{ $query = where $query "Kind" "eq" "page" }}
 
@@ -24,9 +45,14 @@
 {{ $archive_page = site.GetPage "Section" $main_folder }}
 
 {{/* Sort */}}
-{{ $sort_by := $block.content.sort_by | default "Date" }}
+{{ $sort_by := "Date" }}
+{{ $sort_by_raw := index $content "sort_by" }}
+{{ if eq (printf "%T" $sort_by_raw) "string" }}
+  {{ $sort_by_raw = strings.TrimSpace $sort_by_raw }}
+  {{ if ne $sort_by_raw "" }}{{ $sort_by = $sort_by_raw }}{{ end }}
+{{ end }}
 {{ $sort_by = partial "functions/get_sort_by_parameter" $sort_by }}
-{{ $sort_ascending := $block.content.sort_ascending | default false }}
+{{ $sort_ascending := partial "functions/coerce_bool" (dict "value" (index $content "sort_ascending") "default" false) }}
 {{ $sort_order := cond $sort_ascending "asc" "desc" }}
 {{ $query = sort $query $sort_by $sort_order }}
 
@@ -34,21 +60,34 @@
 {{ $total_count := len $query }}
 
 {{/* Limit */}}
-{{ $count := $block.content.count | default 6 }}
+{{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 6 "min" 0) }}
 {{ if gt $count 0 }}
   {{ $query = first $count $query }}
 {{ end }}
 
 {{/* Get filter buttons */}}
-{{ $buttons := $block.content.buttons | default (slice (dict "name" "All" "tag" "*")) }}
-{{ $default_idx := $block.content.default_button_index | default 0 }}
+{{ $buttons_raw := index $content "buttons" }}
+{{ $buttons := slice }}
+{{ if reflect.IsSlice $buttons_raw }}
+  {{ $buttons = $buttons_raw }}
+{{ else if and $buttons_raw (reflect.IsMap $buttons_raw) }}
+  {{ $buttons = slice $buttons_raw }}
+{{ end }}
+{{ if eq (len $buttons) 0 }}
+  {{ $buttons = slice (dict "name" "All" "tag" "*") }}
+{{ end }}
+{{ $default_idx := partial "functions/coerce_int" (dict "value" (index $content "default_button_index") "default" 0 "min" 0) }}
 {{ $default_tag := "*" }}
-{{ with index $buttons $default_idx }}
-  {{ $default_tag = .tag }}
+{{ if lt $default_idx (len $buttons) }}
+  {{ with index $buttons $default_idx }}
+    {{ if reflect.IsMap . }}
+      {{ with index . "tag" }}{{ $default_tag = printf "%v" . }}{{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 
 {{/* Columns */}}
-{{ $columns := $block.design.columns | default 3 }}
+{{ $columns := partial "functions/coerce_int" (dict "value" (index $design "columns") "default" 3 "min" 1 "max" 4) }}
 {{ $grid_class := "md:grid-cols-2 lg:grid-cols-3" }}
 {{ if eq $columns 2 }}
   {{ $grid_class = "md:grid-cols-2" }}
@@ -56,18 +95,24 @@
   {{ $grid_class = "md:grid-cols-2 lg:grid-cols-4" }}
 {{ end }}
 
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16" x-data="{ activeFilter: '{{ $default_tag }}' }">
+{{ $fallback_icon := "code-bracket" }}
+{{ $fallback_raw := index $design "fallback_icon" }}
+{{ if eq (printf "%T" $fallback_raw) "string" }}
+  {{ $fallback_icon = $fallback_raw }}
+{{ end }}
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16" x-data="{ activeFilter: {{ $default_tag | jsonify }} }">
   
   {{/* Header */}}
   <div class="text-center mb-12">
-    {{ with $block.content.title }}
+    {{ with index $content "title" }}
     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-      {{ . | emojify | $page.RenderString }}
+      {{ printf "%v" . | emojify | $page.RenderString }}
     </h2>
     {{ end }}
-    {{ with $block.content.subtitle }}
+    {{ with index $content "subtitle" }}
     <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-      {{ . | emojify | $page.RenderString }}
+      {{ printf "%v" . | emojify | $page.RenderString }}
     </p>
     {{ end }}
   </div>
@@ -76,15 +121,21 @@
   {{ if gt (len $buttons) 1 }}
   <div class="flex flex-wrap justify-center gap-2 mb-10">
     {{ range $idx, $button := $buttons }}
+    {{ if reflect.IsMap $button }}
+    {{ $button_name := "" }}
+    {{ with index $button "name" }}{{ $button_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+    {{ $button_tag := "*" }}
+    {{ with index $button "tag" }}{{ $button_tag = strings.TrimSpace (printf "%v" .) }}{{ end }}
     <button 
-      @click="activeFilter = '{{ $button.tag }}'"
-      :class="activeFilter === '{{ $button.tag }}' 
+      @click="activeFilter = {{ $button_tag | jsonify }}"
+      :class="activeFilter === {{ $button_tag | jsonify }} 
         ? 'bg-primary-600 text-white border-primary-600 shadow-lg shadow-primary-500/25' 
         : 'bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20'"
       class="px-5 py-2.5 rounded-full text-sm font-medium border backdrop-blur-sm transition-all duration-300 ease-out cursor-pointer"
     >
-      {{ $button.name }}
+      {{ $button_name | default "All" }}
     </button>
+    {{ end }}
     {{ end }}
   </div>
   {{ end }}
@@ -93,22 +144,45 @@
   <div class="grid grid-cols-1 {{ $grid_class }} gap-6" data-stagger="100">
     {{ range $index, $item := $query }}
       {{/* Get tags as comma-separated string */}}
-      {{ $item_tags := "" }}
-      {{ with $item.Params.tags }}
-        {{ $item_tags = delimit . "," }}
+      {{ $tags := slice }}
+      {{ $tags_raw := $item.Params.tags }}
+      {{ if reflect.IsSlice $tags_raw }}
+        {{ range $tags_raw }}
+          {{ $tag := strings.TrimSpace (printf "%v" .) }}
+          {{ if $tag }}{{ $tags = $tags | append $tag }}{{ end }}
+        {{ end }}
+      {{ else if eq (printf "%T" $tags_raw) "string" }}
+        {{ $tag_string := strings.TrimSpace $tags_raw }}
+        {{ if $tag_string }}
+          {{ if strings.Contains $tag_string "," }}
+            {{ range (split $tag_string ",") }}
+              {{ $tag := strings.TrimSpace . }}
+              {{ if $tag }}{{ $tags = $tags | append $tag }}{{ end }}
+            {{ end }}
+          {{ else }}
+            {{ $tags = slice $tag_string }}
+          {{ end }}
+        {{ end }}
       {{ end }}
+      {{ $item_tags := delimit $tags "," }}
+      {{ $item_tags_json := $item_tags | jsonify }}
       
       {{/* Get status */}}
-      {{ $status := $item.Params.status | default "" }}
+      {{ $status := "" }}
+      {{ $status_raw := $item.Params.status }}
+      {{ if eq (printf "%T" $status_raw) "string" }}
+        {{ $status = strings.TrimSpace $status_raw }}
+      {{ end }}
+      {{ $status_norm := upper $status }}
       {{ $status_class := "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" }}
-      {{ if eq $status "WIP" }}
+      {{ if eq $status_norm "WIP" }}
         {{ $status_class = "bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30" }}
-      {{ else if eq $status "Archived" }}
+      {{ else if eq $status_norm "ARCHIVED" }}
         {{ $status_class = "bg-gray-500/20 text-gray-600 dark:text-gray-400 border-gray-500/30" }}
       {{ end }}
 
       <article 
-        x-show="activeFilter === '*' || '{{ $item_tags }}'.toLowerCase().includes(activeFilter.toLowerCase())"
+        x-show="activeFilter === '*' || {{ $item_tags_json }}.toLowerCase().includes(activeFilter.toLowerCase())"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-95 translate-y-4"
         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
@@ -137,7 +211,6 @@
             {{ end }}
           {{ else }}
             {{/* Gradient placeholder with configurable icon */}}
-            {{ $fallback_icon := $block.design.fallback_icon | default "code-bracket" }}
             <div class="w-full h-full bg-gradient-to-br from-primary-600/40 via-secondary-600/30 to-primary-800/50 flex items-center justify-center">
               {{ partial "functions/get_icon" (dict "name" $fallback_icon "attributes" "class=\"w-16 h-16 text-white/30\"") }}
             </div>
@@ -166,9 +239,14 @@
           </h3>
           
           {{/* Summary */}}
-          {{ with $item.Params.summary }}
+          {{ $summary := "" }}
+          {{ $summary_raw := $item.Params.summary }}
+          {{ if $summary_raw }}
+            {{ $summary = strings.TrimSpace (printf "%v" $summary_raw) }}
+          {{ end }}
+          {{ if $summary }}
           <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
-            {{ . }}
+            {{ $summary | $page.RenderString }}
           </p>
           {{ else }}
           <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
@@ -177,56 +255,122 @@
           {{ end }}
 
           {{/* Tech Stack Tags - fixed 2-line height for consistency */}}
-          {{ with $item.Params.tech_stack }}
+          {{ $tech_stack := slice }}
+          {{ $tech_raw := $item.Params.tech_stack }}
+          {{ if reflect.IsSlice $tech_raw }}
+            {{ range $tech_raw }}
+              {{ $tech := strings.TrimSpace (printf "%v" .) }}
+              {{ if $tech }}{{ $tech_stack = $tech_stack | append $tech }}{{ end }}
+            {{ end }}
+          {{ else if eq (printf "%T" $tech_raw) "string" }}
+            {{ $tech_string := strings.TrimSpace $tech_raw }}
+            {{ if $tech_string }}
+              {{ if strings.Contains $tech_string "," }}
+                {{ range (split $tech_string ",") }}
+                  {{ $tech := strings.TrimSpace . }}
+                  {{ if $tech }}{{ $tech_stack = $tech_stack | append $tech }}{{ end }}
+                {{ end }}
+              {{ else }}
+                {{ $tech_stack = slice $tech_string }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          {{ if gt (len $tech_stack) 0 }}
           <div class="flex flex-wrap gap-1.5 mb-4 min-h-[3.5rem]">
-            {{ range first 4 . }}
+            {{ range first 4 $tech_stack }}
             <span class="px-2 py-0.5 text-xs font-medium rounded-md bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-500/20 h-fit">
               {{ . }}
             </span>
             {{ end }}
-            {{ if gt (len .) 4 }}
+            {{ if gt (len $tech_stack) 4 }}
             <span class="px-2 py-0.5 text-xs font-medium rounded-md bg-gray-100 dark:bg-gray-500/10 text-gray-600 dark:text-gray-400 h-fit">
-              +{{ sub (len .) 4 }}
+              +{{ sub (len $tech_stack) 4 }}
             </span>
             {{ end }}
           </div>
           {{ end }}
 
           {{/* Action Links - pushed to bottom with mt-auto */}}
-          {{ with $item.Params.links }}
-          <div class="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-white/5 mt-auto">
-            {{ range . }}
-              {{ $icon := "link" }}
-              {{ $label := .label | default .name }}
-              {{/* Fallback to i18n if no custom label provided */}}
-              {{ if not $label }}
-                {{ if eq .type "github" }}
-                  {{ $icon = "brands/github" }}
-                  {{ $label = i18n "portfolio_link_code" | default "Code" }}
-                {{ else if eq .type "live" }}
-                  {{ $icon = "globe-alt" }}
-                  {{ $label = i18n "portfolio_link_live" | default "Live" }}
-                {{ else if eq .type "demo" }}
-                  {{ $icon = "play" }}
-                  {{ $label = i18n "portfolio_link_demo" | default "Demo" }}
-                {{ else }}
-                  {{ $label = i18n "portfolio_link_default" | default "Link" }}
+          {{ $links := slice }}
+          {{ $links_raw := $item.Params.links }}
+          {{ $links_iter := slice }}
+          {{ if reflect.IsSlice $links_raw }}
+            {{ $links_iter = $links_raw }}
+          {{ else if and $links_raw (reflect.IsMap $links_raw) }}
+            {{ $links_iter = slice $links_raw }}
+          {{ end }}
+          {{ if gt (len $links_iter) 0 }}
+            {{ range $links_iter }}
+              {{ $url := "" }}
+              {{ $label := "" }}
+              {{ $icon := "" }}
+              {{ $type := "" }}
+              {{ $new_tab := false }}
+              {{ if reflect.IsMap . }}
+                {{ with index . "url" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+                {{ if not $url }}
+                  {{ with index . "link" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
                 {{ end }}
-              {{ else }}
-                {{/* Custom label provided, still infer icon from type if not specified */}}
-                {{ if eq .type "github" }}
-                  {{ $icon = "brands/github" }}
-                {{ else if eq .type "live" }}
-                  {{ $icon = "globe-alt" }}
-                {{ else if eq .type "demo" }}
-                  {{ $icon = "play" }}
+                {{ with index . "label" }}{{ $label = strings.TrimSpace (printf "%v" .) }}{{ end }}
+                {{ if not $label }}
+                  {{ with index . "name" }}{{ $label = strings.TrimSpace (printf "%v" .) }}{{ end }}
                 {{ end }}
+                {{ with index . "type" }}{{ $type = lower (strings.TrimSpace (printf "%v" .)) }}{{ end }}
+                {{ with index . "icon" }}{{ $icon = printf "%v" . }}{{ end }}
+                {{ $new_tab = partial "functions/coerce_bool" (dict "value" (index . "new_tab") "default" false) }}
+              {{ else if eq (printf "%T" .) "string" }}
+                {{ $url = strings.TrimSpace . }}
               {{ end }}
-              {{ $icon = .icon | default $icon }}
+              {{ if $url }}
+                {{ if not $label }}
+                  {{ if eq $type "github" }}
+                    {{ $label = i18n "portfolio_link_code" | default "Code" }}
+                  {{ else if eq $type "live" }}
+                    {{ $label = i18n "portfolio_link_live" | default "Live" }}
+                  {{ else if eq $type "demo" }}
+                    {{ $label = i18n "portfolio_link_demo" | default "Demo" }}
+                  {{ else }}
+                    {{ $label = i18n "portfolio_link_default" | default "Link" }}
+                  {{ end }}
+                {{ end }}
+                {{ if not $icon }}
+                  {{ if eq $type "github" }}
+                    {{ $icon = "brands/github" }}
+                  {{ else if eq $type "live" }}
+                    {{ $icon = "globe-alt" }}
+                  {{ else if eq $type "demo" }}
+                    {{ $icon = "play" }}
+                  {{ else }}
+                    {{ $icon = "link" }}
+                  {{ end }}
+                {{ end }}
+                {{ $links = $links | append (dict "url" $url "label" $label "icon" $icon "new_tab" $new_tab) }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          {{ if gt (len $links) 0 }}
+          <div class="flex items-center gap-3 pt-3 border-t border-gray-100 dark:border-white/5 mt-auto">
+            {{ range $links }}
+              {{ $icon := index . "icon" | default "link" }}
+              {{ $label := index . "label" | default (i18n "portfolio_link_default" | default "Link") }}
+              {{ $link_url := index . "url" }}
+              {{ $new_tab := partial "functions/coerce_bool" (dict "value" (index . "new_tab") "default" false) }}
+              {{ $target := "" }}
+              {{ $scheme := (urls.Parse $link_url).Scheme }}
+              {{ if not $scheme }}
+                {{ if not (hasPrefix $link_url "#") }}
+                  {{ $link_url = $link_url | relLangURL }}
+                {{ end }}
+                {{ if eq (path.Ext $link_url) ".pdf" }}{{ $new_tab = true }}{{ end }}
+              {{ else if in (slice "http" "https") $scheme }}
+                {{ $new_tab = true }}
+              {{ end }}
+              {{ if $new_tab }}
+                {{ $target = "target=\"_blank\" rel=\"noopener noreferrer\"" }}
+              {{ end }}
               <a 
-                href="{{ .url }}" 
-                target="_blank" 
-                rel="noopener noreferrer"
+                href="{{ $link_url | safeURL }}" 
+                {{ $target | safeHTMLAttr }}
                 class="relative z-10 inline-flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 onclick="event.stopPropagation();"
               >
@@ -243,20 +387,43 @@
 
   {{/* View All Link */}}
   {{/* Smart default: show link if there are more items than displayed, unless explicitly disabled */}}
-  {{ $show_archive_link := $block.content.archive.enable | default (gt $total_count $count) }}
-  {{ if $show_archive_link | and $archive_page }}
+  {{ $archive := index $content "archive" }}
+  {{ if not (reflect.IsMap $archive) }}{{ $archive = dict }}{{ end }}
+  {{ $default_show_archive := false }}
+  {{ if gt $count 0 }}
+    {{ $default_show_archive = gt $total_count $count }}
+  {{ end }}
+  {{ $show_archive_link := partial "functions/coerce_bool" (dict "value" (index $archive "enable") "default" $default_show_archive) }}
+  {{ if and $show_archive_link $archive_page }}
     {{ $archive_link := "" }}
-    {{ if $block.content.archive.link }}
-      {{ $archive_link = $block.content.archive.link | relLangURL }}
-    {{ else }}
+    {{ $archive_link_raw := index $archive "link" }}
+    {{ if eq (printf "%T" $archive_link_raw) "string" }}
+      {{ $archive_link = strings.TrimSpace $archive_link_raw }}
+    {{ end }}
+    {{ if not $archive_link }}
       {{ $archive_link = $archive_page.RelPermalink }}
     {{ end }}
+    {{ $archive_target := "" }}
+    {{ $archive_scheme := (urls.Parse $archive_link).Scheme }}
+    {{ if not $archive_scheme }}
+      {{ if not (hasPrefix $archive_link "#") }}
+        {{ $archive_link = $archive_link | relLangURL }}
+      {{ end }}
+    {{ else if in (slice "http" "https") $archive_scheme }}
+      {{ $archive_target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
     
-    {{ $archive_text := $block.content.archive.text | default (i18n "portfolio_view_all" | default "View All Projects") }}
+    {{ $archive_text := "" }}
+    {{ $archive_text_raw := index $archive "text" }}
+    {{ if eq (printf "%T" $archive_text_raw) "string" }}
+      {{ $archive_text = strings.TrimSpace $archive_text_raw }}
+    {{ end }}
+    {{ if not $archive_text }}{{ $archive_text = i18n "portfolio_view_all" | default "View All Projects" }}{{ end }}
     
     <div class="text-center mt-12">
       <a 
-        href="{{ $archive_link }}" 
+        href="{{ $archive_link | safeURL }}" 
+        {{ $archive_target | safeHTMLAttr }}
         class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-800 dark:text-white bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all duration-300"
       >
         {{ $archive_text | emojify }}

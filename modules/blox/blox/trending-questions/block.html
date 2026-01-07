@@ -2,29 +2,74 @@
 {{- $wcBlock := .wcBlock -}}
 {{- $wcIdentifier := .wcIdentifier -}}
 
-{{- $st := $wcBlock.design.spacing | default dict -}}
-{{- $pad := $st.padding | default (slice "4rem" "0" "4rem" "0") -}}
+{{ $content := $wcBlock.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $wcBlock.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
-<section id="{{ $wcIdentifier }}" class="{{ $wcBlock.design.background.color }}" style="padding: {{ delimit $pad " " }};">
+{{ $spacing := index $design "spacing" }}
+{{ if not (reflect.IsMap $spacing) }}{{ $spacing = dict }}{{ end }}
+{{ $pad_raw := index $spacing "padding" }}
+{{ $pad := slice "4rem" "0" "4rem" "0" }}
+{{ if reflect.IsSlice $pad_raw }}
+  {{ $pad_values := slice }}
+  {{ range $pad_raw }}
+    {{ $val := strings.TrimSpace (printf "%v" .) }}
+    {{ if $val }}{{ $pad_values = $pad_values | append $val }}{{ end }}
+  {{ end }}
+  {{ if eq (len $pad_values) 4 }}{{ $pad = $pad_values }}{{ end }}
+{{ end }}
+
+{{ $background := index $design "background" }}
+{{ if not (reflect.IsMap $background) }}{{ $background = dict }}{{ end }}
+{{ $bg_color := "" }}
+{{ with index $background "color" }}{{ $bg_color = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}{{ $title = strings.TrimSpace (printf "%v" $title_raw) }}{{ end }}
+
+{{ $subtitle := "" }}
+{{ $subtitle_raw := index $content "subtitle" }}
+{{ if $subtitle_raw }}{{ $subtitle = strings.TrimSpace (printf "%v" $subtitle_raw) }}{{ end }}
+
+{{ $view_all := index $content "view_all" }}
+{{ if not (reflect.IsMap $view_all) }}{{ $view_all = dict }}{{ end }}
+{{ $view_all_text := "" }}
+{{ $view_all_link := "" }}
+{{ with index $view_all "text" }}{{ $view_all_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ with index $view_all "link" }}{{ $view_all_link = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+<section id="{{ $wcIdentifier }}" class="{{ $bg_color }}" style="padding: {{ delimit $pad " " }};">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     
     <div class="flex items-center justify-between mb-8">
       <div>
-        {{ with $wcBlock.content.title }}
+        {{ with $title }}
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
           {{ . | markdownify }}
         </h2>
         {{ end }}
-        {{ with $wcBlock.content.subtitle }}
+        {{ with $subtitle }}
         <p class="mt-2 text-gray-600 dark:text-gray-300">
           {{ . | markdownify }}
         </p>
         {{ end }}
       </div>
       
-      {{ with $wcBlock.content.view_all }}
-      <a href="{{ .link }}" class="hidden sm:flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
-        {{ .text }}
+      {{ if and $view_all_text $view_all_link }}
+      {{ $view_link := $view_all_link }}
+      {{ $view_target := "" }}
+      {{ $view_scheme := (urls.Parse $view_link).Scheme }}
+      {{ if not $view_scheme }}
+        {{ if not (hasPrefix $view_link "#") }}
+          {{ $view_link = $view_link | relLangURL }}
+        {{ end }}
+      {{ else if in (slice "http" "https") $view_scheme }}
+        {{ $view_target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <a href="{{ $view_link | safeURL }}" {{ $view_target | safeHTMLAttr }} class="hidden sm:flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+        {{ $view_all_text }}
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>
@@ -36,50 +81,114 @@
     {{ $questions := slice }}
     
     {{/* Method 1: Dynamic - Pull from pages with trending: true */}}
-    {{ $count := $wcBlock.content.count | default 4 }}
+    {{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 4 "min" 0) }}
     {{ $trending_pages := where site.RegularPages "Params.trending" true }}
     {{ $trending_pages = $trending_pages.ByParam "trending_weight" | default ($trending_pages.ByDate.Reverse) }}
     {{ $trending_pages = first $count $trending_pages }}
     
     {{ if $trending_pages }}
       {{ range $trending_pages }}
-        {{ $question_item := dict }}
-        {{ $question_item = merge $question_item (dict "question" (.Params.question | default .Title)) }}
-        {{ $question_item = merge $question_item (dict "link" .RelPermalink) }}
-        {{ $question_item = merge $question_item (dict "answer_preview" (.Params.answer_preview | default .Params.answer | default .Summary | plainify | truncate 150)) }}
-        
-        {{/* Optional metadata */}}
-        {{ with .Params.author }}
-          {{ $question_item = merge $question_item (dict "author" .) }}
-        {{ end }}
-        {{ with .Params.views }}
-          {{ $question_item = merge $question_item (dict "views" .) }}
-        {{ end }}
-        {{ with .Params.upvote_count }}
-          {{ $question_item = merge $question_item (dict "upvotes" .) }}
-        {{ end }}
-        {{ with .Params.badge }}
-          {{ $question_item = merge $question_item (dict "badge" .) }}
-        {{ else }}
-          {{/* Default badges based on metadata */}}
-          {{ if gt (.Params.upvote_count | default 0) 50 }}
-            {{ $question_item = merge $question_item (dict "badge" (dict "text" "🔥 Popular" "color" "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200")) }}
-          {{ else if .Params.featured }}
-            {{ $question_item = merge $question_item (dict "badge" (dict "text" "⭐ Featured" "color" "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200")) }}
-          {{ else if (time .Date).After (now.AddDate 0 0 -7) }}
-            {{ $question_item = merge $question_item (dict "badge" (dict "text" "✨ New" "color" "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200")) }}
-          {{ else }}
-            {{ $question_item = merge $question_item (dict "badge" (dict "text" "🔥 Trending" "color" "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200")) }}
+        {{ $question := "" }}
+        {{ $question_raw := .Params.question | default .Title }}
+        {{ if $question_raw }}{{ $question = strings.TrimSpace (printf "%v" $question_raw) }}{{ end }}
+        {{ $link := .RelPermalink }}
+        {{ $answer_preview := "" }}
+        {{ $answer_raw := .Params.answer_preview | default .Params.answer | default .Summary }}
+        {{ if $answer_raw }}{{ $answer_preview = (printf "%v" $answer_raw) | plainify | truncate 150 }}{{ end }}
+
+        {{ $author := "" }}
+        {{ with .Params.author }}{{ $author = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ $views := "" }}
+        {{ with .Params.views }}{{ $views = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ $upvotes := "" }}
+        {{ with .Params.upvote_count }}{{ $upvotes = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+        {{ $badge := dict }}
+        {{ $badge_raw := .Params.badge }}
+        {{ if reflect.IsMap $badge_raw }}
+          {{ $badge_text := "" }}
+          {{ $badge_color := "" }}
+          {{ with index $badge_raw "text" }}{{ $badge_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+          {{ with index $badge_raw "color" }}{{ $badge_color = strings.TrimSpace (printf "%v" .) }}{{ end }}
+          {{ if $badge_text }}
+            {{ $badge = dict "text" $badge_text "color" $badge_color }}
+          {{ end }}
+        {{ else if $badge_raw }}
+          {{ $badge_text := strings.TrimSpace (printf "%v" $badge_raw) }}
+          {{ if $badge_text }}
+            {{ $badge = dict "text" $badge_text "color" "" }}
           {{ end }}
         {{ end }}
-        
-        {{ $questions = $questions | append $question_item }}
+
+        {{ if eq (len $badge) 0 }}
+          {{ $upvote_count := partial "functions/coerce_int" (dict "value" .Params.upvote_count "default" 0 "min" 0) }}
+          {{ $featured := partial "functions/coerce_bool" (dict "value" .Params.featured "default" false) }}
+          {{ if gt $upvote_count 50 }}
+            {{ $badge = dict "text" "🔥 Popular" "color" "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200" }}
+          {{ else if $featured }}
+            {{ $badge = dict "text" "⭐ Featured" "color" "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200" }}
+          {{ else if (time .Date).After (now.AddDate 0 0 -7) }}
+            {{ $badge = dict "text" "✨ New" "color" "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200" }}
+          {{ else }}
+            {{ $badge = dict "text" "🔥 Trending" "color" "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200" }}
+          {{ end }}
+        {{ end }}
+
+        {{ if $question }}
+          {{ $questions = $questions | append (dict "question" $question "link" $link "answer_preview" $answer_preview "author" $author "views" $views "upvotes" $upvotes "badge" $badge) }}
+        {{ end }}
       {{ end }}
     {{ end }}
     
     {{/* Method 2: Static fallback - Use config if no trending pages found */}}
     {{ if not $questions }}
-      {{ $questions = $wcBlock.content.questions }}
+      {{ $questions_raw := index $content "questions" }}
+      {{ $questions_iter := slice }}
+      {{ if reflect.IsSlice $questions_raw }}
+        {{ $questions_iter = $questions_raw }}
+      {{ else if and $questions_raw (reflect.IsMap $questions_raw) }}
+        {{ $questions_iter = slice $questions_raw }}
+      {{ end }}
+      {{ if gt (len $questions_iter) 0 }}
+        {{ range $questions_iter }}
+          {{ if reflect.IsMap . }}
+            {{ $question := "" }}
+            {{ $link := "" }}
+            {{ $answer_preview := "" }}
+            {{ $author := "" }}
+            {{ $views := "" }}
+            {{ $upvotes := "" }}
+
+            {{ with index . "question" }}{{ $question = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "link" }}{{ $link = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "answer_preview" }}{{ $answer_preview = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "author" }}{{ $author = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "views" }}{{ $views = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "upvotes" }}{{ $upvotes = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+            {{ $badge := dict }}
+            {{ $badge_raw := index . "badge" }}
+            {{ if reflect.IsMap $badge_raw }}
+              {{ $badge_text := "" }}
+              {{ $badge_color := "" }}
+              {{ with index $badge_raw "text" }}{{ $badge_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+              {{ with index $badge_raw "color" }}{{ $badge_color = strings.TrimSpace (printf "%v" .) }}{{ end }}
+              {{ if $badge_text }}
+                {{ $badge = dict "text" $badge_text "color" $badge_color }}
+              {{ end }}
+            {{ else if $badge_raw }}
+              {{ $badge_text := strings.TrimSpace (printf "%v" $badge_raw) }}
+              {{ if $badge_text }}
+                {{ $badge = dict "text" $badge_text "color" "" }}
+              {{ end }}
+            {{ end }}
+
+            {{ if $question }}
+              {{ $questions = $questions | append (dict "question" $question "link" $link "answer_preview" $answer_preview "author" $author "views" $views "upvotes" $upvotes "badge" $badge) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
     {{ end }}
     
     {{/* Questions list or carousel */}}
@@ -88,21 +197,38 @@
       <div class="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 transition-all duration-300 hover:border-primary-500 hover:shadow-lg">
         
         {{/* Badge */}}
-        {{ with .badge }}
-        <div class="mb-3 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium {{ .color | default "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200" }}">
-          {{ .text }}
-        </div>
+        {{ $badge := index $question "badge" }}
+        {{ if reflect.IsMap $badge }}
+          {{ $badge_text := index $badge "text" }}
+          {{ $badge_color := index $badge "color" | default "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200" }}
+          {{ if $badge_text }}
+          <div class="mb-3 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium {{ $badge_color }}">
+            {{ $badge_text }}
+          </div>
+          {{ end }}
         {{ end }}
         
         {{/* Question */}}
         <h3 class="mb-3 text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-          <a href="{{ .link }}" class="after:absolute after:inset-0">
-            {{ .question }}
+          {{ $question_link := index $question "link" }}
+          {{ $link := $question_link }}
+          {{ if not $link }}{{ $link = "#" }}{{ end }}
+          {{ $link_target := "" }}
+          {{ $scheme := (urls.Parse $link).Scheme }}
+          {{ if not $scheme }}
+            {{ if not (hasPrefix $link "#") }}
+              {{ $link = $link | relLangURL }}
+            {{ end }}
+          {{ else if in (slice "http" "https") $scheme }}
+            {{ $link_target = "target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+          <a href="{{ $link | safeURL }}" {{ $link_target | safeHTMLAttr }} class="after:absolute after:inset-0">
+            {{ index $question "question" }}
           </a>
         </h3>
         
         {{/* Answer preview */}}
-        {{ with .answer_preview }}
+        {{ with index $question "answer_preview" }}
         <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
           {{ . }}
         </p>
@@ -111,7 +237,7 @@
         {{/* Meta info */}}
         <div class="flex items-center justify-between text-sm">
           <div class="flex items-center gap-4 text-gray-500 dark:text-gray-400">
-            {{ with .author }}
+            {{ with index $question "author" }}
             <span class="flex items-center gap-1">
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -120,7 +246,7 @@
             </span>
             {{ end }}
             
-            {{ with .views }}
+            {{ with index $question "views" }}
             <span class="flex items-center gap-1">
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -130,7 +256,7 @@
             </span>
             {{ end }}
             
-            {{ with .upvotes }}
+            {{ with index $question "upvotes" }}
             <span class="flex items-center gap-1">
               <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -150,10 +276,20 @@
     </div>
     
     {{/* Mobile view all link */}}
-    {{ with $wcBlock.content.view_all }}
+    {{ if and $view_all_text $view_all_link }}
+    {{ $mobile_link := $view_all_link }}
+    {{ $mobile_target := "" }}
+    {{ $mobile_scheme := (urls.Parse $mobile_link).Scheme }}
+    {{ if not $mobile_scheme }}
+      {{ if not (hasPrefix $mobile_link "#") }}
+        {{ $mobile_link = $mobile_link | relLangURL }}
+      {{ end }}
+    {{ else if in (slice "http" "https") $mobile_scheme }}
+      {{ $mobile_target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
     <div class="mt-6 sm:hidden">
-      <a href="{{ .link }}" class="flex items-center justify-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-white font-medium hover:bg-primary-700 transition-colors">
-        {{ .text }}
+      <a href="{{ $mobile_link | safeURL }}" {{ $mobile_target | safeHTMLAttr }} class="flex items-center justify-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-white font-medium hover:bg-primary-700 transition-colors">
+        {{ $view_all_text }}
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>

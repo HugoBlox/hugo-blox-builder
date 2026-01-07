@@ -5,11 +5,122 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $layout := $block.design.layout | default "cards" }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $layout := "cards" }}
+{{ $layout_raw := index $design "layout" }}
+{{ if eq (printf "%T" $layout_raw) "string" }}
+  {{ $layout_candidate := lower (strings.TrimSpace $layout_raw) }}
+  {{ if in (slice "cards" "hexagon" "timeline") $layout_candidate }}
+    {{ $layout = $layout_candidate }}
+  {{ end }}
+{{ end }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}
+  {{ $title = strings.TrimSpace (printf "%v" $title_raw) }}
+{{ end }}
+{{ if $title }}{{ $title = $title | emojify | $page.RenderString }}{{ end }}
+
+{{ $subtitle := "" }}
+{{ $subtitle_raw := index $content "subtitle" }}
+{{ if $subtitle_raw }}
+  {{ $subtitle = strings.TrimSpace (printf "%v" $subtitle_raw) }}
+{{ end }}
+{{ if $subtitle }}{{ $subtitle = $subtitle | emojify | $page.RenderString }}{{ end }}
+
+{{ $text := "" }}
+{{ $text_raw := index $content "text" }}
+{{ if $text_raw }}
+  {{ $text = strings.TrimSpace (printf "%v" $text_raw) }}
+{{ end }}
+{{ if $text }}{{ $text = $text | emojify | $page.RenderString }}{{ end }}
+
+{{ $items_raw := index $content "items" }}
+{{ $items_iter := slice }}
+{{ if reflect.IsSlice $items_raw }}
+  {{ $items_iter = $items_raw }}
+{{ else if and $items_raw (reflect.IsMap $items_raw) }}
+  {{ $items_iter = slice $items_raw }}
+{{ end }}
+
+{{ $items := slice }}
+{{ if gt (len $items_iter) 0 }}
+  {{ range $items_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $name := "" }}
+      {{ $description := "" }}
+      {{ $icon := "" }}
+      {{ $image := "" }}
+      {{ $gradient := "" }}
+      {{ $url := "" }}
+      {{ $status := "" }}
+      {{ $topics := slice }}
+      {{ $team_size := "" }}
+      {{ $publications := "" }}
+      {{ $funding := "" }}
+      {{ $cta_url := "" }}
+      {{ $cta_text := "" }}
+      {{ $cta_icon := "" }}
+
+      {{ with index . "name" }}{{ $name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "description" }}{{ $description = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "icon" }}{{ $icon = printf "%v" . }}{{ end }}
+      {{ with index . "image" }}{{ $image = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "gradient" }}{{ $gradient = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "url" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "status" }}{{ $status = lower (strings.TrimSpace (printf "%v" .)) }}{{ end }}
+
+      {{ $topics_raw := index . "topics" }}
+      {{ if reflect.IsSlice $topics_raw }}
+        {{ range $topics_raw }}
+          {{ $topic := strings.TrimSpace (printf "%v" .) }}
+          {{ if $topic }}{{ $topics = $topics | append $topic }}{{ end }}
+        {{ end }}
+      {{ else if eq (printf "%T" $topics_raw) "string" }}
+        {{ $topic_string := strings.TrimSpace $topics_raw }}
+        {{ if $topic_string }}
+          {{ if strings.Contains $topic_string "," }}
+            {{ range (split $topic_string ",") }}
+              {{ $topic := strings.TrimSpace . }}
+              {{ if $topic }}{{ $topics = $topics | append $topic }}{{ end }}
+            {{ end }}
+          {{ else }}
+            {{ $topics = slice $topic_string }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ with index . "team_size" }}{{ $team_size = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "publications" }}{{ $publications = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "funding" }}{{ $funding = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+      {{ $cta_raw := index . "cta" }}
+      {{ if reflect.IsMap $cta_raw }}
+        {{ with index $cta_raw "url" }}{{ $cta_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $cta_raw "text" }}{{ $cta_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $cta_raw "icon" }}{{ $cta_icon = printf "%v" . }}{{ end }}
+      {{ end }}
+
+      {{ if or $name $description }}
+        {{ $items = $items | append (dict "name" $name "description" $description "icon" $icon "image" $image "gradient" $gradient "url" $url "status" $status "topics" $topics "team_size" $team_size "publications" $publications "funding" $funding "cta" (dict "url" $cta_url "text" $cta_text "icon" $cta_icon)) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $cta := index $content "cta" }}
+{{ if not (reflect.IsMap $cta) }}{{ $cta = dict }}{{ end }}
+{{ $cta_text := "" }}
+{{ $cta_link := "" }}
+{{ $cta_icon := "" }}
+{{ with index $cta "text" }}{{ $cta_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ with index $cta "url" }}{{ $cta_link = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ with index $cta "icon" }}{{ $cta_icon = printf "%v" . }}{{ end }}
 
 <div class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
   <div class="max-w-7xl mx-auto">
@@ -38,36 +149,72 @@
     {{/* Cards Layout */}}
     {{ if eq $layout "cards" }}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-      {{ range $idx, $item := $block.content.items }}
+      {{ range $idx, $item := $items }}
+      {{ $name := index $item "name" }}
+      {{ $description := index $item "description" }}
+      {{ $icon := index $item "icon" }}
+      {{ $image := index $item "image" }}
+      {{ $gradient := index $item "gradient" | default "from-primary-400 to-secondary-400" }}
+      {{ $item_url := index $item "url" }}
+      {{ $status := index $item "status" }}
+      {{ $topics := index $item "topics" }}
+      {{ $team_size := index $item "team_size" }}
+      {{ $publications := index $item "publications" }}
+      {{ $funding := index $item "funding" }}
+      {{ $item_cta := index $item "cta" }}
+      {{ $item_cta_url := "" }}
+      {{ $item_cta_text := "" }}
+      {{ $item_cta_icon := "" }}
+      {{ if reflect.IsMap $item_cta }}
+        {{ with index $item_cta "url" }}{{ $item_cta_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $item_cta "text" }}{{ $item_cta_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $item_cta "icon" }}{{ $item_cta_icon = printf "%v" . }}{{ end }}
+      {{ end }}
       <div class="group relative">
         <div class="h-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden flex flex-col">
           
           {{/* Card Image/Icon Header */}}
           {{ $header_content := "" }}
-          {{ if $item.image }}
-            {{ $img := resources.Get (printf "media/%s" $item.image) }}
+          {{ if $image }}
+            {{ $image_path := strings.TrimPrefix $image "/" }}
+            {{ $img := resources.Get (printf "media/%s" $image_path) }}
             {{ if $img }}
               {{ $img = $img.Fill "600x400 Center webp" }}
-              {{ $header_content = printf "<img src=\"%s\" alt=\"%s\" class=\"w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500\">" $img.RelPermalink $item.name }}
+              {{ $alt := $name | plainify }}
+              {{ $header_content = printf "<img src=\"%s\" alt=\"%s\" class=\"w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500\">" $img.RelPermalink $alt }}
             {{ end }}
-          {{ else if $item.icon }}
-            {{ $icon_html := partial "functions/get_icon" (dict "name" $item.icon "attributes" "class=\"w-24 h-24 text-white/80 group-hover:scale-110 transition-transform duration-300\"") }}
+          {{ else if $icon }}
+            {{ $icon_html := partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-24 h-24 text-white/80 group-hover:scale-110 transition-transform duration-300\"") }}
             {{ $header_content = printf "<div class=\"absolute inset-0 flex items-center justify-center\">%s</div>" $icon_html }}
           {{ end }}
 
-          {{ if and $item.cta.url $header_content }}
-            <a href="{{ $item.cta.url }}" class="block relative h-48 bg-gradient-to-br {{ $item.gradient | default "from-primary-400 to-secondary-400" }} overflow-hidden">
+          {{ $item_cta_link := "" }}
+          {{ $item_cta_target := "" }}
+          {{ if $item_cta_url }}
+            {{ $item_cta_link = $item_cta_url }}
+            {{ $item_cta_scheme := (urls.Parse $item_cta_link).Scheme }}
+            {{ if not $item_cta_scheme }}
+              {{ if not (hasPrefix $item_cta_link "#") }}
+                {{ $item_cta_link = $item_cta_link | relLangURL }}
+              {{ end }}
+            {{ else if in (slice "http" "https") $item_cta_scheme }}
+              {{ $item_cta_target = "target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+          {{ end }}
+
+          {{ if and $item_cta_link $header_content }}
+            <a href="{{ $item_cta_link | safeURL }}" {{ $item_cta_target | safeHTMLAttr }} class="block relative h-48 bg-gradient-to-br {{ $gradient }} overflow-hidden">
               {{ $header_content | safeHTML }}
             </a>
           {{ else }}
-            <div class="relative h-48 bg-gradient-to-br {{ $item.gradient | default "from-primary-400 to-secondary-400" }} overflow-hidden">
+            <div class="relative h-48 bg-gradient-to-br {{ $gradient }} overflow-hidden">
               {{ $header_content | safeHTML }}
             </div>
           {{ end }}
             
           
           {{/* Status Badge */}}
-          {{ with $item.status }}
+          {{ with $status }}
           <div class="absolute top-4 right-4 z-10">
             <span class="px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur text-xs font-semibold rounded-full
               {{ if eq . "active" }}text-green-600 dark:text-green-400
@@ -84,22 +231,32 @@
             {{/* Main Content */}}
             <div class="flex-1">
               <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                {{ if $item.url }}
-                <a href="{{ $item.url }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                  {{ $item.name }}
+                {{ if $item_url }}
+                {{ $item_link := $item_url }}
+                {{ $item_target := "" }}
+                {{ $item_scheme := (urls.Parse $item_link).Scheme }}
+                {{ if not $item_scheme }}
+                  {{ if not (hasPrefix $item_link "#") }}
+                    {{ $item_link = $item_link | relLangURL }}
+                  {{ end }}
+                {{ else if in (slice "http" "https") $item_scheme }}
+                  {{ $item_target = "target=\"_blank\" rel=\"noopener\"" }}
+                {{ end }}
+                <a href="{{ $item_link | safeURL }}" {{ $item_target | safeHTMLAttr }} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  {{ $name }}
                   {{ partial "functions/get_icon" (dict "name" "hero/arrow-top-right-on-square" "attributes" "class=\"inline-block w-4 h-4 ml-1\"") }}
                 </a>
                 {{ else }}
-                  {{ $item.name }}
+                  {{ $name }}
                 {{ end }}
               </h3>
               
               <p class="text-gray-600 dark:text-gray-400 mb-4">
-                {{ $item.description }}
+                {{ $description | $page.RenderString }}
               </p>
               
               {{/* Key Topics/Keywords */}}
-              {{ with $item.topics }}
+              {{ with $topics }}
               <div class="flex flex-wrap gap-2 mb-6">
                 {{ range first 3 . }}
                 <span class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded">
@@ -118,23 +275,23 @@
             {{/* Footer Section - Always at bottom */}}
             <div class="mt-auto">
               {{/* Stats/Metrics */}}
-              {{ if or $item.team_size $item.publications $item.funding }}
+              {{ if or $team_size $publications $funding }}
               <div class="grid grid-cols-3 gap-3 pt-4 border-t border-gray-200 dark:border-gray-700 mb-4">
-                {{ with $item.team_size }}
+                {{ with $team_size }}
                 <div class="flex flex-col items-center text-center text-gray-500 dark:text-gray-400">
                   {{ partial "functions/get_icon" (dict "name" "hero/user-group" "attributes" "class=\"w-4 h-4 mx-auto mb-1\"") }}
                   <span class="text-xs leading-tight">{{ . | replaceRE " researchers" "" }}</span>
                   <span class="text-xs text-gray-400">team</span>
                 </div>
                 {{ end }}
-                {{ with $item.publications }}
+                {{ with $publications }}
                 <div class="flex flex-col items-center text-center text-gray-500 dark:text-gray-400">
                   {{ partial "functions/get_icon" (dict "name" "hero/document-text" "attributes" "class=\"w-4 h-4 mx-auto mb-1\"") }}
                   <span class="text-xs leading-tight">{{ . | replaceRE " papers" "" }}</span>
                   <span class="text-xs text-gray-400">papers</span>
                 </div>
                 {{ end }}
-                {{ with $item.funding }}
+                {{ with $funding }}
                 <div class="flex flex-col items-center text-center text-gray-500 dark:text-gray-400">
                   {{ partial "functions/get_icon" (dict "name" "hero/currency-dollar" "attributes" "class=\"w-4 h-4 mx-auto mb-1\"") }}
                   <span class="text-xs leading-tight">{{ . }}</span>
@@ -145,10 +302,10 @@
               {{ end }}
               
               {{/* Call to Action */}}
-              {{ with $item.cta }}
-              <a href="{{ .url }}" 
+              {{ if and $item_cta_link $item_cta_text }}
+              <a href="{{ $item_cta_link | safeURL }}" {{ $item_cta_target | safeHTMLAttr }}
                  class="inline-flex items-center w-full justify-center px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium text-sm rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-all duration-300">
-                {{ .text }}
+                {{ $item_cta_text }}
                 {{ partial "functions/get_icon" (dict "name" "hero/arrow-right" "attributes" "class=\"ml-1 w-4 h-4\"") }}
               </a>
               {{ end }}
@@ -162,15 +319,19 @@
     {{/* Hexagon Layout */}}
     {{ else if eq $layout "hexagon" }}
     <div class="flex flex-wrap justify-center gap-8 lg:gap-4">
-      {{ range $idx, $item := $block.content.items }}
+      {{ range $idx, $item := $items }}
+      {{ $name := index $item "name" }}
+      {{ $description := index $item "description" }}
+      {{ $icon := index $item "icon" }}
+      {{ $gradient := index $item "gradient" | default "from-primary-400 to-secondary-400" }}
       <div class="hexagon-container group">
-        <div class="hexagon bg-gradient-to-br {{ $item.gradient | default "from-primary-400 to-secondary-400" }} shadow-xl hover:shadow-2xl transition-all duration-300">
+        <div class="hexagon bg-gradient-to-br {{ $gradient }} shadow-xl hover:shadow-2xl transition-all duration-300">
           <div class="hexagon-content">
-            {{ if $item.icon }}
-              {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class=\"w-12 h-12 text-white mb-3\"") }}
+            {{ if $icon }}
+              {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-12 h-12 text-white mb-3\"") }}
             {{ end }}
-            <h3 class="text-lg font-bold text-white mb-2">{{ $item.name }}</h3>
-            <p class="text-white/90 text-sm">{{ $item.description | truncate 60 }}</p>
+            <h3 class="text-lg font-bold text-white mb-2">{{ $name }}</h3>
+            <p class="text-white/90 text-sm">{{ $description | truncate 60 }}</p>
           </div>
         </div>
       </div>
@@ -184,7 +345,10 @@
       <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary-400 to-secondary-400"></div>
       
       <div class="space-y-12">
-        {{ range $idx, $item := $block.content.items }}
+        {{ range $idx, $item := $items }}
+        {{ $name := index $item "name" }}
+        {{ $description := index $item "description" }}
+        {{ $icon := index $item "icon" }}
         <div class="relative flex items-center {{ if eq (mod $idx 2) 0 }}justify-start{{ else }}justify-end{{ end }}">
           {{/* Timeline dot */}}
           <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-white dark:bg-gray-800 border-4 border-primary-500 rounded-full z-10"></div>
@@ -192,14 +356,14 @@
           <div class="w-5/12 {{ if eq (mod $idx 2) 1 }}mr-auto{{ end }}">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
               <div class="flex items-center gap-3 mb-3">
-                {{ if $item.icon }}
+                {{ if $icon }}
                   <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center">
-                    {{ partial "functions/get_icon" (dict "name" $item.icon "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
+                    {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
                   </div>
                 {{ end }}
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $item.name }}</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $name }}</h3>
               </div>
-              <p class="text-gray-600 dark:text-gray-400">{{ $item.description }}</p>
+              <p class="text-gray-600 dark:text-gray-400">{{ $description | $page.RenderString }}</p>
             </div>
           </div>
         </div>
@@ -209,12 +373,21 @@
     {{ end }}
     
     {{/* Global Call to Action */}}
-    {{ with $block.content.cta }}
+    {{ if and $cta_link $cta_text }}
+    {{ $cta_target := "" }}
+    {{ $cta_scheme := (urls.Parse $cta_link).Scheme }}
+    {{ if not $cta_scheme }}
+      {{ if not (hasPrefix $cta_link "#") }}
+        {{ $cta_link = $cta_link | relLangURL }}
+      {{ end }}
+    {{ else if in (slice "http" "https") $cta_scheme }}
+      {{ $cta_target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
     <div class="mt-12 text-center">
-      <a href="{{ .url }}" 
+      <a href="{{ $cta_link | safeURL }}" {{ $cta_target | safeHTMLAttr }}
          class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow hover:shadow-lg transition-all duration-300">
-        {{ .text }}
-        {{ with .icon }}
+        {{ $cta_text }}
+        {{ with $cta_icon }}
         {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"ml-2 w-5 h-5\"") }}
         {{ end }}
       </a>

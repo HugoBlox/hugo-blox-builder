@@ -5,52 +5,128 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $author := $block.content.username | default "me" }}
-{{ $profile := partial "functions/get_author_profile" $author }}
-{{ $skills := $profile.skills | default (slice) }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+
+{{ $username := "me" }}
+{{ $username_raw := index $content "username" }}
+{{ if eq (printf "%T" $username_raw) "string" }}
+  {{ $username = strings.TrimSpace $username_raw }}
+{{ end }}
+{{ $profile := partial "functions/get_author_profile" $username }}
+
+{{ $skills_raw := $profile.skills }}
+{{ $skills_iter := slice }}
+{{ if reflect.IsSlice $skills_raw }}
+  {{ $skills_iter = $skills_raw }}
+{{ else if and $skills_raw (reflect.IsMap $skills_raw) }}
+  {{ $skills_iter = slice $skills_raw }}
+{{ end }}
+
+{{ $skills := slice }}
+{{ if gt (len $skills_iter) 0 }}
+  {{ range $skills_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $name := "" }}
+      {{ $description := "" }}
+      {{ $color := "" }}
+      {{ $color_border := "" }}
+      {{ $items_raw := index . "items" }}
+      {{ $items_iter := slice }}
+      {{ if reflect.IsSlice $items_raw }}
+        {{ $items_iter = $items_raw }}
+      {{ else if and $items_raw (reflect.IsMap $items_raw) }}
+        {{ $items_iter = slice $items_raw }}
+      {{ end }}
+      {{ $items := slice }}
+
+      {{ with index . "name" }}{{ $name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "description" }}{{ $description = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "color" }}{{ $color = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "color_border" }}{{ $color_border = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+      {{ if gt (len $items_iter) 0 }}
+        {{ range $items_iter }}
+          {{ if reflect.IsMap . }}
+            {{ $item_label := "" }}
+            {{ $item_name := "" }}
+            {{ $item_desc := "" }}
+            {{ $item_icon := "" }}
+            {{ $level := "" }}
+
+            {{ with index . "label" }}{{ $item_label = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "name" }}{{ $item_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "description" }}{{ $item_desc = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "icon" }}{{ $item_icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "level" }}{{ $level = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+            {{ if or $item_label $item_name }}
+              {{ $items = $items | append (dict "label" $item_label "name" $item_name "description" $item_desc "icon" $item_icon "level" $level) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ if and $name (gt (len $items) 0) }}
+        {{ $skills = $skills | append (dict "name" $name "description" $description "color" $color "color_border" $color_border "items" $items) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}{{ $title = strings.TrimSpace (printf "%v" $title_raw) }}{{ end }}
+
+{{ $text := "" }}
+{{ $text_raw := index $content "text" }}
+{{ if $text_raw }}{{ $text = strings.TrimSpace (printf "%v" $text_raw) }}{{ end }}
+
+{{ $columns := partial "functions/coerce_int" (dict "value" (index $design "columns") "default" 2 "min" 1 "max" 5) }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
   <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-    {{ $block.content.title | markdownify | emojify }}
+    {{ $title | markdownify | emojify }}
   </div>
 
-  {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+  {{ with $text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
 </div>
 
-{{ $columns := $block.design.columns | default 2 }}
 <div class="grid grid-cols-1 {{ if ge $columns 2 }}md:grid-cols-2{{ end }} {{ if ge $columns 3 }}lg:grid-cols-3{{ end }} {{ if ge $columns 4 }}xl:grid-cols-4{{ end }} {{ if ge $columns 5 }}2xl:grid-cols-5{{ end }} items-start max-w-prose mx-auto gap-3 px-6 md:px-0">
 
   {{ range $skills }}
-  {{ $color := .color | default "" }}
-  {{ $color_border := .color_border | default "" }}
+  {{ $color := index . "color" | default "" }}
+  {{ $color_border := index . "color_border" | default "" }}
   <div class="w-full">
     <div class="mb-5 text-xl font-bold text-gray-900 dark:text-white">
-      {{ .name | markdownify | emojify }}
-      {{ with .description }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+      {{ index . "name" | markdownify | emojify }}
+      {{ with index . "description" }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
     </div>
-    {{ range (.items | default (slice)) }}
+    {{ range (index . "items") }}
 
     <div class="skills-content">
 
-      {{ with .icon }}
+      {{ with index . "icon" }}
       <span class="skills-icon inline-block">
         {{ partial "functions/get_icon" (dict "name" . "attributes" "style=\"height: 1em;\"")  }}
       </span>
       {{ end }}
 
-      {{ $label := .label | default .name }}
+      {{ $label := index . "label" | default (index . "name") }}
       <span class="skills-name text-gray-700 dark:text-gray-300">
         {{ $label | markdownify | emojify }}
-        {{ with .description }}<p class="skills-description">{{ . | markdownify | emojify }}</p>{{ end }}
+        {{ with index . "description" }}<p class="skills-description">{{ . | markdownify | emojify }}</p>{{ end }}
       </span>
       {{/* Numeric level (1-5) only. */}}
       {{ $level := 0.0 }}
-      {{ if isset . "level" }}
-        {{ $raw := .level }}
-        {{ $type := printf "%T" $raw }}
-        {{ if or (eq $type "int") (eq $type "int64") (eq $type "int32") (eq $type "int16") (eq $type "int8") (eq $type "uint") (eq $type "uint64") (eq $type "uint32") (eq $type "uint16") (eq $type "uint8") (eq $type "float64") (eq $type "float32") }}
-          {{ $level = float $raw }}
+      {{ $level_raw := index . "level" }}
+      {{ if $level_raw }}
+        {{ $level_str := strings.TrimSpace (printf "%v" $level_raw) }}
+        {{ if gt (len (findRE "^[0-9]+(?:\\.[0-9]+)?$" $level_str)) 0 }}
+          {{ $level = float $level_str }}
         {{ end }}
       {{ end }}
       {{ if gt $level 5 }}{{ $level = 5 }}{{ end }}

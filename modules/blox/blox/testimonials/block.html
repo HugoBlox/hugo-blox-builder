@@ -5,8 +5,49 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}
+  {{ $title = strings.TrimSpace (printf "%v" $title_raw) }}
+{{ end }}
+{{ if $title }}{{ $title = $title | emojify | $page.RenderString }}{{ end }}
+
+{{ $text := "" }}
+{{ $text_raw := index $content "text" }}
+{{ if $text_raw }}
+  {{ $text = strings.TrimSpace (printf "%v" $text_raw) }}
+{{ end }}
+{{ if $text }}{{ $text = $text | emojify | $page.RenderString }}{{ end }}
+
+{{ $items_raw := index $content "items" }}
+{{ $items_iter := slice }}
+{{ if reflect.IsSlice $items_raw }}
+  {{ $items_iter = $items_raw }}
+{{ else if and $items_raw (reflect.IsMap $items_raw) }}
+  {{ $items_iter = slice $items_raw }}
+{{ end }}
+
+{{ $items := slice }}
+{{ if gt (len $items_iter) 0 }}
+  {{ range $items_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $item_text := "" }}
+      {{ $item_name := "" }}
+      {{ $item_role := "" }}
+      {{ $item_image := "" }}
+      {{ with index . "text" }}{{ $item_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "name" }}{{ $item_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "role" }}{{ $item_role = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "image" }}{{ $item_image = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if or $item_text $item_name $item_role $item_image }}
+        {{ $items = $items | append (dict "text" $item_text "name" $item_name "role" $item_role "image" $item_image) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 <section>
   <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
@@ -22,16 +63,20 @@
     </div>
     {{ end }}
 
-    {{ range $idx, $item := $block.content.items }}
-    <div class="max-w-screen-md mx-auto {{if ne (math.Add $idx 1) (len $block.content.items) }}mb-12{{end}}">
+    {{ range $idx, $item := $items }}
+    <div class="max-w-screen-md mx-auto {{if ne (math.Add $idx 1) (len $items) }}mb-12{{end}}">
       <svg class="h-16 mx-auto mb-3 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32">
         <path d="M9.563 8.469l-0.813-1.25c-5.625 3.781-8.75 8.375-8.75 12.156 0 3.656 2.688 5.375 4.969 5.375 2.875 0 4.906-2.438 4.906-5 0-2.156-1.375-4-3.219-4.688-0.531-0.188-1.031-0.344-1.031-1.25 0-1.156 0.844-2.875 3.938-5.344zM21.969 8.469l-0.813-1.25c-5.563 3.781-8.75 8.375-8.75 12.156 0 3.656 2.75 5.375 5.031 5.375 2.906 0 4.969-2.438 4.969-5 0-2.156-1.406-4-3.313-4.688-0.531-0.188-1-0.344-1-1.25 0-1.156 0.875-2.875 3.875-5.344z"/>
       </svg>
       <blockquote>
-        <p class="text-2xl font-medium text-gray-900 dark:text-white">"{{.text | $page.RenderString}}"</p>
+        <p class="text-2xl font-medium text-gray-900 dark:text-white">"{{ (index $item "text") | $page.RenderString }}"</p>
       </blockquote>
       <div class="flex items-center justify-center mt-6 space-x-3">
-        {{ $image := resources.GetMatch (path.Join "media" .image) }}
+        {{ $image_name := index $item "image" }}
+        {{ $image_path := "" }}
+        {{ if $image_name }}{{ $image_path = path.Join "media" (strings.TrimPrefix $image_name "/") }}{{ end }}
+        {{ $image := "" }}
+        {{ if $image_path }}{{ $image = resources.GetMatch $image_path }}{{ end }}
         {{ with $image }}
           {{/* Serve a single 2x retina source for a 48px display */}}
           {{ $avatar_96 := $image.Process "Fill 96x96 Center webp" }}
@@ -39,12 +84,12 @@
                src="{{$avatar_96.RelPermalink}}" 
                width="48"
                height="48"
-               alt="{{$item.name | plainify}}"
+               alt="{{ (index $item "name") | plainify }}"
                loading="lazy">
         {{ end }}
         <div class="flex flex-col items-center">
-          <div class="pr-3 font-medium text-gray-900 dark:text-white">{{.name}}</div>
-          <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">{{.role}}</div>
+          <div class="pr-3 font-medium text-gray-900 dark:text-white">{{ index $item "name" }}</div>
+          <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">{{ index $item "role" }}</div>
         </div>
       </div>
     </div>

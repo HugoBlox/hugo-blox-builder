@@ -5,23 +5,200 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
 {{/* Enable Alpine.js for copy-to-clipboard functionality */}}
 {{ $page.Store.Set "has_alpine" true }}
 
-{{ $title := $block.content.title | default (i18n "block_contact_title" | default "Contact Us") | emojify | $page.RenderString }}
-{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
+{{ $default_title := i18n "block_contact_title" | default "Contact Us" }}
+{{ $title := $default_title }}
+{{ $title_raw := index $content "title" }}
+{{ if eq (printf "%T" $title_raw) "string" }}
+  {{ $title_raw = strings.TrimSpace $title_raw }}
+  {{ if ne $title_raw "" }}
+    {{ $title = $title_raw }}
+  {{ end }}
+{{ end }}
+{{ $title = $title | emojify | $page.RenderString }}
+
+{{ $subtitle := "" }}
+{{ $subtitle_raw := index $content "subtitle" }}
+{{ if eq (printf "%T" $subtitle_raw) "string" }}
+  {{ $subtitle = $subtitle_raw | emojify | $page.RenderString }}
+{{ end }}
+
+{{ $visit_title := i18n "block_contact_visit_title" | default "Visit Us" }}
+{{ $visit_title_raw := index $content "visit_title" }}
+{{ if eq (printf "%T" $visit_title_raw) "string" }}
+  {{ $visit_title_raw = strings.TrimSpace $visit_title_raw }}
+  {{ if ne $visit_title_raw "" }}
+    {{ $visit_title = $visit_title_raw }}
+  {{ end }}
+{{ end }}
+
+{{ $connect_title_raw := "" }}
+{{ $connect_title_value := index $content "connect_title" }}
+{{ if eq (printf "%T" $connect_title_value) "string" }}
+  {{ $connect_title_raw = strings.TrimSpace $connect_title_value }}
+{{ end }}
+{{ $connect_title_standard := $connect_title_raw | default (i18n "block_contact_connect_title" | default "Connect") }}
+{{ $connect_title_single := $connect_title_raw | default (i18n "block_contact_connect_title" | default "Let's Connect") }}
+
+{{ $connect_text := "" }}
+{{ $connect_text_raw := index $content "text" }}
+{{ if eq (printf "%T" $connect_text_raw) "string" }}
+  {{ $connect_text = strings.TrimSpace $connect_text_raw }}
+{{ end }}
+{{ if not $connect_text }}
+  {{ $connect_text = "I'm always open to discussing new projects, opportunities, or just having a chat." }}
+{{ end }}
+
+{{ $address_lines := slice }}
+{{ $address_raw := index $content "address" }}
+{{ if and $address_raw (reflect.IsMap $address_raw) }}
+  {{ $lines_raw := index $address_raw "lines" }}
+  {{ if reflect.IsSlice $lines_raw }}
+    {{ range $lines_raw }}
+      {{ $line := strings.TrimSpace (printf "%v" .) }}
+      {{ if $line }}{{ $address_lines = $address_lines | append $line }}{{ end }}
+    {{ end }}
+  {{ else if eq (printf "%T" $lines_raw) "string" }}
+    {{ $line := strings.TrimSpace $lines_raw }}
+    {{ if $line }}{{ $address_lines = slice $line }}{{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $address_raw) "string" }}
+  {{ $line := strings.TrimSpace $address_raw }}
+  {{ if $line }}{{ $address_lines = slice $line }}{{ end }}
+{{ end }}
+
+{{ $office_hours := slice }}
+{{ $office_raw := index $content "office_hours" }}
+{{ if reflect.IsSlice $office_raw }}
+  {{ range $office_raw }}
+    {{ $line := strings.TrimSpace (printf "%v" .) }}
+    {{ if $line }}{{ $office_hours = $office_hours | append $line }}{{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $office_raw) "string" }}
+  {{ $line := strings.TrimSpace $office_raw }}
+  {{ if $line }}{{ $office_hours = slice $line }}{{ end }}
+{{ end }}
+
+{{ $map_url := "" }}
+{{ $map_url_raw := index $content "map_url" }}
+{{ if eq (printf "%T" $map_url_raw) "string" }}
+  {{ $map_url = strings.TrimSpace $map_url_raw }}
+{{ end }}
+
+{{ $map_embed := "" }}
+{{ $map_embed_raw := index $content "map_embed" }}
+{{ if eq (printf "%T" $map_embed_raw) "string" }}
+  {{ $map_embed = $map_embed_raw }}
+{{ end }}
+
+{{ $show_form := partial "functions/coerce_bool" (dict "value" (index $content "show_form") "default" false) }}
+{{ $form_action := "" }}
+{{ $form_action_raw := index $content "form_action" }}
+{{ if eq (printf "%T" $form_action_raw) "string" }}
+  {{ $form_action = strings.TrimSpace $form_action_raw }}
+{{ end }}
+{{ if not $form_action }}{{ $form_action = "#" }}{{ end }}
 
 {{/* Check if Visit Us card has content */}}
-{{ $has_visit_content := or $block.content.address $block.content.office_hours $block.content.map_url }}
+{{ $has_visit_content := or (gt (len $address_lines) 0) (gt (len $office_hours) 0) $map_url }}
 
 {{/* Check if Connect card has content - fallback to author profile if no email/social */}}
-{{ $author := $block.content.username | default "me" }}
+{{ $author := "me" }}
+{{ $author_raw := index $content "username" }}
+{{ if eq (printf "%T" $author_raw) "string" }}
+  {{ $author = strings.TrimSpace $author_raw }}
+{{ end }}
 {{ $profile := partial "functions/get_author_profile" $author }}
-{{ $email := $block.content.email | default $profile.email }}
-{{ $phone := $block.content.phone }}
-{{ $social := $block.content.social | default $profile.links }}
-{{ $has_connect_content := or $email $phone $social $block.content.prospective }}
+{{ $author_data := index site.Data.authors (urlize $author) }}
+{{ $email := "" }}
+{{ $email_raw := index $content "email" }}
+{{ if eq (printf "%T" $email_raw) "string" }}
+  {{ $email = strings.TrimSpace $email_raw }}
+{{ end }}
+{{ if and (not $email) $author_data (reflect.IsMap $author_data) }}
+  {{ $author_email_raw := index $author_data "email" }}
+  {{ if eq (printf "%T" $author_email_raw) "string" }}
+    {{ $email = strings.TrimSpace $author_email_raw }}
+  {{ end }}
+{{ end }}
+
+{{ $phone := "" }}
+{{ $phone_raw := index $content "phone" }}
+{{ if eq (printf "%T" $phone_raw) "string" }}
+  {{ $phone = strings.TrimSpace $phone_raw }}
+{{ end }}
+{{ if and (not $phone) $author_data (reflect.IsMap $author_data) }}
+  {{ $author_phone_raw := index $author_data "phone" }}
+  {{ if eq (printf "%T" $author_phone_raw) "string" }}
+    {{ $phone = strings.TrimSpace $author_phone_raw }}
+  {{ end }}
+{{ end }}
+
+{{ $social_raw := index $content "social" }}
+{{ if eq $social_raw nil }}{{ $social_raw = $profile.links }}{{ end }}
+{{ $social := slice }}
+{{ if reflect.IsSlice $social_raw }}
+  {{ range $social_raw }}
+    {{ $url := "" }}
+    {{ $icon := "hero/link" }}
+    {{ $label := "" }}
+    {{ if reflect.IsMap . }}
+      {{ $url_raw := index . "url" | default (index . "link") }}
+      {{ if eq (printf "%T" $url_raw) "string" }}
+        {{ $url = strings.TrimSpace $url_raw }}
+      {{ end }}
+      {{ $icon_raw := index . "icon" }}
+      {{ if eq (printf "%T" $icon_raw) "string" }}
+        {{ $icon = $icon_raw }}
+      {{ end }}
+      {{ $label_raw := index . "label" | default (index . "name") }}
+      {{ if eq (printf "%T" $label_raw) "string" }}
+        {{ $label = $label_raw }}
+      {{ end }}
+    {{ else if eq (printf "%T" .) "string" }}
+      {{ $url = strings.TrimSpace . }}
+    {{ end }}
+    {{ if $url }}
+      {{ $social = $social | append (dict "url" $url "icon" $icon "label" $label) }}
+    {{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $social_raw) "string" }}
+  {{ $url := strings.TrimSpace $social_raw }}
+  {{ if $url }}
+    {{ $social = slice (dict "url" $url "icon" "hero/link" "label" "") }}
+  {{ end }}
+{{ end }}
+
+{{ $prospective_raw := index $content "prospective" }}
+{{ $prospective := dict }}
+{{ if and $prospective_raw (reflect.IsMap $prospective_raw) }}
+  {{ $prospective = $prospective_raw }}
+{{ end }}
+{{ $prospective_title := "" }}
+{{ $prospective_title_raw := index $prospective "title" }}
+{{ if eq (printf "%T" $prospective_title_raw) "string" }}
+  {{ $prospective_title = strings.TrimSpace $prospective_title_raw }}
+{{ end }}
+{{ $prospective_text := "" }}
+{{ $prospective_text_raw := index $prospective "text" }}
+{{ if eq (printf "%T" $prospective_text_raw) "string" }}
+  {{ $prospective_text = strings.TrimSpace $prospective_text_raw }}
+{{ end }}
+{{ $prospective_button := index $prospective "button" }}
+{{ if not (reflect.IsMap $prospective_button) }}{{ $prospective_button = dict }}{{ end }}
+{{ $prospective_button_text := "" }}
+{{ with index $prospective_button "text" }}{{ $prospective_button_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $prospective_button_url := "" }}
+{{ with index $prospective_button "url" }}{{ $prospective_button_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+{{ $has_connect_content := or $email $phone (gt (len $social) 0) $prospective_title $prospective_text $prospective_button_text $prospective_button_url }}
 
 {{/* Determine grid layout - single column centered if only one card */}}
 {{ $grid_class := "grid-cols-1 lg:grid-cols-2" }}
@@ -65,32 +242,42 @@
           {{ partial "functions/get_icon" (dict "name" "hero/map-pin" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
         </div>
         <h3 class="ml-4 text-2xl font-bold text-gray-900 dark:text-white">
-          {{ $block.content.visit_title | default (i18n "block_contact_visit_title" | default "Visit Us") }}
+          {{ $visit_title }}
         </h3>
       </div>
       
       <div class="space-y-4">
-        {{ with $block.content.address }}
+        {{ if gt (len $address_lines) 0 }}
         <div class="text-gray-600 dark:text-gray-300">
-          {{ range .lines }}
+          {{ range $address_lines }}
           <p>{{ . }}</p>
           {{ end }}
         </div>
         {{ end }}
         
-        {{ with $block.content.office_hours }}
+        {{ if gt (len $office_hours) 0 }}
         <div class="pt-4 border-t border-gray-200 dark:border-white/10">
           <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ i18n "block_contact_office_hours" | default "Office Hours" }}</h4>
           <div class="text-gray-600 dark:text-gray-300 space-y-1">
-            {{ range . }}
+            {{ range $office_hours }}
             <p>{{ . }}</p>
             {{ end }}
           </div>
         </div>
         {{ end }}
         
-        {{ with $block.content.map_url }}
-        <a href="{{ . }}" target="_blank" rel="noopener" 
+        {{ if $map_url }}
+        {{ $map_link := $map_url }}
+        {{ $map_target := "" }}
+        {{ $map_scheme := (urls.Parse $map_link).Scheme }}
+        {{ if not $map_scheme }}
+          {{ if not (hasPrefix $map_link "#") }}
+            {{ $map_link = $map_link | relLangURL }}
+          {{ end }}
+        {{ else if in (slice "http" "https") $map_scheme }}
+          {{ $map_target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+        <a href="{{ $map_link | safeURL }}" {{ $map_target | safeHTMLAttr }}
            class="inline-flex items-center mt-4 px-4 py-2 bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-400 rounded-lg border border-primary-200 dark:border-primary-500/20 hover:bg-primary-200 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/40 transition-all">
           {{ partial "functions/get_icon" (dict "name" "hero/map" "attributes" "class=\"w-5 h-5 mr-2\"") }}
           {{ i18n "block_contact_view_on_map" | default "View on Map" }}
@@ -107,7 +294,8 @@
       {{/* Filter social links - remove mailto if email is shown separately */}}
       {{ $filtered_social := slice }}
       {{ range $social }}
-        {{ if not (hasPrefix .url "mailto:") }}
+        {{ $url := index . "url" }}
+        {{ if and $url (not (and $email (hasPrefix $url "mailto:"))) }}
           {{ $filtered_social = $filtered_social | append . }}
         {{ end }}
       {{ end }}
@@ -120,10 +308,10 @@
         <div class="space-y-6">
           <div>
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {{ $block.content.connect_title | default (i18n "block_contact_connect_title" | default "Let's Connect") }}
+              {{ $connect_title_single }}
             </h3>
             <p class="text-gray-600 dark:text-gray-400">
-              {{ $block.content.text | default "I'm always open to discussing new projects, opportunities, or just having a chat." }}
+              {{ $connect_text }}
             </p>
           </div>
           
@@ -131,7 +319,7 @@
           {{/* Email with click-to-copy */}}
           <div class="relative">
             <button 
-              @click="navigator.clipboard.writeText('{{ . }}'); copied = true; setTimeout(() => copied = false, 2000)"
+              @click="navigator.clipboard.writeText({{ . | jsonify }}); copied = true; setTimeout(() => copied = false, 2000)"
               class="group flex items-center gap-3 text-left"
             >
               <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 group-hover:bg-primary-200 dark:group-hover:bg-primary-500/20 group-hover:border-primary-300 dark:group-hover:border-primary-500/40 transition-all">
@@ -158,7 +346,7 @@
           </div>
           
           {{/* Primary CTA Button */}}
-          <a href="mailto:{{ . }}" 
+          <a href="{{ (printf "mailto:%s" .) | safeURL }}" 
              class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
             {{ partial "functions/get_icon" (dict "name" "hero/paper-airplane" "attributes" "class=\"w-5 h-5 mr-2\"") }}
             Send a message
@@ -166,7 +354,7 @@
           {{ end }}
           
           {{ with $phone }}
-          <a href="tel:{{ . }}" class="flex items-center group">
+          <a href="{{ (printf "tel:%s" .) | safeURL }}" class="flex items-center group">
             <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 group-hover:bg-primary-200 dark:group-hover:bg-primary-500/20 group-hover:border-primary-300 dark:group-hover:border-primary-500/40 transition-all mr-3">
               {{ partial "functions/get_icon" (dict "name" "hero/phone" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
             </div>
@@ -179,16 +367,29 @@
         </div>
         
         {{/* Right: Social Links */}}
-        {{ with $filtered_social }}
+        {{ if gt (len $filtered_social) 0 }}
         <div class="flex flex-col justify-center items-center md:items-start">
           <h4 class="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-5">{{ i18n "block_contact_follow_me" | default "Find me on" }}</h4>
           <div class="flex flex-wrap gap-4">
-            {{ range . }}
-            <a href="{{ .url }}" target="_blank" rel="noopener"
+            {{ range $filtered_social }}
+            {{ $social_url := index . "url" }}
+            {{ $social_label := index . "label" }}
+            {{ $social_icon := index . "icon" }}
+            {{ $link := $social_url }}
+            {{ $target := "" }}
+            {{ $scheme := (urls.Parse $link).Scheme }}
+            {{ if not $scheme }}
+              {{ if not (hasPrefix $link "#") }}
+                {{ $link = $link | relLangURL }}
+              {{ end }}
+            {{ else if in (slice "http" "https") $scheme }}
+              {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+            {{ end }}
+            <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}
                class="group flex items-center justify-center w-14 h-14 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-primary-100 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/40 hover:scale-110 transition-all duration-300"
-               {{ with .label }}title="{{ . }}"{{ end }}>
+               {{ if $social_label }}title="{{ $social_label }}"{{ end }}>
               <div class="text-gray-600 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-7 h-7\"") }}
+                {{ partial "functions/get_icon" (dict "name" $social_icon "attributes" "class=\"w-7 h-7\"") }}
               </div>
             </a>
             {{ end }}
@@ -204,7 +405,7 @@
           {{ partial "functions/get_icon" (dict "name" "hero/chat-bubble-left-right" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
         </div>
         <h3 class="ml-4 text-2xl font-bold text-gray-900 dark:text-white">
-          {{ $block.content.connect_title | default (i18n "block_contact_connect_title" | default "Connect") }}
+          {{ $connect_title_standard }}
         </h3>
       </div>
       
@@ -212,7 +413,7 @@
         {{/* Contact Methods */}}
         <div class="space-y-3">
           {{ with $email }}
-          <a href="mailto:{{ . }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+          <a href="{{ (printf "mailto:%s" .) | safeURL }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
             <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 mr-4">
               {{ partial "functions/get_icon" (dict "name" "hero/envelope" "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
             </div>
@@ -224,7 +425,7 @@
           {{ end }}
           
           {{ with $phone }}
-          <a href="tel:{{ . }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+          <a href="{{ (printf "tel:%s" .) | safeURL }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
             <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 mr-4">
               {{ partial "functions/get_icon" (dict "name" "hero/phone" "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
             </div>
@@ -236,15 +437,28 @@
           {{ end }}
           
           {{/* Social Media */}}
-          {{ with $filtered_social }}
+          {{ if gt (len $filtered_social) 0 }}
           <div class="pt-4 border-t border-gray-200 dark:border-white/10">
             <h4 class="font-semibold text-gray-900 dark:text-white mb-4">{{ i18n "block_contact_follow_me" | default "Find me on" }}</h4>
             <div class="flex flex-wrap gap-3">
-              {{ range . }}
-              <a href="{{ .url }}" target="_blank" rel="noopener"
+              {{ range $filtered_social }}
+              {{ $social_url := index . "url" }}
+              {{ $social_label := index . "label" }}
+              {{ $social_icon := index . "icon" }}
+              {{ $link := $social_url }}
+              {{ $target := "" }}
+              {{ $scheme := (urls.Parse $link).Scheme }}
+              {{ if not $scheme }}
+                {{ if not (hasPrefix $link "#") }}
+                  {{ $link = $link | relLangURL }}
+                {{ end }}
+              {{ else if in (slice "http" "https") $scheme }}
+                {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+              {{ end }}
+              <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}
                  class="w-11 h-11 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:bg-primary-100 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/40 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300"
-                 {{ with .label }}title="{{ . }}"{{ end }}>
-                {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class=\"w-5 h-5\"") }}
+                 {{ if $social_label }}title="{{ $social_label }}"{{ end }}>
+                {{ partial "functions/get_icon" (dict "name" $social_icon "attributes" "class=\"w-5 h-5\"") }}
               </a>
               {{ end }}
             </div>
@@ -255,15 +469,28 @@
       {{ end }}
         
       {{/* Prospective Members - shown in both layouts */}}
-      {{ with $block.content.prospective }}
+      {{ if or $prospective_title $prospective_text $prospective_button_text $prospective_button_url }}
+      {{ $prospective_heading := $prospective_title | default (i18n "block_contact_prospective_title" | default "Prospective Members") }}
       <div class="mt-6 pt-6 border-t border-gray-200 dark:border-white/10">
-        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ .title | default (i18n "block_contact_prospective_title" | default "Prospective Members") }}</h4>
-        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ .text }}</p>
-        {{ with .button }}
-        <a href="{{ .url }}" 
+        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ $prospective_heading }}</h4>
+        {{ with $prospective_text }}
+        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ . }}</p>
+        {{ end }}
+        {{ if and $prospective_button_text $prospective_button_url }}
+        {{ $cta_link := $prospective_button_url }}
+        {{ $cta_target := "" }}
+        {{ $cta_scheme := (urls.Parse $cta_link).Scheme }}
+        {{ if not $cta_scheme }}
+          {{ if not (hasPrefix $cta_link "#") }}
+            {{ $cta_link = $cta_link | relLangURL }}
+          {{ end }}
+        {{ else if in (slice "http" "https") $cta_scheme }}
+          {{ $cta_target = "target=\"_blank\" rel=\"noopener\"" }}
+        {{ end }}
+        <a href="{{ $cta_link | safeURL }}" {{ $cta_target | safeHTMLAttr }}
            class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
           {{ partial "functions/get_icon" (dict "name" "hero/user-plus" "attributes" "class=\"w-5 h-5 mr-2\"") }}
-          {{ .text }}
+          {{ $prospective_button_text }}
         </a>
         {{ end }}
       </div>
@@ -273,7 +500,7 @@
   </div>
 
   {{/* Optional Map Embed */}}
-  {{ with $block.content.map_embed }}
+  {{ with $map_embed }}
   <div class="mt-12 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/[0.08]">
     <div class="aspect-w-16 aspect-h-9 lg:aspect-h-6">
       {{ . | safeHTML }}
@@ -282,11 +509,11 @@
   {{ end }}
   
   {{/* Contact Form (optional) */}}
-  {{ if $block.content.show_form }}
+  {{ if $show_form }}
   <div class="mt-12 max-w-2xl mx-auto">
     <div class="bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] p-8">
       <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ i18n "block_contact_form_title" | default "Send us a Message" }}</h3>
-      <form action="{{ $block.content.form_action | default "#" }}" method="POST" class="space-y-6">
+      <form action="{{ $form_action | safeURL }}" method="POST" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{{ i18n "block_contact_form_name" | default "Name" }}</label>

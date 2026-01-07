@@ -5,30 +5,56 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+{{ $no_padding := partial "functions/coerce_bool" (dict "value" (index $design "no_padding") "default" false) }}
+
+{{ $announcement := index $content "announcement" }}
+{{ if not (reflect.IsMap $announcement) }}{{ $announcement = dict }}{{ end }}
+{{ $announcement_text := "" }}
+{{ with index $announcement "text" }}{{ $announcement_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $announcement_link := index $announcement "link" }}
+{{ if not (reflect.IsMap $announcement_link) }}{{ $announcement_link = dict }}{{ end }}
+{{ $announcement_link_text := "" }}
+{{ with index $announcement_link "text" }}{{ $announcement_link_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $announcement_link_url := "" }}
+{{ with index $announcement_link "url" }}{{ $announcement_link_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+{{ $primary_action := index $content "primary_action" }}
+{{ if not (reflect.IsMap $primary_action) }}{{ $primary_action = dict }}{{ end }}
+{{ $primary_text := "" }}
+{{ with index $primary_action "text" }}{{ $primary_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $primary_url := "" }}
+{{ with index $primary_action "url" }}{{ $primary_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $primary_icon := "" }}
+{{ with index $primary_action "icon" }}{{ $primary_icon = printf "%v" . }}{{ end }}
+
+{{ $secondary_action := index $content "secondary_action" }}
+{{ if not (reflect.IsMap $secondary_action) }}{{ $secondary_action = dict }}{{ end }}
+{{ $secondary_text := "" }}
+{{ with index $secondary_action "text" }}{{ $secondary_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $secondary_url := "" }}
+{{ with index $secondary_action "url" }}{{ $secondary_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
 <div class="relative isolate px-6 pt-14 lg:px-8">
 
-  <div class="mx-auto max-w-2xl {{if not ($block.design.no_padding | default false) }}py-32 sm:py-48 lg:py-56{{end}}">
+  <div class="mx-auto max-w-2xl {{if not $no_padding }}py-32 sm:py-48 lg:py-56{{end}}">
 
-    {{ if $block.content.announcement.text }}
-    {{ $announcement := $block.content.announcement }}
+    {{ if $announcement_text }}
     <div class="hidden sm:mb-8 sm:flex sm:justify-center">
       <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 dark:text-gray-300 ring-1 ring-gray-900/10 dark:ring-gray-300 hover:ring-gray-900/20 dark:hover:ring-gray-400">
-        {{$announcement.text | markdownify}} 
-        {{if $announcement.link.text}}
-          {{ $announcement_link := $announcement.link.url }}
-          {{ $announcement_scheme := (urls.Parse $announcement_link).Scheme }}
-          {{ if not $announcement_scheme }}
-            {{/* Check if it's a hash fragment (page anchor) */}}
-            {{ if hasPrefix $announcement_link "#" }}
-              {{/* Keep hash fragments as-is */}}
-              {{ $announcement_link = $announcement_link }}
-            {{ else }}
-              {{/* Apply relLangURL for relative paths */}}
-              {{ $announcement_link = $announcement_link | relLangURL }}
+        {{ $announcement_text | markdownify }} 
+        {{ if and $announcement_link_text $announcement_link_url }}
+          {{ $link := $announcement_link_url }}
+          {{ $scheme := (urls.Parse $link).Scheme }}
+          {{ if not $scheme }}
+            {{ if not (hasPrefix $link "#") }}
+              {{ $link = $link | relLangURL }}
             {{ end }}
           {{ end }}
-          <a href="{{$announcement_link | safeURL}}" class="font-semibold text-primary-600 dark:text-primary-300">
-            <span class="absolute inset-0" aria-hidden="true"></span>{{$announcement.link.text}} <span aria-hidden="true">&rarr;</span>
+          <a href="{{ $link | safeURL }}" class="font-semibold text-primary-600 dark:text-primary-300">
+            <span class="absolute inset-0" aria-hidden="true"></span>{{ $announcement_link_text }} <span aria-hidden="true">&rarr;</span>
           </a>
         {{end}}
       </div>
@@ -36,11 +62,11 @@
     {{end}}
 
     <div class="text-center">
-      {{ with $block.content.title }}<h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">{{ . | markdownify }}</h1>{{end}}
-      {{ with $block.content.text }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{{ . | $page.RenderString | emojify }}</p>{{end}}
+      {{ with index $content "title" }}<h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">{{ printf "%v" . | markdownify }}</h1>{{end}}
+      {{ with index $content "text" }}<p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{{ printf "%v" . | $page.RenderString | emojify }}</p>{{end}}
 
-      {{ if $block.content.primary_action.url }}
-        {{ $link := $block.content.primary_action.url }}
+      {{ if and $primary_url $primary_text }}
+        {{ $link := $primary_url }}
         {{ $scheme := (urls.Parse $link).Scheme }}
         {{ $target := "" }}
         {{ if not $scheme }}
@@ -57,15 +83,15 @@
         {{ end }}
       <div class="mt-10 flex items-center justify-center gap-x-6">
         <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} class="rounded-md bg-primary-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
-          {{ $block.content.primary_action.text | markdownify | emojify }}
-          {{ with $block.content.primary_action.icon }}
-            {{ partial "functions/get_icon" (dict "name" . "attributes" "style=\"height: 1em\" class='inline-block pl-2'") }}
+          {{ $primary_text | markdownify | emojify }}
+          {{ if $primary_icon }}
+            {{ partial "functions/get_icon" (dict "name" $primary_icon "attributes" "style=\"height: 1em\" class='inline-block pl-2'") }}
           {{ end }}
         </a>
         {{end}}
 
-        {{ if $block.content.secondary_action.url }}
-          {{ $link_alt := $block.content.secondary_action.url }}
+        {{ if and $secondary_url $secondary_text }}
+          {{ $link_alt := $secondary_url }}
           {{ $scheme_alt := (urls.Parse $link_alt).Scheme }}
           {{ $target_alt := "" }}
           {{ if not $scheme_alt }}
@@ -80,7 +106,7 @@
           {{ else if in (slice "http" "https") $scheme_alt }}
             {{ $target_alt = "target=\"_blank\" rel=\"noopener\"" }}
           {{ end }}
-        <a href="{{ $link_alt | safeURL }}" {{ $target_alt | safeHTMLAttr }} class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:dark:text-gray-200 hover:text-gray-800">{{ $block.content.secondary_action.text | markdownify | emojify }} <span aria-hidden="true">→</span></a>
+        <a href="{{ $link_alt | safeURL }}" {{ $target_alt | safeHTMLAttr }} class="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:dark:text-gray-200 hover:text-gray-800">{{ $secondary_text | markdownify | emojify }} <span aria-hidden="true">→</span></a>
       {{end}}
 
       </div>

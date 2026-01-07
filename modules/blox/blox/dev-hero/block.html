@@ -5,28 +5,146 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
 {{/* Enable animations if typewriter or scroll animations are configured */}}
-{{ $typewriter := $block.content.typewriter | default dict }}
-{{ $has_animations := or $typewriter.enable $block.design.animations }}
+{{ $typewriter := index $content "typewriter" }}
+{{ if not (reflect.IsMap $typewriter) }}{{ $typewriter = dict }}{{ end }}
+{{ $typewriter_enabled := partial "functions/coerce_bool" (dict "value" (index $typewriter "enable") "default" false) }}
+{{ $animations_enabled := partial "functions/coerce_bool" (dict "value" (index $design "animations") "default" false) }}
+{{ $has_animations := or $typewriter_enabled $animations_enabled }}
 {{ if $has_animations }}
   {{ $page.Store.Set "has_animations" true }}
   {{ $page.Store.Set "has_alpine" true }}
 {{ end }}
 
 {{/* Get author data from YAML */}}
-{{ $username := $block.content.username | default "me" }}
+{{ $username := "me" }}
+{{ $username_raw := index $content "username" }}
+{{ if eq (printf "%T" $username_raw) "string" }}
+  {{ $username = strings.TrimSpace $username_raw }}
+{{ end }}
 {{ $author := partial "functions/get_author_profile" $username }}
 
 {{/* Get avatar */}}
 {{ $avatar := "" }}
-{{ $avatar_shape := $block.design.avatar_shape | default "circle" }}
+{{ $avatar_shape := "circle" }}
+{{ $avatar_shape_raw := index $design "avatar_shape" }}
+{{ if eq (printf "%T" $avatar_shape_raw) "string" }}
+  {{ $avatar_shape = lower (strings.TrimSpace $avatar_shape_raw) }}
+{{ end }}
 {{ with $author.avatar }}
   {{ $avatar = .Fill "300x300 webp Center" }}
 {{ end }}
 
 {{/* Layout style */}}
-{{ $style := $block.design.style | default "centered" }}
+{{ $style := "centered" }}
+{{ $style_raw := index $design "style" }}
+{{ if eq (printf "%T" $style_raw) "string" }}
+  {{ $style_candidate := lower (strings.TrimSpace $style_raw) }}
+  {{ if in (slice "centered" "split") $style_candidate }}
+    {{ $style = $style_candidate }}
+  {{ end }}
+{{ end }}
+
+{{ $show_status := partial "functions/coerce_bool" (dict "value" (index $content "show_status") "default" false) }}
+{{ $show_scroll := partial "functions/coerce_bool" (dict "value" (index $content "show_scroll_indicator") "default" false) }}
+
+{{ $scroll_target := "#projects" }}
+{{ $scroll_target_raw := index $content "scroll_target" }}
+{{ if eq (printf "%T" $scroll_target_raw) "string" }}
+  {{ $scroll_target = strings.TrimSpace $scroll_target_raw }}
+{{ end }}
+{{ if not $scroll_target }}{{ $scroll_target = "#projects" }}{{ end }}
+
+{{ $greeting := "" }}
+{{ $greeting_raw := index $content "greeting" }}
+{{ if eq (printf "%T" $greeting_raw) "string" }}{{ $greeting = $greeting_raw }}{{ end }}
+{{ $name_prefix := "" }}
+{{ $name_prefix_raw := index $content "name_prefix" }}
+{{ if eq (printf "%T" $name_prefix_raw) "string" }}{{ $name_prefix = $name_prefix_raw }}{{ end }}
+
+{{ $title_override := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if eq (printf "%T" $title_raw) "string" }}{{ $title_override = strings.TrimSpace $title_raw }}{{ end }}
+
+{{ $tagline := "" }}
+{{ $tagline_raw := index $content "tagline" }}
+{{ if eq (printf "%T" $tagline_raw) "string" }}{{ $tagline = $tagline_raw }}{{ end }}
+
+{{ $bio_override := "" }}
+{{ $bio_raw := index $content "bio" }}
+{{ if eq (printf "%T" $bio_raw) "string" }}{{ $bio_override = $bio_raw }}{{ end }}
+
+{{ $role := $author.role | default $tagline }}
+{{ $bio := $author.bio | default $bio_override }}
+
+{{ $typewriter_strings := slice }}
+{{ $strings_raw := index $typewriter "strings" }}
+{{ if reflect.IsSlice $strings_raw }}
+  {{ range $strings_raw }}
+    {{ $val := strings.TrimSpace (printf "%v" .) }}
+    {{ if $val }}{{ $typewriter_strings = $typewriter_strings | append $val }}{{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $strings_raw) "string" }}
+  {{ $val := strings.TrimSpace $strings_raw }}
+  {{ if $val }}{{ $typewriter_strings = slice $val }}{{ end }}
+{{ end }}
+
+{{ $typewriter_prefix := "" }}
+{{ $typewriter_prefix_raw := index $typewriter "prefix" }}
+{{ if eq (printf "%T" $typewriter_prefix_raw) "string" }}{{ $typewriter_prefix = $typewriter_prefix_raw }}{{ end }}
+{{ $type_speed := partial "functions/coerce_int" (dict "value" (index $typewriter "type_speed") "default" 80 "min" 10 "max" 500) }}
+{{ $delete_speed := partial "functions/coerce_int" (dict "value" (index $typewriter "delete_speed") "default" 50 "min" 10 "max" 500) }}
+{{ $pause_time := partial "functions/coerce_int" (dict "value" (index $typewriter "pause_time") "default" 2000 "min" 200 "max" 10000) }}
+
+{{ $links_raw := $author.links | default (index $content "links") }}
+{{ $links := slice }}
+{{ if reflect.IsSlice $links_raw }}
+  {{ range $links_raw }}
+    {{ $url := "" }}
+    {{ $icon := "hero/link" }}
+    {{ $label := "" }}
+    {{ if reflect.IsMap . }}
+      {{ $url_raw := index . "url" | default (index . "link") }}
+      {{ if eq (printf "%T" $url_raw) "string" }}{{ $url = strings.TrimSpace $url_raw }}{{ end }}
+      {{ $icon_raw := index . "icon" }}
+      {{ if eq (printf "%T" $icon_raw) "string" }}{{ $icon = $icon_raw }}{{ end }}
+      {{ $label_raw := index . "label" | default (index . "name") }}
+      {{ if eq (printf "%T" $label_raw) "string" }}{{ $label = $label_raw }}{{ end }}
+    {{ else if eq (printf "%T" .) "string" }}
+      {{ $url = strings.TrimSpace . }}
+    {{ end }}
+    {{ if $url }}
+      {{ $links = $links | append (dict "url" $url "icon" $icon "label" $label) }}
+    {{ end }}
+  {{ end }}
+{{ else if eq (printf "%T" $links_raw) "string" }}
+  {{ $url := strings.TrimSpace $links_raw }}
+  {{ if $url }}
+    {{ $links = slice (dict "url" $url "icon" "hero/link" "label" "") }}
+  {{ end }}
+{{ end }}
+
+{{ $cta_buttons_raw := index $content "cta_buttons" }}
+{{ $cta_buttons := slice }}
+{{ if reflect.IsSlice $cta_buttons_raw }}
+  {{ $cta_buttons = $cta_buttons_raw }}
+{{ else if and $cta_buttons_raw (reflect.IsMap $cta_buttons_raw) }}
+  {{ $cta_buttons = slice $cta_buttons_raw }}
+{{ end }}
+
+{{ $status_icon := "" }}
+{{ $status := $author.status }}
+{{ if and $status (reflect.IsMap $status) }}
+  {{ $status_icon_raw := index $status "icon" }}
+  {{ if eq (printf "%T" $status_icon_raw) "string" }}
+    {{ $status_icon = $status_icon_raw }}
+  {{ end }}
+{{ end }}
 
 <div class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
   
@@ -61,8 +179,8 @@
             <img src="{{ .RelPermalink }}" alt="{{ $author.title }}" class="w-full h-full object-cover">
           </div>
           {{/* Status emoji badge */}}
-          {{ if $block.content.show_status }}
-            {{ with $author.status.icon }}
+          {{ if $show_status }}
+            {{ with $status_icon }}
             <span class="absolute bottom-2 right-2 w-12 h-12 flex items-center justify-center text-2xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
               {{ . | emojify }}
             </span>
@@ -77,7 +195,7 @@
       {{/* Content */}}
       <div class="text-center md:text-left">
         {{/* Greeting */}}
-        {{ with $block.content.greeting }}
+        {{ with $greeting }}
         <p class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-4 flex items-center {{ if eq $style "centered" }}justify-center{{ end }} gap-2">
           <span class="inline-block w-8 h-px bg-primary-500"></span>
           {{ . }}
@@ -86,19 +204,18 @@
 
         {{/* Name */}}
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-          {{ with $block.content.name_prefix }}<span class="text-gray-500 dark:text-gray-400 font-normal">{{ . }}</span> {{ end }}
+          {{ with $name_prefix }}<span class="text-gray-500 dark:text-gray-400 font-normal">{{ . }}</span> {{ end }}
           <span class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
-            {{ $author.title | default $block.content.title | default (i18n "developer" | default "Developer") }}
+            {{ $author.title | default $title_override | default (i18n "developer" | default "Developer") }}
           </span>
         </h1>
 
         {{/* Role/Tagline with optional typewriter */}}
-        {{ $role := $author.role | default $block.content.tagline }}
-        {{ if and $typewriter.enable $typewriter.strings }}
+        {{ if and $typewriter_enabled (gt (len $typewriter_strings) 0) }}
         <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 font-light mb-6 h-8">
-          {{ with $typewriter.prefix }}<span>{{ . }}</span> {{ end }}
+          {{ with $typewriter_prefix }}<span>{{ . }}</span> {{ end }}
           <span 
-            x-data="typewriter({{ $typewriter.strings | jsonify }}, { typeSpeed: {{ $typewriter.type_speed | default 80 }}, deleteSpeed: {{ $typewriter.delete_speed | default 50 }}, pauseTime: {{ $typewriter.pause_time | default 2000 }} })"
+            x-data="typewriter({{ $typewriter_strings | jsonify }}, { typeSpeed: {{ $type_speed }}, deleteSpeed: {{ $delete_speed }}, pauseTime: {{ $pause_time }} })"
             x-text="currentText"
             class="text-primary-600 dark:text-primary-400"
           ></span><span class="typewriter-cursor"></span>
@@ -110,26 +227,34 @@
         {{ end }}
 
         {{/* Bio */}}
-        {{ with $author.bio | default $block.content.bio }}
+        {{ with $bio }}
         <p class="text-gray-600 dark:text-gray-400 max-w-xl {{ if eq $style "centered" }}mx-auto{{ end }} mb-8 leading-relaxed">
           {{ . | $page.RenderString }}
         </p>
         {{ end }}
 
     {{/* Social Links */}}
-    {{ $links := $author.links | default $block.content.links }}
-    {{ with $links }}
+    {{ if gt (len $links) 0 }}
     <div class="flex items-center gap-4 mb-8 {{ if eq $style "centered" }}justify-center{{ end }}">
-      {{ range . }}
-        {{ $icon := .icon | default "link" }}
-        {{ $url := .url }}
+      {{ range $links }}
+        {{ $icon := index . "icon" | default "hero/link" }}
+        {{ $url := index . "url" }}
+        {{ $link := $url }}
+        {{ $target := "" }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ if not $scheme }}
+          {{ if not (hasPrefix $link "#") }}
+            {{ $link = $link | relLangURL }}
+          {{ end }}
+        {{ else if in (slice "http" "https") $scheme }}
+          {{ $target = "target=\"_blank\" rel=\"noopener noreferrer\"" }}
+        {{ end }}
         
         <a 
-          href="{{ $url }}" 
-          target="{{ if hasPrefix $url "mailto:" }}_self{{ else }}_blank{{ end }}"
-          rel="noopener noreferrer"
+          href="{{ $link | safeURL }}" 
+          {{ $target | safeHTMLAttr }}
           class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/50 transition-all duration-300"
-          {{ with .label }}title="{{ . }}"{{ end }}
+          {{ $label := index . "label" }}{{ if $label }}title="{{ $label }}"{{ end }}
         >
           {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-5 h-5\"") }}
         </a>
@@ -138,19 +263,45 @@
     {{ end }}
 
         {{/* CTA Buttons */}}
-        {{ with $block.content.cta_buttons }}
+        {{ if gt (len $cta_buttons) 0 }}
         <div class="flex flex-wrap gap-4 {{ if eq $style "centered" }}justify-center{{ end }}">
-          {{ range $idx, $btn := . }}
+          {{ range $idx, $btn := $cta_buttons }}
+            {{ if reflect.IsMap $btn }}
             {{ $is_primary := eq $idx 0 }}
+            {{ $btn_text := "" }}
+            {{ $btn_url := "" }}
+            {{ $btn_icon := "" }}
+            {{ $btn_new_tab := partial "functions/coerce_bool" (dict "value" (index $btn "new_tab") "default" false) }}
+            {{ with index $btn "text" }}{{ $btn_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index $btn "url" }}{{ $btn_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index $btn "icon" }}{{ $btn_icon = printf "%v" . }}{{ end }}
+            {{ if and $btn_text $btn_url }}
+              {{ $link := $btn_url }}
+              {{ $target := "" }}
+              {{ $scheme := (urls.Parse $link).Scheme }}
+              {{ if not $scheme }}
+                {{ if not (hasPrefix $link "#") }}
+                  {{ $link = $link | relLangURL }}
+                {{ end }}
+                {{ if eq (path.Ext $link) ".pdf" }}{{ $btn_new_tab = true }}{{ end }}
+              {{ else if in (slice "http" "https") $scheme }}
+                {{ $btn_new_tab = true }}
+              {{ end }}
+              {{ if $btn_new_tab }}
+                {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+              {{ end }}
             <a 
-              href="{{ .url }}"
+              href="{{ $link | safeURL }}"
+              {{ $target | safeHTMLAttr }}
               class="{{ if $is_primary }}bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-500/25{{ else }}bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30{{ end }} px-6 py-3 rounded-full font-semibold transition-all duration-300 inline-flex items-center gap-2"
             >
-              {{ with .icon }}
-              {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
+              {{ if $btn_icon }}
+              {{ partial "functions/get_icon" (dict "name" $btn_icon "attributes" "class=\"w-5 h-5\"") }}
               {{ end }}
-              {{ .text }}
+              {{ $btn_text }}
             </a>
+            {{ end }}
+            {{ end }}
           {{ end }}
         </div>
         {{ end }}
@@ -168,8 +319,8 @@
           <img src="{{ .RelPermalink }}" alt="{{ $author.title }}" class="w-full h-full object-cover">
         </div>
         {{/* Status emoji badge */}}
-        {{ if $block.content.show_status }}
-          {{ with $author.status.icon }}
+        {{ if $show_status }}
+          {{ with $status_icon }}
           <span class="absolute bottom-0 right-0 w-10 h-10 flex items-center justify-center text-xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
             {{ . | emojify }}
           </span>
@@ -180,7 +331,7 @@
     {{ end }}
 
     {{/* Greeting */}}
-    {{ with $block.content.greeting }}
+    {{ with $greeting }}
     <p class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-4 inline-flex items-center gap-2">
       <span class="inline-block w-8 h-px bg-primary-500"></span>
       {{ . }}
@@ -190,19 +341,18 @@
 
     {{/* Name */}}
     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-      {{ with $block.content.name_prefix }}<span class="text-gray-500 font-normal">{{ . }}</span> {{ end }}
+      {{ with $name_prefix }}<span class="text-gray-500 font-normal">{{ . }}</span> {{ end }}
       <span class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
-        {{ $author.title | default $block.content.title | default (i18n "developer" | default "Developer") }}
+        {{ $author.title | default $title_override | default (i18n "developer" | default "Developer") }}
       </span>
     </h1>
 
     {{/* Role/Tagline with optional typewriter */}}
-    {{ $role := $author.role | default $block.content.tagline }}
-    {{ if and $typewriter.enable $typewriter.strings }}
+    {{ if and $typewriter_enabled (gt (len $typewriter_strings) 0) }}
     <p class="text-xl sm:text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light mb-6 min-h-[2em]">
-      {{ with $typewriter.prefix }}<span>{{ . }}</span> {{ end }}
+      {{ with $typewriter_prefix }}<span>{{ . }}</span> {{ end }}
       <span 
-        x-data="typewriter({{ $typewriter.strings | jsonify }}, { typeSpeed: {{ $typewriter.type_speed | default 80 }}, deleteSpeed: {{ $typewriter.delete_speed | default 50 }}, pauseTime: {{ $typewriter.pause_time | default 2000 }} })"
+        x-data="typewriter({{ $typewriter_strings | jsonify }}, { typeSpeed: {{ $type_speed }}, deleteSpeed: {{ $delete_speed }}, pauseTime: {{ $pause_time }} })"
         x-text="currentText"
         class="text-primary-600 dark:text-primary-400"
       ></span><span class="typewriter-cursor"></span>
@@ -214,26 +364,34 @@
     {{ end }}
 
     {{/* Bio */}}
-    {{ with $author.bio | default $block.content.bio }}
+    {{ with $bio }}
     <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
       {{ . | $page.RenderString }}
     </p>
     {{ end }}
 
     {{/* Social Links */}}
-    {{ $links := $author.links | default $block.content.links }}
-    {{ with $links }}
+    {{ if gt (len $links) 0 }}
     <div class="flex items-center justify-center gap-4 mb-10">
-      {{ range . }}
-        {{ $icon := .icon | default "link" }}
-        {{ $url := .url }}
+      {{ range $links }}
+        {{ $icon := index . "icon" | default "hero/link" }}
+        {{ $url := index . "url" }}
+        {{ $link := $url }}
+        {{ $target := "" }}
+        {{ $scheme := (urls.Parse $link).Scheme }}
+        {{ if not $scheme }}
+          {{ if not (hasPrefix $link "#") }}
+            {{ $link = $link | relLangURL }}
+          {{ end }}
+        {{ else if in (slice "http" "https") $scheme }}
+          {{ $target = "target=\"_blank\" rel=\"noopener noreferrer\"" }}
+        {{ end }}
         
         <a 
-          href="{{ $url }}" 
-          target="{{ if hasPrefix $url "mailto:" }}_self{{ else }}_blank{{ end }}"
-          rel="noopener noreferrer"
+          href="{{ $link | safeURL }}" 
+          {{ $target | safeHTMLAttr }}
           class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-300 dark:hover:border-primary-500/50 transition-all duration-300"
-          {{ with .label }}title="{{ . }}"{{ end }}
+          {{ $label := index . "label" }}{{ if $label }}title="{{ $label }}"{{ end }}
         >
           {{ partial "functions/get_icon" (dict "name" $icon "attributes" "class=\"w-5 h-5\"") }}
         </a>
@@ -242,19 +400,45 @@
     {{ end }}
 
     {{/* CTA Buttons */}}
-    {{ with $block.content.cta_buttons }}
+    {{ if gt (len $cta_buttons) 0 }}
     <div class="flex flex-wrap justify-center gap-4">
-      {{ range $idx, $btn := . }}
+      {{ range $idx, $btn := $cta_buttons }}
+        {{ if reflect.IsMap $btn }}
         {{ $is_primary := eq $idx 0 }}
-        <a 
-          href="{{ .url }}"
-          class="{{ if $is_primary }}bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30{{ else }}bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30{{ end }} px-8 py-4 rounded-full font-semibold transition-all duration-300 inline-flex items-center gap-2 text-lg"
-        >
-          {{ with .icon }}
-          {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
+        {{ $btn_text := "" }}
+        {{ $btn_url := "" }}
+        {{ $btn_icon := "" }}
+        {{ $btn_new_tab := partial "functions/coerce_bool" (dict "value" (index $btn "new_tab") "default" false) }}
+        {{ with index $btn "text" }}{{ $btn_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $btn "url" }}{{ $btn_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ with index $btn "icon" }}{{ $btn_icon = printf "%v" . }}{{ end }}
+        {{ if and $btn_text $btn_url }}
+          {{ $link := $btn_url }}
+          {{ $target := "" }}
+          {{ $scheme := (urls.Parse $link).Scheme }}
+          {{ if not $scheme }}
+            {{ if not (hasPrefix $link "#") }}
+              {{ $link = $link | relLangURL }}
+            {{ end }}
+            {{ if eq (path.Ext $link) ".pdf" }}{{ $btn_new_tab = true }}{{ end }}
+          {{ else if in (slice "http" "https") $scheme }}
+            {{ $btn_new_tab = true }}
           {{ end }}
-          {{ .text }}
-        </a>
+          {{ if $btn_new_tab }}
+            {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+          {{ end }}
+          <a 
+            href="{{ $link | safeURL }}"
+            {{ $target | safeHTMLAttr }}
+            class="{{ if $is_primary }}bg-primary-600 hover:bg-primary-500 text-white shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30{{ else }}bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-800 dark:text-white border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30{{ end }} px-8 py-4 rounded-full font-semibold transition-all duration-300 inline-flex items-center gap-2 text-lg"
+          >
+            {{ if $btn_icon }}
+            {{ partial "functions/get_icon" (dict "name" $btn_icon "attributes" "class=\"w-5 h-5\"") }}
+            {{ end }}
+            {{ $btn_text }}
+          </a>
+        {{ end }}
+        {{ end }}
       {{ end }}
     </div>
     {{ end }}
@@ -262,10 +446,20 @@
     {{ end }}
 
     {{/* Scroll indicator - clicks to scroll to next section */}}
-    {{ if $block.content.show_scroll_indicator }}
-    {{ $scroll_target := $block.content.scroll_target | default "#projects" }}
+    {{ if $show_scroll }}
+    {{ $scroll_link := $scroll_target }}
+    {{ $scroll_target_attr := "" }}
+    {{ $scroll_scheme := (urls.Parse $scroll_link).Scheme }}
+    {{ if not $scroll_scheme }}
+      {{ if not (hasPrefix $scroll_link "#") }}
+        {{ $scroll_link = $scroll_link | relLangURL }}
+      {{ end }}
+    {{ else if in (slice "http" "https") $scroll_scheme }}
+      {{ $scroll_target_attr = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
     <a 
-      href="{{ $scroll_target }}" 
+      href="{{ $scroll_link | safeURL }}" 
+      {{ $scroll_target_attr | safeHTMLAttr }}
       class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer group"
       aria-label="{{ i18n "scroll_to_content" | default "Scroll to content" }}"
     >

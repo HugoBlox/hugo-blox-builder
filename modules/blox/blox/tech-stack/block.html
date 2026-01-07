@@ -5,27 +5,91 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
 {{/* Enable animations */}}
-{{ if ne $block.design.animations false }}
+{{ $animations := partial "functions/coerce_bool" (dict "value" (index $design "animations") "default" true) }}
+{{ if $animations }}
   {{ $page.Store.Set "has_animations" true }}
   {{ $page.Store.Set "has_alpine" true }}
 {{ end }}
 
 {{/* Style */}}
-{{ $style := $block.design.style | default "grid" }}
-{{ $show_levels := $block.design.show_levels | default false }}
+{{ $style := "grid" }}
+{{ $style_raw := index $design "style" }}
+{{ if eq (printf "%T" $style_raw) "string" }}
+  {{ $style_candidate := lower (strings.TrimSpace $style_raw) }}
+  {{ if in (slice "grid" "list") $style_candidate }}
+    {{ $style = $style_candidate }}
+  {{ end }}
+{{ end }}
+{{ $show_levels := partial "functions/coerce_bool" (dict "value" (index $design "show_levels") "default" false) }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}{{ $title = strings.TrimSpace (printf "%v" $title_raw) }}{{ end }}
+
+{{ $subtitle := "" }}
+{{ $subtitle_raw := index $content "subtitle" }}
+{{ if $subtitle_raw }}{{ $subtitle = strings.TrimSpace (printf "%v" $subtitle_raw) }}{{ end }}
+
+{{ $categories_raw := index $content "categories" }}
+{{ $categories_iter := slice }}
+{{ if reflect.IsSlice $categories_raw }}
+  {{ $categories_iter = $categories_raw }}
+{{ else if and $categories_raw (reflect.IsMap $categories_raw) }}
+  {{ $categories_iter = slice $categories_raw }}
+{{ end }}
+
+{{ $categories := slice }}
+{{ if gt (len $categories_iter) 0 }}
+  {{ range $categories_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $cat_name := "" }}
+      {{ with index . "name" }}{{ $cat_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ $items_raw := index . "items" }}
+      {{ $items_iter := slice }}
+      {{ if reflect.IsSlice $items_raw }}
+        {{ $items_iter = $items_raw }}
+      {{ else if and $items_raw (reflect.IsMap $items_raw) }}
+        {{ $items_iter = slice $items_raw }}
+      {{ end }}
+      {{ $items := slice }}
+      {{ if gt (len $items_iter) 0 }}
+        {{ range $items_iter }}
+          {{ if reflect.IsMap . }}
+            {{ $item_name := "" }}
+            {{ $item_icon := "" }}
+            {{ $item_level := "" }}
+            {{ with index . "name" }}{{ $item_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "icon" }}{{ $item_icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ with index . "level" }}{{ $item_level = lower (strings.TrimSpace (printf "%v" .)) }}{{ end }}
+            {{ if $item_name }}
+              {{ $items = $items | append (dict "name" $item_name "icon" $item_icon "level" $item_level) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ if gt (len $items) 0 }}
+        {{ $categories = $categories | append (dict "name" $cat_name "items" $items) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
   
   {{/* Header */}}
   <div class="text-center mb-12">
-    {{ with $block.content.title }}
+    {{ with $title }}
     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
       {{ . | emojify | $page.RenderString }}
     </h2>
     {{ end }}
-    {{ with $block.content.subtitle }}
+    {{ with $subtitle }}
     <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
       {{ . | emojify | $page.RenderString }}
     </p>
@@ -33,11 +97,12 @@
   </div>
 
   {{/* Categories */}}
+  {{ if ne $style "list" }}
   <div class="space-y-12">
-    {{ range $block.content.categories }}
+    {{ range $categories }}
       <div>
         {{/* Category Title */}}
-        {{ with .name }}
+        {{ with index . "name" }}
         <h3 class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-400 mb-6 flex items-center justify-center gap-4">
           <span class="h-px w-12 bg-gradient-to-r from-transparent to-primary-500/50"></span>
           <span>{{ . }}</span>
@@ -47,8 +112,8 @@
 
         {{/* Tech Items - Centered flex layout */}}
         <div class="flex flex-wrap justify-center gap-4" data-stagger="50">
-          {{ range $idx, $item := .items }}
-            {{ $level := $item.level | default "" }}
+          {{ range $idx, $item := (index . "items") }}
+            {{ $level := index $item "level" | default "" }}
             {{ $level_width := "0%" }}
             {{ $level_color := "bg-gray-500" }}
             {{ if eq $level "expert" }}
@@ -70,7 +135,7 @@
             >
               {{/* Icon */}}
               <div class="flex flex-col items-center text-center">
-                {{ with $item.icon }}
+                {{ with index $item "icon" }}
                 {{/* Add dark-icon class for icons that need inversion in dark mode */}}
                 {{ $dark_icons := slice "express" "vercel" "github" "nextjs" }}
                 {{ $icon_name := . }}
@@ -85,7 +150,7 @@
                 
                 {{/* Name */}}
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
-                  {{ $item.name }}
+                  {{ index $item "name" }}
                 </span>
 
                 {{/* Level Indicator */}}
@@ -107,21 +172,22 @@
       </div>
     {{ end }}
   </div>
+  {{ end }}
 
   {{/* Simple flat list style alternative */}}
   {{ if eq $style "list" }}
   <div class="flex flex-wrap justify-center gap-3 mt-8">
-    {{ range $block.content.categories }}
-      {{ range $i, $tech := .items }}
+    {{ range $categories }}
+      {{ range $i, $tech := (index . "items") }}
       <div 
         class="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-white/[0.03] backdrop-blur-sm rounded-full border border-gray-200 dark:border-white/[0.08] hover:border-primary-300 dark:hover:border-primary-500/30 hover:bg-gray-100 dark:hover:bg-white/[0.06] transition-all duration-300 scale-hover"
       >
-        {{ with $tech.icon }}
+        {{ with index $tech "icon" }}
         <span class="text-gray-600 dark:text-gray-400">
           {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
         </span>
         {{ end }}
-        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ $tech.name }}</span>
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ index $tech "name" }}</span>
       </div>
       {{ end }}
     {{ end }}

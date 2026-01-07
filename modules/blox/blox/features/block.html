@@ -5,8 +5,15 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $title := "" }}
+{{ with index $content "title" }}{{ $title = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $text := "" }}
+{{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $items_raw := index $content "items" }}
+{{ $items := slice }}
+{{ if reflect.IsSlice $items_raw }}{{ $items = $items_raw }}{{ end }}
 
 <section>
   <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
@@ -19,16 +26,26 @@
       {{ end }}
     </div>
     <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
-      {{ range $block.content.items }}
+      {{ range $items }}
+        {{ if reflect.IsMap . }}
+        {{ $icon := "" }}
+        {{ with index . "icon" }}
+          {{ if eq (printf "%T" .) "string" }}{{ $icon = . }}{{ end }}
+        {{ end }}
+        {{ $name := "" }}
+        {{ with index . "name" }}{{ $name = printf "%v" . }}{{ end }}
+        {{ $description := "" }}
+        {{ with index . "description" }}{{ $description = printf "%v" . }}{{ end }}
         <div>
-          {{ with .icon }}
+          {{ with $icon }}
           <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900 text-primary-600 dark:text-primary-300">
             {{ partial "functions/get_icon" (dict "name" . "attributes" `class="w-5 h-5 lg:w-6 lg:h-6"`)  }}
           </div>
           {{ end }}
-          <h3 class="mb-2 text-xl font-bold dark:text-white">{{ .name | $page.RenderString }}</h3>
-          <p class="text-gray-500 dark:text-gray-400">{{ .description | $page.RenderString }}</p>
+          {{ with $name }}<h3 class="mb-2 text-xl font-bold dark:text-white">{{ . | $page.RenderString }}</h3>{{ end }}
+          {{ with $description }}<p class="text-gray-500 dark:text-gray-400">{{ . | $page.RenderString }}</p>{{ end }}
         </div>
+        {{ end }}
       {{ end }}
     </div>
   </div>

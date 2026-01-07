@@ -5,15 +5,48 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $display_mode := $block.design.display_mode | default "grid" }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
 
-{{ $title := $block.content.title | emojify | $page.RenderString }}
-{{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
-{{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $display_mode := "grid" }}
+{{ $display_raw := index $design "display_mode" }}
+{{ if eq (printf "%T" $display_raw) "string" }}
+  {{ $display_mode = lower (strings.TrimSpace $display_raw) }}
+{{ end }}
+{{ if not (in (slice "grid" "carousel" "marquee") $display_mode) }}
+  {{ $display_mode = "grid" }}
+{{ end }}
+
+{{ $show_pattern := partial "functions/coerce_bool" (dict "value" (index $design "show_pattern") "default" false) }}
+
+{{ $title := "" }}
+{{ with index $content "title" }}{{ $title = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $subtitle := "" }}
+{{ with index $content "subtitle" }}{{ $subtitle = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+{{ $text := "" }}
+{{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString }}{{ end }}
+
+{{ $logos_raw := index $content "logos" }}
+{{ $logos := slice }}
+{{ if reflect.IsSlice $logos_raw }}{{ $logos = $logos_raw }}{{ end }}
+{{ $logo_folder := "" }}
+{{ $logo_folder_raw := index $content "logo_folder" }}
+{{ if eq (printf "%T" $logo_folder_raw) "string" }}{{ $logo_folder = strings.TrimSpace $logo_folder_raw }}{{ end }}
+
+{{ $cta := index $content "cta" }}
+{{ if not (reflect.IsMap $cta) }}{{ $cta = dict }}{{ end }}
+{{ $cta_text := "" }}
+{{ with index $cta "text" }}{{ $cta_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $cta_url := "" }}
+{{ with index $cta "url" }}{{ $cta_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $cta_icon := "" }}
+{{ with index $cta "icon" }}{{ $cta_icon = printf "%v" . }}{{ end }}
 
 <div class="relative py-16 sm:py-20 lg:py-24 overflow-hidden">
   {{/* Background Pattern */}}
-  {{ if $block.design.show_pattern }}
+  {{ if $show_pattern }}
   <div class="absolute inset-0 opacity-5">
     <div class="absolute inset-0 bg-gradient-to-br from-primary-100 to-transparent dark:from-primary-900 dark:to-transparent"></div>
   </div>
@@ -47,25 +80,47 @@
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 lg:gap-12 items-center">
       
       {{/* Logo Items from Data */}}
-      {{ if $block.content.logos }}
-        {{ range $block.content.logos }}
+      {{ if gt (len $logos) 0 }}
+        {{ range $logos }}
+        {{ if reflect.IsMap . }}
+        {{ $name := "" }}
+        {{ with index . "name" }}{{ $name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ $description := "" }}
+        {{ with index . "description" }}{{ $description = printf "%v" . }}{{ end }}
+        {{ $image_name := "" }}
+        {{ with index . "image" }}{{ $image_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ $link := "" }}
+        {{ with index . "url" }}{{ $link = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ $external := partial "functions/coerce_bool" (dict "value" (index . "external") "default" false) }}
+        {{ if $link }}
+          {{ $scheme := (urls.Parse $link).Scheme }}
+          {{ if not $scheme }}
+            {{ if not (hasPrefix $link "#") }}
+              {{ $link = $link | relLangURL }}
+            {{ end }}
+          {{ else if in (slice "http" "https") $scheme }}
+            {{ $external = true }}
+          {{ end }}
+        {{ end }}
         <div class="group relative">
-          {{ $link := .url | default "#" }}
-          {{ $target := cond .external "_blank" "_self" }}
-          <a href="{{ $link }}" target="{{ $target }}" rel="{{ if .external }}noopener{{ end }}"
+          {{ if $link }}
+          <a href="{{ $link | safeURL }}" {{ if $external }}target="_blank" rel="noopener"{{ end }}
              class="block p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
-             {{ with .name }}title="{{ . }}"{{ end }}>
+             {{ if $name }}title="{{ $name }}"{{ end }}>
+          {{ else }}
+          <div class="block p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300">
+          {{ end }}
             <div class="relative">
               {{/* Logo Image */}}
-              {{ if .image }}
-                {{ $img := resources.Get (printf "media/%s" .image) }}
+              {{ if $image_name }}
+                {{ $img := resources.Get (printf "media/%s" $image_name) }}
                 {{ if $img }}
                   {{ $isSVG := eq $img.MediaType.SubType "svg" }}
                   {{ if not $isSVG }}
                     {{ $img = $img.Fit "280x140 webp" }}
                   {{ end }}
                   <img src="{{ $img.RelPermalink }}" 
-                       alt="{{ .name | default "Partner logo" }}"
+                       alt="{{ $name | default "Partner logo" }}"
                        {{ if not $isSVG }}width="{{ $img.Width }}" height="{{ $img.Height }}"{{ end }}
                        class="h-12 sm:h-14 lg:h-16 w-auto mx-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"
                        loading="lazy">
@@ -73,20 +128,25 @@
               {{ end }}
               
               {{/* Tooltip on Hover */}}
-              {{ with .description }}
+              {{ with $description }}
               <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-10">
                 {{ . }}
                 <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-gray-900 dark:border-t-gray-700"></div>
               </div>
               {{ end }}
             </div>
+          {{ if $link }}
           </a>
+          {{ else }}
+          </div>
+          {{ end }}
         </div>
+        {{ end }}
         {{ end }}
         
       {{/* Logo Images from Folder (Legacy Support) */}}
-      {{ else if $block.content.logo_folder }}
-        {{ $images := resources.Match (printf "media/%s/*.{svg,png,jpg,webp}" $block.content.logo_folder) }}
+      {{ else if $logo_folder }}
+        {{ $images := resources.Match (printf "media/%s/*.{svg,png,jpg,webp}" $logo_folder) }}
         {{ range $images }}
         <div class="group relative">
           <div class="block p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300">
@@ -112,10 +172,17 @@
       <div class="flex animate-scroll space-x-12 lg:space-x-16">
         {{/* Duplicate items for continuous scroll */}}
         {{ $items := slice }}
-        {{ if $block.content.logos }}
-          {{ $items = $block.content.logos }}
-        {{ else if $block.content.logo_folder }}
-          {{ $images := resources.Match (printf "media/%s/*.{svg,png,jpg,webp}" $block.content.logo_folder) }}
+        {{ if gt (len $logos) 0 }}
+          {{ range $logos }}
+            {{ if reflect.IsMap . }}
+              {{ $img_name := index . "image" }}
+              {{ if eq (printf "%T" $img_name) "string" }}
+                {{ $items = $items | append (dict "image" (strings.TrimSpace $img_name) "name" (index . "name")) }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ else if $logo_folder }}
+          {{ $images := resources.Match (printf "media/%s/*.{svg,png,jpg,webp}" $logo_folder) }}
           {{ range $images }}
             {{ $items = $items | append (dict "image" .Name) }}
           {{ end }}
@@ -168,24 +235,30 @@
     <div class="relative">
       <div class="overflow-hidden">
         <div class="flex animate-marquee whitespace-nowrap">
-          {{ if $block.content.logos }}
-            {{ range $block.content.logos }}
+          {{ if gt (len $logos) 0 }}
+            {{ range $logos }}
+            {{ if reflect.IsMap . }}
+            {{ $image_name := "" }}
+            {{ with index . "image" }}{{ $image_name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+            {{ $name := "" }}
+            {{ with index . "name" }}{{ $name = strings.TrimSpace (printf "%v" .) }}{{ end }}
             <div class="mx-8 inline-flex items-center">
-              {{ if .image }}
-                {{ $img := resources.Get (printf "media/%s" .image) }}
+              {{ if $image_name }}
+                {{ $img := resources.Get (printf "media/%s" $image_name) }}
                 {{ if $img }}
                   {{ $isSVG := eq $img.MediaType.SubType "svg" }}
                   {{ if not $isSVG }}
                     {{ $img = $img.Fit "280x140 webp" }}
                   {{ end }}
                   <img src="{{ $img.RelPermalink }}" 
-                       alt="{{ .name | default "Partner logo" }}"
+                       alt="{{ $name | default "Partner logo" }}"
                        {{ if not $isSVG }}width="{{ $img.Width }}" height="{{ $img.Height }}"{{ end }}
                        class="h-14 lg:h-16 w-auto object-contain opacity-70"
                        loading="lazy">
                 {{ end }}
               {{ end }}
             </div>
+            {{ end }}
             {{ end }}
           {{ end }}
         </div>
@@ -194,13 +267,24 @@
     {{ end }}
     
     {{/* Call to Action */}}
-    {{ with $block.content.cta }}
+    {{ if and $cta_text $cta_url }}
+    {{ $link := $cta_url }}
+    {{ $target := "" }}
+    {{ $scheme := (urls.Parse $link).Scheme }}
+    {{ if not $scheme }}
+      {{ if not (hasPrefix $link "#") }}
+        {{ $link = $link | relLangURL }}
+      {{ end }}
+      {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+    {{ else if in (slice "http" "https") $scheme }}
+      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
     <div class="mt-12 text-center">
-      <a href="{{ .url }}" 
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}
          class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow hover:shadow-lg transition-all duration-300">
-        {{ .text }}
-        {{ with .icon }}
-        {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"ml-2 w-5 h-5\"") }}
+        {{ $cta_text }}
+        {{ if $cta_icon }}
+        {{ partial "functions/get_icon" (dict "name" $cta_icon "attributes" "class=\"ml-2 w-5 h-5\"") }}
         {{ end }}
       </a>
     </div>

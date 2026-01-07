@@ -5,51 +5,157 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-{{ $author := $block.content.username | default "me" }}
-{{ $profile := partial "functions/get_author_profile" $author }}
-{{ $awards := $profile.awards }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+
+{{ $username := "me" }}
+{{ $username_raw := index $content "username" }}
+{{ if eq (printf "%T" $username_raw) "string" }}
+  {{ $username = strings.TrimSpace $username_raw }}
+{{ end }}
+{{ $profile := partial "functions/get_author_profile" $username }}
+{{ $awards_raw := $profile.awards }}
+
+{{ $date_format := "January 2006" }}
+{{ $date_format_raw := index $design "date_format" }}
+{{ if eq (printf "%T" $date_format_raw) "string" }}
+  {{ $date_format = strings.TrimSpace $date_format_raw | default "January 2006" }}
+{{ end }}
+
+{{ $awards_iter := slice }}
+{{ if reflect.IsSlice $awards_raw }}
+  {{ $awards_iter = $awards_raw }}
+{{ else if reflect.IsMap $awards_raw }}
+  {{ range $awards_raw }}
+    {{ $awards_iter = $awards_iter | append . }}
+  {{ end }}
+{{ end }}
+
+{{ $awards := slice }}
+{{ if gt (len $awards_iter) 0 }}
+  {{ range $awards_iter }}
+    {{ if reflect.IsMap . }}
+      {{ $title := "" }}
+      {{ $icon := "" }}
+      {{ $url := "" }}
+      {{ $awarder := "" }}
+      {{ $date := "" }}
+      {{ $date_start := "" }}
+      {{ $summary := "" }}
+      {{ $certificate_url := "" }}
+
+      {{ with index . "title" }}{{ $title = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "icon" }}{{ $icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "url" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "awarder" }}{{ $awarder = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "date" }}{{ $date = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "date_start" }}{{ $date_start = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "summary" }}{{ $summary = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "certificate_url" }}{{ $certificate_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+
+      {{ if $title }}
+        {{ $date_sort := $date | default $date_start }}
+        {{ $awards = $awards | append (dict "title" $title "icon" $icon "url" $url "awarder" $awarder "date" $date "date_start" $date_start "summary" $summary "certificate_url" $certificate_url "date_sort" $date_sort) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $title := "" }}
+{{ $title_raw := index $content "title" }}
+{{ if $title_raw }}
+  {{ $title = strings.TrimSpace (printf "%v" $title_raw) }}
+{{ end }}
+
+{{ $text := "" }}
+{{ $text_raw := index $content "text" }}
+{{ if $text_raw }}
+  {{ $text = strings.TrimSpace (printf "%v" $text_raw) }}
+{{ end }}
 
 <div class="flex flex-col items-center max-w-prose mx-auto gap-3 justify-center">
 
   <div class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-    {{ $block.content.title | markdownify | emojify }}
+    {{ $title | markdownify | emojify }}
   </div>
 
-  {{ with $block.content.text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
+  {{ with $text }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
 
 <div class="w-full flex flex-col gap-6">
-{{ if $awards }}
-{{ range $idx, $key := sort $awards ".date" "desc" }}
+{{ if gt (len $awards) 0 }}
+{{ range $idx, $award := sort $awards "date_sort" "desc" }}
 <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-  {{- $icon := .icon }}
-  {{with .url}}<a href={{.}} target="_blank" rel="noopener">{{end}}
+  {{- $icon := index $award "icon" }}
+  {{ $award_url := index $award "url" }}
+  {{ $award_link := "" }}
+  {{ $award_target := "" }}
+  {{ if $award_url }}
+    {{ $award_link = $award_url }}
+    {{ $scheme := (urls.Parse $award_link).Scheme }}
+    {{ if not $scheme }}
+      {{ if not (hasPrefix $award_link "#") }}
+        {{ $award_link = $award_link | relLangURL }}
+      {{ end }}
+      {{ if eq (path.Ext $award_link) ".pdf" }}{{ $award_target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+    {{ else if in (slice "http" "https") $scheme }}
+      {{ $award_target = "target=\"_blank\" rel=\"noopener\"" }}
+    {{ end }}
+  {{ end }}
+  {{ if $award_link }}<a href="{{ $award_link | safeURL }}" {{ $award_target | safeHTMLAttr }}>{{ end }}
     <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white flex items-center gap-2">
       {{ with $icon }}
         <span class="inline-flex items-center justify-center w-7 h-7 text-primary-600 dark:text-primary-300">
           {{ partial "functions/get_icon" (dict "name" . "attributes" "class='w-6 h-6'") }}
         </span>
       {{ end }}
-      <span>{{.title | markdownify | emojify}}</span>
+      <span>{{ index $award "title" | markdownify | emojify }}</span>
     </h5>
-  {{with .url}}</a>{{end}}
+  {{ if $award_link }}</a>{{ end }}
 
   <div class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-300">
-    {{ .awarder }} &#8729;
-    {{ if .date }}
-      {{ (time .date) | time.Format ($block.design.date_format | default "January 2006") }}
-    {{ else if .date_start }}
-      {{ (time .date_start) | time.Format ($block.design.date_format | default "January 2006") }}
+    {{ $awarder := index $award "awarder" }}
+    {{ if $awarder }}{{ $awarder }} &#8729;{{ end }}
+    {{ $date_value := index $award "date" }}
+    {{ $date_start_value := index $award "date_start" }}
+    {{ if $date_value }}
+      {{ $parsed := try (time $date_value) }}
+      {{ if not $parsed.Err }}
+        {{ $parsed.Value | time.Format $date_format }}
+      {{ else }}
+        {{ $date_value }}
+      {{ end }}
+    {{ else if $date_start_value }}
+      {{ $parsed := try (time $date_start_value) }}
+      {{ if not $parsed.Err }}
+        {{ $parsed.Value | time.Format $date_format }}
+      {{ else }}
+        {{ $date_start_value }}
+      {{ end }}
     {{ else }}
       {{ i18n "present" | default "Present" }}
     {{ end }}
   </div>
 
-  {{with .summary}}
-  <div class="mb-3 font-normal text-gray-500 dark:text-gray-400 prose">{{. | markdownify | emojify}}</div>
+  {{ with index $award "summary" }}
+  <div class="mb-3 font-normal text-gray-500 dark:text-gray-400 prose">{{ . | markdownify | emojify }}</div>
   {{end}}
 
-  {{ with .certificate_url }}
-  <a href="{{.}}" target="_blank" rel="noopener" class="inline-flex items-center text-primary-600 dark:text-primary-300 hover:underline">
+  {{ $certificate_url := index $award "certificate_url" }}
+  {{ if $certificate_url }}
+  {{ $certificate_link := $certificate_url }}
+  {{ $certificate_target := "" }}
+  {{ $certificate_scheme := (urls.Parse $certificate_link).Scheme }}
+  {{ if not $certificate_scheme }}
+    {{ if not (hasPrefix $certificate_link "#") }}
+      {{ $certificate_link = $certificate_link | relLangURL }}
+    {{ end }}
+    {{ if eq (path.Ext $certificate_link) ".pdf" }}{{ $certificate_target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+  {{ else if in (slice "http" "https") $certificate_scheme }}
+    {{ $certificate_target = "target=\"_blank\" rel=\"noopener\"" }}
+  {{ end }}
+  <a href="{{ $certificate_link | safeURL }}" {{ $certificate_target | safeHTMLAttr }} class="inline-flex items-center text-primary-600 dark:text-primary-300 hover:underline">
     {{ i18n "see_certificate" | default "See certificate" }}
     <svg class="w-3 h-3 ms-2.5 rtl:rotate-[270deg]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>

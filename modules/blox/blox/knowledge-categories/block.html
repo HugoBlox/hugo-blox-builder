@@ -1,22 +1,47 @@
 {{- $wcPage := .wcPage -}}
 {{- $wcBlock := .wcBlock -}}
 {{- $wcIdentifier := .wcIdentifier -}}
+{{- $content := $wcBlock.content -}}
+{{- if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end -}}
+{{- $design := $wcBlock.design -}}
+{{- if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end -}}
 
-{{- $st := $wcBlock.design.spacing | default dict -}}
-{{- $pad := $st.padding | default (slice "4rem" "0" "4rem" "0") -}}
+{{- $st := index $design "spacing" -}}
+{{- if not (reflect.IsMap $st) }}{{ $st = dict }}{{ end -}}
+{{- $pad := slice "4rem" "0" "4rem" "0" -}}
+{{- $pad_raw := index $st "padding" -}}
+{{- if and (reflect.IsSlice $pad_raw) (ge (len $pad_raw) 4) }}{{ $pad = $pad_raw }}{{ end -}}
+
+{{- $title := "" -}}
+{{- $title_raw := index $content "title" -}}
+{{- if eq (printf "%T" $title_raw) "string" }}{{ $title = $title_raw }}{{ end -}}
+{{- $subtitle := "" -}}
+{{- $subtitle_raw := index $content "subtitle" -}}
+{{- if eq (printf "%T" $subtitle_raw) "string" }}{{ $subtitle = $subtitle_raw }}{{ end -}}
+
+{{- $categories_raw := index $content "categories" -}}
+{{- $categories := slice -}}
+{{- if reflect.IsSlice $categories_raw }}{{ $categories = $categories_raw }}{{ end -}}
+
+{{- $view_all := index $content "view_all" -}}
+{{- if not (reflect.IsMap $view_all) }}{{ $view_all = dict }}{{ end -}}
+{{- $view_all_text := "" -}}
+{{- with index $view_all "text" }}{{ $view_all_text = strings.TrimSpace (printf "%v" .) }}{{ end -}}
+{{- $view_all_link := "" -}}
+{{- with index $view_all "link" }}{{ $view_all_link = strings.TrimSpace (printf "%v" .) }}{{ end -}}
 
 <section id="{{ $wcIdentifier }}" class="relative" style="padding: {{ delimit $pad " " }};">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     
     {{/* Section header */}}
-    {{ if or $wcBlock.content.title $wcBlock.content.subtitle }}
+    {{ if or $title $subtitle }}
     <div class="mx-auto max-w-2xl text-center mb-12">
-      {{ with $wcBlock.content.title }}
+      {{ with $title }}
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
         {{ . | markdownify }}
       </h2>
       {{ end }}
-      {{ with $wcBlock.content.subtitle }}
+      {{ with $subtitle }}
       <p class="mt-4 text-lg text-gray-600 dark:text-gray-300">
         {{ . | markdownify }}
       </p>
@@ -27,35 +52,63 @@
     {{/* Categories grid - with dynamic counts from Hugo taxonomy */}}
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-      {{ range $wcBlock.content.categories }}
-      {{ $category_name := .category | default .title }}
+      {{ range $categories }}
+      {{ if reflect.IsMap . }}
+      {{ $category_name := "" }}
+      {{ $category_raw := index . "category" | default (index . "title") }}
+      {{ if ne $category_raw nil }}{{ $category_name = strings.TrimSpace (printf "%v" $category_raw) }}{{ end }}
      
       {{/* Get actual count from Hugo taxonomy - proper Hugo syntax */}}
       {{ $category_url := "" }}
       {{ $actual_count := 0 }}
-      {{ with site.Taxonomies.categories.Get $category_name }}
-        {{ $actual_count = .Count }}
-        {{ $category_url = .Page.RelPermalink }}
+      {{ if $category_name }}
+        {{ with site.Taxonomies.categories.Get $category_name }}
+          {{ $actual_count = .Count }}
+          {{ $category_url = .Page.RelPermalink }}
+        {{ end }}
       {{ end }}
+
+      {{ $manual_count := partial "functions/coerce_int" (dict "value" (index . "count") "default" 0 "min" 0) }}
+      {{ $item_link := "" }}
+      {{ $link_raw := index . "link" }}
+      {{ if eq (printf "%T" $link_raw) "string" }}{{ $item_link = strings.TrimSpace $link_raw }}{{ end }}
+      {{ if not $item_link }}{{ $item_link = $category_url }}{{ end }}
       
       {{/* Only show category if it has content OR if count is explicitly set */}}
-      {{ if or (gt $actual_count 0) (.count) }}
-      <a href="{{ $category_url }}" class="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm ring-1 ring-gray-900/5 transition-all duration-300 hover:shadow-xl hover:ring-primary-500/50 hover:-translate-y-1">
+      {{ if or (gt $actual_count 0) (gt $manual_count 0) }}
+      {{ if $item_link }}
+      {{ $link := $item_link }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ if not $scheme }}
+        {{ if not (hasPrefix $link "#") }}
+          {{ $link = $link | relLangURL }}
+        {{ end }}
+      {{ end }}
+      <a href="{{ $link | safeURL }}" class="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm ring-1 ring-gray-900/5 transition-all duration-300 hover:shadow-xl hover:ring-primary-500/50 hover:-translate-y-1">
+      {{ else }}
+      <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm ring-1 ring-gray-900/5 transition-all duration-300 hover:shadow-xl hover:ring-primary-500/50 hover:-translate-y-1">
+      {{ end }}
         
         {{/* Icon */}}
-        {{ with .icon }}
-        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl {{ .bg_color | default "bg-primary-100 dark:bg-primary-900/50" }} {{ .text_color | default "text-primary-600 dark:text-primary-400" }} group-hover:scale-110 transition-transform">
-          {{ partial "functions/get_icon" (dict "name" .name "attributes" "class=\"h-6 w-6\"") }}
+        {{ $icon := index . "icon" }}
+        {{ if and $icon (reflect.IsMap $icon) }}
+        {{ $icon_name := index $icon "name" }}
+        {{ $icon_bg := index $icon "bg_color" | default "bg-primary-100 dark:bg-primary-900/50" }}
+        {{ $icon_text := index $icon "text_color" | default "text-primary-600 dark:text-primary-400" }}
+        {{ if eq (printf "%T" $icon_name) "string" }}
+        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl {{ $icon_bg }} {{ $icon_text }} group-hover:scale-110 transition-transform">
+          {{ partial "functions/get_icon" (dict "name" $icon_name "attributes" "class=\"h-6 w-6\"") }}
         </div>
+        {{ end }}
         {{ end }}
         
         {{/* Title */}}
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-          {{ .title }}
+          {{ index . "title" | default $category_name }}
         </h3>
         
         {{/* Description */}}
-        {{ with .description }}
+        {{ with index . "description" }}
         <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
           {{ . }}
         </p>
@@ -63,7 +116,8 @@
         
         {{/* Stats - use actual count from taxonomy, fallback to manual count */}}
         <div class="flex items-center justify-between text-sm">
-          {{ $display_count := default .count $actual_count }}
+          {{ $display_count := $actual_count }}
+          {{ if gt $manual_count 0 }}{{ $display_count = $manual_count }}{{ end }}
           {{ if $display_count }}
           <span class="text-gray-500 dark:text-gray-400">
             {{ $display_count }} {{ cond (eq $display_count 1) (T "article" | default "article") (T "articles" | default "articles") }}
@@ -76,16 +130,24 @@
         
         {{/* Hover gradient effect */}}
         <div class="absolute inset-0 -z-10 bg-gradient-to-br from-primary-500/0 via-primary-500/0 to-primary-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10"></div>
-      </a>
+      {{ if $item_link }}</a>{{ else }}</div>{{ end }}
+      {{ end }}
       {{ end }}
       {{ end }}
     </div>
     
     {{/* View all link */}}
-    {{ with $wcBlock.content.view_all }}
+    {{ if and $view_all_text $view_all_link }}
+    {{ $link := $view_all_link }}
+    {{ $scheme := (urls.Parse $link).Scheme }}
+    {{ if not $scheme }}
+      {{ if not (hasPrefix $link "#") }}
+        {{ $link = $link | relLangURL }}
+      {{ end }}
+    {{ end }}
     <div class="mt-10 text-center">
-      <a href="{{ .link }}" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
-        {{ .text }}
+      <a href="{{ $link | safeURL }}" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
+        {{ $view_all_text }}
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>

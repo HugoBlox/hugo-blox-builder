@@ -6,13 +6,39 @@
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 
-{{ $author := $block.content.username | default "me" }}
-{{ $profile := partial "functions/get_author_profile" $author }}
+{{ $content := $block.content }}
+{{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
+{{ $design := $block.design }}
+{{ if not (reflect.IsMap $design) }}{{ $design = dict }}{{ end }}
+
+{{ $username := "me" }}
+{{ $username_raw := index $content "username" }}
+{{ if eq (printf "%T" $username_raw) "string" }}
+  {{ $username = strings.TrimSpace $username_raw }}
+{{ end }}
+{{ $profile := partial "functions/get_author_profile" $username }}
 {{ $avatar := $profile.avatar }}
 
 {{/* Avatar customization parameters */}}
-{{ $avatar_size := $block.design.avatar.size | default "medium" }}
-{{ $avatar_shape := $block.design.avatar.shape | default "circle" }}
+{{ $avatar_size := "medium" }}
+{{ $avatar_shape := "circle" }}
+{{ $avatar_design := index $design "avatar" }}
+{{ if reflect.IsMap $avatar_design }}
+  {{ $size_raw := index $avatar_design "size" }}
+  {{ if eq (printf "%T" $size_raw) "string" }}
+    {{ $size_candidate := lower (strings.TrimSpace $size_raw) }}
+    {{ if in (slice "small" "medium" "large" "xl" "xxl") $size_candidate }}
+      {{ $avatar_size = $size_candidate }}
+    {{ end }}
+  {{ end }}
+  {{ $shape_raw := index $avatar_design "shape" }}
+  {{ if eq (printf "%T" $shape_raw) "string" }}
+    {{ $shape_candidate := lower (strings.TrimSpace $shape_raw) }}
+    {{ if in (slice "circle" "square" "rounded") $shape_candidate }}
+      {{ $avatar_shape = $shape_candidate }}
+    {{ end }}
+  {{ end }}
+{{ end }}
 
 {{/* Size mappings optimized for 2025 standards: display_size -> [display_px, generation_px] */}}
 {{ $size_map := dict "small" (slice "150" "300") "medium" (slice "200" "400") "large" (slice "320" "640") "xl" (slice "400" "800") "xxl" (slice "500" "1000") }}
@@ -25,111 +51,230 @@
 {{ $shape_class := index $shape_classes $avatar_shape | default "rounded-full" }}
 
 {{ $img := "" }}
-{{with $block.design.banner.filename}}
-{{- $img = resources.Get (path.Join "media" .) -}}
-{{ if $img }}
-  {{ if ne $img.MediaType.SubType "gif" }}
-    {{ $responsive := partial "functions/process_responsive_image.html" (dict 
-        "image" $img 
-        "mode" "fill"
-        "aspect_ratio" "16:9"
-        "sizes" (slice 768 1024 1366 1920 2560)
-    ) }}
-    <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
-      <div class="w-full bg-white rounded dark:bg-gray-800">
-        <div class="h-2/4 sm:h-64 overflow-hidden w-full">
-          <img class="w-full object-cover"
-               srcset="{{ $responsive.srcset }}"
-               sizes="100vw"
-               src="{{ $responsive.fallback.RelPermalink }}"
-               width="{{ $responsive.fallback.Width }}" 
-               height="{{ $responsive.fallback.Height }}"
-               alt="" />
+{{ $banner := index $design "banner" }}
+{{ $banner_filename := "" }}
+{{ if reflect.IsMap $banner }}
+  {{ with index $banner "filename" }}{{ $banner_filename = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ end }}
+{{ if $banner_filename }}
+  {{ $banner_path := strings.TrimPrefix $banner_filename "/" }}
+  {{- $img = resources.Get (path.Join "media" $banner_path) -}}
+  {{ if $img }}
+    {{ if ne $img.MediaType.SubType "gif" }}
+      {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+          "image" $img 
+          "mode" "fill"
+          "aspect_ratio" "16:9"
+          "sizes" (slice 768 1024 1366 1920 2560)
+      ) }}
+      <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
+        <div class="w-full bg-white rounded dark:bg-gray-800">
+          <div class="h-2/4 sm:h-64 overflow-hidden w-full">
+            <img class="w-full object-cover"
+                 srcset="{{ $responsive.srcset }}"
+                 sizes="100vw"
+                 src="{{ $responsive.fallback.RelPermalink }}"
+                 width="{{ $responsive.fallback.Width }}" 
+                 height="{{ $responsive.fallback.Height }}"
+                 alt="" />
+          </div>
         </div>
       </div>
-    </div>
-  {{ else }}
-    {{/* Handle GIF without processing */}}
-    {{- $img = $img.Process "webp" -}}
-    <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
-      <div class="w-full bg-white rounded dark:bg-gray-800">
-        <div class="h-2/4 sm:h-64 overflow-hidden w-full">
-          <img class="w-full object-cover"
-               src="{{$img.RelPermalink}}"
-               width="{{$img.Width}}" height="{{$img.Height}}"
-               alt="" />
+    {{ else }}
+      {{/* Handle GIF without processing */}}
+      {{- $img = $img.Process "webp" -}}
+      <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
+        <div class="w-full bg-white rounded dark:bg-gray-800">
+          <div class="h-2/4 sm:h-64 overflow-hidden w-full">
+            <img class="w-full object-cover"
+                 src="{{$img.RelPermalink}}"
+                 width="{{$img.Width}}" height="{{$img.Height}}"
+                 alt="" />
+          </div>
         </div>
       </div>
-    </div>
+    {{ end }}
   {{ end }}
 {{ end }}
+
+{{ $profile_title := "" }}
+{{ with $profile.title }}{{ $profile_title = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $profile_pronouns := "" }}
+{{ with $profile.pronouns }}{{ $profile_pronouns = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $profile_role := "" }}
+{{ with $profile.role }}{{ $profile_role = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $profile_bio := "" }}
+{{ with $profile.bio }}{{ $profile_bio = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ $status_icon := "" }}
+{{ with $profile.status }}
+  {{ if reflect.IsMap . }}
+    {{ with index . "icon" }}{{ $status_icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+  {{ end }}
 {{ end }}
+
+{{ $affiliations := slice }}
+{{ $affiliations_raw := $profile.affiliations }}
+{{ if reflect.IsSlice $affiliations_raw }}
+  {{ range $affiliations_raw }}
+    {{ if reflect.IsMap . }}
+      {{ $name := "" }}
+      {{ $url := "" }}
+      {{ with index . "name" }}{{ $name = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "url" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if $name }}
+        {{ $affiliations = $affiliations | append (dict "name" $name "url" $url) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $links := slice }}
+{{ $links_raw := $profile.links }}
+{{ $links_iter := slice }}
+{{ if reflect.IsSlice $links_raw }}
+  {{ $links_iter = $links_raw }}
+{{ else if and $links_raw (reflect.IsMap $links_raw) }}
+  {{ $links_iter = slice $links_raw }}
+{{ end }}
+{{ if gt (len $links_iter) 0 }}
+  {{ range $links_iter }}
+    {{ $url := "" }}
+    {{ $icon := "" }}
+    {{ $label := "" }}
+    {{ if reflect.IsMap . }}
+      {{ with index . "url" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ if not $url }}
+        {{ with index . "link" }}{{ $url = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ end }}
+      {{ with index . "icon" }}{{ $icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+      {{ with index . "label" }}{{ $label = strings.TrimSpace (printf "%v" .) }}{{ end }}
+    {{ else if eq (printf "%T" .) "string" }}
+      {{ $url = strings.TrimSpace . }}
+    {{ end }}
+    {{ if $url }}
+      {{ if not $icon }}{{ $icon = "hero/link" }}{{ end }}
+      {{ $links = $links | append (dict "url" $url "icon" $icon "label" $label) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $bio_style := "" }}
+{{ $bio_design := index $design "biography" }}
+{{ if reflect.IsMap $bio_design }}
+  {{ with index $bio_design "style" }}{{ $bio_style = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ end }}
+
+{{ $bio_override := "" }}
+{{ $bio_raw := index $content "text" }}
+{{ if $bio_raw }}
+  {{ $bio_override = strings.TrimSpace (printf "%v" $bio_raw) }}
+{{ end }}
+{{ $bio_content := $profile_bio }}
+{{ if $bio_override }}{{ $bio_content = $bio_override }}{{ end }}
+
+{{ $button := index $content "button" }}
+{{ if not (reflect.IsMap $button) }}{{ $button = dict }}{{ end }}
+{{ $button_text := "" }}
+{{ $button_link := "" }}
+{{ with index $button "text" }}{{ $button_text = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ with index $button "url" }}{{ $button_link = strings.TrimSpace (printf "%v" .) }}{{ end }}
 
 <div id="profile" class="resume-biography flex justify-center items-center flex-col dark:text-white">
   {{ if $avatar }}
 
   <div class="avatar-wrapper {{ if $img }}-mt-[105px]{{else}}mt-10{{end}}" style="width: {{$display_size}}px; height: {{$display_size}}px;">
     {{ $avatar_image := $avatar.Fill (printf "%sx%s Center" $generation_size $generation_size) }}
-    <img class="avatar {{$shape_class}} bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{$profile.title}}"
+    <img class="avatar {{$shape_class}} bg-white dark:bg-gray-800 p-1" src="{{ $avatar_image.RelPermalink }}" alt="{{ $profile_title }}"
          width="{{$display_size}}" height="{{$display_size}}"
          style="width: {{$display_size}}px; height: {{$display_size}}px; object-fit: cover;">
-    {{with $profile.status.icon}}<span class="avatar-emoji">{{.|emojify}}</span>{{end}}
+    {{ with $status_icon }}<span class="avatar-emoji">{{ . | emojify }}</span>{{ end }}
   </div>
   {{ end }}
 
   <div class="text-3xl font-bold mb-2 mt-6">
-    {{- $profile.title -}}
+    {{- $profile_title -}}
   </div>
-  {{- with $profile.pronouns -}}
+  {{- with $profile_pronouns -}}
     <div class="text-lg font-normal text-gray-600 dark:text-gray-400 -mt-1 mb-2">({{ . }})</div>
   {{- end -}}
 
-  {{ with $profile.role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
+  {{ with $profile_role }}<h3 class="font-semibold mb-1">{{ . | markdownify | emojify }}</h3>{{ end }}
 
-  {{ range $profile.affiliations }}
+  {{ range $affiliations }}
   <div class="mb-2">
-    {{ with .url }}<a href="{{ . }}" target="_blank" rel="noopener">{{ end }}
-    <div>{{ .name }}</div>
-    {{ if .url }}</a>{{ end }}
+    {{ $name := index . "name" }}
+    {{ $url := index . "url" }}
+    {{ if $url }}
+      {{ $link := $url }}
+      {{ $target := "" }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ if not $scheme }}
+        {{ if not (hasPrefix $link "#") }}
+          {{ $link = $link | relLangURL }}
+        {{ end }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }}>
+        <div>{{ $name }}</div>
+      </a>
+    {{ else }}
+      <div>{{ $name }}</div>
+    {{ end }}
   </div>
   {{ end }}
 
-  {{ if $profile.links }}
+  {{ if gt (len $links) 0 }}
   <ul class="network-icon dark:text-zinc-100">
-    {{ range $profile.links }}
-    {{ $link := .url | default .link }}
-    {{ $scheme := (urls.Parse $link).Scheme }}
-    {{ $target := "" }}
-    {{ if not $scheme }}
-      {{ $link = (.url | default .link) | relLangURL }}
-      {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
-    {{ else if in (slice "http" "https") $scheme }}
-      {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
-    {{ end }}
-    <li>
-      <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ .icon }}"
-         {{ with .label }} data-toggle="tooltip" data-placement="top" title="{{.}}"{{ end }}>
-        {{ partial "functions/get_icon" (dict "name" .icon "attributes" "style=\"height: 1.5rem;\"")  }}
-      </a>
-    </li>
+    {{ range $links }}
+      {{ $link := index . "url" }}
+      {{ $icon := index . "icon" | default "hero/link" }}
+      {{ $label := index . "label" }}
+      {{ $scheme := (urls.Parse $link).Scheme }}
+      {{ $target := "" }}
+      {{ if not $scheme }}
+        {{ if not (hasPrefix $link "#") }}
+          {{ $link = $link | relLangURL }}
+        {{ end }}
+        {{ if eq (path.Ext $link) ".pdf" }}{{ $target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+      {{ else if in (slice "http" "https") $scheme }}
+        {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+      {{ end }}
+      {{ $aria := $label | default $icon | default "link" }}
+      <li>
+        <a href="{{ $link | safeURL }}" {{ $target | safeHTMLAttr }} aria-label="{{ $aria }}"
+          {{ if $label }} data-toggle="tooltip" data-placement="top" title="{{ $label | htmlEscape }}"{{ end }}>
+          {{ partial "functions/get_icon" (dict "name" $icon "attributes" "style=\"height: 1.5rem;\"")  }}
+        </a>
+      </li>
     {{ end }}
   </ul>
   {{ end }}
 
-  {{ $bio_content := ($block.content.text | emojify | $page.RenderString) | default $profile.bio }}
-  {{ with $bio_content }}
+  {{ if $bio_content }}
   <div class="pt-2 d-flex justify-content-center prose prose-slate lg:prose-xl dark:prose-invert">
-    <div class="bio-text" {{ with $block.design.biography.style }}{{ (printf "style=\"%s\"" .) | safe.HTMLAttr }}{{end}}>
-      {{ . }}
+    <div class="bio-text" {{ if $bio_style }}{{ (printf "style=\"%s\"" $bio_style) | safeHTMLAttr }}{{ end }}>
+      {{ $bio_content | emojify | $page.RenderString }}
     </div>
   </div>
   {{ end }}
 
-  {{ with $block.content.button }}
-  <a href="{{.url}}" target="_blank" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg transition-colors hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+  {{ if and $button_text $button_link }}
+  {{ $button_href := $button_link }}
+  {{ $button_target := "" }}
+  {{ $button_scheme := (urls.Parse $button_href).Scheme }}
+  {{ if not $button_scheme }}
+    {{ if not (hasPrefix $button_href "#") }}
+      {{ $button_href = $button_href | relLangURL }}
+    {{ end }}
+    {{ if eq (path.Ext $button_href) ".pdf" }}{{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}{{ end }}
+  {{ else if in (slice "http" "https") $button_scheme }}
+    {{ $button_target = "target=\"_blank\" rel=\"noopener\"" }}
+  {{ end }}
+  <a href="{{ $button_href | safeURL }}" {{ $button_target | safeHTMLAttr }} class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg transition-colors hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:text-white dark:focus:ring-gray-700"><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
     <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
     <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-  </svg> {{.text}}</a>
+  </svg> {{ $button_text }}</a>
   {{ end }}
 
 </div>
