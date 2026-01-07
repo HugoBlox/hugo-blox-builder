@@ -85,6 +85,9 @@ Output (dict):
 {{- $skills := $data.skills -}}
 {{- $languages := $data.languages -}}
 {{- $awards := $data.awards -}}
+{{- $graduationYear := $data.graduation_year -}}
+{{- $weight := $data.weight -}}
+{{- $nameFamily := $data.name.family | default $family -}}
 {{- $postnominals := slice -}}
 {{- if $data.postnominals -}}
   {{- if (reflect.IsSlice $data.postnominals) -}}
@@ -103,6 +106,7 @@ Output (dict):
   "name_display" $display
   "name_given" $given
   "name_family" $family
+  "name_family_pref" $nameFamily
   "name_middle" $middle
   "name_alternate" $alternate
   "name_pronunciation" $namePronunciation
@@ -120,6 +124,8 @@ Output (dict):
   "skills" $skills
   "languages" $languages
   "awards" $awards
+  "graduation_year" $graduationYear
+  "weight" $weight
   "postnominals" $postnominals
   "is_owner" $isOwner
   "has_data" (not (eq $hasData nil))

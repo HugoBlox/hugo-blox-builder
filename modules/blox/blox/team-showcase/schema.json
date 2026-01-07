@@ -32,11 +32,42 @@
             },
             "user_groups": {
               "type": "array",
-              "description": "Filter to authors that belong to these user groups (defaults to all authors)",
+              "description": "Filter to authors that belong to these user groups (defaults to all authors). Accepts strings or objects { name, sort_by?, sort_ascending? } for per-group sorting.",
               "items": {
-                "type": "string"
+                "oneOf": [
+                  { "type": "string" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "sort_by": {
+                        "type": "string",
+                        "description": "Per-group override of sort field"
+                      },
+                      "sort_ascending": {
+                        "type": "boolean",
+                        "description": "Per-group override of sort direction"
+                      }
+                    },
+                    "required": ["name"],
+                    "additionalProperties": false
+                  }
+                ]
               },
-              "examples": [["Principal Investigators", "PhD Students"]]
+              "examples": [
+                ["Principal Investigators", "PhD Students"],
+                [{ "name": "Alumni", "sort_by": "graduation_year", "sort_ascending": false }, "Research Engineers"]
+              ]
+            },
+            "sort_by": {
+              "type": "string",
+              "description": "Field to sort authors by (e.g. 'name_family', 'graduation_year', 'weight'); the legacy 'Params.' prefix is optional for compatibility",
+              "default": "name_family"
+            },
+            "sort_ascending": {
+              "type": "boolean",
+              "description": "Sort direction (true for ascending, false for descending)",
+              "default": true
             },
             "cta": {
               "type": "object",
@@ -73,7 +104,7 @@
             "show_organizations": {
               "type": "boolean",
               "description": "Display the first organization/affiliation per profile",
-              "default": false
+              "default": true
             },
             "show_interests": {
               "type": "boolean",
@@ -84,6 +115,29 @@
               "type": "boolean",
               "description": "Show social media icons pulled from the author profile links",
               "default": true
+            },
+            "max_interests": {
+              "type": "integer",
+              "description": "Maximum number of interests to display per profile (0 hides interests; default 3)",
+              "default": 3,
+              "minimum": 0
+            },
+            "align": {
+              "type": "string",
+              "description": "Align the section header and CTA",
+              "enum": ["center", "left"],
+              "default": "center"
+            },
+            "max_columns": {
+              "type": "integer",
+              "description": "Maximum number of columns on wide screens (2-4)",
+              "enum": [2, 3, 4],
+              "default": 4
+            },
+            "show_empty_groups": {
+              "type": "boolean",
+              "description": "If true, show an empty-state message for groups with no matching authors",
+              "default": false
             }
           },
           "additionalProperties": true

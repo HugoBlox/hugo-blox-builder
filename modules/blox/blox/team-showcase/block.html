@@ -8,16 +8,38 @@
 {{ $show_social := $block.design.show_social | default true }}
 {{ $show_interests := $block.design.show_interests | default false }}
 {{ $show_role := $block.design.show_role | default true }}
-{{ $show_organizations := $block.design.show_organizations | default false }}
+{{ $show_organizations := $block.design.show_organizations | default true }}
+{{ $max_interests := $block.design.max_interests | default 3 }}
+{{ $max_interests_int := int $max_interests }}
+{{ $align := $block.design.align | default "center" }}
+{{ $max_columns := $block.design.max_columns | default 4 }}
+{{ $show_empty_groups := $block.design.show_empty_groups | default false }}
+{{ $sort_field := $block.content.sort_by | default "name_family" }}
+{{ $sort_asc := $block.content.sort_ascending | default true }}
+{{ $sort_field_lc := lower $sort_field }}
+{{ if hasPrefix $sort_field_lc "params." }}
+  {{/* Backwards compatibility with Params.* used when authors were pages */}}
+  {{ $sort_field = substr $sort_field 7 }}
+  {{ $sort_field_lc = lower $sort_field }}
+{{ end }}
 
 {{ $title := $block.content.title | emojify | $page.RenderString }}
 {{ $subtitle := $block.content.subtitle | emojify | $page.RenderString }}
 {{ $text := $block.content.text | emojify | $page.RenderString }}
+{{ $alignClass := cond (eq $align "left") "items-start text-left" "items-center text-center" }}
+{{ $ctaAlignClass := cond (eq $align "left") "text-left" "text-center" }}
+{{ $columnsClasses := dict
+  2 "grid grid-cols-1 gap-8 sm:grid-cols-2"
+  3 "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+  4 "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+}}
+{{ $max_columns_int := int $max_columns }}
+{{ $gridClass := index $columnsClasses $max_columns_int | default "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" }}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   
   {{/* Section Header */}}
-  <div class="flex flex-col items-center text-center mb-12">
+  <div class="flex flex-col {{ $alignClass }} mb-12">
     {{ with $title }}
     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
       {{ . }}
@@ -40,61 +62,126 @@
   {{/* Build profiles from data/authors */}}
   {{ $allProfiles := slice }}
   {{ range $slug, $_ := site.Data.authors }}
-    {{ $allProfiles = $allProfiles | append (partial "functions/get_author_profile" (dict "slug" $slug)) }}
+    {{ $profile := partial "functions/get_author_profile" (dict "slug" $slug) }}
+    {{ $profileData := index site.Data.authors $slug }}
+    {{ $allProfiles = $allProfiles | append (dict "profile" $profile "profileData" $profileData) }}
   {{ end }}
 
   {{ $groups := $block.content.user_groups }}
 
   {{ if $groups }}
-    {{ range $group := $groups }}
+    {{ range $groupItem := $groups }}
+      {{ $groupName := "" }}
+      {{ $groupSortField := $sort_field }}
+      {{ $groupSortAsc := $sort_asc }}
+      {{ $groupSortFieldLc := "" }}
+      {{ $itemIsMap := reflect.IsMap $groupItem }}
+      {{ if $itemIsMap }}
+        {{ $groupName = index $groupItem "name" | default (index $groupItem "title") | default "" }}
+        {{ $groupSortField = index $groupItem "sort_by" | default $groupSortField }}
+        {{ $groupSortAsc = index $groupItem "sort_ascending" | default $groupSortAsc }}
+      {{ else }}
+        {{ $groupName = $groupItem }}
+      {{ end }}
+      {{ $groupSortFieldLc = lower $groupSortField }}
+      {{ if hasPrefix $groupSortFieldLc "params." }}
+        {{ $groupSortField = substr $groupSortField 7 }}
+        {{ $groupSortFieldLc = lower $groupSortField }}
+      {{ end }}
+      {{ $groupIsNumeric := or (eq $groupSortFieldLc "weight") (eq $groupSortFieldLc "graduation_year") }}
+      {{ $groupOrder := cond (and (not $groupIsNumeric) (not $groupSortAsc)) "desc" "asc" }}
+
       {{ $groupProfiles := slice }}
       {{ range $allProfiles }}
-        {{ $u := .user_groups | default (slice) }}
-        {{ if gt (len (intersect $u (slice $group))) 0 }}
-          {{ $groupProfiles = $groupProfiles | append . }}
+        {{ $profile := .profile }}
+        {{ $u := $profile.user_groups | default (slice) }}
+        {{ if gt (len (intersect $u (slice $groupName))) 0 }}
+          {{ $profileData := .profileData }}
+          {{ $family := $profile.name_family_pref | default $profile.name_family | default (delimit (last 1 (split $profile.title " ")) "") | default $profile.title }}
+          {{ $familyLower := lower $family }}
+          {{ $raw := index $profile $groupSortField | default (index $profileData $groupSortField) }}
+          {{ $isNumeric := $groupIsNumeric }}
+          {{ $primary := "" }}
+          {{ if or (eq $groupSortFieldLc "name.family") (eq $groupSortFieldLc "family") (eq $groupSortFieldLc "last_name") (eq $groupSortFieldLc "name_family") (eq $groupSortFieldLc "family_name") }}
+            {{ $primary = $familyLower }}
+          {{ else if $isNumeric }}
+            {{ $primary = or (and (ne $raw nil) (int $raw)) 999999 }}
+          {{ else if ne $raw nil }}
+            {{ $primary = lower (printf "%v" $raw) }}
+          {{ else }}
+            {{ $primary = lower $profile.title }}
+          {{ end }}
+          {{ $sortKey := "" }}
+          {{ if $isNumeric }}
+            {{ $num := $primary | default 999999 }}
+            {{ if not $groupSortAsc }}{{ $num = sub 999999999 $num }}{{ end }}
+            {{ $sortKey = printf "%010d|%s" $num $familyLower }}
+          {{ else }}
+            {{ $sortKey = printf "%s|%s" $primary $familyLower }}
+          {{ end }}
+          {{ $groupProfiles = $groupProfiles | append (dict "profile" $profile "sort_val" $sortKey) }}
         {{ end }}
       {{ end }}
-      {{ $groupProfiles = sort $groupProfiles "title" }}
+      {{ $groupProfiles = sort $groupProfiles "sort_val" $groupOrder }}
 
-      {{ if and $groupProfiles (gt (len $groups) 1) }}
+      {{ if and (or (gt (len $groupProfiles) 0) $show_empty_groups) (gt (len $groups) 1) }}
       <div class="col-span-full mb-4">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">
-          {{ $group | markdownify }}
+          {{ $groupName | markdownify }}
         </h3>
       </div>
       {{ end }}
 
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full">
-        {{ range $profile := $groupProfiles }}
+      {{ if or (gt (len $groupProfiles) 0) $show_empty_groups }}
+      <div class="{{ $gridClass }} w-full">
+        {{ if eq (len $groupProfiles) 0 }}
+          {{ if $show_empty_groups }}
+          <div class="text-gray-600 dark:text-gray-400">{{ i18n "no_entries" | default "No entries yet." }}</div>
+          {{ end }}
+        {{ end }}
+        {{ range $groupProfile := $groupProfiles }}
+          {{ $profile := $groupProfile.profile }}
           {{ $avatar := $profile.avatar }}
           {{ $link := printf "/authors/%s/" $profile.slug }}
+          {{ $initial := upper (substr ($profile.name_given | default $profile.title) 0 1) }}
           
           <div class="group relative">
             <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               
-              {{ if $avatar }}
-              <a href="{{ $link }}" class="block relative h-64 overflow-hidden">
-                {{ $image := $avatar.Fill "400x400 Center webp" }}
-                <img src="{{ $image.RelPermalink }}" 
-                     alt="{{ $profile.title }}" 
-                     width="{{ $image.Width }}" 
-                     height="{{ $image.Height }}" 
-                     loading="lazy"
-                     class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <a href="{{ $link }}" class="block relative h-64 overflow-hidden" aria-label="{{ $profile.title }}">
+                {{ if $avatar }}
+                  {{ $image := $avatar.Fill "400x400 Center webp" }}
+                  <img src="{{ $image.RelPermalink }}" 
+                       alt="{{ $profile.title }}" 
+                       width="{{ $image.Width }}" 
+                       height="{{ $image.Height }}" 
+                       loading="lazy"
+                       class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {{ else }}
+                  <div class="absolute inset-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-4xl font-semibold text-gray-600 dark:text-gray-200">
+                    {{ $initial }}
+                  </div>
+                {{ end }}
               </a>
-              {{ end }}
               
               <div class="p-6">
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                  <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" aria-label="{{ $profile.title }}">
                     {{ $profile.title }}
                   </a>
                 </h3>
                 
                 {{ if $show_role }}
                 <div class="text-gray-600 dark:text-gray-400 mb-3">
-                  {{ with $profile.role }}<p class="font-medium">{{ . }}</p>{{ end }}
+                  {{ $roleText := "" }}
+                  {{ with $profile.role }}{{ $roleText = . }}{{ end }}
+                  {{ if and (not $roleText) $profile.affiliations }}
+                    {{ range first 1 $profile.affiliations }}
+                      {{ $roleText = .name }}
+                    {{ end }}
+                  {{ end }}
+                  {{ with $roleText }}<p class="font-medium">{{ . }}</p>{{ end }}
                   {{ if and $show_organizations $profile.affiliations }}
                     {{ range first 1 $profile.affiliations }}
                     <p class="text-sm mt-1">{{ .name }}</p>
@@ -112,10 +199,12 @@
                 {{ if and $show_interests $profile.interests }}
                 <div class="mb-4">
                   <div class="flex flex-wrap gap-1">
-                    {{ range first 3 $profile.interests }}
-                    <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
-                      {{ . }}
-                    </span>
+                    {{ if gt $max_interests_int 0 }}
+                      {{ range first $max_interests_int $profile.interests }}
+                      <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
+                        {{ . }}
+                      </span>
+                      {{ end }}
                     {{ end }}
                   </div>
                 </div>
@@ -149,17 +238,49 @@
           </div>
         {{ end }}
       </div>
+      {{ end }}
     {{ end }}
   {{ else }}
-    {{ $allProfiles = sort $allProfiles "title" }}
-    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {{ range $profile := $allProfiles }}
+    {{ $isNumeric := or (eq $sort_field_lc "weight") (eq $sort_field_lc "graduation_year") }}
+    {{ $order := cond (and (not $isNumeric) (not $sort_asc)) "desc" "asc" }}
+    {{ $sorted := slice }}
+    {{ range $allProfiles }}
+      {{ $profile := .profile }}
+      {{ $profileData := .profileData }}
+      {{ $family := $profile.name_family_pref | default $profile.name_family | default (delimit (last 1 (split $profile.title " ")) "") | default $profile.title }}
+      {{ $familyLower := lower $family }}
+      {{ $raw := index $profile $sort_field | default (index $profileData $sort_field) }}
+      {{ $primary := "" }}
+      {{ if or (eq $sort_field_lc "name.family") (eq $sort_field_lc "family") (eq $sort_field_lc "last_name") (eq $sort_field_lc "name_family") (eq $sort_field_lc "family_name") }}
+        {{ $primary = $familyLower }}
+      {{ else if $isNumeric }}
+        {{ $primary = or (and (ne $raw nil) (int $raw)) 999999 }}
+      {{ else if ne $raw nil }}
+        {{ $primary = lower (printf "%v" $raw) }}
+      {{ else }}
+        {{ $primary = lower $profile.title }}
+      {{ end }}
+      {{ $sortKey := "" }}
+      {{ if $isNumeric }}
+        {{ $num := $primary | default 999999 }}
+        {{ if not $sort_asc }}{{ $num = sub 999999999 $num }}{{ end }}
+        {{ $sortKey = printf "%010d|%s" $num $familyLower }}
+      {{ else }}
+        {{ $sortKey = printf "%s|%s" $primary $familyLower }}
+      {{ end }}
+      {{ $sorted = $sorted | append (dict "profile" $profile "sort_val" $sortKey) }}
+    {{ end }}
+    {{ $sorted = sort $sorted "sort_val" $order }}
+    <div class="{{ $gridClass }}">
+      {{ range $sortedProfile := $sorted }}
+        {{ $profile := $sortedProfile.profile }}
         {{ $avatar := $profile.avatar }}
         {{ $link := printf "/authors/%s/" $profile.slug }}
+        {{ $initial := upper (substr ($profile.name_given | default $profile.title) 0 1) }}
         <div class="group relative">
           <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            {{ if $avatar }}
-            <a href="{{ $link }}" class="block relative h-64 overflow-hidden">
+            <a href="{{ $link }}" class="block relative h-64 overflow-hidden" aria-label="{{ $profile.title }}">
+              {{ if $avatar }}
               {{ $image := $avatar.Fill "400x400 Center webp" }}
               <img src="{{ $image.RelPermalink }}" 
                    alt="{{ $profile.title }}" 
@@ -168,11 +289,15 @@
                    loading="lazy"
                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {{ else }}
+              <div class="absolute inset-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-4xl font-semibold text-gray-600 dark:text-gray-200">
+                {{ $initial }}
+              </div>
+              {{ end }}
             </a>
-            {{ end }}
             <div class="p-6">
               <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <a href="{{ $link }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors" aria-label="{{ $profile.title }}">
                   {{ $profile.title }}
                 </a>
               </h3>
@@ -192,8 +317,10 @@
               {{ if and $show_interests $profile.interests }}
               <div class="mb-4">
                 <div class="flex flex-wrap gap-1">
-                  {{ range first 3 $profile.interests }}
-                  <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">{{ . }}</span>
+                  {{ if gt $max_interests_int 0 }}
+                    {{ range first $max_interests_int $profile.interests }}
+                    <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">{{ . }}</span>
+                    {{ end }}
                   {{ end }}
                 </div>
               </div>
@@ -225,7 +352,7 @@
   
   {{/* Call to Action */}}
   {{ with $block.content.cta }}
-  <div class="mt-12 text-center">
+  <div class="mt-12 {{ $ctaAlignClass }}">
     <a href="{{ .url }}" class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
       {{ .text }}
       {{ with .icon }}
