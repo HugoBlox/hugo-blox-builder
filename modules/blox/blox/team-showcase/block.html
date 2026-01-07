@@ -10,7 +10,6 @@
 {{ $show_role := $block.design.show_role | default true }}
 {{ $show_organizations := $block.design.show_organizations | default true }}
 {{ $max_interests := $block.design.max_interests | default 3 }}
-{{ $max_interests_int := int $max_interests }}
 {{ $align := $block.design.align | default "center" }}
 {{ $max_columns := $block.design.max_columns | default 4 }}
 {{ $show_empty_groups := $block.design.show_empty_groups | default false }}
@@ -28,13 +27,38 @@
 {{ $text := $block.content.text | emojify | $page.RenderString }}
 {{ $alignClass := cond (eq $align "left") "items-start text-left" "items-center text-center" }}
 {{ $ctaAlignClass := cond (eq $align "left") "text-left" "text-center" }}
+
+{{/* Safe numeric handling with clamping using type checks */}}
+{{ $max_columns_int := 4 }}
+{{ $max_columns_type := printf "%T" $max_columns }}
+{{ if or (eq $max_columns_type "int") (eq $max_columns_type "int64") (eq $max_columns_type "float64") (eq $max_columns_type "float32") (eq $max_columns_type "uint") (eq $max_columns_type "uint64") }}
+  {{ $max_columns_int = int $max_columns }}
+{{ else if eq $max_columns_type "string" }}
+  {{ if gt (len (findRE "^[0-9]+$" $max_columns)) 0 }}
+    {{ $max_columns_int = int $max_columns }}
+  {{ end }}
+{{ end }}
+{{ if lt $max_columns_int 2 }}{{ $max_columns_int = 2 }}{{ end }}
+{{ if gt $max_columns_int 4 }}{{ $max_columns_int = 4 }}{{ end }}
+
+{{ $max_interests_int := 3 }}
+{{ $max_interests_type := printf "%T" $max_interests }}
+{{ if or (eq $max_interests_type "int") (eq $max_interests_type "int64") (eq $max_interests_type "float64") (eq $max_interests_type "float32") (eq $max_interests_type "uint") (eq $max_interests_type "uint64") }}
+  {{ $max_interests_int = int $max_interests }}
+{{ else if eq $max_interests_type "string" }}
+  {{ if gt (len (findRE "^[0-9]+$" $max_interests)) 0 }}
+    {{ $max_interests_int = int $max_interests }}
+  {{ end }}
+{{ end }}
+{{ if lt $max_interests_int 0 }}{{ $max_interests_int = 0 }}{{ end }}
+
 {{ $columnsClasses := dict
-  2 "grid grid-cols-1 gap-8 sm:grid-cols-2"
-  3 "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
-  4 "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  "2" "grid grid-cols-1 gap-8 sm:grid-cols-2"
+  "3" "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+  "4" "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 }}
-{{ $max_columns_int := int $max_columns }}
-{{ $gridClass := index $columnsClasses $max_columns_int | default "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" }}
+{{ $max_columns_key := printf "%d" $max_columns_int }}
+{{ $gridClass := index $columnsClasses $max_columns_key | default "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" }}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   
@@ -83,6 +107,10 @@
       {{ else }}
         {{ $groupName = $groupItem }}
       {{ end }}
+      {{ if eq (trim $groupName " ") "" }}
+        {{/* Skip groups with empty names to avoid matching everything */}}
+        {{ continue }}
+      {{ end }}
       {{ $groupSortFieldLc = lower $groupSortField }}
       {{ if hasPrefix $groupSortFieldLc "params." }}
         {{ $groupSortField = substr $groupSortField 7 }}
@@ -94,18 +122,28 @@
       {{ $groupProfiles := slice }}
       {{ range $allProfiles }}
         {{ $profile := .profile }}
-        {{ $u := $profile.user_groups | default (slice) }}
-        {{ if gt (len (intersect $u (slice $groupName))) 0 }}
+        {{ $uRaw := $profile.user_groups | default (slice) }}
+        {{ $u := slice }}
+        {{ range $uRaw }}
+          {{ $u = $u | append (printf "%v" .) }}
+        {{ end }}
+        {{ if gt (len (intersect $u (slice (printf "%v" $groupName)))) 0 }}
           {{ $profileData := .profileData }}
           {{ $family := $profile.name_family_pref | default $profile.name_family | default (delimit (last 1 (split $profile.title " ")) "") | default $profile.title }}
           {{ $familyLower := lower $family }}
           {{ $raw := index $profile $groupSortField | default (index $profileData $groupSortField) }}
+          {{ $rawType := printf "%T" $raw }}
           {{ $isNumeric := $groupIsNumeric }}
           {{ $primary := "" }}
           {{ if or (eq $groupSortFieldLc "name.family") (eq $groupSortFieldLc "family") (eq $groupSortFieldLc "last_name") (eq $groupSortFieldLc "name_family") (eq $groupSortFieldLc "family_name") }}
             {{ $primary = $familyLower }}
           {{ else if $isNumeric }}
-            {{ $primary = or (and (ne $raw nil) (int $raw)) 999999 }}
+            {{ $primary = 999999 }}
+            {{ if or (eq $rawType "int") (eq $rawType "int64") (eq $rawType "float64") (eq $rawType "float32") (eq $rawType "uint") (eq $rawType "uint64") }}
+              {{ $primary = int $raw }}
+            {{ else if and (eq $rawType "string") (gt (len (findRE "^[0-9]+$" $raw)) 0) }}
+              {{ $primary = int $raw }}
+            {{ end }}
           {{ else if ne $raw nil }}
             {{ $primary = lower (printf "%v" $raw) }}
           {{ else }}
@@ -114,7 +152,6 @@
           {{ $sortKey := "" }}
           {{ if $isNumeric }}
             {{ $num := $primary | default 999999 }}
-            {{ if not $groupSortAsc }}{{ $num = sub 999999999 $num }}{{ end }}
             {{ $sortKey = printf "%010d|%s" $num $familyLower }}
           {{ else }}
             {{ $sortKey = printf "%s|%s" $primary $familyLower }}
@@ -138,14 +175,15 @@
       <div class="{{ $gridClass }} w-full">
         {{ if eq (len $groupProfiles) 0 }}
           {{ if $show_empty_groups }}
-          <div class="text-gray-600 dark:text-gray-400">{{ i18n "no_entries" | default "No entries yet." }}</div>
+          <div class="text-gray-600 dark:text-gray-400 py-6">{{ i18n "no_entries" | default "No entries yet." }}</div>
           {{ end }}
         {{ end }}
         {{ range $groupProfile := $groupProfiles }}
           {{ $profile := $groupProfile.profile }}
           {{ $avatar := $profile.avatar }}
           {{ $link := printf "/authors/%s/" $profile.slug }}
-          {{ $initial := upper (substr ($profile.name_given | default $profile.title) 0 1) }}
+          {{ $nameSource := $profile.name_given | default $profile.title | default "?" }}
+          {{ $initial := cond (gt (len $nameSource) 0) (upper (substr $nameSource 0 1)) "?" }}
           
           <div class="group relative">
             <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
@@ -252,11 +290,17 @@
       {{ $family := $profile.name_family_pref | default $profile.name_family | default (delimit (last 1 (split $profile.title " ")) "") | default $profile.title }}
       {{ $familyLower := lower $family }}
       {{ $raw := index $profile $sort_field | default (index $profileData $sort_field) }}
+      {{ $rawType := printf "%T" $raw }}
       {{ $primary := "" }}
       {{ if or (eq $sort_field_lc "name.family") (eq $sort_field_lc "family") (eq $sort_field_lc "last_name") (eq $sort_field_lc "name_family") (eq $sort_field_lc "family_name") }}
         {{ $primary = $familyLower }}
       {{ else if $isNumeric }}
-        {{ $primary = or (and (ne $raw nil) (int $raw)) 999999 }}
+        {{ $primary = 999999 }}
+        {{ if or (eq $rawType "int") (eq $rawType "int64") (eq $rawType "float64") (eq $rawType "float32") (eq $rawType "uint") (eq $rawType "uint64") }}
+          {{ $primary = int $raw }}
+        {{ else if and (eq $rawType "string") (gt (len (findRE "^[0-9]+$" $raw)) 0) }}
+          {{ $primary = int $raw }}
+        {{ end }}
       {{ else if ne $raw nil }}
         {{ $primary = lower (printf "%v" $raw) }}
       {{ else }}
@@ -265,7 +309,6 @@
       {{ $sortKey := "" }}
       {{ if $isNumeric }}
         {{ $num := $primary | default 999999 }}
-        {{ if not $sort_asc }}{{ $num = sub 999999999 $num }}{{ end }}
         {{ $sortKey = printf "%010d|%s" $num $familyLower }}
       {{ else }}
         {{ $sortKey = printf "%s|%s" $primary $familyLower }}
@@ -278,7 +321,8 @@
         {{ $profile := $sortedProfile.profile }}
         {{ $avatar := $profile.avatar }}
         {{ $link := printf "/authors/%s/" $profile.slug }}
-        {{ $initial := upper (substr ($profile.name_given | default $profile.title) 0 1) }}
+        {{ $nameSource := $profile.name_given | default $profile.title | default "?" }}
+        {{ $initial := cond (gt (len $nameSource) 0) (upper (substr $nameSource 0 1)) "?" }}
         <div class="group relative">
           <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <a href="{{ $link }}" class="block relative h-64 overflow-hidden" aria-label="{{ $profile.title }}">
