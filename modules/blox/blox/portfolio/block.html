@@ -56,15 +56,6 @@
 {{ $sort_order := cond $sort_ascending "asc" "desc" }}
 {{ $query = sort $query $sort_by $sort_order }}
 
-{{/* Store total count before limiting */}}
-{{ $total_count := len $query }}
-
-{{/* Limit */}}
-{{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 6 "min" 0) }}
-{{ if gt $count 0 }}
-  {{ $query = first $count $query }}
-{{ end }}
-
 {{/* Get filter buttons */}}
 {{ $buttons_raw := index $content "buttons" }}
 {{ $buttons := slice }}
@@ -85,6 +76,17 @@
     {{ end }}
   {{ end }}
 {{ end }}
+
+{{/* Store total count before limiting; keep full set when filtering so buttons work */}}
+{{ $total_count := len $query }}
+{{ $has_multiple_filters := gt (len $buttons) 1 }}
+
+{{/* Limit (only when not using multiple filters, since Alpine filters client-side) */}}
+{{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 6 "min" 0) }}
+{{ if and (gt $count 0) (not $has_multiple_filters) }}
+  {{ $query = first $count $query }}
+{{ end }}
+{{ $displayed_count := len $query }}
 
 {{/* Columns */}}
 {{ $columns := partial "functions/coerce_int" (dict "value" (index $design "columns") "default" 3 "min" 1 "max" 4) }}
@@ -390,9 +392,7 @@
   {{ $archive := index $content "archive" }}
   {{ if not (reflect.IsMap $archive) }}{{ $archive = dict }}{{ end }}
   {{ $default_show_archive := false }}
-  {{ if gt $count 0 }}
-    {{ $default_show_archive = gt $total_count $count }}
-  {{ end }}
+  {{ $default_show_archive = gt $total_count $displayed_count }}
   {{ $show_archive_link := partial "functions/coerce_bool" (dict "value" (index $archive "enable") "default" $default_show_archive) }}
   {{ if and $show_archive_link $archive_page }}
     {{ $archive_link := "" }}

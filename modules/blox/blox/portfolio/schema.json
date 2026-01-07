@@ -30,7 +30,7 @@
             },
             "count": {
               "type": "integer",
-              "description": "Maximum number of projects to display (0 means unlimited)",
+              "description": "Maximum number of projects to display when no filter buttons are used (0 means unlimited)",
               "minimum": 0,
               "default": 6
             },
