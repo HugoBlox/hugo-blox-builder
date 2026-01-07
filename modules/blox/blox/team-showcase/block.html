@@ -70,7 +70,7 @@
   {{ $groups := $block.content.user_groups }}
 
   {{ if $groups }}
-    {{ range $groupItem := $groups }}
+    {{ range $i, $groupItem := $groups }}
       {{ $groupName := "" }}
       {{ $groupSortField := $sort_field }}
       {{ $groupSortAsc := $sort_asc }}
@@ -124,15 +124,17 @@
       {{ end }}
       {{ $groupProfiles = sort $groupProfiles "sort_val" $groupOrder }}
 
-      {{ if and (or (gt (len $groupProfiles) 0) $show_empty_groups) (gt (len $groups) 1) }}
-      <div class="col-span-full mb-4">
+      {{ $hasGroupContent := or (gt (len $groupProfiles) 0) $show_empty_groups }}
+
+      {{ if and $hasGroupContent (gt (len $groups) 1) }}
+      <div class="col-span-full {{ if gt $i 0 }}mt-8 md:mt-10 lg:mt-12{{ end }} mb-4">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">
           {{ $groupName | markdownify }}
         </h3>
       </div>
       {{ end }}
 
-      {{ if or (gt (len $groupProfiles) 0) $show_empty_groups }}
+      {{ if $hasGroupContent }}
       <div class="{{ $gridClass }} w-full">
         {{ if eq (len $groupProfiles) 0 }}
           {{ if $show_empty_groups }}
