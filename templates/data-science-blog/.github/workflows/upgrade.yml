@@ -35,6 +35,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_path: templates/data-science-blog/package.json
+          run_install: false
+
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
@@ -58,7 +64,7 @@ jobs:
           fi
           
           echo "Running upgrade with flags: $FLAGS"
-          npx --yes hugoblox@latest upgrade $FLAGS
+          pnpm dlx hugoblox@latest upgrade $FLAGS
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
