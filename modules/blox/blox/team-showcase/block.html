@@ -51,6 +51,7 @@
 {{ $text := "" }}
 {{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString }}{{ end }}
 {{ $alignClass := cond (eq $align "left") "items-start text-left" "items-center text-center" }}
+{{ $headerWidthClass := cond (eq $align "left") "max-w-5xl" "max-w-3xl mx-auto" }}
 {{ $ctaAlignClass := cond (eq $align "left") "text-left" "text-center" }}
 
 {{ $columnsClasses := dict
@@ -64,7 +65,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   
   {{/* Section Header */}}
-  <div class="flex flex-col {{ $alignClass }} mb-12">
+  <div class="flex flex-col gap-4 {{ $alignClass }} {{ $headerWidthClass }} mb-12">
     {{ with $title }}
     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
       {{ . }}
@@ -136,7 +137,7 @@
         {{ $groupSortFieldLc = lower $groupSortField }}
       {{ end }}
       {{ $groupIsNumeric := or (eq $groupSortFieldLc "weight") (eq $groupSortFieldLc "graduation_year") }}
-      {{ $groupOrder := cond (and (not $groupIsNumeric) (not $groupSortAsc)) "desc" "asc" }}
+      {{ $groupOrder := cond $groupSortAsc "asc" "desc" }}
 
       {{ $groupProfiles := slice }}
       {{ range $allProfiles }}
@@ -164,7 +165,8 @@
           {{ if or (eq $groupSortFieldLc "name.family") (eq $groupSortFieldLc "family") (eq $groupSortFieldLc "last_name") (eq $groupSortFieldLc "name_family") (eq $groupSortFieldLc "family_name") }}
             {{ $primary = $familyLower }}
           {{ else if $isNumeric }}
-            {{ $primary = 999999 }}
+            {{ $missingSentinel := cond $groupSortAsc 999999 -999999 }}
+            {{ $primary = $missingSentinel }}
             {{ if or (eq $rawType "int") (eq $rawType "int64") (eq $rawType "float64") (eq $rawType "float32") (eq $rawType "uint") (eq $rawType "uint64") }}
               {{ $primary = int $raw }}
             {{ else if and (eq $rawType "string") (gt (len (findRE "^[0-9]+$" $raw)) 0) }}
@@ -177,7 +179,8 @@
           {{ end }}
           {{ $sortKey := "" }}
           {{ if $isNumeric }}
-            {{ $num := $primary | default 999999 }}
+            {{ $missingSentinel := cond $groupSortAsc 999999 -999999 }}
+            {{ $num := $primary | default $missingSentinel }}
             {{ $sortKey = printf "%010d|%s" $num $familyLower }}
           {{ else }}
             {{ $sortKey = printf "%s|%s" $primary $familyLower }}
@@ -214,15 +217,15 @@
           <div class="group relative">
             <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               
-              <a href="{{ $link }}" class="block relative h-64 overflow-hidden" aria-label="{{ $profile.title }}">
+              <a href="{{ $link }}" class="block relative aspect-[4/5] overflow-hidden" aria-label="{{ $profile.title }}">
                 {{ if $avatar }}
-                  {{ $image := $avatar.Fill "400x400 Center webp" }}
+                  {{ $image := $avatar.Fit "400x500 Center webp" }}
                   <img src="{{ $image.RelPermalink }}" 
                        alt="{{ $profile.title }}" 
                        width="{{ $image.Width }}" 
                        height="{{ $image.Height }}" 
                        loading="lazy"
-                       class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                       class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110">
                   <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 {{ else }}
                   <div class="absolute inset-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-4xl font-semibold text-gray-600 dark:text-gray-200">
@@ -367,7 +370,7 @@
     {{ end }}
   {{ else }}
     {{ $isNumeric := or (eq $sort_field_lc "weight") (eq $sort_field_lc "graduation_year") }}
-    {{ $order := cond (and (not $isNumeric) (not $sort_asc)) "desc" "asc" }}
+    {{ $order := cond $sort_asc "asc" "desc" }}
     {{ $sorted := slice }}
     {{ range $allProfiles }}
       {{ $profile := .profile }}
@@ -380,7 +383,8 @@
       {{ if or (eq $sort_field_lc "name.family") (eq $sort_field_lc "family") (eq $sort_field_lc "last_name") (eq $sort_field_lc "name_family") (eq $sort_field_lc "family_name") }}
         {{ $primary = $familyLower }}
       {{ else if $isNumeric }}
-        {{ $primary = 999999 }}
+        {{ $missingSentinel := cond $sort_asc 999999 -999999 }}
+        {{ $primary = $missingSentinel }}
         {{ if or (eq $rawType "int") (eq $rawType "int64") (eq $rawType "float64") (eq $rawType "float32") (eq $rawType "uint") (eq $rawType "uint64") }}
           {{ $primary = int $raw }}
         {{ else if and (eq $rawType "string") (gt (len (findRE "^[0-9]+$" $raw)) 0) }}
@@ -393,7 +397,8 @@
       {{ end }}
       {{ $sortKey := "" }}
       {{ if $isNumeric }}
-        {{ $num := $primary | default 999999 }}
+        {{ $missingSentinel := cond $sort_asc 999999 -999999 }}
+        {{ $num := $primary | default $missingSentinel }}
         {{ $sortKey = printf "%010d|%s" $num $familyLower }}
       {{ else }}
         {{ $sortKey = printf "%s|%s" $primary $familyLower }}
@@ -410,15 +415,15 @@
         {{ $initial := cond (gt (len $nameSource) 0) (upper (substr $nameSource 0 1)) "?" }}
         <div class="group relative">
           <div class="relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <a href="{{ $link }}" class="block relative h-64 overflow-hidden" aria-label="{{ $profile.title }}">
+            <a href="{{ $link }}" class="block relative aspect-[4/5] overflow-hidden" aria-label="{{ $profile.title }}">
               {{ if $avatar }}
-              {{ $image := $avatar.Fill "400x400 Center webp" }}
+              {{ $image := $avatar.Fit "400x500 Center webp" }}
               <img src="{{ $image.RelPermalink }}" 
                    alt="{{ $profile.title }}" 
                    width="{{ $image.Width }}" 
                    height="{{ $image.Height }}" 
                    loading="lazy"
-                   class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
+                   class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               {{ else }}
               <div class="absolute inset-0 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-4xl font-semibold text-gray-600 dark:text-gray-200">
