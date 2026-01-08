@@ -17,15 +17,11 @@
   <a href="https://docs.hugoblox.com/guides/studio/">HugoBlox Studio (Visual Editor)</a>
 </p>
 
-
 <p align="center">
   <b>▶︎ Watch Preview</b>
 </p>
 
-<!-- Video placeholder - replace with actual video link when available -->
-<p align="center">
-  <i>Video coming soon...</i>
-</p>
+https://github.com/user-attachments/assets/5a93788a-65d7-4a56-8355-4a2098a5f89b
 
 <p align="center">
   <a href="https://discord.gg/z8wNYzb"><img src="https://img.shields.io/discord/722225264733716590?label=Join%20Discord&style=social" alt="Discord"></a>
