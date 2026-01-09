@@ -81,10 +81,43 @@
 {{ $total_count := len $query }}
 {{ $has_multiple_filters := gt (len $buttons) 1 }}
 
-{{/* Limit (only when not using multiple filters, since Alpine filters client-side) */}}
+{{/* Limit */}}
 {{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 6 "min" 0) }}
-{{ if and (gt $count 0) (not $has_multiple_filters) }}
-  {{ $query = first $count $query }}
+{{ if gt $count 0 }}
+  {{ if $has_multiple_filters }}
+    {{/* Build a union of up to $count items per button tag to keep filters populated while respecting count */}}
+    {{ $collected := slice }}
+    {{ $seen := dict }}
+    {{ range $buttons }}
+      {{ if reflect.IsMap . }}
+        {{ $tag := "*" }}
+        {{ with index . "tag" }}{{ $tag = strings.TrimSpace (printf "%v" .) }}{{ end }}
+        {{ $tag_lower := lower $tag }}
+        {{ $items := slice }}
+        {{ if eq $tag_lower "*" }}
+          {{ $items = first $count $query }}
+        {{ else }}
+          {{ $items = first $count (where $query "Params.tags" "intersect" (slice $tag_lower)) }}
+          {{ if eq (len $items) 0 }}
+            {{/* fallback to case-sensitive tags if lowercase intersect yields none */}}
+            {{ $items = first $count (where $query "Params.tags" "intersect" (slice $tag)) }}
+          {{ end }}
+        {{ end }}
+        {{ range $items }}
+          {{ $key := .RelPermalink }}
+          {{ if not (isset $seen $key) }}
+            {{ $collected = $collected | append . }}
+            {{ $seen = merge $seen (dict $key true) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ if gt (len $collected) 0 }}
+      {{ $query = $collected }}
+    {{ end }}
+  {{ else }}
+    {{ $query = first $count $query }}
+  {{ end }}
 {{ end }}
 {{ $displayed_count := len $query }}
 
