@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/logos.json",
-  "title": "Logos Block Schema",
-  "description": "Schema for the Logos block - showcases partner/customer logos in grid, carousel, or marquee layouts",
+  "title": "Logos",
+  "description": "Showcases partner/customer logos in grid, carousel, or marquee layouts",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -24,7 +24,9 @@
               "type": "string"
             },
             "text": {
-              "type": "string"
+              "type": "string",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "logos": {
               "type": "array",
@@ -54,7 +56,9 @@
                     "default": false
                   }
                 },
-                "required": ["image"],
+                "required": [
+                  "image"
+                ],
                 "additionalProperties": false
               }
             },
@@ -70,13 +74,18 @@
                   "type": "string"
                 },
                 "text": {
-                  "type": "string"
+                  "type": "string",
+                  "x-multiline": true,
+                  "format": "textarea"
                 },
                 "icon": {
                   "type": "string"
                 }
               },
-              "required": ["url", "text"],
+              "required": [
+                "url",
+                "text"
+              ],
               "additionalProperties": false
             }
           },
@@ -88,7 +97,11 @@
           "properties": {
             "display_mode": {
               "type": "string",
-              "enum": ["grid", "carousel", "marquee"],
+              "enum": [
+                "grid",
+                "carousel",
+                "marquee"
+              ],
               "description": "Layout style: 'grid' shows all logos statically, 'carousel' scrolls horizontally with pause-on-hover, 'marquee' provides continuous horizontal scroll",
               "default": "grid"
             },
@@ -101,7 +114,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

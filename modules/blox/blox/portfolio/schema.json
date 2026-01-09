@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/portfolio.json",
-  "title": "Portfolio Block Schema",
-  "description": "Schema for the Portfolio block - displays filterable project cards with Alpine.js",
+  "title": "Portfolio",
+  "description": "Displays filterable project cards with Alpine.js",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -21,12 +21,16 @@
             "title": {
               "type": "string",
               "description": "Section title (supports Markdown)",
-              "examples": ["Featured Projects"]
+              "examples": [
+                "Featured Projects"
+              ]
             },
             "subtitle": {
               "type": "string",
               "description": "Section subtitle (supports Markdown)",
-              "examples": ["Things I've built"]
+              "examples": [
+                "Things I've built"
+              ]
             },
             "count": {
               "type": "integer",
@@ -37,7 +41,16 @@
             "sort_by": {
               "type": "string",
               "description": "Field to sort by",
-              "enum": ["Date", "date", "Title", "title", "Weight", "weight", "Lastmod", "lastmod"],
+              "enum": [
+                "Date",
+                "date",
+                "Title",
+                "title",
+                "Weight",
+                "weight",
+                "Lastmod",
+                "lastmod"
+              ],
               "default": "Date"
             },
             "sort_ascending": {
@@ -55,8 +68,15 @@
                   "items": {
                     "type": "string"
                   },
-                  "default": ["projects"],
-                  "examples": [["projects", "software"]]
+                  "default": [
+                    "projects"
+                  ],
+                  "examples": [
+                    [
+                      "projects",
+                      "software"
+                    ]
+                  ]
                 }
               },
               "additionalProperties": false
@@ -70,23 +90,51 @@
                   "name": {
                     "type": "string",
                     "description": "Button display text",
-                    "examples": ["All", "Frontend", "Backend"]
+                    "examples": [
+                      "All",
+                      "Frontend",
+                      "Backend"
+                    ]
                   },
                   "tag": {
                     "type": "string",
                     "description": "Tag to filter by (* for all)",
-                    "examples": ["*", "Frontend", "Full-Stack"]
+                    "examples": [
+                      "*",
+                      "Frontend",
+                      "Full-Stack"
+                    ]
                   }
                 },
-                "required": ["name", "tag"]
+                "required": [
+                  "name",
+                  "tag"
+                ]
               },
-              "default": [{ "name": "All", "tag": "*" }],
+              "default": [
+                {
+                  "name": "All",
+                  "tag": "*"
+                }
+              ],
               "examples": [
                 [
-                  { "name": "All", "tag": "*" },
-                  { "name": "Full-Stack", "tag": "Full-Stack" },
-                  { "name": "Frontend", "tag": "Frontend" },
-                  { "name": "Backend", "tag": "Backend" }
+                  {
+                    "name": "All",
+                    "tag": "*"
+                  },
+                  {
+                    "name": "Full-Stack",
+                    "tag": "Full-Stack"
+                  },
+                  {
+                    "name": "Frontend",
+                    "tag": "Frontend"
+                  },
+                  {
+                    "name": "Backend",
+                    "tag": "Backend"
+                  }
                 ]
               ]
             },
@@ -107,12 +155,19 @@
                 "link": {
                   "type": "string",
                   "description": "Override archive URL (defaults to the first folder in filters.folders)",
-                  "examples": ["/projects/", "/work/"]
+                  "examples": [
+                    "/projects/",
+                    "/work/"
+                  ]
                 },
                 "text": {
                   "type": "string",
                   "description": "Override archive link text (uses i18n 'portfolio_view_all' by default)",
-                  "examples": ["View All Projects", "See My Work", "Browse Portfolio"]
+                  "examples": [
+                    "View All Projects",
+                    "See My Work",
+                    "Browse Portfolio"
+                  ]
                 }
               },
               "additionalProperties": false
@@ -128,14 +183,30 @@
               "type": "integer",
               "description": "Number of columns (2, 3, or 4)",
               "default": 3,
-              "enum": [2, 3, 4],
-              "examples": [2, 3, 4]
+              "enum": [
+                2,
+                3,
+                4
+              ],
+              "examples": [
+                2,
+                3,
+                4
+              ]
             },
             "fallback_icon": {
               "type": "string",
               "description": "Icon to display when no image is provided. Supports all Hugo Blox icon packs: hero (default), brands, devicon, emoji, or custom packs. Format: 'icon-name' or 'pack/icon-name'",
               "default": "code-bracket",
-              "examples": ["code-bracket", "academic-cap", "beaker", "paint-brush", "brands/github", "devicon/python", "emoji/rocket"]
+              "examples": [
+                "code-bracket",
+                "academic-cap",
+                "beaker",
+                "paint-brush",
+                "brands/github",
+                "devicon/python",
+                "emoji/rocket"
+              ]
             },
             "animations": {
               "type": "boolean",
@@ -146,7 +217,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -157,13 +230,27 @@
             "subtitle": "A selection of my recent work",
             "count": 6,
             "filters": {
-              "folders": ["projects"]
+              "folders": [
+                "projects"
+              ]
             },
             "buttons": [
-              { "name": "All", "tag": "*" },
-              { "name": "Full-Stack", "tag": "Full-Stack" },
-              { "name": "Frontend", "tag": "Frontend" },
-              { "name": "Backend", "tag": "Backend" }
+              {
+                "name": "All",
+                "tag": "*"
+              },
+              {
+                "name": "Full-Stack",
+                "tag": "Full-Stack"
+              },
+              {
+                "name": "Frontend",
+                "tag": "Frontend"
+              },
+              {
+                "name": "Backend",
+                "tag": "Backend"
+              }
             ],
             "default_button_index": 0,
             "archive": {

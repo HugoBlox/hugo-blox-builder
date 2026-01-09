@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/cta-image-paragraph.json",
-  "title": "CTA Image Paragraph Block Schema",
-  "description": "Schema for the CTA Image Paragraph block - alternating media and copy with optional feature bullets and button",
+  "title": "CTA Image Paragraph",
+  "description": "Alternating media and copy with optional feature bullets and button",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -29,12 +29,17 @@
                   },
                   "text": {
                     "type": "string",
-                    "description": "Supporting paragraph (supports Markdown)"
+                    "description": "Supporting paragraph (supports Markdown)",
+                    "x-multiline": true,
+                    "format": "textarea"
                   },
                   "image": {
                     "type": "string",
                     "description": "Image filename in assets/media/. Responsive images are generated automatically (400-1200px). GIFs are converted to webp.",
-                    "examples": ["screenshots/product.png", "features/demo.jpg"]
+                    "examples": [
+                      "screenshots/product.png",
+                      "features/demo.jpg"
+                    ]
                   },
                   "feature_icon": {
                     "type": "string",
@@ -53,27 +58,40 @@
                     "description": "Optional CTA button",
                     "properties": {
                       "text": {
-                        "type": "string"
+                        "type": "string",
+                        "x-multiline": true,
+                        "format": "textarea"
                       },
                       "url": {
                         "type": "string"
                       }
                     },
-                    "required": ["text", "url"],
+                    "required": [
+                      "text",
+                      "url"
+                    ],
                     "additionalProperties": false
                   }
                 },
-                "required": ["title", "text", "image"],
+                "required": [
+                  "title",
+                  "text",
+                  "image"
+                ],
                 "additionalProperties": false
               },
               "minItems": 1
             }
           },
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "additionalProperties": false
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -85,7 +103,11 @@
                 "text": "Pair Markdown content with responsive imagery and reusable CTAs.",
                 "image": "screenshots/docs.png",
                 "feature_icon": "hero/check-circle",
-                "features": ["Responsive images generated automatically", "Markdown-first authoring", "Works with Netlify, Vercel, and GitHub Pages"],
+                "features": [
+                  "Responsive images generated automatically",
+                  "Markdown-first authoring",
+                  "Works with Netlify, Vercel, and GitHub Pages"
+                ],
                 "button": {
                   "text": "Read the guide",
                   "url": "/docs/get-started/"

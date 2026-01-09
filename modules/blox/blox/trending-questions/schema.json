@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/trending-questions.json",
-  "title": "Trending Questions Block Schema",
+  "title": "Trending Questions",
   "description": "Display trending or featured questions with optional dynamic sourcing from content marked `trending: true`",
   "allOf": [
     {
@@ -49,7 +49,9 @@
                     "type": "object",
                     "properties": {
                       "text": {
-                        "type": "string"
+                        "type": "string",
+                        "x-multiline": true,
+                        "format": "textarea"
                       },
                       "color": {
                         "type": "string",
@@ -62,13 +64,22 @@
                     "type": "string"
                   },
                   "views": {
-                    "type": ["string", "number"]
+                    "type": [
+                      "string",
+                      "number"
+                    ]
                   },
                   "upvotes": {
-                    "type": ["integer", "number"]
+                    "type": [
+                      "integer",
+                      "number"
+                    ]
                   }
                 },
-                "required": ["question", "link"],
+                "required": [
+                  "question",
+                  "link"
+                ],
                 "additionalProperties": false
               }
             },
@@ -76,27 +87,39 @@
               "type": "object",
               "properties": {
                 "text": {
-                  "type": "string"
+                  "type": "string",
+                  "x-multiline": true,
+                  "format": "textarea"
                 },
                 "link": {
                   "type": "string"
                 }
               },
-              "required": ["text", "link"],
+              "required": [
+                "text",
+                "link"
+              ],
               "additionalProperties": false
             }
           },
           "additionalProperties": false
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
           "block": "trending-questions",
           "design": {
             "spacing": {
-              "padding": ["3rem", "0", "3rem", "0"]
+              "padding": [
+                "3rem",
+                "0",
+                "3rem",
+                "0"
+              ]
             }
           },
           "content": {
@@ -109,7 +132,7 @@
                 "answer_preview": "Use the provided CI workflow or run `hugo --gc --minify`...",
                 "link": "/docs/deploy/netlify/",
                 "badge": {
-                  "text": "🔥 Popular",
+                  "text": "\ud83d\udd25 Popular",
                   "color": "bg-amber-100 text-amber-800"
                 },
                 "views": 1200,

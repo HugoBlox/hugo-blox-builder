@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-biography.json",
-  "title": "Resume Biography Block Schema",
-  "description": "Schema for the Biography block - renders author details with avatar, banner, bio, and social links",
+  "title": "Resume Biography",
+  "description": "Renders author details with avatar, banner, bio, and social links",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -24,7 +24,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Override biography text (Markdown); falls back to author profile bio when omitted"
+              "description": "Override biography text (Markdown); falls back to author profile bio when omitted",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "button": {
               "type": "object",
@@ -34,10 +36,15 @@
                   "type": "string"
                 },
                 "text": {
-                  "type": "string"
+                  "type": "string",
+                  "x-multiline": true,
+                  "format": "textarea"
                 }
               },
-              "required": ["url", "text"],
+              "required": [
+                "url",
+                "text"
+              ],
               "additionalProperties": false
             }
           },
@@ -52,13 +59,23 @@
               "properties": {
                 "size": {
                   "type": "string",
-                  "enum": ["small", "medium", "large", "xl", "xxl"],
+                  "enum": [
+                    "small",
+                    "medium",
+                    "large",
+                    "xl",
+                    "xxl"
+                  ],
                   "description": "Avatar display size. Sizes: small (150px), medium (200px), large (320px), xl (400px), xxl (500px). Images are generated at 2x for retina displays.",
                   "default": "medium"
                 },
                 "shape": {
                   "type": "string",
-                  "enum": ["circle", "square", "rounded"],
+                  "enum": [
+                    "circle",
+                    "square",
+                    "rounded"
+                  ],
                   "description": "Avatar shape",
                   "default": "circle"
                 }
@@ -81,7 +98,9 @@
                 "style": {
                   "type": "string",
                   "description": "Inline CSS style applied to the bio text wrapper",
-                  "examples": ["max-width: 60ch;"]
+                  "examples": [
+                    "max-width: 60ch;"
+                  ]
                 }
               },
               "additionalProperties": false
@@ -90,7 +109,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

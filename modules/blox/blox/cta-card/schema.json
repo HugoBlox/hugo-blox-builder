@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/cta-card.json",
-  "title": "CTA Card Block Schema",
-  "description": "Schema for the CTA Card block - displays a prominent call-to-action card with title, text, and button",
+  "title": "CTA Card",
+  "description": "Displays a prominent call-to-action card with title, text, and button",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -24,7 +24,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Card description text (supports Markdown)"
+              "description": "Card description text (supports Markdown)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "button": {
               "type": "object",
@@ -36,7 +38,9 @@
                 },
                 "text": {
                   "type": "string",
-                  "description": "Button text"
+                  "description": "Button text",
+                  "x-multiline": true,
+                  "format": "textarea"
                 },
                 "icon": {
                   "type": "string",
@@ -48,11 +52,18 @@
                   "default": false
                 }
               },
-              "required": ["url", "text"],
+              "required": [
+                "url",
+                "text"
+              ],
               "additionalProperties": false
             }
           },
-          "required": ["title", "text", "button"],
+          "required": [
+            "title",
+            "text",
+            "button"
+          ],
           "additionalProperties": false
         },
         "design": {
@@ -72,7 +83,11 @@
                 },
                 "text_color": {
                   "type": "string",
-                  "enum": ["auto", "light", "dark"],
+                  "enum": [
+                    "auto",
+                    "light",
+                    "dark"
+                  ],
                   "description": "Text color mode for optimal contrast (auto detects based on background)",
                   "default": "auto"
                 },
@@ -90,7 +105,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

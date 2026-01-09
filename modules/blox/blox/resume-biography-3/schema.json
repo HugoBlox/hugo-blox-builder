@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-biography-3.json",
-  "title": "Resume Biography 3 Block Schema",
-  "description": "Schema for the Resume Biography 3 block - horizontal layout with banner, avatar, and profile details",
+  "title": "Resume Biography 3",
+  "description": "Horizontal layout with banner, avatar, and profile details",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -24,7 +24,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Biography text override (supports Markdown). Defaults to the author profile bio."
+              "description": "Biography text override (supports Markdown). Defaults to the author profile bio.",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "headings": {
               "type": "object",
@@ -55,10 +57,15 @@
                 },
                 "text": {
                   "type": "string",
-                  "description": "Button text"
+                  "description": "Button text",
+                  "x-multiline": true,
+                  "format": "textarea"
                 }
               },
-              "required": ["url", "text"],
+              "required": [
+                "url",
+                "text"
+              ],
               "additionalProperties": false
             }
           },
@@ -74,13 +81,23 @@
               "properties": {
                 "size": {
                   "type": "string",
-                  "enum": ["small", "medium", "large", "xl", "xxl"],
+                  "enum": [
+                    "small",
+                    "medium",
+                    "large",
+                    "xl",
+                    "xxl"
+                  ],
                   "description": "Avatar display size. Sizes: small (150px), medium (200px), large (320px), xl (400px), xxl (500px). Images are generated at 2x for retina displays.",
                   "default": "large"
                 },
                 "shape": {
                   "type": "string",
-                  "enum": ["circle", "square", "rounded"],
+                  "enum": [
+                    "circle",
+                    "square",
+                    "rounded"
+                  ],
                   "description": "Avatar shape",
                   "default": "circle"
                 }
@@ -115,7 +132,13 @@
               "properties": {
                 "size": {
                   "type": "string",
-                  "enum": ["xs", "sm", "md", "lg", "xl"],
+                  "enum": [
+                    "xs",
+                    "sm",
+                    "md",
+                    "lg",
+                    "xl"
+                  ],
                   "description": "Heading size for the profile name. Responsive sizing from xs (text-xl to text-3xl) up to xl (text-5xl to text-7xl).",
                   "default": "lg"
                 }
@@ -126,7 +149,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

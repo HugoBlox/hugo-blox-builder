@@ -55,6 +55,7 @@
 {{ $sort_ascending := partial "functions/coerce_bool" (dict "value" (index $content "sort_ascending") "default" false) }}
 {{ $sort_order := cond $sort_ascending "asc" "desc" }}
 {{ $query = sort $query $sort_by $sort_order }}
+{{ $all_items := $query }}
 
 {{/* Get filter buttons */}}
 {{ $buttons_raw := index $content "buttons" }}
@@ -72,54 +73,90 @@
 {{ if lt $default_idx (len $buttons) }}
   {{ with index $buttons $default_idx }}
     {{ if reflect.IsMap . }}
-      {{ with index . "tag" }}{{ $default_tag = printf "%v" . }}{{ end }}
+      {{ with index . "tag" }}{{ $default_tag = strings.TrimSpace (printf "%v" .) }}{{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
+{{ if eq $default_tag "" }}{{ $default_tag = "*" }}{{ end }}
 
-{{/* Store total count before limiting; keep full set when filtering so buttons work */}}
-{{ $total_count := len $query }}
-{{ $has_multiple_filters := gt (len $buttons) 1 }}
+{{/* Status configuration */}}
+{{ $status_content := index $content "status" }}
+{{ if not (reflect.IsMap $status_content) }}{{ $status_content = dict }}{{ end }}
+{{ $status_text_override := "" }}
+{{ with index $status_content "text" }}
+  {{ if eq (printf "%T" .) "string" }}{{ $status_text_override = strings.TrimSpace (printf "%v" .) }}{{ end }}
+{{ end }}
+{{ $status_design := index $design "status_badge" }}
+{{ if not (reflect.IsMap $status_design) }}{{ $status_design = dict }}{{ end }}
+{{ $show_status_badge := partial "functions/coerce_bool" (dict "value" (index $status_design "enable") "default" true) }}
 
-{{/* Limit */}}
-{{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 6 "min" 0) }}
-{{ if gt $count 0 }}
-  {{ if $has_multiple_filters }}
-    {{/* Build a union of up to $count items per button tag to keep filters populated while respecting count */}}
-    {{ $collected := slice }}
-    {{ $seen := dict }}
-    {{ range $buttons }}
-      {{ if reflect.IsMap . }}
-        {{ $tag := "*" }}
-        {{ with index . "tag" }}{{ $tag = strings.TrimSpace (printf "%v" .) }}{{ end }}
-        {{ $tag_lower := lower $tag }}
-        {{ $items := slice }}
-        {{ if eq $tag_lower "*" }}
-          {{ $items = first $count $query }}
-        {{ else }}
-          {{ $items = first $count (where $query "Params.tags" "intersect" (slice $tag_lower)) }}
-          {{ if eq (len $items) 0 }}
-            {{/* fallback to case-sensitive tags if lowercase intersect yields none */}}
-            {{ $items = first $count (where $query "Params.tags" "intersect" (slice $tag)) }}
-          {{ end }}
+{{/* Store total count before limiting */}}
+{{ $total_count := len $all_items }}
+
+{{/* Limit per filter while keeping per-button visibility accurate */}}
+{{ $count := partial "functions/coerce_int" (dict "value" (index $content "count") "default" 0 "min" 0) }}
+{{ $button_items := dict }}
+{{ $allowed_map := dict }}
+
+{{ range $buttons }}
+  {{ if reflect.IsMap . }}
+    {{ $tag := "*" }}
+    {{ with index . "tag" }}{{ $tag = strings.TrimSpace (printf "%v" .) }}{{ end }}
+    {{ if eq $tag "" }}{{ $tag = "*" }}{{ end }}
+    {{ $tag_key := lower $tag }}
+    {{ $items := slice }}
+    {{ if le $count 0 }}
+      {{ if eq $tag_key "*" }}
+        {{ $items = $all_items }}
+      {{ else }}
+        {{ $items = where $all_items "Params.tags" "intersect" (slice $tag_key) }}
+        {{ if eq (len $items) 0 }}
+          {{ $items = where $all_items "Params.tags" "intersect" (slice $tag) }}
         {{ end }}
-        {{ range $items }}
-          {{ $key := .RelPermalink }}
-          {{ if not (isset $seen $key) }}
-            {{ $collected = $collected | append . }}
-            {{ $seen = merge $seen (dict $key true) }}
-          {{ end }}
+      {{ end }}
+    {{ else }}
+      {{ if eq $tag_key "*" }}
+        {{ $items = first $count $all_items }}
+      {{ else }}
+        {{ $items = first $count (where $all_items "Params.tags" "intersect" (slice $tag_key)) }}
+        {{ if eq (len $items) 0 }}
+          {{ $items = first $count (where $all_items "Params.tags" "intersect" (slice $tag)) }}
         {{ end }}
       {{ end }}
     {{ end }}
-    {{ if gt (len $collected) 0 }}
-      {{ $query = $collected }}
+    {{ $button_items = merge $button_items (dict $tag_key $items) }}
+
+    {{ range $items }}
+      {{ $key := .RelPermalink }}
+      {{ $allowed := slice }}
+      {{ with index $allowed_map $key }}{{ $allowed = . }}{{ end }}
+      {{ if not (in $allowed $tag) }}
+        {{ $allowed = $allowed | append $tag }}
+      {{ end }}
+      {{ $allowed_map = merge $allowed_map (dict $key $allowed) }}
     {{ end }}
-  {{ else }}
-    {{ $query = first $count $query }}
   {{ end }}
 {{ end }}
-{{ $displayed_count := len $query }}
+
+{{/* Build render list in sorted order, only keeping items that belong to a filter */}}
+{{ $render_items := slice }}
+{{ range $all_items }}
+  {{ if isset $allowed_map .RelPermalink }}
+    {{ $render_items = $render_items | append . }}
+  {{ end }}
+{{ end }}
+
+{{/* Fallback to all items if something went wrong */}}
+{{ if eq (len $render_items) 0 }}
+  {{ $render_items = $all_items }}
+  {{ range $render_items }}
+    {{ $allowed_map = merge $allowed_map (dict .RelPermalink (slice "*")) }}
+  {{ end }}
+{{ end }}
+
+{{ $query = $render_items }}
+{{ $default_items := index $button_items (lower $default_tag) | default (slice) }}
+{{ $displayed_count := len $default_items }}
 
 {{/* Columns */}}
 {{ $columns := partial "functions/coerce_int" (dict "value" (index $design "columns") "default" 3 "min" 1 "max" 4) }}
@@ -178,6 +215,11 @@
   {{/* Project Grid with staggered reveal animation */}}
   <div class="grid grid-cols-1 {{ $grid_class }} gap-6" data-stagger="100">
     {{ range $index, $item := $query }}
+      {{ $item_key := $item.RelPermalink }}
+      {{ $card_allowed_filters := index $allowed_map $item_key }}
+      {{ if not $card_allowed_filters }}{{ $card_allowed_filters = slice "*" }}{{ end }}
+      {{ $card_allowed_filters_json := $card_allowed_filters | jsonify }}
+
       {{/* Get tags as comma-separated string */}}
       {{ $tags := slice }}
       {{ $tags_raw := $item.Params.tags }}
@@ -199,8 +241,6 @@
           {{ end }}
         {{ end }}
       {{ end }}
-      {{ $item_tags := delimit $tags "," }}
-      {{ $item_tags_json := $item_tags | jsonify }}
       
       {{/* Get status */}}
       {{ $status := "" }}
@@ -208,16 +248,23 @@
       {{ if eq (printf "%T" $status_raw) "string" }}
         {{ $status = strings.TrimSpace $status_raw }}
       {{ end }}
-      {{ $status_norm := upper $status }}
-      {{ $status_class := "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30" }}
-      {{ if eq $status_norm "WIP" }}
-        {{ $status_class = "bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-500/30" }}
-      {{ else if eq $status_norm "ARCHIVED" }}
-        {{ $status_class = "bg-gray-500/20 text-gray-600 dark:text-gray-400 border-gray-500/30" }}
+      {{ $status_display := $status }}
+      {{ if ne $status_text_override "" }}
+        {{ $status_display = $status_text_override }}
       {{ end }}
+      {{ $status_color_source := cond (ne $status "" ) $status $status_display }}
+      {{ $status_norm := upper $status_color_source }}
+      {{ $status_class := "bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-500/30 dark:bg-emerald-500 dark:border-emerald-400" }}
+      {{ if eq $status_norm "WIP" }}
+        {{ $status_class = "bg-amber-500 text-white border-amber-400 shadow-md shadow-amber-400/30 dark:bg-amber-500" }}
+      {{ else if eq $status_norm "ARCHIVED" }}
+        {{ $status_class = "bg-gray-600 text-white border-gray-500 shadow-md shadow-gray-500/30 dark:bg-gray-500" }}
+      {{ end }}
+      {{ $render_status_badge := and $show_status_badge (ne $status_display "") }}
 
       <article 
-        x-show="activeFilter === '*' || {{ $item_tags_json }}.toLowerCase().includes(activeFilter.toLowerCase())"
+        x-data="{ filters: {{ $card_allowed_filters_json }} }"
+        x-show="filters.includes(activeFilter)"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-95 translate-y-4"
         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
@@ -252,10 +299,10 @@
           {{ end }}
           
           {{/* Status Badge */}}
-          {{ with $status }}
+          {{ if $render_status_badge }}
           <div class="absolute top-3 right-3">
-            <span class="px-2.5 py-1 text-xs font-semibold rounded-full border backdrop-blur-sm {{ $status_class }}">
-              {{ . }}
+            <span class="px-2.5 py-1.5 text-xs font-semibold rounded-full border {{ $status_class }}">
+              {{ $status_display }}
             </span>
           </div>
           {{ end }}

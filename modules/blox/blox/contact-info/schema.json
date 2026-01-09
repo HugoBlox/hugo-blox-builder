@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/contact-info.json",
-  "title": "Contact Info Block Schema",
-  "description": "Schema for the Contact Info block - displays lab contact details, map, social links, and an optional form",
+  "title": "Contact Info",
+  "description": "Displays lab contact details, map, social links, and an optional form",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -136,7 +136,18 @@
                             "description": "Label alias"
                           }
                         },
-                        "anyOf": [{ "required": ["url"] }, { "required": ["link"] }],
+                        "anyOf": [
+                          {
+                            "required": [
+                              "url"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "link"
+                            ]
+                          }
+                        ],
                         "additionalProperties": false
                       }
                     ]
@@ -154,19 +165,26 @@
                 },
                 "text": {
                   "type": "string",
-                  "description": "Short note for new collaborators or recruits"
+                  "description": "Short note for new collaborators or recruits",
+                  "x-multiline": true,
+                  "format": "textarea"
                 },
                 "button": {
                   "type": "object",
                   "properties": {
                     "text": {
-                      "type": "string"
+                      "type": "string",
+                      "x-multiline": true,
+                      "format": "textarea"
                     },
                     "url": {
                       "type": "string"
                     }
                   },
-                  "required": ["text", "url"],
+                  "required": [
+                    "text",
+                    "url"
+                  ],
                   "additionalProperties": false
                 }
               },
@@ -178,7 +196,9 @@
             },
             "map_embed": {
               "type": "string",
-              "description": "HTML embed code for map (e.g., Google Maps iframe)"
+              "description": "HTML embed code for map (e.g., Google Maps iframe)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "show_form": {
               "type": "boolean",
@@ -193,7 +213,9 @@
           "additionalProperties": false
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -203,9 +225,16 @@
             "subtitle": "We respond within 2 business days.",
             "visit_title": "Visit us",
             "address": {
-              "lines": ["AI Lab, Engineering Building", "123 Innovation Way", "Cambridge, MA"]
+              "lines": [
+                "AI Lab, Engineering Building",
+                "123 Innovation Way",
+                "Cambridge, MA"
+              ]
             },
-            "office_hours": ["Mon–Thu: 10:00–16:00", "Fri: Remote"],
+            "office_hours": [
+              "Mon\u2013Thu: 10:00\u201316:00",
+              "Fri: Remote"
+            ],
             "map_url": "https://maps.google.com/?q=Cambridge",
             "email": "hello@hugoblox.com",
             "phone": "+1 415 000 0000",

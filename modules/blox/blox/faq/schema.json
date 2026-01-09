@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/faq.json",
-  "title": "FAQ Block Schema",
+  "title": "FAQ",
   "description": "Display frequently asked questions in an accordion format with optional CTA",
   "allOf": [
     {
@@ -27,7 +27,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Introductory text (Markdown supported)"
+              "description": "Introductory text (Markdown supported)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "items": {
               "type": "array",
@@ -45,18 +47,42 @@
                   },
                   "answer": {
                     "type": "string",
-                    "description": "The answer (Markdown supported)"
+                    "description": "The answer (Markdown supported)",
+                    "x-multiline": true,
+                    "format": "textarea"
                   },
                   "text": {
                     "type": "string",
-                    "description": "Alias for answer"
+                    "description": "Alias for answer",
+                    "x-multiline": true,
+                    "format": "textarea"
                   }
                 },
                 "anyOf": [
-                  { "required": ["question", "answer"] },
-                  { "required": ["title", "text"] },
-                  { "required": ["question", "text"] },
-                  { "required": ["title", "answer"] }
+                  {
+                    "required": [
+                      "question",
+                      "answer"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "title",
+                      "text"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "question",
+                      "text"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "title",
+                      "answer"
+                    ]
+                  }
                 ],
                 "additionalProperties": false
               },
@@ -68,7 +94,9 @@
               "properties": {
                 "text": {
                   "type": "string",
-                  "description": "Button text"
+                  "description": "Button text",
+                  "x-multiline": true,
+                  "format": "textarea"
                 },
                 "url": {
                   "type": "string",
@@ -79,11 +107,16 @@
                   "description": "Button icon name"
                 }
               },
-              "required": ["text", "url"],
+              "required": [
+                "text",
+                "url"
+              ],
               "additionalProperties": false
             }
           },
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "additionalProperties": false
         },
         "design": {
@@ -101,7 +134,12 @@
                   "minItems": 4,
                   "maxItems": 4,
                   "description": "Padding [top, right, bottom, left]",
-                  "default": ["20px", "0", "20px", "0"]
+                  "default": [
+                    "20px",
+                    "0",
+                    "20px",
+                    "0"
+                  ]
                 },
                 "padding_sm": {
                   "type": "array",
@@ -111,7 +149,10 @@
                   "minItems": 2,
                   "maxItems": 2,
                   "description": "Responsive padding for smaller screens [top, bottom]",
-                  "default": ["3rem", "0"]
+                  "default": [
+                    "3rem",
+                    "0"
+                  ]
                 },
                 "margin": {
                   "type": "array",
@@ -121,7 +162,12 @@
                   "minItems": 4,
                   "maxItems": 4,
                   "description": "Margin [top, right, bottom, left]",
-                  "default": ["0", "0", "0", "0"]
+                  "default": [
+                    "0",
+                    "0",
+                    "0",
+                    "0"
+                  ]
                 }
               },
               "additionalProperties": false
@@ -130,7 +176,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -157,7 +205,12 @@
           },
           "design": {
             "spacing": {
-              "padding": ["2.5rem", "0", "2.5rem", "0"]
+              "padding": [
+                "2.5rem",
+                "0",
+                "2.5rem",
+                "0"
+              ]
             }
           }
         }

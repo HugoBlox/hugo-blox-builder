@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/markdown.json",
-  "title": "Markdown Block Schema",
-  "description": "Schema for the Markdown block - renders arbitrary Markdown content with an optional heading",
+  "title": "Markdown",
+  "description": "Renders arbitrary Markdown content with an optional heading",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -23,14 +23,20 @@
             },
             "text": {
               "type": "string",
-              "description": "Markdown body content"
+              "description": "Markdown body content",
+              "x-multiline": true,
+              "format": "textarea"
             }
           },
-          "required": ["text"],
+          "required": [
+            "text"
+          ],
           "additionalProperties": false
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

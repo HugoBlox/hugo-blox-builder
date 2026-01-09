@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/testimonials.json",
-  "title": "Testimonials Block Schema",
-  "description": "Schema for the Testimonials block - displays quotes with avatars, names, and roles",
+  "title": "Testimonials",
+  "description": "Displays quotes with avatars, names, and roles",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -23,7 +23,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Section description (supports Markdown)"
+              "description": "Section description (supports Markdown)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "items": {
               "type": "array",
@@ -33,7 +35,9 @@
                 "properties": {
                   "text": {
                     "type": "string",
-                    "description": "Quoted testimonial text (supports Markdown)"
+                    "description": "Quoted testimonial text (supports Markdown)",
+                    "x-multiline": true,
+                    "format": "textarea"
                   },
                   "name": {
                     "type": "string",
@@ -46,20 +50,30 @@
                   "image": {
                     "type": "string",
                     "description": "Avatar filename in assets/media/. Image is processed to 96x96 (displayed at 48x48 for retina).",
-                    "examples": ["people/casey.jpg", "testimonials/avatar.png"]
+                    "examples": [
+                      "people/casey.jpg",
+                      "testimonials/avatar.png"
+                    ]
                   }
                 },
-                "required": ["text", "name"],
+                "required": [
+                  "text",
+                  "name"
+                ],
                 "additionalProperties": false
               },
               "minItems": 1
             }
           },
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "additionalProperties": false
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -69,13 +83,13 @@
             "text": "Teams build faster when they start with Hugo Blox.",
             "items": [
               {
-                "text": "“Hugo Blox let us ship a research microsite in days instead of weeks.”",
+                "text": "\u201cHugo Blox let us ship a research microsite in days instead of weeks.\u201d",
                 "name": "Dr. Casey Smith",
                 "role": "Research Lead, OpenAI",
                 "image": "people/casey.jpg"
               },
               {
-                "text": "“Great developer experience and first-class docs. Our students love it.”",
+                "text": "\u201cGreat developer experience and first-class docs. Our students love it.\u201d",
                 "name": "Prof. Lee Nguyen",
                 "role": "MIT CSAIL",
                 "image": "people/lee.png"

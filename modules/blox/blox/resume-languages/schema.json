@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-languages.json",
-  "title": "Resume Languages Block Schema",
-  "description": "Schema for the Languages block - renders language proficiency from the author profile",
+  "title": "Resume Languages",
+  "description": "Renders language proficiency from the author profile",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -28,14 +28,18 @@
             },
             "text": {
               "type": "string",
-              "description": "Section description (supports Markdown)"
+              "description": "Section description (supports Markdown)",
+              "x-multiline": true,
+              "format": "textarea"
             }
           },
           "additionalProperties": false
         },
         "$comment": "Language items in the author profile support: name (string), level (1-5 numeric or text like 'Native'), label (display label), percent (0-100 override). Numeric levels are converted to percentage (level * 20)."
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

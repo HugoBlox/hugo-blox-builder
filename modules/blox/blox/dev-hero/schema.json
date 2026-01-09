@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/dev-hero.json",
-  "title": "Dev Hero Block Schema",
-  "description": "Schema for the Dev Hero block - a developer-focused hero section with gradient effects",
+  "title": "Dev Hero",
+  "description": "A developer-focused hero section with gradient effects",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -22,7 +22,10 @@
               "type": "string",
               "description": "Author username to pull data from (matches folder name in /authors/)",
               "default": "me",
-              "examples": ["me", "admin"]
+              "examples": [
+                "me",
+                "admin"
+              ]
             },
             "title": {
               "type": "string",
@@ -34,17 +37,26 @@
             },
             "bio": {
               "type": "string",
-              "description": "Override bio text (falls back to author bio)"
+              "description": "Override bio text (falls back to author bio)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "greeting": {
               "type": "string",
               "description": "Small greeting text above the name",
-              "examples": ["Hi, I'm", "Hello, I'm", "Welcome"]
+              "examples": [
+                "Hi, I'm",
+                "Hello, I'm",
+                "Welcome"
+              ]
             },
             "name_prefix": {
               "type": "string",
               "description": "Prefix before the name (styled differently)",
-              "examples": ["I'm", "Hey, I'm"]
+              "examples": [
+                "I'm",
+                "Hey, I'm"
+              ]
             },
             "show_status": {
               "type": "boolean",
@@ -60,7 +72,11 @@
               "type": "string",
               "description": "CSS selector for scroll indicator target",
               "default": "#projects",
-              "examples": ["#projects", "#about", "#contact"]
+              "examples": [
+                "#projects",
+                "#about",
+                "#contact"
+              ]
             },
             "links": {
               "type": "array",
@@ -71,7 +87,12 @@
                   "icon": {
                     "type": "string",
                     "description": "Icon identifier",
-                    "examples": ["brands/github", "brands/linkedin", "brands/x", "at-symbol"]
+                    "examples": [
+                      "brands/github",
+                      "brands/linkedin",
+                      "brands/x",
+                      "at-symbol"
+                    ]
                   },
                   "url": {
                     "type": "string",
@@ -82,7 +103,10 @@
                     "description": "Link label/title"
                   }
                 },
-                "required": ["icon", "url"]
+                "required": [
+                  "icon",
+                  "url"
+                ]
               }
             },
             "cta_buttons": {
@@ -94,25 +118,48 @@
                   "text": {
                     "type": "string",
                     "description": "Button text",
-                    "examples": ["View My Work", "Download Resume", "Contact Me"]
+                    "examples": [
+                      "View My Work",
+                      "Download Resume",
+                      "Contact Me"
+                    ]
                   },
                   "url": {
                     "type": "string",
                     "description": "Button URL",
-                    "examples": ["#projects", "/resume.pdf", "#contact"]
+                    "examples": [
+                      "#projects",
+                      "/resume.pdf",
+                      "#contact"
+                    ]
                   },
                   "icon": {
                     "type": "string",
                     "description": "Button icon (optional)",
-                    "examples": ["arrow-down", "document-arrow-down", "envelope"]
+                    "examples": [
+                      "arrow-down",
+                      "document-arrow-down",
+                      "envelope"
+                    ]
                   }
                 },
-                "required": ["text", "url"]
+                "required": [
+                  "text",
+                  "url"
+                ]
               },
               "examples": [
                 [
-                  { "text": "View My Work", "url": "#projects", "icon": "arrow-down" },
-                  { "text": "Download Resume", "url": "/resume.pdf", "icon": "document-arrow-down" }
+                  {
+                    "text": "View My Work",
+                    "url": "#projects",
+                    "icon": "arrow-down"
+                  },
+                  {
+                    "text": "Download Resume",
+                    "url": "/resume.pdf",
+                    "icon": "document-arrow-down"
+                  }
                 ]
               ]
             },
@@ -128,13 +175,24 @@
                 "strings": {
                   "type": "array",
                   "description": "Array of strings to cycle through",
-                  "items": { "type": "string" },
-                  "examples": [["Full-Stack Developer", "Open Source Contributor", "Tech Enthusiast"]]
+                  "items": {
+                    "type": "string"
+                  },
+                  "examples": [
+                    [
+                      "Full-Stack Developer",
+                      "Open Source Contributor",
+                      "Tech Enthusiast"
+                    ]
+                  ]
                 },
                 "prefix": {
                   "type": "string",
                   "description": "Static text before the animated part",
-                  "examples": ["I'm a", "I build"]
+                  "examples": [
+                    "I'm a",
+                    "I build"
+                  ]
                 },
                 "type_speed": {
                   "type": "integer",
@@ -163,13 +221,19 @@
             "style": {
               "type": "string",
               "description": "Layout style",
-              "enum": ["centered", "split"],
+              "enum": [
+                "centered",
+                "split"
+              ],
               "default": "centered"
             },
             "avatar_shape": {
               "type": "string",
               "description": "Avatar shape",
-              "enum": ["circle", "rounded"],
+              "enum": [
+                "circle",
+                "rounded"
+              ],
               "default": "circle"
             },
             "animations": {
@@ -181,7 +245,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -193,8 +259,16 @@
             "show_status": true,
             "show_scroll_indicator": true,
             "cta_buttons": [
-              { "text": "View My Work", "url": "#projects", "icon": "arrow-down" },
-              { "text": "Get In Touch", "url": "#contact", "icon": "envelope" }
+              {
+                "text": "View My Work",
+                "url": "#projects",
+                "icon": "arrow-down"
+              },
+              {
+                "text": "Get In Touch",
+                "url": "#contact",
+                "icon": "envelope"
+              }
             ]
           },
           "design": {

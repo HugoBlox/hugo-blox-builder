@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/resume-experience.json",
-  "title": "Resume Experience Block Schema",
-  "description": "Schema for the Experience block - renders work history and education timelines from an author profile",
+  "title": "Resume Experience",
+  "description": "Renders work history and education timelines from an author profile",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -24,7 +24,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Optional lead-in copy above the timelines"
+              "description": "Optional lead-in copy above the timelines",
+              "x-multiline": true,
+              "format": "textarea"
             }
           },
           "additionalProperties": false
@@ -37,7 +39,11 @@
               "type": "string",
               "description": "Date format for experience and education entries (Go time layout)",
               "default": "Jan 2006",
-              "examples": ["Jan 2006", "January 2006", "2006"]
+              "examples": [
+                "Jan 2006",
+                "January 2006",
+                "2006"
+              ]
             },
             "is_education_first": {
               "type": "boolean",
@@ -49,7 +55,9 @@
         },
         "$comment": "Experience and education items in the author profile support: role/position, org/company_name, start/date_start, end/date_end, summary, icon, tags (array), and button (object with url, text, icon)."
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {

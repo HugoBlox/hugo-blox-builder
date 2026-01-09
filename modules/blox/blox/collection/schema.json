@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/collection.json",
-  "title": "Collection Block Schema",
-  "description": "Schema for the Collection block - displays filtered and sorted collections of pages",
+  "title": "Collection",
+  "description": "Displays filtered and sorted collections of pages",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -24,7 +24,9 @@
             },
             "text": {
               "type": "string",
-              "description": "Section description (supports Markdown)"
+              "description": "Section description (supports Markdown)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "count": {
               "type": "integer",
@@ -45,7 +47,18 @@
             "sort_by": {
               "type": "string",
               "description": "Field to sort by",
-              "enum": ["Date", "date", "Title", "title", "Weight", "weight", "Lastmod", "lastmod", "PublishDate", "publishdate"],
+              "enum": [
+                "Date",
+                "date",
+                "Title",
+                "title",
+                "Weight",
+                "weight",
+                "Lastmod",
+                "lastmod",
+                "PublishDate",
+                "publishdate"
+              ],
               "default": "Date"
             },
             "sort_ascending": {
@@ -55,7 +68,10 @@
             },
             "order": {
               "type": "string",
-              "enum": ["asc", "desc"],
+              "enum": [
+                "asc",
+                "desc"
+              ],
               "description": "Sort order (alternative to sort_ascending)"
             },
             "filters": {
@@ -68,7 +84,9 @@
                   "items": {
                     "type": "string"
                   },
-                  "default": ["page"]
+                  "default": [
+                    "page"
+                  ]
                 },
                 "folders": {
                   "type": "array",
@@ -141,7 +159,9 @@
                 },
                 "text": {
                   "type": "string",
-                  "description": "Override archive link text"
+                  "description": "Override archive link text",
+                  "x-multiline": true,
+                  "format": "textarea"
                 }
               },
               "additionalProperties": false
@@ -155,7 +175,17 @@
           "properties": {
             "view": {
               "type": "string",
-              "enum": ["card", "compact", "showcase", "citation", "list", "masonry", "article-grid", "date-title-summary", "slides-gallery"],
+              "enum": [
+                "card",
+                "compact",
+                "showcase",
+                "citation",
+                "list",
+                "masonry",
+                "article-grid",
+                "date-title-summary",
+                "slides-gallery"
+              ],
               "description": "Display view type. 'card' shows full cards with images, 'compact' shows minimal list items, 'showcase' highlights featured content, 'citation' for academic publications, 'article-grid' for blog layouts.",
               "default": "card"
             },
@@ -190,7 +220,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -203,8 +235,13 @@
             "sort_by": "Date",
             "sort_ascending": false,
             "filters": {
-              "folders": ["post"],
-              "tags": ["alignment", "evaluations"],
+              "folders": [
+                "post"
+              ],
+              "tags": [
+                "alignment",
+                "evaluations"
+              ],
               "featured_only": true
             },
             "archive": {

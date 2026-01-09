@@ -81,13 +81,14 @@ featured: true
 |-----------|------|---------|-------------|
 | `title` | string | - | Section title |
 | `subtitle` | string | - | Section subtitle |
-| `count` | integer | 6 | Number of projects to display |
+| `count` | integer | 0 (all) | Number of projects to display (set to `0` or omit to show all) |
 | `filters.folders` | array | `["projects"]` | Content folders to query |
 | `buttons` | array | `[{name: "All", tag: "*"}]` | Filter buttons |
 | `default_button_index` | integer | 0 | Default active filter |
 | `archive.enable` | boolean | auto | Show "View All" link (auto-shown if more projects exist, set to `false` to hide) |
 | `archive.link` | string | auto | Archive URL (defaults to first folder in `filters.folders`) |
 | `archive.text` | string | i18n | Archive link text (uses i18n `portfolio_view_all`) |
+| `status.text` | string | - | Override status badge text (falls back to each item's `status`) |
 
 ### Design
 
@@ -95,6 +96,7 @@ featured: true
 |-----------|------|---------|-------------|
 | `columns` | integer | 3 | Grid columns (2, 3, or 4) |
 | `fallback_icon` | string | `code-bracket` | Icon shown when item has no image. Supports all Hugo Blox icon packs (hero, brands, devicon, emoji, custom). Format: `icon-name` or `pack/icon-name` |
+| `status_badge.enable` | boolean | true | Show or hide the status badge |
 
 ## Link Types
 

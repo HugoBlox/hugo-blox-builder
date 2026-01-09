@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://hugoblox.com/schemas/blocks/team-showcase.json",
-  "title": "Team Showcase Block Schema",
-  "description": "Schema for the Team Showcase block - displays team members grouped by author taxonomy",
+  "title": "Team Showcase",
+  "description": "Displays team members grouped by author taxonomy",
   "allOf": [
     {
       "$ref": "../shared/schemas/base-block.json"
@@ -28,18 +28,24 @@
             },
             "text": {
               "type": "string",
-              "description": "Section description (supports Markdown)"
+              "description": "Section description (supports Markdown)",
+              "x-multiline": true,
+              "format": "textarea"
             },
             "user_groups": {
               "type": "array",
               "description": "Filter to authors that belong to these user groups (defaults to all authors). Accepts strings or objects { name, sort_by?, sort_ascending? } for per-group sorting.",
               "items": {
                 "oneOf": [
-                  { "type": "string" },
+                  {
+                    "type": "string"
+                  },
                   {
                     "type": "object",
                     "properties": {
-                      "name": { "type": "string" },
+                      "name": {
+                        "type": "string"
+                      },
                       "sort_by": {
                         "type": "string",
                         "description": "Per-group override of sort field"
@@ -49,20 +55,41 @@
                         "description": "Per-group override of sort direction"
                       }
                     },
-                    "required": ["name"],
+                    "required": [
+                      "name"
+                    ],
                     "additionalProperties": false
                   }
                 ]
               },
               "examples": [
-                ["Principal Investigators", "PhD Students"],
-                [{ "name": "Alumni", "sort_by": "graduation_year", "sort_ascending": false }, "Research Engineers"]
+                [
+                  "Principal Investigators",
+                  "PhD Students"
+                ],
+                [
+                  {
+                    "name": "Alumni",
+                    "sort_by": "graduation_year",
+                    "sort_ascending": false
+                  },
+                  "Research Engineers"
+                ]
               ]
             },
             "sort_by": {
               "type": "string",
               "description": "Field to sort authors by. Common values: 'name_family' (last name), 'weight', 'graduation_year'. The legacy 'Params.' prefix is optional for compatibility.",
-              "enum": ["name_family", "name.family", "family", "last_name", "family_name", "weight", "graduation_year", "title"],
+              "enum": [
+                "name_family",
+                "name.family",
+                "family",
+                "last_name",
+                "family_name",
+                "weight",
+                "graduation_year",
+                "title"
+              ],
               "default": "name_family"
             },
             "sort_ascending": {
@@ -76,7 +103,9 @@
               "properties": {
                 "text": {
                   "type": "string",
-                  "description": "Button text"
+                  "description": "Button text",
+                  "x-multiline": true,
+                  "format": "textarea"
                 },
                 "url": {
                   "type": "string",
@@ -87,7 +116,10 @@
                   "description": "Optional icon name (e.g., 'hero/user-plus')"
                 }
               },
-              "required": ["text", "url"],
+              "required": [
+                "text",
+                "url"
+              ],
               "additionalProperties": false
             }
           },
@@ -126,13 +158,20 @@
             "align": {
               "type": "string",
               "description": "Align the section header and CTA",
-              "enum": ["center", "left"],
+              "enum": [
+                "center",
+                "left"
+              ],
               "default": "center"
             },
             "max_columns": {
               "type": "integer",
               "description": "Maximum number of columns on wide screens (2-4)",
-              "enum": [2, 3, 4],
+              "enum": [
+                2,
+                3,
+                4
+              ],
               "default": 4
             },
             "show_empty_groups": {
@@ -144,7 +183,9 @@
           "additionalProperties": true
         }
       },
-      "required": ["content"],
+      "required": [
+        "content"
+      ],
       "additionalProperties": true,
       "examples": [
         {
@@ -156,7 +197,11 @@
             "user_groups": [
               "Principal Investigators",
               "Research Engineers",
-              { "name": "Alumni", "sort_by": "graduation_year", "sort_ascending": false }
+              {
+                "name": "Alumni",
+                "sort_by": "graduation_year",
+                "sort_ascending": false
+              }
             ],
             "sort_by": "name_family",
             "sort_ascending": true,
