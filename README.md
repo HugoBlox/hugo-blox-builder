@@ -37,16 +37,16 @@
 
 In the age of AI agents, **Markdown is the new source code**. HugoBlox empowers STEM researchers, data scientists, innovative labs, and YC startups to create stunning, high-impact websites without the hassle.
 
-Vibe coding tools generate fragile, "black box" React/JS apps that are a nightmare to maintain. **HugoBlox** combines AI speed with static site robustness, now supercharged with **HugoBlox Studio** – your visual UI editor in VS Code.
+Vibe coding tools generate fragile, "black box" React/JS apps that are a nightmare to maintain. **HugoBlox** combines AI speed with static site robustness, now supercharged with **Lore Studio** – your visual UI editor in VS Code.
 
 - **🔮 Future-Proof & AI Ready:** Content in clean Markdown – readable by humans and LLMs. No lock-in.
 - **🧠 The "Copilot" Workflow:**
   - **Online:** AI-assisted deployer launches in 60 seconds.
-  - **VS Code:** Introducing **HugoBlox Studio** – visual editing, real-time previews, and smart configs right in your IDE.
+  - **VS Code:** Introducing **Lore Studio** – visual editing, real-time previews, and smart configs right in your IDE.
 - **⚡ Performance without Debt:** Perfect Lighthouse scores, zero JS bloat, powered by Tailwind 4 and Hugo Modules.
 - **🎓 Research-Grade Features:** LaTeX, BibTeX auto-citations, Jupyter integration – amplify your publications.
 
-![HugoBlox Studio in Action](.github/media/studio/slide-1.webp)
+![Lore Studio in Action](.github/media/studio/slide-1.webp)
 *Build stunning research portfolios in minutes – focus on breakthroughs, not code.*
 
 ![Visual Configuration Editor](.github/media/studio/slide-2.webp)
@@ -56,7 +56,7 @@ Vibe coding tools generate fragile, "black box" React/JS apps that are a nightma
 *A visual CMS in VS Code – discovery time, not deployment drudgery.*
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 Download HugoBlox Studio Now (Free)</b></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=lore.lore-studio"><b>📥 Download Lore Studio Now (Free)</b></a>
 </p>
 
 <p align="center">
@@ -76,10 +76,10 @@ Launch a professional site for your Lab, Startup, or Bio in under 2 minutes.
 
 👉 [**Start Free in Browser**](https://hugoblox.com/start?utm_source=github&utm_medium=readme)
 
-### Option 2: HugoBlox Studio in VS Code (Visual Powerhouse)
+### Option 2: Lore Studio in VS Code (Visual Powerhouse)
 Supercharge your workflow with our VS Code extension – visual editing for pros.
 
-1. Install from [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio).
+1. Install from [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=lore.lore-studio).
 2. Open your HugoBlox project in VS Code.
 3. Click the HugoBlox icon and start building visually!
 
@@ -116,7 +116,7 @@ For more guides, visit [**docs.hugoblox.com**](https://docs.hugoblox.com/?utm_so
 
 ## What Creators Say
 
-> "HugoBlox Studio saved me 40+ hours on my lab site. Visual edits + Bibtex auto-updates = citations up 3×."
+> "Lore Studio saved me 40+ hours on my lab site. Visual edits + Bibtex auto-updates = citations up 3×."
 > — **Dr. Sarah Yang**, AI Researcher
 
 > "Launched docs in 10 minutes with Studio. Block system is genius; onboarding dropped 60%."

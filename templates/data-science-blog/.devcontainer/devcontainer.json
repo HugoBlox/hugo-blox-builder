@@ -6,7 +6,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "hugoblox.hugoblox-studio"
+        "lore.lore-studio"
       ]
     }
   },

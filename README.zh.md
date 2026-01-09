@@ -37,16 +37,16 @@
 
 在 AI Agent 时代，**Markdown 正成为新的源代码**。HugoBlox 赋能 STEM 研究人员、数据科学家、创新实验室和 YC 创业公司，无需繁琐代码即可创建令人惊叹的高影响力网站。
 
-Vibe coding 工具生成的 React/JS 代码通常脆弱且难以维护，如同「黑盒」。**HugoBlox** 结合了 AI 的速度与静态站点的稳健性，现更通过 **HugoBlox Studio** —— 您在 VS Code 中的可视化 UI 编辑器 —— 得到全面增强。
+Vibe coding 工具生成的 React/JS 代码通常脆弱且难以维护，如同「黑盒」。**HugoBlox** 结合了 AI 的速度与静态站点的稳健性，现更通过 **Lore Studio** —— 您在 VS Code 中的可视化 UI 编辑器 —— 得到全面增强。
 
 - **🔮 面向未来 & AI 就绪:** 内容即干净的 Markdown —— 人类和 LLM 均可读。无厂商锁定。
 - **🧠 「副驾驶」工作流:**
   - **在线版:** AI 辅助部署器，60 秒内上线。
-  - **VS Code 版:** 隆重介绍 **HugoBlox Studio** —— 直接在 IDE 中进行可视化编辑、实时预览和智能配置。
+  - **VS Code 版:** 隆重介绍 **Lore Studio** —— 直接在 IDE 中进行可视化编辑、实时预览和智能配置。
 - **⚡ 无技术债的极致性能:** 完美的 Lighthouse 分数，零 JS 臃肿，由 Tailwind 4 和 Hugo Modules 驱动。
 - **🎓 科研级特性:** LaTeX、BibTeX 自动引用、Jupyter 集成 —— 放大您的研究成果。
 
-![HugoBlox Studio 实战](.github/media/studio/slide-1.webp)
+![Lore Studio 实战](.github/media/studio/slide-1.webp)
 *几分钟内构建惊艳的科研作品集 —— 专注于突破，而非代码。*
 
 ![可视化配置编辑器](.github/media/studio/slide-2.webp)
@@ -56,7 +56,7 @@ Vibe coding 工具生成的 React/JS 代码通常脆弱且难以维护，如同�
 *VS Code 中的可视化 CMS —— 发现即所得，告别部署苦役。*
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio"><b>📥 立即下载 HugoBlox Studio (免费)</b></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=lore.lore-studio"><b>📥 立即下载 Lore Studio (免费)</b></a>
 </p>
 
 <p align="center">
@@ -76,10 +76,10 @@ Vibe coding 工具生成的 React/JS 代码通常脆弱且难以维护，如同�
 
 👉 [**在浏览器中免费开始**](https://hugoblox.com/start?utm_source=github&utm_medium=readme)
 
-### 方案二：VS Code 中的 HugoBlox Studio（可视化利器）
+### 方案二：VS Code 中的 Lore Studio（可视化利器）
 使用我们的 VS Code 扩展超级充能您的工作流 —— 专为专业人士打造的可视化编辑。
 
-1. 从 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio) 安装。
+1. 从 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=lore.lore-studio) 安装。
 2. 在 VS Code 中打开您的 HugoBlox 项目。
 3. 点击 HugoBlox 图标，开始可视化构建！
 
@@ -116,7 +116,7 @@ npx hugoblox create
 
 ## 创作者怎么说
 
-> "HugoBlox Studio 直接帮我省了 40+ 小时做实验室网站。可视化编辑 + BibTeX 自动更新 = **引用量提升了 3 倍**。"
+> "Lore Studio 直接帮我省了 40+ 小时做实验室网站。可视化编辑 + BibTeX 自动更新 = **引用量提升了 3 倍**。"
 > — **Dr. Sarah Yang**, AI 研究者
 
 > "用 Studio 10 分钟就把文档站点上线了。积木系统太妙了；新手上手时间缩短了 60%。"
