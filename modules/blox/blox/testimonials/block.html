@@ -72,20 +72,69 @@
         <p class="text-2xl font-medium text-gray-900 dark:text-white">"{{ (index $item "text") | $page.RenderString }}"</p>
       </blockquote>
       <div class="flex items-center justify-center mt-6 space-x-3">
+        {{/* Resolve avatar from page bundle, site assets, remote, or static URLs */}}
         {{ $image_name := index $item "image" }}
-        {{ $image_path := "" }}
-        {{ if $image_name }}{{ $image_path = path.Join "media" (strings.TrimPrefix $image_name "/") }}{{ end }}
-        {{ $image := "" }}
-        {{ if $image_path }}{{ $image = resources.GetMatch $image_path }}{{ end }}
-        {{ with $image }}
-          {{/* Serve a single 2x retina source for a 48px display */}}
-          {{ $avatar_96 := $image.Process "Fill 96x96 Center webp" }}
+        {{/* Initialise as boolean to avoid nil command errors in pipeline */}}
+        {{ $image_resource := false }}
+        {{ $image_url := "" }}
+
+        {{ if $image_name }}
+          {{ $image_path := strings.TrimSpace (printf "%v" $image_name) }}
+          {{ $is_remote := or (strings.HasPrefix $image_path "http://") (strings.HasPrefix $image_path "https://") }}
+
+          {{ if $is_remote }}
+            {{ $remote := try (resources.GetRemote $image_path) }}
+            {{ if and $remote (not $remote.Err) }}
+              {{ $image_resource = $remote.Value }}
+            {{ else }}
+              {{/* If remote fetch fails, fall back to the original URL */}}
+              {{ $image_url = $image_path }}
+            {{ end }}
+          {{ else }}
+            {{/* Normalize common prefixes and dot paths */}}
+            {{ $image_path = strings.TrimPrefix "/" $image_path }}
+            {{ $image_path = strings.TrimPrefix "./" $image_path }}
+            {{ $image_path = strings.TrimPrefix "assets/" $image_path }}
+            {{ $image_path = strings.TrimPrefix "media/" $image_path }}
+            {{ $normalized := path.Clean $image_path }}
+
+            {{ if and $normalized (ne $normalized ".") }}
+              {{/* Prefer page bundle image resources */}}
+              {{ with $page }}
+                {{ $image_resource = (.Resources.ByType "image").GetMatch $normalized }}
+              {{ end }}
+
+              {{ if not $image_resource }}
+                {{/* Look in global assets/media - use resources.Get for exact path matching */}}
+                {{ $image_resource = resources.Get (path.Join "media" $normalized) }}
+              {{ end }}
+
+              {{ if not $image_resource }}
+                {{/* Static fallback (serves original size) */}}
+                {{ $image_url = printf "/media/%s" $normalized }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ if $image_resource }}
+          {{ $avatar_96 := $image_resource.Process "Fill 96x96 Center webp" }}
           <img class="w-12 h-12 rounded-full" 
                src="{{$avatar_96.RelPermalink}}" 
                width="48"
                height="48"
                alt="{{ (index $item "name") | plainify }}"
                loading="lazy">
+        {{ else if $image_url }}
+          {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
+          <img class="w-12 h-12 rounded-full" 
+               src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}" 
+               width="48"
+               height="48"
+               alt="{{ (index $item "name") | plainify }}"
+               loading="lazy">
+        {{ else }}
+          <div class="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700"></div>
         {{ end }}
         <div class="flex flex-col items-center">
           <div class="pr-3 font-medium text-gray-900 dark:text-white">{{ index $item "name" }}</div>
