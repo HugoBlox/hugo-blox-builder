@@ -28,15 +28,47 @@
   {{ $image_name := "" }}
   {{ $image_raw := index $item "image" }}
   {{ if eq (printf "%T" $image_raw) "string" }}{{ $image_name = strings.TrimSpace $image_raw }}{{ end }}
-  {{ $image_path := "" }}
-  {{ if $image_name }}{{ $image_path = path.Join "media" $image_name }}{{ end }}
-  {{ $image := "" }}
-  {{ if $image_path }}{{ $image = resources.GetMatch $image_path }}{{ end }}
-  {{ if $image }}
+  {{/* Resolve image from page bundle, site assets, remote, or static URLs */}}
+  {{ $image_resource := false }}
+  {{ $image_url := "" }}
+  {{ if $image_name }}
+    {{ $image_path := strings.TrimSpace (printf "%v" $image_name) }}
+    {{ $is_remote := or (strings.HasPrefix $image_path "http://") (strings.HasPrefix $image_path "https://") }}
+
+    {{ if $is_remote }}
+      {{ $remote := try (resources.GetRemote $image_path) }}
+      {{ if and $remote (not $remote.Err) }}
+        {{ $image_resource = $remote.Value }}
+      {{ else }}
+        {{ $image_url = $image_path }}
+      {{ end }}
+    {{ else }}
+      {{ $image_path = strings.TrimPrefix "/" $image_path }}
+      {{ $image_path = strings.TrimPrefix "./" $image_path }}
+      {{ $image_path = strings.TrimPrefix "assets/" $image_path }}
+      {{ $image_path = strings.TrimPrefix "media/" $image_path }}
+      {{ $normalized := path.Clean $image_path }}
+
+      {{ if and $normalized (ne $normalized ".") }}
+        {{ with $page }}
+          {{ $image_resource = (.Resources.ByType "image").GetMatch $normalized }}
+        {{ end }}
+        {{ if not $image_resource }}
+          {{ $image_resource = resources.Get (path.Join "media" $normalized) }}
+        {{ end }}
+        {{ if not $image_resource }}
+          {{ $image_url = printf "/media/%s" $normalized }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  
+  {{ $image_to_render := $image_resource }}
+  {{ if $image_to_render }}
   <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-    {{ if ne $image.MediaType.SubType "gif" }}
+    {{ if ne $image_to_render.MediaType.SubType "gif" }}
       {{ $responsive := partial "functions/process_responsive_image.html" (dict 
-          "image" $image 
+          "image" $image_to_render 
           "mode" "fit"
           "sizes" (slice 400 600 800 1200)
       ) }}
@@ -49,11 +81,18 @@
            alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     {{ else }}
       <img class="w-full" 
-           src="{{$image.RelPermalink}}" 
-           width="{{$image.Width}}"
-           height="{{$image.Height}}"
+           src="{{$image_to_render.RelPermalink}}" 
+           width="{{$image_to_render.Width}}"
+           height="{{$image_to_render.Height}}"
            alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     {{ end }}
+  {{ else if $image_url }}
+    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+    {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
+    <img class="w-full" 
+         src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}"
+         alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
+  {{ end }}
   {{ else }}
     {{ warnf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Skipping this item." $page.File.Path $image_path }}
   {{ end }}

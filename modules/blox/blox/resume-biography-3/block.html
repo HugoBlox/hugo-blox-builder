@@ -92,30 +92,72 @@
         
         {{/* Banner Image */}}
         {{ $img := "" }}
+        {{/* Resolve image from page bundle, site assets, remote, or static URLs */}}
+        {{ $image_resource := false }}
+        {{ $image_url := "" }}
+
         {{ if $banner_filename }}
-          {{- $img = resources.Get (path.Join "media" $banner_filename) -}}
-          {{ if $img }}
-            <div class="relative w-full h-64 rounded-2xl overflow-hidden shadow-xl mb-8">
-              {{ if ne $img.MediaType.SubType "gif" }}
-                {{ $responsive := partial "functions/process_responsive_image.html" (dict 
-                    "image" $img 
-                    "mode" "fill"
-                    "aspect_ratio" "16:9"
-                    "sizes" (slice 768 1024 1366 1920 2560)
-                ) }}
-                <img class="absolute inset-0 w-full h-full object-cover"
-                     srcset="{{ $responsive.srcset }}"
-                     sizes="100vw"
-                     src="{{ $responsive.fallback.RelPermalink }}"
-                     alt="" />
-              {{ else }}
-                {{- $img = $img.Process "webp" -}}
-                <img class="absolute inset-0 w-full h-full object-cover"
-                     src="{{$img.RelPermalink}}"
-                     alt="" />
+          {{ $image_path := strings.TrimSpace (printf "%v" $banner_filename) }}
+          {{ $is_remote := or (strings.HasPrefix $image_path "http://") (strings.HasPrefix $image_path "https://") }}
+
+          {{ if $is_remote }}
+            {{ $remote := try (resources.GetRemote $image_path) }}
+            {{ if and $remote (not $remote.Err) }}
+              {{ $image_resource = $remote.Value }}
+            {{ else }}
+              {{ $image_url = $image_path }}
+            {{ end }}
+          {{ else }}
+            {{ $image_path = strings.TrimPrefix "/" $image_path }}
+            {{ $image_path = strings.TrimPrefix "./" $image_path }}
+            {{ $image_path = strings.TrimPrefix "assets/" $image_path }}
+            {{ $image_path = strings.TrimPrefix "media/" $image_path }}
+            {{ $normalized := path.Clean $image_path }}
+
+            {{ if and $normalized (ne $normalized ".") }}
+              {{ with $page }}
+                {{ $image_resource = (.Resources.ByType "image").GetMatch $normalized }}
               {{ end }}
-            </div>
+              {{ if not $image_resource }}
+                {{ $image_resource = resources.Get (path.Join "media" $normalized) }}
+              {{ end }}
+              {{ if not $image_resource }}
+                {{ $image_url = printf "/media/%s" $normalized }}
+              {{ end }}
+            {{ end }}
           {{ end }}
+        {{ end }}
+
+        {{ $img = $image_resource }}
+
+        {{ if $img }}
+          <div class="relative w-full h-64 rounded-2xl overflow-hidden shadow-xl mb-8">
+            {{ if ne $img.MediaType.SubType "gif" }}
+              {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+                  "image" $img 
+                  "mode" "fill"
+                  "aspect_ratio" "16:9"
+                  "sizes" (slice 768 1024 1366 1920 2560)
+              ) }}
+              <img class="absolute inset-0 w-full h-full object-cover"
+                    srcset="{{ $responsive.srcset }}"
+                    sizes="100vw"
+                    src="{{ $responsive.fallback.RelPermalink }}"
+                    alt="" />
+            {{ else }}
+              {{- $img = $img.Process "webp" -}}
+              <img class="absolute inset-0 w-full h-full object-cover"
+                    src="{{$img.RelPermalink}}"
+                    alt="" />
+            {{ end }}
+          </div>
+        {{ else if $image_url }}
+          {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
+          <div class="relative w-full h-64 rounded-2xl overflow-hidden shadow-xl mb-8">
+             <img class="absolute inset-0 w-full h-full object-cover"
+                  src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}"
+                  alt="" />
+          </div>
         {{ end }}
 
         {{/* Avatar */}}

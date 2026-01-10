@@ -57,8 +57,52 @@
   {{ with index $banner "filename" }}{{ $banner_filename = strings.TrimSpace (printf "%v" .) }}{{ end }}
 {{ end }}
 {{ if $banner_filename }}
-  {{ $banner_path := strings.TrimPrefix $banner_filename "/" }}
-  {{- $img = resources.Get (path.Join "media" $banner_path) -}}
+{{ $banner_path := strings.TrimPrefix "/" $banner_filename }}
+  {{/* Resolve image from page bundle, site assets, remote, or static URLs */}}
+  {{ $image_resource := false }}
+  {{ $image_url := "" }}
+
+  {{ if $banner_filename }}
+    {{ $image_path := strings.TrimSpace (printf "%v" $banner_filename) }}
+    {{ $is_remote := or (strings.HasPrefix $image_path "http://") (strings.HasPrefix $image_path "https://") }}
+
+    {{ if $is_remote }}
+      {{ $remote := try (resources.GetRemote $image_path) }}
+      {{ if and $remote (not $remote.Err) }}
+        {{ $image_resource = $remote.Value }}
+      {{ else }}
+        {{/* If remote fetch fails, fall back to the original URL */}}
+        {{ $image_url = $image_path }}
+      {{ end }}
+    {{ else }}
+      {{/* Normalize common prefixes and dot paths */}}
+      {{ $image_path = strings.TrimPrefix "/" $image_path }}
+      {{ $image_path = strings.TrimPrefix "./" $image_path }}
+      {{ $image_path = strings.TrimPrefix "assets/" $image_path }}
+      {{ $image_path = strings.TrimPrefix "media/" $image_path }}
+      {{ $normalized := path.Clean $image_path }}
+
+      {{ if and $normalized (ne $normalized ".") }}
+        {{/* Prefer page bundle image resources */}}
+        {{ with $page }}
+          {{ $image_resource = (.Resources.ByType "image").GetMatch $normalized }}
+        {{ end }}
+
+        {{ if not $image_resource }}
+          {{/* Look in global assets/media - use resources.Get for exact path matching */}}
+          {{ $image_resource = resources.Get (path.Join "media" $normalized) }}
+        {{ end }}
+
+        {{ if not $image_resource }}
+          {{/* Static fallback (serves original size) */}}
+          {{ $image_url = printf "/media/%s" $normalized }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $img = $image_resource }}
+  
   {{ if $img }}
     {{ if ne $img.MediaType.SubType "gif" }}
       {{ $responsive := partial "functions/process_responsive_image.html" (dict 
@@ -94,6 +138,18 @@
         </div>
       </div>
     {{ end }}
+  {{ else if $image_url }}
+    {{/* Static fallback for remote/unprocessed images */}}
+    {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
+    <div class="w-full bg-gray-200 dark:bg-gray-900 flex flex-wrap items-center justify-center">
+      <div class="w-full bg-white rounded dark:bg-gray-800">
+        <div class="h-2/4 sm:h-64 overflow-hidden w-full">
+           <img class="w-full object-cover"
+                src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}"
+                alt="" />
+        </div>
+      </div>
+    </div>
   {{ end }}
 {{ end }}
 
