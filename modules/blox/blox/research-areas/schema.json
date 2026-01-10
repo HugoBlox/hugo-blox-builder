@@ -45,9 +45,7 @@
                   "gradient": {
                     "type": "string",
                     "description": "Tailwind gradient classes for the header",
-                    "examples": [
-                      "from-primary-400 to-secondary-400"
-                    ]
+                    "examples": ["from-primary-400 to-secondary-400"]
                   },
                   "image": {
                     "type": "string",
@@ -73,17 +71,11 @@
                     }
                   },
                   "team_size": {
-                    "type": [
-                      "string",
-                      "number"
-                    ],
+                    "type": ["string", "number"],
                     "description": "Team size metric displayed in the footer"
                   },
                   "publications": {
-                    "type": [
-                      "string",
-                      "number"
-                    ],
+                    "type": ["string", "number"],
                     "description": "Publication count metric"
                   },
                   "funding": {
@@ -103,17 +95,11 @@
                         "format": "textarea"
                       }
                     },
-                    "required": [
-                      "url",
-                      "text"
-                    ],
+                    "required": ["url", "text"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "name",
-                  "description"
-                ],
+                "required": ["name", "description"],
                 "additionalProperties": false
               },
               "minItems": 1
@@ -134,16 +120,11 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             }
           },
-          "required": [
-            "items"
-          ],
+          "required": ["items"],
           "additionalProperties": false
         },
         "design": {
@@ -152,11 +133,7 @@
           "properties": {
             "layout": {
               "type": "string",
-              "enum": [
-                "cards",
-                "hexagon",
-                "timeline"
-              ],
+              "enum": ["cards", "hexagon", "timeline"],
               "description": "Layout style: 'cards' shows rich detail cards with images/icons and metrics, 'hexagon' displays a visual swarm of octagonal shapes, 'timeline' presents areas in an alternating vertical timeline",
               "default": "cards"
             }
@@ -164,9 +141,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {
@@ -185,11 +160,7 @@
                 "gradient": "from-primary-400 to-secondary-400",
                 "icon": "hero/shield-check",
                 "status": "active",
-                "topics": [
-                  "evals",
-                  "interpretability",
-                  "tooling"
-                ],
+                "topics": ["evals", "interpretability", "tooling"],
                 "team_size": "6",
                 "publications": "12",
                 "funding": "$3.2M",

@@ -21,17 +21,12 @@
             "title": {
               "type": "string",
               "description": "Section title (supports Markdown)",
-              "examples": [
-                "Tech Stack",
-                "Skills & Technologies"
-              ]
+              "examples": ["Tech Stack", "Skills & Technologies"]
             },
             "subtitle": {
               "type": "string",
               "description": "Section subtitle (supports Markdown)",
-              "examples": [
-                "Technologies I work with daily"
-              ]
+              "examples": ["Technologies I work with daily"]
             },
             "categories": {
               "type": "array",
@@ -42,12 +37,7 @@
                   "name": {
                     "type": "string",
                     "description": "Category name",
-                    "examples": [
-                      "Languages",
-                      "Frontend",
-                      "Backend",
-                      "DevOps"
-                    ]
+                    "examples": ["Languages", "Frontend", "Backend", "DevOps"]
                   },
                   "items": {
                     "type": "array",
@@ -58,45 +48,25 @@
                         "name": {
                           "type": "string",
                           "description": "Technology name",
-                          "examples": [
-                            "TypeScript",
-                            "React",
-                            "Node.js"
-                          ]
+                          "examples": ["TypeScript", "React", "Node.js"]
                         },
                         "icon": {
                           "type": "string",
                           "description": "Icon identifier (supports devicon/, brands/, or hero icons)",
-                          "examples": [
-                            "devicon/typescript",
-                            "devicon/react",
-                            "brands/github"
-                          ]
+                          "examples": ["devicon/typescript", "devicon/react", "brands/github"]
                         },
                         "level": {
                           "type": "string",
                           "description": "Proficiency level (optional)",
-                          "enum": [
-                            "expert",
-                            "advanced",
-                            "intermediate",
-                            "beginner"
-                          ],
-                          "examples": [
-                            "expert",
-                            "advanced"
-                          ]
+                          "enum": ["expert", "advanced", "intermediate", "beginner"],
+                          "examples": ["expert", "advanced"]
                         }
                       },
-                      "required": [
-                        "name"
-                      ]
+                      "required": ["name"]
                     }
                   }
                 },
-                "required": [
-                  "items"
-                ]
+                "required": ["items"]
               },
               "examples": [
                 [
@@ -119,9 +89,7 @@
               ]
             }
           },
-          "required": [
-            "categories"
-          ],
+          "required": ["categories"],
           "additionalProperties": false
         },
         "design": {
@@ -131,10 +99,7 @@
             "style": {
               "type": "string",
               "description": "Display style",
-              "enum": [
-                "grid",
-                "list"
-              ],
+              "enum": ["grid", "list"],
               "default": "grid"
             },
             "show_levels": {
@@ -151,9 +116,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

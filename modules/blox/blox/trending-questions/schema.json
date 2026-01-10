@@ -64,22 +64,13 @@
                     "type": "string"
                   },
                   "views": {
-                    "type": [
-                      "string",
-                      "number"
-                    ]
+                    "type": ["string", "number"]
                   },
                   "upvotes": {
-                    "type": [
-                      "integer",
-                      "number"
-                    ]
+                    "type": ["integer", "number"]
                   }
                 },
-                "required": [
-                  "question",
-                  "link"
-                ],
+                "required": ["question", "link"],
                 "additionalProperties": false
               }
             },
@@ -95,31 +86,21 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "text",
-                "link"
-              ],
+              "required": ["text", "link"],
               "additionalProperties": false
             }
           },
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {
           "block": "trending-questions",
           "design": {
             "spacing": {
-              "padding": [
-                "3rem",
-                "0",
-                "3rem",
-                "0"
-              ]
+              "padding": ["3rem", "0", "3rem", "0"]
             }
           },
           "content": {

@@ -35,18 +35,9 @@
                 "type": "object",
                 "properties": {
                   "statistic": {
-                    "type": [
-                      "string",
-                      "number"
-                    ],
+                    "type": ["string", "number"],
                     "description": "The statistic value/number. Can include formatting like '120+', '5M', or '$3.2M'. Animated counter extracts numeric portion.",
-                    "examples": [
-                      "120+",
-                      "5M",
-                      "$3.2M",
-                      42,
-                      3.2
-                    ]
+                    "examples": ["120+", "5M", "$3.2M", 42, 3.2]
                   },
                   "description": {
                     "type": "string",
@@ -61,18 +52,13 @@
                     "description": "Additional context or sub-metric (supports Markdown)"
                   }
                 },
-                "required": [
-                  "statistic",
-                  "description"
-                ],
+                "required": ["statistic", "description"],
                 "additionalProperties": false
               },
               "minItems": 1
             }
           },
-          "required": [
-            "items"
-          ],
+          "required": ["items"],
           "additionalProperties": false
         },
         "design": {
@@ -81,11 +67,7 @@
           "properties": {
             "layout": {
               "type": "string",
-              "enum": [
-                "cards",
-                "compact",
-                "minimal"
-              ],
+              "enum": ["cards", "compact", "minimal"],
               "description": "Display layout style",
               "default": "cards"
             }
@@ -93,9 +75,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

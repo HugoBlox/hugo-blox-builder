@@ -60,28 +60,16 @@
                 },
                 "anyOf": [
                   {
-                    "required": [
-                      "question",
-                      "answer"
-                    ]
+                    "required": ["question", "answer"]
                   },
                   {
-                    "required": [
-                      "title",
-                      "text"
-                    ]
+                    "required": ["title", "text"]
                   },
                   {
-                    "required": [
-                      "question",
-                      "text"
-                    ]
+                    "required": ["question", "text"]
                   },
                   {
-                    "required": [
-                      "title",
-                      "answer"
-                    ]
+                    "required": ["title", "answer"]
                   }
                 ],
                 "additionalProperties": false
@@ -107,16 +95,11 @@
                   "description": "Button icon name"
                 }
               },
-              "required": [
-                "text",
-                "url"
-              ],
+              "required": ["text", "url"],
               "additionalProperties": false
             }
           },
-          "required": [
-            "items"
-          ],
+          "required": ["items"],
           "additionalProperties": false
         },
         "design": {
@@ -134,12 +117,7 @@
                   "minItems": 4,
                   "maxItems": 4,
                   "description": "Padding [top, right, bottom, left]",
-                  "default": [
-                    "20px",
-                    "0",
-                    "20px",
-                    "0"
-                  ]
+                  "default": ["20px", "0", "20px", "0"]
                 },
                 "padding_sm": {
                   "type": "array",
@@ -149,10 +127,7 @@
                   "minItems": 2,
                   "maxItems": 2,
                   "description": "Responsive padding for smaller screens [top, bottom]",
-                  "default": [
-                    "3rem",
-                    "0"
-                  ]
+                  "default": ["3rem", "0"]
                 },
                 "margin": {
                   "type": "array",
@@ -162,12 +137,7 @@
                   "minItems": 4,
                   "maxItems": 4,
                   "description": "Margin [top, right, bottom, left]",
-                  "default": [
-                    "0",
-                    "0",
-                    "0",
-                    "0"
-                  ]
+                  "default": ["0", "0", "0", "0"]
                 }
               },
               "additionalProperties": false
@@ -176,9 +146,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {
@@ -205,12 +173,7 @@
           },
           "design": {
             "spacing": {
-              "padding": [
-                "2.5rem",
-                "0",
-                "2.5rem",
-                "0"
-              ]
+              "padding": ["2.5rem", "0", "2.5rem", "0"]
             }
           }
         }

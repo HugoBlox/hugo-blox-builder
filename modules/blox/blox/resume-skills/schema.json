@@ -46,19 +46,14 @@
               "default": 2,
               "minimum": 1,
               "maximum": 5,
-              "examples": [
-                2,
-                3
-              ]
+              "examples": [2, 3]
             }
           },
           "additionalProperties": true,
           "$comment": "Skill groups in the author profile support: name, description, color (progress bar fill), color_border, items (array). Each item supports: label/name, description, icon, level (1-5 for progress bar)."
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

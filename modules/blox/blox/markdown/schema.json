@@ -28,15 +28,11 @@
               "format": "textarea"
             }
           },
-          "required": [
-            "text"
-          ],
+          "required": ["text"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

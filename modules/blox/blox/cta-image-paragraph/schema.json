@@ -36,10 +36,7 @@
                   "image": {
                     "type": "string",
                     "description": "Image filename in assets/media/. Responsive images are generated automatically (400-1200px). GIFs are converted to webp.",
-                    "examples": [
-                      "screenshots/product.png",
-                      "features/demo.jpg"
-                    ]
+                    "examples": ["screenshots/product.png", "features/demo.jpg"]
                   },
                   "feature_icon": {
                     "type": "string",
@@ -66,32 +63,21 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "text",
-                      "url"
-                    ],
+                    "required": ["text", "url"],
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "title",
-                  "text",
-                  "image"
-                ],
+                "required": ["title", "text", "image"],
                 "additionalProperties": false
               },
               "minItems": 1
             }
           },
-          "required": [
-            "items"
-          ],
+          "required": ["items"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {
@@ -103,11 +89,7 @@
                 "text": "Pair Markdown content with responsive imagery and reusable CTAs.",
                 "image": "screenshots/docs.png",
                 "feature_icon": "hero/check-circle",
-                "features": [
-                  "Responsive images generated automatically",
-                  "Markdown-first authoring",
-                  "Works with Netlify, Vercel, and GitHub Pages"
-                ],
+                "features": ["Responsive images generated automatically", "Markdown-first authoring", "Works with Netlify, Vercel, and GitHub Pages"],
                 "button": {
                   "text": "Read the guide",
                   "url": "/docs/get-started/"

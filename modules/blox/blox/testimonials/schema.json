@@ -50,30 +50,20 @@
                   "image": {
                     "type": "string",
                     "description": "Avatar filename in assets/media/. Image is processed to 96x96 (displayed at 48x48 for retina).",
-                    "examples": [
-                      "people/casey.jpg",
-                      "testimonials/avatar.png"
-                    ]
+                    "examples": ["people/casey.jpg", "testimonials/avatar.png"]
                   }
                 },
-                "required": [
-                  "text",
-                  "name"
-                ],
+                "required": ["text", "name"],
                 "additionalProperties": false
               },
               "minItems": 1
             }
           },
-          "required": [
-            "items"
-          ],
+          "required": ["items"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

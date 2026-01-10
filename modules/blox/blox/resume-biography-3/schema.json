@@ -62,10 +62,7 @@
                   "format": "textarea"
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             }
           },
@@ -81,23 +78,13 @@
               "properties": {
                 "size": {
                   "type": "string",
-                  "enum": [
-                    "small",
-                    "medium",
-                    "large",
-                    "xl",
-                    "xxl"
-                  ],
+                  "enum": ["small", "medium", "large", "xl", "xxl"],
                   "description": "Avatar display size. Sizes: small (150px), medium (200px), large (320px), xl (400px), xxl (500px). Images are generated at 2x for retina displays.",
                   "default": "large"
                 },
                 "shape": {
                   "type": "string",
-                  "enum": [
-                    "circle",
-                    "square",
-                    "rounded"
-                  ],
+                  "enum": ["circle", "square", "rounded"],
                   "description": "Avatar shape",
                   "default": "circle"
                 }
@@ -132,13 +119,7 @@
               "properties": {
                 "size": {
                   "type": "string",
-                  "enum": [
-                    "xs",
-                    "sm",
-                    "md",
-                    "lg",
-                    "xl"
-                  ],
+                  "enum": ["xs", "sm", "md", "lg", "xl"],
                   "description": "Heading size for the profile name. Responsive sizing from xs (text-xl to text-3xl) up to xl (text-5xl to text-7xl).",
                   "default": "lg"
                 }
@@ -149,9 +130,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

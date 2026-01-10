@@ -52,18 +52,11 @@
                   "default": false
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             }
           },
-          "required": [
-            "title",
-            "text",
-            "button"
-          ],
+          "required": ["title", "text", "button"],
           "additionalProperties": false
         },
         "design": {
@@ -83,11 +76,7 @@
                 },
                 "text_color": {
                   "type": "string",
-                  "enum": [
-                    "auto",
-                    "light",
-                    "dark"
-                  ],
+                  "enum": ["auto", "light", "dark"],
                   "description": "Text color mode for optimal contrast (auto detects based on background)",
                   "default": "auto"
                 },
@@ -105,9 +94,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

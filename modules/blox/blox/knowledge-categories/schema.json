@@ -72,14 +72,10 @@
                 },
                 "anyOf": [
                   {
-                    "required": [
-                      "category"
-                    ]
+                    "required": ["category"]
                   },
                   {
-                    "required": [
-                      "title"
-                    ]
+                    "required": ["title"]
                   }
                 ],
                 "additionalProperties": false
@@ -97,22 +93,15 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "text",
-                "link"
-              ],
+              "required": ["text", "link"],
               "additionalProperties": false
             }
           },
-          "required": [
-            "categories"
-          ],
+          "required": ["categories"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

@@ -41,10 +41,7 @@
                   "format": "textarea"
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             }
           },
@@ -59,23 +56,13 @@
               "properties": {
                 "size": {
                   "type": "string",
-                  "enum": [
-                    "small",
-                    "medium",
-                    "large",
-                    "xl",
-                    "xxl"
-                  ],
+                  "enum": ["small", "medium", "large", "xl", "xxl"],
                   "description": "Avatar display size. Sizes: small (150px), medium (200px), large (320px), xl (400px), xxl (500px). Images are generated at 2x for retina displays.",
                   "default": "medium"
                 },
                 "shape": {
                   "type": "string",
-                  "enum": [
-                    "circle",
-                    "square",
-                    "rounded"
-                  ],
+                  "enum": ["circle", "square", "rounded"],
                   "description": "Avatar shape",
                   "default": "circle"
                 }
@@ -98,9 +85,7 @@
                 "style": {
                   "type": "string",
                   "description": "Inline CSS style applied to the bio text wrapper",
-                  "examples": [
-                    "max-width: 60ch;"
-                  ]
+                  "examples": ["max-width: 60ch;"]
                 }
               },
               "additionalProperties": false
@@ -109,9 +94,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

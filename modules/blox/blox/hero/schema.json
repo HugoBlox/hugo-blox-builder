@@ -53,16 +53,11 @@
                       "description": "Link URL or page anchor"
                     }
                   },
-                  "required": [
-                    "text",
-                    "url"
-                  ],
+                  "required": ["text", "url"],
                   "additionalProperties": false
                 }
               },
-              "required": [
-                "text"
-              ],
+              "required": ["text"],
               "additionalProperties": false
             },
             "primary_action": {
@@ -84,10 +79,7 @@
                   "description": "Optional button icon (icon pack format: pack/icon-name)"
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             },
             "secondary_action": {
@@ -105,10 +97,7 @@
                   "format": "textarea"
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             }
           },
@@ -127,9 +116,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

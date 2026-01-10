@@ -33,9 +33,7 @@
                   "default": false
                 }
               },
-              "required": [
-                "text"
-              ],
+              "required": ["text"],
               "additionalProperties": false
             },
             "title": {
@@ -57,13 +55,7 @@
               "items": {
                 "type": "string"
               },
-              "examples": [
-                [
-                  "Get started",
-                  "Deploy with Hugo Blox",
-                  "Tailwind customization"
-                ]
-              ]
+              "examples": [["Get started", "Deploy with Hugo Blox", "Tailwind customization"]]
             },
             "stats": {
               "type": "array",
@@ -80,23 +72,16 @@
                     "description": "Stat label"
                   }
                 },
-                "required": [
-                  "value",
-                  "label"
-                ],
+                "required": ["value", "label"],
                 "additionalProperties": false
               }
             }
           },
-          "required": [
-            "title"
-          ],
+          "required": ["title"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {
@@ -106,10 +91,7 @@
               "gradient_mesh": {
                 "enable": true,
                 "style": "waves",
-                "colors": [
-                  "primary-500/25",
-                  "secondary-500/25"
-                ],
+                "colors": ["primary-500/25", "secondary-500/25"],
                 "animation": "float"
               }
             }
@@ -122,10 +104,7 @@
             "title": "Master ==AI tools==. Find answers faster.",
             "subtitle": "Search our docs, playbooks, and notebooks.",
             "search_placeholder": "Search documentation...",
-            "suggestions": [
-              "Get started",
-              "Deploy with Hugo Blox"
-            ],
+            "suggestions": ["Get started", "Deploy with Hugo Blox"],
             "stats": [
               {
                 "value": "250+",

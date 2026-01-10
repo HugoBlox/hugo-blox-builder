@@ -37,9 +37,7 @@
         },
         "$comment": "Language items in the author profile support: name (string), level (1-5 numeric or text like 'Native'), label (display label), percent (0-100 override). Numeric levels are converted to percentage (level * 20)."
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

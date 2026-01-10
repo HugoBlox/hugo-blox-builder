@@ -55,18 +55,13 @@
                         "description": "Per-group override of sort direction"
                       }
                     },
-                    "required": [
-                      "name"
-                    ],
+                    "required": ["name"],
                     "additionalProperties": false
                   }
                 ]
               },
               "examples": [
-                [
-                  "Principal Investigators",
-                  "PhD Students"
-                ],
+                ["Principal Investigators", "PhD Students"],
                 [
                   {
                     "name": "Alumni",
@@ -80,16 +75,7 @@
             "sort_by": {
               "type": "string",
               "description": "Field to sort authors by. Common values: 'name_family' (last name), 'weight', 'graduation_year'. The legacy 'Params.' prefix is optional for compatibility.",
-              "enum": [
-                "name_family",
-                "name.family",
-                "family",
-                "last_name",
-                "family_name",
-                "weight",
-                "graduation_year",
-                "title"
-              ],
+              "enum": ["name_family", "name.family", "family", "last_name", "family_name", "weight", "graduation_year", "title"],
               "default": "name_family"
             },
             "sort_ascending": {
@@ -116,10 +102,7 @@
                   "description": "Optional icon name (e.g., 'hero/user-plus')"
                 }
               },
-              "required": [
-                "text",
-                "url"
-              ],
+              "required": ["text", "url"],
               "additionalProperties": false
             }
           },
@@ -158,20 +141,13 @@
             "align": {
               "type": "string",
               "description": "Align the section header and CTA",
-              "enum": [
-                "center",
-                "left"
-              ],
+              "enum": ["center", "left"],
               "default": "center"
             },
             "max_columns": {
               "type": "integer",
               "description": "Maximum number of columns on wide screens (2-4)",
-              "enum": [
-                2,
-                3,
-                4
-              ],
+              "enum": [2, 3, 4],
               "default": 4
             },
             "show_empty_groups": {
@@ -183,9 +159,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

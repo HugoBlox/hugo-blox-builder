@@ -57,29 +57,19 @@
                 },
                 "anyOf": [
                   {
-                    "required": [
-                      "text"
-                    ]
+                    "required": ["text"]
                   },
                   {
-                    "required": [
-                      "label"
-                    ]
+                    "required": ["label"]
                   },
                   {
-                    "required": [
-                      "name"
-                    ]
+                    "required": ["name"]
                   },
                   {
-                    "required": [
-                      "url"
-                    ]
+                    "required": ["url"]
                   },
                   {
-                    "required": [
-                      "link"
-                    ]
+                    "required": ["link"]
                   }
                 ],
                 "additionalProperties": false
@@ -87,15 +77,11 @@
               "minItems": 1
             }
           },
-          "required": [
-            "buttons"
-          ],
+          "required": ["buttons"],
           "additionalProperties": false
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

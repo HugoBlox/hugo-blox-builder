@@ -44,20 +44,14 @@
               "type": "string",
               "description": "Date format for award dates (Go time layout)",
               "default": "January 2006",
-              "examples": [
-                "2006",
-                "Jan 2006",
-                "January 2, 2006"
-              ]
+              "examples": ["2006", "Jan 2006", "January 2, 2006"]
             }
           },
           "additionalProperties": true,
           "$comment": "Award items in the author profile support: title, icon, url, awarder, date/date_start, summary, certificate_url."
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {

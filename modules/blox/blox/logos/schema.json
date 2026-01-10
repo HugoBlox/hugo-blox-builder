@@ -56,9 +56,7 @@
                     "default": false
                   }
                 },
-                "required": [
-                  "image"
-                ],
+                "required": ["image"],
                 "additionalProperties": false
               }
             },
@@ -82,10 +80,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "url",
-                "text"
-              ],
+              "required": ["url", "text"],
               "additionalProperties": false
             }
           },
@@ -97,11 +92,7 @@
           "properties": {
             "display_mode": {
               "type": "string",
-              "enum": [
-                "grid",
-                "carousel",
-                "marquee"
-              ],
+              "enum": ["grid", "carousel", "marquee"],
               "description": "Layout style: 'grid' shows all logos statically, 'carousel' scrolls horizontally with pause-on-hover, 'marquee' provides continuous horizontal scroll",
               "default": "grid"
             },
@@ -114,9 +105,7 @@
           "additionalProperties": true
         }
       },
-      "required": [
-        "content"
-      ],
+      "required": ["content"],
       "additionalProperties": true,
       "examples": [
         {
