@@ -31,8 +31,9 @@
   {{/* Resolve image from page bundle, site assets, remote, or static URLs */}}
   {{ $image_resource := false }}
   {{ $image_url := "" }}
+  {{ $image_path := "" }}
   {{ if $image_name }}
-    {{ $image_path := strings.TrimSpace (printf "%v" $image_name) }}
+    {{ $image_path = strings.TrimSpace (printf "%v" $image_name) }}
     {{ $is_remote := or (strings.HasPrefix $image_path "http://") (strings.HasPrefix $image_path "https://") }}
 
     {{ if $is_remote }}

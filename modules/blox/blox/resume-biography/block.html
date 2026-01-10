@@ -57,7 +57,6 @@
   {{ with index $banner "filename" }}{{ $banner_filename = strings.TrimSpace (printf "%v" .) }}{{ end }}
 {{ end }}
 {{ if $banner_filename }}
-{{ $banner_path := strings.TrimPrefix "/" $banner_filename }}
   {{/* Resolve image from page bundle, site assets, remote, or static URLs */}}
   {{ $image_resource := false }}
   {{ $image_url := "" }}
