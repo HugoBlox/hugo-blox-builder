@@ -87,13 +87,14 @@
            height="{{$image_to_render.Height}}"
            alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     {{ end }}
+  </div>
   {{ else if $image_url }}
     <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
     {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
     <img class="w-full" 
          src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}"
          alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
-  {{ end }}
+    </div>
   {{ else }}
     {{ warnf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Skipping this item." $page.File.Path $image_path }}
   {{ end }}
