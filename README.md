@@ -26,8 +26,8 @@
   <a href="https://github.com/HugoBlox/kit">
     <img src="https://img.shields.io/github/stars/HugoBlox/kit?label=Star%20Hugo%20Blox&style=social" alt="GitHub Stars">
   </a>
-  <a href="https://x.com/BuildLore">
-    <img src="https://img.shields.io/twitter/follow/BuildLore?label=Follow&style=social" alt="Follow on X">
+  <a href="https://x.com/LoreLabs_">
+    <img src="https://img.shields.io/twitter/follow/LoreLabs_?label=Follow&style=social" alt="Follow on X">
   </a>
 </p>
 
@@ -143,7 +143,7 @@ Join to ask questions, share work, and improve.
 
 - 💬 [Discord](https://discord.gg/z8wNYzb)
 - 📚 [Docs & Guides](https://docs.hugoblox.com/?utm_source=github&utm_medium=readme)
-- 🐦 [X / Twitter](https://x.com/BuildLore)
+- 🐦 [X / Twitter](https://x.com/LoreLabs_)
 - ⭐ [Star on GitHub](https://github.com/HugoBlox/kit)
 
 ---

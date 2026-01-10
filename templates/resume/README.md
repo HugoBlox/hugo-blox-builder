@@ -8,7 +8,7 @@ The Hugo **Résumé Template** empowers you to easily create your job-winning on
 
 [![Get Started](https://img.shields.io/badge/-Get%20started-ff4655?style=for-the-badge)](https://hugoblox.com/templates/)
 [![Discord](https://img.shields.io/discord/722225264733716590?style=for-the-badge)](https://discord.com/channels/722225264733716590/742892432458252370/742895548159492138)  
-[![Twitter Follow](https://img.shields.io/twitter/follow/BuildLore?label=Follow%20on%20Twitter)](https://x.com/BuildLore)
+[![Twitter Follow](https://img.shields.io/twitter/follow/LoreLabs_?label=Follow%20on%20Twitter)](https://x.com/LoreLabs_)
 
 [Check out the latest demo](https://hugo-resume-theme.netlify.app/) of what you'll get in less than 10 minutes, or [view the showcase](https://hugoblox.com/creators/).
 
@@ -18,7 +18,7 @@ The integrated [**Hugo Blox**](https://hugoblox.com) website builder and CMS mak
 - 📚 [View the **documentation**](https://docs.hugoblox.com/)
 - 💬 [Chat with the **HugoBlox Kit community**](https://discord.gg/z8wNYzb) or [**Hugo community**](https://discourse.gohugo.io)
 - ⬇️ **Automatically import citations from BibTeX** with the [Hugo Academic CLI](https://github.com/GetRD/academic-file-converter)
-- 🐦 Share your new site with the community: [@BuildLore](https://x.com/BuildLore) [@GeorgeCushen](https://x.com/GeorgeCushen) [#MadeWithHugoBlox](https://x.com/search?q=%23MadeWithHugoBlox&src=typed_query)
+- 🐦 Share your new site with the community: [@LoreLabs_](https://x.com/LoreLabs_) [@GeorgeCushen](https://x.com/GeorgeCushen) [#MadeWithHugoBlox](https://x.com/search?q=%23MadeWithHugoBlox&src=typed_query)
 - 🗳 [Take the survey and help us improve #OpenSource](https://forms.gle/NioD9VhUg7PNmdCAA)
 - 🚀 [Contribute improvements](https://github.com/HugoBlox/kit/blob/main/CONTRIBUTING.md) or [suggest improvements](https://github.com/HugoBlox/kit/issues)
 - ⬆️ **Updating?** View the [Update Guide](https://docs.hugoblox.com/) and [Release Notes](https://github.com/HugoBlox/kit/releases)

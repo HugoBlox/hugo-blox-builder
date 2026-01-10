@@ -26,7 +26,7 @@ https://github.com/user-attachments/assets/5a93788a-65d7-4a56-8355-4a2098a5f89b
 <p align="center">
   <a href="https://discord.gg/z8wNYzb"><img src="https://img.shields.io/discord/722225264733716590?label=Join%20Discord&style=social" alt="Discord"></a>
   <a href="https://github.com/HugoBlox/kit"><img src="https://img.shields.io/github/stars/HugoBlox/kit?label=Star%20HugoBlox&style=social" alt="GitHub Stars"></a>
-  <a href="https://x.com/BuildLore"><img src="https://img.shields.io/twitter/follow/BuildLore?label=Follow&style=social" alt="Follow on X"></a>
+  <a href="https://x.com/LoreLabs_"><img src="https://img.shields.io/twitter/follow/LoreLabs_?label=Follow&style=social" alt="Follow on X"></a>
 </p>
 
 ---
