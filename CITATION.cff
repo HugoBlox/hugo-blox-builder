@@ -4,9 +4,11 @@ type: software
 
 title: "HugoBlox"
 abstract: >
-  HugoBlox is an open-research copilot for publishing scientific and technical content with Hugo.
-  It provides a no-code block system, Markdown-first content, and research-focused
-  features such as LaTeX math, BibTeX citations, and Jupyter Notebook support.
+  HugoBlox is an open-source ecosystem for building high-performance research portfolios, 
+  lab websites, and technical documentation. Designed for data sovereignty, it enables 
+  data scientists and researchers to publish reproducible content directly from Markdown, 
+  Jupyter Notebooks, and BibTeX, eliminating the need for complex JavaScript dependencies 
+  or proprietary AI platforms.
 
 authors:
   - family-names: "Cushen"
@@ -19,8 +21,8 @@ url: "https://hugoblox.com"
 doi: 10.5281/zenodo.17704062
 
 # Use the latest released version here
-version: "0.10.0"
-date-released: 2025-11-08
+version: "0.11.0"
+date-released: 2026-01-02
 
 keywords:
   - hugo

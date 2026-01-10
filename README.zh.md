@@ -150,8 +150,9 @@ npx hugoblox create
 
 ## 许可证
 
-MIT © 2016–Present [George Cushen](https://georgecushen.com/?utm_source=github&utm_medium=hbb-readme) — [License 详情](./LICENSE.md)
+Copyright © 2016-Present [**Lore Labs**](https://lore.tech/?utm_source=github&utm_medium=readme).
+Released under the [MIT License](./LICENSE.md).
 
 <p align="center">
-  <sub>无追踪。无锁定。您的内容始终属于您。</sub>
+  <sub>Lore™ is a trademark of Lore Labs.</sub>
 </p>
