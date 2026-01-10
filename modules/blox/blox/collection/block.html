@@ -182,11 +182,31 @@
 {{ end }}
 {{ $exclude_past := partial "functions/coerce_bool" (dict "value" (index $filters "exclude_past") "default" false) }}
 {{ if $exclude_past }}
-  {{ $query = where $query "Date" ">=" now }}
+  {{/* Use event_end -> event_start -> Date to decide if an item is past */}}
+  {{ $filtered := slice }}
+  {{ range $query }}
+    {{ $start := .Date }}
+    {{ with .Params.event_start }}{{ $start = . }}{{ end }}
+    {{ $end := $start }}
+    {{ with .Params.event_end }}{{ $end = . }}{{ end }}
+    {{ if ge $end now }}
+      {{ $filtered = $filtered | append . }}
+    {{ end }}
+  {{ end }}
+  {{ $query = $filtered }}
 {{ end }}
 {{ $exclude_future := partial "functions/coerce_bool" (dict "value" (index $filters "exclude_future") "default" false) }}
 {{ if $exclude_future }}
-  {{ $query = where $query "Date" "<" now }}
+  {{/* Use event_start -> Date to drop future/unscheduled items */}}
+  {{ $filtered := slice }}
+  {{ range $query }}
+    {{ $start := .Date }}
+    {{ with .Params.event_start }}{{ $start = . }}{{ end }}
+    {{ if lt $start now }}
+      {{ $filtered = $filtered | append . }}
+    {{ end }}
+  {{ end }}
+  {{ $query = $filtered }}
 {{ end }}
 
 {{ $count := len $query }}
