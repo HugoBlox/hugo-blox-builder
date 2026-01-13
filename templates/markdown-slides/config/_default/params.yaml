@@ -121,7 +121,7 @@ hugoblox:
   # SECURITY - Allow slides to be embedded in iframes
   # ────────────────────────────────────────────────────────────────────────────
   security:
-    frame_options: sameorigin
+    frame_options: allow                 # deny | sameorigin | allow - allow enables iframe embedding
 
   # ────────────────────────────────────────────────────────────────────────────
   # PRO

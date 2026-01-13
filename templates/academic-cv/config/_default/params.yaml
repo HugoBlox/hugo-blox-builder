@@ -253,7 +253,7 @@ hugoblox:
     csp:
       policy: ""
       report_only: false
-    frame_options: sameorigin           # deny | sameorigin | allow - sameorigin allows slides embedding
+    frame_options: allow                 # deny | sameorigin | allow - allow enables iframe embedding
     permissions_policy: ""
 
   # ────────────────────────────────────────────────────────────────────────────
