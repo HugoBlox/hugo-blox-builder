@@ -1,0 +1,157 @@
+{{/*
+  Slide Branding Component
+  
+  Renders persistent branding elements (logo, title overlay, etc.) that appear
+  across all slides in a presentation.
+  
+  Configuration (site.Params.slides.branding or .Params.slides.branding):
+    logo:
+      src: "media/logo.png"        # Path to logo image
+      alt: "Organization Logo"     # Alt text
+      position: "top-left"         # top-left, top-right, bottom-left, bottom-right
+      width: "100px"               # Logo width
+      margin: "20px"               # Distance from edges
+    title:
+      show: true                   # Show presentation title
+      position: "bottom-left"      # Position of title text
+    author:
+      show: true                   # Show author/presenter name
+      position: "bottom-right"     # Position of author text
+*/}}
+
+{{/* Merge page-level config with site-level defaults */}}
+{{ $site_branding := site.Params.slides.branding | default dict }}
+{{ $page_branding := .Params.slides.branding | default dict }}
+{{ $branding := merge $site_branding $page_branding }}
+
+{{/* Logo rendering */}}
+{{ with $branding.logo }}
+  {{ if .filename }}
+    {{ $resource_path := printf "media/%s" .filename }}
+    {{ $logo_resource := resources.Get $resource_path }}
+    {{ with $logo_resource }}
+      {{ $position := $branding.logo.position | default "top-left" }}
+      {{ $width := $branding.logo.width | default "80px" }}
+      {{ $margin := $branding.logo.margin | default "20px" }}
+      {{ $alt := $branding.logo.alt | default "Logo" }}
+      
+      {{/* Calculate CSS position based on position string */}}
+      {{ $positionCSS := "" }}
+      {{ if eq $position "top-left" }}
+        {{ $positionCSS = printf "top: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "top-right" }}
+        {{ $positionCSS = printf "top: %s; right: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-left" }}
+        {{ $positionCSS = printf "bottom: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-right" }}
+        {{ $positionCSS = printf "bottom: %s; right: %s;" $margin $margin }}
+      {{ else }}
+        {{/* Custom position - expect CSS string */}}
+        {{ $positionCSS = $position }}
+      {{ end }}
+      
+      <div id="slide-logo" style="{{ $positionCSS | safeCSS }} width: {{ $width }};" aria-label="{{ $alt }}">
+        {{/* Inline SVGs to enable currentColor, use img for other formats */}}
+        {{ if strings.HasSuffix .Name ".svg" }}
+          {{ .Content | safeHTML }}
+        {{ else }}
+          <img src="{{ .RelPermalink }}" alt="{{ $alt }}">
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Title overlay (optional) */}}
+{{ if $branding.title }}
+  {{ with $branding.title }}
+    {{ if .show }}
+      {{ $position := .position | default "bottom-left" }}
+      {{ $margin := .margin | default "20px" }}
+      
+      {{ $positionCSS := "" }}
+      {{ if eq $position "top-left" }}
+        {{ $positionCSS = printf "top: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "top-right" }}
+        {{ $positionCSS = printf "top: %s; right: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-left" }}
+        {{ $positionCSS = printf "bottom: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-right" }}
+        {{ $positionCSS = printf "bottom: %s; right: %s;" $margin $margin }}
+      {{ end }}
+      
+      <div id="slide-title-overlay" style="{{ $positionCSS | safeCSS }}">
+        {{ .text | default $.Title }}
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Author overlay (optional) */}}
+{{ if $branding.author }}
+  {{ with $branding.author }}
+    {{ if .show }}
+      {{ $position := .position | default "bottom-right" }}
+      {{ $margin := .margin | default "20px" }}
+      
+      {{ $positionCSS := "" }}
+      {{ if eq $position "top-left" }}
+        {{ $positionCSS = printf "top: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "top-right" }}
+        {{ $positionCSS = printf "top: %s; right: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-left" }}
+        {{ $positionCSS = printf "bottom: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-right" }}
+        {{ $positionCSS = printf "bottom: %s; right: %s;" $margin $margin }}
+      {{ end }}
+      
+      {{/* Get author from page params or first author */}}
+      {{ $author := "" }}
+      {{ with $.Params.authors }}
+        {{ if reflect.IsSlice . }}
+          {{ $author = index . 0 }}
+        {{ else }}
+          {{ $author = . }}
+        {{ end }}
+      {{ end }}
+      {{ with $.Params.author }}
+        {{ $author = . }}
+      {{ end }}
+      
+      {{ if $author }}
+      <div id="slide-author-overlay" style="{{ $positionCSS | safeCSS }}">
+        {{ $author }}
+      </div>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Footer text overlay (optional) - e.g. for copyright */}}
+{{ if $branding.footer }}
+  {{ with $branding.footer }}
+    {{ if .text }}
+      {{ $position := .position | default "bottom-center" }}
+      {{ $margin := .margin | default "20px" }}
+      
+      {{ $positionCSS := "" }}
+      {{ if eq $position "top-left" }}
+        {{ $positionCSS = printf "top: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "top-right" }}
+        {{ $positionCSS = printf "top: %s; right: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-left" }}
+        {{ $positionCSS = printf "bottom: %s; left: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-right" }}
+        {{ $positionCSS = printf "bottom: %s; right: %s;" $margin $margin }}
+      {{ else if eq $position "bottom-center" }}
+        {{ $positionCSS = printf "bottom: %s; left: 50%%; transform: translateX(-50%%);" $margin }}
+      {{ end }}
+      
+      <div id="slide-footer-text-overlay" style="{{ $positionCSS | safeCSS }}">
+        {{ .text | markdownify }}
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+

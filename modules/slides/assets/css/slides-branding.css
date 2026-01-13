@@ -1,0 +1,129 @@
+/*
+ * HugoBlox Slides Branding Styles
+ * 
+ * Default styles for slide branding elements (logo, overlays, headers/footers).
+ * These styles ensure branding elements don't interfere with slide content.
+ */
+
+/* Logo container */
+#slide-logo {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  color: var(--r-main-color, #fff);
+}
+
+#slide-logo img {
+  width: 100%;
+  height: auto;
+  max-height: 60px;
+}
+
+#slide-logo svg {
+  width: 100%;
+  height: auto;
+  max-height: 60px;
+  fill: currentColor;
+}
+
+/* Title and author overlays */
+#slide-title-overlay,
+#slide-author-overlay,
+#slide-footer-text-overlay {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  font-family: var(--r-main-font, inherit);
+  color: var(--r-main-color, #fff);
+  font-size: 0.7em;
+  opacity: 0.8;
+  max-width: 40%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#slide-footer-text-overlay {
+  font-size: 0.6em;
+  opacity: 0.7;
+}
+
+/* Header and footer hook containers */
+.slide-header,
+.slide-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.slide-header {
+  top: 0;
+  justify-content: space-between;
+}
+
+.slide-footer {
+  bottom: 0;
+  justify-content: space-between;
+}
+
+/* Visibility Control via data-state classes (applied to body by JS) */
+body.no-branding #slide-logo,
+body.no-branding #slide-title-overlay,
+body.no-branding #slide-author-overlay,
+body.no-branding #slide-footer-text-overlay,
+body.no-branding .slide-header,
+body.no-branding .slide-footer {
+  /* biome-ignore lint/complexity/noImportantStyles: Required to override Reveal.js styles */
+  display: none !important;
+}
+
+body.no-header .slide-header,
+body.no-header #slide-logo,
+body.no-header #slide-title-overlay {
+  /* biome-ignore lint/complexity/noImportantStyles: Required to override Reveal.js styles */
+  display: none !important;
+}
+
+body.no-footer .slide-footer,
+body.no-footer #slide-author-overlay,
+body.no-footer #slide-footer-text-overlay {
+  /* biome-ignore lint/complexity/noImportantStyles: Required to override Reveal.js styles */
+  display: none !important;
+}
+
+/* Re-enable pointer events for interactive elements within header/footer */
+.slide-header a,
+.slide-header button,
+.slide-footer a,
+.slide-footer button {
+  pointer-events: auto;
+}
+
+/* Hide branding in print mode for cleaner PDFs */
+@media print {
+  #slide-logo,
+  #slide-title-overlay,
+  #slide-author-overlay,
+  #slide-footer-text-overlay,
+  .slide-header,
+  .slide-footer {
+    opacity: 0.5;
+  }
+}
+
+/* Respect Reveal.js overview mode */
+.reveal.overview #slide-logo,
+.reveal.overview #slide-title-overlay,
+.reveal.overview #slide-author-overlay,
+.reveal.overview #slide-footer-text-overlay,
+.reveal.overview .slide-header,
+.reveal.overview .slide-footer {
+  display: none;
+}

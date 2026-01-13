@@ -26,7 +26,20 @@
     {{/* Each `<section>` defines a new slide. */}}
     {{/* Only begin new slide `<section>` if not already added by custom `slide` shortcode. */}}
     {{ if not (in . "data-noprocess") }}
-    <section{{ if $isHidden }} data-visibility="hidden"{{ end }}>
+    
+    {{/* Parse visibility comments */}}
+    {{ $state := slice }}
+    {{ if in . "<!-- no-branding -->" }}
+      {{ $state = $state | append "no-branding" }}
+    {{ end }}
+    {{ if in . "<!-- no-header -->" }}
+      {{ $state = $state | append "no-header" }}
+    {{ end }}
+    {{ if in . "<!-- no-footer -->" }}
+      {{ $state = $state | append "no-footer" }}
+    {{ end }}
+    
+    <section{{ if $isHidden }} data-visibility="hidden"{{ end }} {{ if gt (len $state) 0 }}data-state="{{ delimit $state " " }}"{{ end }}>
     {{ end }}
       {{ $slideContent | safeHTML }}
     </section>
@@ -35,4 +48,21 @@
     {{ end }}
     {{ end }}
   </div>
+  
+  {{/* Branding elements - placed inside .reveal but outside .slides to be persistent and fixed */}}
+  
+  {{/* Branding overlay (logo, title, author) */}}
+  {{ $pageContext := index . 0 }}
+  {{ partial "components/slide-branding" $pageContext }}
+
+  {{/* Hook: slide-header */}}
+  <div class="slide-header">
+    {{ partial "functions/slides_get_hook" (dict "hook" "slide-header" "context" $pageContext) }}
+  </div>
+
+  {{/* Hook: slide-footer */}}
+  <div class="slide-footer">
+    {{ partial "functions/slides_get_hook" (dict "hook" "slide-footer" "context" $pageContext) }}
+  </div>
+
 </div>

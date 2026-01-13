@@ -1,0 +1,39 @@
+{{/* 
+  Slides Hook Loader - Independent Implementation
+  
+  This is a self-contained hook system for the slides module that doesn't 
+  depend on the blox module. Users can create partials in their own project's
+  layouts/_partials/hooks/{hook-name}/ directory.
+
+  Usage: {{ partial "functions/slides_get_hook" (dict "hook" "slide-header" "context" .) }}
+  
+  Available hooks for slides:
+  - slide-header: Top of presentation (inside .reveal, above .slides)
+  - slide-footer: Bottom of presentation (inside .reveal, below .slides)  
+  - slide-head-end: End of <head> tag (for custom CSS/JS)
+  - slide-body-end: End of <body> tag (for custom JS)
+
+  Input: dict with "hook" (string) and "context" (page context)
+  Output: Renders all partials found in the hook directory
+*/}}
+
+{{ $loaded := false }}
+{{ $partial_dir := printf "hooks/%s/" .hook }}
+{{ $context := .context }}
+{{ $hook_dir_path := path.Join "layouts/_partials" $partial_dir }}
+
+{{/* Use try to gracefully handle missing directories */}}
+{{ with try (os.ReadDir $hook_dir_path) }}
+  {{ with .Value }}
+    {{ range . }}
+      {{ if not .IsDir }}
+        {{ $partial_path := path.Join $partial_dir .Name }}
+        {{ partial $partial_path $context }}
+        {{ $loaded = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Debug: uncomment to see if hooks are loaded */}}
+{{/* return $loaded */}}

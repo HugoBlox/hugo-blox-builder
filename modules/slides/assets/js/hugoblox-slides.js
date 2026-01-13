@@ -63,6 +63,30 @@ pluginOptions.plugins = enabledPlugins;
 
 Reveal.initialize(pluginOptions);
 
+// Handle data-state for branding visibility
+// Apply classes to body since branding elements are body-level siblings of .reveal
+const applySlideState = (event) => {
+  const body = document.body;
+  if (!body) return;
+
+  // Remove previous state classes from body
+  body.classList.remove("no-branding", "no-header", "no-footer");
+
+  // Get current slide's data-state
+  const currentSlide = event?.currentSlide || Reveal.getCurrentSlide();
+  if (currentSlide) {
+    const state = currentSlide.getAttribute("data-state");
+    if (state) {
+      state.split(" ").forEach((s) => {
+        body.classList.add(s);
+      });
+    }
+  }
+};
+
+Reveal.on("ready", applySlideState);
+Reveal.on("slidechanged", applySlideState);
+
 // Disable Mermaid by default.
 if (typeof slides.diagram === "undefined") {
   slides.diagram = false;

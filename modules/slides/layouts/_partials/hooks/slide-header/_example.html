@@ -1,0 +1,30 @@
+{{/*
+  Example Slide Header Hook
+  
+  This is an example file showing how to create custom header content
+  that appears at the top of every slide in a presentation.
+  
+  To use this hook, create a file at:
+    layouts/_partials/hooks/slide-header/your-custom-header.html
+  
+  The content will be rendered inside a <div class="slide-header"> container.
+  
+  Available context variables:
+    .Title - Presentation title
+    .Params - All front matter parameters
+    .Params.authors - List of authors
+    .Params.course - Course code/name
+    .Params.venue - Event venue
+    .Date - Presentation date
+    
+  Example usage:
+*/}}
+
+{{/* Uncomment below to show course code in header */}}
+{{/*
+{{ with .Params.course }}
+  <div style="font-size: 0.6em; color: rgba(255,255,255,0.6); padding: 10px;">
+    {{ . }}{{ with $.Params.lecture_number }} · Lecture {{ . }}{{ end }}
+  </div>
+{{ end }}
+*/}}

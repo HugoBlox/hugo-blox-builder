@@ -1,5 +1,23 @@
 {{/*
   Present Baseof - Presentation output only
+  
+  Hook Points Available:
+  - slide-head-end: End of <head> for custom CSS/JS
+  - slide-header: Top of presentation (inside .reveal wrapper)
+  - slide-footer: Bottom of presentation (inside .reveal wrapper)
+  - slide-body-end: End of <body> for custom JS
+  
+  Branding Configuration (site.Params.slides.branding or page front matter):
+    logo:
+      src: "media/logo.png"
+      position: "top-left"  # top-left, top-right, bottom-left, bottom-right
+      width: "100px"
+    title:
+      show: true
+      position: "bottom-left"
+    author:
+      show: true
+      position: "bottom-right"
 */}}
 
 <!doctype html>
@@ -38,6 +56,13 @@
   {{- $theme := $.Param "slides.theme" | default "black" -}}
   <link rel="stylesheet" href="{{ $cdn_url_reveal }}/dist/theme/{{ $theme }}.min.css">
 
+  {{/* Load branding CSS */}}
+  {{ $branding_css := resources.Get "css/slides-branding.css" }}
+  {{ with $branding_css }}
+    {{ $branding_css = . | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $branding_css.RelPermalink }}">
+  {{ end }}
+
   {{/* Hugo Chroma Syntax Highlighter */}}
   {{ $hl_theme := $.Param "slides.highlight_style" | default "dracula" }}
   {{ $hl_theme_path := printf "css/libs/chroma/%s.css" $hl_theme }}
@@ -58,6 +83,10 @@
       document.head.appendChild(link);
     })();
   </script>
+
+  {{/* Hook: slide-head-end - Custom CSS/JS injection point */}}
+  {{ partial "functions/slides_get_hook" (dict "hook" "slide-head-end" "context" .) }}
+
 </head>
 <body>
 
@@ -80,7 +109,8 @@
   {{ $slidejs := resources.Get "js/hugoblox-slides.js" | js.Build (dict "params" (dict "slides" $.Params.slides )) | fingerprint }}
   <script src="{{ $slidejs.RelPermalink }}"></script>
 
-  {{ partial "functions/get_hook" (dict "hook" "body-end" "context" .) }}
+  {{/* Hook: slide-body-end - End of body for custom JS */}}
+  {{ partial "functions/slides_get_hook" (dict "hook" "slide-body-end" "context" .) }}
 
 </body>
 </html>
