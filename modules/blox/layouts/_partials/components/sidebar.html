@@ -1,6 +1,6 @@
 {{- $context := .context -}}
 
-{{- $no_sidebar := .no_sidebar | default true -}}
+{{- $no_sidebar := ne .no_sidebar false -}}
 {{- $pad_sidebar := true -}}
 {{- $sidebar_dynamic_class := cond $no_sidebar (cond $pad_sidebar "lg:hidden xl:block" "lg:hidden") "lg:sticky" -}}
 
