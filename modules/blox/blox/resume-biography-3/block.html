@@ -322,7 +322,7 @@
           {{ $bio_content = printf "%v" $bio_override_raw | emojify | $page.RenderString }}
         {{ end }}
         {{ if not $bio_content }}
-          {{ with $profile.bio }}{{ $bio_content = printf "%v" . }}{{ end }}
+          {{ with $profile.bio }}{{ $bio_content = printf "%v" . | emojify | $page.RenderString }}{{ end }}
         {{ end }}
         {{ with $bio_content }}
         <div class="mb-12">
