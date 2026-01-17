@@ -124,8 +124,13 @@ hugoblox:
     frame_options: allow                 # deny | sameorigin | allow - allow enables iframe embedding
 
   # ────────────────────────────────────────────────────────────────────────────
-  # PRO
+  # PREMIUM
+  # Premium features and creator program (affiliates)
   # ────────────────────────────────────────────────────────────────────────────
   pro:
+    # Hide "Powered by HugoBlox" attribution
+    # Requires: HugoBlox Premium to support HugoBlox via alternative means
+    # Note: Even with Premium, you can keep this false to support open source!
+    # Get Premium: https://hugoblox.com/premium
     hide_attribution: false
     affiliate_code: ""

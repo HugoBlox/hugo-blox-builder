@@ -16,5 +16,5 @@ Tips for fast responses:
 
 Pro support & templates:
 
-- Pro templates: https://hugoblox.com/pro
+- Pro templates: https://hugoblox.com/pricing
 - Pro Discord Channel (request to be added): https://discord.gg/z8wNYzb

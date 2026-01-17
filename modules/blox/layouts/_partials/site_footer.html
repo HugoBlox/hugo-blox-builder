@@ -35,7 +35,7 @@
     {{- $show_attribution = not $wants_to_hide -}}
   {{- else if $wants_to_hide -}}
     {{/* Free user trying to hide - show warning and attribution */}}
-    {{- warnf "Attribution removal requires a Pro subscription. Get Pro at https://hugoblox.com/pro \nAlready subscribed to Pro? Reach out in the Pro Discord channel for support." -}}
+    {{- warnf "Attribution removal requires HugoBlox Premium. Get Premium at https://hugoblox.com/premium \nAlready purchased Premium? Reach out in the Premium Discord channel for support." -}}
     {{- $show_attribution = true -}}
   {{- end -}}
   

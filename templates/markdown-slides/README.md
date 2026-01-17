@@ -14,7 +14,7 @@
   &nbsp;•&nbsp;
   <a href="https://hugoblox.com/templates/?open=markdown-slides&loading=true&utm_source=github&utm_medium=readme">Live Demo</a>
   &nbsp;•&nbsp;
-  <a href="https://docs.hugoblox.com/guides/studio/">Lore Studio (Visual Editor)</a>
+  <a href="https://docs.hugoblox.com/guides/studio/">HugoBlox Studio (Visual Editor)</a>
 </p>
 
 <p align="center">
@@ -71,7 +71,7 @@ Deploy this template in ~60 seconds:
 
 - [Deploy in browser →](https://hugoblox.com/templates/markdown-slides/start?utm_source=github&utm_medium=readme)
 
-### Option 2 — Lore Studio (visual editor in VS Code)
+### Option 2 — HugoBlox Studio (visual editor in VS Code)
 
 - [Studio guide →](https://docs.hugoblox.com/guides/studio/?utm_source=github&utm_medium=readme)
 - [Studio AI automation plans (Free/Plus/Pro) →](https://hugoblox.com/pricing/?utm_source=github&utm_medium=readme)

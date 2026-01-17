@@ -276,14 +276,14 @@ hugoblox:
     export_logs: true
 
   # ────────────────────────────────────────────────────────────────────────────
-  # PRO
-  # Pro subscription features and affiliate program
+  # PREMIUM
+  # Premium features and creator program (affiliates)
   # ────────────────────────────────────────────────────────────────────────────
   pro:
     # Hide "Powered by HugoBlox" attribution
-    # Requires: Pro subscription to support HugoBlox via alternative means
-    # Note: Even with Pro, you can keep this false to support open source!
-    # Get Pro: https://hugoblox.com/pro
+    # Requires: HugoBlox Premium to support HugoBlox via alternative means
+    # Note: Even with Premium, you can keep this false to support open source!
+    # Get Premium: https://hugoblox.com/premium
     hide_attribution: false
     
     # Affiliate referral code for rewards program
