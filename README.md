@@ -57,6 +57,8 @@
   </sub>
 </p>
 
+https://github.com/user-attachments/assets/a0be0c48-b8d5-4b40-a11b-85fedcdf89bc
+
 ---
 
 ## ⚡️ Why teams choose HugoBlox
