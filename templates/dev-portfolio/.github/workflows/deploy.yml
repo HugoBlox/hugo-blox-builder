@@ -1,8 +1,5 @@
 name: Deploy website to GitHub Pages
 
-env:
-  NODE_VERSION: '20'
-
 on:
   # Trigger the workflow every time you push to the `main` branch
   push:
@@ -21,95 +18,39 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build website
-  build:
+  # Check deployment configuration
+  config:
     if: github.repository_owner != 'HugoBlox'
     runs-on: ubuntu-latest
+    outputs:
+      deploy-host: ${{ steps.check.outputs.host }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-          # Fetch history for Hugo's .GitInfo and .Lastmod
-        fetch-depth: 0
+        sparse-checkout: hugoblox.yaml
+        sparse-checkout-cone-mode: false
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-
-    - name: Setup pnpm
-      if: hashFiles('package.json') != ''
-      uses: pnpm/action-setup@v4
-
-    - name: Get Hugo Version
-      id: hugo-version
+    - name: Check deploy host
+      id: check
       run: |
-        VERSION=$(grep "hugo_version" hugoblox.yaml | awk '{print $2}' | tr -d "'\"")
-        echo "HUGO_VERSION=$VERSION" >> $GITHUB_ENV
+        # Read deploy.host from hugoblox.yaml, default to github-pages
+        HOST=$(grep -A5 "^deploy:" hugoblox.yaml 2>/dev/null | grep "host:" | awk '{print $2}' | tr -d "'\""" || echo "github-pages")
+        HOST=${HOST:-github-pages}
+        echo "host=$HOST" >> $GITHUB_OUTPUT
+        echo "Deployment target: $HOST"
 
-    - name: Install dependencies
-      run: |
-        # Install Tailwind CLI if package.json exists
-        if [ -f "package.json" ]; then
-          echo "Installing Tailwind dependencies..."
-          pnpm install --no-frozen-lockfile || npm install
-        fi
-
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v3
-      with:
-        hugo-version: ${{ env.HUGO_VERSION }}
-        extended: true
-
-      # Cache dependencies (Go modules, node_modules) - stable, rarely changes
-    - uses: actions/cache@v4
-      with:
-        path: |
-          /tmp/hugo_cache_runner/
-          node_modules/
-          modules/*/node_modules/
-        key: ${{ runner.os }}-hugo-deps-${{ hashFiles('**/go.mod', '**/package-lock.json',
-          '**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-hugo-deps-
-
-      # Cache Hugo resources (processed images, CSS) - invalidates only when assets/config change
-    - uses: actions/cache@v4
-      with:
-        path: resources/
-        key: ${{ runner.os }}-hugo-resources-${{ hashFiles('assets/**/*', 'config/**/*',
-          'hugo.yaml', 'package.json') }}
-        restore-keys: |
-          ${{ runner.os }}-hugo-resources-
-
-    - name: Setup Pages
-      id: pages
-      uses: actions/configure-pages@v5
-
-    - name: Build with Hugo
-      env:
-        HUGO_ENVIRONMENT: production
-        HUGO_BLOX_LICENSE: ${{ secrets.HUGO_BLOX_LICENSE }}
-      run: |
-        echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
-        hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
-
-    - name: Generate Pagefind search index (if applicable)
-      run: |
-        # Check if site uses Pagefind search
-        if [ -f "package.json" ] && grep -q "pagefind" package.json; then
-          pnpm run pagefind || npx pagefind --site "public"
-        fi
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v4
-      with:
-        path: ./public
-
-  # Deploy website to GitHub Pages hosting
-  deploy:
+  # Build website using reusable workflow (always runs for CI)
+  build:
+    needs: config
     if: github.repository_owner != 'HugoBlox'
-    needs: build
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  # Deploy website to GitHub Pages hosting (only if configured)
+  deploy:
+    needs: [config, build]
+    if: needs.config.outputs.deploy-host == 'github-pages'
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write # to deploy to Pages

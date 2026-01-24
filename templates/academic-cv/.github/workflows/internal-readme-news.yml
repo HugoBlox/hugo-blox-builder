@@ -1,5 +1,6 @@
-# This workflow is only for the Hugo Blox repository. It is safe to delete from your site.
-name: Updater (WIP)
+# Internal HugoBlox workflow - Updates README news section from RSS feed.
+# This file only runs on the HugoBlox org repo and can be safely deleted by end users.
+name: Internal - Update README News
 
 on:
   schedule:
