@@ -65,39 +65,38 @@
   {{ end }}
   
   {{ $image_to_render := $image_resource }}
-  {{ if $image_to_render }}
-  <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-    {{ if ne $image_to_render.MediaType.SubType "gif" }}
-      {{ $responsive := partial "functions/process_responsive_image.html" (dict 
-          "image" $image_to_render 
-          "mode" "fit"
-          "sizes" (slice 400 600 800 1200)
-      ) }}
+  <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 {{ if or $image_to_render $image_url }}md:grid md:grid-cols-2{{ end }} sm:py-16 lg:px-6">
+    {{ if or $image_to_render $image_url }}
+    {{ if $image_to_render }}
+      {{ if ne $image_to_render.MediaType.SubType "gif" }}
+        {{ $responsive := partial "functions/process_responsive_image.html" (dict 
+            "image" $image_to_render 
+            "mode" "fit"
+            "sizes" (slice 400 600 800 1200)
+        ) }}
+        <img class="w-full" 
+             srcset="{{ $responsive.srcset }}"
+             sizes="(max-width: 768px) 100vw, 50vw"
+             src="{{ $responsive.fallback.RelPermalink }}" 
+             width="{{ $responsive.fallback.Width }}"
+             height="{{ $responsive.fallback.Height }}"
+             alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
+      {{ else }}
+        <img class="w-full" 
+             src="{{$image_to_render.RelPermalink}}" 
+             width="{{$image_to_render.Width}}"
+             height="{{$image_to_render.Height}}"
+             alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
+      {{ end }}
+    {{ else if $image_url }}
+      {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
       <img class="w-full" 
-           srcset="{{ $responsive.srcset }}"
-           sizes="(max-width: 768px) 100vw, 50vw"
-           src="{{ $responsive.fallback.RelPermalink }}" 
-           width="{{ $responsive.fallback.Width }}"
-           height="{{ $responsive.fallback.Height }}"
-           alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
-    {{ else }}
-      <img class="w-full" 
-           src="{{$image_to_render.RelPermalink}}" 
-           width="{{$image_to_render.Width}}"
-           height="{{$image_to_render.Height}}"
+           src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}"
            alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
     {{ end }}
-  </div>
-  {{ else if $image_url }}
-    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-    {{ $is_external := or (strings.HasPrefix $image_url "http://") (strings.HasPrefix $image_url "https://") }}
-    <img class="w-full" 
-         src="{{ if $is_external }}{{ $image_url }}{{ else }}{{ $image_url | relURL }}{{ end }}"
-         alt="{{$title | plainify}}" {{ if (modBool $idx 2)}}style="order: 1"{{end}}>
-    </div>
-  {{ else }}
-    {{ warnf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Skipping this item." $page.File.Path $image_path }}
-  {{ end }}
+    {{ else if $image_name }}
+      {{ warnf "%s uses the `cta-image-paragraph` blox which specifies a non-existent `image` at `assets/%s`. Rendering text only." $page.File.Path $image_path }}
+    {{ end }}
     <div class="mt-4 md:mt-0">
       <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{$title}}</h2>
       <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">{{$text}}</p>
