@@ -178,9 +178,9 @@ The Free Kit includes:
 - **Notebook + LaTeX support** for technical publishing
 - **Community support** via docs, GitHub issues, and Discord
 
-### 🤖 Researcher Plan (Automation)
+### 🤖 Pro (Automation)
 
-Upgrade to the **Researcher Plan** for [HugoBlox Studio](https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio) (requires extension login) when you want automation and lower maintenance overhead:
+Upgrade to **Pro** for [HugoBlox Studio](https://marketplace.visualstudio.com/items?itemName=hugoblox.hugoblox-studio) (requires extension login) when you want automation and lower maintenance overhead:
 
 - **Less time debugging YAML** (Fix-it Bot + safer config editing)
 - **Less time formatting citations** (Magic Import + publication automation)
@@ -188,7 +188,7 @@ Upgrade to the **Researcher Plan** for [HugoBlox Studio](https://marketplace.vis
 - **More velocity** (visual editing + previews in VS Code)
 
 
-| Feature | **Free Kit** (Open Source) | **Researcher Plan** (Automation) |
+| Feature | **Free Kit** (Open Source) | **Pro** (Automation) |
 | :--- | :---: | :---: |
 | **Site Ownership** | ✅ 100% Yours | ✅ 100% Yours |
 | **Visual Page Editor** | ❌ | **✅ Included** |
@@ -200,7 +200,7 @@ Upgrade to the **Researcher Plan** for [HugoBlox Studio](https://marketplace.vis
 | **Private Discord** | ❌ | ✅ |
 | **Support Open Research** | 💜 | **🏆 Hero Status** |
 
-👉 [**View Full Feature Matrix**](https://hugoblox.com/pricing?utm_source=github&utm_medium=readme&utm_content=pricing_matrix) &nbsp;•&nbsp; [**Upgrade to Researcher Plan**](https://hugoblox.com/pricing?utm_source=github&utm_medium=readme&utm_content=cta_pro)
+👉 [**View Full Feature Matrix**](https://hugoblox.com/pricing?utm_source=github&utm_medium=readme&utm_content=pricing_matrix) &nbsp;•&nbsp; [**Get Pro**](https://hugoblox.com/pricing?utm_source=github&utm_medium=readme&utm_content=cta_pro)
 
 > "HugoBlox Studio saved me **40+ hours** on my lab site. Visual edits + BibTeX auto-updates = **citations up 3×**."
 > <br/>— **Dr. Sarah Yang**, AI Researcher
@@ -254,5 +254,5 @@ Copyright © 2016-Present [**Lore Labs**](https://lore.tech/?utm_source=github&u
 Released under the [MIT License](./LICENSE.md).
 
 <p align="center">
-  <sub>Lore™ is a trademark of Lore Labs.</sub>
+  <sub>HugoBlox™ is a trademark of Lore Labs.</sub>
 </p>

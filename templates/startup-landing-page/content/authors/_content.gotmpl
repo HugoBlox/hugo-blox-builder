@@ -1,0 +1,25 @@
+{{/* Get the author data from site.Data */}}
+{{ $authorData := site.Data.authors }}
+
+{{/* Iterate over each author key-value pair */}}
+{{ range $slug, $profile := $authorData }}
+
+  {{/* Prepare the page parameters */}}
+  {{/* We merge the profile data directly into params so they are available as .Params */}}
+  {{ $params := $profile }}
+  
+  {{/* Ensure the title is set correctly */}}
+  {{ $title := $profile.title | default ($profile.name.display) | default $slug }}
+  
+  {{/* Define the page properties */}}
+  {{ $page := dict
+    "kind" "term"         
+    "path" $slug          
+    "title" $title
+    "params" $params      
+  }}
+
+  {{/* Add the page to Hugo's build */}}
+  {{ $.AddPage $page }}
+
+{{ end }}
