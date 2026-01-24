@@ -246,9 +246,24 @@
   </div>
   {{ end }}
 
-  <div class="text-3xl font-bold mb-2 mt-6">
-    {{- $profile_title -}}
-  </div>
+  {{/* Extract pronunciation for ruby annotation */}}
+  {{ $name_pronunciation := "" }}
+  {{ with $profile.name_pronunciation }}
+    {{ if eq (printf "%T" .) "string" }}
+      {{ $name_pronunciation = strings.TrimSpace . }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Name with optional ruby pronunciation */}}
+  {{ if and $profile_title $name_pronunciation }}
+    <h1 class="text-3xl font-bold mb-2 mt-6">
+      <ruby class="hb-ruby-name">{{ $profile_title }}<rt>{{ $name_pronunciation }}</rt></ruby>
+    </h1>
+  {{ else }}
+    <div class="text-3xl font-bold mb-2 mt-6">
+      {{- $profile_title -}}
+    </div>
+  {{ end }}
   {{- with $profile_pronouns -}}
     <div class="text-lg font-normal text-gray-600 dark:text-gray-400 -mt-1 mb-2">({{ . }})</div>
   {{- end -}}

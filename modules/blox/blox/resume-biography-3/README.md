@@ -35,6 +35,7 @@ design:
 - **Horizontal Layout**: Desktop-optimized side-by-side arrangement for better space utilization
 - **Integrated Education**: Built-in education timeline with institution details
 - **Interests Section**: Personal interests display for a well-rounded professional image
+- **Name Pronunciation**: Ruby annotation displays pronunciation guides above your name (set `name.pronunciation` in your author YAML)
 - **Social Integration**: Complete social media profile links with proper external handling
 - **Avatar Flexibility**: Multiple size and shape options for personal branding
 - **Academic Icons**: Beautiful education and achievement icons

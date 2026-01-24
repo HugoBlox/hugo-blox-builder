@@ -10,7 +10,7 @@ Present yourself professionally with the Resume Biography block - a comprehensiv
 - **Flexible Shapes**: Choose from circle, square, or rounded avatar styles
 - **Social Integration**: Beautiful social media links with icon support
 - **Banner Support**: Optional header banner for additional visual impact
-- **Name Pronunciation**: Ruby annotation support for proper name pronunciation
+- **Name Pronunciation**: Ruby annotation displays pronunciation guides above your name (set `name.pronunciation` in your author YAML)
 - **Pronoun Support**: Inclusive pronoun display for professional clarity
 - **Organization Links**: Clickable organization affiliations
 - **Download Button**: Optional CV/resume download functionality
@@ -38,7 +38,7 @@ Present yourself professionally with the Resume Biography block - a comprehensiv
 
 - **Immediate Recognition**: Professional photo creates memorable personal brand
 - **Credibility Signals**: Organization affiliations and social links build trust
-- **Accessibility**: Pronunciation guides ensure your name is remembered correctly
+- **Accessibility**: Pronunciation guides (Pinyin, furigana, IPA) displayed above your name help visitors remember and pronounce it correctly
 - **Professional Network**: Social links facilitate professional connections
 
 ## 💡 Customization Options

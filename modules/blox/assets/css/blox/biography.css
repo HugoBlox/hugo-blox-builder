@@ -28,6 +28,7 @@
 
   .network-icon li {
     margin-right: 10px;
+
     @media (max-width: 640px) {
       /* Min 48px Lighthouse tap targets on mobile */
       margin-right: 12px;
@@ -74,7 +75,87 @@
   z-index: 1;
 }
 
-/* Ruby pronunciation styling for modern look */
+/* Ruby pronunciation styling - 2026+ modern design */
+.hb-ruby-name {
+  ruby-position: over;
+  display: ruby;
+  text-align: center;
+}
+
+.hb-ruby-name rt {
+  /* Elegant, subdued annotation text */
+  font-size: 0.45em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+
+  /* Subtle gradient text for premium feel */
+  background: linear-gradient(135deg,
+      var(--color-gray-500) 0%,
+      var(--color-gray-400) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Smooth reveal animation */
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dark .hb-ruby-name rt {
+  background: linear-gradient(135deg,
+      var(--color-gray-400) 0%,
+      var(--color-gray-300) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hover enhancement - subtle lift */
+.hb-ruby-name:hover rt {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* CJK-optimized variant - larger annotation for CJK characters over Latin */
+.hb-ruby-name--cjk rt {
+  font-size: 0.5em;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+/* Latin-optimized variant - smaller annotation for romanization over CJK */
+.hb-ruby-name--latin rt {
+  font-size: 0.4em;
+  font-weight: 500;
+  text-transform: none;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hb-ruby-name rt {
+    transition: none;
+  }
+
+  .hb-ruby-name:hover rt {
+    transform: none;
+  }
+}
+
+/* Fallback styling for browsers without ruby support */
+@supports not (display: ruby) {
+  .hb-ruby-name {
+    display: inline-block;
+  }
+
+  .hb-ruby-name rt {
+    display: block;
+    font-size: 0.6em;
+    margin-bottom: 0.25em;
+  }
+}
+
+/* Legacy class support */
 .ruby-modern {
   ruby-position: over;
 }
@@ -151,7 +232,8 @@
   text-align: center;
   font-size: 20px;
   background-color: #fff;
-  color: #000; /* override parent alpha */
+  color: #000;
+  /* override parent alpha */
   box-shadow:
     0 10px 20px rgb(0 0 0 / 4%),
     0 2px 6px rgb(0 0 0 / 4%),

@@ -185,9 +185,24 @@
 
         {{/* Name and Role - Centered */}}
         <div class="space-y-3">
-          <h1 class="{{ $name_class }} font-black text-gray-900 dark:text-white leading-tight">
-            {{ $profile.title }}
-          </h1>
+          {{/* Extract pronunciation for ruby annotation */}}
+          {{ $name_pronunciation := "" }}
+          {{ with $profile.name_pronunciation }}
+            {{ if eq (printf "%T" .) "string" }}
+              {{ $name_pronunciation = strings.TrimSpace . }}
+            {{ end }}
+          {{ end }}
+
+          {{/* Name with optional ruby pronunciation */}}
+          {{ if and $profile.title $name_pronunciation }}
+            <h1 class="{{ $name_class }} font-black text-gray-900 dark:text-white leading-tight">
+              <ruby class="hb-ruby-name">{{ $profile.title }}<rt>{{ $name_pronunciation }}</rt></ruby>
+            </h1>
+          {{ else }}
+            <h1 class="{{ $name_class }} font-black text-gray-900 dark:text-white leading-tight">
+              {{ $profile.title }}
+            </h1>
+          {{ end }}
           
           {{ $pronouns := "" }}
           {{ with $profile.pronouns }}
