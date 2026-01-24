@@ -166,7 +166,7 @@
         {{ if and $status (reflect.IsMap $status) }}
           {{ $status_icon_raw := index $status "icon" }}
           {{ if eq (printf "%T" $status_icon_raw) "string" }}
-            {{ $status_icon = $status_icon_raw }}
+            {{ $status_icon = strings.TrimSpace $status_icon_raw }}
           {{ end }}
         {{ end }}
 

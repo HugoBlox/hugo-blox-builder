@@ -163,7 +163,10 @@
 {{ $status_icon := "" }}
 {{ with $profile.status }}
   {{ if reflect.IsMap . }}
-    {{ with index . "icon" }}{{ $status_icon = strings.TrimSpace (printf "%v" .) }}{{ end }}
+    {{ $icon_raw := index . "icon" }}
+    {{ if eq (printf "%T" $icon_raw) "string" }}
+      {{ $status_icon = strings.TrimSpace $icon_raw }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
