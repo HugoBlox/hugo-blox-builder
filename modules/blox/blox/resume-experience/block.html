@@ -226,7 +226,7 @@
           
           {{/* Description */}}
           {{ with index $item "summary" }}
-          <div class="text-gray-600 dark:text-gray-400 leading-relaxed">
+          <div class="text-base text-wrap prose text-gray-600 dark:text-gray-400 leading-relaxed">  
             {{ . | emojify | $page.RenderString }}
           </div>
           {{ end }}
@@ -360,7 +360,7 @@
           
           {{/* Description */}}
           {{ with index $item "summary" }}
-          <div class="text-gray-600 dark:text-gray-400 leading-relaxed">
+          <div class="text-base text-wrap prose text-gray-600 dark:text-gray-400 leading-relaxed">
             {{ . | emojify | $page.RenderString }}
           </div>
           {{ end }}
