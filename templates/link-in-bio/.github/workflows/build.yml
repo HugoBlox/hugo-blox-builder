@@ -51,8 +51,31 @@ jobs:
     - name: Get Hugo Version
       id: hugo-version
       run: |
-        VERSION=$(grep "hugo_version" hugoblox.yaml | awk '{print $2}' | tr -d "'\""")
+        # Install pinned yq version for robust YAML parsing
+        YQ_VERSION="v4.44.1"
+        if ! wget -q --tries=3 --waitretry=1 -O /tmp/yq \
+          "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"; then
+          echo "::error::Failed to download yq"
+          exit 1
+        fi
+        sudo mv /tmp/yq /usr/local/bin/yq
+        sudo chmod +x /usr/local/bin/yq
+        
+        # Read hugo_version from hugoblox.yaml
+        VERSION=$(yq '.hugo_version // ""' hugoblox.yaml 2>/dev/null | grep -v '^null$' || true)
+        
+        # Fallback to a known stable version if not specified
+        DEFAULT_VERSION="0.154.5"
+        VERSION=${VERSION:-$DEFAULT_VERSION}
+        
+        # Validate version format (basic check)
+        if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "::warning::Invalid hugo_version format '$VERSION', using default $DEFAULT_VERSION"
+          VERSION="$DEFAULT_VERSION"
+        fi
+        
         echo "HUGO_VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Using Hugo version: $VERSION"
 
     - name: Install dependencies
       run: |

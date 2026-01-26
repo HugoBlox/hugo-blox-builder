@@ -34,9 +34,26 @@ jobs:
     - name: Check deploy host
       id: check
       run: |
+        # Install pinned yq version for robust YAML parsing
+        YQ_VERSION="v4.44.1"
+        if ! wget -q --tries=3 --waitretry=1 -O /tmp/yq \
+          "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"; then
+          echo "::error::Failed to download yq"
+          exit 1
+        fi
+        sudo mv /tmp/yq /usr/local/bin/yq
+        sudo chmod +x /usr/local/bin/yq
+        
         # Read deploy.host from hugoblox.yaml, default to github-pages
-        HOST=$(grep -A5 "^deploy:" hugoblox.yaml 2>/dev/null | grep "host:" | awk '{print $2}' | tr -d "'\""" || echo "github-pages")
+        HOST=$(yq '.deploy.host // ""' hugoblox.yaml 2>/dev/null | grep -v '^null$' || true)
         HOST=${HOST:-github-pages}
+        
+        # Validate known hosts
+        if [[ ! "$HOST" =~ ^(github-pages|netlify|vercel|cloudflare|none)$ ]]; then
+          echo "::warning::Unknown deploy host '$HOST', defaulting to github-pages"
+          HOST="github-pages"
+        fi
+        
         echo "host=$HOST" >> $GITHUB_OUTPUT
         echo "Deployment target: $HOST"
 
